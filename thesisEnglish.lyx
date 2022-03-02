@@ -378,6 +378,16 @@ filename "Background.lyx"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Motivation.lyx"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
 RIvar Abstraction
 \end_layout
@@ -400,16 +410,6 @@ Case Study
 
 \begin_layout Section
 Evaluation: Code Duplication
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "Discussion.lyx"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard

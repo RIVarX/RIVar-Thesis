@@ -82,14 +82,16 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-Let's imagine that we extend an application, and define that tempF = tempC
- * 1.8 + 32 in response to changes in tempC.
- Altough it might be simple, there is a chance to have troubles in implementing
- that.
- We recognize several trouble types: (1) troubles in finding all places
- in code, in which tempC is changed.
- (2) troubles with the computed values by incomplete or redundant computations.
- (3) forbidden.
+Objects sometimes hold 
+\emph on
+reactive data dependency
+\emph default
+, that is data and how should it change in response to changes in other
+ objects' data.
+ We want to reduce coupling between objects, exists in current solutions:
+ (1) shared state, that means central component that handle the object's
+ data (2) shared reactive data dependencies, that means to consider other
+ objects' reactive data dependencies.
 \end_layout
 
 \begin_layout Standard

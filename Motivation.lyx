@@ -82,20 +82,186 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-Objects sometimes hold 
-\emph on
-reactive data dependency
-\emph default
-, that is data and how should it change in response to changes in other
- objects' data.
- We want to reduce coupling between objects, exists in current solutions:
- (1) shared state, that means central component that handle the object's
- data (2) shared reactive data dependencies, that means to consider other
- objects' reactive data dependencies.
+Decomposion of applications refers to breaking the applications down to
+ smaller parts, such that the original application is recomposable back
+ from those parts.
+ Decomposion relates to many architectures, tools and practices, such as
+ to Refactoring, Domain Driven Design, Clean Code, Micro services, Micro
+ frontend architecture, SOLID principles, and others.
+ However, decomposion of user interfaces and other reactive applications
+ has several issues: code duplications, .
 \end_layout
 
 \begin_layout Standard
+Consider an application, that should change the value of tempF to the value
+ of tempC * 1.8 + 32 in response to changes to the value of tempC.
+ We need to check if there is a cycle, such that the application also changes
+ the value of tempC in response to changes to the value of tempF.
+ This causes coupling, because it should search against all the places the
+ values can refer from.
+ 
+\end_layout
 
+\begin_layout Standard
+Consider an application, that should change the value of tempF to the value
+ of tempC * 1.8 + 32 in response to changes to the value of tempC.
+ tempF might feed back or even chaos might happen, if the application also
+ changes the value of tempC in response to changes to the value of tempF.
+ Depending on the paradigm, feedback is mentioned by various terms: cycles,
+ undesired dependency, break unnecessary propagation loops, circular dependencie
+s, conflicts, mistaken recursion.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pluginUnawareLoop.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:plugins-cycle"
+
+\end_inset
+
+plugins should not be aware of each other
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename formSetMedVolDur.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:plugins-cycle-1"
+
+\end_inset
+
+plugins should not be aware of each other
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Untitled.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:plugins-cycle-1-1"
+
+\end_inset
+
+plugins should not be aware of each other
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Decomposing Limitations
+\end_layout
+
+\begin_layout Subsection
+Coupling
+\end_layout
+
+\begin_layout Standard
+In events driven paradigm, 
+\end_layout
+
+\begin_layout Subsection
+Central Knowledge
+\end_layout
+
+\begin_layout Standard
+In RP most 
+\end_layout
+
+\begin_layout Subsection
+Code Duplication
+\end_layout
+
+\begin_layout Section
+Motivating Example
+\end_layout
+
+\begin_layout Section
+Harmonizing Objects with Reactive Variables
+\end_layout
+
+\begin_layout Section
+Code Duplication
+\end_layout
+
+\begin_layout Standard
+In traditional events paradigm, developers should find all places in code,
+ in which tempC is changed.
 \end_layout
 
 \end_body

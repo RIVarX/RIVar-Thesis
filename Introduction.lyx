@@ -81,5 +81,77 @@
 Introduction
 \end_layout
 
+\begin_layout Standard
+In Functional Reactive Programming (FRP) paradigm, a reactive variable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ can be assigned by an expression consists of a set of reactive variables,
+ so that it will be populated in response to changes.
+ Concretely, the value of the variable equals to the value of the expression,
+ which is evaluated in response to changes in the value of any of the variables
+ exists in the expression.
+ For example, the meaning of the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ is that the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ relates to the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B+1
+\end_layout
+
+\end_inset
+
+, so that the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ is changed in response to any change to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
 \end_body
 \end_document

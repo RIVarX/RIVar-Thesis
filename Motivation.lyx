@@ -5,6 +5,10 @@
 \save_transient_properties true
 \origin unavailable
 \textclass openu-thesis
+\begin_preamble
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -82,38 +86,295 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-Decomposion of applications refers to breaking the applications down to
- smaller parts, such that the original application is recomposable back
- from those parts.
- Decomposion relates to many architectures, tools and practices, such as
- to Refactoring, Domain Driven Design, Clean Code, Micro services, Micro
- frontend architecture, SOLID principles, and others.
- However, decomposion of user interfaces and other reactive applications
- has several issues: code duplications, .
+Software are usually decomposed into objects (and components) based on the
+ information hiding principle.
+ Consequently, it requires having objects which are loosely coupled, by
+ implementing and referring thin interfaces.
+ Recently, it have became very relevant, as different objects might be maintaine
+d by different teams and organizations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Peltonen2021"
+literal "false"
+
+\end_inset
+
+.
+ Based on the business perspective, the logic and data should be owned by
+ various objects, and exposed by interfaces.
+ One logic type is, that data changes will be populated to dependant data.
+ Hence, an object might need to own data population logic to data exposed
+ by an interface.
 \end_layout
 
 \begin_layout Standard
-Consider an application, that should change the value of tempF to the value
- of tempC * 1.8 + 32 in response to changes to the value of tempC.
- We need to check if there is a cycle, such that the application also changes
- the value of tempC in response to changes to the value of tempF.
- This causes coupling, because it should search against all the places the
- values can refer from.
+For example, an intravenous form
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+based on https://reference.medscape.com/calculator/644/iv-drip-rate-calculator
+ and http://www.medcalc.com/ivrate.html
+\end_layout
+
+\end_inset
+
+ should be composed of two micro-frontends, considered by the term of objects.
  
+\emph on
+Intravenous
+\emph default
+ depends on 
+\emph on
+Bag
+\emph default
+ which is characterised by 
+\emph on
+Drug
+\emph default
+ and 
+\emph on
+VolumeOfFluid
+\emph default
+.
+ Bag can have various implementations, depending on the drugs types.
+ Indeed, Intravenous should depend on Bag and should not depend on any of
+ the bag implementations.
+ This is the case when intravenous populates the bag's drug depends on the
+ its dose and duration.
+ Let's formulate it with reactive variables: Intravenous should own 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+TheBug.Drug=Duration*Dose
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Consider an application, that should change the value of tempF to the value
- of tempC * 1.8 + 32 in response to changes to the value of tempC.
- tempF might feed back or even chaos might happen, if the application also
- changes the value of tempC in response to changes to the value of tempF.
- Depending on the paradigm, feedback is mentioned by various terms: cycles,
- undesired dependency, break unnecessary propagation loops, circular dependencie
-s, conflicts, mistaken recursion.
+(Another example, a product's versions can be represented by a set of options.
+ micro frontends can represent a product's versions' selection, thus having
+ such a field with options.
+ product's version selection might populate on others products option set
+ in another micro frontend.
+ Usually, product specification should contain its compatibility with other
+ products, thus we expect its micro frontend should own the population logic,
+ such that its version selection will produce versions set compatible with
+ the selected.)
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{interface}{Bag}{0,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}[text width=8 cm]{Intravenous}{0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Intravenous}{TheBag}{}{Bag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{BagImplementation}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+implement{Bag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bla"
+
+\end_inset
+
+bla
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename marbleInfusion.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -137,7 +398,46 @@ name "fig:plugins-cycle"
 
 \end_inset
 
-plugins should not be aware of each other
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename cyclesMicroFrontEnd.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-2"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -221,47 +521,6 @@ plugins should not be aware of each other
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Decomposing Limitations
-\end_layout
-
-\begin_layout Subsection
-Coupling
-\end_layout
-
-\begin_layout Standard
-In events driven paradigm, 
-\end_layout
-
-\begin_layout Subsection
-Central Knowledge
-\end_layout
-
-\begin_layout Standard
-In RP most 
-\end_layout
-
-\begin_layout Subsection
-Code Duplication
-\end_layout
-
-\begin_layout Section
-Motivating Example
-\end_layout
-
-\begin_layout Section
-Harmonizing Objects with Reactive Variables
-\end_layout
-
-\begin_layout Section
-Code Duplication
-\end_layout
-
-\begin_layout Standard
-In traditional events paradigm, developers should find all places in code,
- in which tempC is changed.
 \end_layout
 
 \end_body

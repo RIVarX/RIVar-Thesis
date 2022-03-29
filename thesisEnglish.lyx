@@ -13,6 +13,8 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -431,29 +433,11 @@ User Guide
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "_refs.bbl"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "bib/cedalion"
-options "chicago"
-
-\end_inset
-
-
-\end_layout
+btprint "btPrintAll"
+bibfiles "Proposal"
+options "abbrv"
 
 \end_inset
 

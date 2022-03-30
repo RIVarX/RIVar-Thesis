@@ -183,7 +183,14 @@ status open
 
 
 \backslash
-begin{tikzpicture}%[show  background  grid]
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
 \end_layout
 
 \begin_layout Plain Layout
@@ -305,6 +312,13 @@ end{class}
 end{tikzpicture}
 \end_layout
 
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
 \end_inset
 
 
@@ -320,15 +334,11 @@ name "fig:bla"
 
 \end_inset
 
-bla
+bla???
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -361,10 +371,6 @@ status open
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 

@@ -100,10 +100,11 @@ literal "false"
 \end_inset
 
 .
- Based on the business perspective, the logic and data should be owned by
- various objects, and exposed by interfaces.
+ Based on the business perspective (or even in order to simplify complexity),
+ the logic and data should be owned by various objects, and exposed by interface
+s.
  One logic type is, that data changes will be populated to dependant data.
- Hence, an object might need to own data population logic to data exposed
+ Hence, an object might need to own data population logic, to data exposed
  by an interface.
 \end_layout
 

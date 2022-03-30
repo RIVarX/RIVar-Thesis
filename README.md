@@ -1,4 +1,2 @@
-openu-thesis-template
-=====================
+openu-thesis|RIvar
 
-Lyx template for writing Theses at the Open University

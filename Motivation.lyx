@@ -356,6 +356,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename fig/marbleInfusion.png
+	width 100text%
 
 \end_inset
 
@@ -389,6 +390,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename fig/pluginUnawareLoop.png
+	width 100text%
 
 \end_inset
 
@@ -428,6 +430,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename fig/cyclesMicroFrontEnd.png
+	width 100text%
 
 \end_inset
 
@@ -466,6 +469,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename fig/formSetMedVolDur.png
+	width 100text%
 
 \end_inset
 
@@ -501,6 +505,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename fig/Untitled.png
+	width 100text%
 
 \end_inset
 

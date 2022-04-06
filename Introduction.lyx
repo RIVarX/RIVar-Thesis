@@ -153,5 +153,195 @@ B
 .
 \end_layout
 
+\begin_layout Standard
+FRP abstract away the need to handle variables consistency, which is to
+ update variables in response to variables' changes.
+ But we want to use also Object Oriented Programming (OOP), to have one
+ more abstraction mechanism that is missing in FRP: in OOP the programmers
+ can use mechniam such as inheritance to reduce code duplication.
+ As a result, when there is a change request, there is no need to change
+ the code in several places.
+ Therefore the data consistency which define the software behavior is abstracted
+ away.
+ Thus, the software behavior can have a 
+\emph on
+single source of truth.
+\end_layout
+
+\begin_layout Standard
+There are libraries which enable the use of FRP with imperative code of
+ the OOP paradigm.
+ For example REScala, that is an extension to Scala language, enables to
+ convert between reactive variables and events.
+ There is an additional library SignalJ, which provide an integration mechanism
+ such that, events are considered as side-effects for variables' changes.
+ There is also an API named ReactiveX for C# Langauge, that is adoped by
+ more languages (e.g.
+ RxJS in JavaScript).
+ With ReactiveX, a reactive variable is an events stream, which state its
+ value over time.
+\end_layout
+
+\begin_layout Standard
+When we integrate functional-reactive code with an imperative code, there
+ might be circular dependencies which leads to an infinite loop.
+ For example, a change for a reactive variable, may lead an execution of
+ an event handler, which causes the reactive variable to change.
+ The problem might happen also in pure FRP (such as might happen by imperative
+ based implememtation) , in case when recursive definitions exist.
+ For example, where there are the formulas defintions 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A-1
+\end_layout
+
+\end_inset
+
+, circular dependencies happen: A variable relates to the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B+1
+\end_layout
+
+\end_inset
+
+ and the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ relates to the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A-1
+\end_layout
+
+\end_inset
+
+.
+ The developer ot architect should check that no recursive/cycles definitions
+ does exist.
+ This responsibility might spread over many places in the code.
+ So, the arisen question: is there an option to separate the functional-reactive
+ code to classes (to use OOP on top of FRP), and to map them to responsibilities
+, with no responsibility leakage? It impacts on software architecture: given
+ a
+\emph on
+ black-box
+\emph default
+ software component that somehow expose reactive variables, can it be extended
+ without to limit or unhide details (to not accidently 
+\begin_inset Quotes eld
+\end_inset
+
+closing a cycle
+\begin_inset Quotes erd
+\end_inset
+
+)?
+\end_layout
+
+\begin_layout Standard
+In an attempt to combine FRP with OOP, class variables are declared, to
+ behave like reactive variables.
+ However, there is the following conflict: according to FRP we need to declare
+ a variable value without time resolution.
+ Consequently if an expression is reated to a variable, it does not make
+ sence to reassign it, e.g.
+ to evaluate 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ and then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=C+1
+\end_layout
+
+\end_inset
+
+.
+ However, in OOP, to those reactive variables that should be assigned, thare
+ might be encapsulated evaluated formulas.
+ Thus reassign procedure is required.
+ 
+\end_layout
+
+\begin_layout Section
+Contribution
+\end_layout
+
+\begin_layout Standard
+We solve the conflict between the paradigms, by defining semantics to multiple-a
+ssigments instead of reassigment, and which enable recursion defintions.
+\end_layout
+
+\begin_layout Standard
+We define 
+\emph on
+Reactive Instance variable
+\emph default
+, named 
+\emph on
+RIvar
+\emph default
+, as a combination of 
+\emph on
+instance
+\emph default
+ variable from OOP and 
+\emph on
+reactive
+\emph default
+ variable from FRP.
+ RIvar abstracts a stream, an assigment abstracts stream-registration, and
+ the mutiple-assigment abstracts somehow a merge beween the registered streams.
+ 
+\end_layout
+
+\begin_layout Standard
+We present semantics to mutiple-assigment similar to one used in constraints
+ systems, and implement a prototype of an application which uses RIvars
+ to define contracts between objects.
+ This prototype might help in reducing complexity by seperating real world
+ complex applications.
+\end_layout
+
 \end_body
 \end_document

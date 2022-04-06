@@ -8,6 +8,7 @@
 \begin_preamble
 \usepackage{tikz}
 \usepackage[simplified]{pgf-umlcd}
+\usepackage{algorithm,algpseudocode}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -85,88 +86,138 @@
 Motivation
 \end_layout
 
-\begin_layout Standard
-Software are usually decomposed into objects (and components) based on the
- information hiding principle.
- Consequently, it requires having objects which are loosely coupled, by
- implementing and referring thin interfaces.
- Recently, it have became very relevant, as different objects might be maintaine
-d by different teams and organizations 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Peltonen2021"
-literal "false"
-
-\end_inset
-
-.
- Based on the business perspective (or even in order to simplify complexity),
- the logic and data should be owned by various objects, and exposed by interface
-s.
- One logic type is, that data changes will be populated to dependant data.
- Hence, an object might need to own data population logic, to data exposed
- by an interface.
+\begin_layout Section
+Drug Calculations
 \end_layout
 
 \begin_layout Standard
-For example, an intravenous form
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-based on https://reference.medscape.com/calculator/644/iv-drip-rate-calculator
- and http://www.medcalc.com/ivrate.html
+The programming of drug calculations procedure is hard.
+ This might be the auther's prespective from her experience, nevertheless
+ it has many details and formulas to apply, depending on the situation,
+ fields become editable or calculated, while reserving the edited values.
+ The difficulty derived from the amount of information, and also from the
+ large codebase which is reflected it, by recurring code of calculations.
+ OOP should be a good idea to seperate the information and reduce the code
+ duplication.
+ For the simplicity, we will go into details, by the use of a very basic
+ drug-calculation form.
 \end_layout
 
-\end_inset
-
- should be composed of two micro-frontends, considered by the term of objects.
- 
-\emph on
-Intravenous
-\emph default
- depends on 
-\emph on
-Bag
-\emph default
- which is characterised by 
-\emph on
-Drug
-\emph default
- and 
-\emph on
-VolumeOfFluid
-\emph default
-.
- Bag can have various implementations, depending on the drugs types.
- Indeed, Intravenous should depend on Bag and should not depend on any of
- the bag implementations.
- This is the case when intravenous populates the bag's drug depends on the
- its dose and duration.
- Let's formulate it with reactive variables: Intravenous should own 
+\begin_layout Standard
+The form has several flows.
+ There is one flow that the bag's quantities are inferred from setting a
+ dose, rate and duration.
+ There is a second flow in which the drug, dose and rate are inferred from
+ setting the concentration, volume and duration.
+ In either flow any edit triggers the calculation procedure.
+ The calculation procedure consists of branches according to the flows.
+ In each branch there are formulas that are executed to infer the values
+ required to the specific flow.
+ the formula 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-TheBug.Drug=Duration*Dose
+Drug = VolumeOfFluid*Concentration
 \end_layout
 
 \end_inset
 
-.
+ is repeated in the two of the branches.
 \end_layout
 
 \begin_layout Standard
-(Another example, a product's versions can be represented by a set of options.
- micro frontends can represent a product's versions' selection, thus having
- such a field with options.
- product's version selection might populate on others products option set
- in another micro frontend.
- Usually, product specification should contain its compatibility with other
- products, thus we expect its micro frontend should own the population logic,
- such that its version selection will produce versions set compatible with
- the selected.)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {last three edited controls are Dose, Rate and Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = Dose*Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State VolumeOfFluid = Rate*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State  Concentration = Drug/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {last three edited controls are Concentration,VolumeOfFluid and Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = VolumeOfFluid*Concentration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State  Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -335,194 +386,6 @@ name "fig:bla"
 \end_inset
 
 bla???
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename fig/marbleInfusion.png
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename fig/pluginUnawareLoop.png
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:plugins-cycle"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename fig/cyclesMicroFrontEnd.png
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycle-2"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename fig/formSetMedVolDur.png
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:plugins-cycle-1"
-
-\end_inset
-
-plugins should not be aware of each other
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename fig/Untitled.png
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:plugins-cycle-1-1"
-
-\end_inset
-
-plugins should not be aware of each other
 \end_layout
 
 \end_inset

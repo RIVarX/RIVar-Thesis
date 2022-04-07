@@ -90,11 +90,11 @@ literal "false"
 
 \end_inset
 
- can be assigned by an expression consists of a set of reactive variables,
- so that it will be populated in response to changes.
+ can be assigned by an expression consisting of a set of reactive variables,
+ for being populated in response to changes.
  Concretely, the value of the variable equals to the value of the expression,
  which is evaluated in response to changes in the value of any of the variables
- exists in the expression.
+ existing in the expression.
  For example, the meaning of the formula 
 \begin_inset ERT
 status open
@@ -139,7 +139,7 @@ A
 
 \end_inset
 
- is changed in response to any change to the value of 
+ is changed in response to any change of the value of 
 \begin_inset ERT
 status open
 
@@ -154,14 +154,16 @@ B
 \end_layout
 
 \begin_layout Standard
-FRP abstract away the need to handle variables consistency, which is to
- update variables in response to variables' changes.
- But we want to use also Object Oriented Programming (OOP), to have one
- more abstraction mechanism that is missing in FRP: in OOP the programmers
- can use mechniam such as inheritance to reduce code duplication.
- As a result, when there is a change request, there is no need to change
- the code in several places.
- Therefore the data consistency which define the software behavior is abstracted
+FRP abstracts away the need to handle variables' consistency, i.
+ e.
+ from the need to update variables in response to variables' changes.
+ However, it is desireable to use also Object Oriented Programming (OOP),
+ to have an additional abstraction mechanism that is missing in FRP.
+ In detail, programmers in OOP can use mechniams such as inheritance to
+ reduce code duplication.
+ Consequently, a change request does not require changing the code in several
+ places.
+ Therefore, the data consistency defining the software behavior is abstracted
  away.
  Thus, the software behavior can have a 
 \emph on
@@ -169,27 +171,25 @@ single source of truth.
 \end_layout
 
 \begin_layout Standard
-There are libraries which enable the use of FRP with imperative code of
- the OOP paradigm.
- For example REScala, that is an extension to Scala language, enables to
- convert between reactive variables and events.
- There is an additional library SignalJ, which provide an integration mechanism
- such that, events are considered as side-effects for variables' changes.
- There is also an API named ReactiveX for C# Langauge, that is adoped by
- more languages (e.g.
- RxJS in JavaScript).
- With ReactiveX, a reactive variable is an events stream, which state its
- value over time.
+Various libraries enable the use of FRP with imperative code of the OOP
+ paradigm.
+ For example REScala, which is an extension to Scala language, enables convertin
+g between reactive variables and events.
+ An additional library SignalJ includes an integration mechanism providing
+ events considered as side-effects for variables' changes.
+ An API named ReactiveX for C# Langauge, adoped by more languages (e.g.
+ RxJS in JavaScript) provides a reactive variable as an events stream.
+ The reactive variable value is reported over time by the events stream.
 \end_layout
 
 \begin_layout Standard
-When we integrate functional-reactive code with an imperative code, there
- might be circular dependencies which leads to an infinite loop.
- For example, a change for a reactive variable, may lead an execution of
- an event handler, which causes the reactive variable to change.
- The problem might happen also in pure FRP (such as might happen by imperative
- based implememtation) , in case when recursive definitions exist.
- For example, where there are the formulas defintions 
+Integration of functional-reactive code with imperative code might contain
+ circular dependencies causing infinite loops.
+ For example, a change in a reactive variable, might cause an execution
+ of an event handler, causing the reactive variable to change.
+ The problem might happen also in pure FRP (such as might happen by imperative-b
+ased implememtation), in presence of recursive definitions.
+ For example, the formulas defintions 
 \begin_inset ERT
 status open
 
@@ -211,7 +211,18 @@ B:=A-1
 
 \end_inset
 
-, circular dependencies happen: A variable relates to the expression 
+ contains circular dependencies: the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ relates to the expression 
 \begin_inset ERT
 status open
 
@@ -222,7 +233,7 @@ B+1
 
 \end_inset
 
- and the variable 
+, and the variable 
 \begin_inset ERT
 status open
 
@@ -245,12 +256,14 @@ A-1
 \end_inset
 
 .
- The developer ot architect should check that no recursive/cycles definitions
- does exist.
- This responsibility might spread over many places in the code.
- So, the arisen question: is there an option to separate the functional-reactive
- code to classes (to use OOP on top of FRP), and to map them to responsibilities
-, with no responsibility leakage? It impacts on software architecture: given
+\end_layout
+
+\begin_layout Standard
+The responsibility to avoid circular dependencies is applied to many places
+ in the code.
+ However, is there an option to separate the functional-reactive code to
+ classes (to use OOP on top of FRP), and to map them to responsibilities,
+ with no responsibility leakage? It impacts on software architecture: given
  a
 \emph on
  black-box

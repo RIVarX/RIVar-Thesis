@@ -179,7 +179,7 @@ g between reactive variables and events.
  events considered as side-effects for variables' changes.
  An API named ReactiveX for C# Langauge, adoped by more languages (e.g.
  RxJS in JavaScript) provides a reactive variable as an events stream.
- The reactive variable value is reported over time by the events stream.
+ The reactive variable value is presented over time by the events stream.
 \end_layout
 
 \begin_layout Standard
@@ -262,29 +262,24 @@ A-1
 The responsibility to avoid circular dependencies is applied to many places
  in the code.
  However, is there an option to separate the functional-reactive code to
- classes (to use OOP on top of FRP), and to map them to responsibilities,
- with no responsibility leakage? It impacts on software architecture: given
- a
+ classes (to use OOP on top of FRP), and map them to responsibilities, with
+ no responsibility leakage? It impacts software architecture: given a
 \emph on
  black-box
 \emph default
- software component that somehow expose reactive variables, can it be extended
- without to limit or unhide details (to not accidently 
-\begin_inset Quotes eld
-\end_inset
-
-closing a cycle
-\begin_inset Quotes erd
-\end_inset
-
+ software component exposing reactive variables, can it be extended, including
+ assigment, without digging into components' internal details (avoiding
+ 
+\emph on
+closing cycles
+\emph default
 )?
 \end_layout
 
 \begin_layout Standard
-In an attempt to combine FRP with OOP, class variables are declared, to
- behave like reactive variables.
- However, there is the following conflict: according to FRP we need to declare
- a variable value without time resolution.
+In an attempt to combine FRP with OOP, declaring class variables with reactive
+ variables behavior, we face the following conflict.
+ According to FRP, time resolution is abstracted away.
  Consequently if an expression is reated to a variable, it does not make
  sence to reassign it, e.g.
  to evaluate 
@@ -298,7 +293,11 @@ A:=B+1
 
 \end_inset
 
- and then 
+ 
+\emph on
+and then
+\emph default
+ 
 \begin_inset ERT
 status open
 

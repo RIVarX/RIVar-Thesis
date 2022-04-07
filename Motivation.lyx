@@ -189,30 +189,23 @@ end{tabular}
 \end_layout
 
 \begin_layout Standard
-The form has several flows.
- There is one flow that drug, volume and concentration are inferred from
- setting a dose, rate and duration.
- There is a second flow in which the drug, dose and rate are inferred from
- setting the concentration, volume and duration.
+In the form, drug, volume and concentration are inferred from setting a
+ dose, rate and duration.
+ Additionaly, drug, dose and rate are inferred from setting the concentration,
+ volume and duration.
  In either flow any edit triggers the calculation procedure.
- The calculation procedure consists of branches according to the flows.
- In each branch there are formulas that are executed to infer the values
- required to the specific flow.
- the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Drug = VolumeOfFluid*Concentration
-\end_layout
-
-\end_inset
-
- is repeated in the two of the branches.
+ The calculation procedure consists of branches according to the user-cases.
+ In each branch formulas are repeated to execute in some order, to infer
+ values for the specific use-case.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Box Boxed
 position "t"
 hor_pos "c"
@@ -239,42 +232,7 @@ status open
 
 
 \backslash
-begin{algorithmic}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {last three edited controls are Dose, Rate and Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Drug = Dose*Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State VolumeOfFluid = Rate*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State  Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
+begin{algorithmic}[1]
 \end_layout
 
 \begin_layout Plain Layout
@@ -316,6 +274,76 @@ EndIf
 
 
 \backslash
+If {last three edited controls are Dose, Rate and Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = Dose*Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State VolumeOfFluid = Rate*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State  Concentration = Drug/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {last three edited controls are Dose, Rate and VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Duration = Rate/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = Dose*Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State  Concentration = Drug/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 end{algorithmic}
 \end_layout
 
@@ -327,6 +355,53 @@ end{algorithmic}
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Calculation Procedure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the object orient approach, 
+\emph on
+dose
+\emph default
+, 
+\emph on
+rate
+\emph default
+ and 
+\emph on
+duration
+\emph default
+ is composed into an intravenous therappy, depending on 
+\emph on
+bag
+\emph default
+ containing 
+\emph on
+drug
+\emph default
+ and 
+\emph on
+volume
+\emph default
+.
+ Bag behaves as an interface exposing the drug and volume.
 \end_layout
 
 \begin_layout Standard

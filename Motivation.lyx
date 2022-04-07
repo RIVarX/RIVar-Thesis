@@ -99,14 +99,99 @@ The programming of drug calculations procedure is hard.
  large codebase which is reflected it, by recurring code of calculations.
  OOP should be a good idea to seperate the information and reduce the code
  duplication.
- For the simplicity, we will go into details, by the use of a very basic
+ For the simplicity, we will go into details, by the following minimalistic
  drug-calculation form.
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & VolumeOfFluid & Concentration 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,10){} & 
+\backslash
+framebox(35,10){} & 
+\backslash
+framebox(35,10){} 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,10){} & 
+\backslash
+framebox(35,10){} & 
+\backslash
+framebox(35,10){} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The form has several flows.
- There is one flow that the bag's quantities are inferred from setting a
- dose, rate and duration.
+ There is one flow that drug, volume and concentration are inferred from
+ setting a dose, rate and duration.
  There is a second flow in which the drug, dose and rate are inferred from
  setting the concentration, volume and duration.
  In either flow any edit triggers the calculation procedure.
@@ -128,6 +213,25 @@ Drug = VolumeOfFluid*Concentration
 \end_layout
 
 \begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -213,6 +317,11 @@ EndIf
 
 \backslash
 end{algorithmic}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

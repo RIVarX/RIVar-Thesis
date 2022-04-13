@@ -100,10 +100,26 @@ The programming of drug calculations procedure is hard.
  OOP should be a good idea to seperate the information and reduce the code
  duplication.
  For the simplicity, we will go into details, by the following minimalistic
- drug-calculation form.
+ drug-calculation form (Figure ...).
 \end_layout
 
 \begin_layout Standard
+Dose, Rate and Duration are composed into Intravenous object-class.
+ The intravenous contains also Bag's reference type, exposing Drug and Volume.
+ The bag object implementation contains Concentration, in addition to the
+ drug and volume.
+ The fields may be connected to user interface inputs, triggering and being
+ triggered for changes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -188,177 +204,11 @@ end{tabular}
 
 \end_layout
 
-\begin_layout Standard
-In the form, drug, volume and concentration are inferred from setting a
- dose, rate and duration.
- Additionaly, drug, dose and rate are inferred from setting the concentration,
- volume and duration.
- In either flow any edit triggers the calculation procedure.
- The calculation procedure consists of branches according to the user-cases.
- In each branch formulas are repeated to execute in some order, to infer
- values for the specific use-case.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
 \begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{algorithmic}[1]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {last three edited controls are Concentration,VolumeOfFluid and Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Drug = VolumeOfFluid*Concentration 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {last three edited controls are Dose, Rate and Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Drug = Dose*Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State VolumeOfFluid = Rate*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State  Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {last three edited controls are Dose, Rate and VolumeOfFluid}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Duration = Rate/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Drug = Dose*Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State  Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{algorithmic}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Calculation Procedure
+Drug Calculations Form
 \end_layout
 
 \end_inset
@@ -366,42 +216,9 @@ Calculation Procedure
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-For the object orient approach, 
-\emph on
-dose
-\emph default
-, 
-\emph on
-rate
-\emph default
- and 
-\emph on
-duration
-\emph default
- is composed into an intravenous therappy, depending on 
-\emph on
-bag
-\emph default
- containing 
-\emph on
-drug
-\emph default
- and 
-\emph on
-volume
-\emph default
-.
- Bag behaves as an interface exposing the drug and volume.
 \end_layout
 
 \begin_layout Standard
@@ -563,17 +380,502 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:bla"
-
-\end_inset
-
-bla???
+Intravenous' Class Diagram
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{A}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{B}{Intravenous}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{C}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Dose=10}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Duration=10}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Drug=100}{C}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{VolumeOfFluid=300}{C}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{C}{Concentration=0.33}{C}{}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{C}{Rate=30}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Use-Case Example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(In one use-case (Figure ...), Dose, Duration and VolumeOfFluid are edited
+ so that Drug, Concentration and Rate are calculated.)
+\end_layout
+
+\begin_layout Standard
+((The form has use-cases such as inferring the drug, volume and concentration
+ from edited dose, rate and duration.
+ Editing triggers the calculation procedure.
+ The calculation procedure consists of branches according to the user-cases.
+ Formulas are repeated in the various branches, an ordered set for each
+ branch according the specific use-case.))
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {last three edited controls are Dose, Duration and VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = Dose*Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Concentration = Drug/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {last three edited controls are Concentration,VolumeOfFluid and Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = VolumeOfFluid*Concentration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Calculation Procedure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Dose := TheBag.Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Rate := TheBag.VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Formulas in Intravenous
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug := Concentration*VolumeOfFluid         
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Formulas in Bag
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 

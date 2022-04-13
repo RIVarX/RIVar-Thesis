@@ -15,6 +15,7 @@
 \usepackage{tocloft}
 \usepackage{tikz}
 \usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
 \usepackage{algorithm,algpseudocode}
 \end_preamble
 \options usenames,dvipsnames

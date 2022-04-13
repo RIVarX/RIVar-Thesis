@@ -185,10 +185,10 @@ g between reactive variables and events.
 \begin_layout Standard
 Integration of functional-reactive code with imperative code might contain
  circular dependencies causing infinite loops.
- For example, a change in a reactive variable, might cause an execution
- of an event handler, causing the reactive variable to change.
- The problem might happen also in pure FRP (such as might happen by imperative-b
-ased implememtation), in presence of recursive definitions.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ The problem might happen also in pure FRP (such as hapenning by imperative-base
+d implememtation), in presence of recursive definitions.
  For example, the formulas defintions 
 \begin_inset ERT
 status open
@@ -211,7 +211,7 @@ B:=A-1
 
 \end_inset
 
- contains circular dependencies: the variable 
+ contain circular dependencies: the variable 
 \begin_inset ERT
 status open
 
@@ -259,30 +259,33 @@ A-1
 \end_layout
 
 \begin_layout Standard
-The responsibility to avoid circular dependencies is applied to many places
- in the code.
- However, is there an option to separate the functional-reactive code to
- classes (to use OOP on top of FRP), and map them to responsibilities, with
- no responsibility leakage? It impacts software architecture: given a
+The responsibility to avoid circular dependencies is unfortunately applied
+ by many places in the code.
+ However, is there any option to separate the functional-reactive code to
+ classes (to use OOP on top of FRP), and to map the classes to responsibilities,
+ with no responsibility leakage? In software architecture aspect, may a
 \emph on
- black-box
-\emph default
- software component exposing reactive variables, can it be extended, including
- assigment, without digging into components' internal details (avoiding
  
-\emph on
-closing cycles
 \emph default
-)?
+black-box software component exposing its reactive variables, be extended,
+ including assigning it, without producing infinite loops, and without digging
+ into the component's internal details?
 \end_layout
 
 \begin_layout Standard
-In an attempt to combine FRP with OOP, declaring class variables with reactive
- variables behavior, we face the following conflict.
- According to FRP, time resolution is abstracted away.
- Consequently if an expression is reated to a variable, it does not make
- sence to reassign it, e.g.
- to evaluate 
+In addition, in the attempt to combine FRP with OOP, there is an open question
+ whether to support reassigment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Declaring class variables being reactive variables, arises that conflict,
+ whether to enable reassigment e.g.
+ declaring 
 \begin_inset ERT
 status open
 
@@ -293,11 +296,7 @@ A:=B+1
 
 \end_inset
 
- 
-\emph on
-and then
-\emph default
- 
+ and then 
 \begin_inset ERT
 status open
 
@@ -309,10 +308,56 @@ A:=C+1
 \end_inset
 
 .
- However, in OOP, to those reactive variables that should be assigned, thare
- might be encapsulated evaluated formulas.
- Thus reassign procedure is required.
- 
+ In FRP, reassigment should not be enabled, because in FRP we 
+\begin_inset Quotes eld
+\end_inset
+
+describe things that exist, rather than actions that have happened or are
+ to happen (i.e., what 
+\emph on
+is
+\emph default
+, not what 
+\emph on
+does
+\emph default
+)
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ However, in OOP reassigment should be enabled for assigning independently
+ e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ in a base class, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=C+1
+\end_layout
+
+\end_inset
+
+ in the derived class.
 \end_layout
 
 \begin_layout Section

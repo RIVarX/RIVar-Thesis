@@ -17,6 +17,7 @@
 \usepackage[simplified]{pgf-umlcd}
 \usepackage{pgf-umlsd}
 \usepackage{algorithm,algpseudocode}
+\usepackage{listings}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -393,7 +394,7 @@ filename "Motivation.lyx"
 \end_layout
 
 \begin_layout Chapter
-RIvar Abstraction
+Reactive Instance Variable (RIvar)
 \end_layout
 
 \begin_layout Section

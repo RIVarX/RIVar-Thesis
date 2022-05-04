@@ -18,6 +18,8 @@
 \usepackage{pgf-umlsd}
 \usepackage{algorithm,algpseudocode}
 \usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false

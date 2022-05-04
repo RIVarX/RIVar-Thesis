@@ -11,6 +11,7 @@
 \usepackage{algorithm,algpseudocode}
 \usepackage{pgf-umlsd}
 \usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, numberfirstline=true, firstnumber=1, stepnumber=1}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -117,11 +118,101 @@ The Drug Calculations Domain
 \end_layout
 
 \begin_layout Standard
-Here is a user interface, describes six fields involves in an intravenous
- administration.
- The fields contain six number (for the simplicity, we do not handle the
- units, which are required in a real application) of a usage example.
+In this paper we focus on the following form's fields, relating to an intravenou
+s (IV) administration.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{description}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[Drug] means how much medication has being administared.
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[VolumeOfFluid] The Intravenous' fluid volume.
+ An intravenous should inject the medication into patient's body, by mixing
+ it with fluids.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[Concentration] How much drug per volume unit.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[Rate] How much volume is flow into the patient's body per time unit
+ (such as an hour).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[Dose] This is sometimes called dosage, means how much medication is
+ flow into the patient's body per time unit.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[Duration] The total time, in which the intravenous injects the content
+ into the patient's body.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{description}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are two use cases (for this scope).
+ First, a clinician set values for the dose, duration and then to the volume.
+ after setting value to the duration, drug's value is calculated by multiplying
+ dose and duration's values.
+ Then, after setting value to the volume, the concentration's value is calculati
+ng by deviding the calculated value of drug with the new value of the volume.
+ Additionaly after settings value the the volume, the rate's value is calculated
+ by the volume's value devided by the duration's value.
+ The second use-case, a clinician set values for drug, dose and then to
+ the rate.
+ After setting values to the drug and dose, the duration' value is calculated
+ by deviding drug with dose.
+ Then, after setting the rate, the volume's value is calculated by multiplying
+ rates value with the duration value.
+ The volume new value follows also calculating the concentration's value
+ as in the first use-case.
 \end_layout
 
 \begin_layout Standard
@@ -129,7 +220,7 @@ Here is a user interface, describes six fields involves in an intravenous
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -240,7 +331,22 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Drug calculations' user interface
+Drug calculations' user interface.
+ As in the first use case, the dose, duration and volume were set, and the
+ other fields have been calculated (signed with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{italic}
+\end_layout
+
+\end_inset
+
+ )
 \end_layout
 
 \end_inset
@@ -254,12 +360,10 @@ Drug calculations' user interface
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
 
-\begin_layout Plain Layout
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -274,7 +378,8 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}
+begin{lstlisting}[frame=single,caption=Equations to how fields' values should
+ be related]
 \end_layout
 
 \begin_layout Plain Layout
@@ -311,222 +416,35 @@ end{center}
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Equation to how fields' values should be related
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The form has use-cases such as inferring the 
-\emph on
-Drug
-\emph default
-, 
-\emph on
-Rate
-\emph default
- and 
-\emph on
-Concentration
-\emph default
- from editing 
-\emph on
-Dose
-\emph default
-, 
-\emph on
-Duration
-\emph default
- and 
-\emph on
-VolumeOfFluid
-\emph default
-.
- Editing triggers the calculation procedure.
- The calculation procedure consists of branches according to the user-cases,
- each branch consists of formulas ordered set.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{algorithmic}[1]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {edited values are of Dose, Duration and VolumeOfFluid}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Drug = Dose*Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {edited values are of Drug,Dose and Rate}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{algorithmic}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Calculation Procedure's Part
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In this minimalistic example, there are 6 fields, each field should be calculate
-d by a tuple.
- It leads to __ permutations to carefuly plan, how to calculate fields from
- each other.
- Consequently, formulas are repeated in the various branches, e.g.
- in Figure 3.3 lines 3 and 9.
- This is a basic example to the code duplication exist in the real-life
- application.
-\end_layout
-
 \begin_layout Section
 Designing Objects
 \end_layout
 
 \begin_layout Standard
-Now, we will present an object oriented design.
- Dose, Rate and Duration are composed into Intravenous object-class.
- The intravenous contains also Bag's reference type, exposing Drug and Volume.
- The bag object implementation contains Concentration, in addition to the
- drug and volume.
- The fields should be connected to user interface inputs, triggering and
- being triggered for changes.
+We seperate the information into two domain objects: Intravenous and Bag.
+ The intravenous represents a real world intravenous using a bag to inject
+ it to a patient's body, therefore the intravenous contains a bag object
+ reference.
+ The information is seperated, so that the bag has access to the drug, volume
+ and concentration it contains, and the intravenous has access to its fields
+ dose, rate , duration and its bag's drug and volume (all the fields except
+ the concentration).
+ The intravenous access' restrictions are applied by extracting a bag interface
+ containing only the drug and volume.
+\end_layout
+
+\begin_layout Standard
+The first use-case described in 2.1 can be described according to the new
+ design (figure 3.3).
+ A clinician set values to the intravenous' dose and duration, in response,
+ the intravenous calculate the bag's drug's value.
+ Then a clinician set value to the bag's volume, in response the bag calculates
+ its concentration's value.
+ Additionaly, the bag calls to the intravenous 
+\emph on
+indirectly
+\emph default
+ to calculate its rate's value according to the bag's volume's new value.
 \end_layout
 
 \begin_layout Standard
@@ -705,7 +623,7 @@ Intravenous' Class Diagram
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -792,35 +710,35 @@ end{call}
 
 
 \backslash
-begin{call}{A}{VolumeOfFluid=300}{B}{} 
+begin{call}{A}{VolumeOfFluid=300}{C}{} 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{B}{Rate=30}{B}{}     
+begin{call}{C}{Concentration=0.33}{C}{}      
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{call}   
+end{call} 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{B}{Concentration=0.33}{C}{}      
+begin{call}{C}{Rate=30}{B}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{call}         
+end{call}        
 \end_layout
 
 \begin_layout Plain Layout
@@ -870,133 +788,14 @@ An intravenous’ sequence diagram for the example.
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Intravenous 
-\end_layout
-
-\begin_layout Plain Layout
-
-{    
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration := TheBag.Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate := TheBag.VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class BagImplementation
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Pseudo code for the source code of classes content: the fields' formulas.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Propogating Changes
 \end_layout
 
 \begin_layout Standard
-Propogating changes are directly or indirectly.
- Propogating the changes directly requires repeating code.
- Propogating the changes indirectly reduce the code duplication by changing
- in response to events.
- 
+Declaring how values should be propagated are central or distributed.
+ By the latter, there is support to have the code separated among object's
+ source code, leading also to reduce code repetition.
 \end_layout
 
 \begin_layout Standard
@@ -1111,7 +910,7 @@ The graph descibes the change propogation in the example.
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1242,11 +1041,583 @@ The graph descibes the whole intravenous formulas.
 \end_layout
 
 \begin_layout Subsection
-Code Duplication
+Central Calculation
+\end_layout
+
+\begin_layout Standard
+Whenever a user sets a new value to any of the fields, a calculation procedure
+ is executed.
+ The procedure consists of branches according to the user-cases, in each
+ branch there are three values being used to calculate the other values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {edited values are of Dose, Duration and VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Drug = Dose*Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Concentration = Drug/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {edited values are of Drug,Dose and Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State Concentration = Drug/VolumeOfFluid 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Calculation Procedure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
-Unexpected Changes
+Distributed Calculation
+\end_layout
+
+\begin_layout Standard
+The calculation procedure is seperated among the objects, in such that the
+ bag triggers calculated values in the intravenous and vise versa.
+ For example, bag's volume subscribes to the intravenous's duration and
+ rate, to calculate its value.
+ In reactive programming this can have a simple syntax: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+VolumeOfFluid := Duration*Rate
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The distributed calculation presented in listing 2.2.
+ In the centrlized implementation, there is a reptition (lines...).
+ 
+\end_layout
+
+\begin_layout Standard
+For this section, this is the meaning of the formulas in listing 2.2, therfere,
+ the object's code how values should be propagated
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Drug:=VolumeOfFluid*Concentration
+\end_layout
+
+\end_inset
+
+ , such that drug 
+\emph on
+depends
+\emph default
+ on the volume and concentration, so that drug's value is calculated according
+ to the volume and concentration's values, and in response to their value
+ changes.
+\end_layout
+
+\begin_layout Standard
+The calculation procedure is seperated among the objects as in Listing 2.2,
+ with the income of extracting line 3 and 5 into one.
+ It is implemented by reactivity, in such that new values leads dependant
+ fields to recusivly calculate new values, e.g.
+ the formula subscribes Drug to the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Drug=Volume*Concentration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, we should be carful about this, beacuse calculated values might
+ override values, e.g.
+ in figure 3.1, concentration's calculation might trigger drug's calculation
+ (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100
+\end_layout
+
+\end_inset
+
+) overriding to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+99
+\end_layout
+
+\end_inset
+
+ (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Drug=Volume*Concentration
+\end_layout
+
+\end_inset
+
+ equals 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+300*0.33
+\end_layout
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[frame=Pseudo code for the classes content's source code:
+ the fields' formulas.] 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Intravenous 
+\end_layout
+
+\begin_layout Plain Layout
+
+{    
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration := TheBag.Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate := TheBag.VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.VolumeOfFluid := Duration*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class BagImplementation
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{A}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{B}{Intravenous}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{C}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Dose=10}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Duration=10}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Drug=100}{C}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{VolumeOfFluid=300}{C}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{C}{Concentration=0.33}{C}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{C}{Drug=99}{C}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{C}{Rate=30}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}        
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+bla
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fields's values are declared to be calculated from other fields values and
+ in response to them.
+ This is specified in the object's source code
+\end_layout
+
+\begin_layout Standard
+Setting values leads dependant fields to recusivly calculate new values,
+ while considering new calculated values as setting them.
+ 
+\end_layout
+
+\begin_layout Standard
+This procedure is distributed works well between loosly coupled objects.
+\end_layout
+
+\begin_layout Standard
+Whenever a user sets a new value to any of the fields, formulas are e 
+\end_layout
+
+\begin_layout Standard
+Fields are events triggers and listeners (observers and obsseravables).
+ Setting values leads dependant fields to recusivly calculate new values,
+ while considering new calculated values as setting them.
+ This procedure works well between loosly coupled objects.
 \end_layout
 
 \begin_layout Standard

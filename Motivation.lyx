@@ -99,15 +99,8 @@ The programming of drug calculations procedure is hard.
  large codebase which is reflected it, by recurring code of calculations.
  OOP should be a good idea to seperate the information and reduce the code
  duplication.
- However, there is no 
-\begin_inset Quotes eld
-\end_inset
-
-one best implementation
-\begin_inset Quotes erd
-\end_inset
-
- to the change propogation task.
+ However, seperating the change propogation task cause values to be overriden
+ unexpectedly.
  For the simplicity, we will go into details, by a minimalistic drug-calculation
  user interface.
  
@@ -793,251 +786,11 @@ Propogating Changes
 \end_layout
 
 \begin_layout Standard
-Declaring how values should be propagated are central or distributed.
- By the latter, there is support to have the code separated among object's
- source code, leading also to reduce code repetition.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\backslash
-node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
-\backslash
-node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
-\backslash
-node[shape=circle,draw=black] (Drug) at (1,3) {
-\backslash
-textit{Drug}};     
-\backslash
-node[shape=circle,draw=black] (Conc) at (1.5,1) {
-\backslash
-textit{Conc}};     
-\backslash
-node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
-\backslash
-node[shape=circle,draw=black] (Rate) at (5,1) {
-\backslash
-textit{Rate}} ;          
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Dose) edge node[left] {} (Drug);     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Dur) edge node[left] {} (Drug);     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Drug) edge node[left] {} (Conc);     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Vol) edge node[left] {} (Conc);     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Vol) edge node[left] {} (Rate);     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Dur) edge node[left] {} (Rate); 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture} 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-The graph descibes the change propogation in the example.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\backslash
-node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
-\backslash
-node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
-\backslash
-node[shape=circle,draw=black] (Drug) at (1,3) {
-\backslash
-textit{Drug}};     
-\backslash
-node[shape=circle,draw=black] (Conc) at (1.5,1) {
-\backslash
-textit{Conc}};     
-\backslash
-node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
-\backslash
-node[shape=circle,draw=black] (Rate) at (5,1) {
-\backslash
-textit{Rate}} ;          
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Dose) edge node[left] {} (Dur);     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Drug) edge node[left] {} (Dur);  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Rate) edge node[left] {} (Vol);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Rate) edge node[left] {} (Dur);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Drug) edge node[left] {} (Dur);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Drug) edge node[left] {} (Dose);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Vol) edge node[left] {} (Dur);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Vol) edge node[left] {} (Rate);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Conc) edge node[left] {} (Drug);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path [->] (Conc) edge node[left] {} (Vol);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture} 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-The graph descibes the whole intravenous formulas.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+The calculation task can be centerlized or seperated.
+ However, the seperation has the cost of overriding values by calculated
+ values.
+ Centerlized calculation means that the objects do not encapsulate the informati
+on, thus do not seperate the concerns as designed.
 \end_layout
 
 \begin_layout Subsection
@@ -1052,31 +805,6 @@ Whenever a user sets a new value to any of the fields, a calculation procedure
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
-status open
-
-\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1164,29 +892,6 @@ EndIf
 end{algorithmic}
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Calculation Procedure
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \end_inset
 
 
@@ -1197,11 +902,11 @@ Distributed Calculation
 \end_layout
 
 \begin_layout Standard
-The calculation procedure is seperated among the objects, in such that the
- bag triggers calculated values in the intravenous and vise versa.
+The calculation task is seperated among the objects, in such that the bag
+ triggers calculated values in the intravenous and vise versa.
  For example, bag's volume subscribes to the intravenous's duration and
  rate, to calculate its value.
- In reactive programming this can have a simple syntax: 
+ In reactive programming this has a simple syntax: 
 \begin_inset ERT
 status open
 
@@ -1216,58 +921,10 @@ VolumeOfFluid := Duration*Rate
 \end_layout
 
 \begin_layout Standard
-The distributed calculation presented in listing 2.2.
- In the centrlized implementation, there is a reptition (lines...).
- 
-\end_layout
-
-\begin_layout Standard
-For this section, this is the meaning of the formulas in listing 2.2, therfere,
- the object's code how values should be propagated
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Drug:=VolumeOfFluid*Concentration
-\end_layout
-
-\end_inset
-
- , such that drug 
-\emph on
-depends
-\emph default
- on the volume and concentration, so that drug's value is calculated according
- to the volume and concentration's values, and in response to their value
- changes.
-\end_layout
-
-\begin_layout Standard
-The calculation procedure is seperated among the objects as in Listing 2.2,
- with the income of extracting line 3 and 5 into one.
- It is implemented by reactivity, in such that new values leads dependant
- fields to recusivly calculate new values, e.g.
- the formula subscribes Drug to the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Drug=Volume*Concentration
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-However, we should be carful about this, beacuse calculated values might
- override values, e.g.
+The whole distributed calculation is presented in listing 2.2.
+ In contrast to one long central calculaton procedure, there are two smaller
+ object's class, removing repetition of line....
+ However, calculated values might override values, e.g.
  in figure 3.1, concentration's calculation might trigger drug's calculation
  (
 \begin_inset ERT
@@ -1332,8 +989,7 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=Pseudo code for the classes content's source code:
- the fields' formulas.] 
+begin{lstlisting}[frame=Seperated Calculation] 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1580,7 +1236,8 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-bla
+Distributed calculation causes an unexpected change to the drug.
+ The user set it to 100 and has changed to 99.
 \end_layout
 
 \end_inset
@@ -1591,60 +1248,6 @@ bla
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Fields's values are declared to be calculated from other fields values and
- in response to them.
- This is specified in the object's source code
-\end_layout
-
-\begin_layout Standard
-Setting values leads dependant fields to recusivly calculate new values,
- while considering new calculated values as setting them.
- 
-\end_layout
-
-\begin_layout Standard
-This procedure is distributed works well between loosly coupled objects.
-\end_layout
-
-\begin_layout Standard
-Whenever a user sets a new value to any of the fields, formulas are e 
-\end_layout
-
-\begin_layout Standard
-Fields are events triggers and listeners (observers and obsseravables).
- Setting values leads dependant fields to recusivly calculate new values,
- while considering new calculated values as setting them.
- This procedure works well between loosly coupled objects.
-\end_layout
-
-\begin_layout Standard
-In order to not duplicate formulas, we use reactive variables and formulas.
- e.g.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-Concentration:=Drug/VolumeOfFluid
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-means that in response to changes in the write-hand fields, the left-hand
- fields will be updated (changes in the left-hand fields trigger changes
- in the left-side field).
- However, we should be carful about this, beacuse changes might lead to
- overriding edited values, e.g.
- in figure 3.1, concentration's calculation might trigger drug's calculation
- (100) overriding to 99 (Drug=Volume*Concentration equals 300*0.33).
 \end_layout
 
 \end_body

@@ -442,7 +442,7 @@ indirectly
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -614,7 +614,7 @@ Intravenous' Class Diagram
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -766,7 +766,7 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-An intravenous’ sequence diagram for the example.
+The first use-case's sequence diagram.
 \end_layout
 
 \end_inset
@@ -1227,8 +1227,8 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Distributed calculation causes an unexpected change to the drug.
- The user set it to 100 and has changed to 99.
+Decentralized calculation causes an unexpected change to the drug.
+ The user set it to 100 and it has been changed to 99.
 \end_layout
 
 \end_inset

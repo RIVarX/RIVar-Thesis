@@ -86,22 +86,14 @@
 \begin_body
 
 \begin_layout Chapter
-CPOE and Drug Calculations
+Drug Calculations
 \end_layout
 
 \begin_layout Standard
-The programming of drug calculations procedure is hard.
- This might be the author's prespective from her experience maintaining
- CPOE, nevertheless it has many details and formulas to apply, depending
- on the situation, fields become editable or calculated, while reserving
- the edited values.
- The difficulty derived from the amount of information, and also from the
- large codebase which is reflected it, by recurring code of calculations.
- OOP should be a good idea to seperate the information and reduce the code
- duplication.
- For the simplicity, we will go into details, by a minimalistic drug-calculation
- user interface.
- 
+For a minimalistic drug-calculation user interface, we design domain objects
+ to seperate the domain's concerns.
+ However, the decentralized calculation procedure (or propogating changes)
+ are not straightforward.
 \end_layout
 
 \begin_layout Section
@@ -109,9 +101,8 @@ The Drug Calculations Domain
 \end_layout
 
 \begin_layout Standard
-In this paper we focus on the following form's fields, relating to an intravenou
-s (IV) administration.
- 
+Intravenous refers to injecting medicines into a patient's bloodstream.
+ Intravenous' fields are listed in the drug calculation user interface.
 \end_layout
 
 \begin_layout Standard
@@ -129,7 +120,16 @@ begin{description}
 
 
 \backslash
-item[Drug] means how much medication has being administared.
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Drug
+\begin_inset Quotes erd
+\end_inset
+
+] relates to amount of medication/drug administered to a patient, (e.g.
+ 20 mg).
     
 \end_layout
 
@@ -137,24 +137,17 @@ item[Drug] means how much medication has being administared.
 
 
 \backslash
-item[VolumeOfFluid] The Intravenous' fluid volume.
- An intravenous should inject the medication into patient's body, by mixing
- it with fluids.
-\end_layout
+item[
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Plain Layout
+VolumeOfFluid
+\begin_inset Quotes erd
+\end_inset
 
-
-\backslash
-item[Concentration] How much drug per volume unit.
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[Rate] How much volume is flow into the patient's body per time unit
- (such as an hour).
+] relates to intravenous’ fluid volume.
+ An intravenous injects the medication into the patient’s body, by mixing
+ the Drug with fluids (e.g., 20 ml).
  
 \end_layout
 
@@ -162,17 +155,72 @@ item[Rate] How much volume is flow into the patient's body per time unit
 
 
 \backslash
-item[Dose] This is sometimes called dosage, means how much medication is
- flow into the patient's body per time unit.
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Concentration
+\begin_inset Quotes erd
+\end_inset
+
+] amount of the 
+\backslash
+textbf{Drug} per 
+\backslash
+textbf{VolumeOfFluid} (e.g.
+ 0.5 mg/ml).
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-item[Duration] The total time, in which the intravenous injects the content
- into the patient's body.
- 
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Rate
+\begin_inset Quotes erd
+\end_inset
+
+] relates to 
+\backslash
+textbf{VolumeOfFluid} flow administered into the patient’s body per time
+ unit (e.g., 20 ml per hour).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Dose
+\begin_inset Quotes erd
+\end_inset
+
+ (or Dosage)] 
+\backslash
+textbf{Drug} administered into the patient’s body per time unit (e.g., 20
+ mg per hour).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Duration
+\begin_inset Quotes erd
+\end_inset
+
+] relates to the duration from starting the injection until stopping it.
+  
 \end_layout
 
 \begin_layout Plain Layout
@@ -189,20 +237,23 @@ end{description}
 
 \begin_layout Standard
 There are two use cases (for this scope).
- First, a clinician set values for the dose, duration and then to the volume.
- after setting value to the duration, drug's value is calculated by multiplying
- dose and duration's values.
- Then, after setting value to the volume, the concentration's value is calculati
-ng by deviding the calculated value of drug with the new value of the volume.
- Additionaly after settings value the the volume, the rate's value is calculated
- by the volume's value devided by the duration's value.
- The second use-case, a clinician set values for drug, dose and then to
- the rate.
- After setting values to the drug and dose, the duration' value is calculated
- by deviding drug with dose.
- Then, after setting the rate, the volume's value is calculated by multiplying
- rates value with the duration value.
- The volume new value follows also calculating the concentration's value
+ First, a clinician set values to Dose, then Duration then to VolumeOfFluid.
+ after setting value to Duration, Drug's value is calculated by multiplying
+ Dose and Duration's values.
+ Then, after setting value to VolumeOfFluid, Concentration's value is calculatin
+g by deviding Drug's calculated value with VolumeOfFluid's new value.
+ Additionaly after settings value to VolumeOfFluid, Rate's value is calculated
+ by VolumeOfFluid's value devided by Duration's value.
+ 
+\end_layout
+
+\begin_layout Standard
+The second use-case, a clinician set values to Drug, then Dose , then Rate.
+ After setting values to Drug and Dose, Duration' value is calculated by
+ deviding Drug with Dose.
+ Then, after setting the Rate, VolumeOfFluid's value is calculated by multiplyin
+g Rate's value with the duration's value.
+ VolumeOfFluid's new value follows also calculating Concentration's value
  as in the first use-case.
 \end_layout
 
@@ -323,8 +374,8 @@ end{center}
 
 \begin_layout Plain Layout
 Drug calculations' user interface.
- As in the first use case, the dose, duration and volume were set, and the
- other fields have been calculated (signed with 
+ As in the first use-case, Dose, Duration and VolumeOfFluid were set, and
+ the other fields (
 \begin_inset ERT
 status open
 
@@ -337,7 +388,7 @@ textit{italic}
 
 \end_inset
 
- )
+ font) have been calculated.
 \end_layout
 
 \end_inset
@@ -413,29 +464,32 @@ Designing Objects
 
 \begin_layout Standard
 We seperate the information into two domain objects: Intravenous and Bag.
- The intravenous represents a real world intravenous using a bag to inject
- it to a patient's body, therefore the intravenous contains a bag object
- reference.
- The information is seperated, so that the bag has access to the drug, volume
- and concentration it contains, and the intravenous has access to its fields
- dose, rate , duration and its bag's drug and volume (all the fields except
- the concentration).
- The intravenous access' restrictions are applied by extracting a bag interface
- containing only the drug and volume.
+ Intravenous object represents a real world intravenous using a bag to inject
+ it to a patient's body, therefore Intravenous contains Bag object reference.
+ The information is seperated, so that Bag has access to Drug, VolumeOfFluid
+ and Concentration it contains, and Intravenous has access to its fields
+ Dose, Rate , Duration and its bag's Drug and VolumeOfFluid (all fields
+ except Concentration).
+ Intravenous access' restrictions are applied by extracting an interface
+ containing only Drug and VolumeOfFluid.
 \end_layout
 
 \begin_layout Standard
 The first use-case (from 2.1) is described according to the new design (figure
- 3.3).
- A clinician sets values to the intravenous' dose and duration, in response,
- the intravenous calculates the bag's drug's value.
- Then a clinician set value to the bag's volume, in response the bag calculates
- its concentration's value.
- Additionaly, the bag calls to the intravenous 
+ 3.3), with an itravenous (Itravenous' instance) and its bag (Bag' instance).
+ A clinician sets values to an intravenous' Dose and Duration.
+ In response, the itravenous calculates its bag's Drug's value.
+ Then the clinician sets a value to the bag's VolumeOfFluid.
+ In response, the bag calculates its Concentration's value, and the intravenous
+ calculates its Rate's value, according to the bag's VolumeOfFluid's new
+ value.
+\end_layout
+
+\begin_layout Standard
+It can be seen, that the bag calls to the intravenous to calculate its rate's
+ value 
 \emph on
-indirectly
-\emph default
- to calculate its rate's value according to the bag's volume's new value.
+indirectly.
 \end_layout
 
 \begin_layout Standard
@@ -466,7 +520,7 @@ begin{tikzpicture}[scale=0.8]%[show  background  grid]
 
 
 \backslash
-begin{interface}{Bag}{0,-5}
+begin{interface}{IBag}{0,-5}
 \end_layout
 
 \begin_layout Plain Layout
@@ -529,21 +583,21 @@ end{class}
 
 
 \backslash
-composition{Intravenous}{TheBag}{}{Bag}
+composition{Intravenous}{TheBag}{}{IBag}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{class}{BagImplementation}{0,-10}
+begin{class}{Bag}{0,-10}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-implement{Bag}
+implement{IBag}
 \end_layout
 
 \begin_layout Plain Layout
@@ -790,7 +844,7 @@ The calculation task is seperated among the objects, in such that the bag
 \end_layout
 
 \begin_layout Subsection
-Centerlized Calculation
+Centralized Calculation
 \end_layout
 
 \begin_layout Standard
@@ -888,7 +942,9 @@ Decentralized Calculation
 \end_layout
 
 \begin_layout Standard
-We declare 
+Declaring 
+\emph on
+
 \begin_inset ERT
 status open
 
@@ -899,9 +955,13 @@ Drug := Duration*Dose
 
 \end_inset
 
- such that, the concentration subscribes to the drug and volume, to calculate
+
+\emph default
+, performs Concentration subscribing to Drug and VolumeOfFluid, to calculate
  its value.
- Therefore, 
+ Therefore, declaring 
+\emph on
+
 \begin_inset ERT
 status open
 
@@ -912,12 +972,14 @@ TheBag.Drug := Duration*Dose
 
 \end_inset
 
- in the intravenous, calculates its bag's drug's values by subscribing to
- its duration and dose.
+
+\emph default
+ in Intravenous, calculates its bag's Drug's values by subscribing to its
+ Duration and Dose.
  As a result, the calculations task is seperated according to the objects'
  design (listing 3.3).
  It can be seen that, the long central calculaton procedure (Listing 3.2),
- are replaced with two smaller object's class, removing repetition lines
+ are replaced with two smaller object's classes, removing repetition lines
  3 and 8.
 \end_layout
 
@@ -926,7 +988,7 @@ However, it is not straightforward for applications, to always calculate
  new values in response to the subscriptions notifications, or how to decide
  to ignore notifications.
  Particularly, calculated values might override values, e.g.
- in figure 3.4, concentration's calculation might trigger drug's calculation
+ in figure 3.4, Concentration's calculation might trigger Drug's calculation
  (
 \begin_inset ERT
 status open
@@ -955,18 +1017,7 @@ status open
 
 \begin_layout Plain Layout
 
-Drug=Volume*Concentration
-\end_layout
-
-\end_inset
-
- equals 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-300*0.33
+Drug=Volume*Concentration=300*0.33
 \end_layout
 
 \end_inset
@@ -1025,7 +1076,7 @@ class Intravenous {
 
 \begin_layout Plain Layout
 
-class BagImplementation{
+class Bag{
 \end_layout
 
 \begin_layout Plain Layout

@@ -99,8 +99,6 @@ The programming of drug calculations procedure is hard.
  large codebase which is reflected it, by recurring code of calculations.
  OOP should be a good idea to seperate the information and reduce the code
  duplication.
- However, seperating the change propogation task cause values to be overriden
- unexpectedly.
  For the simplicity, we will go into details, by a minimalistic drug-calculation
  user interface.
  
@@ -371,8 +369,8 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=single,caption=Equations to how fields' values should
- be related]
+begin{lstlisting}[frame=single,caption=Equations to how fields' values are
+ related]
 \end_layout
 
 \begin_layout Plain Layout
@@ -427,10 +425,10 @@ We seperate the information into two domain objects: Intravenous and Bag.
 \end_layout
 
 \begin_layout Standard
-The first use-case described in 2.1 can be described according to the new
- design (figure 3.3).
- A clinician set values to the intravenous' dose and duration, in response,
- the intravenous calculate the bag's drug's value.
+The first use-case (from 2.1) is described according to the new design (figure
+ 3.3).
+ A clinician sets values to the intravenous' dose and duration, in response,
+ the intravenous calculates the bag's drug's value.
  Then a clinician set value to the bag's volume, in response the bag calculates
  its concentration's value.
  Additionaly, the bag calls to the intravenous 
@@ -444,7 +442,7 @@ indirectly
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -786,15 +784,13 @@ Propogating Changes
 \end_layout
 
 \begin_layout Standard
-The calculation task can be centerlized or seperated.
- However, the seperation has the cost of overriding values by calculated
- values.
- Centerlized calculation means that the objects do not encapsulate the informati
-on, thus do not seperate the concerns as designed.
+The calculation task is seperated among the objects, in such that the bag
+ triggers calculated values in the intravenous and vise versa.
+ This is in contrast to one centerlized calculation procedure.
 \end_layout
 
 \begin_layout Subsection
-Central Calculation
+Centerlized Calculation
 \end_layout
 
 \begin_layout Standard
@@ -812,84 +808,74 @@ status open
 
 
 \backslash
-begin{algorithmic}[1]
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-If {edited values are of Dose, Duration and VolumeOfFluid}
+begin{lstlisting}[frame=single, caption=Centralized Calculation (pseudocode)]
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited values are of Dose, Duration and VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited values are of Drug,Dose and Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-State Drug = Dose*Duration 
+end{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-State Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-If {edited values are of Drug,Dose and Rate}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-State Concentration = Drug/VolumeOfFluid 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{algorithmic}
+end{center}
 \end_layout
 
 \end_inset
@@ -898,34 +884,49 @@ end{algorithmic}
 \end_layout
 
 \begin_layout Subsection
-Distributed Calculation
+Decentralized Calculation
 \end_layout
 
 \begin_layout Standard
-The calculation task is seperated among the objects, in such that the bag
- triggers calculated values in the intravenous and vise versa.
- For example, bag's volume subscribes to the intravenous's duration and
- rate, to calculate its value.
- In reactive programming this has a simple syntax: 
+We declare 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-VolumeOfFluid := Duration*Rate
+Drug := Duration*Dose
 \end_layout
 
 \end_inset
 
-.
+ such that, the concentration subscribes to the drug and volume, to calculate
+ its value.
+ Therefore, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+TheBag.Drug := Duration*Dose
+\end_layout
+
+\end_inset
+
+ in the intravenous, calculates its bag's drug's values by subscribing to
+ its duration and dose.
+ As a result, the calculations task is seperated according to the objects'
+ design (listing 3.3).
+ It can be seen that, the long central calculaton procedure (Listing 3.2),
+ are replaced with two smaller object's class, removing repetition lines
+ 3 and 8.
 \end_layout
 
 \begin_layout Standard
-The whole distributed calculation is presented in listing 2.2.
- In contrast to one long central calculaton procedure, there are two smaller
- object's class, removing repetition of line....
- However, calculated values might override values, e.g.
- in figure 3.1, concentration's calculation might trigger drug's calculation
+However, it is not straightforward for applications, to always calculate
+ new values in response to the subscriptions notifications, or how to decide
+ to ignore notifications.
+ Particularly, calculated values might override values, e.g.
+ in figure 3.4, concentration's calculation might trigger drug's calculation
  (
 \begin_inset ERT
 status open
@@ -989,17 +990,12 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=Seperated Calculation] 
+begin{lstlisting}[frame=single, caption=Seperated Calculation] 
 \end_layout
 
 \begin_layout Plain Layout
 
-class Intravenous 
-\end_layout
-
-\begin_layout Plain Layout
-
-{    
+class Intravenous {    
 \end_layout
 
 \begin_layout Plain Layout
@@ -1029,12 +1025,7 @@ class Intravenous
 
 \begin_layout Plain Layout
 
-class BagImplementation
-\end_layout
-
-\begin_layout Plain Layout
-
-{
+class BagImplementation{
 \end_layout
 
 \begin_layout Plain Layout

@@ -82,7 +82,7 @@ Reactive Instance Variable (RIvar)
 \end_layout
 
 \begin_layout Standard
-Declaring 
+Declaring an assigment 
 \emph on
 
 \begin_inset ERT
@@ -426,7 +426,7 @@ Decentralized calculation causes an unexpected change to the drug.
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -588,6 +588,190 @@ Drug calculation's dependencies.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Intravenous {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate := TheBag.VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
+\backslash
+node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
+\backslash
+node[shape=circle,draw=black] (Drug) at (1,3) {
+\backslash
+textit{Drug}};     
+\backslash
+node[shape=circle,draw=black] (Conc) at (1.5,1) {
+\backslash
+textit{Conc}};     
+\backslash
+node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
+\backslash
+node[shape=circle,draw=black] (Rate) at (5,1) {
+\backslash
+textit{Rate}} ;  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dose) -- (Drug);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dur) -- (Drug);   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Conc);    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Vol) -- (Conc);    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Vol) -- (Rate);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dur) -- (Rate);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Dependencies without Cycles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As seen in figure 4.3, if each variable had a single assigment, then no cycles
+ would exist, and the propogation would be straightforward (except of glitches,
+ but in this stage, it is out of the scope).
+ However, by the full implementation, we realize that we should support
+ mutiple-assigment, i.e.
+ multiple variable's subscriptions.
+ This should be carefully design: in case of several values produced for
+ a single variable, which one should it take, and what values should be
+ ignored?
 \end_layout
 
 \end_body

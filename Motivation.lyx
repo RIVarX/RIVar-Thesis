@@ -691,14 +691,14 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=single, caption=Centralized Calculation (pseudocode,
- except handling the states that not all the fields have been set yet)]
+begin{lstlisting}[frame=single,caption={Centralized Calculation (pseudocode,
+ except handling the states that not all the fields have been set yet)}]
  
 \end_layout
 
 \begin_layout Plain Layout
 
-If edited values are of Dose, then Duration, then VolumeOfFluid
+If edited values are of Dose,  Duration, and VolumeOfFluid
 \end_layout
 
 \begin_layout Plain Layout
@@ -718,7 +718,7 @@ If edited values are of Dose, then Duration, then VolumeOfFluid
 
 \begin_layout Plain Layout
 
-Else If edited values are of Drug,then Dose, then Rate
+Else If edited values are of Drug, Dose, and Rate
 \end_layout
 
 \begin_layout Plain Layout
@@ -743,7 +743,7 @@ End If
 
 \begin_layout Plain Layout
 
-Else If edited values are of Concentration, then Volume, then Duration
+Else If edited values are of Concentration,  Volume, and Duration
 \end_layout
 
 \begin_layout Plain Layout

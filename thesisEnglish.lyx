@@ -407,19 +407,11 @@ filename "RIvarApproach.lyx"
 \end_layout
 
 \begin_layout Chapter
-Semantics and Implementation
-\end_layout
-
-\begin_layout Section
-Evaluation: Constraints System
+Implementation
 \end_layout
 
 \begin_layout Chapter
-Case Study
-\end_layout
-
-\begin_layout Section
-Evaluation: Code Duplication
+Evaluation
 \end_layout
 
 \begin_layout Standard

@@ -91,9 +91,8 @@ Drug Calculations
 
 \begin_layout Standard
 For a minimalistic drug-calculation user interface, we design domain objects
- to seperate the domain's concerns.
- However, the decentralized calculation procedure (or propogating changes)
- are not straightforward.
+ to separate the domain's concerns, including design space to the calculation
+ procedure (or propagating changes).
 \end_layout
 
 \begin_layout Section
@@ -236,7 +235,7 @@ end{description}
 \end_layout
 
 \begin_layout Standard
-There are two use cases (for this scope).
+There are several use cases (for this scope).
  First, a clinician set values to Dose, then Duration then to VolumeOfFluid.
  after setting value to Duration, Drug's value is calculated by multiplying
  Dose and Duration's values.
@@ -255,6 +254,16 @@ The second use-case, a clinician set values to Drug, then Dose , then Rate.
 g Rate's value with the duration's value.
  VolumeOfFluid's new value follows also calculating Concentration's value
  as in the first use-case.
+\end_layout
+
+\begin_layout Standard
+Another use-case.
+ a clinician set values to Concentration, then VolumeOfFluid, then Duration.
+ After setting the Concentration and VolumeOfFluid , Drug is calculating
+ by multiplying Concentration and Volume, After Duration is set, the Dose
+ and Rate are calcuated.
+ Dose is calculated by Drug/Duration and Rate is calculated by VolumeOfFluid/Dur
+ation.
 \end_layout
 
 \begin_layout Standard
@@ -475,24 +484,6 @@ We seperate the information into two domain objects: Intravenous and Bag.
 \end_layout
 
 \begin_layout Standard
-The first use-case (from 2.1) is described according to the new design (figure
- 3.3), with an itravenous (Itravenous' instance) and its bag (Bag' instance).
- A clinician sets values to an intravenous' Dose and Duration.
- In response, the itravenous calculates its bag's Drug's value.
- Then the clinician sets a value to the bag's VolumeOfFluid.
- In response, the bag calculates its Concentration's value, and the intravenous
- calculates its Rate's value, according to the bag's VolumeOfFluid's new
- value.
-\end_layout
-
-\begin_layout Standard
-It can be seen, that the bag calls to the intravenous to calculate its rate's
- value 
-\emph on
-indirectly.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -664,11 +655,165 @@ Intravenous' Class Diagram
 
 \end_layout
 
+\begin_layout Section
+Propogating Changes
+\end_layout
+
+\begin_layout Standard
+The calculation task should be seperated among the objects, in such that
+ the bag triggers calculated values in the intravenous and vise versa.
+ This is in contrast to one centerlized calculation procedure.
+\end_layout
+
+\begin_layout Subsection
+Centralized Calculation
+\end_layout
+
+\begin_layout Standard
+Whenever a user sets a new value to any of the fields, a calculation procedure
+ is executed.
+ The procedure consists of branches according to the user-cases, in each
+ branch there are three values being used to calculate the other values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[frame=single, caption=Centralized Calculation (pseudocode,
+ except handling the states that not all the fields have been set yet)]
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited values are of Dose, then Duration, then VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited values are of Drug,then Dose, then Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited values are of Concentration, then Volume, then Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Decentralized Calculation
+\end_layout
+
+\begin_layout Standard
+The calculations task should be seperated according to the objects' design
+ (listing 3.3).
+ The first use-case (from 2.1) is described, with an itravenous (Itravenous'
+ instance) and its bag (Bag' instance).
+ A clinician sets values to an intravenous' Dose and Duration.
+ In response, the itravenous calculates its bag's Drug's value.
+ Then the clinician sets a value to the bag's VolumeOfFluid.
+ In response, the bag calculates its Concentration's value, and the intravenous
+ calculates its Rate's value, according to the bag's VolumeOfFluid's new
+ value.
+\end_layout
+
+\begin_layout Standard
+It can be seen, that the bag calls to the intravenous to calculate its rate's
+ value 
+\emph on
+indirectly.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -821,465 +966,6 @@ end{center}
 
 \begin_layout Plain Layout
 The first use-case's sequence diagram.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Propogating Changes
-\end_layout
-
-\begin_layout Standard
-The calculation task is seperated among the objects, in such that the bag
- triggers calculated values in the intravenous and vise versa.
- This is in contrast to one centerlized calculation procedure.
-\end_layout
-
-\begin_layout Subsection
-Centralized Calculation
-\end_layout
-
-\begin_layout Standard
-Whenever a user sets a new value to any of the fields, a calculation procedure
- is executed.
- The procedure consists of branches according to the user-cases, in each
- branch there are three values being used to calculate the other values.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[frame=single, caption=Centralized Calculation (pseudocode)]
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited values are of Dose, Duration and VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited values are of Drug,Dose and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Decentralized Calculation
-\end_layout
-
-\begin_layout Standard
-Declaring 
-\emph on
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Drug := Duration*Dose
-\end_layout
-
-\end_inset
-
-
-\emph default
-, performs Concentration subscribing to Drug and VolumeOfFluid, to calculate
- its value.
- Therefore, declaring 
-\emph on
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-TheBag.Drug := Duration*Dose
-\end_layout
-
-\end_inset
-
-
-\emph default
- in Intravenous, calculates its bag's Drug's values by subscribing to its
- Duration and Dose.
- As a result, the calculations task is seperated according to the objects'
- design (listing 3.3).
- It can be seen that, the long central calculaton procedure (Listing 3.2),
- are replaced with two smaller object's classes, removing repetition lines
- 3 and 8.
-\end_layout
-
-\begin_layout Standard
-However, it is not straightforward for applications, to always calculate
- new values in response to the subscriptions notifications, or how to decide
- to ignore notifications.
- Particularly, calculated values might override values, e.g.
- in figure 3.4, Concentration's calculation might trigger Drug's calculation
- (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-100
-\end_layout
-
-\end_inset
-
-) overriding to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-99
-\end_layout
-
-\end_inset
-
- (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Drug=Volume*Concentration=300*0.33
-\end_layout
-
-\end_inset
-
-).
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[frame=single, caption=Seperated Calculation] 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Intravenous {    
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration := TheBag.Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate := TheBag.VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{A}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{B}{Intravenous}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{C}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{Dose=10}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{Duration=10}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{B}{Drug=100}{C}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{VolumeOfFluid=300}{C}{} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{C}{Concentration=0.33}{C}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{C}{Drug=99}{C}{}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{C}{Rate=30}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}        
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Decentralized calculation causes an unexpected change to the drug.
- The user set it to 100 and it has been changed to 99.
 \end_layout
 
 \end_inset

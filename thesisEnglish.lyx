@@ -20,6 +20,7 @@
 \usepackage{listings}
 \lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
 \usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -395,12 +396,14 @@ filename "Motivation.lyx"
 
 \end_layout
 
-\begin_layout Chapter
-Reactive Instance Variable (RIvar)
-\end_layout
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "RIvarApproach.lyx"
 
-\begin_layout Section
-Evaluation: Integration with OOP
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter

@@ -396,14 +396,8 @@ filename "Motivation.lyx"
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "RIvarApproach.lyx"
-
-\end_inset
-
-
+\begin_layout Chapter
+Approach
 \end_layout
 
 \begin_layout Chapter

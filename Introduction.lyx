@@ -396,8 +396,31 @@ reactive
 We present semantics to mutiple-assigment similar to one used in constraints
  systems, and implement a prototype of an application which uses RIvars
  to define contracts between objects.
- This prototype might help in reducing complexity by seperating real world
+ This prototype may help in reducing complexity by seperating real world
  complex applications.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{Outline.}
+\end_layout
+
+\end_inset
+
+Chapter 3 presents an introductory example to concretely illustrate the
+ problem and the solution's design space.
+ This example demonstrates a drug calculation user interface, and an object-orie
+nted design to seperate its concerns.
+ Chapter 4 presents the approach and illustrate the concept of RIvar (Reactive
+ Instance Variable).
+ Chapter 5 presents the implementation.
+ Chapter 6, presents the evaluation.
 \end_layout
 
 \end_body

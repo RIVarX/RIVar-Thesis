@@ -92,8 +92,10 @@ Drug Calculations
 \begin_layout Standard
 For a minimalistic drug-calculation user interface, we design domain objects
  to separate the domain's concerns.
- However, the decentralized calculation procedure (or propogating changes)
- are not straightforward.
+ The user interface should calculate fields in response to fields changes,
+ having to choose between, either implementing a centarlized calculation
+ procedure in contrast to the objects' design, or, make a compromise with
+ a decentralized calculation.
 \end_layout
 
 \begin_layout Section
@@ -1132,7 +1134,7 @@ The implementation is not straightforward , to always calculate new values
  according to line 5, Drug is calculated to 100.
  The user then sets VolumeOfFluid to 300, in response, according to line
  9, Concentration is calculated to 0.33.
- Unfortunately, according to line 10, Drug might be overriden to 99.
+ Unfortunately, according to line 10, Drug might be overridden to 99.
 \end_layout
 
 \begin_layout Standard

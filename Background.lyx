@@ -128,7 +128,8 @@ Constraints
 
 \begin_layout Standard
 There are reactive systems which can be abstracted as multidirectional constrain
-ts (One-way dataflow constraint is similar to 2.2).
+ts (One-way dataflow constraint is similar to unidirectional dataflow as
+ in 2.2).
  Constraints solvers (algorithms) manage the runtime, to handle any input
  and update variables to satisfy the constraints.
 \end_layout

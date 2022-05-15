@@ -270,13 +270,6 @@ ation.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -284,7 +277,14 @@ status open
 
 
 \backslash
-begin{center}
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
 \end_layout
 
 \begin_layout Plain Layout
@@ -373,47 +373,35 @@ end{tabular}
 
 
 \backslash
-end{center}
+caption{Drug calculations' user interface.} 
 \end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Drug calculations' user interface.
- As in the first use-case, Dose, Duration and VolumeOfFluid were set, and
- the other fields (
-\begin_inset ERT
-status open
 
 \begin_layout Plain Layout
 
 
 \backslash
-textit{italic}
+medskip 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+small Represents the cenario in which Dose, Duration and VolumeOfFluid were
+ set, and the other fields(
+\backslash
+textit{italic} font) have been calculated.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
 \end_layout
 
 \end_inset
 
- font) have been calculated.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 
 \end_layout
 
@@ -432,8 +420,8 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=single,caption=Equations to how fields' values are
- related]
+begin{lstlisting}[float,frame=single,caption=Equations to how fields' values
+ are related]
 \end_layout
 
 \begin_layout Plain Layout
@@ -695,8 +683,8 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=single,caption={Centralized Calculation (pseudocode,
- except handling the states that not all the fields have been set yet)}]
+begin{lstlisting}[float,frame=single,caption={Centralized Calculation (pseudocod
+e, except handling the states that not all the fields have been set yet)}]
  
 \end_layout
 
@@ -738,11 +726,6 @@ Else If edited values are of Drug, Dose, and Rate
 \begin_layout Plain Layout
 
   Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
 \end_layout
 
 \begin_layout Plain Layout
@@ -817,7 +800,7 @@ indirectly.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1042,7 +1025,7 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[frame=single, caption=Seperated Calculation] 
+begin{lstlisting}[float,frame=single, caption=Seperated Calculation] 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1138,12 +1121,6 @@ The implementation is not straightforward , to always calculate new values
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1151,7 +1128,14 @@ status open
 
 
 \backslash
-begin{center}
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1291,29 +1275,29 @@ end{sequencediagram}
 
 
 \backslash
-end{center}
+caption{Decentralized calculation causes an unexpected change to the drug.}
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
 
-\end_inset
-
-
+\backslash
+medskip 
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
 
-\begin_layout Plain Layout
-Decentralized calculation causes an unexpected change to the drug.
- The user set it to 100 and it has been changed to 99.
+
+\backslash
+small (The user set it to 100 and it has been changed to 99.)
 \end_layout
 
-\end_inset
+\begin_layout Plain Layout
 
 
+\backslash
+end{figure}
 \end_layout
 
 \end_inset
@@ -1322,13 +1306,6 @@ Decentralized calculation causes an unexpected change to the drug.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1336,7 +1313,14 @@ status open
 
 
 \backslash
-begin{center}
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1464,25 +1448,28 @@ end{tikzpicture}
 
 
 \backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
+caption{Drug calculation's dependencies.} 
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
 
-\begin_layout Plain Layout
-Drug calculation's dependencies.
- (long names are mentioned by their prefix)
+
+\backslash
+medskip 
 \end_layout
 
-\end_inset
+\begin_layout Plain Layout
 
 
+\backslash
+small (long names are mentioned by their prefix)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
 \end_layout
 
 \end_inset

@@ -78,15 +78,59 @@
 \begin_body
 
 \begin_layout Chapter
-Backgound
+Background
+\end_layout
+
+\begin_layout Standard
+Reactive Programming (RP) harmonizes concepts from traditional paradigms
+ for programming reactive systems: Events, Unidirectional Dataflow and Constrain
+ts.
+ Each of the paradigms addresses has a unique abstraction mechanism to manage
+ inconsistencies, which might exist in the runtime data and static data.
+ Inconsistency in runtime data refers to non-valid states, of which variables'
+ values have not been calculated in accordance to other variables' values.
+ Inconsistency in static data refers to those bugs causing by an error-prone
+ process, handling code-changes several times.
+ Reducing inconsistency in static data is handled by reducing code repetition
+ by paradigms' independent reusable units.
 \end_layout
 
 \begin_layout Section
-Traditional Paradigms
+Events
+\end_layout
+
+\begin_layout Standard
+Events (or observer pattern) are used for reusable objects, so that objects
+ will not depend on specific callers, but the callers would subscribe/listen
+ to their relevant events.
+ We can implement events that would execute in response to variables' changes,
+ triggering event handlers which would trigger other variables to calculate
+ considering the new values.
 \end_layout
 
 \begin_layout Section
-Union Paradigms
+Unidirectional Dataflow
+\end_layout
+
+\begin_layout Standard
+Reactive systems may be abstracted as composed mathematical functions, using
+ reactive variables or streams (by managing effects).
+ In this manner, we can specify reusable code of how to calculate data by
+ other data.
+ In runtime, while an input device produces an input, the system will produce
+ a changes chain according to the program, until triggering the output devices
+ to produce the effects.
+\end_layout
+
+\begin_layout Section
+Constraints
+\end_layout
+
+\begin_layout Standard
+There are reactive systems which can be abstracted as multidirectional constrain
+ts (One-way dataflow constraint is similar to 2.2).
+ Constraints solvers (algorithms) manage the runtime, to handle any input
+ and update variables to satisfy the constraints.
 \end_layout
 
 \end_body

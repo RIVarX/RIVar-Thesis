@@ -1,0 +1,302 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\begin_preamble
+\usepackage{tikz}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Approach
+\end_layout
+
+\begin_layout Standard
+RIvar (Reactive Instance Variable) is similar to Reactive Variable, in such
+ that assigning an expression to it, refers to not calculating once, but
+ refreshing the value, whenever the assigned expression's value is changed.
+ The similarity to instance variables is by being associated to object'
+ class.
+\end_layout
+
+\begin_layout Standard
+As discussed in the background, traditional reactive variables should have
+ formed graphes without cycles, to properly refresh their values.
+ This could be forced by prevention of indirected interfaces, contrasted
+ with the current propsal.
+ 
+\end_layout
+
+\begin_layout Standard
+By the usage of objects and indirected interfaces, we are also comitted
+ to objects interaction by sending and receiving messages, meaning that
+ refreshing the values are managed distributedly.
+\end_layout
+
+\begin_layout Section
+Multiple-Assigments (Syntax)
+\end_layout
+
+\begin_layout Standard
+A cycle formed by reactive variables means recursion, yet there must be
+ at least one reactive variable which is assigned more than once, or feed
+ from two sources.
+ Reactive instance variabels' (RIvars') references are allowed being assigned,
+ with unawareness of being assigned by others.
+ For this reason RIvars are defined to have multiple assigment.
+ 
+\end_layout
+
+\begin_layout Standard
+The approach is contrasted with traditional reactive programming.
+ Reactive programming, originally been Functional Reactive Programming,
+ has promoted the use of functional style, so that reactive variables could
+ be substituted by their single expression.
+ However, the use of indirected interfaces leads to having multiple-assignments
+ by-definition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (X) at (5,5) {X};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Discussion 
+\end_layout
+
+\begin_layout Standard
+When taking multiple-assigment into consideration, this is not perfect to
+ tell the above statement, that assigning an expression to a RIvar, refers
+ to refreshing the value whenever the assigned expression's value is changed.
+ 
+\end_layout
+
+\begin_layout Standard
+Yet, there is a chance to that statement, doing choices between the expressions
+ by the one that was recently changed, considering the other expressions's
+ values as absolete.
+ However, sometimes a single value change causes several expression's values
+ to change.
+ Then it become unclear according to what expression should the target RIvar
+ refreshing.
+ Furthermore, when cycles exist, some choises might cause to refresh endlessly.
+\end_layout
+
+\begin_layout Section
+Stream
+\end_layout
+
+\begin_layout Standard
+It has been discussed that objects interact via messages, similary 
+\end_layout
+
+\begin_layout Standard
+We refer RIvar or expression to its values over time, namely stream of values'
+ change's notifications.
+ With this abstraction, we would develop a merge method over expressions
+ values streams, so a RIvar's values over time equals to the merge of the
+ assigned expression's values over time.
+ 
+\end_layout
+
+\end_body
+\end_document

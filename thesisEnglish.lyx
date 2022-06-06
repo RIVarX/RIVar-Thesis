@@ -396,8 +396,14 @@ filename "Motivation.lyx"
 
 \end_layout
 
-\begin_layout Chapter
-Approach
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Approach.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter

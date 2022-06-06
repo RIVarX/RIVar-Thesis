@@ -104,7 +104,8 @@ The Drug Calculations Domain
 
 \begin_layout Standard
 Intravenous refers to injecting medicines into a patient's bloodstream.
- Intravenous' fields are listed in the drug calculation user interface.
+ The Intravenous' content consists of an active ingredient mixed with fluid
+ as following:
 \end_layout
 
 \begin_layout Standard
@@ -171,6 +172,35 @@ textbf{Drug} per
 \backslash
 textbf{VolumeOfFluid} (e.g.
  0.5 mg/ml).
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{description}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are cases when, it is desirable to have a constant blood concentration
+ of a medication over time:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{description}      
 \end_layout
 
 \begin_layout Plain Layout
@@ -238,38 +268,6 @@ end{description}
 \end_layout
 
 \begin_layout Standard
-There are several use cases (for this scope).
- First, a clinician set values to Dose, then Duration then to VolumeOfFluid.
- after setting value to Duration, Drug's value is calculated by multiplying
- Dose and Duration's values.
- Then, after setting value to VolumeOfFluid, Concentration's value is calculatin
-g by deviding Drug's calculated value with VolumeOfFluid's new value.
- Additionaly after settings value to VolumeOfFluid, Rate's value is calculated
- by VolumeOfFluid's value devided by Duration's value.
- 
-\end_layout
-
-\begin_layout Standard
-The second use-case, a clinician set values to Drug, then Dose , then Rate.
- After setting values to Drug and Dose, Duration' value is calculated by
- deviding Drug with Dose.
- Then, after setting the Rate, VolumeOfFluid's value is calculated by multiplyin
-g Rate's value with the duration's value.
- VolumeOfFluid's new value follows also calculating Concentration's value
- as in the first use-case.
-\end_layout
-
-\begin_layout Standard
-Another use-case.
- a clinician set values to Concentration, then VolumeOfFluid, then Duration.
- After setting the Concentration and VolumeOfFluid , Drug is calculating
- by multiplying Concentration and Volume, After Duration is set, the Dose
- and Rate are calcuated.
- Dose is calculated by Drug/Duration and Rate is calculated by VolumeOfFluid/Dur
-ation.
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -326,7 +324,14 @@ textit{0.33}}
 \backslash
 
 \backslash
-    
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline  
 \end_layout
 
 \begin_layout Plain Layout
@@ -463,10 +468,87 @@ Designing Objects
 \end_layout
 
 \begin_layout Standard
-We seperate the information into two domain objects: Intravenous and Bag.
+The described drug calculation domain consists of two concerns or sub-domains:
+ Intravenous and Bag, which is Intravenous's content.
  Intravenous object represents a real world intravenous using a bag to inject
- it to a patient's body, therefore Intravenous contains Bag object reference.
- The information is seperated, so that Bag has access to Drug, VolumeOfFluid
+ it to a patient's body, therefore in runtime Intravenous contains Bag object
+ reference.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[float,frame=single, caption=Seperated Calculation] 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Intravenous {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.VolumeOfFluid := Duration*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The information is seperated, so that Bag has access to Drug, VolumeOfFluid
  and Concentration it contains, and Intravenous has access to its fields
  Dose, Rate , Duration and its bag's Drug and VolumeOfFluid (all fields
  except Concentration).
@@ -502,7 +584,7 @@ begin{tikzpicture}[scale=0.8]%[show  background  grid]
 
 
 \backslash
-begin{interface}{IBag}{0,-5}
+begin{interface}{Content}{0,-5}
 \end_layout
 
 \begin_layout Plain Layout
@@ -565,7 +647,7 @@ end{class}
 
 
 \backslash
-composition{Intravenous}{TheBag}{}{IBag}
+composition{Intravenous}{TheBag}{}{Content}
 \end_layout
 
 \begin_layout Plain Layout
@@ -579,7 +661,7 @@ begin{class}{Bag}{0,-10}
 
 
 \backslash
-implement{IBag}
+implement{Content}
 \end_layout
 
 \begin_layout Plain Layout
@@ -648,6 +730,102 @@ Intravenous' Class Diagram
 
 \begin_layout Section
 Propogating Changes
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[float,frame=single, caption=Seperated Calculation] 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Intravenous {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration := TheBag.Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate := TheBag.VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = TheBag.Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.VolumeOfFluid := Duration*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Propogating Changes old
 \end_layout
 
 \begin_layout Standard

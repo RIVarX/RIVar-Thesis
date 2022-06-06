@@ -81,6 +81,10 @@
 Background
 \end_layout
 
+\begin_layout Section
+Reactive Programming
+\end_layout
+
 \begin_layout Standard
 Reactive Programming (RP) harmonizes concepts from traditional paradigms
  for programming reactive systems: Events, Unidirectional Dataflow and Constrain
@@ -95,7 +99,7 @@ ts.
  by paradigms' independent reusable units.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Events
 \end_layout
 
@@ -108,7 +112,7 @@ Events (or observer pattern) are used for reusable objects, so that objects
  considering the new values.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Unidirectional Dataflow
 \end_layout
 
@@ -122,7 +126,7 @@ Reactive systems may be abstracted as composed mathematical functions, using
  to produce the effects.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Constraints
 \end_layout
 
@@ -132,6 +136,116 @@ ts (One-way dataflow constraint is similar to unidirectional dataflow as
  in 2.2).
  Constraints solvers (algorithms) manage the runtime, to handle any input
  and update variables to satisfy the constraints.
+\end_layout
+
+\begin_layout Section
+Object-Oriented Programming
+\end_layout
+
+\begin_layout Standard
+Objects differ from components in that they refer to real-world objects
+ (e.g.
+ Persons), described by the property named 
+\emph on
+identity
+\emph default
+.
+ The real-world objects' variables (or attributes) (e.g.
+ Persons' weight) are represented by objects' instance variables.
+ Specifically, an instance variable may be an association to another object's
+ identity.
+ The real-world objects' variables' values 
+\emph on
+vary
+\emph default
+ during their life-cycle, simulated by 
+\emph on
+updating
+\emph default
+ the instance variables content.
+ 
+\end_layout
+
+\begin_layout Standard
+Originaly objects are like components, used to save time by using ready-to-use
+ components instead of develop again and again.
+ Accordingly, doing a new feature or a bug fix, can be performed once.
+ However, we should be carful about components' changes, to prevent from
+ unexpected changes.
+ 
+\end_layout
+
+\begin_layout Standard
+We recognize two mechanizms to prevent from unexpected changes.
+ First, components have 
+\emph on
+interfaces
+\emph default
+ as contracts, seperating the specification from the implementation details.
+ Second, instance variables are encapsulated, each object manage its instance
+ variables seperatly.
+\end_layout
+
+\begin_layout Standard
+There are several related technical issue preventing from being that elegant
+ paradigm.
+\end_layout
+
+\begin_layout Subsection
+Vary the Variables
+\end_layout
+
+\begin_layout Standard
+By definition, objects maintain their internal state (data), resulting limitatio
+n in abstracting objects' variables' changes: to be included only in the
+ code of the object containing the variables.
+ To rid of the limitation, objects implement accessors methods to manipulting
+ their instance variables.
+ However, the data is stopped from being controlled by its containing object.
+\end_layout
+
+\begin_layout Standard
+This is in contrast to keep controlling the objects , from the real-world
+ aspect (or the modeller point of view), certain variable changes should
+ be part of another object.
+ In addition, deriving a class, by the mean of object reuse.
+\end_layout
+
+\begin_layout Subsection
+Observation
+\end_layout
+
+\begin_layout Standard
+When instance variables accessors are used (operations to setting and getting
+ the instance variables' values), then instance variables can be used as
+ part of interfaces.
+ However, pulling the values is time and resource consuming, user interfaces
+ must invoke the accessors, even when there has not been changes.
+ 
+\end_layout
+
+\begin_layout Standard
+Objects need to implement observation features, events abstraction, for
+ which user interfaces subscribe to be notified only when changes happen.
+ Consequently, the real-worlds entities representation become less simple,
+ they involve not only its variables as instance variables, but also the
+ concept of 
+\emph on
+change events
+\emph default
+, for which consumers should subscribe to get the variables values.
+\end_layout
+
+\begin_layout Subsection
+Reentrance
+\end_layout
+
+\begin_layout Standard
+The indirect nature of objects leads to recursive invoke methods, in which
+ object sending a message is unaware of the receiver identity and whether
+ this message is not a re-entrance.
+ When receiving a message, one should be aware of the caller, thus it cannot
+ distinguish between initial calls, or recursive calls.
 \end_layout
 
 \end_body

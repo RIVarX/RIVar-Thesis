@@ -128,7 +128,8 @@ managing internal state
 \begin_layout Standard
 Yet, there is the method to rid of the limitation by implementing accessors
  methods manipulating their instance variables.
- However, the data is stopped from being controlled by its containing object.
+ However, the data is stopped from being controlled by its containing object,
+ particularly when involving events in the application.
 \end_layout
 
 \begin_layout Standard
@@ -149,7 +150,7 @@ To illustrate our motivation we use a minimalistic drug-calculation user
  Designing domain objects to separate the domain's concerns (and possibility
  being in different micro-frontends) leads to either make a compromise with
  a decentralized calculation or implementing a centarlized calculation procedure
- unhiding the objects states.
+ unhiding objects states.
 \end_layout
 
 \begin_layout Section

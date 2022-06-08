@@ -86,16 +86,70 @@
 \begin_body
 
 \begin_layout Chapter
-Drug Calculations
+Motivation
 \end_layout
 
 \begin_layout Standard
-For a minimalistic drug-calculation user interface, we design domain objects
- to separate the domain's concerns.
- The user interface should calculate fields in response to fields changes,
- having to choose between, either implementing a centarlized calculation
- procedure in contrast to the objects' design, or, make a compromise with
- a decentralized calculation.
+Objects refers to real-world objects (e.g.
+ Persons), described by the property named 
+\emph on
+identity
+\emph default
+.
+ The real-world objects' variables (or attributes) (e.g.
+ Persons' weight) are represented by objects' instance variables.
+ Specifically, an instance variable may be an association to another object's
+ identity.
+ The real-world objects' variables' values 
+\emph on
+vary
+\emph default
+ during their life-cycle, simulated by 
+\emph on
+updating
+\emph default
+ the instance variables content.
+\end_layout
+
+\begin_layout Standard
+The code which varying variables values are usualy included in the code
+ of the object's class containing the variables, frequently described as
+ 
+\emph on
+managing internal state
+\emph default
+.
+ However, from the real-world aspect (or the modeller point of view), there
+ are cases which certain variables values should be part of other objects'
+ classes.
+ 
+\end_layout
+
+\begin_layout Standard
+Yet, there is the method to rid of the limitation by implementing accessors
+ methods manipulating their instance variables.
+ However, the data is stopped from being controlled by its containing object.
+\end_layout
+
+\begin_layout Standard
+The need to manage variable's values by classes which do not own them, are
+ relevant also to enable extending software, without the need to change
+ existing component's class: Managing internal state forces 
+\emph on
+changing
+\emph default
+ object's classes for any new source of variable's values.
+\end_layout
+
+\begin_layout Standard
+To illustrate our motivation we use a minimalistic drug-calculation user
+ interface.
+ The user interface should manage a calculation procedure, i.e.
+ calculate fields in response to fields changes.
+ Designing domain objects to separate the domain's concerns (and possibility
+ being in different micro-frontends) leads to either make a compromise with
+ a decentralized calculation or implementing a centarlized calculation procedure
+ unhiding the objects states.
 \end_layout
 
 \begin_layout Section

@@ -143,8 +143,7 @@ Object-Oriented Programming
 \end_layout
 
 \begin_layout Standard
-Objects differ from components in that they refer to real-world objects
- (e.g.
+Objects refers to real-world objects (e.g.
  Persons), described by the property named 
 \emph on
 identity
@@ -167,7 +166,7 @@ updating
 \end_layout
 
 \begin_layout Standard
-Originaly objects are like components, used to save time by using ready-to-use
+(Originaly objects are like components, used to save time by using ready-to-use
  components instead of develop again and again.
  Accordingly, doing a new feature or a bug fix, can be performed once.
  However, we should be carful about components' changes, to prevent from
@@ -188,7 +187,7 @@ interfaces
 
 \begin_layout Standard
 There are several related technical issue preventing from being that elegant
- paradigm.
+ paradigm.)
 \end_layout
 
 \begin_layout Subsection

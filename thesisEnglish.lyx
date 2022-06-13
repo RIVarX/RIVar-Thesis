@@ -436,8 +436,20 @@ filename "Conclusion.lyx"
 
 \end_layout
 
-\begin_layout Chapter
-Developer Guide
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+appendix
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

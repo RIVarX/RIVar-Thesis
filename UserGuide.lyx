@@ -1,0 +1,558 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+User Guide
+\end_layout
+
+\begin_layout Standard
+In the following guide, you will learn to use RIvarX library, to model real-worl
+d objects with variables which continuously connected to UI application,
+ and calculated the variable's values according to the described model and
+ the UI change notifications.
+\end_layout
+
+\begin_layout Section
+Modeling
+\end_layout
+
+\begin_layout Standard
+Modeling is the part to describe the domain variables and objects.
+ In this part, you should name your objects and variables according to the
+ real world objects and variables.
+ In addition you should design the hierarchy and relationships between the
+ objects, by using interfaces, inheritance, composition and so on.
+\end_layout
+
+\begin_layout Standard
+In contrast to the traditional OOP, here the objects' variables have the
+ nature to continously have the real world values, either by connecting
+ to external devices, or by calculating their values based on other variables.
+ For the external values, make sure to expose the variable via interfaces
+ and objects ( with appropriate access right) to later be able to connect
+ them.
+ For the calculated values, write down the expressions assigned to the variables.
+\end_layout
+
+\begin_layout Standard
+In the library RIvarX there is the type RIvar you should use to decalre
+ the object's variables.
+ RIvar is a generic type so you can specify it according to the variable
+ values' types.
+ RIvar assigment is implemented by its method 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Set
+\end_layout
+
+\end_inset
+
+.
+ However, the assigned expressions would not compile in this stage.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[float,frame=single, caption=Domain Modeling Example] 
+\end_layout
+
+\begin_layout Plain Layout
+
+ public  interface IBag
+\end_layout
+
+\begin_layout Plain Layout
+
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+   RIvar<IOperand> Amount { get; }
+\end_layout
+
+\begin_layout Plain Layout
+
+   RIvar<IOperand> Volume { get; }
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+ public class Bag: IBag
+\end_layout
+
+\begin_layout Plain Layout
+
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+   public RIvar<IOperand> Amount { get; set; } = new RIvar<IOperand>();
+\end_layout
+
+\begin_layout Plain Layout
+
+   public RIvar<IOperand> Volume { get; set; } = new RIvar<IOperand>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIvar<IOperand> Concentration { get; set; } = new RIvar<IOperand>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Bag()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Concentration.Set(Amount.Div(Volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+      Amount.Set(Concentration.Mul2(Volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+      Volume.Set(Amount.Div(Concentration));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+    public class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIvar<IOperand> Rate = new RIvar<IOperand>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIvar<IOperand> Dose = new RIvar<IOperand>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIvar<IOperand> Duration = new RIvar<IOperand>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        public Pump(IBag bag)
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Dose.Set(bag.Amount.Div(Duration));
+\end_layout
+
+\begin_layout Plain Layout
+
+            Rate.Set(bag.Volume.Div(Duration));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            Duration.Set(bag.Amount.Div(Dose));
+\end_layout
+
+\begin_layout Plain Layout
+
+            Duration.Set(bag.Volume.Div(Rate));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            bag.Amount.Set(Duration.Mul(Dose));
+\end_layout
+
+\begin_layout Plain Layout
+
+            bag.Volume.Set(Duration.Mul(Rate));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Operators
+\end_layout
+
+\begin_layout Standard
+Implementing operators is essenial to compile RIvars expressions.
+ Implementing operators is the promoting process from the level of handling
+ values to the level of RIvars, because any RIvar or expression is actualy
+ stream of values over time.
+\end_layout
+
+\begin_layout Standard
+For any expression, write down a function to calculate that RIvar's target
+ value based on the RIvar's values contained in the expression, or make
+ sure you already implemented such function.
+\end_layout
+
+\begin_layout Standard
+Then write down the high level functions.
+ They should have RIvars parameters and return 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Expression
+\end_layout
+
+\end_inset
+
+.
+ The implemention needs calling 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Expression.Create
+\end_layout
+
+\end_inset
+
+ which promotes functions from the values-level to the RIvar-level, thus
+ with the call to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Expression.Create
+\end_layout
+
+\end_inset
+
+, the low level function should be specified as parameter.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Expression.Create
+\end_layout
+
+\end_inset
+
+'s other parameters are the RIvars, from which the values should be consumed
+ to calculate the target RIvar' values.
+\end_layout
+
+\begin_layout Section
+Connecting
+\end_layout
+
+\begin_layout Standard
+The objects variables have their values from the outside world.
+ It may be from an an input device or any other software that would provide
+ the real-world variable's value in near realtime.
+ Similary, the objects calculation should be exposed in near realtime on
+ output devices or any other relevant software.
+ RIvar is stream of values over time, and this is the way we read and write
+ the external notifications.
+\end_layout
+
+\begin_layout Standard
+Let's focus on connecting your model to UI controls.
+ You should implement the two sides: the reads and writes.
+ The reads involve consuming controls' change events and pushing them as
+ notifications to the RIvars.
+ The writes involve subscribing the RIvars and push the values notifications
+ to the controls.
+\end_layout
+
+\begin_layout Standard
+RIvar is implemented as Subject of ReactiveX, thus pushing a single value
+ is implemented by calling 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+OnNext
+\end_layout
+
+\end_inset
+
+, while consuming the values notifications is implemented by the method
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Subscribe
+\end_layout
+
+\end_inset
+
+.
+ The connecting procedure should be taken carefuly, to not calling RIvar's
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+OnNext
+\end_layout
+
+\end_inset
+
+ with a value which notified from that RIvar.
+ This means that you should ignore your UI controls change notifications
+ happened from RIvars notifications.
+ One simple way is to ignore-out controls' change events, which have not
+ involved values changes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[float,frame=single, caption=Connecting Domain Model to
+ UI control] 
+\end_layout
+
+\begin_layout Plain Layout
+
+//reading from UI control pushing values (writing to) to RIvar variable
+\end_layout
+
+\begin_layout Plain Layout
+
+  Observable.FromEventPattern<double>(ConcentrationControl, "ControlValueChanged"
+).Subscribe(value => bag.Concentration.OnNext(value));
+\end_layout
+
+\begin_layout Plain Layout
+
+//reading from RIvar pushing values (writing to) to the UI control
+\end_layout
+
+\begin_layout Plain Layout
+
+ bag.Concentration.Subscribe(value =>  SetValue(ConcentrationControl, value));
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

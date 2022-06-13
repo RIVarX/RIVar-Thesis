@@ -406,12 +406,24 @@ filename "Approach.lyx"
 
 \end_layout
 
-\begin_layout Chapter
-Implementation
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Implementation.lyx"
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Chapter
-Evaluation
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Evaluation.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -428,8 +440,14 @@ filename "Conclusion.lyx"
 Developer Guide
 \end_layout
 
-\begin_layout Chapter
-User Guide
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "UserGuide.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

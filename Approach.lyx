@@ -95,19 +95,61 @@ RIvar (Reactive Instance Variable) is similar to Reactive Variable, in such
 \begin_layout Standard
 As discussed in the background, traditional reactive variables should have
  formed graphes without cycles, to properly refresh their values.
- This could be forced by prevention of indirected interfaces, contrasted
- with the current propsal.
+ However, we support any graph to not prevent from assigning to variables
+ of indirected interfaces.
+ By the usage of objects and indirected interfaces, we are also comitted
+ to objects interaction by sending and receiving messages, therefore refreshing
+ the values are managed by observable streams.
+\end_layout
+
+\begin_layout Section
+Add Reactivity to Instance Variables
+\end_layout
+
+\begin_layout Standard
+Traditionaly, instance variables accessors are used (operations to setting
+ and getting the instance variables' values), then instance variables can
+ be used as part of interfaces.
+ However, pulling the values is time and resource consuming, user interfaces
+ must invoke the accessors, even when there has not been changes.
  
 \end_layout
 
 \begin_layout Standard
-By the usage of objects and indirected interfaces, we are also comitted
- to objects interaction by sending and receiving messages, meaning that
- refreshing the values are managed distributedly.
+In order to save time and resources, objects implement observation features,
+ i.e.
+ events abstraction, for which user interfaces subscribe to be notified
+ only when changes happen.
+ Consequently, the real-worlds entities representation become less simple,
+ they involve not only its variables as instance variables, but also the
+ concept of 
+\emph on
+change events
+\emph default
+, for which consumers should subscribe to get the variables values.
+\end_layout
+
+\begin_layout Standard
+Instead of implementing instance variables whose values should frequently
+ pulled, or managing certain change events, we implement 
+\emph on
+reactive
+\emph default
+ instance variables (RIvars), with a given reactivity features.
+ RIvar can be observed, subscribed, notified with values and calculated
+ by an assigned expression.
 \end_layout
 
 \begin_layout Section
-Multiple-Assigments (Syntax)
+Multiple-Assigments
+\end_layout
+
+\begin_layout Standard
+As discussed, traditional reactive variables should have formed graphes
+ without cycles, to properly refresh their values.
+ This could be forced by prevention of indirected interfaces, contrasted
+ with the current propsal.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -278,23 +320,85 @@ Yet, there is a chance to that statement, doing choices between the expressions
  to change.
  Then it become unclear according to what expression should the target RIvar
  refreshing.
- Furthermore, when cycles exist, some choises might cause to refresh endlessly.
+ Furthermore, cycles might cause refreshing endlessly.
 \end_layout
 
 \begin_layout Section
-Stream
+Merging Streams
 \end_layout
 
 \begin_layout Standard
-It has been discussed that objects interact via messages, similary 
+By the usage of objects and indirected interfaces, we are also comitted
+ to objects interaction by sending and receiving messages, meaning that
+ refreshing the values are managed distributedly.
+ It follows that the calculation procedure, is controlled by the RIvars,
+ from their subscriptions for each other.
 \end_layout
 
 \begin_layout Standard
-We refer RIvar or expression to its values over time, namely stream of values'
- change's notifications.
- With this abstraction, we would develop a merge method over expressions
- values streams, so a RIvar's values over time equals to the merge of the
- assigned expression's values over time.
+RIvar and expression have values over time, consisting of values' change's
+ notifications.
+ They are implemented as observable streams.
+ The assigment is implemented by subscribing to the two formula's sides
+ to notify values in the left side RIvar, based on two sides history values.
+ The notifying method would prevent from endless notifications, which might
+ happen from recursion/cycles.
+\end_layout
+
+\begin_layout Standard
+Taking two equation's sidess history values and considering what values
+ to notify and what value to prevent, can formally described as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+merge
+\end_layout
+
+\end_inset
+
+ method, such that specifying an assigment 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=f(B)
+\end_layout
+
+\end_inset
+
+ means 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=merge(A,f(B))
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+RIvar assignment operates as a subscription, thus supporting multiple assignment
+s.
+ RIvar is implemented by an observable stream, which is merged from the
+ streams of the expressions assigned to the RIvar.
+\end_layout
+
+\begin_layout Standard
+The method to support multiple assignments is essential to bring RIvar being
+ as property accessor (setter), because it should have the ability to be
+ assigned independently, without caring about other assignments, because
+ it might be an internal behavior, so inaccessible.
  
 \end_layout
 

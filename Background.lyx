@@ -81,6 +81,138 @@
 Background
 \end_layout
 
+\begin_layout Standard
+Variable (or attribute) represents quality of an object.
+ Objects refers to things in our world such as persons, cars and so on.
+ Variables examples can be person's age, car's price and so on.
+ However, in software, variable is only symbolic name associated to memory
+ address which contain value.
+ 
+\end_layout
+
+\begin_layout Standard
+In UI (or any other reactive) applications, real world variables' values
+ should sometimes be observed over time.
+ Among variables, there are those which their values are provided by users,
+ dependant variables, in which variables's values determined by other variables
+ values, and those which can take their values from both.
+\end_layout
+
+\begin_layout Section
+Characteristics
+\end_layout
+
+\begin_layout Subsection
+Identity
+\end_layout
+
+\begin_layout Standard
+Variable may represent real world variable, even if it is a plain symbolic
+ name associated to memory address, it may contain value represents the
+ real world variable's value.
+ Accordingly, variable may be referred by different names, depending on
+ the context.
+ This concept remind what is called 
+\emph on
+identity
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In OOP, objects represent the identity of real world objects, therefore
+ their instance variables should represent the real world variable.
+ Accordingly, objects can inherit other objects, with the 
+\begin_inset Quotes eld
+\end_inset
+
+is-a
+\begin_inset Quotes erd
+\end_inset
+
+ relationships, associated to each other with 
+\begin_inset Quotes eld
+\end_inset
+
+has-a
+\begin_inset Quotes erd
+\end_inset
+
+ relationships, and has a formal distinction between objects interface and
+ its implementation, to be referred to callers depending on the context.
+\end_layout
+
+\begin_layout Subsection
+Referential Transparency
+\end_layout
+
+\begin_layout Standard
+In FRP, Reactive Variables are declared similar to pure functions, and the
+ framework automaticaly calculates the values in response to new values
+ provided.
+ For example declaring 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Age := CurrentDate-BirthDate
+\end_layout
+
+\end_inset
+
+, produce 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Age
+\end_layout
+
+\end_inset
+
+ to be refreshed automaticaly according to the varying values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+BirthDate
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+CurrentDate
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Declaring variables as calculation tree, leads to very predictable programs:
+ the same input produces the same output every time we execute it.
+ This is similar to invoking pure function, without side effect, so produces
+ consistent result, attributed as 
+\emph on
+referential transparency
+\emph default
+.
+ In such programs, substituting variable by its expression, does not affect
+ the program.
+ Consequently, changing the code have predictable effect, so programs become
+ rubust against changes.
+\end_layout
+
 \begin_layout Section
 Reactive Programming
 \end_layout
@@ -191,7 +323,7 @@ There are several related technical issue preventing from being that elegant
 \end_layout
 
 \begin_layout Subsection
-Vary the Variables
+Vary the Variables Responsibility
 \end_layout
 
 \begin_layout Standard
@@ -208,31 +340,6 @@ This is in contrast to keep controlling the objects , from the real-world
  aspect (or the modeller point of view), certain variable changes should
  be part of another object.
  In addition, deriving a class, by the mean of object reuse.
-\end_layout
-
-\begin_layout Subsection
-Observation
-\end_layout
-
-\begin_layout Standard
-When instance variables accessors are used (operations to setting and getting
- the instance variables' values), then instance variables can be used as
- part of interfaces.
- However, pulling the values is time and resource consuming, user interfaces
- must invoke the accessors, even when there has not been changes.
- 
-\end_layout
-
-\begin_layout Standard
-Objects need to implement observation features, events abstraction, for
- which user interfaces subscribe to be notified only when changes happen.
- Consequently, the real-worlds entities representation become less simple,
- they involve not only its variables as instance variables, but also the
- concept of 
-\emph on
-change events
-\emph default
-, for which consumers should subscribe to get the variables values.
 \end_layout
 
 \begin_layout Subsection

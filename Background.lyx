@@ -98,11 +98,7 @@ In UI (or any other reactive) applications, real world variables' values
  values, and those which can take their values from both.
 \end_layout
 
-\begin_layout Section
-Characteristics
-\end_layout
-
-\begin_layout Subsection
+\begin_layout Description
 Identity
 \end_layout
 
@@ -141,9 +137,26 @@ has-a
 
  relationships, and has a formal distinction between objects interface and
  its implementation, to be referred to callers depending on the context.
+ 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+Specificaly, The formal distinction applies between messages sending values
+ to a setter, the variable itself, and other messages calling that setter.
+\end_layout
+
+\begin_layout Description
+Consistency
+\end_layout
+
+\begin_layout Standard
+Functions are implemented to get how a varying variable's value depends
+ on another variable's value.
+ Handle consistency means executing the functions, in response to observing
+ new values, to update dependant variables with the change.
+\end_layout
+
+\begin_layout Description
 Referential Transparency
 \end_layout
 
@@ -214,7 +227,142 @@ referential transparency
 \end_layout
 
 \begin_layout Section
-Reactive Programming
+Constraints
+\end_layout
+
+\begin_layout Standard
+There are libraries which automaticaly handle variables consistency, according
+ to a set of constraints.
+ Take for example 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Total = Price + Tip
+\end_layout
+
+\end_inset
+
+, there are three methods to satisfy the constraint: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Price = Total - Tip
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Tip = Total - Price
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Total = Price + Tip
+\end_layout
+
+\end_inset
+
+.
+ In response to any new input, the library choose what method to execute
+ to satisfy the constraint.
+\end_layout
+
+\begin_layout Standard
+When more constraints are specified and against varying input options, choosing
+ the methods to execute, become not trivial.
+ Therefore, various algorithms have been developed named 
+\emph on
+constraints solvers
+\emph default
+.
+ The principal is to prioritize the constraints, and iterate them, choosing
+ methods which does not override variables that already satisfied by previous
+ chosen methods.
+ The inputs are considered as contraints, for example if user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Tip
+\end_layout
+
+\end_inset
+
+ with the input 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+10
+\end_layout
+
+\end_inset
+
+, then the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Tip=10
+\end_layout
+
+\end_inset
+
+ is added to the set.
+ Accordingly, constraints are prioritized according to the order of the
+ inputs.
+\end_layout
+
+\begin_layout Standard
+Constraints solvers are actualy choose a consistent way to handle conflicts.
+ If we add to the above example 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Price = OriginalPrice - Discount
+\end_layout
+
+\end_inset
+
+, then it might be wandered from where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Price
+\end_layout
+
+\end_inset
+
+ should be calculated.
+ Popular libraries usually take weaker approaches to handle consistency,
+ they populate changes in one-way (as reactive variables), until an arbitrary
+ condition, with the cost of sometimes having non-predictable results.
+\end_layout
+
+\begin_layout Section
+Reactive Programming - Do not read - will be changed
 \end_layout
 
 \begin_layout Standard

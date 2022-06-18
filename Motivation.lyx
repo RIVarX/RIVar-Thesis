@@ -92,9 +92,9 @@ The Problem
 \begin_layout Standard
 In order to handle objects variables consistency, we try integrating reactive
  variables into OOP.
- However, there is a contrast: in FRP, managing variable's value takes the
- total responsibility on its values, while in OOP, one can manage variable's
- values by classes which do not own them by using accessors.
+ However, achieving predictability requires taking total responsibility
+ on variable's values, while in OOP, one can manage variable's values by
+ classes which do not own them by using accessors.
  Certainly, there is a formal disctintion between sending values to a setter,
  the variable itself and other messages calling that setter.
  

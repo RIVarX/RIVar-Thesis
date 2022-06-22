@@ -90,8 +90,16 @@ The Problem
 \end_layout
 
 \begin_layout Standard
-Achieving predictability in variables requires taking total responsibility
- on them.
+In UI applications, real world variables' values should sometimes be observed
+ over time.
+ Among variables, there are those which their values are provided by users,
+ dependant variables, in which variables's values determined by other variables
+ values, and those which can take their values from both.
+\end_layout
+
+\begin_layout Standard
+Achieving predictability in the applications' variables requires taking
+ total responsibility on them.
  However, in OOP one can manage variable's values by classes which do not
  own them.
  Because, there is a formal disctintion between sending values to an accessor,

@@ -81,25 +81,52 @@
 Background
 \end_layout
 
+\begin_layout Section
+The concepts for RIvar
+\end_layout
+
 \begin_layout Standard
-Variable (or attribute) represents quality of an object.
+Harmonizing several concepts with the name 
+\emph on
+variable
+\emph default
+ required some background.
+ In programming, a mere variable refers to symbolic name associated to memory
+ address which contains value, reactive variables refers to handling consistency
+, instance variable refers to 
+\emph on
+identity
+\emph default
+, i.e.
+ real worlds object's variable.
+\end_layout
+
+\begin_layout Subsection
+Identity
+\end_layout
+
+\begin_layout Standard
+In a general study, variable (or attribute) represents quality of an object.
  Objects refers to things in our world such as persons, cars and so on.
  Variables examples can be person's age, car's price and so on.
- However, in software, variable is only symbolic name associated to memory
- address which contain value.
- 
+ Even tough in software, variable is only symbolic name associated to memory
+ address which contains value, it may represent real world variable.
+\end_layout
+
+\begin_layout Subsubsection
+OOP
 \end_layout
 
 \begin_layout Standard
-In UI (or any other reactive) applications, real world variables' values
- should sometimes be observed over time.
- Among variables, there are those which their values are provided by users,
- dependant variables, in which variables's values determined by other variables
- values, and those which can take their values from both.
+OOP is the paradigm promoting refering objects to real world objects.
+ Therfore the instance variables should refer to real world objects variables.
+ Similar to how we understand the world, there is a formal seperation between
+ exposed instance variables accessors, the 
 \end_layout
 
-\begin_layout Description
-Identity
+\begin_layout Standard
+Instance variables can be exposed by accessors, and handle massages containing
+ values settings.
 \end_layout
 
 \begin_layout Standard
@@ -145,7 +172,7 @@ Specificaly, The formal distinction applies between messages sending values
  to a setter, the variable itself, and other messages calling that setter.
 \end_layout
 
-\begin_layout Description
+\begin_layout Subsection
 Consistency
 \end_layout
 
@@ -154,9 +181,34 @@ Functions are implemented to get how a varying variable's value depends
  on another variable's value.
  Handle consistency means executing the functions, in response to observing
  new values, to update dependant variables with the change.
+ Traditionaly we can observe change events and call the calculate function
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+sensorValue.changed += { (e) -> powerDierence = f(e) }
 \end_layout
 
-\begin_layout Description
+\end_inset
+
+, while this is automatic in frameworks facilitate directly representing
+ the functional dependency by declaring 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+powerDierence = f(sensorValue)
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
 Referential Transparency
 \end_layout
 
@@ -212,8 +264,12 @@ CurrentDate
 \end_layout
 
 \begin_layout Standard
-Declaring variables as calculation tree, leads to very predictable programs:
- the same input produces the same output every time we execute it.
+Declaring variables as calculation tree, leads to very 
+\emph on
+predictable
+\emph default
+ programs: the same input produces the same output every time we execute
+ it.
  This is similar to invoking pure function, without side effect, so produces
  consistent result, attributed as 
 \emph on
@@ -226,7 +282,7 @@ referential transparency
  rubust against changes.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsubsection
 Constraints
 \end_layout
 
@@ -362,7 +418,31 @@ Price
 \end_layout
 
 \begin_layout Section
-Reactive Programming - Do not read - will be changed
+Tools for implementing RIvar
+\end_layout
+
+\begin_layout Subsection
+Observable Streams
+\end_layout
+
+\begin_layout Standard
+Stream is somethimes thought as a complex concept to understand and use.
+ However under certain circumstances, it produces functional and predictable
+ code even for complex reactive applications.
+ 
+\end_layout
+
+\begin_layout Standard
+Form's textbox's content can be changed over time, most libraries today
+ handle this as events.
+ When handling events we executing functions without controling its time.
+ For our textbox, it can be calculate another textbox according to the change.
+ Forms textboxs' contents can be composed to streams and produce functional
+ code.
+\end_layout
+
+\begin_layout Section
+Reactive Programming - Do not read 
 \end_layout
 
 \begin_layout Standard
@@ -419,7 +499,7 @@ ts (One-way dataflow constraint is similar to unidirectional dataflow as
 \end_layout
 
 \begin_layout Section
-Object-Oriented Programming
+Object-Oriented Programming - do not read
 \end_layout
 
 \begin_layout Standard

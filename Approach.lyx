@@ -85,59 +85,60 @@ Approach
 \end_layout
 
 \begin_layout Standard
-RIvar (Reactive Instance Variable) is similar to Reactive Variable, in such
- that assigning an expression to it, refers to not calculating once, but
- refreshing the value, whenever the assigned expression's value is changed.
- The similarity to instance variables is by being associated to object'
+RIvar (Reactive Instance Variable) is similar to Reactive Variable, in that
+ assigning an expression to the variable, rather than calculating it once,
+ refreshes the value whenever the assigned expression’s value is changed.
+ RIvar is similar to instance variables in being associated to object’s
  class.
-\end_layout
-
-\begin_layout Standard
-As discussed in the background, traditional reactive variables should have
- formed graphes without cycles, to properly refresh their values.
- However, we support any graph to not prevent from assigning to variables
- of indirected interfaces.
- By the usage of objects and indirected interfaces, we are also comitted
- to objects interaction by sending and receiving messages, therefore refreshing
- the values are managed by observable streams.
-\end_layout
-
-\begin_layout Section
-Add Reactivity to Instance Variables
-\end_layout
-
-\begin_layout Standard
-Traditionaly, instance variables accessors are used (operations to setting
- and getting the instance variables' values), then instance variables can
- be used as part of interfaces.
- However, pulling the values is time and resource consuming, user interfaces
- must invoke the accessors, even when there has not been changes.
  
 \end_layout
 
 \begin_layout Standard
-In order to save time and resources, objects implement observation features,
+As discussed in the background, traditional reactive variables should have
+ formed graphs without cycles, to properly refresh their values.
+ However, RIvar supports graph for allowing assigning to variables of indirected
+ interfaces.
+ By the usage of objects and indirected interfaces, RIvar is committed to
+ objects interaction by sending and receiving messages, therefore refreshing
+ the values is managed by observable streams.
+\end_layout
+
+\begin_layout Section
+Adding Reactivity to Instance Variables
+\end_layout
+
+\begin_layout Standard
+Traditionally, instance variables accessors are used (operations to setting
+ and getting the instance variables’ values), and then instance variables
+ can be used as part of interfaces.
+ 
+\end_layout
+
+\begin_layout Standard
+However, pulling the values consumes program time and resources, since the
+ user interfaces must invoke the accessors, even in cases that not changes
+ have occurred.
+ In order to save time and resources, objects implement observation features,
  i.e.
  events abstraction, for which user interfaces subscribe to be notified
- only when changes happen.
- Consequently, the real-worlds entities representation become less simple,
- they involve not only its variables as instance variables, but also the
- concept of 
+ only when changes occur.
+ Consequently, the real-worlds' entities' representation become complicated,
+ since the representation involves not only its variables as instance variables,
+ but also the concept of 
 \emph on
 change events
 \emph default
 , for which consumers should subscribe to get the variables values.
+ 
 \end_layout
 
 \begin_layout Standard
 Instead of implementing instance variables whose values should frequently
- pulled, or managing certain change events, we implement 
-\emph on
-reactive
-\emph default
- instance variables (RIvars), with a given reactivity features.
+ be pulled, or managing certain change events, we implement reactive instance
+ variables (RIvars), with a given reactivity features.
  RIvar can be observed, subscribed, notified with values and calculated
  by an assigned expression.
+ 
 \end_layout
 
 \begin_layout Section
@@ -145,20 +146,20 @@ Multiple-Assigments
 \end_layout
 
 \begin_layout Standard
-As discussed, traditional reactive variables should have formed graphes
- without cycles, to properly refresh their values.
+As discussed, traditional reactive variables should form graphs without
+ cycles, for properly refreshing their values.
  This could be forced by prevention of indirected interfaces, contrasted
- with the current propsal.
+ with the current proposal.
  
 \end_layout
 
 \begin_layout Standard
-A cycle formed by reactive variables means recursion, yet there must be
- at least one reactive variable which is assigned more than once, or feed
- from two sources.
- Reactive instance variabels' (RIvars') references are allowed being assigned,
- with unawareness of being assigned by others.
- For this reason RIvars are defined to have multiple assigment.
+A cycle formed by reactive variables refers to recursion, yet there must
+ be at least one reactive variable which is assigned more than once, or
+ fed from two sources.
+ This is solved by Reactive instance variabels’ (RIvars’) references being
+ allowed to be assigned, with unawareness of being assigned by others.
+ For this reason RIvars are defined to have multiple assignment.
  
 \end_layout
 
@@ -169,6 +170,7 @@ The approach is contrasted with traditional reactive programming.
  be substituted by their single expression.
  However, the use of indirected interfaces leads to having multiple-assignments
  by-definition.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -306,20 +308,15 @@ Discussion
 \end_layout
 
 \begin_layout Standard
-When taking multiple-assigment into consideration, this is not perfect to
- tell the above statement, that assigning an expression to a RIvar, refers
- to refreshing the value whenever the assigned expression's value is changed.
- 
-\end_layout
-
-\begin_layout Standard
-Yet, there is a chance to that statement, doing choices between the expressions
- by the one that was recently changed, considering the other expressions's
- values as absolete.
- However, sometimes a single value change causes several expression's values
- to change.
- Then it become unclear according to what expression should the target RIvar
- refreshing.
+Considering multiple-assignment, it is not accurate that assigning an expression
+ to a RIvar, refers to refreshing the value whenever the assigned expression’s
+ value is changed.
+ Yet, it is sufficient to refresh variables that where recently changed
+ only, considering the other expressions’s values as obsolete.
+ However, sometimes a single value might cause several changes in other
+ expression’s values.
+ Then it becomes unclear according to what expression should the target
+ RIvar refresh.
  Furthermore, cycles might cause refreshing endlessly.
 \end_layout
 
@@ -328,25 +325,27 @@ Merging Streams
 \end_layout
 
 \begin_layout Standard
-By the usage of objects and indirected interfaces, we are also comitted
+By the usage of objects and indirected interfaces, we are also committed
  to objects interaction by sending and receiving messages, meaning that
- refreshing the values are managed distributedly.
+ refreshing the values are managed distributively.
  It follows that the calculation procedure, is controlled by the RIvars,
  from their subscriptions for each other.
+ RIvar and expression have values changing over time, consisting of values’
+ change’s notifications.
+ 
 \end_layout
 
 \begin_layout Standard
-RIvar and expression have values over time, consisting of values' change's
- notifications.
- They are implemented as observable streams.
- The assigment is implemented by subscribing to the two formula's sides
+They are implemented as observable streams.
+ The assignment is implemented by subscribing to the two formula’s sides
  to notify values in the left side RIvar, based on two sides history values.
  The notifying method would prevent from endless notifications, which might
  happen from recursion/cycles.
+ 
 \end_layout
 
 \begin_layout Standard
-Taking two equation's sidess history values and considering what values
+Taking two equation’s sides' history values and considering which values
  to notify and what value to prevent, can formally described as 
 \begin_inset ERT
 status open
@@ -392,12 +391,13 @@ RIvar assignment operates as a subscription, thus supporting multiple assignment
 s.
  RIvar is implemented by an observable stream, which is merged from the
  streams of the expressions assigned to the RIvar.
+ 
 \end_layout
 
 \begin_layout Standard
-The method to support multiple assignments is essential to bring RIvar being
- as property accessor (setter), because it should have the ability to be
- assigned independently, without caring about other assignments, because
+The steps to support multiple assignments are essential to form RIvar to
+ function as a property accessor (setter), because it should have the ability
+ to be assigned independently,without caring about other assignments, because
  it might be an internal behavior, so inaccessible.
  
 \end_layout

@@ -90,22 +90,18 @@ The Problem
 \end_layout
 
 \begin_layout Standard
-In order to handle objects variables consistency, we try integrating reactive
- variables into OOP.
- However, achieving predictability requires taking total responsibility
- on variable's values, while in OOP, one can manage variable's values by
- classes which do not own them by using accessors.
- Certainly, there is a formal disctintion between sending values to a setter,
- the variable itself and other messages calling that setter.
- 
+Achieving predictability in variables requires taking total responsibility
+ on them.
+ However, in OOP one can manage variable's values by classes which do not
+ own them.
+ Because, there is a formal disctintion between sending values to an accessor,
+ the variable itself and other messages calling that accessor.
 \end_layout
 
 \begin_layout Standard
 To illustrate the problem, we use an example of a drug-calculation user
  interface.
- While running the user interface, drug administration's variables are observed
- and inferred by the user assistant.
- The drug administration is actualy consists of 
+ The drug administration consists of 
 \begin_inset ERT
 status open
 
@@ -128,175 +124,10 @@ Bag
 \end_inset
 
 , which possibility being in different micro-frontends.
-\end_layout
-
-\begin_layout Section
-The Drug Calculations Domain
-\end_layout
-
-\begin_layout Standard
-Intravenous refers to injecting medicines into a patient's bloodstream.
- The Intravenous' content consists of an active ingredient mixed with fluid
- as following:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{description}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Drug
-\begin_inset Quotes erd
-\end_inset
-
-] relates to amount of medication/drug administered to a patient, (e.g.
- 20 mg).
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-VolumeOfFluid
-\begin_inset Quotes erd
-\end_inset
-
-] relates to intravenous’ fluid volume.
- An intravenous injects the medication into the patient’s body, by mixing
- the Drug with fluids (e.g., 20 ml).
+ While running the user interface, drug administration's variables are observed
+ and calculated according other observed variables.
+ In each object's class code, are its variables and calculations.
  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Concentration
-\begin_inset Quotes erd
-\end_inset
-
-] amount of the 
-\backslash
-textbf{Drug} per 
-\backslash
-textbf{VolumeOfFluid} (e.g.
- 0.5 mg/ml).
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{description}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-There are cases when, it is desirable to have a constant blood concentration
- of a medication over time:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{description}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Rate
-\begin_inset Quotes erd
-\end_inset
-
-] relates to 
-\backslash
-textbf{VolumeOfFluid} flow administered into the patient’s body per time
- unit (e.g., 20 ml per hour).
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Dose
-\begin_inset Quotes erd
-\end_inset
-
- (or Dosage)] 
-\backslash
-textbf{Drug} administered into the patient’s body per time unit (e.g., 20
- mg per hour).
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Duration
-\begin_inset Quotes erd
-\end_inset
-
-] relates to the duration from starting the injection until stopping it.
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{description}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -417,13 +248,6 @@ caption{Drug calculations' user interface.}
 
 
 \backslash
-medskip 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
 small Represents the cenario in which Dose, Duration and VolumeOfFluid were
  set, and the other fields(
 \backslash
@@ -442,6 +266,118 @@ end{figure}
 
 \end_layout
 
+\begin_layout Section
+The Bag
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+ refers to an active ingredient mixed with fluid to injecting medicines
+ into a patient's bloodstream.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{description}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Drug
+\begin_inset Quotes erd
+\end_inset
+
+] relates to amount of medication/drug administered to a patient, (e.g.
+ 20 mg).
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+VolumeOfFluid
+\begin_inset Quotes erd
+\end_inset
+
+] relates to intravenous’ fluid volume.
+ An intravenous injects the medication into the patient’s body, by mixing
+ the Drug with fluids (e.g., 20 ml).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Concentration
+\begin_inset Quotes erd
+\end_inset
+
+] amount of the 
+\backslash
+textbf{Drug} per 
+\backslash
+textbf{VolumeOfFluid} (e.g.
+ 0.5 mg/ml).
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{description}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+ implemented as object's class with the fields as its instance variables
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -457,23 +393,114 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[float,frame=single,caption=Equations to how fields' values
- are related]
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
 \end_layout
 
 \begin_layout Plain Layout
 
-Concentration = Drug/VolumeOfFluid
+
+\backslash
+begin{class}{Bag}{0,-10}
 \end_layout
 
 \begin_layout Plain Layout
 
-Rate = VolumeOfFluid/Duration
+
+\backslash
+attribute{Drug}
 \end_layout
 
 \begin_layout Plain Layout
 
-Dose = Drug/Duration
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+ object class, should handle its instance variables, to refreshing the value,
+ whenever the assigned expression's value is changed:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -496,15 +523,32 @@ end{center}
 \end_layout
 
 \begin_layout Section
-Designing Objects
+The Intravenous
 \end_layout
 
 \begin_layout Standard
-The described drug calculation domain consists of two concerns or sub-domains:
- Intravenous and Bag, which is Intravenous's content.
- Intravenous object represents a real world intravenous using a bag to inject
- it to a patient's body, therefore in runtime Intravenous contains Bag object
- reference.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Intravenous
+\end_layout
+
+\end_inset
+
+ refers to giving 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag's content
+\end_layout
+
+\end_inset
+
+ over time:
 \end_layout
 
 \begin_layout Standard
@@ -515,63 +559,66 @@ status open
 
 
 \backslash
-begin{center}
+begin{description}      
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{lstlisting}[float,frame=single, caption=Seperated Calculation] 
-\end_layout
+item[
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Plain Layout
+Rate
+\begin_inset Quotes erd
+\end_inset
 
-class Intravenous {    
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-}
+] relates to 
+\backslash
+textbf{VolumeOfFluid} flow administered into the patient’s body per time
+ unit (e.g., 20 ml per hour).
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{lstlisting}
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Dose
+\begin_inset Quotes erd
+\end_inset
+
+ (or Dosage)] 
+\backslash
+textbf{Drug} administered into the patient’s body per time unit (e.g., 20
+ mg per hour).
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{center}
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Duration
+\begin_inset Quotes erd
+\end_inset
+
+] relates to the duration from starting the injection until stopping it.
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{description}
 \end_layout
 
 \end_inset
@@ -580,21 +627,20 @@ end{center}
 \end_layout
 
 \begin_layout Standard
-The information is seperated, so that Bag has access to Drug, VolumeOfFluid
- and Concentration it contains, and Intravenous has access to its fields
- Dose, Rate , Duration and its bag's Drug and VolumeOfFluid (all fields
- except Concentration).
- Intravenous access' restrictions are applied by extracting an interface
- containing only Drug and VolumeOfFluid.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
+
+Intravenous
+\end_layout
+
+\end_inset
+
+ has fields in addition to bag's content
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -686,48 +732,6 @@ composition{Intravenous}{TheBag}{}{Content}
 
 
 \backslash
-begin{class}{Bag}{0,-10}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-implement{Content}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Drug}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{VolumeOfFluid}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Concentration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
 end{tikzpicture}
 \end_layout
 
@@ -743,25 +747,20 @@ end{center}
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption Standard
+\begin_layout Standard
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
-Intravenous' Class Diagram
+
+Intravenous
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Propogating Changes
+ object class, handle calculation including those which assigned to the
+ bag's fields, to refreshing the values, whenever any assigned expression's
+ value is changed.
 \end_layout
 
 \begin_layout Standard
@@ -779,7 +778,7 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[float,frame=single, caption=Seperated Calculation] 
+begin{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
@@ -819,22 +818,6 @@ class Intravenous {
 
 \begin_layout Plain Layout
 
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
 \end_layout
 
 \begin_layout Plain Layout
@@ -857,141 +840,56 @@ end{center}
 \end_layout
 
 \begin_layout Section
-Propogating Changes old
+Calculation with Indirection
 \end_layout
 
 \begin_layout Standard
-The calculation task should be seperated among the objects, in such that
- the bag triggers calculated values in the intravenous and vise versa.
- This is in contrast to one centerlized calculation procedure.
- 
-\end_layout
-
-\begin_layout Subsection
-Centralized Calculation
-\end_layout
-
-\begin_layout Standard
-Whenever a user sets a new value to any of the fields, a calculation procedure
- is executed.
- The procedure consists of branches according to the user-cases, in each
- branch there are three values being used to calculate the other values.
-\end_layout
-
-\begin_layout Standard
+The calculations task is spread over 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[float,frame=single,caption={Centralized Calculation (pseudocod
-e, except handling the states that not all the fields have been set yet)}]
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited values are of Dose,  Duration, and VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited values are of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited values are of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
+Itravenous
 \end_layout
 
 \end_inset
 
+ and 
+\begin_inset ERT
+status open
 
+\begin_layout Plain Layout
+
+Bag
 \end_layout
 
-\begin_layout Subsection
-Decentralized Calculation
+\end_inset
+
+.
+ Let's describe a cenario: A clinician sets values to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Intravenous' Dose
 \end_layout
 
-\begin_layout Standard
-The calculations task should be seperated according to the objects' design
- (listing 3.3).
- The first use-case (from 2.1) is described, with an itravenous (Itravenous'
- instance) and its bag (Bag' instance).
- A clinician sets values to an intravenous' Dose and Duration.
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Duration
+\end_layout
+
+\end_inset
+
+.
  In response, the itravenous calculates its bag's Drug's value.
  Then the clinician sets a value to the bag's VolumeOfFluid.
  In response, the bag calculates its Concentration's value, and the intravenous
@@ -1007,12 +905,6 @@ indirectly.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1158,176 +1050,19 @@ end{center}
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-The first use-case's sequence diagram.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Implementation
+\begin_layout Section
+Inpredictable Calculation
 \end_layout
 
 \begin_layout Standard
-We use the observer pattern, meaning that 
-\emph on
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Drug:=Duration*Dose
-\end_layout
-
-\end_inset
-
- 
-\emph default
-performs Concentration subscribing to Drug and VolumeOfFluid.
- And declaring 
-\emph on
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-TheBag.Drug:=Duration*Dose
-\end_layout
-
-\end_inset
-
-
-\emph default
- in Intravenous object, performs calculation to the bag's Drug's values
- by subscribing to its Duration and Dose.
- As a result, the calculations task is seperated according to the objects'
- design (listing 3.3).
- It can be seen that, the long central calculaton procedure (Listing 3.2),
- are replaced with two smaller object's classes, removing repetition lines
- 3 and 8.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[float,frame=single, caption=Seperated Calculation] 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Intravenous {    
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration := TheBag.Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate := TheBag.VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = TheBag.Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-The Problem
-\end_layout
-
-\begin_layout Standard
-The implementation is not straightforward , to always calculate new values
- in response to any subscription notification, or how to decide to ignore
- notifications.
- The reason is that there are cycles in the dependencies, as seen in figure
- 3.5.
- Particularly, calculated values might override values, e.g.
- in figure 3.4, the user sets Dose to 10, then Duration to 10, in response,
- according to line 5, Drug is calculated to 100.
+Unfortunately, the behavior is not satisfied.
+ Let's describe a cenario: the user sets Dose to 10, then Duration to 10,
+ in response, according to line 5, Drug is calculated to 100.
  The user then sets VolumeOfFluid to 300, in response, according to line
  9, Concentration is calculated to 0.33.
- Unfortunately, according to line 10, Drug might be overridden to 99.
+ Then, according to line 10, Drug is overridden to 99.
+ The reason for the unexpected updates is that there are cycles in the dependenc
+ies.
 \end_layout
 
 \begin_layout Standard
@@ -1685,6 +1420,267 @@ end{figure}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Cycles Apearance
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Intravenous
+\end_layout
+
+\end_inset
+
+ handle its calcualtion, it knows its bag, however it does not aware of
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Concentration
+\end_layout
+
+\end_inset
+
+ that will apear in runtime.
+ Therfore there should not be a reason to it, to know about 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ VolumeOfFluid := Drug*Concentration
+\end_layout
+
+\end_inset
+
+, closing a cycle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[float,frame=single, caption=Cycle Cross Objects] 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Intravenous {  
+\end_layout
+
+\begin_layout Plain Layout
+
+ Duration := TheBag.VolumeOfFluid*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+ TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid := Drug*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
+\backslash
+node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
+\backslash
+node[shape=circle,draw=black] (Drug) at (1,3) {
+\backslash
+textit{Drug}};     
+\backslash
+node[shape=circle,draw=black] (Conc) at (1.5,1) {
+\backslash
+textit{Conc}};     
+\backslash
+node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
+\backslash
+node[shape=circle,draw=black] (Rate) at (5,1) {
+\backslash
+textit{Rate}} ;  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Vol) -- (Dur);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Rate) -- (Dur);  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dur) -- (Drug);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dose) -- (Drug);   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Vol);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Conc) -- (Vol); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{Cycle Cross Objects} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+medskip 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+small *long names are mentioned by their prefix
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+It is essential to refreshing values, based on other variables' change.
+ However, in OOP it leads to inpredictable results when cycles apear.
+ Even when an object's class does not declare cycles, in runtime cycles
+ might exist.
+ 
 \end_layout
 
 \end_body

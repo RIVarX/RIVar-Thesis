@@ -1,0 +1,43 @@
+% Marble Diagrams
+% 
+% (c) Gon�alo Lopes
+%
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+% 
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{rxmarbles}
+  [2016/01/10 v0.1 TikZ style package for drawing reactive extension marble diagrams]
+
+\RequirePackage{tikz}
+\tikzset{every picture/.style={/utils/exec={\sffamily}}}
+\usetikzlibrary[arrows,shapes,decorations.text]
+\definecolor{lightgray}{RGB}{174,174,174}
+
+\tikzset{
+ box/.style={draw,rectangle,right,thick},
+ rounded/.style={draw,rounded rectangle,right,thick},
+ time/.style={thick,-angle 45},
+ fdash/.style={dashed,-triangle 45},
+ rdash/.style={dashed,triangle 45-},
+ subscribe/.style={dashed,angle 60-,thick,color=blue},
+ red/.style={fill=red},
+ yellow/.style={fill=yellow},
+ green/.style={fill=green},
+ cyan/.style={fill=cyan},
+ blue/.style={fill=blue},
+ magenta/.style={fill=magenta},
+ orange/.style={fill=orange},
+ marble/.style={draw=black,fill=lightgray,thick,minimum size=4.5mm},
+ triangle/.style={regular polygon,regular polygon sides=3,rotate=180,scale=0.8,yshift=-0.7mm},
+ pentagon/.style={regular polygon,regular polygon sides=5},
+ hexagon/.style={regular polygon,regular polygon sides=6},
+ fivestar/.style={star,star point ratio=2.5,inner sep=0pt,rounded corners=0.2mm},
+ buffer/.style={draw,rounded rectangle,fill=white,inner sep=3pt},
+ complete/.style={draw=none,fill=none,font={\boldmath$\vert$}}
+}
+
+\endinput
+%%
+%% End of file `mypackage.sty'.

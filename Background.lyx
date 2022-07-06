@@ -82,71 +82,38 @@ Background
 \end_layout
 
 \begin_layout Section
-The concepts for RIvar
+Variables
 \end_layout
 
 \begin_layout Standard
-Harmonizing several concepts with the name 
-\emph on
-variable
-\emph default
- required some background.
- In programming, a mere variable refers to symbolic name associated to memory
- address which contains value, reactive variables refers to handling consistency
-, instance variable refers to 
-\emph on
-identity
-\emph default
-, i.e.
- real worlds object's variable.
+Variable may refer to symbolic name associated to memory address which contains
+ value.
+ However, variable can be extended to more advanced terms.
 \end_layout
 
 \begin_layout Subsection
-Identity
-\end_layout
-
-\begin_layout Standard
-In a general study, variable (or attribute) represents quality of an object.
- Objects refers to things in our world such as persons, cars and so on.
- Variables examples can be person's age, car's price and so on.
- Even tough in software, variable is only symbolic name associated to memory
- address which contains value, it may represent real world variable.
-\end_layout
-
-\begin_layout Subsubsection
-OOP
-\end_layout
-
-\begin_layout Standard
-OOP is the paradigm promoting refering objects to real world objects.
- Therfore the instance variables should refer to real world objects variables.
- Similar to how we understand the world, there is a formal seperation between
- exposed instance variables accessors, the 
-\end_layout
-
-\begin_layout Standard
-Instance variables can be exposed by accessors, and handle massages containing
- values settings.
-\end_layout
-
-\begin_layout Standard
-Variable may represent real world variable, even if it is a plain symbolic
- name associated to memory address, it may contain value represents the
- real world variable's value.
- Accordingly, variable may be referred by different names, depending on
- the context.
- This concept remind what is called 
-\emph on
-identity
-\emph default
-.
- 
+Instance Variable
 \end_layout
 
 \begin_layout Standard
 In OOP, objects represent the identity of real world objects, therefore
  their instance variables should represent the real world variable.
- Accordingly, objects can inherit other objects, with the 
+ Generaly, variable may represent real world variable, even if it is a plain
+ symbolic name associated to memory address, it may contain value represents
+ the real world variable's value.
+\end_layout
+
+\begin_layout Standard
+In general research, variables refer to the real-world objects' variables
+ (or attributes) such as persons' weight and so on.
+ variables have values which vary over the time.
+ In software, it is very common to simulate the real world variables values
+ by assigning the variables values whenever the software determines a change.
+\end_layout
+
+\begin_layout Standard
+OOP is a perfect platform to simulate the real world variables.
+ By implementing 
 \begin_inset Quotes eld
 \end_inset
 
@@ -154,7 +121,7 @@ is-a
 \begin_inset Quotes erd
 \end_inset
 
- relationships, associated to each other with 
+ (inheritance) and 
 \begin_inset Quotes eld
 \end_inset
 
@@ -162,45 +129,80 @@ has-a
 \begin_inset Quotes erd
 \end_inset
 
- relationships, and has a formal distinction between objects interface and
- its implementation, to be referred to callers depending on the context.
- 
-\end_layout
-
-\begin_layout Standard
-Specificaly, The formal distinction applies between messages sending values
- to a setter, the variable itself, and other messages calling that setter.
+ relationships, variables can be refernced with diffrent terms depending
+ on the context.
+ This involves a formal distinction between messages sending values to a
+ setters, the variables , and other messages calling that setters.
 \end_layout
 
 \begin_layout Subsection
-Consistency
+Reactive Variable
 \end_layout
 
 \begin_layout Standard
-Functions are implemented to get how a varying variable's value depends
- on another variable's value.
- Handle consistency means executing the functions, in response to observing
- new values, to update dependant variables with the change.
- Traditionaly we can observe change events and call the calculate function
- 
+In contrast to traditional variables, reactive variables is automatically
+ consistent according to the defined formulas.
+ In such frameworks, a reactive variable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ assigned by an expression is populated in response to changes in the value
+ of any of the variables existing in the expression.
+ For example, the meaning of the formula 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-sensorValue.changed += { (e) -> powerDierence = f(e) }
+A:=B+1
 \end_layout
 
 \end_inset
 
-, while this is automatic in frameworks facilitate directly representing
- the functional dependency by declaring 
+ is that variable 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-powerDierence = f(sensorValue)
+A
+\end_layout
+
+\end_inset
+
+ relates to the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B+1
+\end_layout
+
+\end_inset
+
+, so that the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ is changed in response to any change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
 \end_layout
 
 \end_inset
@@ -208,7 +210,78 @@ powerDierence = f(sensorValue)
 .
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Section
+Variables' Values' Consistency
+\end_layout
+
+\begin_layout Standard
+Functions are implemented to get how a varying variable's value depends
+ on another variable's value.
+ Handle consistency means executing the functions, in response to observing
+ new values, to update dependant variables with the change.
+ 
+\end_layout
+
+\begin_layout Standard
+Traditionaly we can observe change events and call the calculate function
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{sensorValue.changed += { (e) -> powerDierence = f(e) }}
+\end_layout
+
+\end_inset
+
+, while this is automatic in frameworks facilitate directly representing
+ the functional dependency (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+powerDierence
+\end_layout
+
+\end_inset
+
+ depending on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+sensorValue
+\end_layout
+
+\end_inset
+
+) by declaring 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{powerDierence = f(sensorValue)}
+\end_layout
+
+\end_inset
+
+.
+ The variables and dependencies form a 
+\emph on
+dependencies graph
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
 Referential Transparency
 \end_layout
 
@@ -222,7 +295,9 @@ status open
 
 \begin_layout Plain Layout
 
-Age := CurrentDate-BirthDate
+
+\backslash
+textit{Age := CurrentDate-BirthDate}
 \end_layout
 
 \end_inset
@@ -233,7 +308,9 @@ status open
 
 \begin_layout Plain Layout
 
-Age
+
+\backslash
+textit{Age}
 \end_layout
 
 \end_inset
@@ -244,7 +321,9 @@ status open
 
 \begin_layout Plain Layout
 
-BirthDate
+
+\backslash
+textit{BirthDate}
 \end_layout
 
 \end_inset
@@ -255,7 +334,9 @@ status open
 
 \begin_layout Plain Layout
 
-CurrentDate
+
+\backslash
+textit{CurrentDate}
 \end_layout
 
 \end_inset
@@ -282,7 +363,7 @@ referential transparency
  rubust against changes.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Constraints
 \end_layout
 
@@ -412,174 +493,675 @@ Price
 \end_inset
 
  should be calculated.
- Popular libraries usually take weaker approaches to handle consistency,
- they populate changes in one-way (as reactive variables), until an arbitrary
- condition, with the cost of sometimes having non-predictable results.
-\end_layout
-
-\begin_layout Section
-Tools for implementing RIvar
-\end_layout
-
-\begin_layout Subsection
-Observable Streams
-\end_layout
-
-\begin_layout Standard
-Stream is somethimes thought as a complex concept to understand and use.
- However under certain circumstances, it produces functional and predictable
- code even for complex reactive applications.
  
 \end_layout
 
-\begin_layout Standard
-Form's textbox's content can be changed over time, most libraries today
- handle this as events.
- When handling events we executing functions without controling its time.
- For our textbox, it can be calculate another textbox according to the change.
- Forms textboxs' contents can be composed to streams and produce functional
- code.
-\end_layout
-
-\begin_layout Section
-Reactive Programming - Do not read 
-\end_layout
-
-\begin_layout Standard
-Reactive Programming (RP) harmonizes concepts from traditional paradigms
- for programming reactive systems: Events, Unidirectional Dataflow and Constrain
-ts.
- Each of the paradigms addresses has a unique abstraction mechanism to manage
- inconsistencies, which might exist in the runtime data and static data.
- Inconsistency in runtime data refers to non-valid states, of which variables'
- values have not been calculated in accordance to other variables' values.
- Inconsistency in static data refers to those bugs causing by an error-prone
- process, handling code-changes several times.
- Reducing inconsistency in static data is handled by reducing code repetition
- by paradigms' independent reusable units.
-\end_layout
-
 \begin_layout Subsection
-Events
+Weak Approaches 
 \end_layout
 
 \begin_layout Standard
-Events (or observer pattern) are used for reusable objects, so that objects
- will not depend on specific callers, but the callers would subscribe/listen
- to their relevant events.
- We can implement events that would execute in response to variables' changes,
- triggering event handlers which would trigger other variables to calculate
- considering the new values.
-\end_layout
-
-\begin_layout Subsection
-Unidirectional Dataflow
+There are non FRP libraries, which handle declared functional dependencies
+ by automatically calculating values in response to new values provided.
+ In contrast to FRP, the calculations might be inpredictable.
 \end_layout
 
 \begin_layout Standard
-Reactive systems may be abstracted as composed mathematical functions, using
- reactive variables or streams (by managing effects).
- In this manner, we can specify reusable code of how to calculate data by
- other data.
- In runtime, while an input device produces an input, the system will produce
- a changes chain according to the program, until triggering the output devices
- to produce the effects.
+The inpredictable is because, there can be cycles in the graph, even in
+ declaring 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A := B
 \end_layout
 
-\begin_layout Subsection
-Constraints
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B := A
 \end_layout
 
-\begin_layout Standard
-There are reactive systems which can be abstracted as multidirectional constrain
-ts (One-way dataflow constraint is similar to unidirectional dataflow as
- in 2.2).
- Constraints solvers (algorithms) manage the runtime, to handle any input
- and update variables to satisfy the constraints.
-\end_layout
+\end_inset
 
-\begin_layout Section
-Object-Oriented Programming - do not read
-\end_layout
-
-\begin_layout Standard
-Objects refers to real-world objects (e.g.
- Persons), described by the property named 
-\emph on
-identity
-\emph default
 .
- The real-world objects' variables (or attributes) (e.g.
- Persons' weight) are represented by objects' instance variables.
- Specifically, an instance variable may be an association to another object's
- identity.
- The real-world objects' variables' values 
-\emph on
-vary
-\emph default
- during their life-cycle, simulated by 
-\emph on
-updating
-\emph default
- the instance variables content.
+ Furthermore, when applications use seperation tools provided in OOP, we
+ cannot prevent from cycles.
+ For example, declaring to calculate values for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ in response to new values provided to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, does not require full control over of the two variables.
+ So there might be another declaration referring to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ which calculates values for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ in response to new values provided to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When cycles exist, libraries use an arbitrary condition to stop the changes,
+ to not enter an infinite loop.
+ 
+\end_layout
+
+\begin_layout Section
+Stream
+\end_layout
+
+\begin_layout Standard
+When handling applications over time, updating variables using the assigment
+ operator, we identified time variation in the real world with time variation
+ in the computer.
+ Stream is an alternative to model phenomena over time without refering
+ explicity the time.
+ With libraries such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Cycle.js
+\end_layout
+
+\end_inset
+
+, program logic consists of one pure function (composed of small other pure
+ functions), calculating what sequence of effects to produce according to
+ the input sequence of effects.
  
 \end_layout
 
 \begin_layout Standard
-(Originaly objects are like components, used to save time by using ready-to-use
- components instead of develop again and again.
- Accordingly, doing a new feature or a bug fix, can be performed once.
- However, we should be carful about components' changes, to prevent from
- unexpected changes.
+The effects are like events, in such that they do nothing, when no one is
+ registered.
+ A stream may be a sequence of events notifications produced by changing
+ input control's value, represented real world variable.
+ Accordingly, stream may be a sequence of events to notify about a real
+ world variables changes, for which an input control should be registered
+ and be updated.
+ The effects are produced with parameters, and it depends on the consumer
+ what function to register and how to use the parameters arrived.
+\end_layout
+
+\begin_layout Standard
+A set of operators are provided to compose the more advanced calculations
+ needed.
+ One basic operator is named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+select
+\end_layout
+
+\end_inset
+
+ (or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+map
+\end_layout
+
+\end_inset
+
+), it produces an effect in the output stream, whenever there is an effect
+ in the input stream.
  
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+select
+\end_layout
+
+\end_inset
+
+ takes function as parameter, the function is calculated to get the parameter
+ of the output effect, from the parameter arrived to the input effect.
+ For example, program that updates field 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ according to field 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, such that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B=A+1
+\end_layout
+
+\end_inset
+
+, Let's 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+a
+\end_layout
+
+\end_inset
+
+ be the stream of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+'s values
 \end_layout
 
 \begin_layout Standard
-We recognize two mechanizms to prevent from unexpected changes.
- First, components have 
-\emph on
-interfaces
-\emph default
- as contracts, seperating the specification from the implementation details.
- Second, instance variables are encapsulated, each object manage its instance
- variables seperatly.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+a=FromEvents(A)
+\end_layout
+
+\begin_layout Plain Layout
+
+b=a.Select(instant=>instant+1)
+\end_layout
+
+\begin_layout Plain Layout
+
+b.Subscribe(instant=>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-There are several related technical issue preventing from being that elegant
- paradigm.)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
 \end_layout
 
-\begin_layout Subsection
-Vary the Variables Responsibility
+\begin_layout Plain Layout
+
 \end_layout
 
-\begin_layout Standard
-By definition, objects maintain their internal state (data), resulting limitatio
-n in abstracting objects' variables' changes: to be included only in the
- code of the object containing the variables.
- To rid of the limitation, objects implement accessors methods to manipulting
- their instance variables.
- However, the data is stopped from being controlled by its containing object.
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
 \end_layout
 
-\begin_layout Standard
-This is in contrast to keep controlling the objects , from the real-world
- aspect (or the modeller point of view), certain variable changes should
- be part of another object.
- In addition, deriving a class, by the mean of object reuse.
+\begin_layout Plain Layout
+
+{
 \end_layout
 
-\begin_layout Subsection
-Reentrance
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (7,0);
 \end_layout
 
-\begin_layout Standard
-The indirect nature of objects leads to recursive invoke methods, in which
- object sending a message is unaware of the receiver identity and whether
- this message is not a re-entrance.
- When receiving a message, one should be aware of the caller, thus it cannot
- distinguish between initial calls, or recursive calls.
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle,red] (0x0) at (1,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle,yellow] (1x0) at (2,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle,green] (2x0) at (3,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle,cyan] (3x0) at (4,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle,blue] (4x0) at (5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle,magenta] (5x0) at (6,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[complete] (6x0) at (6.5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[box,minimum width=7cm] (op) {Select
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}[baseline=-1mm]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[marble,circle] (x) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[marble,diamond,right=5mm of x] (y) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw [fdash] (x) -- (y);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+}};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (7,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,red] (0x2) at (1,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,yellow] (1x2) at (2,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,green] (2x2) at (3,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,cyan] (3x2) at (4,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,blue] (4x2) at (5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,magenta] (5x2) at (6,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[complete] (6x2) at (6.5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x0) -- (0x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x0) -- (1x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (4x0) -- (4x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (5x0) -- (5x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (6x0) -- (6x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (0x2) -- (0x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (1x2) -- (1x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x2) -- (2x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x2) -- (3x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (4x2) -- (4x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x2) -- (5x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x2) -- (6x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

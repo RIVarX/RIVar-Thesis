@@ -92,8 +92,8 @@ literal "false"
 
  can be assigned by an expression consisting of a set of reactive variables,
  for being populated in response to changes.
- Concretely, the value of the variable equals to the value of the expression,
- which is evaluated in response to changes in the value of any of the variables
+ The value of the variable is equal to the value of the expression, which
+ is evaluated in response to changes in the value of any of the variables
  existing in the expression.
  For example, the meaning of the formula 
 \begin_inset ERT
@@ -106,7 +106,7 @@ A:=B+1
 
 \end_inset
 
- is that the variable 
+ is that variable 
 \begin_inset ERT
 status open
 
@@ -156,16 +156,16 @@ B
 \begin_layout Standard
 FRP abstracts away the need to handle variables' consistency, i.
  e.
- from the need to update variables in response to variables' changes.
+ eliminates the need to update variables in response to variables' changes.
  However, it is desireable to use also Object Oriented Programming (OOP),
  to have an additional abstraction mechanism that is missing in FRP.
- In detail, programmers in OOP can use mechniams such as inheritance to
+ In detail, programmers in OOP can use mechanisms such as inheritance to
  reduce code duplication.
  Consequently, a change request does not require changing the code in several
  places.
  Therefore, the data consistency defining the software behavior is abstracted
  away.
- Thus, the software behavior can have a 
+ Thus, and advantageously the software behavior can have a 
 \emph on
 single source of truth.
 \end_layout
@@ -177,9 +177,9 @@ Various libraries enable the use of FRP with imperative code of the OOP
 g between reactive variables and events.
  An additional library SignalJ includes an integration mechanism providing
  events considered as side-effects for variables' changes.
- An API named ReactiveX for C# Langauge, adoped by more languages (e.g.
+ An API named ReactiveX for C# Langauge, adoped by other languages (e.g.
  RxJS in JavaScript) provides a reactive variable as an events stream.
- The reactive variable value is presented over time by the events stream.
+ The reactive variable value is presented along time by the events stream.
 \end_layout
 
 \begin_layout Standard
@@ -187,9 +187,9 @@ Integration of functional-reactive code with imperative code might contain
  circular dependencies causing infinite loops.
  For example, a change in a reactive variable, might execute an event handler,
  causing the reactive variable to change.
- The problem might happen also in pure FRP (such as hapenning by imperative-base
-d implememtation), in presence of recursive definitions.
- For example, the formulas defintions 
+ The problem might happen also in pure FRP (such as happens by imperative-based
+ implementation), in presence of recursive definitions.
+ Even the simple formulas 
 \begin_inset ERT
 status open
 
@@ -260,21 +260,21 @@ A-1
 
 \begin_layout Standard
 The responsibility to avoid circular dependencies is unfortunately applied
- by many places in the code.
- However, is there any option to separate the functional-reactive code to
- classes (to use OOP on top of FRP), and to map the classes to responsibilities,
+ by many locations in the code.
+ Is there any option to separate the functional-reactive code to classes
+ (to use OOP on top of FRP), and to map the classes to responsibilities,
  with no responsibility leakage? In software architecture aspect, may a
 \emph on
  
 \emph default
 black-box software component exposing its reactive variables, be extended,
- including assigning it, without producing infinite loops, and without digging
- into the component's internal details?
+ including to assignment, without producing infinite loops, and without
+ digging into the component’s internal details?
 \end_layout
 
 \begin_layout Standard
 In addition, in the attempt to combine FRP with OOP, there is an open question
- whether to support reassigment 
+ whether to support reassignment 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "salvaneschi2014towards"
@@ -284,7 +284,7 @@ literal "false"
 
 .
  Declaring class variables being reactive variables, arises that conflict,
- whether to enable reassigment e.g.
+ whether to enable reassignment e.g.
  declaring 
 \begin_inset ERT
 status open
@@ -308,7 +308,7 @@ A:=C+1
 \end_inset
 
 .
- In FRP, reassigment should not be enabled, because in FRP we 
+ In FRP, reassignment should not be enabled, since in FRP we 
 \begin_inset Quotes eld
 \end_inset
 
@@ -334,7 +334,7 @@ literal "false"
 \end_inset
 
 .
- However, in OOP reassigment should be enabled for assigning independently
+ In contrast, in OOP reassignment should be enabled for assigning independently
  e.g., 
 \begin_inset ERT
 status open
@@ -366,7 +366,7 @@ Contribution
 
 \begin_layout Standard
 We solve the conflict between the paradigms, by defining semantics to multiple-a
-ssigments instead of reassigment, and which enable recursion defintions.
+ssigments instead of reassignment, and which enable recursion defintions.
 \end_layout
 
 \begin_layout Standard

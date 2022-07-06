@@ -102,20 +102,22 @@ Achieving predictability in the applications' variables requires taking
  total responsibility on them.
  However, in OOP one can manage variable's values by classes which do not
  own them.
- Because, there is a formal disctintion between sending values to an accessor,
- the variable itself and other messages calling that accessor.
+ Because, there is a formal disctintion between sending values to a variable
+ (by an accessor, method or an event handler), the variable itself and other
+ messages sending values to that variable.
+ Accordingly, for certain OO applications, it seems imposible to achieve
+ predictability.
 \end_layout
 
 \begin_layout Standard
-To illustrate the problem, we use an example of a drug-calculation user
- interface.
+We use an example of a drug-calculation user interface.
  The drug administration consists of 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-Intravenous
+Infusion
 \end_layout
 
 \end_inset
@@ -333,9 +335,9 @@ VolumeOfFluid
 \begin_inset Quotes erd
 \end_inset
 
-] relates to intravenous’ fluid volume.
- An intravenous injects the medication into the patient’s body, by mixing
- the Drug with fluids (e.g., 20 ml).
+] relates to Infusion’ fluid volume.
+ An Infusion injects the medication into the patient’s body, by mixing the
+ Drug with fluids (e.g., 20 ml).
  
 \end_layout
 
@@ -470,7 +472,20 @@ Bag
 \end_inset
 
  object class, should handle its instance variables, to refreshing the value,
- whenever the assigned expression's value is changed:
+ in response to changes.
+ By denoting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+:=
+\end_layout
+
+\end_inset
+
+ we mean that the left side variable should be refreshed whenever the expression
+'s value is changed.
 \end_layout
 
 \begin_layout Standard
@@ -503,7 +518,7 @@ class Bag{
 
 \begin_layout Plain Layout
 
-  Drug = Volume*Concentration
+  Drug := Volume*Concentration
 \end_layout
 
 \begin_layout Plain Layout
@@ -531,7 +546,7 @@ end{center}
 \end_layout
 
 \begin_layout Section
-The Intravenous
+The Infusion
 \end_layout
 
 \begin_layout Standard
@@ -540,7 +555,7 @@ status open
 
 \begin_layout Plain Layout
 
-Intravenous
+Infusion
 \end_layout
 
 \end_inset
@@ -640,7 +655,7 @@ status open
 
 \begin_layout Plain Layout
 
-Intravenous
+Infusion
 \end_layout
 
 \end_inset
@@ -698,7 +713,7 @@ end{interface}
 
 
 \backslash
-begin{class}[text width=8 cm]{Intravenous}{0,0}
+begin{class}[text width=8 cm]{Infusion}{0,0}
 \end_layout
 
 \begin_layout Plain Layout
@@ -733,7 +748,7 @@ end{class}
 
 
 \backslash
-composition{Intravenous}{TheBag}{}{Content}
+composition{Infusion}{TheBag}{}{Content}
 \end_layout
 
 \begin_layout Plain Layout
@@ -761,14 +776,34 @@ status open
 
 \begin_layout Plain Layout
 
-Intravenous
+Infusion
 \end_layout
 
 \end_inset
 
- object class, handle calculation including those which assigned to the
- bag's fields, to refreshing the values, whenever any assigned expression's
- value is changed.
+ object class, handle calculations while referring also to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+bag's
+\end_layout
+
+\end_inset
+
+ fields, unawaring of the calculations specified within 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -791,7 +826,7 @@ begin{lstlisting}
 
 \begin_layout Plain Layout
 
-class Intravenous {    
+class Infusion {    
 \end_layout
 
 \begin_layout Plain Layout
@@ -881,7 +916,7 @@ status open
 
 \begin_layout Plain Layout
 
-Intravenous' Dose
+Infusion' Dose
 \end_layout
 
 \end_inset
@@ -900,13 +935,13 @@ Duration
 .
  In response, the itravenous calculates its bag's Drug's value.
  Then the clinician sets a value to the bag's VolumeOfFluid.
- In response, the bag calculates its Concentration's value, and the intravenous
+ In response, the bag calculates its Concentration's value, and the Infusion
  calculates its Rate's value, according to the bag's VolumeOfFluid's new
  value.
 \end_layout
 
 \begin_layout Standard
-It can be seen, that the bag calls to the intravenous to calculate its rate's
+It can be seen, that the bag calls to the Infusion to calculate its rate's
  value 
 \emph on
 indirectly.
@@ -941,7 +976,7 @@ newthread{A}{User Interface}{}
 
 
 \backslash
-newinst[1]{B}{Intravenous}{}     
+newinst[1]{B}{Infusion}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1109,7 +1144,7 @@ newthread{A}{User Interface}{}
 
 
 \backslash
-newinst[1]{B}{Intravenous}{}     
+newinst[1]{B}{Infusion}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1441,7 +1476,7 @@ status open
 
 \begin_layout Plain Layout
 
-Intravenous
+Infusion
 \end_layout
 
 \end_inset
@@ -1493,7 +1528,7 @@ begin{lstlisting}[float,frame=single, caption=Cycle Cross Objects]
 
 \begin_layout Plain Layout
 
-class Intravenous {  
+class Infusion {  
 \end_layout
 
 \begin_layout Plain Layout

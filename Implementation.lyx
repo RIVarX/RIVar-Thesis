@@ -84,8 +84,412 @@
 Implementation
 \end_layout
 
-\begin_layout Standard
+\begin_layout Section
+Signal
+\end_layout
 
+\begin_layout Standard
+Signal class represents the template for values notifications.
+ Signal's instance (or simply 
+\emph on
+signal
+\emph default
+) is 
+\emph on
+external input
+\emph default
+, produced from value observed from the environment, such as from input
+ changed by the user.
+ Otherwise it is from calculating other signals.
+\end_layout
+
+\begin_layout Standard
+Signals produced from the environment are ordered according to the time,
+ each signal contains an identity number according to its time.
+ The signals produced from calculating other signals, contain a set of identity
+ numbers according to the signals that they are produced from.
+\end_layout
+
+\begin_layout Standard
+For Example:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Signal x (external input)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=8 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+identity number: 1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Signal y (external input)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+identity number: 2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Signal z = x*y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+identity numbers: {1,2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The signals have a total order.
+ External input's signal produced later have an identity number that is
+ greater.
+ Similary, signal calculated from signals that produced later is greater
+ than signals produced from old ones.
+ The Signal class implements the 
+\emph on
+IComparable
+\emph default
+ interface, so that each two signals can be compared.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+<
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1,2}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+<
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1,3}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+>
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1,2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Streams of Signals
+\end_layout
+
+\begin_layout Standard
+A variable's values is represented by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Subject}
+\end_layout
+
+\end_inset
+
+ instance, which is an 
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+RIvar is implemented as stream of signals having assignment method operates
+ as subscription.
+ The implemented assigment is based on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{A:=B}
+\end_layout
+
+\end_inset
+
+ implemented as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newline
+\backslash
+textit{B.Subscribe(val=>A.OnNext(val))}
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{A:=B+C}
+\end_layout
+
+\end_inset
+
+ implemented as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newline
+\backslash
+textit{B.CombineLatest(C,(b,c)=>b+c).Subscribe(val=>A.OnNext(val))}
+\end_layout
+
+\end_inset
+
+.
+ However, the implemented solution propogate the signals according their
+ order.
+\end_layout
+
+\begin_layout Subsection
+Assigment
+\end_layout
+
+\begin_layout Standard
+The assigment operation checks the signals, by not only subscribing to the
+ assigned stream, but also to the stream of the target.
+ Each new incoming signal is compared against the target's latest signal.
+ The assigment operation will pass an incoming signals only when the result
+ is 
+\begin_inset Quotes eld
+\end_inset
+
+greater than
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Monotonic Streams
+\end_layout
+
+\begin_layout Standard
+When using 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+CombineLatest
+\end_layout
+
+\end_inset
+
+, there might be a signal which is greater than its predecessor (associated
+ with the 
+\emph on
+glitch
+\emph default
+ issue).
+ Therefore, we do not use the CombineLatest directly, but calling it upon
+ the monotonic streams.
+ The monotonic streams produced by the extension method 
+\emph on
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Monotonic
+\end_layout
+
+\end_inset
+
+, 
+\emph default
+which
+\emph on
+ 
+\emph default
+filter out signals, if they are not greater than their predecessor.
+\end_layout
+
+\begin_layout Section
+RIvar
+\end_layout
+
+\begin_layout Standard
+The streams are wrapped with RIvar
 \end_layout
 
 \end_body

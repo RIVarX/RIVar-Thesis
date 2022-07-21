@@ -108,37 +108,13 @@ Adding Reactivity to Instance Variables
 \end_layout
 
 \begin_layout Standard
-Traditionally, instance variables accessors are used (operations to setting
- and getting the instance variables’ values), and then instance variables
- can be used as part of interfaces.
- 
-\end_layout
-
-\begin_layout Standard
-However, pulling the values consumes program time and resources, since the
- user interfaces must invoke the accessors, even in cases that not changes
- have occurred.
- In order to save time and resources, objects implement observation features,
- i.e.
- events abstraction, for which user interfaces subscribe to be notified
- only when changes occur.
- Consequently, the real-worlds' entities' representation become complicated,
- since the representation involves not only its variables as instance variables,
- but also the concept of 
-\emph on
-change events
-\emph default
-, for which consumers should subscribe to get the variables values.
- 
-\end_layout
-
-\begin_layout Standard
-Instead of implementing instance variables whose values should frequently
- be pulled, or managing certain change events, we implement reactive instance
- variables (RIvars), with a given reactivity features.
- RIvar can be observed, subscribed, notified with values and calculated
- by an assigned expression.
- 
+We suggest to improve the instance (object's) variables semantics, in representi
+ng real world object's variables.
+ The traditional instance variables are interepted many times as mere objects'
+ internal state, due their passive nature.
+ In our approach real world variables need features similar to reactive
+ variables: get their values from external components or from calculating
+ them (by assigned expressions), and also to notify values changes.
 \end_layout
 
 \begin_layout Section

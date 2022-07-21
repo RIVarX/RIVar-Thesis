@@ -28,6 +28,7 @@
 }
 \usepackage{tikz,rxmarbles}
 \usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -407,6 +408,16 @@ filename "Motivation.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "Approach.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Implementation.lyx"
 
 \end_inset
 

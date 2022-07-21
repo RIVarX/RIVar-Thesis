@@ -97,17 +97,22 @@ Instance Variable
 
 \begin_layout Standard
 In OOP, objects represent the identity of real world objects, therefore
- their instance variables should represent the real world variable.
+ their instance variables should represent real world variables.
  Generaly, variable may represent real world variable, even if it is a plain
- symbolic name associated to memory address, it may contain value represents
- the real world variable's value.
+ symbolic name associated to memory address, it may contain value representing
+ real world variable's value.
 \end_layout
 
 \begin_layout Standard
-In general research, variables refer to the real-world objects' variables
- (or attributes) such as persons' weight and so on.
- variables have values which vary over the time.
- In software, it is very common to simulate the real world variables values
+In general research, variable is related to attribute, that is quality of
+ an object, e.g.
+ person's weight.
+ Variables' values 
+\emph on
+vary
+\emph default
+ over time.
+ In software, it is very common to simulate the real world variables' values
  by assigning the variables values whenever the software determines a change.
 \end_layout
 
@@ -129,7 +134,7 @@ has-a
 \begin_inset Quotes erd
 \end_inset
 
- relationships, variables can be refernced with diffrent terms depending
+ relationships, variables can be referenced with different terms depending
  on the context.
  This involves a formal distinction between messages sending values to a
  setters, the variables , and other messages calling that setters.
@@ -141,8 +146,8 @@ Reactive Variable
 
 \begin_layout Standard
 In contrast to traditional variables, reactive variables is automatically
- consistent according to the defined formulas.
- In such frameworks, a reactive variable 
+ consistent according to defined formulas.
+ In such frameworks, reactive variable 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -196,7 +201,7 @@ A
 
 \end_inset
 
- is changed in response to any change of the value of 
+ is changed in response to any change in the value of 
 \begin_inset ERT
 status open
 
@@ -610,140 +615,304 @@ When cycles exist, libraries use an arbitrary condition to stop the changes,
 \end_layout
 
 \begin_layout Section
-Stream
+Events Stream
 \end_layout
 
 \begin_layout Standard
 When handling applications over time, updating variables using the assigment
  operator, we identified time variation in the real world with time variation
  in the computer.
- Stream is an alternative to model phenomena over time without refering
- explicity the time.
- With libraries such as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Cycle.js
-\end_layout
-
-\end_inset
-
-, program logic consists of one pure function (composed of small other pure
- functions), calculating what sequence of effects to produce according to
- the input sequence of effects.
+ Stream is an alternative to model phenomena over time, such as varying
+ variable's value, without refering explicity the time.
  
 \end_layout
 
 \begin_layout Standard
-The effects are like events, in such that they do nothing, when no one is
- registered.
- A stream may be a sequence of events notifications produced by changing
- input control's value, represented real world variable.
- Accordingly, stream may be a sequence of events to notify about a real
- world variables changes, for which an input control should be registered
- and be updated.
- The effects are produced with parameters, and it depends on the consumer
- what function to register and how to use the parameters arrived.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{ReactiveX}
+\end_layout
+
+\end_inset
+
+ is a popular library for the stream programming model.
+ In 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{ReactiveX}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Observable}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Observer}
+\end_layout
+
+\end_inset
+
+ implement the observer pattern for a sequence.
+ Observers subscribe to Observables, and the Observables calls the observers'
+ methods' 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+ for each item in the sequence.
+ 
 \end_layout
 
 \begin_layout Standard
-A set of operators are provided to compose the more advanced calculations
- needed.
- One basic operator is named 
+Based on that observable sequence, there are operators to produce streams
+ from observing other streams.
+ For example, 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-select
+A=B.Select(b=>b+1)
 \end_layout
 
 \end_inset
 
- (or 
+, observe the items of a stream 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-map
+
+\backslash
+textit{B}
 \end_layout
 
 \end_inset
 
-), it produces an effect in the output stream, whenever there is an effect
- in the input stream.
+, whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{B}'s 
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+ is called, then the lambda expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{b=>b+1}
+\end_layout
+
+\end_inset
+
+ is executed, with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{b}
+\end_layout
+
+\end_inset
+
+ containing the new value, then the result is used as parameter in calling
  
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-select
+
+\backslash
+textit{A}'s 
+\backslash
+textit{OnNext}
 \end_layout
 
 \end_inset
 
- takes function as parameter, the function is calculated to get the parameter
- of the output effect, from the parameter arrived to the input effect.
- For example, program that updates field 
+.
+\end_layout
+
+\begin_layout Standard
+The use of the operator 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-B
+
+\backslash
+textit{Select}
 \end_layout
 
 \end_inset
 
- according to field 
+, produces pure function over streams, and can compose other pure functions.
+ For example: adding 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+textit{C=A.Select(a=>a+1})
 \end_layout
 
 \end_inset
 
-, such that 
+ to the program, is equivalent to writing only 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-B=A+1
+C=B.Select(b=>b+2)
 \end_layout
 
 \end_inset
 
-, Let's 
+.
+ 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-a
+Select
 \end_layout
 
 \end_inset
 
- be the stream of 
+ is an example to the powerful operators provided, that reserves the functional
+ purity, and calculate not only the values, but also 
+\emph on
+when
+\emph default
+ to get the values.
+\end_layout
+
+\begin_layout Standard
+The values in the input stream, such as 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+textit{A}
 \end_layout
 
 \end_inset
 
-'s values
+ in the example, are triggered (by calling the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+), by an external execution, such as an input control, that calls 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{A}'s 
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+ whenever there is a change event.
+ The items if the output stream is produced according to the time of the
+ inputs stream's items.
+ The values in the output stream is used to an external execution, such
+ as updating an input control, by subscribing to the output stream (which
+ is an observable).
+\end_layout
+
+\begin_layout Standard
+Marble diagrams are useful to understand how operators operate the streams,
+ as in figure 2.1, the input and output items are ilustrated over the time-axis.
+ In the example (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Select}
+\end_layout
+
+\end_inset
+
+ operator), whenever value is produced in the input stream, value in the
+ output is provided.
 \end_layout
 
 \begin_layout Standard
@@ -754,65 +923,15 @@ status open
 
 
 \backslash
-begin{center}
+begin{figure} 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{lstlisting}[numbers=none]  
+centering 
 \end_layout
-
-\begin_layout Plain Layout
-
-a=FromEvents(A)
-\end_layout
-
-\begin_layout Plain Layout
-
-b=a.Select(instant=>instant+1)
-\end_layout
-
-\begin_layout Plain Layout
-
-b.Subscribe(instant=>
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
 
 \begin_layout Plain Layout
 
@@ -848,42 +967,38 @@ draw [time] (0,0) -- (7,0);
 
   
 \backslash
-node[marble,circle,red] (0x0) at (1,0) {};
+node[marble,circle] (0x0) at (1,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,circle,yellow] (1x0) at (2,0) {};
+node[marble,circle] (2x0) at (3,0) {3};
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,circle,green] (2x0) at (3,0) {};
+node[marble,circle] (3x0) at (4,0) {8};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,circle,cyan] (3x0) at (4,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle,blue] (4x0) at (5,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle,magenta] (5x0) at (6,0) {};
+node[marble,circle] (5x0) at (6,0) {2};
 \end_layout
 
 \begin_layout Plain Layout
@@ -927,14 +1042,14 @@ begin{tikzpicture}[baseline=-1mm]
 
     
 \backslash
-node[marble,circle] (x) {};
+node[marble,minimum height=6mm] (x) {x};
 \end_layout
 
 \begin_layout Plain Layout
 
     
 \backslash
-node[marble,diamond,right=5mm of x] (y) {};
+node[marble,minimum height=6mm,right=5mm of x] (y) {x+1};
 \end_layout
 
 \begin_layout Plain Layout
@@ -983,42 +1098,38 @@ draw [time] (0,0) -- (7,0);
 
   
 \backslash
-node[marble,diamond,red] (0x2) at (1,0) {};
+node[marble,circle] (0x2) at (1,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,diamond,yellow] (1x2) at (2,0) {};
+node[marble,circle] (2x2) at (3,0) {4};
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,diamond,green] (2x2) at (3,0) {};
+node[marble,circle] (3x2) at (4,0) {9};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,diamond,cyan] (3x2) at (4,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,diamond,blue] (4x2) at (5,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,diamond,magenta] (5x2) at (6,0) {};
+node[marble,circle] (5x2) at (6,0) {3};
 \end_layout
 
 \begin_layout Plain Layout
@@ -1055,9 +1166,6 @@ draw [fdash] (0x0) -- (0x0|-op.north);
 
 \begin_layout Plain Layout
 
-
-\backslash
-draw [fdash] (1x0) -- (1x0|-op.north);
 \end_layout
 
 \begin_layout Plain Layout
@@ -1076,9 +1184,6 @@ draw [fdash] (3x0) -- (3x0|-op.north);
 
 \begin_layout Plain Layout
 
-
-\backslash
-draw [fdash] (4x0) -- (4x0|-op.north);
 \end_layout
 
 \begin_layout Plain Layout
@@ -1108,9 +1213,6 @@ draw [rdash] (0x2) -- (0x2|-op.south);
 
 \begin_layout Plain Layout
 
-
-\backslash
-draw [rdash] (1x2) -- (1x2|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
@@ -1129,9 +1231,6 @@ draw [rdash] (3x2) -- (3x2|-op.south);
 
 \begin_layout Plain Layout
 
-
-\backslash
-draw [rdash] (4x2) -- (4x2|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
@@ -1157,6 +1256,21 @@ draw [rdash] (6x2) -- (6x2|-op.south);
 
 \backslash
 end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{Marble Diagram for an execution example for A=B.Select(b=>b+1) }
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
 \end_layout
 
 \end_inset

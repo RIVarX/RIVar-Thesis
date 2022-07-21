@@ -90,27 +90,37 @@ The Problem
 \end_layout
 
 \begin_layout Standard
-In UI applications, real world variables' values should sometimes be observed
- over time.
- Among variables, there are those which their values are provided by users,
- dependant variables, in which variables's values determined by other variables
- values, and those which can take their values from both.
+In the traditional semantics of objects and instance variables, UI applications
+ should sometimes observing changing variables' values.
+ Pulling the values consumes program time and resources, since the UI applicatio
+n must invoke the accessors, even in cases when no changes have occurred.
+ In order to save time and resources, objects implement observation features,
+ i.e.
+ events abstraction, for which user interfaces subscribe to be notified
+ only when changes occur.
+ Consequently, the representation become complicated, since it involves
+ not only its variables as instance variables, but also the concept of 
+\emph on
+change events
+\emph default
+, for which consumers should subscribe to get the variables values.
+ 
 \end_layout
 
 \begin_layout Standard
-Achieving predictability in the applications' variables requires taking
- total responsibility on them.
- However, in OOP one can manage variable's values by classes which do not
- own them.
- Because, there is a formal disctintion between sending values to a variable
+Recently, modern features of reactivity are suggested, which replace the
+ need for change events.
+ Among reactivity solutions, there are those which achieve predictability.
+ However, they require taking total responsibility on the variables, while
+ in OOP one can manage variable's values by classes which do not own them,
+ and there is a formal disctintion between sending values to a variable
  (by an accessor, method or an event handler), the variable itself and other
  messages sending values to that variable.
- Accordingly, for certain OO applications, it seems imposible to achieve
- predictability.
 \end_layout
 
 \begin_layout Standard
-We use an example of a drug-calculation user interface.
+For certain OO applications, it seems imposible to achieve predictability:
+ We use an example of a drug-calculation user interface.
  The drug administration consists of 
 \begin_inset ERT
 status open
@@ -134,10 +144,12 @@ Bag
 \end_inset
 
 , which possibility being in different micro-frontends.
- While running the user interface, drug administration's variables are observed
- and calculated according other observed variables.
- In each object's class code, are its variables and calculations.
+ This seperation involves problems in calculating the variables correctly.
  
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Standard
@@ -1719,11 +1731,19 @@ Summary
 \end_layout
 
 \begin_layout Standard
-It is essential to refreshing values, based on other variables' change.
- However, in OOP it leads to inpredictable results when cycles apear.
- Even when an object's class does not declare cycles, in runtime cycles
- might exist.
- 
+It is sometimes desirable assigning objects' variables, which we do not
+ own, to give them values according data we do own.
+ The same is true when the variables are reactive variables assigned with
+ expressions (to keep getting values).
+ As we keep on seperation and isolation, it is not acceptable to prevent
+ from cycles in declaring the data flow.
+\end_layout
+
+\begin_layout Standard
+So, it would be respected to find out how to propogate the values without
+ to get unpredictable values.
+ Of course, the solution should not be a central component that handle the
+ calculations, as we said about objects' logic , so it is in runtime.
 \end_layout
 
 \end_body

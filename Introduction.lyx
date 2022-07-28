@@ -292,7 +292,7 @@ footnote{https://reactivex.io}
 \emph on
 event stream
 \emph default
-, emitting the values over time, based on the 
+, which is an observable emitting values to subscribers, based on the 
 \emph on
 observer 
 \emph default
@@ -321,14 +321,14 @@ However, integration of functional-reactive code with imperative code might
  For example, a change in a reactive variable, might execute an event handler,
  causing the reactive variable to change.
  The problem might happen also in pure FRP (such as happens by imperative-based
- implementation), in presence of recursive definitions.
+ implementation), in case recursive definitions are presented.
  Even the simple formulas 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-A:=B+1
+A:=B
 \end_layout
 
 \end_inset
@@ -339,12 +339,12 @@ status open
 
 \begin_layout Plain Layout
 
-B:=A-1
+B:=A
 \end_layout
 
 \end_inset
 
- contain circular dependencies: the variable 
+ contain circular dependencies: the value of 
 \begin_inset ERT
 status open
 
@@ -355,18 +355,7 @@ A
 
 \end_inset
 
- relates to the expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B+1
-\end_layout
-
-\end_inset
-
-, and the variable 
+ is changed in response to any change of the value of 
 \begin_inset ERT
 status open
 
@@ -377,13 +366,24 @@ B
 
 \end_inset
 
- relates to the expression 
+, while any change in the value of 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-A-1
+B
+\end_layout
+
+\end_inset
+
+ triggers a change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
 \end_layout
 
 \end_inset
@@ -392,7 +392,11 @@ A-1
 \end_layout
 
 \begin_layout Standard
-Avoiding circular dependencies might be difficult, for a modular code.
+(*** add existing solutions to circular dependencies?)
+\end_layout
+
+\begin_layout Standard
+In modular programming, avoiding circular dependencies might be difficult.
  It is unclear how well can we separate the functional-reactive code to
  software units such as modules, objects, components, micro-services, micro-fron
 tends and so on.
@@ -485,7 +489,7 @@ X
 , then accessing the variables of the objects would have sometimes involved
  dynamic dispatch processes.
  If so, then the application would have discovered the actual used variables
- only in runtime, without being aware of the circular dependencies.
+ only in runtime, without being aware of existence of circular dependencies.
 \end_layout
 
 \begin_layout Section
@@ -503,7 +507,14 @@ Reactive Instance variable
 \emph on
 RIvar
 \emph default
-, behaves as a combination of instance variable from OOP and reactive variable
+, being consistent with both 
+\emph on
+instance variable
+\emph default
+ from OOP and 
+\emph on
+reactive variable
+\emph default
  from FRP.
  We then implement a prototype of an application demonstrating how RIvars
  are used, and evaluate RIvar on its help in seperating the application
@@ -523,14 +534,14 @@ textbf{Outline.}
 
 \end_inset
 
-Chapter 3 presents an introductory example to concretely illustrate the
- problem and the solution's design space.
- This example demonstrates a drug calculation user interface, and an object-orie
-nted design to seperate its concerns.
- Chapter 4 presents the approach and illustrate the concept of RIvar (Reactive
- Instance Variable).
- Chapter 5 presents the implementation.
- Chapter 6, presents the evaluation.
+ Chapter 3 presents a motivation example, Chapter 4 presents the proposed
+ semantics, Chapter 5 uses the new semantics by implementing the new type
+ 
+\emph on
+RIvar
+\emph default
+ for C# programming language.
+ Chapter 6 evaluate the results by the help of a prototype application.
 \end_layout
 
 \end_body

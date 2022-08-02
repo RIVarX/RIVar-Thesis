@@ -85,272 +85,57 @@ Approach
 \end_layout
 
 \begin_layout Standard
-RIvar (Reactive Instance Variable) is similar to Reactive Variable, in that
- assigning an expression to the variable, rather than calculating it once,
- refreshes the value whenever the assigned expression’s value is changed.
- RIvar is similar to instance variables in being associated to object’s
- class.
+Reactive variable is 
+\emph on
+continuous
+\emph default
  
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
 
-\begin_layout Standard
-As discussed in the background, traditional reactive variables should have
- formed graphs without cycles, to properly refresh their values.
- However, RIvar supports graph for allowing assigning to variables of indirected
- interfaces.
- By the usage of objects and indirected interfaces, RIvar is committed to
- objects interaction by sending and receiving messages, therefore refreshing
- the values is managed by observable streams.
-\end_layout
+\end_inset
 
-\begin_layout Section
-Adding Reactivity to Instance Variables
-\end_layout
-
-\begin_layout Standard
-We suggest to improve the instance (object's) variables semantics, in representi
-ng real world object's variables.
- The traditional instance variables are interepted many times as mere objects'
- internal state, due their passive nature.
- In our approach real world variables need features similar to reactive
- variables: get their values from external components or from calculating
- them (by assigned expressions), and also to notify values changes.
-\end_layout
-
-\begin_layout Section
-Multiple-Assigments
-\end_layout
-
-\begin_layout Standard
-As discussed, traditional reactive variables should form graphs without
- cycles, for properly refreshing their values.
- This could be forced by prevention of indirected interfaces, contrasted
- with the current proposal.
- 
-\end_layout
-
-\begin_layout Standard
-A cycle formed by reactive variables refers to recursion, yet there must
- be at least one reactive variable which is assigned more than once, or
- fed from two sources.
- This is solved by Reactive instance variabels’ (RIvars’) references being
- allowed to be assigned, with unawareness of being assigned by others.
- For this reason RIvars are defined to have multiple assignment.
- 
-\end_layout
-
-\begin_layout Standard
-The approach is contrasted with traditional reactive programming.
- Reactive programming, originally been Functional Reactive Programming,
- has promoted the use of functional style, so that reactive variables could
- be substituted by their single expression.
- However, the use of indirected interfaces leads to having multiple-assignments
- by-definition.
- 
-\end_layout
-
-\begin_layout Standard
+, by being used independant of time.
+ Associating reactive variable with an expression, such as 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (X) at (5,5) {X};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][->, >=latex] (X) -- (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
+X:=A+B
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Subsection
-Discussion 
-\end_layout
-
-\begin_layout Standard
-Considering multiple-assignment, it is not accurate that assigning an expression
- to a RIvar, refers to refreshing the value whenever the assigned expression’s
- value is changed.
- Yet, it is sufficient to refresh variables that where recently changed
- only, considering the other expressions’s values as obsolete.
- However, sometimes a single value might cause several changes in other
- expression’s values.
- Then it becomes unclear according to what expression should the target
- RIvar refresh.
- Furthermore, cycles might cause refreshing endlessly.
+, describes continously how varying value depends on other varying values.
+ In contrast, an 
+\emph on
+event stream
+\emph default
+ consists of descrete timed values.
+ The event stream is an observable of values produced from being also an
+ observer.
 \end_layout
 
 \begin_layout Section
-Merging Streams
+Syntax
 \end_layout
 
 \begin_layout Standard
-By the usage of objects and indirected interfaces, we are also committed
- to objects interaction by sending and receiving messages, meaning that
- refreshing the values are managed distributively.
- It follows that the calculation procedure, is controlled by the RIvars,
- from their subscriptions for each other.
- RIvar and expression have values changing over time, consisting of values’
- change’s notifications.
- 
-\end_layout
-
-\begin_layout Standard
-They are implemented as observable streams.
- The assignment is implemented by subscribing to the two formula’s sides
- to notify values in the left side RIvar, based on two sides history values.
- The notifying method would prevent from endless notifications, which might
- happen from recursion/cycles.
- 
-\end_layout
-
-\begin_layout Standard
-Taking two equation’s sides' history values and considering which values
- to notify and what value to prevent, can formally described as 
+Reactive variables, being the FRP code, is integrated with the imperative
+ code, by associating reactive variables with events streams, e.g., 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-merge
-\end_layout
 
-\end_inset
+\backslash
 
- method, such that specifying an assigment 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=f(B)
-\end_layout
-
-\end_inset
-
- means 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=merge(A,f(B))
+\backslash
+A=ValuesFromEvents(InputControl.ChangeEvents)
 \end_layout
 
 \end_inset
@@ -358,24 +143,305 @@ A=merge(A,f(B))
 .
 \end_layout
 
+\begin_layout Standard
+It is allowed having several associations to a single reactive variable.
+ e.g., 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+X:=A+B
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+X:=Y
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+X=ValuesFromEvents(FirstInputControl1.ChangeEvents)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+X=ValuesFromEvents(FirstInputControl2.ChangeEvents)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and also 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+X:=A+B
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+X=ValuesFromEvents(InputControl.ChangeEvents)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Reactive variables are of reference type, therfore they can have several
+ references, being able to add more associations to them.
+ e.g., given 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=X
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=Y
+\end_layout
+
+\end_inset
+
+, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B
+\end_layout
+
+\end_inset
+
+, produces a single reactive variable with two associations.
+\end_layout
+
 \begin_layout Section
-Summary
+Semantics
 \end_layout
 
 \begin_layout Standard
-RIvar assignment operates as a subscription, thus supporting multiple assignment
-s.
- RIvar is implemented by an observable stream, which is merged from the
- streams of the expressions assigned to the RIvar.
+In computers, reactive variable's actual values are not continously given.
+ For example, reactive variable reflecting temperature, associated to stream
+ of events from measuring by a thermometer.
+ Conceptualy, the reactive variable reflects the temperature continuously,
+ but in runtime, it depends on the actual stream of values.
+\end_layout
+
+\begin_layout Standard
+Therfore, reactive variable has two abstraction levels.
+ the higher level, is continuous, to being use independant of time.
+ But in the lower level (
+\begin_inset Quotes eld
+\end_inset
+
+under the hood
+\begin_inset Quotes erd
+\end_inset
+
+), the reactive variable is an event stream.
+\end_layout
+
+\begin_layout Standard
+Operators over reactive variables, such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
++
+\end_layout
+
+\end_inset
+
+ in the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A+B
+\end_layout
+
+\end_inset
+
+, means in the high level, continuously reflecting the variables' sum.
+ However
+\emph on
+, 
+\emph default
+in the low level, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ are streams, and the operator 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
++
+\end_layout
+
+\end_inset
+
+ is a function over them, producing a stream values notifications from applying
+ + on the latest values from the notifications from A and B.
+
+\emph on
  
 \end_layout
 
 \begin_layout Standard
-The steps to support multiple assignments are essential to form RIvar to
- function as a property accessor (setter), because it should have the ability
- to be assigned independently,without caring about other assignments, because
- it might be an internal behavior, so inaccessible.
+Reactive variables which is associated with several streams (streams of
+ imperative events, streams of reactive variable and streams of an expression
+ of reactive variables), are notified about its values from the several
+ streams, similar to having several devices to sampling a single variable
+ in the world.
+ Anyway, the reactive variable provides to its subscribers, a single stream
+ of values based on the several streams, it is subscribed to.
  
+\end_layout
+
+\begin_layout Section
+Distributed Algorithm
+\end_layout
+
+\begin_layout Standard
+When propogating values through the operators and associations, each party,
+ as an observable and observer, tracks its input values and 
+\begin_inset Quotes eld
+\end_inset
+
+decide
+\begin_inset Quotes erd
+\end_inset
+
+ what values to notify to its subscribers.
+ They should run a distributed algorithm , such that the whole behavior
+ is consistent, while each of the variables execute its part independently.
+ 
+\end_layout
+
+\begin_layout Standard
+The algorithm should helps the parties handle two challenges: first (for
+ the operators), what is named 
+\emph on
+glitch
+\emph default
+,
+\emph on
+ 
+\emph default
+second (for the variables), how to merge the streams.
 \end_layout
 
 \end_body

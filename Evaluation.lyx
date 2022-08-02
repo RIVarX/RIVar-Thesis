@@ -81,10 +81,142 @@
 Evaluation
 \end_layout
 
+\begin_layout Section
+Cycles
+\end_layout
+
 \begin_layout Standard
-Identity+
-\emph on
-predictable
+compare the handling of cycles
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (X) at (5,5) {X};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

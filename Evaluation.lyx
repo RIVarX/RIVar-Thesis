@@ -82,11 +82,22 @@ Evaluation
 \end_layout
 
 \begin_layout Section
-Cycles
+Circular Dependencies
 \end_layout
 
 \begin_layout Standard
-compare the handling of cycles
+Claim: Whenever there is a cycle, there must be a variable with several
+ associations.
+ Proof by contradiction: given pure FRP code produced with a cycle, such
+ that each variable has exactly one one association, that connects it to
+ the cycle.
+ In the integration to environment, there must be inputs, which is associated
+ to a variable, in addition to the first association.
+ Therefore that is one variable that has two associations.
+\end_layout
+
+\begin_layout Standard
+As a result, as we support multiple associations, we support cycles.
 \end_layout
 
 \begin_layout Standard
@@ -197,7 +208,7 @@ radius);
 
 
 \backslash
-node[draw, circle] (X) at (5,5) {X};    
+node[above] (X) at (5,5) {$input$};    
 \end_layout
 
 \begin_layout Plain Layout
@@ -217,6 +228,14 @@ end{tikzpicture}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Other solutions to cycles:
+\end_layout
+
+\begin_layout Standard
+non predictive results
 \end_layout
 
 \begin_layout Section

@@ -94,10 +94,9 @@ literal "false"
 
 \end_inset
 
- paradigm deals with abstracting away the need to handle variables' consistency,
- i.e., eliminates the need to update variables in response to other variables'
- updates.
- Declaring a 
+ is a paradigm that abstracts away the need to update variables in response
+ to other variables' updates.
+ A 
 \emph on
 reactive variable
 \emph default
@@ -109,7 +108,7 @@ literal "false"
 
 \end_inset
 
- (similar to 
+ (with some variations also known as 
 \emph on
 behavior
 \emph default
@@ -145,10 +144,10 @@ literal "false"
 
 \end_inset
 
-) assigned by an expression consisting of a set of other reactive variables,
- produces an automation such that, the value of the variable is set to the
- value of the expression, which is evaluated in response to changes in the
- value of any of the variables appearing in the expression.
+) can be assigned by an expression consisting of a set of other reactive
+ variables, consequently the value of the variable is set to the value of
+ the expression, which is evaluated in response to changes in the value
+ of any of the variables appearing in the expression.
  For example, given reactive variables 
 \begin_inset ERT
 status open
@@ -227,6 +226,252 @@ B
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+There are two limitations when using FRP.
+ First, applications must avoid recursive definitions e.g., having in the
+ application both 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+.
+ The reason is that, recursive definitions leads to infinite loop.
+ As in the example, the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ is changed in response to any change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, while any change in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ triggers a change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Second, if there are several variables calculated from one variable, and
+ the variables apear in one expression.
+ Then it is incorrect to evaluate the expression, while other variables
+ have not updated yet.
+ This is known as 
+\emph on
+glitch.
+
+\emph default
+ e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C:=B
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D:=A+C
+\end_layout
+
+\end_inset
+
+.
+ The problem can be avoided by substituting the variables with their associated
+ expressions.
+ e.g., replace 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C:=B
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D:=A+C
+\end_layout
+
+\end_inset
+
+ with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=2*B
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+FRP works correctly as a monolith application, because the developers can
+ manage the variables and formulas.
+ The application is managed with variables and formulas well designed as
+ an acyclic graph, by a single block of code.
+ However, for a non-monolith application, the FRP paradigm has been poorly
+ applied.
+ It is challenged because existing formulas may be hidden.
+ e.g., given two reactive variables A and B, and hidden formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ in unit X, then in unit Y, there may be 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+.
+ Similary, given hidden formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C:=B
+\end_layout
+
+\end_inset
+
+ in unit X, then in unit Y there may be 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D:=A+C
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this work we focus on the integration of FRP with the 
+\emph on
+Object Oriented Programming
+\emph default
+ (OOP) paradigm.
+\end_layout
+
+\begin_layout Standard
+—————-
 \end_layout
 
 \begin_layout Standard
@@ -517,8 +762,7 @@ reactive variable
 \emph default
  from FRP.
  We then implement a prototype of an application demonstrating how RIvars
- are used, and evaluate RIvar on its help in seperating the application
- and reducing code repetition.
+ are used, and evaluate RIvar on its help in the abstraction.
 \end_layout
 
 \begin_layout Standard

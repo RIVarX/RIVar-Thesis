@@ -420,7 +420,7 @@ B
 
 \end_inset
 
- triggers a change of the value of 
+ triggers a change to the value of 
 \begin_inset ERT
 status open
 
@@ -749,8 +749,14 @@ C1
 
 \begin_layout Standard
 In implementing abstract data types (i.e., interfaces or abstract classs),
- the challenges becomes significant.
- e.g., in the example above, class 
+ overcoming the challenges becomes significant, and it becomes evident that
+ providers and clients need to agree about the exact meaning (i.e., semantics)
+ of the reactive variables.
+ e.g., in the example above,
+\end_layout
+
+\begin_layout Standard
+class 
 \begin_inset ERT
 status open
 
@@ -761,18 +767,7 @@ C1
 
 \end_inset
 
- can be abstract, and it becomes evident that classes 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- and 
+ can be abstract, and class 
 \begin_inset ERT
 status open
 
@@ -783,8 +778,63 @@ C2
 
 \end_inset
 
- need to agree about the exact meaning (i.e., semantics) of the reactive variables
- 
+ should not be aware of any implementation of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C1
+\end_layout
+
+\end_inset
+
+ (such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C3
+\end_layout
+
+\end_inset
+
+).
+ Class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C1
+\end_layout
+
+\end_inset
+
+ with the contained 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+c1.B := c1.A
+\end_layout
+
+\end_inset
+
+ need to depend only on the interface and semantics of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C1
+\end_layout
+
+\end_inset
+
+ with its reactive variables 
 \begin_inset ERT
 status open
 

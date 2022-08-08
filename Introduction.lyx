@@ -248,7 +248,7 @@ literal "false"
 \end_inset
 
 , an existing language can be extended with reactive variables as data type.
- Accordingly, Libraries such as ReactiveX 
+ Accordingly, Libraries such as ReactiveX
 \begin_inset ERT
 status open
 
@@ -261,7 +261,7 @@ footnote{https://reactivex.io}
 
 \end_inset
 
- and REscala 
+ and REscala
 \begin_inset ERT
 status open
 
@@ -281,18 +281,40 @@ reactive instance variables
 , that are reactive variables as objects' data members (or instance variables).
  Therefrom, objects' classes can contain formulas, that are activated once
  objects are created.
- For instance, class 
+ e.g., class 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-X
+C
 \end_layout
 
 \end_inset
 
- contains reactive variables associated with the formula 
+ contains two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, and contains also the formula 
 \begin_inset ERT
 status open
 
@@ -304,11 +326,35 @@ A:=B
 \end_inset
 
 .
+ Consequently, in each instance of C, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ that is associated to the instance will continuously re-evaluated in response
+ to changes in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ that is associated to the same instance.
 \end_layout
 
 \begin_layout Standard
-However, reactive instance variables highlights two challenges existing
- in the FRP paradigm.
+There are two challenges in the FRP paradigm, in the way to use reactive
+ instance variables.
  First, applications must avoid circular dependencies 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -490,8 +536,10 @@ A:=2*B
 \end_layout
 
 \begin_layout Standard
-For the first challenge, reactive instance variables can have circular dependenc
-ies, e.g., base class contains 
+With reactive instance variables, if we do not avoid OOP features, we face
+ the two challenges.
+ The first challenge, reactive instance variables can have circular dependencies
+, e.g., base class contains 
 \begin_inset ERT
 status open
 
@@ -514,8 +562,8 @@ B:=A
 \end_inset
 
 .
- For the second challenge, reactive instance variables can have glitches,
- e.g., base class contains 
+ The second challenge, reactive instance variables can have glitches, e.g.,
+ base class contains 
 \begin_inset ERT
 status open
 
@@ -552,8 +600,7 @@ D:=A+C
 \end_layout
 
 \begin_layout Standard
-The same challenges are the same when implementing composition (instead
- of inheritance).
+The same are when implementing composition (instead of inheritance).
  e.g., in the following construct, there is a circular dependency: class 
 \begin_inset ERT
 status open
@@ -702,7 +749,7 @@ C1
 
 \begin_layout Standard
 In implementing abstract data types (i.e., interfaces or abstract classs),
- overcoming the challenges becomes significant.
+ the challenges becomes significant.
  e.g., in the example above, class 
 \begin_inset ERT
 status open
@@ -736,7 +783,7 @@ C2
 
 \end_inset
 
- should agree about the exact meaning (i.e., semantics) of the reactive variables
+ need to agree about the exact meaning (i.e., semantics) of the reactive variables
  
 \begin_inset ERT
 status open

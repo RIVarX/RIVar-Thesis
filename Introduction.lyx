@@ -309,8 +309,15 @@ A:=B
 \begin_layout Standard
 However, reactive instance variables highlights two challenges existing
  in the FRP paradigm.
- First, applications must avoid circular dependencies e.g., having in the
- application both 
+ First, applications must avoid circular dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ e.g., having in the application both 
 \begin_inset ERT
 status open
 
@@ -388,7 +395,15 @@ Second, if there are several variables calculated from one variable, and
  have not updated yet.
  This is known as 
 \emph on
-glitch.
+glitch 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
 
 \emph default
  e.g., 
@@ -537,8 +552,9 @@ D:=A+C
 \end_layout
 
 \begin_layout Standard
-In implementing polymorphism, we meet the same challenges.
- e.g., class 
+The same challenges are the same when implementing composition (instead
+ of inheritance).
+ e.g., in the following construct, there is a circular dependency: class 
 \begin_inset ERT
 status open
 
@@ -626,7 +642,7 @@ C3
 
 \end_inset
 
- derived from 
+ is derived from 
 \begin_inset ERT
 status open
 
@@ -648,7 +664,7 @@ A:=B
 
 \end_inset
 
-, in runtime there is a third party that loads 
+, and in runtime a third party creates instance of 
 \begin_inset ERT
 status open
 
@@ -659,7 +675,18 @@ C3
 
 \end_inset
 
- and returns it as 
+ and returns it to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C2
+\end_layout
+
+\end_inset
+
+ as 
 \begin_inset ERT
 status open
 
@@ -687,7 +714,7 @@ C1
 
 \end_inset
 
- can be abstract, and classes 
+ can be abstract, and it becomes evident that classes 
 \begin_inset ERT
 status open
 
@@ -698,7 +725,7 @@ C1
 
 \end_inset
 
- 
+ and 
 \begin_inset ERT
 status open
 

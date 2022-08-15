@@ -237,8 +237,8 @@ literal "false"
 
 \end_inset
 
- found that FRP has potential to be integrated with the traditional OOP
- paradigm.
+ research the integration of FRP with the traditional Object Oriented Programmin
+g (OOP) features.
  In the popular approach 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -247,8 +247,9 @@ literal "false"
 
 \end_inset
 
-, an existing language can be extended with reactive variables as data type.
- Accordingly, Libraries such as ReactiveX
+, an existing language can be extended with a variation of reactive variables
+ as data type.
+ Accordingly, libraries such as ReactiveX
 \begin_inset ERT
 status open
 
@@ -274,13 +275,20 @@ footnote{https://www.rescala-lang.com}
 
 \end_inset
 
-, support having 
+, support having a variation of reactive variables as objects' data members
+ (named also 
 \emph on
-reactive instance variables
+instance variables
 \emph default
-, that are reactive variables as objects' data members (or instance variables).
- Therefrom, objects' classes can contain formulas, that are activated once
- objects are created.
+).
+ Therefrom, objects' classes can contain
+\emph on
+ reactive instance variables
+\emph default
+, that are instance variables of type reactive variables.
+ Also, objects' classes can contain formulas based on the reactive instance
+ variables they contain.
+ The formulas are activated once the objects are created.
  e.g., class 
 \begin_inset ERT
 status open
@@ -292,7 +300,7 @@ C
 
 \end_inset
 
- contains two reactive variables 
+ contains two reactive instance variables 
 \begin_inset ERT
 status open
 
@@ -441,7 +449,9 @@ Second, if there are several variables calculated from one variable, and
  have not updated yet.
  This is known as 
 \emph on
-glitch 
+glitch
+\emph default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -450,8 +460,6 @@ literal "false"
 \end_inset
 
 .
-
-\emph default
  e.g., 
 \begin_inset ERT
 status open
@@ -510,7 +518,7 @@ C:=B
 
 \end_inset
 
-,
+, 
 \begin_inset ERT
 status open
 
@@ -536,8 +544,7 @@ A:=2*B
 \end_layout
 
 \begin_layout Standard
-With reactive instance variables, if we do not avoid OOP features, we face
- the two challenges.
+The challenges become relevant in the integration with OOP.
  The first challenge, reactive instance variables can have circular dependencies
 , e.g., base class contains 
 \begin_inset ERT
@@ -751,12 +758,8 @@ C1
 In implementing abstract data types (i.e., interfaces or abstract classs),
  overcoming the challenges becomes significant, and it becomes evident that
  providers and clients need to agree about the exact meaning (i.e., semantics)
- of the reactive variables.
- e.g., in the example above,
-\end_layout
-
-\begin_layout Standard
-class 
+ of the reactive instance variables.
+ e.g., in the example above class 
 \begin_inset ERT
 status open
 
@@ -834,7 +837,7 @@ C1
 
 \end_inset
 
- with its reactive variables 
+ with its reactive instance variables 
 \begin_inset ERT
 status open
 

@@ -86,42 +86,12 @@
 \begin_body
 
 \begin_layout Chapter
-The Problem 
+Motivation 
 \end_layout
 
 \begin_layout Standard
-In the traditional semantics of objects and instance variables, UI applications
- should sometimes observing changing variables' values.
- Pulling the values consumes program time and resources, since the UI applicatio
-n must invoke the accessors, even in cases when no changes have occurred.
- In order to save time and resources, objects implement observation features,
- i.e.
- events abstraction, for which user interfaces subscribe to be notified
- only when changes occur.
- Consequently, the representation become complicated, since it involves
- not only its variables as instance variables, but also the concept of 
-\emph on
-change events
-\emph default
-, for which consumers should subscribe to get the variables values.
- 
-\end_layout
-
-\begin_layout Standard
-Recently, modern features of reactivity are suggested, which replace the
- need for change events.
- Among reactivity solutions, there are those which achieve predictability.
- However, they require taking total responsibility on the variables, while
- in OOP one can manage variable's values by classes which do not own them,
- and there is a formal disctintion between sending values to a variable
- (by an accessor, method or an event handler), the variable itself and other
- messages sending values to that variable.
-\end_layout
-
-\begin_layout Standard
-For certain OO applications, it seems imposible to achieve predictability:
- We use an example of a drug-calculation user interface.
- The drug administration consists of 
+In the following UI application, we simulate drug administration consisting
+ of 
 \begin_inset ERT
 status open
 
@@ -143,9 +113,53 @@ Bag
 
 \end_inset
 
-, which possibility being in different micro-frontends.
- This seperation involves problems in calculating the variables correctly.
+.
+ Each domain object contains its variables, and also observe, inffered,
+ and present its values.
+ The observation is by observing fields' change events.
+ The presentation is by updating the fields.
+ Once a variable's value is observed, dependant variables should be inferred
+ and presented in their fields.
+\end_layout
+
+\begin_layout Standard
+In the traditional monolith application, the code is very complex.
+ Because of repetitive calculations and complex dependencies.
+ To simplified the application, we use 
+\emph on
+Domain Driven Design
+\emph default
+ (DDD).
+ Because, simulating the code according to the real world, should promote
+ the comprehension of the application code.
  
+\end_layout
+
+\begin_layout Standard
+Accordingly, OOP is a perfect platform to simulate the real world variables:
+ objects represent the identity of real world objects, therefore their instance
+ variables should represent real world variables.
+ Simulating the real world variables reminds the terms in science.
+ In science, the term variable refers to a characteristic of interest we
+ observe (named observable variable) or inferre from other variables that
+ are observed (named
+\emph on
+ 
+\emph default
+latent variable).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Micro-frontends
+\emph default
+ is another attractive architecture to simplify code management.
+ We seperate the frontend into micro-frontends, each micro-frontend is connected
+ to one object.
+ Then different teams will own different micro-frontends, and have the sub
+ domain knowledge, without the need to learn about other sub-domains.
 \end_layout
 
 \begin_layout Standard

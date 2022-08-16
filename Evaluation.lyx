@@ -1376,5 +1376,27 @@ end{center}
 
 \end_layout
 
+\begin_layout Section
+Change Events
+\end_layout
+
+\begin_layout Standard
+In the traditional semantics of objects and instance variables, UI applications
+ should sometimes observing changing variables' values.
+ Pulling the values consumes program time and resources, since the UI applicatio
+n must invoke the accessors, even in cases when no changes have occurred.
+ In order to save time and resources, objects implement observation features,
+ i.e.
+ events abstraction, for which user interfaces subscribe to be notified
+ only when changes occur.
+ Consequently, the representation become complicated, since it involves
+ not only its variables as instance variables, but also the concept of 
+\emph on
+change events
+\emph default
+, for which consumers should subscribe to get the variables values.
+ 
+\end_layout
+
 \end_body
 \end_document

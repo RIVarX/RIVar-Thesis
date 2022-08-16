@@ -238,8 +238,32 @@ literal "false"
 \end_inset
 
  research the integration of FRP with the traditional Object Oriented Programmin
-g (OOP) features.
- In the popular approach 
+g (OOP).
+ In OOP, classes evolve without interfering other classes by using 
+\emph on
+contracts
+\emph default
+, and encapsulating the internal implementation.
+ In the simplified form, the contract is the 
+\emph on
+interface
+\emph default
+, which defines the accesible variables and methods, to consumers or subclasses
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ In the integrated paradigm, we then expect to abstract away the need to
+ update variables, while keeping classes' encapsulation.
+\end_layout
+
+\begin_layout Standard
+In this work we focus on the approach 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "salvaneschi2014towards"
@@ -247,8 +271,8 @@ literal "false"
 
 \end_inset
 
-, an existing language can be extended with a variation of reactive variables
- as data type.
+, in which an existing language can be extended with a variation of reactive
+ variables as a data type.
  Accordingly, libraries such as ReactiveX
 \begin_inset ERT
 status open
@@ -281,7 +305,11 @@ footnote{https://www.rescala-lang.com}
 instance variables
 \emph default
 ).
- Therefrom, objects' classes can contain
+ 
+\end_layout
+
+\begin_layout Standard
+Therefrom, objects' classes can contain
 \emph on
  reactive instance variables
 \emph default
@@ -361,28 +389,32 @@ B
 \end_layout
 
 \begin_layout Standard
-There are two challenges in the FRP paradigm, in the way to use reactive
- instance variables.
- First, applications must avoid circular dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- e.g., having in the application both 
+Interfaces also can contain reactive instance variables.
+ Also, classes' internal behavior can contain formulas, refering the reactive
+ instance variables accessed by the interfaces.
+ e.g., base class contains two reactive instance variables 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-A:=B
+A
 \end_layout
 
 \end_inset
 
  and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, and a derived class have access to them and contains 
 \begin_inset ERT
 status open
 
@@ -394,8 +426,74 @@ B:=A
 \end_inset
 
 .
- The reason is that, recursive definitions leads to infinite loop.
- As in the example, the value of 
+ Similary, class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+x.B:=x.A
+\end_layout
+
+\end_inset
+
+, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+x
+\end_layout
+
+\end_inset
+
+ is a reference type, with an access to an object, contained reactive instance
+ variables A and B.
+\end_layout
+
+\begin_layout Standard
+Accordingly, the reactive instance variables are accessed via interfaces
+ and been associated without being aware of other related associations.
+ However, it might lead to constructions, for which the semantics should
+ be clearly defined.
+ Otherwize, they are avoided by breaking classes' encapsulation.
+ In the next lines we will present the problematic constructions.
+ In the examples below, reactive instance variables are declared in the
+ base class, the derived class have access to them.
+ and the both contains formulas associating them without being aware of
+ other associations.
+\end_layout
+
+\begin_layout Standard
+Reactive instance variables can have 
+\emph on
+cycles
+\emph default
+, e.g., base class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+, while the derived class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+.
+ This might lead to infinite loop: the value of 
 \begin_inset ERT
 status open
 
@@ -443,13 +541,9 @@ A
 \end_layout
 
 \begin_layout Standard
-Second, if there are several variables calculated from one variable, and
- the variables apear in one expression.
- Then it is incorrect to evaluate the expression, while other variables
- have not updated yet.
- This is known as 
+In addition, reactive instance variables can have 
 \emph on
-glitch
+glitches
 \emph default
  
 \begin_inset CommandInset citation
@@ -459,118 +553,10 @@ literal "false"
 
 \end_inset
 
-.
- e.g., 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=B
-\end_layout
-
-\end_inset
-
-,
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-D:=A+C
-\end_layout
-
-\end_inset
-
-.
- The problem can be avoided by substituting the variables with their associated
- expressions.
- e.g., replace 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=B
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-D:=A+C
-\end_layout
-
-\end_inset
-
- with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=2*B
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The challenges become relevant in the integration with OOP.
- The first challenge, reactive instance variables can have circular dependencies
-, e.g., base class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, while the derived class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A
-\end_layout
-
-\end_inset
-
-.
- The second challenge, reactive instance variables can have glitches, e.g.,
- base class contains 
+: if there are several variables calculated from one variable, and the variables
+ apear in one expression, then it might be incorrect to evaluate the expression,
+ while other variables have not updated yet.
+ e.g., base class contains 
 \begin_inset ERT
 status open
 
@@ -607,259 +593,17 @@ D:=A+C
 \end_layout
 
 \begin_layout Standard
-The same are when implementing composition (instead of inheritance).
- e.g., in the following construct, there is a circular dependency: class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- contains two reactive variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C2
-\end_layout
-
-\end_inset
-
- has field 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-c1
-\end_layout
-
-\end_inset
-
- of type 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
-, and contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-c1.B := c1.A
-\end_layout
-
-\end_inset
-
-, class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C3
-\end_layout
-
-\end_inset
-
- is derived from 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- and contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, and in runtime a third party creates instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C3
-\end_layout
-
-\end_inset
-
- and returns it to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C2
-\end_layout
-
-\end_inset
-
- as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In implementing abstract data types (i.e., interfaces or abstract classs),
- overcoming the challenges becomes significant, and it becomes evident that
- providers and clients need to agree about the exact meaning (i.e., semantics)
- of the reactive instance variables.
- e.g., in the example above class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- can be abstract, and class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C2
-\end_layout
-
-\end_inset
-
- should not be aware of any implementation of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- (such as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C3
-\end_layout
-
-\end_inset
-
-).
- Class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- with the contained 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-c1.B := c1.A
-\end_layout
-
-\end_inset
-
- need to depend only on the interface and semantics of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C1
-\end_layout
-
-\end_inset
-
- with its reactive instance variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-.
+In FRP, cycles are generaly avoided, otherwize the behavior is not 
+\emph on
+predictable.
+ 
+\emph default
+In contrast, FRP is generaly 
+\emph on
+glitch-free
+\emph default
+, by algorithms that handling the order of the evaluations.
+ However, there are more possible semantics and algorithms to both.
 \end_layout
 
 \begin_layout Section
@@ -867,7 +611,7 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-We introuce semantics for FRP which support circular dependencies.
+We introuce semantics for FRP which support cycles and is glitch-free.
  The new semantics is applied with the introduced reactive instance variables,
  being consistent with both 
 \emph on

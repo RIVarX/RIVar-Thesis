@@ -389,7 +389,7 @@ B
 \end_layout
 
 \begin_layout Standard
-Interfaces also can contain reactive instance variables.
+Interfaces can also contain reactive instance variables.
  Also, classes' internal behavior can contain formulas, refering the reactive
  instance variables accessed by the interfaces.
  e.g., base class contains two reactive instance variables 
@@ -448,17 +448,17 @@ x
 
 \end_inset
 
- is a reference type, with an access to an object, contained reactive instance
+ is a reference type, with an access to an object, containing reactive instance
  variables A and B.
 \end_layout
 
 \begin_layout Standard
 Accordingly, the reactive instance variables are accessed via interfaces
  and been associated without being aware of other related associations.
- However, it might lead to constructions, for which the semantics should
- be clearly defined.
+ However, it might lead to constructions, for which the semantics is not
+ clearly defined.
  Otherwize, they are avoided by breaking classes' encapsulation.
- In the next lines we will present the problematic constructions.
+ In the next paragraphs we will present the problematic constructions.
  In the examples below, reactive instance variables are declared in the
  base class, the derived class have access to them.
  and the both contains formulas associating them without being aware of
@@ -595,7 +595,19 @@ D:=A+C
 \begin_layout Standard
 In FRP, cycles are generaly avoided, otherwize the behavior is not 
 \emph on
-predictable.
+predictable
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
  
 \emph default
 In contrast, FRP is generaly 
@@ -603,7 +615,7 @@ In contrast, FRP is generaly
 glitch-free
 \emph default
 , by algorithms that handling the order of the evaluations.
- However, there are more possible semantics and algorithms to both.
+ Indeed, avoiding cycles is also a necessary condition to the algorithms.
 \end_layout
 
 \begin_layout Section

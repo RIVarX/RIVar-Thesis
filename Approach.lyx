@@ -6,7 +6,29 @@
 \origin unavailable
 \textclass openu-thesis
 \begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
 \usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -85,6 +107,99 @@ Approach
 \end_layout
 
 \begin_layout Standard
+Reactive variables can have references, such that they can be shared among
+ several objects, and even be global variables.
+ There is also no limitation to declaring reactive variables as part of
+ an interface, such that providers and clients will share the reactive variable
+ while hiding related associations.
+\end_layout
+
+\begin_layout Standard
+Consequently, reactive variables can be referenced by several formulas,
+ in such that they are associated to several expressions.
+ e.g., given 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+X
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y
+\end_layout
+
+\end_inset
+
+ references to reactive variables and formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=X
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=Y
+\end_layout
+
+\end_inset
+
+, if 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B
+\end_layout
+
+\end_inset
+
+, then a reactive variable with two associations is produced.
+ In the rest of this section we provide our understanding, and semantics
+ to several associations.
+\end_layout
+
+\begin_layout Standard
 Reactive variable is 
 \emph on
 continuous
@@ -110,217 +225,20 @@ X:=A+B
 \end_inset
 
 , describes continously how varying value depends on other varying values.
- In contrast, an 
-\emph on
-event stream
-\emph default
- consists of descrete timed values.
- The event stream is an observable of values produced from being also an
- observer.
-\end_layout
-
-\begin_layout Section
-Syntax
 \end_layout
 
 \begin_layout Standard
-Reactive variables, being the FRP code, is integrated with the imperative
- code, by associating reactive variables with events streams, e.g., 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-
-\backslash
-A=ValuesFromEvents(InputControl.ChangeEvents)
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-It is allowed having several associations to a single reactive variable.
- e.g., 
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-X:=A+B
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-
-\backslash
-X:=Y
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-or
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-X=ValuesFromEvents(FirstInputControl1.ChangeEvents)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-
-\backslash
-X=ValuesFromEvents(FirstInputControl2.ChangeEvents)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-and also 
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-X:=A+B
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-
-\backslash
-X=ValuesFromEvents(InputControl.ChangeEvents)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Reactive variables are of reference type, therfore they can have several
- references, being able to add more associations to them.
- e.g., given 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=X
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=Y
-\end_layout
-
-\end_inset
-
-, while 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=B
-\end_layout
-
-\end_inset
-
-, produces a single reactive variable with two associations.
-\end_layout
-
-\begin_layout Section
-Semantics
-\end_layout
-
-\begin_layout Standard
-In computers, reactive variable's actual values are not continously given.
- For example, reactive variable reflecting temperature, associated to stream
- of events from measuring by a thermometer.
+However, in computers, reactive variable's actual values are not continously
+ given.
+ For example, reactive variable reflecting temperature, is associated to
+ stream of events from measuring by a thermometer.
  Conceptualy, the reactive variable reflects the temperature continuously,
  but in runtime, it depends on the actual stream of values.
 \end_layout
 
 \begin_layout Standard
 Therfore, reactive variable has two abstraction levels.
- the higher level, is continuous, to being use independant of time.
+ The higher level, is continuous, to being used independant of time.
  But in the lower level (
 \begin_inset Quotes eld
 \end_inset
@@ -329,11 +247,40 @@ under the hood
 \begin_inset Quotes erd
 \end_inset
 
-), the reactive variable is an event stream.
+), the reactive variable is an 
+\emph on
+events stream
+\emph default
+, which is an observable emitting values to subscribers 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+, based on the 
+\emph on
+observer
+\emph default
+ and 
+\emph on
+iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Operators over reactive variables, such as 
+The two abstraction levels are relevant also in the context of the operators.
+ Operators over reactive variables, such as 
 \begin_inset ERT
 status open
 
@@ -394,54 +341,76 @@ status open
 \end_inset
 
  is a function over them, producing a stream values notifications from applying
- + on the latest values from the notifications from A and B.
+ + on the values from the notifications of A and B.
 
 \emph on
  
 \end_layout
 
 \begin_layout Standard
-Reactive variables which is associated with several streams (streams of
- imperative events, streams of reactive variable and streams of an expression
- of reactive variables), are notified about its values from the several
- streams, similar to having several devices to sampling a single variable
+Accordingly, reactive variables can be associated with several streams (streams
+ of imperative events, streams of reactive variables, and streams of an
+ expression of reactive variables).
+ The reactive variables are notified about their values from several streams,
+ similar to having several devices sampling a single real-world variable
  in the world.
  Anyway, the reactive variable provides to its subscribers, a single stream
  of values based on the several streams, it is subscribed to.
  
 \end_layout
 
-\begin_layout Section
-Distributed Algorithm
-\end_layout
-
 \begin_layout Standard
-When propogating values through the operators and associations, each party,
- as an observable and observer, tracks its input values and 
+When propagating values through the operators and associations, each party,
+ as an observable observer, tracks its input values and 
 \begin_inset Quotes eld
 \end_inset
 
-decide
+decides
 \begin_inset Quotes erd
 \end_inset
 
- what values to notify to its subscribers.
- They should run a distributed algorithm , such that the whole behavior
- is consistent, while each of the variables execute its part independently.
- 
+ what values to notify its subscribers.
+ There must be a distributed algorithm that provides consistency.
+ The parties will then follow the algorithm to choose what values to notify
+ its subscribers.
 \end_layout
 
 \begin_layout Standard
-The algorithm should helps the parties handle two challenges: first (for
- the operators), what is named 
+In this thesis, we follow the guarantee 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+: 
 \emph on
-glitch
-\emph default
-,
-\emph on
+the same sequence of events produces the same results, regardless of the
+ timing of those events.
  
 \emph default
-second (for the variables), how to merge the streams.
+The events produced values that are ordered.
+ We use the ordered values by the events to provide a total order over the
+ whole values in the application.
+\end_layout
+
+\begin_layout Standard
+The values produced from events are attached with a timestamp (an incremental
+ natural number).
+ Values produced from operators or associations are attached with a set
+ of timestamps according to the values they were calculated from.
+ The timestamps are then used by the parties to follow the total order.
+\end_layout
+
+\begin_layout Standard
+The parties use the order to ignore the glitch notifications.
+ A glitch notification is a value that is less or equal to the latest produced
+ notification.
+ The parties which are associations need also to ignore values notifications
+ produced originally from their own notification.
+ Values that were not produced from the recursive notification, must be
+ greater than the latest produced notification.
 \end_layout
 
 \end_body

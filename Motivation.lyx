@@ -112,13 +112,19 @@ literal "false"
 \end_inset
 
 , because modeling according to the real world, should promote the comprehension.
- In the application we simulate real world variables: characteristics of
- interest we observe (named observable variables) or inferre from other
- variables that are observed (named
+ In the application we simulate
 \emph on
- 
+ real world variables
 \emph default
-latent variables) 
+: characteristics of interest we observe (named 
+\emph on
+observable variables
+\emph default
+) or inferre from other variables that are observed (named
+\emph on
+ latent variables
+\emph default
+) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "dodge2006oxford"
@@ -127,7 +133,7 @@ literal "false"
 \end_inset
 
 .
- OOP is a perfect platform to simulate the real world variables: objects
+ OOP is a perfect paradigm to simulate the real world variables: objects
  represent the identity of real world objects, therefore their instance
  variables should represent real world variables.
  
@@ -178,8 +184,8 @@ literal "false"
 
  is another attractive architecture to simplify code management.
  The UI is seperated into two parts, named micro-frontends.
- Then different teams will own different micro-frontends, and have the sub
- domain knowledge, without the need to learn about other sub-domains.
+ Then different teams will own different micro-frontends, and have the sub-domai
+n knowledge, without the need to learn about other sub-domains.
  As a result, we model two micro-frontends to the 
 \begin_inset ERT
 status open

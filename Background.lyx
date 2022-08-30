@@ -5,6 +5,31 @@
 \save_transient_properties true
 \origin unavailable
 \textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -79,6 +104,867 @@
 
 \begin_layout Chapter
 Background
+\end_layout
+
+\begin_layout Section
+Cycles
+\end_layout
+
+\begin_layout Standard
+Many frameworks support to update variables depending on other variables.
+ The variables and their dependencies can be modeled by a 
+\emph on
+dependency graph
+\emph default
+: variables are respresented by nodes, and for each dependency, there is
+ an edge connecting the nodes in the direction of the dependency.
+ For instance, the following graph model 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+sensorValue
+\end_layout
+
+\end_inset
+
+ that depends on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+powerDierence
+\end_layout
+
+\end_inset
+
+.
+ In the traditional implementation, we observe change events and calculate
+ in response: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{sensorValue.changed += { (e) -> powerDierence = f(e) }}
+\end_layout
+
+\end_inset
+
+.
+ In the FRP style, we just declare the dependency: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{powerDierence := f(sensorValue)}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (0,5) {sensorValue};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (3.5,5) {powerDierence};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (A) -- (B);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are two applications types 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ First, applications with hierarchical data, in which the dependency graph
+ is cyclic.
+ Second, applications with mutually dependent variables, in which the dependency
+ graph contain cycles.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (0,5) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (3.5,5) {B};       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge [bend left] (B);  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{A simple dependency graph with cycles (by A:=B and B:=A)} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, dealing with cycles need a special treatment, because it might
+ lead to infinite loops.
+ For instance, if an application contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and also 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+, then updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, that might again lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, and so on.
+\end_layout
+
+\begin_layout Standard
+Furthermore, in the problem called 
+\emph on
+glitch
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, a variable can have several updates caused by a single update.
+ Consequently, ignoring repeating updates might lead to incomplete calculations.
+ e.g., in the application bellow, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+X
+\end_layout
+
+\end_inset
+
+ leads to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y1
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y2
+\end_layout
+
+\end_inset
+
+, each of them might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, therfore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ with an incomplete calculation, therfore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ should not ignore a second update.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+Y1:=f1(X)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y2:=f2(X)
+\end_layout
+
+\begin_layout Plain Layout
+
+A:=f3(Y1,Y2)
+\end_layout
+
+\begin_layout Plain Layout
+
+B:=f4(A)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (X) at (2,9) {X};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Y1) at (1,7) {Y1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Y2) at (3,7) {Y2};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (2,5) {A}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,3) {B};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Y1) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Y2) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (X) edge  (Y1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (X) edge  (Y2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 
+\emph on
+true FRP
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ the graph must not have cycles, because the code is constructed similar
+ to pure functions.
+ The functional style is used in order to achieve the 
+\emph on
+referential transparency 
+\emph default
+property, i.e., the same input produces consistenctly the same output.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, in 
+\emph on
+glitch free
+\emph default
+ FRP, there are special algoritms to prevent from the incomplete updates
+ .
+ Indeed, avoiding cycles is a necessary condition to the algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Cycles are not handled by default also by Microsoft Excel (with the term
+\emph on
+ circular dependencies
+\emph default
+).
+ Also React provides only one-way dataflow 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+, and so also 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marum2020unified"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+It is interesting to see the effect of preventing cycles, on the user friendly
+ application 
+\emph on
+Microsoft Dynamics
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
+
+\end_inset
+
+.
+ In Microsoft Dynamics, users can customize the application by user friendly
+ elements such as drug and drop and auto selection (without writing code).
+ The user can then customize 
+\emph on
+business rules
+\emph default
+ such as calculating fields in response to a change events.
+ In addition, developers can write code to execute in response to change
+ events.
+ However, there is a limitation, that the code is executed only in resonse
+ to change that happens directly by the user, and changes happened by business
+ rules are ignored.
+ Of course, the limitation is to break the cycles in the dependencies.
+\end_layout
+
+\begin_layout Standard
+In contrast, FrTime and other FRP implementations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+ support cycles such as by providing a keyword 
+\emph on
+delay
+\emph default
+ to break an update loop.
+ However, the solution is a 
+\begin_inset Quotes eld
+\end_inset
+
+compromise consistent
+\begin_inset Quotes erd
+\end_inset
+
+.
+ As explained, variables might not complete the calculation by a single
+ update (that might be a glitch).
+ A more reliable solution is provided by Microsoft Excel, when changing
+ the default behavior to avoid cycles by one of the suggested 
+\begin_inset Quotes eld
+\end_inset
+
+calculation options
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The first option is to terminate the updates after an arbitrary iterations
+ amount.
+ The second option is to ignore an update if the new value has not been
+ changed comparing to the value that the variable contains, or changed only
+ less than an arbitrary threshold.
+\end_layout
+
+\begin_layout Standard
+Terminating the updates after an arbitrary iterations amount, may be a solution.
+ However, the developer should find the balance, what constant number to
+ choose.
+ It might be difficult to find out the minimum number, that is the needed
+ amount for applications with many dependencies.
+ While, an high amount might perform low perfomance by unnecessary updates.
+\end_layout
+
+\begin_layout Standard
+In the second method the developers need to find a threshold.
+ The threshold is needed due to loose of information though calculations,
+ e.g., In an application that contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A/3
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B*3
+\end_layout
+
+\end_inset
+
+, if the user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ might be calculated and updated with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100/3=0.33
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ should not be updated with the new calculated value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0.33*3=0.99
+\end_layout
+
+\end_inset
+
+, consequently the chosen constant threshold should be less than 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0.01
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In the traditional programming, the developers uses state to recognize when
+ to update or not to update, and when to trigger an event or to not trigger
+ an event.
+ Consequently, it might be difficult to comprehend the variables and dependencie
+s of the functional requirements (required application logic).
+ because the code is tangled with non-functional requirements consisting
+ of the internal variables (state) and conditions to technically implement
+ (as described, to recognize when to update or not to update) the functional
+ requirements.
+\end_layout
+
+\begin_layout Standard
+XState
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://xstate.js.org/
+\end_layout
+
+\end_inset
+
+ and Redux 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ reminds the statechart 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1990statemate"
+literal "false"
+
+\end_inset
+
+ or just the simple state-machine.
+ The updates are still controlled by state and conditions, but they are
+ centerlized and not encapsulated in various objects.
+ As a result the variables change become more predictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Hotdrink
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ maintains priority, when a user updates a variable, its priority becomes
+ the highest.
+ The values of the variables with the old priority is overridden by calculating
+ according to the variables with the higher priority.
+ The variables and dependencies are managed by a centralized algorithm named
+ 
+\emph on
+constraints solver
+\emph default
+.
 \end_layout
 
 \begin_layout Section

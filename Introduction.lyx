@@ -96,7 +96,7 @@ literal "false"
 
  is a paradigm that abstracts away the need to update variables in response
  to other variables' updates.
- A 
+ 
 \emph on
 reactive variable
 \emph default
@@ -132,7 +132,7 @@ literal "false"
 
 \end_inset
 
-, or 
+, 
 \emph on
 cell
 \emph default
@@ -140,6 +140,18 @@ cell
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
 literal "false"
 
 \end_inset
@@ -229,375 +241,50 @@ B
 \end_layout
 
 \begin_layout Standard
-Previous works 
+The dominating category of software today is components-based applications.
+ Components includes client-server components, micro-services 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "salvaneschi2014towards,boix2013object"
+key "newman2021building"
 literal "false"
 
 \end_inset
 
- research the integration of FRP with the traditional Object Oriented Programmin
-g (OOP).
- In OOP, classes evolve without interfering other classes by using 
-\emph on
-contracts
-\emph default
-, and encapsulating the internal implementation.
- In the simplified form, the contract is the 
-\emph on
-interface
-\emph default
-, which defines the accesible variables and methods, to consumers or subclasses
- 
+, micro-frontends 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "duncan2003component"
+key "Geers2020"
 literal "false"
 
 \end_inset
 
-.
- In the integrated paradigm, we then expect to abstract away the need to
- update variables, while keeping classes' encapsulation.
+ and so on.
+ In such applications, components' instances (including objects) coordinate
+ their state using (variations of) the observer pattern.
+ They therefore suffer from the same drawbacks that the observer pattern
+ cause in monolith applications.
+ components-based applications can clearly benefit from FRP.
+ However, existing implementations of FRP either target specific kinds of
+ components which avoid reactive variables in their interface, do not provide
+ safe value propagation, or require a third party that manages the whole
+ components' state.
 \end_layout
 
 \begin_layout Standard
-In this work we focus on the approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, in which an existing language can be extended with a variation of reactive
- variables as a data type.
- Accordingly, libraries such as ReactiveX
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://reactivex.io}
-\end_layout
-
-\end_inset
-
- and REscala
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://www.rescala-lang.com}
-\end_layout
-
-\end_inset
-
-, support having a variation of reactive variables as objects' data members
- (named also 
+We propose 
 \emph on
-instance variables
+Reactive Instance Variable
 \emph default
-).
- 
-\end_layout
-
-\begin_layout Standard
-Therefrom, objects' classes can contain
+ (RIvar for short), which abstracts the reactive variable to the world of
+ objects.
+ It renounces properties that are undesirable in components, such as global
+ centralized knowledge about the topology of the dependency structure among
+ reactive variables and a third party that coordinates the state, while
+ giving 
 \emph on
- reactive instance variables
+referential transparenc
 \emph default
-, that are instance variables of type reactive variables.
- Also, objects' classes can contain formulas based on the reactive instance
- variables they contain.
- The formulas are activated once the objects are created.
- e.g., class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C
-\end_layout
-
-\end_inset
-
- contains two reactive instance variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, and contains also the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-.
- Consequently, in each instance of C, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- that is associated to the instance will continuously re-evaluated in response
- to changes in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- that is associated to the same instance.
-\end_layout
-
-\begin_layout Standard
-Interfaces can also contain reactive instance variables.
- Also, classes' internal behavior can contain formulas, refering the reactive
- instance variables accessed by the interfaces.
- e.g., base class contains two reactive instance variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, and a derived class have access to them and contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A
-\end_layout
-
-\end_inset
-
-.
- Similary, class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-x.B:=x.A
-\end_layout
-
-\end_inset
-
-, while 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-x
-\end_layout
-
-\end_inset
-
- is a reference type, with an access to an object, containing reactive instance
- variables A and B.
-\end_layout
-
-\begin_layout Standard
-Accordingly, the reactive instance variables are accessed via interfaces
- and been associated without being aware of other related associations.
- However, it might lead to constructions, for which the semantics is not
- clearly defined.
- Otherwize, they are avoided by breaking classes' encapsulation.
- In the next paragraphs we will present the problematic constructions.
- In the examples below, reactive instance variables are declared in the
- base class, the derived class have access to them.
- and the both contains formulas associating them without being aware of
- other associations.
-\end_layout
-
-\begin_layout Standard
-Reactive instance variables can have 
-\emph on
-cycles
-\emph default
-, e.g., base class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, while the derived class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A
-\end_layout
-
-\end_inset
-
-.
- This might lead to infinite loop: the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- is changed in response to any change of the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, while any change in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- triggers a change to the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In addition, reactive instance variables can have 
-\emph on
-glitches
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-: if there are several variables calculated from one variable, and the variables
- apear in one expression, then it might be incorrect to evaluate the expression,
- while other variables have not updated yet.
- e.g., base class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=B
-\end_layout
-
-\end_inset
-
- , while the derived class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-D:=A+C
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In FRP, cycles are generaly avoided, otherwize the behavior is not 
-\emph on
-predictable
-\emph default
- 
+y 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -605,27 +292,34 @@ literal "false"
 
 \end_inset
 
+ guarantee, such that 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
 
+\end_inset
+
+: 
 \emph on
+the same sequence of 
+\emph default
+(user)
+\emph on
+ events produces the same results, regardless of the timing of those events
+\emph default
 .
- 
-\emph default
-In contrast, FRP is generaly 
-\emph on
-glitch-free
-\emph default
-, by algorithms that handling the order of the evaluations.
- Indeed, avoiding cycles is also a necessary condition to the algorithms.
+ To the best of our knowledge, such a solution has not been proposed before.
+ The proposed abstraction thus enables to integrate FRP in the traditional
+ semantics of the Object Oriented Programming (OOP) paradigm.
 \end_layout
 
 \begin_layout Section
 Contribution
 \end_layout
 
-\begin_layout Standard
-We introuce semantics for FRP which support cycles and is glitch-free.
- The new semantics is applied with the introduced reactive instance variables,
- being consistent with both 
+\begin_layout Itemize
+We propose RIvar, being consistent with both 
 \emph on
 instance variables
 \emph default
@@ -634,8 +328,25 @@ instance variables
 reactive variables
 \emph default
  from FRP.
- We then implement a prototype of an application and compare it against
- other approaches and solutions.
+\end_layout
+
+\begin_layout Itemize
+We characterize the design space of existing algorithms for change propagation,
+ motivating the need for new algorithms that better suit to the new setting.
+\end_layout
+
+\begin_layout Itemize
+We present an algorithm for RIvars.
+ 
+\end_layout
+
+\begin_layout Itemize
+We present a reduction from the new algorithm to one traditional algorithm.
+\end_layout
+
+\begin_layout Itemize
+We discuss a small-scale case study to indicate design improvements enabled
+ by the proposed abstraction.
 \end_layout
 
 \begin_layout Standard

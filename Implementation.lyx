@@ -81,7 +81,7 @@
 \begin_body
 
 \begin_layout Chapter
-Implementation
+Propogation Algorithm (Implementation)
 \end_layout
 
 \begin_layout Section
@@ -482,14 +482,6 @@ which
  
 \emph default
 filter out signals, if they are not greater than their predecessor.
-\end_layout
-
-\begin_layout Section
-RIvar
-\end_layout
-
-\begin_layout Standard
-The streams are wrapped with RIvar
 \end_layout
 
 \end_body

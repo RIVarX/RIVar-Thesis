@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Approach
+Reactive Instance Variables (Approach, The Abstraction)
 \end_layout
 
 \begin_layout Standard
@@ -117,7 +117,7 @@ Reactive variables can have references, such that they can be shared among
 \begin_layout Standard
 Consequently, reactive variables can be referenced by several formulas,
  in such that they are associated to several expressions.
- e.g., given 
+ e.g., given the reactive variables' references 
 \begin_inset ERT
 status open
 
@@ -128,7 +128,7 @@ A
 
 \end_inset
 
-,
+, 
 \begin_inset ERT
 status open
 
@@ -139,7 +139,7 @@ B
 
 \end_inset
 
-,
+, 
 \begin_inset ERT
 status open
 
@@ -150,7 +150,7 @@ X
 
 \end_inset
 
- and 
+, 
 \begin_inset ERT
 status open
 
@@ -161,7 +161,7 @@ Y
 
 \end_inset
 
- references to reactive variables and formulas 
+ assemble the formulas 
 \begin_inset ERT
 status open
 
@@ -195,8 +195,8 @@ A=B
 \end_inset
 
 , then a reactive variable with two associations is produced.
- In the rest of this section we provide our understanding, and semantics
- to several associations.
+ In the rest of this section we provide semantics, that supports reactive
+ variables with several associations.
 \end_layout
 
 \begin_layout Standard
@@ -370,13 +370,13 @@ decides
 \end_inset
 
  what values to notify its subscribers.
- There must be a distributed algorithm that provides consistency.
- The parties will then follow the algorithm to choose what values to notify
- its subscribers.
+ The parties need to be coordinated, therefore a distributed algorithm must
+ be designed.
+ 
 \end_layout
 
 \begin_layout Standard
-In this thesis, we follow the guarantee 
+The algorithm design is based on the following guarantee 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -390,9 +390,8 @@ the same sequence of events produces the same results, regardless of the
  timing of those events.
  
 \emph default
-The events produced values that are ordered.
- We use the ordered values by the events to provide a total order over the
- whole values in the application.
+Therfore, we use ordered values according to the the events, and derive
+ a total order over the whole values in the application.
 \end_layout
 
 \begin_layout Standard

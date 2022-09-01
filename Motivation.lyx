@@ -170,11 +170,11 @@ Bag
 \end_layout
 
 \begin_layout Standard
-
+We use
 \emph on
-Micro-frontends
-\emph default
  
+\emph default
+Micro-frontends 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "peltonen2021motivations"
@@ -182,7 +182,7 @@ literal "false"
 
 \end_inset
 
- is another attractive architecture to simplify code management.
+ to simplify code management.
  The UI is seperated into two parts, named micro-frontends.
  Then different teams will own different micro-frontends, and have the sub-domai
 n knowledge, without the need to learn about other sub-domains.
@@ -1402,8 +1402,18 @@ begin{tikzpicture}
 
 \backslash
 node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
 \backslash
 node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
 \backslash
 node[shape=circle,draw=black] (Drug) at (1,3) {
 \backslash
@@ -1414,6 +1424,11 @@ node[shape=circle,draw=black] (Conc) at (1.5,1) {
 textit{Conc}};     
 \backslash
 node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
 \backslash
 node[shape=circle,draw=black] (Rate) at (5,1) {
 \backslash
@@ -1798,19 +1813,19 @@ Summary
 \end_layout
 
 \begin_layout Standard
-It is sometimes desirable assigning objects' variables, which we do not
+It is sometimes desirable to assign objects' variables, which we do not
  own, to give them values according data we do own.
  The same is true when the variables are reactive variables assigned with
  expressions (to keep getting values).
- As we keep on seperation and isolation, it is not acceptable to prevent
- from cycles in declaring the data flow.
+ As we keep on seperation and isolation, it is not acceptable to avoid cycles
+ in declaring the data flow.
 \end_layout
 
 \begin_layout Standard
-So, it would be respected to find out how to propogate the values without
- to get unpredictable values.
+So, it would be desirable to find out how to propagate the values without
+ producing unpredictable values.
  Of course, the solution should not be a central component that handle the
- calculations, as we said about objects' logic , so it is in runtime.
+ calculations.
 \end_layout
 
 \end_body

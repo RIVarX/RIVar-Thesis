@@ -106,12 +106,101 @@
 Background
 \end_layout
 
+\begin_layout Standard
+FRP has an adjustment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+ to work with distributed application.
+ It even has good perfomance while retaining safety guarantees.
+ However, it is only one small-case study, and it does not reflect the whole
+ applications.
+\end_layout
+
+\begin_layout Standard
+In the other side, Hotdrink which is a weak FRP variation, has been investigated
+ to work for one real world application, but it has been failed in the integrati
+on with the micro-services architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The actual situation is that the FRP paradigm has problems with the integration,
+ the problems are arisen with the presence of 
+\emph on
+cycles
+\emph default
+ and 
+\emph on
+glitches
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ In previous works the glitches problem has been handled 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, even in the distributed settings 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ However, the problem remains with the presence of cycles (then also the
+ glitches problem are arisen again).
+ 
+\end_layout
+
+\begin_layout Standard
+So, two types of applications exist 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+: First, applications with hierarchical data, in which the dependency graph
+ is cyclic.
+ Second, applications with mutually dependent variables, in which the dependency
+ graph contain cycles.
+ In the next section we give a brief about cycles, then we will give some
+ background to events streams and constraints that will be used in the next
+ chapters.
+\end_layout
+
 \begin_layout Section
 Cycles
 \end_layout
 
 \begin_layout Standard
-Many frameworks support to update variables depending on other variables.
+In addition to FRP, many frameworks support to update variables depending
+ on other variables.
  The variables and their dependencies can be modeled by a 
 \emph on
 dependency graph
@@ -180,7 +269,7 @@ status open
 
 
 \backslash
-centering 
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
@@ -218,26 +307,16 @@ draw[-{Triangle[scale=1]}] (A) -- (B);
 end{tikzpicture} 
 \end_layout
 
-\end_inset
+\begin_layout Plain Layout
 
 
+\backslash
+end{center}
 \end_layout
 
-\begin_layout Standard
-There are two applications types 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
 \end_inset
 
-.
- First, applications with hierarchical data, in which the dependency graph
- is cyclic.
- Second, applications with mutually dependent variables, in which the dependency
- graph contain cycles.
- 
+
 \end_layout
 
 \begin_layout Standard
@@ -381,11 +460,7 @@ A
 \end_layout
 
 \begin_layout Standard
-Furthermore, in the problem called 
-\emph on
-glitch
-\emph default
- 
+Furthermore, in the the glitch problem 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -965,539 +1040,6 @@ literal "false"
 constraints solver
 \emph default
 .
-\end_layout
-
-\begin_layout Section
-Variables
-\end_layout
-
-\begin_layout Standard
-Variable may refer to symbolic name associated to memory address which contains
- value.
- However, variable can be extended to more advanced terms.
-\end_layout
-
-\begin_layout Subsection
-Instance Variable
-\end_layout
-
-\begin_layout Standard
-In OOP, objects represent the identity of real world objects, therefore
- their instance variables should represent real world variables.
- Generaly, variable may represent real world variable, even if it is a plain
- symbolic name associated to memory address, it may contain value representing
- real world variable's value.
-\end_layout
-
-\begin_layout Standard
-In general research, variable is related to attribute, that is quality of
- an object, e.g.
- person's weight.
- Variables' values 
-\emph on
-vary
-\emph default
- over time.
- In software, it is very common to simulate the real world variables' values
- by assigning the variables values whenever the software determines a change.
-\end_layout
-
-\begin_layout Standard
-OOP is a perfect platform to simulate the real world variables.
- By implementing 
-\begin_inset Quotes eld
-\end_inset
-
-is-a
-\begin_inset Quotes erd
-\end_inset
-
- (inheritance) and 
-\begin_inset Quotes eld
-\end_inset
-
-has-a
-\begin_inset Quotes erd
-\end_inset
-
- relationships, variables can be referenced with different terms depending
- on the context.
- This involves a formal distinction between messages sending values to a
- setters, the variables , and other messages calling that setters.
-\end_layout
-
-\begin_layout Subsection
-Reactive Variable
-\end_layout
-
-\begin_layout Standard
-In contrast to traditional variables, reactive variables is automatically
- consistent according to defined formulas.
- In such frameworks, reactive variable 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- assigned by an expression is populated in response to changes in the value
- of any of the variables existing in the expression.
- For example, the meaning of the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+1
-\end_layout
-
-\end_inset
-
- is that variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- relates to the expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B+1
-\end_layout
-
-\end_inset
-
-, so that the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- is changed in response to any change in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Variables' Values' Consistency
-\end_layout
-
-\begin_layout Standard
-Functions are implemented to get how a varying variable's value depends
- on another variable's value.
- Handle consistency means executing the functions, in response to observing
- new values, to update dependant variables with the change.
- 
-\end_layout
-
-\begin_layout Standard
-Traditionaly we can observe change events and call the calculate function
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{sensorValue.changed += { (e) -> powerDierence = f(e) }}
-\end_layout
-
-\end_inset
-
-, while this is automatic in frameworks facilitate directly representing
- the functional dependency (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-powerDierence
-\end_layout
-
-\end_inset
-
- depending on 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-sensorValue
-\end_layout
-
-\end_inset
-
-) by declaring 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{powerDierence = f(sensorValue)}
-\end_layout
-
-\end_inset
-
-.
- The variables and dependencies form a 
-\emph on
-dependencies graph
-\emph default
-.
-\end_layout
-
-\begin_layout Subsection
-Referential Transparency
-\end_layout
-
-\begin_layout Standard
-In FRP, Reactive Variables are declared similar to pure functions, and the
- framework automaticaly calculates the values in response to new values
- provided.
- For example declaring 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{Age := CurrentDate-BirthDate}
-\end_layout
-
-\end_inset
-
-, produce 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{Age}
-\end_layout
-
-\end_inset
-
- to be refreshed automaticaly according to the varying values of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{BirthDate}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{CurrentDate}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Declaring variables as calculation tree, leads to very 
-\emph on
-predictable
-\emph default
- programs: the same input produces the same output every time we execute
- it.
- This is similar to invoking pure function, without side effect, so produces
- consistent result, attributed as 
-\emph on
-referential transparency
-\emph default
-.
- In such programs, substituting variable by its expression, does not affect
- the program.
- Consequently, changing the code have predictable effect, so programs become
- rubust against changes.
-\end_layout
-
-\begin_layout Subsection
-Constraints
-\end_layout
-
-\begin_layout Standard
-There are libraries which automaticaly handle variables consistency, according
- to a set of constraints.
- Take for example 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Total = Price + Tip
-\end_layout
-
-\end_inset
-
-, there are three methods to satisfy the constraint: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Price = Total - Tip
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Tip = Total - Price
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Total = Price + Tip
-\end_layout
-
-\end_inset
-
-.
- In response to any new input, the library choose what method to execute
- to satisfy the constraint.
-\end_layout
-
-\begin_layout Standard
-When more constraints are specified and against varying input options, choosing
- the methods to execute, become not trivial.
- Therefore, various algorithms have been developed named 
-\emph on
-constraints solvers
-\emph default
-.
- The principal is to prioritize the constraints, and iterate them, choosing
- methods which does not override variables that already satisfied by previous
- chosen methods.
- The inputs are considered as contraints, for example if user set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Tip
-\end_layout
-
-\end_inset
-
- with the input 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-10
-\end_layout
-
-\end_inset
-
-, then the constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Tip=10
-\end_layout
-
-\end_inset
-
- is added to the set.
- Accordingly, constraints are prioritized according to the order of the
- inputs.
-\end_layout
-
-\begin_layout Standard
-Constraints solvers are actualy choose a consistent way to handle conflicts.
- If we add to the above example 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Price = OriginalPrice - Discount
-\end_layout
-
-\end_inset
-
-, then it might be wandered from where 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Price
-\end_layout
-
-\end_inset
-
- should be calculated.
- 
-\end_layout
-
-\begin_layout Subsection
-Weak Approaches 
-\end_layout
-
-\begin_layout Standard
-There are non FRP libraries, which handle declared functional dependencies
- by automatically calculating values in response to new values provided.
- In contrast to FRP, the calculations might be inpredictable.
-\end_layout
-
-\begin_layout Standard
-The inpredictable is because, there can be cycles in the graph, even in
- declaring 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A := B
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B := A
-\end_layout
-
-\end_inset
-
-.
- Furthermore, when applications use seperation tools provided in OOP, we
- cannot prevent from cycles.
- For example, declaring to calculate values for 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- in response to new values provided to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, does not require full control over of the two variables.
- So there might be another declaration referring to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- which calculates values for 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- in response to new values provided to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-When cycles exist, libraries use an arbitrary condition to stop the changes,
- to not enter an infinite loop.
- 
 \end_layout
 
 \begin_layout Section
@@ -2162,6 +1704,153 @@ end{figure}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Constraints
+\end_layout
+
+\begin_layout Standard
+There are libraries which automaticaly handle variables 
+\emph on
+consistency
+\emph default
+ according to a set of constraints.
+ While functions are implemented to get 
+\emph on
+how
+\emph default
+ a varying variable's value depends on another variable's value.
+ Handling consistency means executing the functions, in response to observing
+ new values, to update dependant variables with the change.
+ 
+\end_layout
+
+\begin_layout Standard
+Take for example 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Total = Price + Tip
+\end_layout
+
+\end_inset
+
+, there are three methods to satisfy the constraint: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Price = Total - Tip
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Tip = Total - Price
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Total = Price + Tip
+\end_layout
+
+\end_inset
+
+.
+ In response to any new input, the library choose what method to execute
+ to satisfy the constraint.
+\end_layout
+
+\begin_layout Standard
+When more constraints are specified and against varying input options, choosing
+ the methods to execute, become not trivial.
+ Therefore, various algorithms have been developed named 
+\emph on
+constraints solvers
+\emph default
+.
+ The principal is to prioritize the constraints, and iterate them, choosing
+ methods which does not override variables that already satisfied by previous
+ chosen methods.
+ The inputs are considered as contraints, for example if user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Tip
+\end_layout
+
+\end_inset
+
+ with the input 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+10
+\end_layout
+
+\end_inset
+
+, then the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Tip=10
+\end_layout
+
+\end_inset
+
+ is added to the set.
+ Accordingly, constraints are prioritized according to the order of the
+ inputs.
+\end_layout
+
+\begin_layout Standard
+Constraints solvers are actualy choose a consistent way to handle conflicts.
+ If we add to the above example 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Price = OriginalPrice - Discount
+\end_layout
+
+\end_inset
+
+, then it might be wandered from where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Price
+\end_layout
+
+\end_inset
+
+ should be calculated.
+ 
 \end_layout
 
 \end_body

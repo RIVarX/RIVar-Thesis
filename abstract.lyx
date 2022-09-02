@@ -88,7 +88,38 @@
 \begin_body
 
 \begin_layout Abstract
-We combine Reactive Variable with Instance Variable...
+
+\emph on
+Reactive Instance variables
+\emph default
+ are to provide Excel-like formulas in object's classes.
+ However variables accessed by interfaces lead to unsupported constructions,
+ unpredictable results or to no-isolation.
+ The problem is actualy the missing semantics for arisen 
+\emph on
+cycles
+\emph default
+, as well as 
+\emph on
+glitches
+\emph default
+ and 
+\emph on
+reassigments
+\emph default
+.
+ Therfore we suggest that the reactive instance variables will support 
+\emph on
+multiple assignment
+\emph default
+.
+ In this proposal we abstract values over time by observable streams.
+ Then we compose streams by a 
+\emph on
+merge
+\emph default
+ function over them, in such that a variable with several inputs has its
+ varying value from merging its inputs' streams.
 \end_layout
 
 \end_body

@@ -81,6 +81,14 @@
 Evaluation
 \end_layout
 
+\begin_layout Standard
+We evaluate the proposed approach to answer three questions: (a) Do the
+ proposed approach provide FRP? or did we break it by aligning it with OOP?
+ (b) Does the new semantics realy increase the compatibility of the FRP
+ with OOP? (c) Do we actually improve the code quality at reasonable perfomance
+ cost?
+\end_layout
+
 \begin_layout Section
 Circular Dependencies
 \end_layout

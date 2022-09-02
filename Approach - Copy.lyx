@@ -1,0 +1,474 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\begin_preamble
+\usepackage{tikz}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Approach
+\end_layout
+
+\begin_layout Standard
+RIvar (Reactive Instance Variable) is similar to Reactive Variable, in that
+ assigning an expression to the variable, rather than calculating it once,
+ refreshes the value whenever the assigned expression’s value is changed.
+ RIvar is similar to instance variables in being associated to object’s
+ class.
+ 
+\end_layout
+
+\begin_layout Standard
+As discussed in the background, traditional reactive variables should have
+ formed graphs without cycles, to properly refresh their values.
+ However, RIvar supports graph for allowing assigning to variables of indirected
+ interfaces.
+ By the usage of objects and indirected interfaces, RIvar is committed to
+ objects interaction by sending and receiving messages, therefore refreshing
+ the values is managed by observable streams.
+\end_layout
+
+\begin_layout Section
+Adding Reactivity to Instance Variables
+\end_layout
+
+\begin_layout Standard
+We suggest to improve the instance (object's) variables semantics, in representi
+ng real world object's variables.
+ The traditional instance variables are interepted many times as mere objects'
+ internal state, due their passive nature.
+ In our approach real world variables need features similar to reactive
+ variables: get their values from external components or from calculating
+ them (by assigned expressions), and also to notify values changes.
+\end_layout
+
+\begin_layout Section
+Multiple-Assigments
+\end_layout
+
+\begin_layout Standard
+In the attempt to combine FRP with OOP, there is an open question whether
+ to support reassignment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Declaring instance variables being reactive variables, arises that conflict,
+ whether to enable reassignment, e.g.
+ declaring 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ and then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=C+1
+\end_layout
+
+\end_inset
+
+.
+ In FRP, reassignment should not be enabled, since in FRP we 
+\begin_inset Quotes eld
+\end_inset
+
+describe things that exist, rather than actions that have happened or are
+ to happen (i.e., what 
+\emph on
+is
+\emph default
+, not what 
+\emph on
+does
+\emph default
+)
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, in OOP reassignment is enabled for assigning independently,
+ e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ in a base class, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=C+1
+\end_layout
+
+\end_inset
+
+ in the derived class.
+\end_layout
+
+\begin_layout Standard
+—————-
+\end_layout
+
+\begin_layout Standard
+As discussed, traditional reactive variables should form graphs without
+ cycles, for properly refreshing their values.
+ This could be forced by prevention of indirected interfaces, contrasted
+ with the current proposal.
+ 
+\end_layout
+
+\begin_layout Standard
+A cycle formed by reactive variables refers to recursion, yet there must
+ be at least one reactive variable which is assigned more than once, or
+ fed from two sources.
+ This is solved by Reactive instance variabels’ (RIvars’) references being
+ allowed to be assigned, with unawareness of being assigned by others.
+ For this reason RIvars are defined to have multiple assignment.
+ 
+\end_layout
+
+\begin_layout Standard
+The approach is contrasted with traditional reactive programming.
+ Reactive programming, originally been Functional Reactive Programming,
+ has promoted the use of functional style, so that reactive variables could
+ be substituted by their single expression.
+ However, the use of indirected interfaces leads to having multiple-assignments
+ by-definition.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (X) at (5,5) {X};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Discussion 
+\end_layout
+
+\begin_layout Standard
+Considering multiple-assignment, it is not accurate that assigning an expression
+ to a RIvar, refers to refreshing the value whenever the assigned expression’s
+ value is changed.
+ Yet, it is sufficient to refresh variables that where recently changed
+ only, considering the other expressions’s values as obsolete.
+ However, sometimes a single value might cause several changes in other
+ expression’s values.
+ Then it becomes unclear according to what expression should the target
+ RIvar refresh.
+ Furthermore, cycles might cause refreshing endlessly.
+\end_layout
+
+\begin_layout Section
+Merging Streams
+\end_layout
+
+\begin_layout Standard
+By the usage of objects and indirected interfaces, we are also committed
+ to objects interaction by sending and receiving messages, meaning that
+ refreshing the values are managed distributively.
+ It follows that the calculation procedure, is controlled by the RIvars,
+ from their subscriptions for each other.
+ RIvar and expression have values changing over time, consisting of values’
+ change’s notifications.
+ 
+\end_layout
+
+\begin_layout Standard
+They are implemented as observable streams.
+ The assignment is implemented by subscribing to the two formula’s sides
+ to notify values in the left side RIvar, based on two sides history values.
+ The notifying method would prevent from endless notifications, which might
+ happen from recursion/cycles.
+ 
+\end_layout
+
+\begin_layout Standard
+Taking two equation’s sides' history values and considering which values
+ to notify and what value to prevent, can formally described as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+merge
+\end_layout
+
+\end_inset
+
+ method, such that specifying an assigment 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=f(B)
+\end_layout
+
+\end_inset
+
+ means 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=merge(A,f(B))
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+RIvar assignment operates as a subscription, thus supporting multiple assignment
+s.
+ RIvar is implemented by an observable stream, which is merged from the
+ streams of the expressions assigned to the RIvar.
+ 
+\end_layout
+
+\begin_layout Standard
+The steps to support multiple assignments are essential to form RIvar to
+ function as a property accessor (setter), because it should have the ability
+ to be assigned independently,without caring about other assignments, because
+ it might be an internal behavior, so inaccessible.
+ 
+\end_layout
+
+\end_body
+\end_document

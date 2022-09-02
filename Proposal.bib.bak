@@ -1,0 +1,403 @@
+% Encoding: UTF-8
+
+@Article{Kamina2018,
+  author   = {Kamina, Tetsuo and Aotani, Tomoyuki},
+  journal  = {The Art, Science, and Engineering of Programming},
+  title    = {Harmonizing {Signals} and {Events} with a {Lightweight} {Extension} to {Java}},
+  year     = {2018},
+  issn     = {2473-7321},
+  month    = mar,
+  note     = {arXiv: 1803.10199},
+  number   = {3},
+  pages    = {5},
+  volume   = {2},
+  abstract = {The current demands for seamless connections with the surrounding environment make software more reactive. For example, such demands are evident in systems consisting of the Internet of Things. Such systems include a set of reactive values that are periodically updated in response to external or internal events to form a dataflow in the sense that such updates are propagated to other reactive values. Two effective approaches for realizing such reactive values have been proposed: the event mechanisms in event-based programming and the signals in functional-reactive programming. These two approaches are now becoming mixed in several languages such as Flapjax and REScala, which makes these languages notably expressive for modularizing the implementation of reactive software. For example, REScala provides a rich API that consists of functions converting events to signals and vice versa. In this paper, we explore another, simpler approach in the design space of reactive programming languages: the event mechanism is harmonized with signals, resulting in a simplified programming interface that is mostly based on signals. Based on this approach, we realize SignalJ, a simple extension of Java with events and signals. Our notable findings are (1) an event can be represented as an update of a signal and (2) such an effectful signal can be represented using annotations instead of introducing types and constructors for signals to further simplify the language. Another contribution of this paper is the formal model of SignalJ. As both mechanisms of events and signals may interfere with each other, this mixing sometimes results in surprising behavior. For example, the functional behavior of signals is affected by the imperative features of events. Thus, understanding the formal model of this mixing is actually important. The core calculus, Featherweight SignalJ (FSJ), was developed as an extension of Featherweight Java, and proofs are provided to ensure the soundness of FSJ.},
+  doi      = {10.22152/programming-journal.org/2018/2/5},
+  file     = {arXiv Fulltext PDF:https\://arxiv.org/pdf/1803.10199.pdf:application/pdf},
+  keywords = {Computer Science - Programming Languages},
+  url      = {http://arxiv.org/abs/1803.10199},
+  urldate  = {2022-01-12},
+}
+
+@Misc{,
+  title   = {c\# - {How} should {I} model circular dependencies in {FRP} ({Rx}.{Net})?},
+  journal = {Stack Overflow},
+  url     = {https://stackoverflow.com/questions/38333938/how-should-i-model-circular-dependencies-in-frp-rx-net},
+  urldate = {2021-09-12},
+}
+@article{caspers2017react,
+  title={React and Redux},
+  author={Caspers, M},
+  journal={Rich Internet Applications wHTML and Javascript},
+  pages={11},
+  year={2017}
+}
+@inproceedings{foust2015generating,
+  title={Generating reactive programs for graphical user interfaces from multi-way dataflow constraint systems},
+  author={Foust, Gabriel and J{\"a}rvi, Jaakko and Parent, Sean},
+  booktitle={Proceedings of the 2015 ACM SIGPLAN International Conference on Generative Programming: Concepts and Experiences},
+  pages={121--130},
+  year={2015}
+}
+@article{kamina2018harmonizing,
+  title={Harmonizing signals and events with a lightweight extension to java},
+  author={Kamina, Tetsuo and Aotani, Tomoyuki},
+  journal={arXiv preprint arXiv:1803.10199},
+  year={2018}
+}
+@article{moseley2006out,
+  title={Out of the tar pit},
+  author={Moseley, Ben and Marks, Peter},
+  journal={Software Practice Advancement (SPA)},
+  volume={2006},
+  year={2006}
+}
+@article{bainomugisha2013survey,
+  title={A survey on reactive programming},
+  author={Bainomugisha, Engineer and Carreton, Andoni Lombide and Cutsem, Tom van and Mostinckx, Stijn and Meuter, Wolfgang de},
+  journal={ACM Computing Surveys (CSUR)},
+  volume={45},
+  number={4},
+  pages={1--34},
+  year={2013},
+  publisher={ACM New York, NY, USA}
+}
+@book{blackheath2016functional,
+  title={Functional reactive programming},
+  author={Blackheath, Stephen and Jones, Anthony},
+  year={2016},
+  publisher={Manning Publications Company}
+}
+@inproceedings{marum2020unified,
+  title={Unified Library for Dependency-graph Reactivity on Web and Desktop User Interfaces},
+  author={Marum, Jo{\~a}o Paulo Oliveira and Cunningham, H Conrad and Jones, J Adam},
+  booktitle={Proceedings of the 2020 ACM Southeast Conference},
+  pages={26--33},
+  year={2020}
+}
+@article{sannella1993multi,
+  title={Multi-way versus one-way constraints in user interfaces: Experience with the deltablue algorithm},
+  author={Sannella, Michael and Maloney, John and Freeman-Benson, Bjorn and Borning, Alan},
+  journal={Software: Practice and Experience},
+  volume={23},
+  number={5},
+  pages={529--566},
+  year={1993},
+  publisher={Wiley Online Library}
+}
+@inproceedings{elliott2009push,
+  title={Push-pull functional reactive programming},
+  author={Elliott, Conal M},
+  booktitle={Proceedings of the 2nd ACM SIGPLAN symposium on Haskell},
+  pages={25--36},
+  year={2009}
+}
+@article{margara2018semantics,
+  title={On the semantics of distributed reactive programming: the cost of consistency},
+  author={Margara, Alessandro and Salvaneschi, Guido},
+  journal={IEEE Transactions on Software Engineering},
+  volume={44},
+  number={7},
+  pages={689--711},
+  year={2018},
+  publisher={IEEE}
+}
+@inproceedings{schuster2016reactive,
+  title={Reactive programming with reactive variables},
+  author={Schuster, Christopher and Flanagan, Cormac},
+  booktitle={Companion Proceedings of the 15th International Conference on Modularity},
+  pages={29--33},
+  year={2016}
+}
+@inproceedings{proencca2017quality,
+  title={Quality-aware reactive programming for the internet of things},
+  author={Proen{\c{c}}a, Jos{\'e} and Baquero, Carlos},
+  booktitle={International Conference on Fundamentals of Software Engineering},
+  pages={180--195},
+  year={2017},
+  organization={Springer}
+}
+@book{ghosh2017functional,
+  title={Functional and reactive domain modeling},
+  author={Ghosh, Debasish},
+  year={2017},
+  publisher={Manning Publications Company}
+}
+
+@mastersthesis{marheim2017domain,
+  title={A domain-specific dialect for financial-economic calculations using reactive programming},
+  author={Marheim, Christian Lundekvam},
+  year={2017},
+  school={The University of Bergen}
+}
+
+@inproceedings{shibanai2018distributed,
+  title={Distributed functional reactive programming on actor-based runtime},
+  author={Shibanai, Kazuhiro and Watanabe, Takuo},
+  booktitle={Proceedings of the 8th ACM SIGPLAN International Workshop on Programming Based on Actors, Agents, and Decentralized Control},
+  pages={13--22},
+  year={2018}
+}
+
+@article{salvaneschi2017positive,
+  title={On the positive effect of reactive programming on software comprehension: An empirical study},
+  author={Salvaneschi, Guido and Proksch, Sebastian and Amann, Sven and Nadi, Sarah and Mezini, Mira},
+  journal={IEEE Transactions on Software Engineering},
+  volume={43},
+  number={12},
+  pages={1125--1143},
+  year={2017},
+  publisher={IEEE}
+}
+
+@inproceedings{cooper2006embedding,
+  title={Embedding dynamic dataflow in a call-by-value language},
+  author={Cooper, Gregory H and Krishnamurthi, Shriram},
+  booktitle={European Symposium on Programming},
+  pages={294--308},
+  year={2006},
+  organization={Springer}
+}
+@inproceedings{wadler1995monads,
+  title={Monads for functional programming},
+  author={Wadler, Philip},
+  booktitle={International School on Advanced Functional Programming},
+  pages={24--52},
+  year={1995},
+  organization={Springer}
+}
+
+@misc{bworld,
+  author = {Tomer Gabel},
+  title = {{How shit works: Time}},
+  howpublished = "\url{https://speakerdeck.com/holograph/how-shit-works-time}",
+  year = {2018}, 
+  note = "[Online; accessed 26-April-2021]"
+}
+@article{salvaneschi2014programming,
+  title={Programming with implicit flows},
+  author={Salvaneschi, Guido and Eugster, Patrick and Mezini, Mira},
+  journal={IEEE software},
+  volume={31},
+  number={5},
+  pages={52--59},
+  year={2014},
+  publisher={IEEE}
+}
+@article{jiang2020event,
+  title={Event-based functional decomposition},
+  author={Jiang, Jian-Min and Zhu, Huibiao and Li, Qin and Zhao, Yongxin and Zhang, Shi and Gong, Ping and Hong, Zhong},
+  journal={Information and Computation},
+  volume={271},
+  pages={104484},
+  year={2020},
+  publisher={Elsevier}
+}
+@article{demetrescu2011reactive,
+  title={Reactive imperative programming with dataflow constraints},
+  author={Demetrescu, Camil and Finocchi, Irene and Ribichini, Andrea},
+  journal={ACM SIGPLAN Notices},
+  volume={46},
+  number={10},
+  pages={407--426},
+  year={2011},
+  publisher={ACM New York, NY, USA}
+}
+@inproceedings{uustalu2005essence,
+  title={The essence of dataflow programming},
+  author={Uustalu, Tarmo and Vene, Varmo},
+  booktitle={Central European Functional Programming School},
+  pages={135--167},
+  year={2005},
+  organization={Springer}
+}
+@book{abelson1996structure,
+  title={Structure and interpretation of computer programs},
+  author={Abelson, Harold and Sussman, Gerald Jay},
+  year={1996},
+  publisher={The MIT Press}
+}
+
+@incollection{salvaneschi2014towards,
+  title={Towards reactive programming for object-oriented applications},
+  author={Salvaneschi, Guido and Mezini, Mira},
+  booktitle={Transactions on Aspect-Oriented Software Development XI},
+  pages={227--261},
+  year={2014},
+  publisher={Springer}
+}
+@article{haveraaen2021semantics,
+  title={Semantics of multiway dataflow constraint systems},
+  author={Haveraaen, Magne and J{\"a}rvi, Jaakko},
+  journal={Journal of Logical and Algebraic Methods in Programming},
+  volume={121},
+  pages={100634},
+  year={2021},
+  publisher={Elsevier}
+}
+@article{gosling1984algebraic,
+  title={Algebraic constraints.},
+  author={Gosling, James Arthur},
+  year={1984}
+}
+@article{drechsler2014distributed,
+  title={Distributed REScala: An update algorithm for distributed reactive programming},
+  author={Drechsler, Joscha and Salvaneschi, Guido and Mogk, Ragnar and Mezini, Mira},
+  journal={ACM SIGPLAN Notices},
+  volume={49},
+  number={10},
+  pages={361--376},
+  year={2014},
+  publisher={ACM New York, NY, USA}
+}
+@inproceedings{perez2015bridging,
+  title={Bridging the GUI gap with reactive values and relations},
+  author={Perez, Ivan and Nilsson, Henrik},
+  booktitle={Proceedings of the 2015 ACM SIGPLAN Symposium on Haskell},
+  pages={47--58},
+  year={2015}
+}
+@book{burnham2012async,
+  title={Async JavaScript: Build More Responsive Apps with Less Code},
+  author={Burnham, Trevor},
+  year={2012},
+  publisher={Pragmatic Bookshelf}
+}
+@article{harel1990statemate,
+  title={Statemate: A working environment for the development of complex reactive systems},
+  author={Harel, David and Lachover, Hagi and Naamad, Amnon and Pnueli, Amir and Politi, Michal and Sherman, Rivi and Shtull-Trauring, Aharon and Trakhtenbrot, Mark},
+  journal={IEEE Transactions on software engineering},
+  volume={16},
+  number={4},
+  pages={403--414},
+  year={1990},
+  publisher={IEEE}
+}
+@inproceedings{salvaneschi2016we,
+  title={What do we really know about data flow languages?},
+  author={Salvaneschi, Guido},
+  booktitle={Proceedings of the 7th International Workshop on Evaluation and Usability of Programming Languages and Tools},
+  pages={30--31},
+  year={2016}
+}
+
+@article{florence2015pop,
+  title={POP-PL: A patient-oriented prescription programming language},
+  author={Florence, Spencer P and Fetscher, Bruke and Flatt, Matthew and Temps, William H and Kiguradze, Tina and West, Dennis P and Niznik, Charlotte and Yarnold, Paul R and Findler, Robert Bruce and Belknap, Steven M},
+  journal={ACM SIGPLAN Notices},
+  volume={51},
+  number={3},
+  pages={131--140},
+  year={2015},
+  publisher={ACM New York, NY, USA}
+}
+
+@book{martin2018clean,
+  title={Clean architecture: a craftsman's guide to software structure and design},
+  author={Martin, Robert C and Grenning, James and Brown, Simon},
+  year={2018},
+  publisher={Prentice Hall}
+}
+
+@article{boix2013object,
+  title={Object-oriented reactive programming is not reactive object-oriented programming},
+  author={Boix, Elisa Gonzalez and Pinte, Kevin and Van de Water, Simon and De Meuter, Wolfgang},
+  journal={REM},
+  volume={13},
+  year={2013}
+}
+
+@techreport{maier2010deprecating,
+  title={Deprecating the observer pattern},
+  author={Maier, Ingo and Rompf, Tiark and Odersky, Martin},
+  year={2010}
+}
+
+@Article{Peltonen2021,
+  author     = {Peltonen, Severi and Mezzalira, Luca and Taibi, Davide},
+  journal    = {Information and Software Technology},
+  title      = {Motivations, benefits, and issues for adopting {Micro}-{Frontends}: {A} {Multivocal} {Literature} {Review}},
+  year       = {2021},
+  issn       = {0950-5849},
+  month      = aug,
+  pages      = {106571},
+  volume     = {136},
+  abstract   = {Context: Micro-Frontends are increasing in popularity, being adopted by several large companies, such as DAZN, Ikea, Starbucks and may others. Micro-Frontends enable splitting of monolithic frontends into independent and smaller micro applications. However, many companies are still hesitant to adopt Micro-Frontends, due to the lack of knowledge concerning their benefits. Additionally, provided online documentation is often times perplexed and contradictory. Objective: The goal of this work is to map the existing knowledge on Micro-Frontends, by understanding the motivations of companies when adopting such applications as well as possible benefits and issues. Method: For this purpose, we surveyed the academic and grey literature by means of the Multivocal Literature Review process, analysing 173 sources, of which 43 reported motivations, benefits and issues. Results: The results show that existing architectural options to build web applications are cumbersome if the application and development team grows, and if multiple teams need to develop the same frontend application. In such cases, companies adopted Micro-Frontends to increase team independence and to reduce the overall complexity of the frontend. The application of the Micro-Frontend, confirmed the expected benefits, and Micro-Frontends resulted to provide the same benefits as microservices on the back end side, combining the development team into a fully cross-functional development team that can scale processes when needed. However, Micro-Frontends also showed some issues, such as the increased payload size of the application, increased code duplication and coupling between teams, and monitoring complexity. Conclusions: Micro-Frontends allow companies to scale development according to business needs in the same way microservices do with the back end side. In addition, Micro-Frontends have a lot of overhead and require careful planning if an advantage is achieved by using Micro-Frontends. Further research is needed to carefully investigate this new hype, by helping practitioners to understand how to use Micro-Frontends as well as understand in which contexts they are the most beneficial.},
+  doi        = {10.1016/j.infsof.2021.106571},
+  file       = {:peltonen_motivations_2021 - Motivations, Benefits, and Issues for Adopting Micro Frontends_ a Multivocal Literature Review.html:URL},
+  keywords   = {Micro-Frontends, Microservices, Web front-end development, Software architectures, Multivocal Literature Review},
+  language   = {en},
+  shorttitle = {Motivations, benefits, and issues for adopting {Micro}-{Frontends}},
+  url        = {https://www.sciencedirect.com/science/article/pii/S0950584921000549},
+  urldate    = {2021-12-21},
+}
+
+@Book{Geers2020,
+  author    = {Geers, Michael},
+  publisher = {Simon and Schuster},
+  title     = {Micro {Frontends} in {Action}},
+  year      = {2020},
+  isbn      = {9781617296871},
+  month     = oct,
+  note      = {Google-Books-ID: FFD9DwAAQBAJ},
+  abstract  = {Browser-based software can quickly become complex and difficult to maintain, especially when it’s implemented as a large single-page application. By adopting the micro frontends approach and designing your web apps as systems of features, you can deliver faster feature development, easier upgrades, and pick and choose the technology you use in your stack. Micro Frontends in Action is your guide to simplifying unwieldy frontends by composing them from small, well-defined units.Summary  Browser-based software can quickly become complex and difficult to maintain, especially when it’s implemented as a large single-page application. By adopting the micro frontends approach and designing your web apps as systems of features, you can deliver faster feature development, easier upgrades, and pick and choose the technology you use in your stack. Micro Frontends in Action is your guide to simplifying unwieldy frontends by composing them from small, well-defined units.  Purchase of the print book includes a free eBook in PDF, Kindle, and ePub formats from Manning Publications.  About the Technology  Micro frontends deliver the same flexibility and maintainability to browser-based applications that microservices provide for backend systems. You design your project as a set of standalone components that include their own interfaces, logic, and storage. Then you develop these mini-applications independently and compose them in the browser.  About the Book  Micro Frontends in Action teaches you to apply the microservices approach to the frontend. You’ll start with the core micro frontend design ideas. Then, you’ll build an e-commerce application, working through practical issues like server-side and client-side composition, routing, and maintaining a consistent look and feel. Finally, you’ll explore team workflow patterns that maximize the benefit of developing application components independently.  What’s Inside  - Create a unified frontend from independent applications - Combine JavaScript code from multiple frameworks - Browser and server-side composition and routing - Implement effective dev teams and project workflow  About the Reader  For web developers, software architects, and team leaders.  About the Author  Michael Geers is a software developer specializing in building user interfaces.  Table of Contents  PART 1 - GETTING STARTED WITH MICRO FRONTENDS  1 What are micro frontends?  2 My first micro frontends project  PART 2 - ROUTING, COMPOSITION, AND COMMUNICATION  3 Composition with Ajax and server-side routing  4 Server-side composition  5 Client-side composition  6 Communication patterns  7 Client-side routing and the application shell  8 Composition and universal rendering  9 Which architecture fits my project?  PART 3 - HOW TO BE FAST, CONSISTENT, AND EFFECTIVE  10 Asset loading  11 Performance is key  12 User interface and design system  13 Teams and boundaries  14 Migration, local development, and testing},
+  file      = {:Geers2020 - Micro Frontends in Action.html:URL},
+  keywords  = {Computers / Software Development \& Engineering / General, Computers / Web / Web Services \& APIs},
+  language  = {en},
+}
+
+@InProceedings{Salvaneschi2014,
+  author     = {Salvaneschi, Guido and Hintz, Gerold and Mezini, Mira},
+  title      = {{REScala}: bridging between object-oriented and functional style in reactive applications},
+  year       = {2014},
+  month      = apr,
+  pages      = {25--36},
+  abstract   = {Traditionally, object-oriented software adopts the Observer pattern to implement reactive behavior. Its drawbacks are well-documented and two families of alternative approaches have been proposed, extending object-oriented languages with concepts from functional reactive and dataflow programming, respectively event-driven programming. The former hardly escape the functional setting; the latter do not achieve the declarativeness of more functional approaches. In this paper, we present REScala, a reactive language which integrates concepts from event-based and functional-reactive programming into the object-oriented world. REScala supports the development of reactive applications by fostering a functional declarative style which complements the advantages of object-oriented design.},
+  doi        = {10.1145/2584469.2577083},
+  file       = {ResearchGate Link:https\://www.researchgate.net/publication/314779240_REScala_bridging_between_object-oriented_and_functional_style_in_reactive_applications:},
+  shorttitle = {{REScala}},
+}
+
+@book{gamma1995design,
+  title={Design patterns: elements of reusable object-oriented software},
+  author={Gamma, Erich and Helm, Richard and Johnson, Ralph and Johnson, Ralph E and Vlissides, John and others},
+  year={1995},
+  publisher={Pearson Deutschland GmbH}
+}
+
+@incollection{salvaneschi2014towards,
+  title={Towards reactive programming for object-oriented applications},
+  author={Salvaneschi, Guido and Mezini, Mira},
+  booktitle={Transactions on Aspect-Oriented Software Development XI},
+  pages={227--261},
+  year={2014},
+  publisher={Springer}
+}
+
+@article{meijer2012your,
+  title={Your mouse is a database},
+  author={Meijer, Erik},
+  journal={Communications of the ACM},
+  volume={55},
+  number={5},
+  pages={66--73},
+  year={2012},
+  publisher={ACM New York, NY, USA}
+}
+
+@book{hejlsberg2008c,
+  title={The C\# programming language},
+  author={Hejlsberg, Anders and Torgersen, Mads and Wiltamuth, Scott and Golde, Peter},
+  year={2008},
+  publisher={Pearson Education}
+}
+
+@book{odersky2008programming,
+  title={Programming in scala},
+  author={Odersky, Martin and Spoon, Lex and Venners, Bill},
+  year={2008},
+  publisher={Artima Inc}
+}
+
+
+@Comment{jabref-meta: databaseType:bibtex;}

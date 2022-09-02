@@ -1,0 +1,416 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Approach
+\end_layout
+
+\begin_layout Standard
+Reactive variables can have references, such that they can be shared among
+ several objects, and even be global variables.
+ There is also no limitation to declaring reactive variables as part of
+ an interface, such that providers and clients will share the reactive variable
+ while hiding related associations.
+\end_layout
+
+\begin_layout Standard
+Consequently, reactive variables can be referenced by several formulas,
+ in such that they are associated to several expressions.
+ e.g., given the reactive variables' references 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+X
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y
+\end_layout
+
+\end_inset
+
+ assemble the formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=X
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=Y
+\end_layout
+
+\end_inset
+
+, if 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B
+\end_layout
+
+\end_inset
+
+, then a reactive variable with two associations is produced.
+ In the rest of this section we provide semantics, that supports reactive
+ variables with several associations.
+\end_layout
+
+\begin_layout Standard
+Reactive variable is 
+\emph on
+continuous
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, by being used independant of time.
+ Associating reactive variable with an expression, such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+X:=A+B
+\end_layout
+
+\end_inset
+
+, describes continously how varying value depends on other varying values.
+\end_layout
+
+\begin_layout Standard
+However, in computers, reactive variable's actual values are not continously
+ given.
+ For example, reactive variable reflecting temperature, is associated to
+ stream of events from measuring by a thermometer.
+ Conceptualy, the reactive variable reflects the temperature continuously,
+ but in runtime, it depends on the actual stream of values.
+\end_layout
+
+\begin_layout Standard
+Therfore, reactive variable has two abstraction levels.
+ The higher level, is continuous, to being used independant of time.
+ But in the lower level (
+\begin_inset Quotes eld
+\end_inset
+
+under the hood
+\begin_inset Quotes erd
+\end_inset
+
+), the reactive variable is an 
+\emph on
+events stream
+\emph default
+, which is an observable emitting values to subscribers 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+, based on the 
+\emph on
+observer
+\emph default
+ and 
+\emph on
+iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The two abstraction levels are relevant also in the context of the operators.
+ Operators over reactive variables, such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
++
+\end_layout
+
+\end_inset
+
+ in the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A+B
+\end_layout
+
+\end_inset
+
+, means in the high level, continuously reflecting the variables' sum.
+ However
+\emph on
+, 
+\emph default
+in the low level, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ are streams, and the operator 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
++
+\end_layout
+
+\end_inset
+
+ is a function over them, producing a stream values notifications from applying
+ + on the values from the notifications of A and B.
+
+\emph on
+ 
+\end_layout
+
+\begin_layout Standard
+Accordingly, reactive variables can be associated with several streams (streams
+ of imperative events, streams of reactive variables, and streams of an
+ expression of reactive variables).
+ The reactive variables are notified about their values from several streams,
+ similar to having several devices sampling a single real-world variable
+ in the world.
+ Anyway, the reactive variable provides to its subscribers, a single stream
+ of values based on the several streams, it is subscribed to.
+ 
+\end_layout
+
+\begin_layout Standard
+When propagating values through the operators and associations, each party,
+ as an observable observer, tracks its input values and 
+\begin_inset Quotes eld
+\end_inset
+
+decides
+\begin_inset Quotes erd
+\end_inset
+
+ what values to notify its subscribers.
+ There must be a distributed algorithm, such that the parties will follow,
+ to be coordinated.
+ 
+\end_layout
+
+\begin_layout Standard
+The algorithm design is based on the following guarantee 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+: 
+\emph on
+the same sequence of events produces the same results, regardless of the
+ timing of those events.
+ 
+\emph default
+Therfore, we use ordered values according to the the events, and derive
+ a total order over the whole values in the application.
+\end_layout
+
+\begin_layout Standard
+The values produced from events are attached with a timestamp (an incremental
+ natural number).
+ Values produced from operators or associations are attached with a set
+ of timestamps according to the values they were calculated from.
+ The timestamps are then used by the parties to follow the total order.
+\end_layout
+
+\begin_layout Standard
+The parties use the order to ignore the glitch notifications.
+ A glitch notification is a value that is less or equal to the latest produced
+ notification.
+ The parties which are associations need also to ignore values notifications
+ produced originally from their own notification.
+ Values that were not produced from the recursive notification, must be
+ greater than the latest produced notification.
+\end_layout
+
+\end_body
+\end_document

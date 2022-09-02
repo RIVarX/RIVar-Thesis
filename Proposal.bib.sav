@@ -1,5 +1,14 @@
 % Encoding: UTF-8
 
+@Misc{,
+  title    = {Functional {Reactive} {Programming} [{Book}]},
+  abstract = {Summary Functional Reactive Programming teaches the concepts and applications of FRP. It offers a careful walk-through of core FRP operations and introduces the concepts and techniques you'll need to use … - Selection from Functional Reactive Programming [Book]},
+  isbn     = {9781633430105},
+  language = {en},
+  url      = {https://www.oreilly.com/library/view/functional-reactive-programming/9781633430105/},
+  urldate  = {2022-07-26},
+}
+
 @Article{Kamina2018,
   author   = {Kamina, Tetsuo and Aotani, Tomoyuki},
   journal  = {The Art, Science, and Engineering of Programming},
@@ -346,35 +355,57 @@
   language  = {en},
 }
 
-@Article{Ke2012,
-  author     = {Ke, Wei and Liu - ???, Zhiming},
-  title      = {Software {Engineering} in {Public} {Health}: {Opportunities} and {Challenges}},
-  year       = {2012},
-  month      = mar,
-  abstract   = {Based on the state of the art of health information systems (HIS) and the recent advancement in information and communication technology (ICT), we discuss the possible future HIS and their potential to transform the global health services. We also show why with all of the enabling technologies rapidly changing so many aspects of our daily life and environment, the actual impact of HIS on healthcare is much more limited than we think. We discuss the main reasons from the software engineering perspective and identify the challenges in the design and implementation of HIS to realize their perceived potentials. In the discussion of the causes of the challenges, we propose to apply model-driven software engineering methodologies to the design and analysis of future HIS, with the support of formal modeling and verification techniques and tools.},
-  doi        = {10.1109/CDCIEM.2012.155},
-  file       = {:Ke2012 - Software Engineering in Public Health_ Opportunities and Challenges.pdf:PDF},
-  shorttitle = {Software {Engineering} in {Public} {Health}},
+@InProceedings{Salvaneschi2014,
+  author     = {Salvaneschi, Guido and Hintz, Gerold and Mezini, Mira},
+  title      = {{REScala}: bridging between object-oriented and functional style in reactive applications},
+  year       = {2014},
+  month      = apr,
+  pages      = {25--36},
+  abstract   = {Traditionally, object-oriented software adopts the Observer pattern to implement reactive behavior. Its drawbacks are well-documented and two families of alternative approaches have been proposed, extending object-oriented languages with concepts from functional reactive and dataflow programming, respectively event-driven programming. The former hardly escape the functional setting; the latter do not achieve the declarativeness of more functional approaches. In this paper, we present REScala, a reactive language which integrates concepts from event-based and functional-reactive programming into the object-oriented world. REScala supports the development of reactive applications by fostering a functional declarative style which complements the advantages of object-oriented design.},
+  doi        = {10.1145/2584469.2577083},
+  file       = {ResearchGate Link:https\://www.researchgate.net/publication/314779240_REScala_bridging_between_object-oriented_and_functional_style_in_reactive_applications:},
+  shorttitle = {{REScala}},
 }
 
-@Article{Schraagen2013,
-  author     = {Schraagen, Jan Maarten and Verhoeven, Fenne},
-  journal    = {Journal of Biomedical Informatics},
-  title      = {Methods for studying medical device technology and practitioner cognition: {The} case of user-interface issues with infusion pumps},
-  year       = {2013},
-  issn       = {1532-0464},
-  month      = feb,
-  number     = {1},
-  pages      = {181--195},
-  volume     = {46},
-  abstract   = {Purpose The aims of this study were to investigate how a variety of research methods is commonly employed to study technology and practitioner cognition. User-interface issues with infusion pumps were selected as a case because of its relevance to patient safety. Methods Starting from a Cognitive Systems Engineering perspective, we developed an Impact Flow Diagram showing the relationship of computer technology, cognition, practitioner behavior, and system failure in the area of medical infusion devices. We subsequently conducted a systematic literature review on user-interface issues with infusion pumps, categorized the studies in terms of methods employed, and noted the usability problems found with particular methods. Next, we assigned usability problems and related methods to the levels in the Impact Flow Diagram. Results Most study methods used to find user interface issues with infusion pumps focused on observable behavior rather than on how artifacts shape cognition and collaboration. A concerted and theory-driven application of these methods when testing infusion pumps is lacking in the literature. Detailed analysis of one case study provided an illustration of how to apply the Impact Flow Diagram, as well as how the scope of analysis may be broadened to include organizational and regulatory factors. Conclusion Research methods to uncover use problems with technology may be used in many ways, with many different foci. We advocate the adoption of an Impact Flow Diagram perspective rather than merely focusing on usability issues in isolation. Truly advancing patient safety requires the systematic adoption of a systems perspective viewing people and technology as an ensemble, also in the design of medical device technology.},
-  doi        = {10.1016/j.jbi.2012.10.005},
-  file       = {:Schraagen2013 - Methods for Studying Medical Device Technology and Practitioner Cognition_ the Case of User Interface Issues with Infusion Pumps.html:URL},
-  keywords   = {User interface, Usability, Cognition, Patient safety, Infusion device(s), Cognitive Systems Engineering},
-  language   = {en},
-  shorttitle = {Methods for studying medical device technology and practitioner cognition},
-  url        = {https://www.sciencedirect.com/science/article/pii/S1532046412001591},
-  urldate    = {2022-03-22},
+@book{gamma1995design,
+  title={Design patterns: elements of reusable object-oriented software},
+  author={Gamma, Erich and Helm, Richard and Johnson, Ralph and Johnson, Ralph E and Vlissides, John and others},
+  year={1995},
+  publisher={Pearson Deutschland GmbH}
+}
+
+@incollection{salvaneschi2014towards,
+  title={Towards reactive programming for object-oriented applications},
+  author={Salvaneschi, Guido and Mezini, Mira},
+  booktitle={Transactions on Aspect-Oriented Software Development XI},
+  pages={227--261},
+  year={2014},
+  publisher={Springer}
+}
+
+@article{meijer2012your,
+  title={Your mouse is a database},
+  author={Meijer, Erik},
+  journal={Communications of the ACM},
+  volume={55},
+  number={5},
+  pages={66--73},
+  year={2012},
+  publisher={ACM New York, NY, USA}
+}
+
+@book{hejlsberg2008c,
+  title={The C\# programming language},
+  author={Hejlsberg, Anders and Torgersen, Mads and Wiltamuth, Scott and Golde, Peter},
+  year={2008},
+  publisher={Pearson Education}
+}
+
+@book{odersky2008programming,
+  title={Programming in scala},
+  author={Odersky, Martin and Spoon, Lex and Venners, Bill},
+  year={2008},
+  publisher={Artima Inc}
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

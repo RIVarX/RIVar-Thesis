@@ -283,15 +283,14 @@ begin{tikzpicture}
 
 
 \backslash
-node[shape=circle,draw=black,label={sensorValue}] (A) at (0,5) {};     
+node[shape=circle,draw=black] (A) at (0,5) {sensorValue};     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black,label={powerDierence}] (B) at (3.5,5) {};  
-   
+node[shape=circle,draw=black] (B) at (3.5,5) {powerDierence};     
 \end_layout
 
 \begin_layout Plain Layout
@@ -305,7 +304,7 @@ draw[-{Triangle[scale=1]}] (A) -- (B);
 
 
 \backslash
-end{tikzpicture}  
+end{tikzpicture} 
 \end_layout
 
 \begin_layout Plain Layout

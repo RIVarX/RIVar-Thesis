@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Reactive Instance Variables (Approach, The Abstraction)
+Approach
 \end_layout
 
 \begin_layout Standard
@@ -360,8 +360,9 @@ Accordingly, reactive variables can be associated with several streams (streams
 \end_layout
 
 \begin_layout Standard
-When propagating values through the operators and associations, each party,
- as an observable observer, tracks its input values and 
+When propagating values through the operators and associations, each party
+ (operator or association), as an observable observer, tracks its input
+ values and 
 \begin_inset Quotes eld
 \end_inset
 
@@ -375,41 +376,28 @@ decides
  
 \end_layout
 
-\begin_layout Standard
-The algorithm design is based on the following guarantee 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-: 
-\emph on
-the same sequence of events produces the same results, regardless of the
- timing of those events.
- 
-\emph default
-Therfore, we use ordered values according to the the events, and derive
- a total order over the whole values in the application.
+\begin_layout Paragraph
+The Algorithm
 \end_layout
 
 \begin_layout Standard
-The values produced from events are attached with a timestamp (an incremental
+We use ordered values according to the the events, and derive a total order
+ over the whole values in the application.
+ Each value produced from an event is attached with a timestamp (an incremental
  natural number).
  Values produced from operators or associations are attached with a set
  of timestamps according to the values they were calculated from.
- The timestamps are then used by the parties to follow the total order.
+ 
 \end_layout
 
 \begin_layout Standard
-The parties use the order to ignore the glitch notifications.
- A glitch notification is a value that is less or equal to the latest produced
- notification.
- The parties which are associations need also to ignore values notifications
- produced originally from their own notification.
- Values that were not produced from the recursive notification, must be
- greater than the latest produced notification.
+The parties follow the total order by the help of the attached timetsamps,
+ such that glitch and recursive notifications are recognized and ignored.
+ Any notification that contains a timestamp that is less or equal to the
+ latest produced notification's timestamp are a glitch notification.
+ Similary, recursive notifications are associations parties' notifications
+ produced originally from their own notification, therefore their timestamp
+ are less or equal to the latest produced notification's timestamp.
 \end_layout
 
 \end_body

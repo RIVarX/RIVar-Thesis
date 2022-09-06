@@ -108,7 +108,8 @@ glitches
 reassigments
 \emph default
 .
- Therfore we suggest that the reactive instance variables will support 
+ Therefore we suggest that the reactive instance variables will support
+ 
 \emph on
 multiple assignment
 \emph default

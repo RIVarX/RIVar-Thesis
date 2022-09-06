@@ -90,87 +90,31 @@ Related Work
 \end_layout
 
 \begin_layout Standard
-Previous works 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards,boix2013object"
-literal "false"
-
-\end_inset
-
- research the integration of FRP with the traditional Object Oriented Programmin
-g (OOP).
- In OOP, classes evolve without interfering other classes by using 
+ReactiveX was mentioned as 
 \emph on
-contracts
+not true FRP, 
 \emph default
-, and encapsulating the internal implementation.
- In the simplified form, the contract is the 
+because it provides 
 \emph on
-interface
+merge
 \emph default
-, which defines the accesible variables and methods, to consumers or subclasses
+ operator that merges streams based on the computer's clock time, and the
+ ability to produce recursion.
+ Both prevent from having the referential transparency property, such that
+ the same input will produce consistenctly the same output.
  
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
-.
- In the integrated paradigm, we then expect to abstract away the need to
- update variables, while keeping classes' encapsulation.
+\emph on
+Sodium
+\emph default
+ accomplish that by wrapping the FRP code with transactions that handle
+ simultaneous events and avoid/ignore recursion calls.
+ In contrast, we answer the two open issues by: First, Predictable merge
+ operator depending on reliable timestamps.
+ Second, support recursion by the predictable merge operator under the wood.
 \end_layout
 
 \begin_layout Standard
-In this work we focus on the approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, in which an existing language can be extended with a variation of reactive
- variables as a data type.
- Accordingly, libraries such as ReactiveX
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://reactivex.io}
-\end_layout
-
-\end_inset
-
- and REscala
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://www.rescala-lang.com}
-\end_layout
-
-\end_inset
-
-, support having a variation of reactive variables as objects' data members
- (named also 
-\emph on
-instance variables
-\emph default
-).
- 
-\end_layout
-
-\begin_layout Itemize
-__
+—————
 \end_layout
 
 \begin_layout Standard
@@ -223,6 +167,211 @@ There are two existing approaches: reactive variables that can be defined
 by
 \emph default
  providing reactive variables defined inside objects.
+\end_layout
+
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+In OOP, classes evolve without interfering other classes by using 
+\emph on
+contracts
+\emph default
+, and encapsulating the internal implementation.
+ In the simplified form, the contract is the 
+\emph on
+interface
+\emph default
+, which defines the accesible variables and methods, to consumers or subclasses
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+—————–
+\end_layout
+
+\begin_layout Standard
+In this work we focus on the approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, in which an existing language can be extended with a variation of reactive
+ variables as a data type.
+ Accordingly, libraries such as ReactiveX
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+ and REscala
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://www.rescala-lang.com}
+\end_layout
+
+\end_inset
+
+, support having a variation of reactive variables as objects' data members
+ (named also 
+\emph on
+instance variables
+\emph default
+).
+ 
+\end_layout
+
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+FRP has an adjustment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+ to work with distributed applications, and it worked correctly for a small
+ case study.
+ In the other side, Hotdrink which is a weak FRP variation, has been investigate
+d to work for one real world application, and failed in the integration
+ with the micro-services architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+————-
+\end_layout
+
+\begin_layout Standard
+In the attempt to combine FRP with OOP, there is an open question whether
+ to support reassignment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Declaring class variables being reactive
+\end_layout
+
+\begin_layout Standard
+variables, arises that conflict, whether to enable reassignment e.g.
+ declaring A:=B+1 and then A:=C+1.
+ In FRP, reassignment should not be enabled, since in FRP we “describe things
+ that exist, rather than actions that have happened or are to happen
+\end_layout
+
+\begin_layout Standard
+(i.e., what is, not what does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, in OOP reassignment should be enabled for assigning independently
+ e.g., A:=B+1 in a base class, and A:=C+1 in the
+\end_layout
+
+\begin_layout Standard
+derived class.
+\end_layout
+
+\begin_layout Standard
+————–
+\end_layout
+
+\begin_layout Standard
+The proposed approach satisfies the guarantee 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+: 
+\emph on
+the same sequence of events produces the same results, regardless of the
+ timing of those events.
+
+\emph default
+ This is equivalent to the referential transparency property required by
+ 
+\end_layout
+
+\begin_layout Standard
+FRP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, such that the same input will produce consistenctly the same output.
+
+\emph on
+ 
+\emph default
+As a result, Despite the existence of cycles, the proposed approach accomplish
+ the referential transparency property, therfore it is FRP.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+state management
+\end_layout
+
+\begin_layout Standard
+———
+\end_layout
+
+\begin_layout Standard
+constraints solver - distributed
 \end_layout
 
 \end_body

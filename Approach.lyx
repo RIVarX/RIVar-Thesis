@@ -103,21 +103,38 @@
 \begin_body
 
 \begin_layout Chapter
-Approach
+Reactive Instance Variables
 \end_layout
 
 \begin_layout Standard
-Reactive variables can have references, such that they can be shared among
- several objects, and even be global variables.
- There is also no limitation to declaring reactive variables as part of
- an interface, such that providers and clients will share the reactive variable
- while hiding related associations.
+We adopt the approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, in which an existing language can be extended with a variation of 
+\emph on
+reactive variable
+\emph default
+ as a data type, that is used to declare and automate dependencies.
+ Objects then can contain 
+\emph on
+reactive instance variables
+\emph default
+, that are reactive variables as instance variables (or objects' data members).
+ Also, they can be declared as part of interfaces, such that providers and
+ clients will share them while hiding related associations.
 \end_layout
 
 \begin_layout Standard
-Consequently, reactive variables can be referenced by several formulas,
- in such that they are associated to several expressions.
- e.g., given the reactive variables' references 
+The reactive instance variables can have references because they can be
+ shared among several objects.
+ Consequently, reactive instance variables can be referenced by several
+ formulas, in such that they are associated to several expressions.
+ e.g., given the reactive instance variables' references 
 \begin_inset ERT
 status open
 
@@ -196,7 +213,7 @@ A=B
 
 , then a reactive variable with two associations is produced.
  In the rest of this section we provide semantics, that supports reactive
- variables with several associations.
+ instance variables with several associations.
 \end_layout
 
 \begin_layout Standard
@@ -280,7 +297,7 @@ literal "false"
 
 \begin_layout Standard
 The two abstraction levels are relevant also in the context of the operators.
- Operators over reactive variables, such as 
+ Operators over reactive instance variables, such as 
 \begin_inset ERT
 status open
 
@@ -340,20 +357,20 @@ status open
 
 \end_inset
 
- is a function over them, producing a stream values notifications from applying
- + on the values from the notifications of A and B.
+ is a function over them, producing a stream of values notifications from
+ applying + on the values from the notifications of A and B.
 
 \emph on
  
 \end_layout
 
 \begin_layout Standard
-Accordingly, reactive variables can be associated with several streams (streams
- of imperative events, streams of reactive variables, and streams of an
- expression of reactive variables).
- The reactive variables are notified about their values from several streams,
- similar to having several devices sampling a single real-world variable
- in the world.
+Accordingly, reactive instance variables can be associated with several
+ streams (streams of imperative events, streams of reactive instance variables,
+ and streams of an expression of reactive instance variables).
+ The reactive instance variables are notified about their values from several
+ streams, similar to having several devices sampling a single real-world
+ variable in the world.
  Anyway, the reactive variable provides to its subscribers, a single stream
  of values based on the several streams, it is subscribed to.
  

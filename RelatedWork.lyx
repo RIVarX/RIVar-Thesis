@@ -90,6 +90,35 @@ Related Work
 \end_layout
 
 \begin_layout Standard
+In order to do the switch from applications with one large network dependencies
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+ (monolith), we adopt the approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, in which an existing language can be extended with a variation of 
+\emph on
+reactive variable
+\emph default
+ as a data type, that is used to declare and automate dependencies.
+\end_layout
+
+\begin_layout Standard
+———————
+\end_layout
+
+\begin_layout Standard
 ReactiveX was mentioned as 
 \emph on
 not true FRP, 
@@ -372,6 +401,86 @@ state management
 
 \begin_layout Standard
 constraints solver - distributed
+\end_layout
+
+\begin_layout Standard
+———–
+\end_layout
+
+\begin_layout Standard
+FRP has an adjustment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+ to work with distributed applications, and it worked correctly for a small
+ case study.
+ In the other side, Hotdrink which is a weak FRP variation, has been investigate
+d to work for one real world application, and failed in the integration
+ with the micro-services architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Actually the FRP paradigm has problems with the integration.
+ The problems are arisen with the presence of 
+\emph on
+cycles
+\emph default
+ and 
+\emph on
+glitches
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ In previous works the glitches problem has been handled 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, even in the distributed settings 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ However, the problem remains with the presence of cycles (then also the
+ glitches problem are arisen again).
+ Accordingly, the applications are seperated between those with with hierarchica
+l data, in which the dependency graph is cyclic, and those with mutually
+ dependent variables, in which the dependency graph contain cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \end_body

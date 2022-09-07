@@ -681,11 +681,7 @@ end{tikzpicture}
 
 \begin_layout Standard
 The used cycles ( i.e., cycles in which values are actualy propogated in runtime)
- must have a variable
-\end_layout
-
-\begin_layout Standard
-with 
+ must have a variable with 
 \emph on
 reassigment
 \emph default
@@ -867,14 +863,18 @@ literal "false"
 \end_inset
 
 .
- Many efforts have been made to abstract away the complexity, provide simpler
+ 
+\end_layout
+
+\begin_layout Standard
+Many efforts have been made to abstract away the complexity, provide simpler
  abstractions or hide the concept of 
 \emph on
 change events
 \emph default
  under the wood.
- The cycles are handled diffrently depending on the implementation, and
- affect on the limitations, predictability and modularity.
+ While the cycles are handled diffrently depending on the implementation,
+ with the impact on the predictability, modularity and limitations.
 \end_layout
 
 \begin_layout Section

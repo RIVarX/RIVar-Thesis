@@ -17,7 +17,7 @@
 \maintain_unincluded_children false
 \language hebrew
 \language_package default
-\inputencoding auto
+\inputencoding cp1255
 \fontencoding global
 \font_roman "default" "default"
 \font_sans "default" "default"
@@ -86,10 +86,8 @@
 \begin_body
 
 \begin_layout Standard
-
-\lang english
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -154,10 +152,8 @@ maketitle
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -218,8 +214,6 @@ blankpage
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 \begin_inset ERT
 status open
 
@@ -236,8 +230,22 @@ blankpage
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
 
-\lang english
+\begin_layout Plain Layout
+
+
+\backslash
+selectlanguage{english}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset External
 	template PDFPages
 	filename thesisTocHebrew.pdf

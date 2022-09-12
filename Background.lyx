@@ -107,12 +107,25 @@ Background
 \end_layout
 
 \begin_layout Standard
-Traditionaly variables that need to be consistent with (i.e., re-calculated
- according to) other variables, either pull the values or use observation
- features .
- Pulling consumes time and resources, because the application must invoke
- the variables, even in cases when no changes have occurred.
- implementing observation features means 
+While 
+\emph on
+functions
+\emph default
+ are implemented to get 
+\emph on
+how
+\emph default
+ a varying variable's value depends on another variable's value.
+ Handling consistency means executing the functions, in response to observing
+ new values, to update dependant variables with the change.
+ There is also the option to pull the values, however it consumes time and
+ resources, because the application must invoke the variables, even in cases
+ when no changes have occurred.
+\end_layout
+
+\begin_layout Standard
+In order to observe new values, observation feature should be used.
+ This is the 
 \emph on
 events 
 \emph default
@@ -419,7 +432,7 @@ end{tikzpicture}
 
 
 \backslash
-caption{A simple dependency graph with cycles (by A:=B and B:=A)} 
+caption{A simple dependency graph with cycles} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -527,63 +540,6 @@ B
 \end_inset
 
  should not ignore a second update.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-Y1:=f1(X)
-\end_layout
-
-\begin_layout Plain Layout
-
-Y2:=f2(X)
-\end_layout
-
-\begin_layout Plain Layout
-
-A:=f3(Y1,Y2)
-\end_layout
-
-\begin_layout Plain Layout
-
-B:=f4(A)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -879,170 +835,63 @@ change events
  
 \end_layout
 
-\begin_layout Section
-Abstractions
-\end_layout
-
-\begin_layout Subsection
-Reactive Variables
+\begin_layout Paragraph*
+Solutions with Events
 \end_layout
 
 \begin_layout Standard
-Today, many frameworks support to declare the dependancies and enforcing
- them under the wood.
- The developer then declares the needed dependencies leaving the frameworks
- to handle the perfomance optimization.
- 
-\end_layout
-
-\begin_layout Subsection
-Constraints
-\end_layout
-
-\begin_layout Standard
-There are libraries which automaticaly handle variables 
+In the enterprise application 
 \emph on
-consistency
+Microsoft Dynamics
 \emph default
- according to a set of constraints.
- While functions are implemented to get 
-\emph on
-how
-\emph default
- a varying variable's value depends on another variable's value.
- Handling consistency means executing the functions, in response to observing
- new values, to update dependant variables with the change.
  
-\end_layout
-
-\begin_layout Standard
-Take for example 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Total = Price + Tip
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
 
 \end_inset
 
-, there are three methods to satisfy the constraint: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Price = Total - Tip
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Tip = Total - Price
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Total = Price + Tip
-\end_layout
-
-\end_inset
-
-.
- In response to any new input, the library choose what method to execute
- to satisfy the constraint.
-\end_layout
-
-\begin_layout Standard
-When more constraints are specified and against varying input options, choosing
- the methods to execute, become not trivial.
- Therefore, various algorithms have been developed named 
+ developers can extend the web forms with code that are executed in response
+ to events, In addition users can extend the forms without code , but by
+ a user friendly customization form.
+ The user customize 
 \emph on
-constraints solvers
+business rules
+\emph default
+ by drug and drop and easy selection elements.
+ With and without code the application can be customized to calculate fields
+ in response to 
+\emph on
+change events
 \emph default
 .
- The principal is to prioritize the constraints, and iterate them, choosing
- methods which does not override variables that already satisfied by previous
- chosen methods.
- The inputs are considered as contraints, for example if user set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Tip
-\end_layout
-
-\end_inset
-
- with the input 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-10
-\end_layout
-
-\end_inset
-
-, then the constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Tip=10
-\end_layout
-
-\end_inset
-
- is added to the set.
- Accordingly, constraints are prioritized according to the order of the
- inputs.
+ There is a protection to not running infinite loops in cases that there
+ are cycles in dependencies: the code is executed only in resonse to change
+ that happens directly by the user, and changes happened by business rules
+ are ignored.
 \end_layout
 
 \begin_layout Standard
-Constraints solvers are actualy choose a consistent way to handle conflicts.
- If we add to the above example 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Price = OriginalPrice - Discount
-\end_layout
-
-\end_inset
-
-, then it might be wandered from where 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Price
-\end_layout
-
-\end_inset
-
- should be calculated.
+In addition, Microsoft Dynamics can be extended by registering code as plugins
+ to messages in the server side.
+ In the execution context, there is a field 
+\emph on
+Depth
+\emph default
+, that is provided to the developers to protect code against infinite loops,
+ in cases when the code update fields, and is regsitered in the message
  
+\emph on
+update.
+ 
+\emph default
+The developers can use this field to check if the current execution is a
+ repeating update, and how many repetitions (that is depth of execution
+ in the call stack).
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Paragraph*
 Observable Streams
 \end_layout
 
@@ -1704,6 +1553,24 @@ end{figure}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Paragraph*
+Constraints
+\end_layout
+
+\begin_layout Standard
+Libraries like Hotdrink, applications like Microsoft Excel and paradigms
+ like FRP provide the framework to declare functional dependancies while
+ enforcing them under the wood.
+ In Hotdrink and the constraints programming the constraints multi-way.
+ In Microsoft Excel and the FRP paradigm, the constraints are one-way constraint
+s, such that imperative assigment statements are lifted to be continuously
+ enforced.
+\end_layout
+
+\begin_layout Standard
+ 
 \end_layout
 
 \begin_layout Section

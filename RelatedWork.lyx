@@ -199,84 +199,7 @@ by
 \end_layout
 
 \begin_layout Standard
-————
-\end_layout
-
-\begin_layout Standard
-In OOP, classes evolve without interfering other classes by using 
-\emph on
-contracts
-\emph default
-, and encapsulating the internal implementation.
- In the simplified form, the contract is the 
-\emph on
-interface
-\emph default
-, which defines the accesible variables and methods, to consumers or subclasses
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
 —————–
-\end_layout
-
-\begin_layout Standard
-In this work we focus on the approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, in which an existing language can be extended with a variation of reactive
- variables as a data type.
- Accordingly, libraries such as ReactiveX
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://reactivex.io}
-\end_layout
-
-\end_inset
-
- and REscala
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://www.rescala-lang.com}
-\end_layout
-
-\end_inset
-
-, support having a variation of reactive variables as objects' data members
- (named also 
-\emph on
-instance variables
-\emph default
-).
- 
-\end_layout
-
-\begin_layout Standard
-————
 \end_layout
 
 \begin_layout Standard
@@ -301,49 +224,6 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-————-
-\end_layout
-
-\begin_layout Standard
-In the attempt to combine FRP with OOP, there is an open question whether
- to support reassignment 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
- Declaring class variables being reactive
-\end_layout
-
-\begin_layout Standard
-variables, arises that conflict, whether to enable reassignment e.g.
- declaring A:=B+1 and then A:=C+1.
- In FRP, reassignment should not be enabled, since in FRP we “describe things
- that exist, rather than actions that have happened or are to happen
-\end_layout
-
-\begin_layout Standard
-(i.e., what is, not what does)” 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-.
- In contrast, in OOP reassignment should be enabled for assigning independently
- e.g., A:=B+1 in a base class, and A:=C+1 in the
-\end_layout
-
-\begin_layout Standard
-derived class.
 \end_layout
 
 \begin_layout Standard

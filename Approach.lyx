@@ -115,11 +115,8 @@ literal "false"
 
 \end_inset
 
-, in which an existing language can be extended with a variation of 
-\emph on
-reactive variable
-\emph default
- as a data type, that is used to declare and automate dependencies.
+, in which an existing language can be extended with a variation of reactive
+ variable as a data type, that is used to declare and automate dependencies.
  Objects then can contain 
 \emph on
 reactive instance variables
@@ -212,8 +209,7 @@ A=B
 \end_inset
 
 , then a reactive variable with two associations is produced.
- In the rest of this section we provide semantics, that supports reactive
- instance variables with several associations.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -391,30 +387,6 @@ decides
  The parties need to be coordinated, therefore a distributed algorithm must
  be designed.
  
-\end_layout
-
-\begin_layout Paragraph
-The Algorithm
-\end_layout
-
-\begin_layout Standard
-We use ordered values according to the the events, and derive a total order
- over the whole values in the application.
- Each value produced from an event is attached with a timestamp (an incremental
- natural number).
- Values produced from operators or associations are attached with a set
- of timestamps according to the values they were calculated from.
- 
-\end_layout
-
-\begin_layout Standard
-The parties follow the total order by the help of the attached timetsamps,
- such that glitch and recursive notifications are recognized and ignored.
- Any notification that contains a timestamp that is less or equal to the
- latest produced notification's timestamp are a glitch notification.
- Similary, recursive notifications are associations parties' notifications
- produced originally from their own notification, therefore their timestamp
- are less or equal to the latest produced notification's timestamp.
 \end_layout
 
 \end_body

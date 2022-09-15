@@ -1312,11 +1312,68 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-We evaluate the proposed approach to answer three questions: (a) Do the
- proposed approach provide FRP? or did we break it by aligning it with OOP?
- (b) Does the new semantics realy increase the compatibility of the FRP
- with OOP? (c) Do we actually improve the code quality at reasonable perfomance
- cost?
+Our goal was to improve components-based applications by the FRP paradigm.
+ However, it is not clear that RIvar, or RIvar with the proposed propogation
+ algorithm, is realy FRP.
+ Then evaluating improvement of components-based applications by the new
+ model is too complex for this scope.
+ In this chapter we will provide only some intuition about the relation
+ between the proposed model to FRP.
+ Then we will provide small scale comparison to programming components (by
+ the OOP paradigm) with and without the new model.
+ 
+\end_layout
+
+\begin_layout Section
+The new model as FRP
+\end_layout
+
+\begin_layout Section
+Improving OOP by the new model
+\end_layout
+
+\begin_layout Itemize
+———-
+\end_layout
+
+\begin_layout Standard
+We implement the drug administration case study several times to compare
+ 
+\end_layout
+
+\begin_layout Standard
+We developed 
+\emph on
+RIvarX
+\emph default
+, a nuget package contains the type RIvar.
+\end_layout
+
+\begin_layout Standard
+Therfore we attach two variations to the development of the drug administration
+ classes, first implemented by the traditional C# programming langauge,
+ and the second uses RIvarX.
+\end_layout
+
+\begin_layout Standard
+Reactive instance variables with the distributed propogation algorithms
+ are FRP, because...
+\end_layout
+
+\begin_layout Standard
+FRP based on the refrential transparent, anyway the defintion is not strict
+\end_layout
+
+\begin_layout Standard
+predictability - equivilent to Hotdrink
+\end_layout
+
+\begin_layout Standard
+Do we actually improve components based applications we our promise?
+\end_layout
+
+\begin_layout Standard
+case study compare to traditional implementation
 \end_layout
 
 \end_body

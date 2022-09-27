@@ -6639,12 +6639,12 @@
       "locked": false,
       "fontSize": 20,
       "fontFamily": 2,
-      "text": "בשיטה של constraints, אפשר\nלהגדיר נוסחאות והמערכת \nמעדכנת את השדות אוטומטית\nבהתאם לקלט ולנוסחאות.\nהמיוחד בשיטת RIvar היא \nהשילוב עם תכנות מונחה עצמים. \nולכן הפוטנציאל להשתלב עם \nארכיטקטורות של רכיבים, \nכגון micro-frontends.",
+      "text": "בשיטה של constraints, אפשר\nלהגדיר נוסחאות והמערכת \nמעדכנת את השדות אוטומטית\nבהתאם לקלט ולנוסחאות.\nהמיוחד בשיטת RIVar היא \nהשילוב עם תכנות מונחה עצמים. \nולכן הפוטנציאל להשתלב עם \nארכיטקטורות של רכיבים, \nכגון micro-frontends.",
       "baseline": 199,
       "textAlign": "right",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "בשיטה של constraints, אפשר\nלהגדיר נוסחאות והמערכת \nמעדכנת את השדות אוטומטית\nבהתאם לקלט ולנוסחאות.\nהמיוחד בשיטת RIvar היא \nהשילוב עם תכנות מונחה עצמים. \nולכן הפוטנציאל להשתלב עם \nארכיטקטורות של רכיבים, \nכגון micro-frontends."
+      "originalText": "בשיטה של constraints, אפשר\nלהגדיר נוסחאות והמערכת \nמעדכנת את השדות אוטומטית\nבהתאם לקלט ולנוסחאות.\nהמיוחד בשיטת RIVar היא \nהשילוב עם תכנות מונחה עצמים. \nולכן הפוטנציאל להשתלב עם \nארכיטקטורות של רכיבים, \nכגון micro-frontends."
     },
     {
       "type": "rectangle",
@@ -7491,12 +7491,12 @@
       "locked": false,
       "fontSize": 20.987066816371716,
       "fontFamily": 2,
-      "text": "בשיטת RIvar",
+      "text": "בשיטת RIVar",
       "baseline": 19,
       "textAlign": "right",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "בשיטת RIvar"
+      "originalText": "בשיטת RIVar"
     },
     {
       "type": "arrow",
@@ -7663,12 +7663,12 @@
       "locked": false,
       "fontSize": 223.49678045200287,
       "fontFamily": 2,
-      "text": "RIvar",
+      "text": "RIVar",
       "baseline": 206.17437750641454,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "RIvar"
+      "originalText": "RIVar"
     },
     {
       "type": "text",
@@ -8832,12 +8832,12 @@
       "locked": false,
       "fontSize": 60,
       "fontFamily": 2,
-      "text": "RIvka Altshuler",
+      "text": "RIVka Altshuler",
       "baseline": 73,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "RIvka Altshuler"
+      "originalText": "RIVka Altshuler"
     },
     {
       "type": "text",
@@ -8870,12 +8870,12 @@
       "locked": false,
       "fontSize": 60,
       "fontFamily": 2,
-      "text": "RIv",
+      "text": "RIV",
       "baseline": 55,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Riv"
+      "originalText": "RIV"
     },
     {
       "type": "text",

@@ -88,39 +88,47 @@
 \begin_body
 
 \begin_layout Abstract
-
+Our goal is to facilitate Excel-like formulas in objects' classes.
+ Therefore we combine the 
 \emph on
-Reactive Instance variables
+reactive variable
 \emph default
- are to provide Excel-like formulas in object's classes.
- However variables accessed by interfaces lead to unsupported constructions,
- unpredictable results or to no-isolation.
- The problem is actualy the missing semantics for arisen 
+ from Functional Reactive Programming with the
 \emph on
-cycles
+ instance variable
 \emph default
-, as well as 
+ from Object Oriented Programming.
+ The new concept is named 
 \emph on
-glitches
+RIVar
 \emph default
- and 
+, a shortcut to 
 \emph on
-reassigments
+reactive instance variable
 \emph default
 .
- Therefore we suggest that the reactive instance variables will support
- 
+\end_layout
+
+\begin_layout Abstract
+Reactive variables by their nature suffer from cycles, glitches and reassigments.
+ Current approaches include: avoidance, iterations, and central management.
+ However, when combining reactive variables with instance variables in OOP
+ -- RIVars are subject to unsupported constructions, unpredictable results,
+ and no-isolation.
+\end_layout
+
+\begin_layout Abstract
+We suggest that RIVar will support 
 \emph on
 multiple assignment
 \emph default
-.
- In this proposal we abstract values over time by observable streams.
- Then we compose streams by a 
+, and that RIVar values over time will be an observable stream.
+ Then RIVar with several inputs will have its varying value from executing
+ a 
 \emph on
 merge
 \emph default
- function over them, in such that a variable with several inputs has its
- varying value from merging its inputs' streams.
+ operator over its inputs' streams.
 \end_layout
 
 \end_body

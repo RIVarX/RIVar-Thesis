@@ -104,7 +104,7 @@ RIVar
 \emph default
 , a shortcut to 
 \emph on
-reactive instance variable
+Reactive Instance Variable
 \emph default
 .
 \end_layout

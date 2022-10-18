@@ -82,11 +82,12 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-
+Traditionaly functions are implemented to get 
 \emph on
-Functional Reactive Programming
+how
 \emph default
- (FRP) 
+ a varying variable's value depends on one or more variables' values.
+ In the Functional Reactive Programming (FRP) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional,elliott2009push"
@@ -94,9 +95,19 @@ literal "false"
 
 \end_inset
 
- is a paradigm that abstracts away the need to update variables in response
- to other variables' updates.
- 
+ paradigm, there are 
+\emph on
+lifted
+\emph default
+ functions over varying variables, while in runtime, (derived) low level
+ functions are automaticaly executed to update dependant variables, in response
+ to observing new values.
+ Actually FRP abstracts away the need to update variables in response to
+ other variables' updates: the variables values are automaticaly consistent.
+\end_layout
+
+\begin_layout Standard
+The main concept is 
 \emph on
 reactive variable
 \emph default
@@ -156,10 +167,23 @@ literal "false"
 
 \end_inset
 
-) can be assigned by an expression consisting of a set of other reactive
- variables, consequently the value of the variable is set to the value of
- the expression, and continuously re-evaluated in response to changes in
- the value of any of the variables appearing in the expression.
+).
+ By the means of an assignment, reactive variables become dependent on reactive
+ variables that make up the input.
+ Indeed, FRP applications are modeled visually by a 
+\emph on
+dependency graph
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+According to the above, a reactive variable can be assigned by an expression
+ consisting of a set of other reactive variables, consequently the value
+ of the variable is set to the value of the expression, and continuously
+ re-evaluated in response to changes in the value of any of the variables
+ appearing in the expression.
  For example, given two reactive variables 
 \begin_inset ERT
 status open
@@ -238,6 +262,86 @@ B
 \end_inset
 
 .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black, label={A}] (A) at (0,5) {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black ,label={B}] (B) at (3.5,5) {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (A) -- (B); 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{Dependency Graph: Modeling visually A:=B+1}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -262,7 +366,7 @@ literal "false"
  In such applications, components' instances (including objects) coordinate
  their state using (variations of) the observer pattern.
  They therefore suffer from the same drawbacks that the observer pattern
- cause in monolith applications.
+ causes in monolith applications.
  components-based applications can clearly benefit from FRP.
  However, existing implementations of FRP either target specific kinds of
  components which avoid reactive variables in their interface, do not provide
@@ -275,8 +379,8 @@ We propose
 \emph on
 Reactive Instance Variable
 \emph default
- (RIvar for short), which abstracts the reactive variable to the world of
- objects.
+ (RIvar for short), by which we adapt the reactive variable to the world
+ of objects.
  It renounces properties that are undesirable in components, such as global
  centralized knowledge about the topology of the dependency structure among
  reactive variables and a third party that coordinates the state, while

@@ -210,7 +210,165 @@ blankpage
 \end_layout
 
 \begin_layout Abstract
-לכל תזה יש תקציר.
+משתנה מופע ריאקטיבי
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ )
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+Reactive Instance Variable
+\lang hebrew
+(, או בקיצור
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+RIVar
+\lang hebrew
+, הוא שילוב של משתנה ריאקטיבי
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+)
+\lang english
+Reactive Variable
+\lang hebrew
+( מן הפרדיגמה של תכנות ריאקטיבי-פונקציונאלי
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+)
+\lang english
+FRP
+\lang hebrew
+(, יחד עם משתנה מופע )
+\lang english
+Instance Variable
+\lang hebrew
+( מן הפרדיגמה של תכנות מונחה עצמים
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+)
+\lang english
+OOP
+\lang hebrew
+(.
+ בדומה למשתנה ריאקטיבי, ניתן להגדיר לו חישוב אוטומטי ע"י קישור לביטוי.
+ בדומה למשתנה מופע, הוא יכול להיות חלק ממנשק )
+\lang english
+Interface
+\lang hebrew
+(.
 \end_layout
 
 \begin_layout Standard

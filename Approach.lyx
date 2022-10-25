@@ -103,6 +103,323 @@
 \begin_body
 
 \begin_layout Chapter
+Approach
+\end_layout
+
+\begin_layout Standard
+In traditional imperative languages 
+\emph on
+variable
+\emph default
+ is a symbolic name associated to memory address which contain value.
+ In OOP there is 
+\emph on
+ instance variable
+\emph default
+ that is a variable associated to an object.
+ Objects is used for conceptual modeling, or to simulate real world domain
+ objects, then instance variables represent real world variables.
+\end_layout
+
+\begin_layout Standard
+Simulating the objects over time, need to somehow have the variables values
+ consistence with the real outside world, characteristics of interest we
+ observe (observable variables 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dodge2006oxford"
+literal "false"
+
+\end_inset
+
+) or inferre from other variables that are observed (latent variables 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dodge2006oxford"
+literal "false"
+
+\end_inset
+
+).
+ This reminds the notion of 
+\emph on
+reactive variable
+\emph default
+ from FRP.
+\end_layout
+
+\begin_layout Standard
+The example in the figure below illustrates the way in which instance variables
+ may be reactive variables.
+ The variables are typed as 
+\end_layout
+
+\begin_layout Standard
+RIVar, that is an acronym to Reactive Instance Variable, and parameterized
+ with double.
+ Concentration is a latent variable, that should automaticaly be calculated
+ whenever Drug or Volume are updated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class DrugAdministration{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Drug, Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void Main(){
+\end_layout
+
+\begin_layout Plain Layout
+
+DrugAdministration administration=new DrugAdministration()
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=50
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Volume=100 // administration.Concentration=0.5
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=25  // administration.Concentration=0.25
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+RIVars, in their interface, are not distinguished between observable and
+ latent variables.
+ In addition, they can be accessed externaly by being in service interfaces
+ or specialization interfaces (subclass access its superclass variables).
+ Consequently, the dependency graph is not controlled: there might be cycles
+ and other challenged constructions (detailed in the background).
+ For example (using a specialization interface, but it is similar also to
+ a service interface), in the figure bellow, subclass ExtendedDrugAdministration
+ defines Drug depends on Concentration, while in the superclass DrugAdministrati
+on defines that Concentration depends on Drug.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class DrugAdministration{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Drug, Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration:DrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug := Concentration*VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+———
+\end_layout
+
+\begin_layout Standard
+The objects are the logic layer to certain UI applications.
+ Many times, UI application observe fields’ change events, once a value
+ is changed, dependant fields are calculated and presented.
+ With our model, the fields change events feed the observable variables,
+ and the fields updates are from subscribing to the latent variables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+DrugAdministration administration=new DrugAdministration()
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Drug=From Drug Field Change Events
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Volume=From Volume Field Change Events
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Concentration.Subscribe(value=> Update Concentration Field by Value)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Inheritance
+\end_layout
+
+\begin_layout Standard
+The classes are organized by subclass hierarchies, such that any subclass
+ is a subtype of its superclass.
+\end_layout
+
+\begin_layout Chapter
 Reactive Instance Variables
 \end_layout
 

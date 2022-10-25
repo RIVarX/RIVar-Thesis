@@ -370,8 +370,8 @@ literal "false"
  components-based applications can clearly benefit from FRP.
  However, existing implementations of FRP either target specific kinds of
  components which avoid reactive variables in their interface, do not provide
- safe value propagation, or require a third party that manages the whole
- components' state.
+ predictable value propagation, or require a third party that manages the
+ whole components' state.
 \end_layout
 
 \begin_layout Standard

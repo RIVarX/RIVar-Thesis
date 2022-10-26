@@ -253,14 +253,15 @@ RIVars, in their interface, are not distinguished between observable and
  latent variables: any accessible RIVar can be assigned (:= operator) as
  a latent variable, and also to get input (= operator) as an observable
  variable.
- Furthermore, RIVar can be assigned even though it has already been assigned.
+ It is important to note here, that according the same principal, RIVars
+ that have already been assigned, can be reassigned.
 \end_layout
 
 \begin_layout Standard
 RIVars are accessed externaly by being in service interfaces and specialization
  interfaces (subclass access its superclass variables).
  Consequently, the dependency graph is not controlled: there might be cycles
- and other challenged constructions (as detailed in the background).
+ and all other challenged constructions (detailed in the background).
 \end_layout
 
 \begin_layout Paragraph*
@@ -385,7 +386,7 @@ begin{tikzpicture}[scale=0.8]%[show  background  grid]
 
 
 \backslash
-begin{interface}{Content}{0,-5}
+begin{interface}{IBag}{0,-5}
 \end_layout
 
 \begin_layout Plain Layout

@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Approach
+Reactive Instance Variables
 \end_layout
 
 \begin_layout Standard
@@ -111,13 +111,13 @@ In traditional imperative languages
 \emph on
 variable
 \emph default
- is a symbolic name associated to memory address which contain value.
- In OOP there is 
+ is a symbolic name associated to memory address which contains value.
+ In OOP
 \emph on
  instance variable
 \emph default
- that is a variable associated to an object.
- Objects is used for conceptual modeling, or to simulate real world domain
+ is a variable associated to an object.
+ Objects are used for conceptual modeling, or to simulate real world domain
  objects, then instance variables represent real world variables.
 \end_layout
 
@@ -151,14 +151,10 @@ reactive variable
 \begin_layout Standard
 The example in the figure below illustrates the way in which instance variables
  may be reactive variables.
- The variables are typed as 
-\end_layout
-
-\begin_layout Standard
-RIVar, that is an acronym to Reactive Instance Variable, and parameterized
- with double.
- Concentration is a latent variable, that should automaticaly be calculated
- whenever Drug or Volume are updated.
+ The variables are typed as RIVar, that is an acronym to Reactive Instance
+ Variable, parameterized with double.
+ Concentration is a latent variable, which is automaticaly calculated whenever
+ Drug or Volume is updated.
 \end_layout
 
 \begin_layout Standard
@@ -254,15 +250,28 @@ end{center}
 
 \begin_layout Standard
 RIVars, in their interface, are not distinguished between observable and
- latent variables.
- In addition, they can be accessed externaly by being in service interfaces
- or specialization interfaces (subclass access its superclass variables).
+ latent variables: any accessible RIVar can be assigned (:= operator) as
+ a latent variable, and also to get input (= operator) as an observable
+ variable.
+ Furthermore, RIVar can be assigned even though it has already been assigned.
+\end_layout
+
+\begin_layout Standard
+RIVars are accessed externaly by being in service interfaces and specialization
+ interfaces (subclass access its superclass variables).
  Consequently, the dependency graph is not controlled: there might be cycles
- and other challenged constructions (detailed in the background).
- For example (using a specialization interface, but it is similar also to
- a service interface), in the figure bellow, subclass ExtendedDrugAdministration
- defines Drug depends on Concentration, while in the superclass DrugAdministrati
-on defines that Concentration depends on Drug.
+ and other challenged constructions (as detailed in the background).
+\end_layout
+
+\begin_layout Paragraph*
+Specialization Interface
+\end_layout
+
+\begin_layout Standard
+In the figure bellow, subclass ExtendedDrugAdministration defines Drug to
+ depend on Concentration, while in the superclass DrugAdministration defines
+ Concentration to depend on Drug.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -320,6 +329,307 @@ class ExtendedDrugAdministration:DrugAdministration {
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Service Interface
+\end_layout
+
+\begin_layout Standard
+Considering the figures bellow, from the Infusion alone, the dependency
+ graph has no cycles.
+ Infusion uses TheBag as a service, i.e., without to learn about its implementatio
+n (Bag class).
+ However, an instance of Infusion with TheBag typed as Bag produces a graph
+ with cycles.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{interface}{Content}{0,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}[text width=8 cm]{Infusion}{0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Infusion}{TheBag}{}{IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Infusion {  
+\end_layout
+
+\begin_layout Plain Layout
+
+ Duration := TheBag.VolumeOfFluid*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+ TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Bag}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag:IBag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid := Drug*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -410,17 +720,8 @@ end{center}
 
 \end_layout
 
-\begin_layout Paragraph*
-Inheritance
-\end_layout
-
 \begin_layout Standard
-The classes are organized by subclass hierarchies, such that any subclass
- is a subtype of its superclass.
-\end_layout
-
-\begin_layout Chapter
-Reactive Instance Variables
+————————–
 \end_layout
 
 \begin_layout Standard

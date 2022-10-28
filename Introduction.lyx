@@ -170,7 +170,7 @@ literal "false"
 ).
  By the means of an assignment, reactive variables become dependent on reactive
  variables that make up the input.
- Indeed, FRP applications are modeled visually by a 
+ Indeed, an FRP application is modeled visually by a 
 \emph on
 dependency graph
 \emph default

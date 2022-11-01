@@ -812,7 +812,18 @@ A:=B+C
 \end_inset
 
  over the reactive variables A, B and C, + is an operator connecting B and
- C, and := is an assigment connecting A to the expression 
+ C, and := is an assigment connecting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ to the expression 
 \begin_inset ERT
 status open
 
@@ -824,6 +835,16 @@ B+C
 \end_inset
 
 .
+ In runtime, in response to input, values are propogated through the graph;
+ the assigments and operators track their input values, 
+\begin_inset Quotes eld
+\end_inset
+
+deciding
+\begin_inset Quotes erd
+\end_inset
+
+ what values to notify their subscribers.
 \end_layout
 
 \begin_layout Standard
@@ -914,161 +935,46 @@ end{tikzpicture}
 
 \begin_layout Standard
 Operator is a lifted function, such that a function over values are lifted
- to being over reactive variables.
+ to being over reactive variables: the constructed expression continously
+ reflects the varying value calculated from the reactive variables.
  Similary, an assigment over reactive variables would be 
 \emph on
 lifted
 \emph default
  assigment, such that an assigned reactive variable should reflect the assigned
  expression continuously.
- Under the hood, operators and assigments provide subscribers stream of
- values, based on streams they are subscribed to.
-\end_layout
-
-\begin_layout Standard
-————-
-\end_layout
-
-\begin_layout Standard
-Under the hood, each operator and assigment, subscribes to several streams,
- and provide its subscribers a single stream of values based on several
- streams.
  
 \end_layout
 
 \begin_layout Standard
-As said previously,any RIVar can be assigned (:= operator) and to get input
- (= operator) ignoring already existed assigments.
- This means in the low level, that such a reactive variable provides to
- its subscribers, a single stream of values based on 
+As mentioned at the beginning of the section, a RIVar can be assigned (and
+ also to get input) ignoring already existed assigments.
+ Consequently under the hood, an assigment is like operators: they provide
+ a 
 \emph on
-several streams
+single
 \emph default
-, it is subscribed to.
- Such a reactive variable notifying about its values from several streams
- is similar to having several devices sampling a single real-world variable
- in the world.
-\end_layout
-
-\begin_layout Standard
-Operator is a function over reactive variables, it may be described as a
- lifted version for the traditional function.
-\end_layout
-
-\begin_layout Standard
-The functions or operators over reactive variables are as well; for the
- expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A+B
-\end_layout
-
-\end_inset
-
-, the function + over reactive variables A and B means in the higher level,
- continuously reflecting the variables' sum.
-
+ stream of values based on 
 \emph on
- 
+several 
 \emph default
-In the lower level, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- are streams, and the operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-+
-\end_layout
-
-\end_inset
-
- is a function over them, producing a stream of values notifications from
- applying + on the values from the notifications of A and B.
+streams, they are subscribed to.
+ This formulation of having a reactive variable notifying about its values
+ from several streams, is similar to having several devices sampling a single
+ real-world variable.
 \end_layout
 
 \begin_layout Standard
-As said previously, any RIVar can be assigned (:= operator) and to get input
- (= operator) ignoring already existed assigments.
- This means in the low level, that such a reactive variable provides to
- its subscribers, a single stream of values based on 
-\emph on
-several streams
-\emph default
-, it is subscribed to.
- Such a reactive variable notifying about its values from several streams
- is similar to having several devices sampling a single real-world variable
- in the world.
-\end_layout
-
-\begin_layout Standard
-————–
-\end_layout
-
-\begin_layout Standard
-The previous formulation fits the low level abstraction, and leads to concerete
- implementations.
- In the high level, it is still unclear to us how to formulate the change.
- However, in the domain objects, developers may declare dependencies in
- high level, with the agreement, that accessible reactive variables might
- be updated from additional sources.
- Generaly, it might be that variables should inffer from each other depending
- on the available input.
-\end_layout
-
-\begin_layout Standard
-This is the formulation in the low level abstraction, and this support the
- cases when reactive variables are have several assigments.
-\end_layout
-
-\begin_layout Standard
-Reactive variables by multiple assigments, are associated with several streams
- (streams from reactive variables, streams produced from functions over
- them and input events).
- The reactive variables are notified about their values from several streams,
- similar to having several devices sampling a single real-world variable
- in the world.
- Anyway, the reactive variable provides to its subscribers, a single stream
- of values based on the several streams, it is subscribed to.
- 
-\end_layout
-
-\begin_layout Standard
-When propagating values through the operators and associations, each party
- (operator or association), as an observable observer, tracks its input
- values and 
+Assigments and operators as parties in the graph, should track their input
+ values from the inputs streams 
 \begin_inset Quotes eld
 \end_inset
 
-decides
+deciding
 \begin_inset Quotes erd
 \end_inset
 
- what values to notify its subscribers.
+ what values to notify their subscribers.
  The parties need to be coordinated, therefore a distributed algorithm must
  be designed.
  

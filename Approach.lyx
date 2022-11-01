@@ -665,7 +665,7 @@ We formulate semantics to reactive variables to work also with RIVars.
 \end_layout
 
 \begin_layout Section
-Decenterlized Management
+Reactive Variables
 \end_layout
 
 \begin_layout Standard
@@ -717,62 +717,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The functions or operators over reactive variables are as well; for the
- expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A+B
-\end_layout
-
-\end_inset
-
-, the function + over reactive variables A and B means in the higher level,
- continuously reflecting the variables' sum.
-
-\emph on
- 
-\emph default
-In the lower level, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- are streams, and the operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-+
-\end_layout
-
-\end_inset
-
- is a function over them, producing a stream of values notifications from
- applying + on the values from the notifications of A and B.
-\end_layout
-
-\begin_layout Standard
 The lower level abstraction does exist, because even when a reactive variable
  represent a real world variable in high level, in computers reactive variable's
  actual values cannot continuously given.
@@ -782,9 +726,8 @@ The lower level abstraction does exist, because even when a reactive variable
 
 \begin_layout Standard
 Similary in UI applications, the logic may be in terms of continuously update
- fields according to other fields.
- In fact, the objects from the examples like the above, should be the logic
- layer to certain UI applications.
+ fields according to other fields; objects constructed from classes from
+ the previous chapter, aim to be the logic layer to certain UI applications.
  Many times, UI application observe fields’ change events, once a value
  is changed, dependant fields are calculated and presented.
  The fields change events should feed reactive variables (as observable
@@ -851,7 +794,221 @@ end{center}
 \end_layout
 
 \begin_layout Section
-Multiple Assigment
+Operators and Assigments
+\end_layout
+
+\begin_layout Standard
+Operators and assigments are two elements type connecting reactive variables
+ between each other.
+ For example, in the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+ over the reactive variables A, B and C, + is an operator connecting B and
+ C, and := is an assigment connecting A to the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B+C
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (1,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (3,7) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=square,draw=black] (Plus) at (2,5) {+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=diamond,draw=black] (Equal) at (2,3) {=};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (2,1) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (Plus);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (Plus);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Plus) edge  (Equal);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Equal) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Operator is a lifted function, such that a function over values are lifted
+ to being over reactive variables.
+ Similary, an assigment over reactive variables would be 
+\emph on
+lifted
+\emph default
+ assigment, such that an assigned reactive variable should reflect the assigned
+ expression continuously.
+ Under the hood, operators and assigments provide subscribers stream of
+ values, based on streams they are subscribed to.
+\end_layout
+
+\begin_layout Standard
+————-
+\end_layout
+
+\begin_layout Standard
+Under the hood, each operator and assigment, subscribes to several streams,
+ and provide its subscribers a single stream of values based on several
+ streams.
+ 
+\end_layout
+
+\begin_layout Standard
+As said previously,any RIVar can be assigned (:= operator) and to get input
+ (= operator) ignoring already existed assigments.
+ This means in the low level, that such a reactive variable provides to
+ its subscribers, a single stream of values based on 
+\emph on
+several streams
+\emph default
+, it is subscribed to.
+ Such a reactive variable notifying about its values from several streams
+ is similar to having several devices sampling a single real-world variable
+ in the world.
+\end_layout
+
+\begin_layout Standard
+Operator is a function over reactive variables, it may be described as a
+ lifted version for the traditional function.
+\end_layout
+
+\begin_layout Standard
+The functions or operators over reactive variables are as well; for the
+ expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A+B
+\end_layout
+
+\end_inset
+
+, the function + over reactive variables A and B means in the higher level,
+ continuously reflecting the variables' sum.
+
+\emph on
+ 
+\emph default
+In the lower level, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ are streams, and the operator 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
++
+\end_layout
+
+\end_inset
+
+ is a function over them, producing a stream of values notifications from
+ applying + on the values from the notifications of A and B.
 \end_layout
 
 \begin_layout Standard

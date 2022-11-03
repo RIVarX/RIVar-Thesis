@@ -656,7 +656,7 @@ Semantics
 \end_layout
 
 \begin_layout Standard
-We formulate semantics to reactive variables to work also with RIVars.
+We formulate semantics to reactive variables to conform also to RIVars.
  RIVars add two constraints to reactive variables: First, no centerlized
  management are alowed, because objects interact directly by messages and
  events.
@@ -721,7 +721,7 @@ The lower level abstraction does exist, because even when a reactive variable
  represent a real world variable in high level, in computers reactive variable's
  actual values cannot continuously given.
  For example, temperature might be represented by a reactive variable depending
- on an actualy stream of discrete events, being measured by a thermometer.
+ on an actualy stream of discrete events, being sampled by a thermometer.
 \end_layout
 
 \begin_layout Standard
@@ -730,67 +730,10 @@ Similary in UI applications, the logic may be in terms of continuously update
  the previous chapter, aim to be the logic layer to certain UI applications.
  Many times, UI application observe fields’ change events, once a value
  is changed, dependant fields are calculated and presented.
- The fields change events should feed reactive variables (as observable
- variables), and the fields updates are from subscribing to reactive variables
- (as latent variables).
+ The fields change events feed reactive variables (as observable variables),
+ and the fields updates are from subscribing to reactive variables (as latent
+ variables).
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-DrugAdministration administration=new DrugAdministration()
-\end_layout
-
-\begin_layout Plain Layout
-
-bag.Drug=From Drug Field Change Events
-\end_layout
-
-\begin_layout Plain Layout
-
-bag.Volume=From Volume Field Change Events
-\end_layout
-
-\begin_layout Plain Layout
-
-bag.Concentration.Subscribe(value=> Update Concentration Field by Value)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -835,16 +778,7 @@ B+C
 \end_inset
 
 .
- In runtime, in response to input, values are propogated through the graph;
- the assigments and operators track their input values, 
-\begin_inset Quotes eld
-\end_inset
-
-deciding
-\begin_inset Quotes erd
-\end_inset
-
- what values to notify their subscribers.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -876,7 +810,7 @@ node[shape=circle,draw=black] (C) at (3,7) {C};
 
 
 \backslash
-node[shape=square,draw=black] (Plus) at (2,5) {+}; 
+node[shape=rectangle,draw=black] (Plus) at (2,5) {+}; 
 \end_layout
 
 \begin_layout Plain Layout
@@ -947,10 +881,20 @@ lifted
 \end_layout
 
 \begin_layout Standard
-As mentioned at the beginning of the section, a RIVar can be assigned (and
- also to get input) ignoring already existed assigments.
- Consequently under the hood, an assigment is like operators: they provide
- a 
+An operator, under the hood, tracks its input values from the inputs streams
+ it is subscribed to, calculating and 
+\emph on
+deciding
+\emph default
+ what values to notify its subscribers; some inputs might be redundant updates
+ (glitches, as explained in the background).
+\end_layout
+
+\begin_layout Standard
+Regarding assigments, as mentioned at the begining of this section, a RIVar
+ can be assigned (and also get input) ignoring already existed assigments.
+ Consequently under the hood, an assigment is like operators in that they
+ provide a 
 \emph on
 single
 \emph default
@@ -958,10 +902,22 @@ single
 \emph on
 several 
 \emph default
-streams, they are subscribed to.
+streams, which they are subscribed to.
  This formulation of having a reactive variable notifying about its values
  from several streams, is similar to having several devices sampling a single
  real-world variable.
+\end_layout
+
+\begin_layout Standard
+Similar to operators, under the hood an assigment should track its input
+ values from the inputs streams when it provide its output stream.
+ Having several inputs stream causes a challenge, how to merge the several
+ streams into a single stream.
+ 
+\end_layout
+
+\begin_layout Section
+old (not to read)
 \end_layout
 
 \begin_layout Standard
@@ -978,10 +934,6 @@ deciding
  The parties need to be coordinated, therefore a distributed algorithm must
  be designed.
  
-\end_layout
-
-\begin_layout Section
-old (not to read)
 \end_layout
 
 \begin_layout Standard

@@ -111,20 +111,22 @@ In traditional imperative languages
 \emph on
 variable
 \emph default
- is a symbolic name associated to memory address which contains value.
- In OOP
+ is just a symbolic name associated to some memory address containing values.
+ However, in the more advanced languages which adoped the OOP paradigm,
+ 
 \emph on
- instance variable
+instance variable
 \emph default
- is a variable associated to an object.
- Objects are used for conceptual modeling, or to simulate real world domain
- objects, then instance variables represent real world variables.
+ refers to a variable associated to an object.
+ This is significant when talking about conceptual modeling: objects are
+ used to simulate real-world domain objects, therefore instance variables
+ represent the real-world variables.
 \end_layout
 
 \begin_layout Standard
-Simulating the objects over time, need to somehow have the variables values
- consistence with the real outside world, characteristics of interest we
- observe (observable variables 
+Simulating the objects over time, need to have the variables values consistence
+ with the real outside world.
+ Values are observed from the (real-world) observable variables 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "dodge2006oxford"
@@ -132,7 +134,7 @@ literal "false"
 
 \end_inset
 
-) or inferre from other variables that are observed (latent variables 
+, or inferred the (real-world) latent variables' values 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "dodge2006oxford"
@@ -140,21 +142,28 @@ literal "false"
 
 \end_inset
 
-).
- This reminds the notion of 
+ from other variables that are observed.
+ The FRP paradigm provides the abstraction of 
 \emph on
-reactive variable
+reactive variables
 \emph default
- from FRP.
+, by which developers simulate observable and latent variables directly.
 \end_layout
 
 \begin_layout Standard
-The example in the figure below illustrates the way in which instance variables
- may be reactive variables.
+The example in the figure below illustrates a way in which 
+\emph on
+instance
+\emph default
+ variables may be 
+\emph on
+reactive
+\emph default
+ variables.
  The variables are typed as RIVar, that is an acronym to Reactive Instance
  Variable, parameterized with double.
  Concentration is a latent variable, which is automaticaly calculated whenever
- Drug or Volume is updated.
+ any of the observable variables Drug or Volume is updated.
 \end_layout
 
 \begin_layout Standard
@@ -260,8 +269,8 @@ RIVars are accessed externaly by being in service interfaces and specialization
 \end_layout
 
 \begin_layout Standard
-Consequently, the dependency graph is not controlled: there might be cycles
- and all other challenged constructions (detailed in the background).
+Consequently, the dependency graph might have cycles and all other challenged
+ constructions (detailed in the background).
  We will demonstare examples, and then (in the next section) present a possible
  approach to FRP supporting such dependency graphs.
 \end_layout
@@ -652,16 +661,16 @@ end{center}
 \end_layout
 
 \begin_layout Chapter
-Semantics
+Reactive Variables Semantics
 \end_layout
 
 \begin_layout Standard
 We formulate semantics to reactive variables to conform also to RIVars.
- RIVars add two constraints to reactive variables: First, no centerlized
- management are alowed, because objects interact directly by messages and
- events.
- Second, as previously presented, reactive variables might have several
- assigment and feed from multiple sources.
+ RIVars add constraints to the implementation of reactive variables: First,
+ no centerlized management are alowed, because objects interact directly
+ by messages and events.
+ Second, as previously presented, reactive variables should support any
+ dependancy graph, including: cycles, several assigments and (risk of) glitches.
 \end_layout
 
 \begin_layout Section
@@ -887,163 +896,43 @@ An operator, under the hood, tracks its input values from the inputs streams
 deciding
 \emph default
  what values to notify its subscribers; some inputs might be redundant updates
- (glitches, as explained in the background).
-\end_layout
-
-\begin_layout Standard
-Regarding assigments, as mentioned at the begining of this section, a RIVar
- can be assigned (and also get input) ignoring already existed assigments.
- Consequently under the hood, an assigment is like operators in that they
- provide a 
-\emph on
-single
-\emph default
- stream of values based on 
-\emph on
-several 
-\emph default
-streams, which they are subscribed to.
- This formulation of having a reactive variable notifying about its values
- from several streams, is similar to having several devices sampling a single
- real-world variable.
-\end_layout
-
-\begin_layout Standard
-Similar to operators, under the hood an assigment should track its input
- values from the inputs streams when it provide its output stream.
- Having several inputs stream causes a challenge, how to merge the several
- streams into a single stream.
- 
-\end_layout
-
-\begin_layout Section
-old (not to read)
-\end_layout
-
-\begin_layout Standard
-Assigments and operators as parties in the graph, should track their input
- values from the inputs streams 
-\begin_inset Quotes eld
-\end_inset
-
-deciding
-\begin_inset Quotes erd
-\end_inset
-
- what values to notify their subscribers.
- The parties need to be coordinated, therefore a distributed algorithm must
- be designed.
- 
-\end_layout
-
-\begin_layout Standard
-————————–
-\end_layout
-
-\begin_layout Standard
-We adopt the approach 
+ or with an incorrect order due to glitches 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "salvaneschi2014towards"
+key "margara2018semantics"
 literal "false"
 
 \end_inset
 
-, in which an existing language can be extended with a variation of reactive
- variable as a data type, that is used to declare and automate dependencies.
- Objects then can contain 
-\emph on
-reactive instance variables
-\emph default
-, that are reactive variables as instance variables (or objects' data members).
- Also, they can be declared as part of interfaces, such that providers and
- clients will share them while hiding related associations.
+.
 \end_layout
 
 \begin_layout Standard
-The reactive instance variables can have references because they can be
- shared among several objects.
- Consequently, reactive instance variables can be referenced by several
- formulas, in such that they are associated to several expressions.
- e.g., given the reactive instance variables' references 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
+Reactive variables can be assigned (and also get input) ignoring already
+ existed assigments.
+ Furthermore, there might recursions leading to cycles in the dependancy
+ graph.
+ Consequently under the hood, an assigment is a bit like operators: it provides
+ to its subscribers 
+\emph on
+a single values stream based on several values streams
+\emph default
+ which it is subscribed to, while
+\emph on
+ ignoring redundant updates
+\emph default
+.
 \end_layout
 
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-X
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Y
-\end_layout
-
-\end_inset
-
- assemble the formulas 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=X
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=Y
-\end_layout
-
-\end_inset
-
-, if 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=B
-\end_layout
-
-\end_inset
-
-, then a reactive variable with two associations is produced.
- 
+\begin_layout Standard
+The assigment can be formulated as a 
+\emph on
+merge
+\emph default
+ operation over streams.
+ Conceptually it reminds situations when several devices sample a single
+ real-world variable ; and the whole streams of samples would contribute
+ to inferre the single sequence.
 \end_layout
 
 \end_body

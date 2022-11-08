@@ -81,6 +81,23 @@
 \begin_body
 
 \begin_layout Chapter
+Implementation
+\end_layout
+
+\begin_layout Standard
+RIVar is a datatype implementing by a class, We adopt the approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, in which an existing language can be extended with a variation of reactive
+ variable as a data type.
+\end_layout
+
+\begin_layout Chapter
 The Distributed Propagation Algorithm
 \end_layout
 

@@ -363,5 +363,45 @@ literal "false"
  
 \end_layout
 
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+Assigments and operators as parties in the graph, should track their input
+ values from the inputs streams 
+\begin_inset Quotes eld
+\end_inset
+
+deciding
+\begin_inset Quotes erd
+\end_inset
+
+ what values to notify their subscribers.
+ The parties need to be coordinated, therefore a 
+\emph on
+distributed algorithm
+\emph default
+ must be designed.
+ 
+\end_layout
+
+\begin_layout Standard
+—————
+\end_layout
+
+\begin_layout Standard
+We adopt the approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, in which an existing language can be extended with a variation of reactive
+ variable as a data type.
+\end_layout
+
 \end_body
 \end_document

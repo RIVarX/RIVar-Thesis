@@ -393,7 +393,17 @@ filename "Motivation.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Approach.lyx"
+filename "Abstraction.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Semantics.lyx"
 
 \end_inset
 

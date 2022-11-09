@@ -388,9 +388,9 @@ Change Propogation
 \begin_layout Standard
 It might be that an external input conflicts with the variables' values.
  However, in the proposed semantics the new values are adopted.
- It is expected that they would propogate changes overriding old values.
- Then following the propogation process, there is the expectation that the
- variables' values become consistent again.
+ It is expected that they would propogate changes overriding old values,
+ then following the propogation process the variables' values become consistent
+ again.
 \end_layout
 
 \begin_layout Standard

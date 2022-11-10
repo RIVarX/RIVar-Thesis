@@ -171,15 +171,14 @@ A
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{figure} 
-\end_layout
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
@@ -227,21 +226,30 @@ path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
 
 
 \backslash
-end{tikzpicture} 
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
-
-
-\backslash
-caption{A simple dependency graph with cycles} 
-\end_layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-simple-dependency"
+
+\end_inset
+
+A simple dependency graph with cycles
+\end_layout
+
+\end_inset
 
 
-\backslash
-end{figure} 
 \end_layout
 
 \end_inset
@@ -345,8 +353,21 @@ B
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -437,6 +458,23 @@ end{tikzpicture}
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+??????
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 In cycles, in which values are actualy propogated in runtime, there must
  have a variable with 
@@ -472,8 +510,21 @@ n, with a formula consisting of the next variable, except the last variable
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -594,6 +645,23 @@ draw[dotted][->, >=latex] (X) -- (B);
 
 \backslash
 end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1321,15 +1389,14 @@ textit{Select}
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{figure} 
-\end_layout
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
@@ -1663,19 +1730,27 @@ draw [rdash] (6x2) -- (6x2|-op.south);
 end{tikzpicture}
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-caption{Marble Diagram for an execution example for A=B.Select(b=>b+1) }
- 
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Marble-Diagram-for"
+
+\end_inset
+
+Marble Diagram for an execution example for A=B.Select(b=>b+1)
+\end_layout
+
+\end_inset
 
 
-\backslash
-end{figure}
 \end_layout
 
 \end_inset
@@ -2068,6 +2143,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="7" columns="4">
 <features tabularvalignment="middle">
@@ -2352,7 +2428,7 @@ X
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+?????
 \end_layout
 
 \end_inset
@@ -2372,6 +2448,7 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="7" columns="4">
 <features tabularvalignment="middle">
@@ -2656,7 +2733,7 @@ X
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
+?????
 \end_layout
 
 \end_inset

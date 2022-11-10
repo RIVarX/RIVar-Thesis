@@ -90,7 +90,17 @@ Drug Administration
 \end_layout
 
 \begin_layout Standard
-The following UI application handles drug administration.
+The following UI application (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) handles drug administration.
  It observe fields' change events, once a value is changed, dependant fields
  are calculated and presented.
  The application is a prototype of a small part from an existing application.
@@ -220,15 +230,14 @@ Bag
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{figure} 
-\end_layout
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
@@ -326,28 +335,31 @@ hline
 end{tabular}
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-caption{Drug calculations' user interface.} 
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset Caption Standard
 
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-calculations"
 
-\backslash
-small Represents the cenario in which Dose, Duration and VolumeOfFluid were
- set, and the other fields(
+\end_inset
+
+Drug calculations' user interface.
+ Represents the cenario in which Dose, Duration and VolumeOfFluid were set,
+ and the other fields (
 \backslash
 textit{italic} font) have been calculated.
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-end{figure}
 \end_layout
 
 \end_inset
@@ -370,7 +382,17 @@ Bag
 
 \end_inset
 
- refers to an active ingredient mixed with fluid to injecting medicines
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bag-class-diagram"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) refers to an active ingredient mixed with fluid to injecting medicines
  into a patient's bloodstream.
 \end_layout
 
@@ -468,6 +490,13 @@ Bag
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -539,6 +568,29 @@ end{center}
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bag-class-diagram"
+
+\end_inset
+
+Bag class diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -564,10 +616,27 @@ status open
 \end_inset
 
  we mean that the left side variable should be refreshed whenever the expression
-'s value is changed.
+'s value is changed (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bag-code"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -624,8 +693,27 @@ end{center}
 
 \end_layout
 
-\begin_layout Section
-The Infusion
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bag-code"
+
+\end_inset
+
+Bag code
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -743,6 +831,13 @@ Infusion
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -849,6 +944,29 @@ end{center}
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Infusion-diagram"
+
+\end_inset
+
+Infusion diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -886,6 +1004,13 @@ Bag
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -961,6 +1086,29 @@ end{center}
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Infusion-code"
+
+\end_inset
+
+Infusion code
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Calculation with Indirection
 \end_layout
@@ -1027,6 +1175,12 @@ indirectly.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1163,7 +1317,20 @@ end{sequencediagram}
 end{center}
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -1188,15 +1355,14 @@ ies.
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{figure} 
-\end_layout
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
@@ -1340,10 +1506,6 @@ end{sequencediagram}
 
 \begin_layout Plain Layout
 
-
-\backslash
-caption{Decentralized calculation causes an unexpected change to the drug.}
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1360,11 +1522,21 @@ medskip
 small (The user set it to 100 and it has been changed to 99.)
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Decentralized calculation causes an unexpected change to the drug.
+\end_layout
+
+\end_inset
 
 
-\backslash
-end{figure}
 \end_layout
 
 \end_inset
@@ -1373,15 +1545,14 @@ end{figure}
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{figure} 
-\end_layout
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
@@ -1528,9 +1699,7 @@ end{tikzpicture}
 
 \begin_layout Plain Layout
 
-
-\backslash
-caption{Drug calculation's dependencies.} 
+ 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1547,11 +1716,21 @@ medskip
 small (long names are mentioned by their prefix)
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Drug calculation's dependencies.
+\end_layout
+
+\end_inset
 
 
-\backslash
-end{figure}
 \end_layout
 
 \end_inset
@@ -1675,15 +1854,14 @@ end{center}
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{figure} 
-\end_layout
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
@@ -1775,32 +1953,21 @@ draw[-{Triangle[scale=1]}] (Conc) -- (Vol);
 end{tikzpicture} 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-caption{Cycle Cross Objects} 
 \end_layout
 
 \begin_layout Plain Layout
-
-
-\backslash
-medskip 
-\end_layout
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
-
-\backslash
-small *long names are mentioned by their prefix
+Cycle Cross Objects
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-end{figure}
 \end_layout
 
 \end_inset
@@ -1826,6 +1993,10 @@ So, it would be desirable to find out how to propagate the values without
  producing unpredictable values.
  Of course, the solution should not be a central component that handle the
  calculations.
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \end_body

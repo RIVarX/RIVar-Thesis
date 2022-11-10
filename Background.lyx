@@ -106,6 +106,10 @@
 Background
 \end_layout
 
+\begin_layout Section
+Non-Trivial Structure of Dependency Graphs
+\end_layout
+
 \begin_layout Standard
 Dependency graphs that contain 
 \emph on
@@ -1025,6 +1029,95 @@ literal "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Dependency Types
+\end_layout
+
+\begin_layout Standard
+In programming we face dependencies of three types: (1) control (2) data
+ (3) source code.
+\end_layout
+
+\begin_layout Itemize
+When a piece of code calls directly to another piece of code, then the second
+ piece of code depends on the first piece of code.
+ The reason for this dependancy is that depending on the first piece of
+ code, the second piece of code will or will not be executed.
+\end_layout
+
+\begin_layout Itemize
+Data dependancy means: when in a running application, a change in one variable
+ requires a second variable to change.
+\end_layout
+
+\begin_layout Itemize
+Source code dependancy 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+: when a change in a piece of code requires changes in another piece of
+ code, then the second piece of code depends on the first piece of code.
+\end_layout
+
+\begin_layout Standard
+In the traditional procedural code, an assignment statement causes data
+ to flow, thus declaring a dependency from the variables in the right side
+ to the variable on the left side.
+ However, in reactive applications, it is typical to invert dependencies.
+\end_layout
+
+\begin_layout Subsection
+Control
+\end_layout
+
+\begin_layout Standard
+When a piece of code calls directly to another piece of code, then the second
+ piece of code depends on the first piece of code.
+ The reason for this dependancy is that depending on the first piece of
+ code, the second piece of code will or will not be executed.
+\end_layout
+
+\begin_layout Standard
+In order to update one variable according to a second variable, the first
+ solution is updating the code which updates the second variable, to update
+ also the first variable.
+ However, in the typical situation, the first variable will be updated by
+ a code registered to the first variable's OnChange event.
+ This solution follows the 
+\emph on
+inversion of control
+\emph default
+ principle: Don't call us, we'll call you.
+\end_layout
+
+\begin_layout Subsection
+Data
+\end_layout
+
+\begin_layout Standard
+Data dependancy means: when in a running application, a change in one variable
+ requires a second variable to change.
+ In this context, events-based application suffers from the inversion of
+ control, as it is hard to track the data dependancies.
+ Thus FRP provide an alternative programming languages or extensions by
+ which the data dependances are specified directly.
+ 
+\end_layout
+
+\begin_layout Subsection
+Source Code
+\end_layout
+
+\begin_layout Standard
+When a change in a piece of code requires changes in another piece of code,
+ then the second piece of code depends on the first piece of code.
+ 
 \end_layout
 
 \begin_layout Section

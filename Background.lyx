@@ -1066,57 +1066,53 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-In the traditional procedural code, an assignment statement causes data
- to flow, thus declaring a dependency from the variables in the right side
- to the variable on the left side.
- However, in reactive applications, it is typical to invert dependencies.
-\end_layout
-
-\begin_layout Subsection
-Control
+A basic assignment statement causes data to flow, thus declaring a dependency
+ from the variables in the right side to the variable on the left side.
+ The required dependancy type is the data dependancy, however typicaly this
+ comprehensive also the other two dependancy types.
 \end_layout
 
 \begin_layout Standard
-When a piece of code calls directly to another piece of code, then the second
- piece of code depends on the first piece of code.
- The reason for this dependancy is that depending on the first piece of
- code, the second piece of code will or will not be executed.
+In principle, the assignment statement causes a control dependency, because
+ the program is executed the code of the right side, and then flows to assign
+ the result.
+ Regarding source code dependencies, in case the left side variable is in
+ another module than the variables from the right side, then it is typical
+ that the assignment statement will be written in the module of the left
+ side variable.
+ The second option is wrong because it is error-prone to control variables
+ that are updated from multiple places.
+ 
 \end_layout
 
 \begin_layout Standard
-In order to update one variable according to a second variable, the first
- solution is updating the code which updates the second variable, to update
- also the first variable.
- However, in the typical situation, the first variable will be updated by
- a code registered to the first variable's OnChange event.
- This solution follows the 
+In order to continously maintain data dependancy, there is the 
 \emph on
 inversion of control
 \emph default
- principle: Don't call us, we'll call you.
-\end_layout
+ principle: 
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Subsection
-Data
+Don't call us, we'll call you
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The first variable will be updated by a code registered to the first variable's
+ OnChange event.
+ Thus the control dependancy is not in the direction of the data dependancy.
 \end_layout
 
 \begin_layout Standard
-Data dependancy means: when in a running application, a change in one variable
- requires a second variable to change.
- In this context, events-based application suffers from the inversion of
- control, as it is hard to track the data dependancies.
+Events-based application suffers from the inversion of control, as it is
+ hard to track the data dependancies.
  Thus FRP provide an alternative programming languages or extensions by
  which the data dependances are specified directly.
  
 \end_layout
 
-\begin_layout Subsection
-Source Code
-\end_layout
-
 \begin_layout Standard
-When a change in a piece of code requires changes in another piece of code,
- then the second piece of code depends on the first piece of code.
  
 \end_layout
 

@@ -2137,7 +2137,7 @@ If there are cycles, if the (Bridging the gui gap with reactive values and
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
+\begin_inset Float table
 wide false
 sideways false
 status open
@@ -2428,7 +2428,7 @@ X
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-?????
+????????
 \end_layout
 
 \end_inset
@@ -2442,7 +2442,7 @@ X
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
+\begin_inset Float table
 wide false
 sideways false
 status open
@@ -2733,7 +2733,7 @@ X
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-?????
+???????
 \end_layout
 
 \end_inset

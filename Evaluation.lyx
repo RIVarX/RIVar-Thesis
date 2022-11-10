@@ -82,9 +82,9 @@ Comparison to Existing Approaches
 \end_layout
 
 \begin_layout Standard
-We compare the proposed approach against OOP, FRP and Constraints Programming.
+We compare the our approach against OOP, FRP and Constraints Programming.
  The comparisons are not meant to be rigorous, but to give intuitions of
- why the proposed approach outperforms other solutions.
+ why the our approach outperforms other solutions.
 \end_layout
 
 \begin_layout Section
@@ -545,7 +545,7 @@ textit{Alert}
 \end_layout
 
 \begin_layout Subsection*
-Implemented by the proposed approach
+Implemented by the our approach
 \end_layout
 
 \begin_layout Standard

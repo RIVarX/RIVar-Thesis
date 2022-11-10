@@ -231,7 +231,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The proposed approach satisfies the guarantee 
+The our approach satisfies the guarantee 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -263,7 +263,7 @@ literal "false"
 \emph on
  
 \emph default
-As a result, Despite the existence of cycles, the proposed approach accomplish
+As a result, Despite the existence of cycles, the our approach accomplish
  the referential transparency property, therfore it is FRP.
 \end_layout
 

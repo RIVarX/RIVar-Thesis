@@ -112,7 +112,7 @@ We formulate semantics to reactive variables to conform also to RIVars.
  no centerlized management are alowed, because objects interact directly
  by messages and events.
  Second, as previously presented, reactive variables should support any
- dependancy graph, including constructions such as cycles.
+ dependancy graph, resulting any dependancies graph.
 \end_layout
 
 \begin_layout Section
@@ -168,9 +168,13 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The lower level abstraction does exist, because even when a reactive variable
- represent a real world variable in high level, in computers reactive variable's
- actual values cannot continuously given.
+The lower level abstraction 
+\emph on
+does
+\emph default
+ exist, because even when a reactive variable represents a real world variable
+ in high level, in computers reactive variable's actual values cannot continuous
+ly given.
  For example, temperature might be represented by a reactive variable depending
  on an actualy stream of discrete events, being sampled by a thermometer.
 \end_layout
@@ -194,7 +198,17 @@ Operators and Assigments
 \begin_layout Standard
 Operators and assigments are two elements type connecting reactive variables
  between each other.
- For example, in the formula 
+ For example (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Formula"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), in the formula 
 \begin_inset ERT
 status open
 
@@ -233,8 +247,21 @@ B+C
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -316,18 +343,50 @@ end{tikzpicture}
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Formula"
+
+\end_inset
+
+Formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+ over reactive variables A, B and C
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 Operator is a lifted function, such that a function over values are lifted
  to being over reactive variables: the constructed expression continously
  reflects the varying value calculated from the reactive variables.
- Similary, an assigment over reactive variables would be 
-\emph on
-lifted
-\emph default
- assigment, such that an assigned reactive variable should reflect the assigned
- expression continuously.
+ Similary, an assigment over reactive variables would be a lifted assigment,
+ such that an assigned reactive variable should reflect the assigned expression
+ continuously.
  
 \end_layout
 
@@ -373,7 +432,7 @@ merge
 \emph default
  operation over streams.
  Conceptually it reminds situations when several devices sample a single
- real-world variable ; and the whole streams of samples would contribute
+ real-world variable; and the whole streams of samples would contribute
  to inferre one single stream.
  Similary, several assigments produce several streams of samples, claiming
  what the variable's value is over time.
@@ -410,7 +469,11 @@ new
 old
 \emph default
  values are ignored.
- However, with the stream model, time is modeled 
+ 
+\end_layout
+
+\begin_layout Standard
+With the stream model, time is modeled 
 \emph on
 implicity
 \emph default

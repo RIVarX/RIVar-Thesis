@@ -138,7 +138,17 @@ B:=A
 
 \end_inset
 
- (as in the following figure), then updating 
+ (as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-simple-dependency"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), then updating 
 \begin_inset ERT
 status open
 
@@ -1043,12 +1053,20 @@ In programming we face dependencies of three types: (1) control (2) data
 \begin_layout Itemize
 When a piece of code calls directly to another piece of code, then the second
  piece of code depends on the first piece of code.
- The reason for this dependancy is that depending on the first piece of
- code, the second piece of code will or will not be executed.
+ Because, depending on the first piece of code, the second piece of code
+ 
+\emph on
+will
+\emph default
+ or
+\emph on
+ will not 
+\emph default
+be executed.
 \end_layout
 
 \begin_layout Itemize
-Data dependancy means: when in a running application, a change in one variable
+Data dependancy means: in a running application, a change in one variable
  requires a second variable to change.
 \end_layout
 
@@ -1061,7 +1079,7 @@ literal "false"
 
 \end_inset
 
-: when a change in a piece of code requires changes in another piece of
+: when a change in one piece of code requires change in another piece of
  code, then the second piece of code depends on the first piece of code.
 \end_layout
 
@@ -1102,13 +1120,18 @@ Don't call us, we'll call you
  The first variable will be updated by a code registered to the first variable's
  OnChange event.
  Thus the control dependancy is not in the direction of the data dependancy.
+ (Events-based application suffers from the inversion of control, as it
+ is hard to track the data dependancies.
+ Thus FRP provide an alternative programming languages or extensions by
+ which the data dependances are specified directly.
+ )
 \end_layout
 
 \begin_layout Standard
-Events-based application suffers from the inversion of control, as it is
- hard to track the data dependancies.
- Thus FRP provide an alternative programming languages or extensions by
- which the data dependances are specified directly.
+Another type of inversion is named Dependancy Inversion (DI).
+ Developers and architechts are sometimes convinced that it is helpful to
+ inverse the source code dependencies to not follow the trvial control flow.
+ So, they define interfaces as a contract to depends on them.
  
 \end_layout
 

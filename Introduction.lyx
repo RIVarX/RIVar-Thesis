@@ -345,6 +345,35 @@ end{figure}
 \end_layout
 
 \begin_layout Standard
+(With the the traditional programming, in order to continously maintain
+ data dependancy, developers use the 
+\emph on
+inversion of control
+\emph default
+ principle: 
+\begin_inset Quotes eld
+\end_inset
+
+Don't call us, we'll call you
+\begin_inset Quotes erd
+\end_inset
+
+: the variables are updated by a code registered to the other variable's
+ OnChange events.
+ This has the negative effect, that it is hard to follow the application
+ logic, because the code textual order specified by the programmer does
+ not reflect the data dependancies.)
+\end_layout
+
+\begin_layout Standard
+(In contrast to FRP, with the traditional events-based programming it is
+ hard to follow the application logic, because the code textual order specified
+ by the programmer does not reflect the data dependancies.
+ This what makes FRP so helpful and a promising research; that the code
+ textual order declares the flow of data that is the application logic.)
+\end_layout
+
+\begin_layout Standard
 The dominating category of software today is components-based applications.
  Components includes client-server components, micro-services 
 \begin_inset CommandInset citation

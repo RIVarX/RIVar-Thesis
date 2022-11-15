@@ -340,6 +340,368 @@ path[-{Triangle[scale=1]}] (Equal) edge  (A);
 end{tikzpicture} 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x0) at (0.8,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+node at (0.2,0.2) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x1) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x1) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x1) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[box,minimum width=6.5cm] (op) {Plus};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x2) at (1.25,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+node[marble,circle] (1x2) at (2,0) {7};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x2) at (3,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x2) at (3.75,0) {4};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (4x2) at (4.5,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (5x2) at (5.5,0) {8};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x0) -- (0x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x0) -- (1x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x1) -- (0x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x1) -- (1x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x1) -- (2x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (0x2) -- (0x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (1x2) -- (1x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x2) -- (2x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x2) -- (3x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (4x2) -- (4x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x2) -- (5x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
 \end_inset
 
 

@@ -103,7 +103,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\listings_params "language={[Sharp]C},backgroundcolor={\color{white}},basicstyle={\ttfamily},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}}"
+\listings_params "language=java,backgroundcolor={\color{white}},basicstyle={\ttfamily},belowcaptionskip={1\baselineskip},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,xleftmargin={\parindent},postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},sensitive"
 \tracking_changes false
 \output_changes false
 \html_math_output 0

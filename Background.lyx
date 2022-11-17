@@ -286,7 +286,17 @@ literal "false"
 
 , a variable can have several updates caused by a single update.
  Consequently, ignoring repeating updates might lead to incomplete calculations.
- e.g., in the application bellow, updating 
+ e.g., in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, updating 
 \begin_inset ERT
 status open
 
@@ -476,7 +486,13 @@ end{tikzpicture}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-??????
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch"
+
+\end_inset
+
+Dependency Graph that might have Glitch
 \end_layout
 
 \end_inset

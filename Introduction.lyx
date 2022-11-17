@@ -82,12 +82,11 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Traditionaly functions are implemented to get 
+
 \emph on
-how
+Functional Reactive Programming
 \emph default
- a varying variable's value depends on one or more variables' values.
- In the Functional Reactive Programming (FRP) 
+ (FRP) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional,elliott2009push"
@@ -95,19 +94,9 @@ literal "false"
 
 \end_inset
 
- paradigm, there are 
-\emph on
-lifted
-\emph default
- functions over varying variables, while in runtime, (derived) low level
- functions are automaticaly executed to update dependant variables, in response
- to observing new values.
- Actually FRP abstracts away the need to update variables in response to
- other variables' updates: the variables values are automaticaly consistent.
-\end_layout
-
-\begin_layout Standard
-The main concept is 
+ is a paradigm that abstracts away the need to update variables in response
+ to other variables' updates.
+ The main concept is 
 \emph on
 reactive variable
 \emph default
@@ -168,22 +157,21 @@ literal "false"
 \end_inset
 
 ).
- By the means of an assignment, reactive variables become dependent on reactive
- variables that make up the input.
- Indeed, an FRP application is modeled visually by a 
+ Reactive variables and 
 \emph on
-dependency graph
+lifted
 \emph default
-.
+ functions form expressions in order to assign to reactive variables.
+ By an assignment, reactive variables become dependent on reactive variables
+ containing in the input expressions.
  
 \end_layout
 
 \begin_layout Standard
-According to the above, a reactive variable can be assigned by an expression
- consisting of a set of other reactive variables, consequently the value
- of the variable is set to the value of the expression, and continuously
- re-evaluated in response to changes in the value of any of the variables
- appearing in the expression.
+Reactive variable is assigned by an expression consisting of a set of other
+ reactive variables, consequently the value of the variable is set to the
+ value of the expression, and continuously re-evaluated in response to changes
+ in the value of any of the variables appearing in the expression.
  For example, given two reactive variables 
 \begin_inset ERT
 status open
@@ -342,6 +330,180 @@ end{figure}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+————-
+\end_layout
+
+\begin_layout Standard
+Various libraries enable the use of FRP with imperative code.
+ For example REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, which is an extension to Scala programming language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "odersky2008programming"
+literal "false"
+
+\end_inset
+
+, enables converting between reactive variables and events.
+ An additional library SignalJ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+ includes an interface for reactive variables, with imperative events to
+ respond once variables' values are changed.
+ An API 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ for C# programming langauge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hejlsberg2008c"
+literal "false"
+
+\end_inset
+
+ named ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+, adoped by other languages (e.g., RxJS in JavaScript) provides the reactive
+ variable as an 
+\emph on
+event stream
+\emph default
+, which is an observable emitting values to subscribers, based on the 
+\emph on
+observer 
+\emph default
+and
+\emph on
+ iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+, and also provides 
+\emph on
+operators
+\emph default
+ being functions over the streams.
+\end_layout
+
+\begin_layout Standard
+However, integration of functional-reactive code with imperative code might
+ contain circular dependencies causing infinite loops.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ The problem might happen also in pure FRP (such as happens by imperative-based
+ implementation), in case recursive definitions are presented.
+ Even the simple formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+ contain circular dependencies: the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ is changed in response to any change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, while any change in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ triggers a change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+(*** add existing solutions to circular dependencies?)
+\end_layout
+
+\begin_layout Standard
+———–
 \end_layout
 
 \begin_layout Standard

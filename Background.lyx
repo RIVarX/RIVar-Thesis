@@ -107,7 +107,7 @@ Background
 \end_layout
 
 \begin_layout Section
-Non-Trivial Structure of Dependency Graphs
+Non-Trivial Constructions
 \end_layout
 
 \begin_layout Standard
@@ -725,8 +725,94 @@ literal "false"
  
 \end_layout
 
+\begin_layout Section
+Handling Approaches
+\end_layout
+
+\begin_layout Paragraph
+Avoiding
+\end_layout
+
 \begin_layout Standard
-There are three approaches to handling the cycles.
+In 
+\emph on
+true FRP
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ the graph must not have cycles, because the code is constructed similar
+ to pure functions.
+ The functional style is used in order to achieve the 
+\emph on
+referential transparency 
+\emph default
+property, i.e., the same input produces consistenctly the same output.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, in 
+\emph on
+glitch free
+\emph default
+ FRP, there are special algoritms to prevent from the incomplete updates
+ .
+ Indeed, avoiding cycles is a necessary condition to the algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Cycles are not handled by default also by Microsoft Excel (with the term
+\emph on
+ circular dependencies
+\emph default
+).
+ Also React provides only one-way dataflow 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+, and so also 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marum2020unified"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There is also an approach to avoid the glitches 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://staltz.com/rx-glitches-arent-actually-a-problem.html
+\end_layout
+
+\end_inset
+
+: variable depends on several variables with a single ancestor will be defined
+ directly by that ancestor.
+ 
 \end_layout
 
 \begin_layout Paragraph
@@ -769,7 +855,7 @@ calculation options
 
 
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
@@ -902,81 +988,6 @@ status open
 
 .
  
-\end_layout
-
-\begin_layout Paragraph
-No Cycles
-\end_layout
-
-\begin_layout Standard
-In 
-\emph on
-true FRP
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- the graph must not have cycles, because the code is constructed similar
- to pure functions.
- The functional style is used in order to achieve the 
-\emph on
-referential transparency 
-\emph default
-property, i.e., the same input produces consistenctly the same output.
- 
-\end_layout
-
-\begin_layout Standard
-In addition, in 
-\emph on
-glitch free
-\emph default
- FRP, there are special algoritms to prevent from the incomplete updates
- .
- Indeed, avoiding cycles is a necessary condition to the algorithms 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Cycles are not handled by default also by Microsoft Excel (with the term
-\emph on
- circular dependencies
-\emph default
-).
- Also React provides only one-way dataflow 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
-, and so also 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marum2020unified"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-It is interesting to see the effect of preventing cycles
 \end_layout
 
 \begin_layout Paragraph

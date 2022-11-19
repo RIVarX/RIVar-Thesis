@@ -108,38 +108,85 @@ Reactive Variables Semantics
 
 \begin_layout Standard
 We formulate semantics to reactive variables to conform also to RIVars.
- RIVars add constraints to the implementation of reactive variables: First,
- any dependancy graph should be supported; not just DAG.
- Second, no centerlized management are alowed, because objects interact
+ Two constraints are added to the implementation of reactive variables:
+ First, any dependancy graph should be supported; not just DAG.
+ Second, no centerlized management are alowed.
+\end_layout
+
+\begin_layout Standard
+By the mean to support any dependancy graph, reactive variables are assigned
+ without to avoid reassigments, recursions, glitches or being an input variable.
+ The reason to the decentralized approach is because objects shoud interact
  directly by messages and events.
+ Creating a centerlized engine causes the objects the need to share variables,
+ to not encapsulate their state, and to depend on a third party to manage
+ their state.
+ 
 \end_layout
 
 \begin_layout Standard
-By the mean to support any dependancy graph.
- Reactive variables can have direct inputs as well as assigments.
- Furthermore, reactive variable can be assigned ignoring already existed
- assigments, even recursions are allowed.
-\end_layout
-
-\begin_layout Standard
-A reactive variable, in its low level abstraction, is a stream of values,
- that are the reactive variable's varying value over time.
- The assigment means a recursive 
+In addition to the first two constraints, we would satisfy the 
 \emph on
-merge
+referential transparency
 \emph default
- function, e.g.
- (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Recursive Merge"
-plural "false"
-caps "false"
-noprefix "false"
+ property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
 
 \end_inset
 
-), 
+.
+ Referential transparency means that the same input will produce consistently
+ the same output.
+ The referential transparency property is what causes FRP to be predictable
+ and composable.
+ However, we use a formulation of the guarantee 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+: 
+\begin_inset Quotes eld
+\end_inset
+
+the same sequence of events produces the same results, regardless of the
+ timing of those events
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Essentiality the semantics includes two principals.
+ First, variable's low level abstraction is an observable stream of values
+ represeting its varying value.
+ Second, a single variable can have several sources (from being an input
+ variable while having one or more assigments, or just from having several
+ assigments).
+\end_layout
+
+\begin_layout Standard
+Taking the two principals, a variable with more than one source means having
+ several streams of samples contributing to inferre its values.
+ This is similar to situations when several devices sample a single real-world
+ variable.
+ Actualy by the mean of an assigment, another stream is added to the variable's
+ sources.
+\end_layout
+
+\begin_layout Standard
+We depend on the feasibility of having a 
+\emph on
+merge
+\emph default
+ function, such that an assigment will be handled as applying the merge
+ function recursivle, e.g., 
 \begin_inset ERT
 status open
 
@@ -150,7 +197,7 @@ A:=B
 
 \end_inset
 
- means 
+ is handled as 
 \begin_inset ERT
 status open
 
@@ -162,12 +209,35 @@ A=merge(A,B)
 \end_inset
 
 .
- The merge function is a pure function over streams, that is ...
+ The merge function should contain the logic, how to inffer the variable's
+ values from its several sources.
+ We use the logic to depend on time, such as the name 
+\emph on
+merge
+\emph default
+ suggested.
+ Intuitively, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=merge(A,B)
 \end_layout
 
-\begin_layout Standard
-In the streams level, the code is pure functional: each reactive variable
- is function from 
+\end_inset
+
+ looks like 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Recursive Merge"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -574,19 +644,6 @@ A=merge(A,B)
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-————
-\end_layout
-
-\begin_layout Standard
-We formulate semantics to reactive variables to conform also to RIVars.
- RIVars add constraints to the implementation of reactive variables: First,
- no centerlized management are alowed, because objects interact directly
- by messages and events.
- Second, as previously presented, reactive variables should support any
- dependancy graph, resulting any dependancies graph.
 \end_layout
 
 \begin_layout Section

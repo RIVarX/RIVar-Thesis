@@ -800,7 +800,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-There is also an approach to avoid the glitches 
+There is also an approach to avoid the glitches
 \begin_inset Foot
 status open
 
@@ -1068,97 +1068,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Section
-Dependency Types
-\end_layout
-
 \begin_layout Standard
-In programming we face dependencies of three types: (1) control (2) data
- (3) source code.
-\end_layout
-
-\begin_layout Itemize
-When a piece of code calls directly to another piece of code, then the second
- piece of code depends on the first piece of code.
- Because, depending on the first piece of code, the second piece of code
- 
-\emph on
-will
-\emph default
- or
-\emph on
- will not 
-\emph default
-be executed.
-\end_layout
-
-\begin_layout Itemize
-Data dependancy means: in a running application, a change in one variable
- requires a second variable to change.
-\end_layout
-
-\begin_layout Itemize
-Source code dependancy 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "martin2018clean"
-literal "false"
-
-\end_inset
-
-: when a change in one piece of code requires change in another piece of
- code, then the second piece of code depends on the first piece of code.
-\end_layout
-
-\begin_layout Standard
-A basic assignment statement causes data to flow, thus declaring a dependency
- from the variables in the right side to the variable on the left side.
- The required dependancy type is the data dependancy, however typicaly this
- comprehensive also the other two dependancy types.
-\end_layout
-
-\begin_layout Standard
-In principle, the assignment statement causes a control dependency, because
- the program is executed the code of the right side, and then flows to assign
- the result.
- Regarding source code dependencies, in case the left side variable is in
- another module than the variables from the right side, then it is typical
- that the assignment statement will be written in the module of the left
- side variable.
- The second option is wrong because it is error-prone to control variables
- that are updated from multiple places.
- 
-\end_layout
-
-\begin_layout Standard
-In order to continously maintain data dependancy, there is the 
-\emph on
-inversion of control
-\emph default
- principle: 
-\begin_inset Quotes eld
-\end_inset
-
-Don't call us, we'll call you
-\begin_inset Quotes erd
-\end_inset
-
-.
- The first variable will be updated by a code registered to the first variable's
- OnChange event.
- Thus the control dependancy is not in the direction of the data dependancy.
- (Events-based application suffers from the inversion of control, as it
- is hard to track the data dependancies.
- Thus FRP provide an alternative programming languages or extensions by
- which the data dependances are specified directly.
- )
-\end_layout
-
-\begin_layout Standard
-Another type of inversion is named Dependancy Inversion (DI).
- Developers and architechts are sometimes convinced that it is helpful to
- inverse the source code dependencies to not follow the trvial control flow.
- So, they define interfaces as a contract to depends on them.
  
 \end_layout
 
@@ -1531,7 +1441,7 @@ textit{Select}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

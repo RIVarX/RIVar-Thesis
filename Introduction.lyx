@@ -82,17 +82,54 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In the traditional assigment operator, the target variable depends on the
+In the traditional assignment operator, the target variable depends on the
  assigned expression.
- This dependancy includes three dependancy types: control, data and source
+ This dependency includes three dependancy types: control, data and source
  code.
- In reactive applications, when variables' values should be continously
- alligned with other variables' values, it is time consuming to do the updates,
- because it might be that there were no changes.
+ 
+\end_layout
+
+\begin_layout Itemize
+Control dependency: when a piece of code calls directly to another piece
+ of code, then the second piece of code depends on the first piece of code.
+ Because, depending on the first piece of code, the second piece of code
+ 
+\emph on
+will
+\emph default
+ or
+\emph on
+ will not 
+\emph default
+be executed.
+ An assignment statement causes a control dependency, because the program
+ is executed the code of the right side, and then flows to assign the result.
+\end_layout
+
+\begin_layout Itemize
+Data dependency: in a running application, a change in one variable requires
+ a second variable to change.
+\end_layout
+
+\begin_layout Itemize
+Source code dependency 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+: when a change in one piece of code requires change in another piece of
+ code, then the second piece of code depends on the first piece of code.
+ 
 \end_layout
 
 \begin_layout Standard
-Consequently, it is usefull to use the 
+In reactive applications, when variables' values should be continuously
+ aligned with other variables' values, it is time consuming to do the updates,
+ because it might be that there were no changes.
+ Consequently, it is useful to use the 
 \emph on
 inversion of control
 \emph default
@@ -106,49 +143,47 @@ Don't call us, we'll call you
 
 .
  variables' values are changed as a reaction to other variables' changes.
- Inversion of control principal are used in the implementation (functional)
- reactive programming libraries.
- Then developers can declare assigment-like statements, causing the variables'
- values be changed as a reaction to other variables' values' changes.
+ 
 \end_layout
 
 \begin_layout Standard
-In this thesis, we focus on inverting the source code dependancy as well.
- The inversion of source code dependencies in FRP, would help to control
- both the data and source code dependencies.
-\end_layout
-
-\begin_layout Itemize
-Control dependancy: when a piece of code calls directly to another piece
- of code, then the second piece of code depends on the first piece of code.
- Because, depending on the first piece of code, the second piece of code
- 
+Inversion of control principal are used in the implementation FRP libraries.
+ Then developers can declare 
 \emph on
-will
+assignment-like statements
 \emph default
- or
-\emph on
- will not 
-\emph default
-be executed.
+, causing the variables' values be changed as a reaction to other variables'
+ values' changes.
+ In this thesis, we focus on inverting the source code dependency as well,
+ i.e., FRP with source code dependency inversion.
 \end_layout
 
-\begin_layout Itemize
-Data dependancy: in a running application, a change in one variable requires
- a second variable to change.
-\end_layout
+\begin_layout Standard
+Reactive assigment-like statements are seen like 
+\begin_inset ERT
+status open
 
-\begin_layout Itemize
-Source code dependancy 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "martin2018clean"
-literal "false"
+\begin_layout Plain Layout
+
+Var:=Exp
+\end_layout
 
 \end_inset
 
-: when a change in one piece of code requires change in another piece of
- code, then the second piece of code depends on the first piece of code.
+, whenever Exp's value is changed then Var's value is changed.
+ In this thesis, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var
+\end_layout
+
+\end_inset
+
+ may be a variable accessed by an interface, such that no source code dependency
+ does exists on the actual Var.
 \end_layout
 
 \begin_layout Standard

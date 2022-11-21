@@ -82,6 +82,80 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+In the traditional assigment operator, the target variable depends on the
+ assigned expression.
+ This dependancy includes three dependancy types: control, data and source
+ code.
+ In reactive applications, when variables' values should be continously
+ alligned with other variables' values, it is time consuming to do the updates,
+ because it might be that there were no changes.
+\end_layout
+
+\begin_layout Standard
+Consequently, it is usefull to use the 
+\emph on
+inversion of control
+\emph default
+ principal: 
+\begin_inset Quotes eld
+\end_inset
+
+Don't call us, we'll call you
+\begin_inset Quotes erd
+\end_inset
+
+.
+ variables' values are changed as a reaction to other variables' changes.
+ Inversion of control principal are used in the implementation (functional)
+ reactive programming libraries.
+ Then developers can declare assigment-like statements, causing the variables'
+ values be changed as a reaction to other variables' values' changes.
+\end_layout
+
+\begin_layout Standard
+In this thesis, we focus on inverting the source code dependancy as well.
+ The inversion of source code dependencies in FRP, would help to control
+ both the data and source code dependencies.
+\end_layout
+
+\begin_layout Itemize
+Control dependancy: when a piece of code calls directly to another piece
+ of code, then the second piece of code depends on the first piece of code.
+ Because, depending on the first piece of code, the second piece of code
+ 
+\emph on
+will
+\emph default
+ or
+\emph on
+ will not 
+\emph default
+be executed.
+\end_layout
+
+\begin_layout Itemize
+Data dependancy: in a running application, a change in one variable requires
+ a second variable to change.
+\end_layout
+
+\begin_layout Itemize
+Source code dependancy 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+: when a change in one piece of code requires change in another piece of
+ code, then the second piece of code depends on the first piece of code.
+\end_layout
+
+\begin_layout Standard
+—————–
+\end_layout
+
+\begin_layout Standard
 
 \emph on
 Functional Reactive Programming

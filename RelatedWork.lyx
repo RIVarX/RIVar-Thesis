@@ -90,6 +90,10 @@ Related Work
 \end_layout
 
 \begin_layout Standard
+—————–
+\end_layout
+
+\begin_layout Standard
 In order to do the switch from applications with one large network dependencies
  
 \begin_inset CommandInset citation
@@ -350,7 +354,7 @@ literal "false"
  However, the problem remains with the presence of cycles (then also the
  glitches problem are arisen again).
  Accordingly, the applications are seperated between those with with hierarchica
-l data, in which the dependency graph is cyclic, and those with mutually
+l data, in which the dependency graph is acyclic, and those with mutually
  dependent variables, in which the dependency graph contain cycles 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -401,6 +405,15 @@ literal "false"
 
 , in which an existing language can be extended with a variation of reactive
  variable as a data type.
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+we use distributed propogation algorithm.
+ compare to distributed REScala - they need to know about the source identifiers
 \end_layout
 
 \end_body

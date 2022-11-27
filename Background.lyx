@@ -106,16 +106,541 @@
 Background
 \end_layout
 
-\begin_layout Section
-Non-Trivial Constructions
+\begin_layout Standard
+
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+ is a paradigm that abstracts away the need to update variables in response
+ to other variables' updates.
+ The main concept is 
+\emph on
+reactive variable
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (with some variations also known as 
+\emph on
+behavior
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+).
+ Reactive variables and 
+\emph on
+lifted
+\emph default
+ functions form expressions in order to assign to reactive variables.
+ By an assignment, reactive variables become dependent on reactive variables
+ containing in the input expressions.
+ 
 \end_layout
 
 \begin_layout Standard
-Dependency graphs that contain 
+Reactive variable is assigned by an expression consisting of a set of other
+ reactive variables, consequently the value of the variable is set to the
+ value of the expression, and continuously re-evaluated in response to changes
+ in the value of any of the variables appearing in the expression.
+ For example, given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B+1
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ changes in response to any change in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black, label={A}] (A) at (0,5) {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black ,label={B}] (B) at (3.5,5) {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (A) -- (B); 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{Dependency Graph: Modeling visually A:=B+1}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Various libraries enable the use of FRP with imperative code.
+ For example REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, which is an extension to Scala programming language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "odersky2008programming"
+literal "false"
+
+\end_inset
+
+, enables converting between reactive variables and events.
+ An additional library SignalJ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+ includes an interface for reactive variables, with imperative events to
+ respond once variables' values are changed.
+ An API 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ for C# programming language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hejlsberg2008c"
+literal "false"
+
+\end_inset
+
+ named ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+, adoped by other languages (e.g., RxJS in JavaScript) provides the reactive
+ variable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ as an 
+\emph on
+event stream
+\emph default
+, which is an observable emitting values to subscribers, based on the 
+\emph on
+observer 
+\emph default
+and
+\emph on
+ iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+, and also provides 
+\emph on
+operators
+\emph default
+ being functions over the streams.
+\end_layout
+
+\begin_layout Standard
+We presented our goal to provide FRP with source code dependancy inversion,
+ by reactivly assigning expressions to abstract reactive variables.
+ The core idea is in contrast to the FRP, because there is no seperation
+ between the reactive variables and their assigned expression 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+, reactive variables are defined by their functions over other reactive
+ variables, or by their values over time.
+\end_layout
+
+\begin_layout Standard
+However, in FRP implemetations, such as ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, reactive variable is a data type.
+ Then, reactive variables just like any other variable, can be assigned
+ through an interface.
+ Assigning such reactive variables, overrides their old source.
+ However, such reassignments is contrasted with the core of FRP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, because FRP aims to declaratively connecting data dependencies without
+ caring about time and control dependencies.
+ 
+\end_layout
+
+\begin_layout Standard
+There can be another option, to push values to reactive variables, such
+ that the code pushing the values is a consumer accessing its service through
+ an interface.
+ The implementation should be imperative, instead of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var:=Exp
+\end_layout
+
+\end_inset
+
+, it looks more like 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Exp.Subscribe(val=>Var.OnNext(val))
+\end_layout
+
+\end_inset
+
+.
+ This might lead to accidental recursion 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In other words, it might be that the program will contain cycles in the
+ data dependencies.
+\end_layout
+
+\begin_layout Section
+Cycles
+\end_layout
+
+\begin_layout Standard
+In integration of functional-reactive code with imperative code might contain
+ circular dependencies causing infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ The problem might happen also in pure FRP (such as happens by imperative-based
+ implementation), in case recursive definitions are presented.
+ Even the simple formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+ contain circular dependencies: the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ is changed in response to any change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, while any change in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ triggers a change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Data dependency graphs that contain 
 \emph on
 cycles
 \emph default
- need a special treatment, because it might lead to infinite loops.
+ (named also circular dependencies or recursions) need a special treatment,
+ because it might lead to infinite loops.
  For instance, if an application contains 
 \begin_inset ERT
 status open
@@ -503,226 +1028,6 @@ Dependency Graph that might have Glitch
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-In cycles, in which values are actualy propogated in runtime, there must
- have a variable with 
-\emph on
-reassigment
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, i.e., a variable that, during the application execution, is updated according
- to several formulas, or has several 
-\emph on
-associations
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-Assume, for the sake of contradiction, that there exists a cycle dependency
- graph, such that each variables has a single association.
- So there is a list of reactive variables, each variable has a single associatio
-n, with a formula consisting of the next variable, except the last variable
- that is associated with a formula consisting the first variable.
- In runtime, the variables must have values from external input, therefore
- one of the variables must have an association consisting input, that will
- propogate through the cycle.
- This is a contradiction, since it means that it has an additional association.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] (X) at (5,5) {$input$};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][->, >=latex] (X) -- (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The bottom line is that variables can be updated in response to more than
- one event 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
-.
- So it is complex to track the dependencies and implementing them, especially
- that the order of the events is not fully predictable, i.e., for a certain
- application and input events, the events execution order might be inconsistent
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- 
 \end_layout
 
 \begin_layout Section

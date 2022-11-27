@@ -81,7 +81,584 @@
 \begin_body
 
 \begin_layout Chapter
-Implementation
+Change Propogation
+\end_layout
+
+\begin_layout Standard
+As the name 
+\emph on
+merge
+\emph default
+ suggested, the logic to inffer values from several sources, is based on
+ time.
+ With the stream model, time is modeled 
+\emph on
+implicity
+\emph default
+ be 
+\emph on
+ordering
+\emph default
+ the items.
+ The merge operation should do the merge by providing the values over time
+ according to the
+\emph on
+ time
+\emph default
+; also the glitch handling: the values must have an order.
+\end_layout
+
+\begin_layout Standard
+The time and ordering basicly derived from the events order, then by the
+ traversal order.
+\end_layout
+
+\begin_layout Standard
+Changes are propagated synchronously, in such that variable's change recursivly
+ calls its dependencies with its update.
+ The propogation causes by a variable's change is like a depth-first search
+ traversal rooted in this variable.
+ This determines the time or items ordering.
+\end_layout
+
+\begin_layout Standard
+—–
+\end_layout
+
+\begin_layout Standard
+It might be that an external input conflicts with the variables' values.
+ However, in the proposed semantics the new values are adopted.
+ It is expected that they would propogate changes overriding old values,
+ then following the propogation process the variables' values become consistent
+ again.
+\end_layout
+
+\begin_layout Standard
+Specificaly, an assigment trigger changes from either of the assigned expression
+s ignoring non-
+\emph on
+new
+\emph default
+ values.
+ This strategy has in common with glitch handling: any value calculated
+ from both 
+\emph on
+new
+\emph default
+ values with an 
+\emph on
+old
+\emph default
+ values are ignored.
+ 
+\end_layout
+
+\begin_layout Standard
+With the stream model, time is modeled 
+\emph on
+implicity
+\emph default
+ be 
+\emph on
+ordering
+\emph default
+ the items.
+ The merge operation should do the merge by providing the values over time
+ according to the
+\emph on
+ time
+\emph default
+; also the glitch handling: the values must have an order.
+ 
+\end_layout
+
+\begin_layout Standard
+The order is derived from the sequence of events and the traversal order.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+We use the logic to depend on time, such as the name 
+\emph on
+merge
+\emph default
+ suggested.
+ Over time, any update from any of the sources, are published in target
+ variable.
+ Intuitively 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=merge(A,B)
+\end_layout
+
+\end_inset
+
+ looks like in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Recursive Merge"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+node at (0.2,0.2) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x1) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x1) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x1) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[box,minimum width=6.5cm] (op) {Merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x3) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x3) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x3) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[marble,circle] (4x3) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (5x3) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (6x3) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x0) -- (1x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x1) -- (0x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x1) -- (1x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x1) -- (2x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (1x3) -- (1x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x3) -- (2x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x3) -- (3x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (4x3) -- (4x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x3) -- (5x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x3) -- (6x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Recursive Merge"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=merge(A,B)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+–
+\end_layout
+
+\begin_layout Standard
+The changes are propagated synchronously, in such that variable's change
+ recursivly calls its dependencies with its update.
+ The propogation causes by a variable's change is like a depth-first search
+ traversal rooted in this variable.
+\end_layout
+
+\begin_layout Standard
+There are four types of edges, each targets either an operator or an assigment.
+\end_layout
+
+\begin_layout Paragraph
+tree edges
+\end_layout
+
+\begin_layout Paragraph
+back edges
+\end_layout
+
+\begin_layout Standard
+means cycle
+\end_layout
+
+\begin_layout Paragraph
+cross edges
+\end_layout
+
+\begin_layout Standard
+glitch in case of operator, reassiment 
+\end_layout
+
+\begin_layout Paragraph
+forward edges
+\end_layout
+
+\begin_layout Standard
+——————-
 \end_layout
 
 \begin_layout Standard

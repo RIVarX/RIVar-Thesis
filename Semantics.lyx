@@ -103,11 +103,12 @@
 \begin_body
 
 \begin_layout Chapter
-Reactive Variables Semantics
+Reactive Variables 
 \end_layout
 
 \begin_layout Standard
-We formulate semantics to reactive variables to conform also to RIVars.
+We formulate syntax and semantics to reactive variables to conform also
+ to RIVars.
  Two constraints are added to the implementation of reactive variables:
  First, any dependancy graph should be supported; not just DAG.
  Second, no centerlized management are alowed.
@@ -115,7 +116,8 @@ We formulate semantics to reactive variables to conform also to RIVars.
 
 \begin_layout Standard
 By the mean to support any dependancy graph, reactive variables are assigned
- without to avoid reassigments, recursions, glitches or being an input variable.
+ without to avoid re-assigments, recursions, glitches or being an input
+ variable.
  The reason to the decentralized approach is because objects shoud interact
  directly by messages and events.
  Creating a centerlized engine causes the objects the need to share variables,
@@ -162,144 +164,8 @@ the same sequence of events produces the same results, regardless of the
 .
 \end_layout
 
-\begin_layout Standard
-Essentiality the semantics includes two principals.
- First, variable's low level abstraction is an observable stream of values
- represeting its varying value.
- Second, a single variable can have several sources (from being an input
- variable while having one or more assigments, or just from having several
- assigments).
-\end_layout
-
-\begin_layout Standard
-Taking the two principals, a variable with more than one source means having
- several streams of samples contributing to inferre its values.
- This is similar to situations when several devices sample a single real-world
- variable.
- Actualy by the mean of an assigment, another stream is added to the variable's
- sources.
-\end_layout
-
-\begin_layout Standard
-We depend on the feasibility of having a 
-\emph on
-merge
-\emph default
- function, such that an assigment will be handled as applying the merge
- function recursivle, e.g., 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
- is handled as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=merge(A,B)
-\end_layout
-
-\end_inset
-
-.
- The merge function should contain the logic, how to inffer the variable's
- values from its several sources.
- The merge function should be a pure function over streams.
- 
-\end_layout
-
-\begin_layout Standard
-The merge function suggests to inffer values according to the time: whenever
- a new value exists in any of the sources, the value would be propogated
- to the target variable.
- In the merge the time is reflected by ordering the items.
-\end_layout
-
 \begin_layout Section
-Reactive Variables
-\end_layout
-
-\begin_layout Standard
-A reactive variable, under the hood, is an 
-\emph on
-events stream
-\emph default
-, an observable emitting values to subscribers 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
-, based on the 
-\emph on
-observer
-\emph default
- and 
-\emph on
-iterator
-\emph default
- patterns 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-.
- This makes the management decenterlized and defines the reactive variable
- abstraction in the low level.
- In the high level, reactive variables are the typical 
-\emph on
-continuous
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-; they are used to define variables dependencies in the problem domain,
- independant of time.
-\end_layout
-
-\begin_layout Standard
-The lower level abstraction 
-\emph on
-does
-\emph default
- exist, because even when a reactive variable represents a real world variable
- in high level, in computers reactive variable's actual values cannot continuous
-ly given.
- For example, temperature might be represented by a reactive variable depending
- on an actualy stream of discrete events, being sampled by a thermometer.
-\end_layout
-
-\begin_layout Standard
-Similary in UI applications, the logic may be in terms of continuously update
- fields according to other fields; objects constructed from classes from
- the previous chapter, aim to be the logic layer to certain UI applications.
- Many times, UI application observe fields’ change events, once a value
- is changed, dependant fields are calculated and presented.
- The fields change events feed reactive variables (as observable variables),
- and the fields updates are from subscribing to reactive variables (as latent
- variables).
- 
-\end_layout
-
-\begin_layout Section
-Operators and Assigments
+Syntax
 \end_layout
 
 \begin_layout Standard
@@ -447,8 +313,92 @@ path[-{Triangle[scale=1]}] (Equal) edge  (A);
 end{tikzpicture} 
 \end_layout
 
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Formula"
+
+\end_inset
+
+Formula 
+\begin_inset ERT
+status open
+
 \begin_layout Plain Layout
 
+A:=B+C
+\end_layout
+
+\end_inset
+
+ over reactive variables A, B and C
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The formulas can be represented by a 
+\emph on
+formulas graph.
+\end_layout
+
+\begin_layout Section
+Semantics
+\end_layout
+
+\begin_layout Standard
+Essentiality the semantics includes two principals.
+ First, variable's low level abstraction is an observable stream of values
+ represeting its varying value.
+ Second, a single variable can have several sources (from being an input
+ variable while having one or more assigments, or just from having several
+ assigments).
+\end_layout
+
+\begin_layout Standard
+Taking the two principals, a variable with more than one source means, having
+ several streams of samples contributing to inferre its values.
+ This is similar to situations when several devices sample a single real-world
+ variable.
+ We depend on the feasibility of a 
+\emph on
+merge
+\emph default
+ function.
+ The merge function suggests (but there can be more options) to merge the
+ value items from the sources according to the time: whenever a new value
+ exists in any of the sources, the value would be propogated to the target
+ variable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
 \end_layout
 
 \begin_layout Plain Layout
@@ -485,14 +435,11 @@ draw [time] (0,0) -- (6.5,0);
 
   
 \backslash
-node at (0.2,0.2) {B};
+node at (0.2,0.2) {Source A};
 \end_layout
 
 \begin_layout Plain Layout
 
-  
-\backslash
-node[marble,circle] (0x0) at (0.8,0) {1};
 \end_layout
 
 \begin_layout Plain Layout
@@ -545,7 +492,7 @@ draw [time] (0,0) -- (6.5,0);
 
    
 \backslash
-node at (0.2,0.2) {C};
+node at (0.2,0.2) {Source B};
 \end_layout
 
 \begin_layout Plain Layout
@@ -591,7 +538,7 @@ node[marble,circle] (2x1) at (5.5,0) {6};
 
   
 \backslash
-node[box,minimum width=6.5cm] (op) {Plus};
+node[box,minimum width=6.5cm] (op) {Merge};
 \end_layout
 
 \begin_layout Plain Layout
@@ -619,21 +566,33 @@ draw [time] (0,0) -- (6.5,0);
 
     
 \backslash
-node at (0.2,0.2) {A};
+node at (0.2,0.2) {Variable};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,circle] (0x2) at (1.25,0) {3};
+node[marble,circle] (1x3) at (2,0) {5};
 \end_layout
 
 \begin_layout Plain Layout
 
-   
+  
 \backslash
-node[marble,circle] (1x2) at (2,0) {7};
+node[marble,circle] (2x3) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x3) at (4.5,0) {2};
 \end_layout
 
 \begin_layout Plain Layout
@@ -643,34 +602,23 @@ node[marble,circle] (1x2) at (2,0) {7};
 
 \begin_layout Plain Layout
 
-  
+
 \backslash
-node[marble,circle] (2x2) at (3,0) {5};
+node[marble,circle] (4x3) at (1.25,0) {2};
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,circle] (3x2) at (3.75,0) {4};
+node[marble,circle] (5x3) at (3.75,0) {1};
 \end_layout
 
 \begin_layout Plain Layout
 
   
 \backslash
-node[marble,circle] (4x2) at (4.5,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (5x2) at (5.5,0) {8};
-\end_layout
-
-\begin_layout Plain Layout
-
+node[marble,circle] (6x3) at (5.5,0) {6};
 \end_layout
 
 \begin_layout Plain Layout
@@ -689,13 +637,6 @@ node[marble,circle] (5x2) at (5.5,0) {8};
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (0x0) -- (0x0|-op.north);
 \end_layout
 
 \begin_layout Plain Layout
@@ -754,44 +695,48 @@ draw [fdash] (2x1) -- (2x1|-op.north);
 
 \begin_layout Plain Layout
 
-
-\backslash
-draw [rdash] (0x2) -- (0x2|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [rdash] (1x2) -- (1x2|-op.south);
+draw [rdash] (1x3) -- (1x3|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [rdash] (2x2) -- (2x2|-op.south);
+draw [rdash] (2x3) -- (2x3|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [rdash] (3x2) -- (3x2|-op.south);
+draw [rdash] (3x3) -- (3x3|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [rdash] (4x2) -- (4x2|-op.south);
+draw [rdash] (4x3) -- (4x3|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [rdash] (5x2) -- (5x2|-op.south);
+draw [rdash] (5x3) -- (5x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x3) -- (6x3|-op.south);
 \end_layout
 
 \begin_layout Plain Layout
@@ -817,36 +762,188 @@ end{tikzpicture}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Formula"
+name "fig:merge is inffere"
 
 \end_inset
 
-Formula 
+ 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-A:=B+C
-\end_layout
-
-\end_inset
-
- over reactive variables A, B and C
+A variable varying value inffered from several sources.
 \end_layout
 
 \end_inset
 
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+Assigment means that another stream is added to the variable's sources.
+ We formulate it that 
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
+A:=B
 \end_layout
 
 \end_inset
 
+ is handled as 
+\begin_inset ERT
+status open
 
+\begin_layout Plain Layout
+
+A=merge(A,B)
+\end_layout
+
+\end_inset
+
+.
+ Consequently the merge function is required to handle 
+\end_layout
+
+\begin_layout Standard
+We depend on the feasibility of a 
+\emph on
+merge
+\emph default
+ function, such that an assigment will be handled as applying the merge
+ function recursivle, e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ is handled as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=merge(A,B)
+\end_layout
+
+\end_inset
+
+.
+ The merge function should contain the logic, how to inffer the variable's
+ values from its several sources.
+ The merge function should be a pure function over streams.
+ 
+\end_layout
+
+\begin_layout Standard
+The merge function suggests to merge the value items from the sources according
+ to the time.
+ The meaning is values are inferred according to the time: whenever a new
+ value exists in any of the sources, the value would be propogated to the
+ target variable.
+ 
+\end_layout
+
+\begin_layout Section
+Reactive Variables
+\end_layout
+
+\begin_layout Standard
+A reactive variable, under the hood, is an 
+\emph on
+events stream
+\emph default
+, an observable emitting values to subscribers 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+, based on the 
+\emph on
+observer
+\emph default
+ and 
+\emph on
+iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+.
+ This makes the management decenterlized and defines the reactive variable
+ abstraction in the low level.
+ In the high level, reactive variables are the typical 
+\emph on
+continuous
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+; they are used to define variables dependencies in the problem domain,
+ independant of time.
+\end_layout
+
+\begin_layout Standard
+The lower level abstraction 
+\emph on
+does
+\emph default
+ exist, because even when a reactive variable represents a real world variable
+ in high level, in computers reactive variable's actual values cannot continuous
+ly given.
+ For example, temperature might be represented by a reactive variable depending
+ on an actualy stream of discrete events, being sampled by a thermometer.
+\end_layout
+
+\begin_layout Standard
+Similary in UI applications, the logic may be in terms of continuously update
+ fields according to other fields; objects constructed from classes from
+ the previous chapter, aim to be the logic layer to certain UI applications.
+ Many times, UI application observe fields’ change events, once a value
+ is changed, dependant fields are calculated and presented.
+ The fields change events feed reactive variables (as observable variables),
+ and the fields updates are from subscribing to reactive variables (as latent
+ variables).
+ 
+\end_layout
+
+\begin_layout Section
+Operators and Assigments
 \end_layout
 
 \begin_layout Standard

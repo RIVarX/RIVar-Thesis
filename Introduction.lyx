@@ -97,8 +97,7 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Data dependency: in a running application, a change in one variable requires
- a second variable to change.
+Data dependency: a variable's value is derived from other variables' values.
 \end_layout
 
 \begin_layout Itemize
@@ -115,7 +114,7 @@ will
 \emph default
 be executed.
  An assignment statement causes a control dependency, because the program
- is executed the code of the right side, and then flows to assign the result.
+ executes the code of the expression, and then flows to assign the result.
 \end_layout
 
 \begin_layout Itemize
@@ -129,14 +128,21 @@ literal "false"
 
 : when a change in one piece of code requires change in another piece of
  code, then the second piece of code depends on the first piece of code.
+ An assignment statement causes a source code depedency by depending on
+ the variables' 
+\emph on
+declarations
+\emph default
+.
  
 \end_layout
 
 \begin_layout Standard
 In reactive applications, when variables' values should be continuously
- re-evaluated with other variables' values, it is time consuming to do the
- updates, because it might be that there were no changes.
- Consequently, it is useful to use the 
+ re-evaluated with other variables' values, it is time consuming to do updates
+ when there are no changes.
+ Therefore, variables' values are changed as a reaction to other variables'
+ changes using the 
 \emph on
 inversion of control
 \emph default
@@ -144,19 +150,25 @@ inversion of control
 \begin_inset Quotes eld
 \end_inset
 
-Don't call us, we'll call you
+don't call us, we'll call you
 \begin_inset Quotes erd
 \end_inset
 
 .
- Variables' values are changed as a reaction to other variables' changes.
+\end_layout
+
+\begin_layout Standard
+When using the inversion of control principal, it might be that the data
+ dependency is not declared directly.
+ Instead, the code that update a variable, should dynamically connected
+ to the code that update the variables it depends on.
  
 \end_layout
 
 \begin_layout Standard
-Inversion of control principal are used in implementations of 
+In the
 \emph on
-Functional Reactive Programming
+ Functional Reactive Programming
 \emph default
  (FRP) 
 \begin_inset CommandInset citation
@@ -166,23 +178,20 @@ literal "false"
 
 \end_inset
 
- libraries.
- Then developers can declare formulas that are 
-\emph on
-assignment-like statements
-\emph default
-.
- The formulas cause the variables' values be changed as a reaction to other
- variables' values' changes.
- In this thesis, we focus on inverting the 
-\emph on
-source code dependency
-\emph default
- as well.
-\end_layout
+ paradigm, with the push-based model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
 
-\begin_layout Standard
-For the formula 
+\end_inset
+
+, the inversion of control are used while the data dependencies are declared
+ directly.
+ With such push-based FRP implementations, developers can declare assigment-like
+ statement, i.e., formulas, causing variables' values be changed as a reaction
+ to other variables' values' changes.
+ Specifically, for a formula 
 \begin_inset ERT
 status open
 
@@ -194,7 +203,14 @@ Var:=Exp
 \end_inset
 
 , whenever Exp's value is changed then Var's value is changed.
- By the source code dependency inversion, 
+\end_layout
+
+\begin_layout Standard
+In this thesis, we focus on inverting the 
+\emph on
+source code dependency
+\emph default
+ as well: 
 \begin_inset ERT
 status open
 
@@ -205,7 +221,7 @@ Var
 
 \end_inset
 
- is accessed by an interface, while the actual 
+ will be accessed by an interface, while the actual 
 \begin_inset ERT
 status open
 
@@ -217,8 +233,11 @@ Var
 \end_inset
 
  is encapsulated and managed independently.
- Specifically, objects can own logic which continously re-evaluating internal
- and external variables, by simple assignment-like statements
+ then objects can own logic which continously re-evaluating internal
+\emph on
+ and external
+\emph default
+ variables by simple formulas
 \emph on
 .
 \end_layout

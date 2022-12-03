@@ -103,14 +103,13 @@
 \begin_body
 
 \begin_layout Chapter
-Reactive Variables 
+Reactive Variables' Formulation
 \end_layout
 
 \begin_layout Standard
-We formulate syntax and semantics to reactive variables to conform also
- to RIVars.
- Two constraints are added to the implementation of reactive variables:
- First, any dependancy graph should be supported; not just DAG.
+We formulate reactive variables to conform also to RIVars.
+ Two constraints are added to the original formulation: First, any dependancy
+ graph should be supported; not just DAG.
  Second, no centerlized management are alowed.
 \end_layout
 
@@ -165,23 +164,42 @@ the same sequence of events produces the same results, regardless of the
 \end_layout
 
 \begin_layout Section
-Syntax
+Computational Model
+\end_layout
+
+\begin_layout Standard
+There are three basic items: reactive variables, operators and assigments.
+ reactive variables are the typical 
+\emph on
+continuous
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+ variables represeting real world variables in the problem domain, independant
+ of time.
+ Operator is a lifted function, such that a function over values are lifted
+ to being over reactive variables: the constructed expression continously
+ reflects the varying value calculated from the reactive variables.
+ Similary, an assigment over reactive variables would be a lifted assigment,
+ such that an assigned reactive variable should reflect the assigned expression
+ continuously.
+ 
+\end_layout
+
+\begin_layout Subsection
+Problem Description Model
 \end_layout
 
 \begin_layout Standard
 Operators and assigments are two elements type connecting reactive variables
  between each other.
- For example (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Formula"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), in the formula 
+ For example, in the formula 
 \begin_inset ERT
 status open
 
@@ -192,8 +210,18 @@ A:=B+C
 
 \end_inset
 
- over the reactive variables A, B and C, + is an operator connecting B and
- C, and := is an assigment connecting 
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Formula"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) over the reactive variables A, B and C, + is an operator connecting B
+ and C, and := is an assigment connecting 
 \begin_inset ERT
 status open
 
@@ -216,6 +244,7 @@ B+C
 \end_inset
 
 .
+ A FRP application consists of one or more formulas.
  
 \end_layout
 
@@ -223,7 +252,7 @@ B+C
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -325,7 +354,7 @@ name "fig:Formula"
 
 \end_inset
 
-Formula 
+A graph described the formula 
 \begin_inset ERT
 status open
 
@@ -350,13 +379,471 @@ A:=B+C
 \end_layout
 
 \begin_layout Standard
-The formulas can be represented by a 
-\emph on
-formulas graph.
+A reactive variable can have external inputs, by the syntax 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var=input
+\end_layout
+
+\end_inset
+
+, e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B=1
+\end_layout
+
+\end_inset
+
+.
+ Inputs can be taken also by connecting to external streams of events, by
+ the assigment operator, e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=InputControl.ChangeEvents
+\end_layout
+
+\end_inset
+
+.
+ The inputs statements are considered an the FRP application's consumer.
+ 
+\end_layout
+
+\begin_layout Subsection
+Execution Model
+\end_layout
+
+\begin_layout Standard
+Whenever a variable's value is changed, the variable makes a synchronous
+ call to the operators and assigments depending on it, which recursively
+ make synchronous calls to other operators, assigments and other variables.
+ The synchronous call causes a depth-first search traversal rooted in the
+ first variable that started the calls.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus) at (2,5) {+1}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=diamond,draw=black] (Equal) at (2,3) {=};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (2,1) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (Plus);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Plus) edge  (Equal);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Equal) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Formula-Graph-2variables"
+
+\end_inset
+
+Formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ over reactive variables A and B
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Subscribe}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Evaluating formula A:=B+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{OnNext(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{OnNext(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{OnNext(3)}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{OnNext(3)}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{OnNext(3)}{E}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Propogation on the formula A:=B+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
-Semantics
+Streams Semantics
 \end_layout
 
 \begin_layout Standard
@@ -368,9 +855,89 @@ Essentiality the semantics includes two principals.
  assigments).
 \end_layout
 
+\begin_layout Subsection
+Reactive Variables
+\end_layout
+
 \begin_layout Standard
-Taking the two principals, a variable with more than one source means, having
- several streams of samples contributing to inferre its values.
+A reactive variable, under the hood, is an 
+\emph on
+events stream
+\emph default
+, an observable emitting values to subscribers 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+, based on the 
+\emph on
+observer
+\emph default
+ and 
+\emph on
+iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+.
+ This makes the management decenterlized and defines the reactive variable
+ abstraction in the low level.
+ In the high level, reactive variables are the typical 
+\emph on
+continuous
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+; they are used to define variables dependencies in the problem domain,
+ independant of time.
+\end_layout
+
+\begin_layout Standard
+The lower level abstraction 
+\emph on
+does
+\emph default
+ exist, because even when a reactive variable represents a real world variable
+ in high level, in computers reactive variable's actual values cannot continuous
+ly given.
+ For example, temperature might be represented by a reactive variable depending
+ on an actualy stream of discrete events, being sampled by a thermometer.
+\end_layout
+
+\begin_layout Standard
+Similary in UI applications, the logic may be in terms of continuously update
+ fields according to other fields; objects constructed from classes from
+ the previous chapter, aim to be the logic layer to certain UI applications.
+ Many times, UI application observe fields’ change events, once a value
+ is changed, dependant fields are calculated and presented.
+ The fields change events feed reactive variables (as observable variables),
+ and the fields updates are from subscribing to reactive variables (as latent
+ variables).
+ 
+\end_layout
+
+\begin_layout Subsection
+Assigments
+\end_layout
+
+\begin_layout Standard
+A variable with more than one source means having several streams of samples
+ contributing to inferre its values.
  This is similar to situations when several devices sample a single real-world
  variable.
  We depend on the feasibility of a 
@@ -791,10 +1358,6 @@ A variable varying value inffered from several sources.
 \end_layout
 
 \begin_layout Standard
-———-
-\end_layout
-
-\begin_layout Standard
 Assigment means that another stream is added to the variable's sources.
  We formulate it that 
 \begin_inset ERT
@@ -866,94 +1429,8 @@ The merge function suggests to merge the value items from the sources according
  
 \end_layout
 
-\begin_layout Section
-Reactive Variables
-\end_layout
-
-\begin_layout Standard
-A reactive variable, under the hood, is an 
-\emph on
-events stream
-\emph default
-, an observable emitting values to subscribers 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
-, based on the 
-\emph on
-observer
-\emph default
- and 
-\emph on
-iterator
-\emph default
- patterns 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-.
- This makes the management decenterlized and defines the reactive variable
- abstraction in the low level.
- In the high level, reactive variables are the typical 
-\emph on
-continuous
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-; they are used to define variables dependencies in the problem domain,
- independant of time.
-\end_layout
-
-\begin_layout Standard
-The lower level abstraction 
-\emph on
-does
-\emph default
- exist, because even when a reactive variable represents a real world variable
- in high level, in computers reactive variable's actual values cannot continuous
-ly given.
- For example, temperature might be represented by a reactive variable depending
- on an actualy stream of discrete events, being sampled by a thermometer.
-\end_layout
-
-\begin_layout Standard
-Similary in UI applications, the logic may be in terms of continuously update
- fields according to other fields; objects constructed from classes from
- the previous chapter, aim to be the logic layer to certain UI applications.
- Many times, UI application observe fields’ change events, once a value
- is changed, dependant fields are calculated and presented.
- The fields change events feed reactive variables (as observable variables),
- and the fields updates are from subscribing to reactive variables (as latent
- variables).
- 
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 Operators and Assigments
-\end_layout
-
-\begin_layout Standard
-Operator is a lifted function, such that a function over values are lifted
- to being over reactive variables: the constructed expression continously
- reflects the varying value calculated from the reactive variables.
- Similary, an assigment over reactive variables would be a lifted assigment,
- such that an assigned reactive variable should reflect the assigned expression
- continuously.
- 
 \end_layout
 
 \begin_layout Standard
@@ -975,12 +1452,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Reactive variables can be assigned (and also get input) ignoring already
- existed assigments.
- Furthermore, there might recursions leading to cycles in the dependancy
- graph.
- Consequently under the hood, an assigment is a bit like operators: it provides
- to its subscribers 
+Under the hood, an assigment is a bit like operators: it provides to its
+ subscribers 
 \emph on
 a single values stream based on several values streams
 \emph default

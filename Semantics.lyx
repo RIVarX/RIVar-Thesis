@@ -107,6 +107,15 @@ Reactive Variables' Formulation
 \end_layout
 
 \begin_layout Standard
+(Essentiality the semantics includes two principals.
+ First, variable's low level abstraction is an observable stream of values
+ represeting its varying value.
+ Second, a single variable can have several sources (from being an input
+ variable while having one or more assigments, or just from having several
+ assigments).)
+\end_layout
+
+\begin_layout Standard
 We formulate reactive variables to conform also to RIVars.
  Two constraints are added to the original formulation: First, any dependancy
  graph should be supported; not just DAG.
@@ -186,9 +195,12 @@ literal "false"
  Operator is a lifted function, such that a function over values are lifted
  to being over reactive variables: the constructed expression continously
  reflects the varying value calculated from the reactive variables.
- Similary, an assigment over reactive variables would be a lifted assigment,
- such that an assigned reactive variable should reflect the assigned expression
- continuously.
+ Assigment over reactive variables would be a 
+\emph on
+lifted
+\emph default
+ assigment, such that an assigned reactive variable should reflect the assigned
+ expression continuously.
  
 \end_layout
 
@@ -244,15 +256,19 @@ B+C
 \end_inset
 
 .
- A FRP application consists of one or more formulas.
- 
+\end_layout
+
+\begin_layout Standard
+If there are several formulas in which the target variable refer to the
+ same variable, it means a single assigment connecting several expressions
+ to a single assigment, which is connected to the target variable.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -379,6 +395,10 @@ A:=B+C
 \end_layout
 
 \begin_layout Standard
+More points related to the problem description model:
+\end_layout
+
+\begin_layout Itemize
 A reactive variable can have external inputs, by the syntax 
 \begin_inset ERT
 status open
@@ -402,7 +422,10 @@ B=1
 \end_inset
 
 .
- Inputs can be taken also by connecting to external streams of events, by
+\end_layout
+
+\begin_layout Itemize
+Inputs can be taken also by connecting to external streams of events, by
  the assigment operator, e.g., 
 \begin_inset ERT
 status open
@@ -415,7 +438,12 @@ B:=InputControl.ChangeEvents
 \end_inset
 
 .
- The inputs statements are considered an the FRP application's consumer.
+ 
+\end_layout
+
+\begin_layout Itemize
+The set of formulas means the FRP application, while inputs statements are
+ considered an the FRP application's consumer.
  
 \end_layout
 
@@ -424,11 +452,218 @@ Execution Model
 \end_layout
 
 \begin_layout Standard
-Whenever a variable's value is changed, the variable makes a synchronous
- call to the operators and assigments depending on it, which recursively
- make synchronous calls to other operators, assigments and other variables.
- The synchronous call causes a depth-first search traversal rooted in the
- first variable that started the calls.
+An external input, caused a variable's value to change, causes a depth-first
+ search (DFS) traversal on the graph starting from this variable's node.
+ In the traversal, the dependant variables would update according to the
+ new input.
+ 
+\end_layout
+
+\begin_layout Standard
+The DFS traversal is caused from the synchronous calls process: whenever
+ an element's value is changed, it makes a recursive synchronous call to
+ elements depending on it, calculating their new values.
+\end_layout
+
+\begin_layout Standard
+The traversal is simple while all edges are 
+\emph on
+tree edges
+\emph default
+.
+ However we should consider also special edges: back edges, cross edges
+ and forward edges.
+ The special edges only directed to assigments and operators elements.
+\end_layout
+
+\begin_layout Standard
+For operators, the three special edges reminds the glitch issue.
+ The root element's change should cause two (or more) visits in the elements
+ that have the special edge, while only the last produced a correct calculation.
+ However if the whole graph contains cycles, it is not simple to identify
+ what is the last visit.
+ Instead we will use our model of order and will ignore visits with less
+ updated value than the existing one.
+\end_layout
+
+\begin_layout Standard
+For assigments, in the first glance it does not make sence having a special
+ edge.
+ However, any element in the spanning graph is supposed to depend on other
+ variables from the whole graph.
+ Consequently, each visit represents not only the current external input
+ but also the preceding external inputs affected the other dependant variables.
+ According to our model, the visit represeting the latest external inputs
+ should be the correct calculation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black,dashed] (B) at (1,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black,dashed] (C) at (5,7) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op1) at (2,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op2) at (4,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq) at (3,3) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]},dashed] (B) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]},dashed] (C) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op1) edge  (eq);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}, color=blue] (op2) edge  (eq);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:assigment-special-edge"
+
+\end_inset
+
+A special edge to an assigment element 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Streams Semantics
+\end_layout
+
+\begin_layout Standard
+Essentiality the semantics includes two principals.
+ First, variable's low level abstraction is an observable stream of values
+ represeting its varying value.
+ Second, a single variable can have several sources (from being an input
+ variable while having one or more assigments, or just from having several
+ assigments).
 \end_layout
 
 \begin_layout Standard
@@ -664,7 +899,7 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Evaluating formula A:=B+1
+Executing the formula A:=B+1
 \end_layout
 
 \end_inset
@@ -840,19 +1075,6 @@ Propogation on the formula A:=B+1
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Streams Semantics
-\end_layout
-
-\begin_layout Standard
-Essentiality the semantics includes two principals.
- First, variable's low level abstraction is an observable stream of values
- represeting its varying value.
- Second, a single variable can have several sources (from being an input
- variable while having one or more assigments, or just from having several
- assigments).
 \end_layout
 
 \begin_layout Subsection

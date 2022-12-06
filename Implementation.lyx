@@ -619,46 +619,7 @@ A=merge(A,B)
 \end_layout
 
 \begin_layout Standard
-–
-\end_layout
 
-\begin_layout Standard
-The changes are propagated synchronously, in such that variable's change
- recursivly calls its dependencies with its update.
- The propogation causes by a variable's change is like a depth-first search
- traversal rooted in this variable.
-\end_layout
-
-\begin_layout Standard
-There are four types of edges, each targets either an operator or an assigment.
-\end_layout
-
-\begin_layout Paragraph
-tree edges
-\end_layout
-
-\begin_layout Paragraph
-back edges
-\end_layout
-
-\begin_layout Standard
-means cycle
-\end_layout
-
-\begin_layout Paragraph
-cross edges
-\end_layout
-
-\begin_layout Standard
-glitch in case of operator, reassiment 
-\end_layout
-
-\begin_layout Paragraph
-forward edges
-\end_layout
-
-\begin_layout Standard
-——————-
 \end_layout
 
 \begin_layout Standard

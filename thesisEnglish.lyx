@@ -374,7 +374,7 @@ filename "Introduction.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Motivation.lyx"
+filename "Abstraction.lyx"
 
 \end_inset
 
@@ -385,16 +385,6 @@ filename "Motivation.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "Background.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "Abstraction.lyx"
 
 \end_inset
 
@@ -471,6 +461,16 @@ appendix
 \begin_inset CommandInset include
 LatexCommand include
 filename "UserGuide.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Motivation.lyx"
 
 \end_inset
 

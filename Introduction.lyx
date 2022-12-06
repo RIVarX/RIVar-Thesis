@@ -243,18 +243,11 @@ Var
 \end_layout
 
 \begin_layout Standard
-Our approach integrates the FRP and OOP paradigms.
- We are not the first in the field 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards,boix2013object"
-literal "false"
-
-\end_inset
-
-.
- However, with our focus on the source code dependencies inversion, we handle
- the main benefit of the OOP paradigm 
+The source code's dependancy inversion (DI) is the main benefit of the 
+\emph on
+Object Oriented Programming
+\emph default
+ (OOP) paradigm 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "martin2018clean"
@@ -263,6 +256,22 @@ literal "false"
 \end_inset
 
 .
+ By DI, developers and architects control code change's effects.
+ DI promotes the code maintainance, by choosing the allowed change effects
+ according to the organizations needs.
+\end_layout
+
+\begin_layout Standard
+This thesis relates to the field of the integration FRP with OOP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards,boix2013object"
+literal "false"
+
+\end_inset
+
+.
+ To the best of our knowledge, the DI aspect has not been researched yet.
 \end_layout
 
 \begin_layout Section

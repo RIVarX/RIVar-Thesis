@@ -209,31 +209,79 @@ Problem Description Model
 \end_layout
 
 \begin_layout Standard
-Operators and assigments are two elements type connecting reactive variables
- between each other.
- For example, in the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+C
+The reactive variables, operators and assigments are used to build FRP applicati
+ons.
+ A FRP application has the functional style, in such that any statement
+ is just like declaring functions over reactive variables.
+ Unlike the functional paradigm there may be 
+\emph on
+several-assigments
+\emph default
+, i.e., several formulas in which their target variable is pointed to the
+ same variable.
 \end_layout
 
-\end_inset
-
- (
+\begin_layout Standard
+Nevertheless, the FRP application is a set of pure functions over reactive
+ variables.
+ In other words, each reactive variable is a function of other reactive
+ variables.
+ The case of several assigments is interepted as a single assigment operator
+ over the expressions assigned in the various statements.
+ The functions can be visualized by expressions trees as in 
 \begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Formula"
+LatexCommand formatted
+reference "fig:ExpressionTree"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-) over the reactive variables A, B and C, + is an operator connecting B
- and C, and := is an assigment connecting 
+.
+\end_layout
+
+\begin_layout Standard
+The figure represents two statements of a FRP application: A:=B+C and A:=D+1.
+ As visualized, the assigment is a special operator connecting the two expressio
+ns B+C and D+1.
+\end_layout
+
+\begin_layout Standard
+In addition to the FRP application, there is the FRP application 
+\emph on
+consumer
+\emph default
+.
+ The FRP application can run only when it is connected to external events
+ of inputs.
+ Similary, the FRP application is useless untill its external events ot
+ outputs are observed.
+ In this scope, the application consumer consists of only statments with
+ the form 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var=input
+\end_layout
+
+\end_inset
+
+, with the meaning of a single event of an external input.
+ For example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=1
+\end_layout
+
+\end_inset
+
+ means that the reactive variable 
 \begin_inset ERT
 status open
 
@@ -244,13 +292,13 @@ A
 
 \end_inset
 
- to the expression 
+ has just being updated by an external input to have the value 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-B+C
+1
 \end_layout
 
 \end_inset
@@ -259,9 +307,13 @@ B+C
 \end_layout
 
 \begin_layout Standard
-If there are several formulas in which the target variable refer to the
- same variable, it means a single assigment connecting several expressions
- to a single assigment, which is connected to the target variable.
+The statements in which reactive variables are connected to streams of events
+ are categorized as part of the 
+\end_layout
+
+\begin_layout Standard
+Unlike the functional style of the FRP application, the consumer is the
+ connection to the low level events of the imperative programming.
 \end_layout
 
 \begin_layout Standard
@@ -306,7 +358,21 @@ node[shape=circle,draw=black] (C) at (3,7) {C};
 
 
 \backslash
+node[shape=circle,draw=black] (D) at (5,7) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 node[shape=rectangle,draw=black] (Plus) at (2,5) {+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus1) at (5,5) {+1}; 
 \end_layout
 
 \begin_layout Plain Layout
@@ -348,6 +414,20 @@ path[-{Triangle[scale=1]}] (Plus) edge  (Equal);
 
 
 \backslash
+path[-{Triangle[scale=1]}] (D) edge  (Plus1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Plus1) edge  (Equal);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 path[-{Triangle[scale=1]}] (Equal) edge  (A);
 \end_layout
 
@@ -366,27 +446,22 @@ end{tikzpicture}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Formula"
+name "fig:ExpressionTree"
 
 \end_inset
 
-A graph described the formula 
-\begin_inset ERT
-status open
+An expression tree represented a reactive variable as a pure function over
+ other reactive variables.
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
-
-A:=B+C
-\end_layout
-
-\end_inset
-
- over reactive variables A, B and C
-\end_layout
-
-\end_inset
-
-
+The reactive variable A is a pure function over the reactive variables B,C
+ and D.
 \end_layout
 
 \end_inset
@@ -395,11 +470,9 @@ A:=B+C
 \end_layout
 
 \begin_layout Standard
-More points related to the problem description model:
-\end_layout
-
-\begin_layout Itemize
-A reactive variable can have external inputs, by the syntax 
+Consequently for a FRP application, the reactive variables are connected
+ to streams of events.
+ However, we will better use the form of 
 \begin_inset ERT
 status open
 
@@ -410,13 +483,36 @@ Var=input
 
 \end_inset
 
-, e.g., 
+, with the meaning of a single event of an external input.
+ For example, 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-B=1
+A=1
+\end_layout
+
+\end_inset
+
+ means that the reactive variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ has just being updated by an external input to have the value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+1
 \end_layout
 
 \end_inset
@@ -424,27 +520,183 @@ B=1
 .
 \end_layout
 
-\begin_layout Itemize
-Inputs can be taken also by connecting to external streams of events, by
- the assigment operator, e.g., 
+\begin_layout Subsection
+????
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-B:=InputControl.ChangeEvents
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (1,10) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (3,10) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (5,10) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (D) at (7,10) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus) at (4,8) {+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus1) at (6,8) {+1}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=diamond,draw=black, label=left:merge] (merge) at (4,6) {};  
+\backslash
+node[shape=diamond,draw=black, label=left:merge] (merge2) at (4,4) {}; 
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (result) at (4,2) {};  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (Plus);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (Plus);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (merge);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Plus) edge  (merge);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (D) edge  (Plus1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Plus1) edge  (merge2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (merge) edge  (merge2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (merge2) edge  (result);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
 \end_layout
 
 \end_inset
 
-.
- 
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:nextStepFromEqual"
+
+\end_inset
+
+???
 \end_layout
 
-\begin_layout Itemize
-The set of formulas means the FRP application, while inputs statements are
- considered an the FRP application's consumer.
- 
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -640,7 +892,7 @@ name "fig:assigment-special-edge"
 
 \end_inset
 
-A special edge to an assigment element 
+A special edge in DFS to an assigment element 
 \end_layout
 
 \end_inset
@@ -1699,6 +1951,14 @@ merge
  what the variable's value is over time.
  The reactive variable is subscribed to each of them, and merge the input
  values into one stream representing its value over time.
+\end_layout
+
+\begin_layout Section
+Referential Transparency
+\end_layout
+
+\begin_layout Standard
+Each variable 
 \end_layout
 
 \end_body

@@ -688,8 +688,8 @@ A FRP application can be represented as a set of pure functions over reactive
 \end_layout
 
 \begin_layout Standard
-An assigment is interepted as an operator, or pure function, over both the
- target and the assigned expressions.
+An assigment is interepted as an operator over both the target and the assigned
+ expressions.
  Namely, we define a function named 
 \begin_inset Quotes eld
 \end_inset
@@ -699,18 +699,9 @@ An assigment is interepted as an operator, or pure function, over both the
 \end_inset
 
 , that takes as arguments, a variable and the expressions assigned to it.
- Consequently, a variable with several assigments causes a composite function,
+ Consequently, a variable with several assigments is mapped to a function
  composed of the variable and the expressions.
-\end_layout
-
-\begin_layout Standard
-Consequently, a FRP application's statements define a function or a composite
- function for each of the reactive variables.
- 
-\end_layout
-
-\begin_layout Standard
-It can be seen visually: the the application from 
+ For example, 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:FRP_Application_basic_representation"
@@ -720,7 +711,15 @@ noprefix "false"
 
 \end_inset
 
- is interepted as a function =(A,(B+C),D), visualized as in 
+ is interepted as a function 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,(B+C),D) as visualized in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:FRP_Application_basic_representation"
@@ -730,14 +729,165 @@ noprefix "false"
 
 \end_inset
 
- similar to an expression tree.
+.
+\end_layout
+
+\begin_layout Standard
+The n-ary assigment operator is equivalent to a composite of several binariy
+ assigments.
+ For example, as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:assigmentMutipleLevel"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,(B+C),D) behaves the same as 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,B+C),D).
+ Therfore, when interepting the application, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+ produces 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,B+C)
+\end_layout
+
+\end_inset
+
+ to represent 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ (in the context of reading the FRP application line by line), then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=D
+\end_layout
+
+\end_inset
+
+ composes 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+'s representation with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D
+\end_layout
+
+\end_inset
+
+, producing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,B+C),D)
+\end_layout
+
+\end_inset
+
+ to represent the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -761,28 +911,28 @@ begin{tikzpicture}
 
 
 \backslash
-node[shape=circle,draw=black] (A) at (1,7) {A};
+node[shape=circle,draw=black] (A) at (1,1) {A};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (B) at (3,7) {B};
+node[shape=circle,draw=black] (B) at (3,1) {B};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (C) at (5,7) {C};
+node[shape=circle,draw=black] (C) at (5,1) {C};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (D) at (7,7) {D};
+node[shape=circle,draw=black] (D) at (7,1) {D};
 \end_layout
 
 \begin_layout Plain Layout
@@ -793,77 +943,68 @@ node[shape=circle,draw=black] (D) at (7,7) {D};
 
 
 \backslash
-node[shape=rectangle,draw=black] (Plus) at (4,5) {+}; 
+node[shape=rectangle,draw=black] (Plus) at (4,3) {+}; 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=rectangle,draw=black] (Plus1) at (5,5) {+1}; 
+node[shape=rectangle,draw=black] (Plus1) at (6,3) {+1}; 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=diamond,draw=black] (Equal) at (4,3) {=};     
+node[shape=diamond,draw=black] (Equal) at (4,5) {=};     
+\end_layout
+
+\begin_layout Plain Layout
+
+   
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (end) at (4,1) {};     
+path (B) edge  (Plus);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (B) edge  (Plus);
+path (C) edge  (Plus);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (C) edge  (Plus);
+path (Plus) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (Plus) edge  (Equal);
+path (D) edge  (Plus1);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (D) edge  (Plus1);
+path (A) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (A) edge  (Equal);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Plus1) edge  (Equal);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Equal) edge  (end);
+path (Plus1) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
@@ -897,7 +1038,7 @@ name "fig:nextStepFromEqual"
 
 \end_inset
 
-???
+An assigment operator over reactive variables.
 \end_layout
 
 \end_inset
@@ -908,18 +1049,24 @@ name "fig:nextStepFromEqual"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
-\begin_inset space \hfill{}
-\end_inset
-
-
 \begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -932,59 +1079,28 @@ begin{tikzpicture}
 
 
 \backslash
-node[shape=circle,draw=black] (A) at (1,10) {A};
+node[shape=circle,draw=black] (A) at (1,1) {A};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (B) at (3,10) {B};
+node[shape=circle,draw=black] (B) at (3,1) {B};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (C) at (5,10) {C};
+node[shape=circle,draw=black] (C) at (5,1) {C};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black] (D) at (7,10) {D};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black] (Plus) at (4,8) {+}; 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black] (Plus1) at (6,8) {+1}; 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=diamond,draw=black, label=left:merge] (merge) at (4,6) {};  
-\backslash
-node[shape=diamond,draw=black, label=left:merge] (merge2) at (4,4) {}; 
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (result) at (4,2) {};  
+node[shape=circle,draw=black] (D) at (7,1) {D};
 \end_layout
 
 \begin_layout Plain Layout
@@ -995,63 +1111,89 @@ node[shape=circle,draw=black] (result) at (4,2) {};
 
 
 \backslash
-path[-{Triangle[scale=1]}] (B) edge  (Plus);
+node[shape=rectangle,draw=black] (Plus) at (4,3) {+}; 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (C) edge  (Plus);
+node[shape=rectangle,draw=black] (Plus1) at (6,3) {+1}; 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (A) edge  (merge);
+node[shape=diamond,draw=black] (Equal) at (4,5) {=};     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (Plus) edge  (merge);
+node[shape=diamond,draw=black] (Equal2) at (4,7) {=};     
+\end_layout
+
+\begin_layout Plain Layout
+
+   
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (D) edge  (Plus1);
+path (B) edge  (Plus);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (Plus1) edge  (merge2);
+path (C) edge  (Plus);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (merge) edge  (merge2);
+path (Plus) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (merge2) edge  (result);
+path (D) edge  (Plus1);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{tikzpicture} 
+path (A) edge  (Equal);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path (Equal) edge  (Equal2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path (Plus1) edge  (Equal2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
 \end_layout
 
 \end_inset
@@ -1063,7 +1205,13 @@ end{tikzpicture}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-???
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:assigmentMutipleLevel"
+
+\end_inset
+
+A composition of binary assigments 
 \end_layout
 
 \end_inset

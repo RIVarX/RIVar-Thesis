@@ -235,615 +235,20 @@ several-assigments
 \end_layout
 
 \begin_layout Standard
-The case of several assigments is interepted as a single assigment operator
- over the expressions assigned in the various statements, as seen in 
+Nevertheless, the case of several assigments is interepted as a single assigment
+ operator over the variable and assigned expressions in the various statements.
+ For example, as seen in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:FRP_Application_basic_representation"
+reference "fig:assigmentOperator"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-.
- The figure represents two statements of a FRP application: A:=B+C and A:=D+1.
- As visualized, the assigment is a special operator connecting the two expressio
-ns B+C and D+1.
-\end_layout
-
-\begin_layout Standard
-The FRP application is useless untill it is connected to a 
-\emph on
-FRP application consumer.
- 
-\emph default
-The FRP application can run only when it is connected to external events
- of inputs, and it means nothing untill its external events of outputs are
- observed.
- So, the role of the FRP application consumer is to trigger events, feeding
- the reactive variables with values, and observe the reactive variables
- by being subscribed to their events.
-\end_layout
-
-\begin_layout Standard
-In this scope, we just use statements of the form 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Var=input
-\end_layout
-
-\end_inset
-
- to trigger a single event of an external input.
- For example, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=1
-\end_layout
-
-\end_inset
-
- means the reactive variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- has just being updated by an external input to the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-1
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (B) at (1,7) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (C) at (3,7) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (D) at (5,7) {D};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black] (Plus) at (2,5) {+}; 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black] (Plus1) at (5,5) {+1}; 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=diamond,draw=black] (Equal) at (4,3) {=};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (A) at (4,1) {A};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (B) edge  (Plus);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (C) edge  (Plus);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Plus) edge  (Equal);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (D) edge  (Plus1);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Plus1) edge  (Equal);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Equal) edge  (A);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture} 
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:FRP_Application_basic_representation"
-
-\end_inset
-
-Representing a FRP Application
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-The graph represents an application contains A:=B+C and A:=D+1
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Execution Model
-\end_layout
-
-\begin_layout Standard
-An external input, caused a variable's value to change, causes a depth-first
- search (DFS) traversal on the graph starting from this variable's node.
- In the traversal, the dependant variables would update according to the
- new input.
- 
-\end_layout
-
-\begin_layout Standard
-The DFS traversal is caused from by synchronous calls process: whenever
- an element's value is changed, it makes recursive synchronous calls to
- elements depending on it, calculating their new values.
-\end_layout
-
-\begin_layout Standard
-The traversal is simple while all edges are 
-\emph on
-tree edges
-\emph default
-.
- However we should consider also special edges: back edges, cross edges
- and forward edges.
- The special edges only directed to assigments and operators elements.
-\end_layout
-
-\begin_layout Standard
-For operators, the three special edges reminds the glitch issue.
- The root element's change should cause two (or more) visits in the elements
- that have the special edge, while only the last produced a correct calculation.
- However if the whole graph contains cycles, it is not simple to identify
- what is the last visit.
- Instead we will use a 
-\emph on
-model of order
-\emph default
- and will ignore visits with less updated value than the existing one.
-\end_layout
-
-\begin_layout Standard
-For assigments, in the first glance it does not make sence having a special
- edge.
- However, any element in the spanning graph is supposed to depend on other
- variables from the whole graph.
- Consequently, each visit represents not only the current external input
- but also the preceding external inputs affected the other dependant variables.
- According to the model of order, the visit represeting the latest external
- inputs should be the correct calculation.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,dashed] (B) at (1,7) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (A) at (3,7) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,dashed] (C) at (5,7) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (op1) at (2,5) {+};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (op2) at (4,5) {+};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (eq) at (3,3) {=};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]},dashed] (B) edge  (op1);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]},dashed] (C) edge  (op2);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge  (op1);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge  (op2);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (op1) edge  (eq);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}, color=blue] (op2) edge  (eq);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture} 
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:assigment-special-edge"
-
-\end_inset
-
-A special edge in DFS to an assigment element 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Functional Representation
-\end_layout
-
-\begin_layout Standard
-A FRP application can be represented as a set of pure functions over reactive
- variables.
- Basicly, FRP applications contain functions declarations producing functions
- and composite functions, we should only handle the exception case of several
- assigments.
-\end_layout
-
-\begin_layout Standard
-An assigment is interepted as an operator over both the target and the assigned
- expressions.
- Namely, we define a function named 
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-, that takes as arguments, a variable and the expressions assigned to it.
- Consequently, a variable with several assigments is mapped to a function
- composed of the variable and the expressions.
- For example, 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:FRP_Application_basic_representation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- is interepted as a function 
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,(B+C),D) as visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:FRP_Application_basic_representation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The n-ary assigment operator is equivalent to a composite of several binariy
- assigments.
- For example, as in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:assigmentMutipleLevel"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, 
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,(B+C),D) behaves the same as 
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,B+C),D).
- Therfore, when interepting the application, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+C
-\end_layout
-
-\end_inset
-
- produces 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,B+C)
-\end_layout
-
-\end_inset
-
- to represent 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- (in the context of reading the FRP application line by line), then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=D
-\end_layout
-
-\end_inset
-
- composes 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
-'s representation with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-D
-\end_layout
-
-\end_inset
-
-, producing 
+, the two statements of a FRP application A:=B+C and A:=D+1, produces the
+ function 
 \begin_inset ERT
 status open
 
@@ -869,17 +274,6 @@ status open
 
 \end_inset
 
- to represent the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
 .
 \end_layout
 
@@ -887,7 +281,7 @@ A
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1034,7 +428,7 @@ end{tikzpicture}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:nextStepFromEqual"
+name "fig:assigmentOperator"
 
 \end_inset
 
@@ -1052,10 +446,117 @@ An assigment operator over reactive variables.
 \end_layout
 
 \begin_layout Standard
+The n-ary assigment operator should be equivalent to a composite of several
+ binary assigments.
+ For example, 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,(B+C),D) behaves the same as 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,B+C),D) (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:assigmentMutipleLevel"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ In this sense, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+ means 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,B+C)
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=D
+\end_layout
+
+\end_inset
+
+ accumulates the meaning to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+(A,B+C),D)
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1211,7 +712,311 @@ name "fig:assigmentMutipleLevel"
 
 \end_inset
 
-A composition of binary assigments 
+A composition of binary assigments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In addition to the FRP application, there is also the 
+\emph on
+FRP application consumer
+\emph default
+, unless it, the FRP application is useless
+\emph on
+.
+ 
+\emph default
+The FRP application can run only when it is connected to external events
+ of inputs, and it means nothing untill its external events of outputs are
+ observed.
+ So, the role of the FRP application consumer is to trigger events, feeding
+ the reactive variables with values, and observe the reactive variables
+ by being subscribed to their events.
+\end_layout
+
+\begin_layout Standard
+In this scope, we just use statements of the form 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var=input
+\end_layout
+
+\end_inset
+
+ to trigger a single event of an external input.
+ For example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=1
+\end_layout
+
+\end_inset
+
+ means the reactive variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ has just being updated by an external input to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+1
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Execution Model
+\end_layout
+
+\begin_layout Standard
+An external input, caused a variable's value to change, causes a depth-first
+ search (DFS) traversal on the graph starting from this variable's node.
+ In the traversal, the dependant variables would update according to the
+ new input.
+ 
+\end_layout
+
+\begin_layout Standard
+The DFS traversal is caused by synchronous calls process: whenever an element's
+ value is changed, it makes recursive synchronous calls to elements depending
+ on it, calculating their new values.
+\end_layout
+
+\begin_layout Standard
+The result of a DFS of the graph can be described in terms of a spanning
+ tree of the vertices reached during the search.
+ The traversal and updates are simple while edges are 
+\emph on
+tree edges
+\emph default
+, however we should consider also the 
+\emph on
+special
+\emph default
+ edges (back edges, cross edges and forward edges).
+ Reactive variables will always be visited through tree edges going from
+ an assigment, so we should consider only assigments and operators.
+\end_layout
+
+\begin_layout Standard
+For operators, the three special edges reminds the glitch issue.
+ The root element's change causes two (or more) visits in the elements that
+ have the special edge, while only the last produced a correct calculation.
+ However if the graph contains cycles, it is not simple to identify what
+ is the last visit.
+ Instead we will use a 
+\emph on
+model of order
+\emph default
+ and will ignore visits with less updated value than the existing one.
+\end_layout
+
+\begin_layout Standard
+For assigments, in the first glance it does not make sence having a special
+ edge, because it seems to be defined conflicts.
+ However, as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:assigment-special-edge"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, any element in the spanning graph is supposed to depend on other variables
+ from the graph.
+ That's why each visit represents not only the current external input but
+ also the preceding external inputs affected the other dependant variables.
+ According to the model of order, the visit represeting the latest external
+ inputs should be the correct calculation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black,dashed] (B) at (1,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black,dashed] (C) at (5,7) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op1) at (2,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op2) at (4,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq) at (3,3) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]},dashed] (B) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]},dashed] (C) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op1) edge  (eq);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}, color=blue] (op2) edge  (eq);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+*Dotted Lines means (in constrast to the solid ones) that it is not part
+ of the spaning graph of the vertices reached during the search.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:assigment-special-edge"
+
+\end_inset
+
+A special edge in DFS to an assigment element 
 \end_layout
 
 \end_inset
@@ -1225,16 +1030,11 @@ A composition of binary assigments
 \end_layout
 
 \begin_layout Section
-Streams Semantics
+Computational Model using Streams
 \end_layout
 
-\begin_layout Standard
-Essentiality the semantics includes two principals.
- First, variable's low level abstraction is an observable stream of values
- represeting its varying value.
- Second, a single variable can have several sources (from being an input
- variable while having one or more assigments, or just from having several
- assigments).
+\begin_layout Subsection
+Execution Model
 \end_layout
 
 \begin_layout Standard
@@ -1357,7 +1157,7 @@ A:=B+1
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1435,16 +1235,20 @@ end{call}
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{call}{A}{Subscribe}{eq}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{call}    
+begin{call}{eq}{Subscribe}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
 \end_layout
 
 \begin_layout Plain Layout
@@ -1487,7 +1291,7 @@ Executing the formula A:=B+1
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1646,6 +1450,19 @@ Propogation on the formula A:=B+1
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Streams Semantics
+\end_layout
+
+\begin_layout Standard
+Essentiality the semantics includes two principals.
+ First, variable's low level abstraction is an observable stream of values
+ represeting its varying value.
+ Second, a single variable can have several sources (from being an input
+ variable while having one or more assigments, or just from having several
+ assigments).
 \end_layout
 
 \begin_layout Subsection
@@ -2270,14 +2087,6 @@ merge
  what the variable's value is over time.
  The reactive variable is subscribed to each of them, and merge the input
  values into one stream representing its value over time.
-\end_layout
-
-\begin_layout Section
-Referential Transparency
-\end_layout
-
-\begin_layout Standard
-Each variable 
 \end_layout
 
 \end_body

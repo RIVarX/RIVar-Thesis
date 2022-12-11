@@ -103,16 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-???
-\end_layout
-
-\begin_layout Standard
-(Essentiality the semantics includes two principals.
- First, variable's low level abstraction is an observable stream of values
- represeting its varying value.
- Second, a single variable can have several sources (from being an input
- variable while having one or more assigments, or just from having several
- assigments).)
+Modeling Reactive Programming
 \end_layout
 
 \begin_layout Standard
@@ -726,7 +717,7 @@ A composition of binary assigments
 \end_layout
 
 \begin_layout Standard
-(In addition to the FRP application, there is also the 
+In addition to the FRP application, there is also the 
 \emph on
 FRP application consumer
 \emph default
@@ -789,7 +780,7 @@ status open
 
 \end_inset
 
-.)
+.
 \end_layout
 
 \begin_layout Subsection
@@ -865,7 +856,7 @@ noprefix "false"
  That's why each visit represents not only the current external input but
  also the preceding external inputs affected the other dependant variables.
  According to the model of order, the visit representing the latest external
- inputs should be the correct calculation.
+ inputs, should be the correct calculation.
 \end_layout
 
 \begin_layout Standard
@@ -1038,11 +1029,40 @@ A special edge in DFS to an assigment element
 \end_layout
 
 \begin_layout Section
-The Computational Model using Streams
+Computation with the Stream Model
+\end_layout
+
+\begin_layout Standard
+Essentiality there are two principals.
+ First, variable's low level abstraction is an observable stream of values
+ represeting its varying value.
+ Second, a single variable can have several sources (from being an input
+ variable while having one or more assigments, or just from having several
+ assigments).
 \end_layout
 
 \begin_layout Subsection
-Basic Items
+observable stream
+\end_layout
+
+\begin_layout Standard
+In addition to the reactive variable's continous abstraction, there is also
+ the discrete stream abstraction.
+ Because even when a reactive variable represents a real world variable
+ in high level, in computers reactive variable's actual values cannot continuous
+ly given.
+ For example, temperature nay depend on an actual stream of discrete events,
+ being sampled by a thermometer.
+\end_layout
+
+\begin_layout Standard
+Similary in UI applications, the logic may be in terms of continuously update
+ fields according to other fields.
+ Many times, UI application observe fields’ change events, once a value
+ is changed, dependant fields are calculated and presented.
+ The fields change events feed reactive variables (as observable variables),
+ and the fields updates are from subscribing to reactive variables (as latent
+ variables).
 \end_layout
 
 \begin_layout Standard
@@ -1192,63 +1212,12 @@ Streams of values representing a varying value.
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-The assigment element is a function over streams that should produce a single
- stream, with the meaning of inferring the value, by merging the streams.
- Therfore, the assigment element will be referred to, as a 
-\emph on
-merge
-\emph default
- function.
-\end_layout
-
 \begin_layout Subsection
-Problem Description Model
-\end_layout
-
-\begin_layout Standard
-Essentiality there are two principals.
- First, variable's low level abstraction is an observable stream of values
- represeting its varying value.
- Second, a single variable can have several sources (from being an input
- variable while having one or more assigments, or just from having several
- assigments).
-\end_layout
-
-\begin_layout Subsubsection
-observable stream
-\end_layout
-
-\begin_layout Standard
-In addition to the continous abstraction, there is also the discrete stream
- abstraction.
- Because even when a reactive variable represents a real world variable
- in high level, in computers reactive variable's actual values cannot continuous
-ly given.
- For example, temperature might be represented by a reactive variable depending
- on an actualy stream of discrete events, being sampled by a thermometer.
-\end_layout
-
-\begin_layout Standard
-Similary in UI applications, the logic may be in terms of continuously update
- fields according to other fields.
- Many times, UI application observe fields’ change events, once a value
- is changed, dependant fields are calculated and presented.
- The fields change events feed reactive variables (as observable variables),
- and the fields updates are from subscribing to reactive variables (as latent
- variables).
-\end_layout
-
-\begin_layout Subsubsection
 several sources
 \end_layout
 
@@ -1264,7 +1233,7 @@ In this thesis, the values are inferred according to the time: whenever
  a new value exists in any of the sources, the value would be propagated
  to the target variable.
  Taking values from several sources according to the time, is equivalent
- to the merge function over stearms ( as in 
+ to the merge function over streams ( as in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:merge-several-sources"
@@ -1681,6 +1650,16 @@ A variable varying value inffered from several sources.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The assigment element is a function over streams that should produce a single
+ stream, with the meaning of inferring the value, by merging the streams.
+ Therfore, the assigment element will be referred to, as the 
+\emph on
+merge
+\emph default
+ function.
 \end_layout
 
 \begin_layout Subsection
@@ -2217,7 +2196,7 @@ Propogation on the formula A:=B+1
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Executing the Assignments
 \end_layout
 
@@ -2666,24 +2645,81 @@ The Model of Order
 \end_layout
 
 \begin_layout Standard
-The external events are sequential events.
- Each event has a timestamp (an incremental natural number).
+The external events are sequential.
+ Each event has a timestamp (an incremental natural number) as X, Y and
+ D in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:timestamps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  Then a value inferred by other values has several timestamps, the ones
- that the value is based on.
+ that the value is based on (Z1 and Z2 in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:timestamps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
  Transitively, a value derived from other values has the timestamps produced
  from the union operation on the timestamps of the values it is derived
- from.
+ from (V in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:timestamps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
  For the sake of simplicity, timestamps are uniformely represented as sets
  containing one or more timestamps.
- Any value can be compared against other values according to its timestamps
+ 
+\end_layout
+
+\begin_layout Standard
+Any value can be compared against any other value according to their timestamps
  set.
+ Greater timestamps, as the first two lines in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Comparing-Timestamps-Set"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are indicators to more recent events.
+ However, if the set is a superset, as in the third line in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Comparing-Timestamps-Set"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then it is a recursive update, and is considered as the small one.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -2901,7 +2937,7 @@ Values' Timestamps
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center

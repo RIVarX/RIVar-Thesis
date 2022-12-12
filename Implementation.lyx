@@ -619,10 +619,6 @@ A=merge(A,B)
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
 ———
 \end_layout
 
@@ -669,7 +665,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -891,7 +887,7 @@ Propogating the Timestamps
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center

@@ -416,5 +416,316 @@ we use distributed propogation algorithm.
  compare to distributed REScala - they need to know about the source identifiers
 \end_layout
 
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Section
+Old from abstraction
+\end_layout
+
+\begin_layout Subsection
+Specialization Interface
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface-with-cycle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ subclass ExtendedDrugAdministration defines Drug to depend on Concentration,
+ while in the superclass DrugAdministration defines Concentration to depend
+ on Drug.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class DrugAdministration{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Drug, Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration:DrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug := Concentration*VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Specialization-Interface-with-cycle"
+
+\end_inset
+
+Specialization Interface
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Service Interface
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Service-Interface-with-cycle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ when Bag is used, then VolumeOfFluid
+\end_layout
+
+\begin_layout Standard
+Considering the figures bellow, from the Infusion alone, the dependency
+ graph has no cycles.
+ Infusion uses TheBag as a service, i.e., without to learn about its implementatio
+n (Bag class).
+ However, an instance of Infusion with TheBag typed as Bag produces a graph
+ with cycles.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+interface IBag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Infusion { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ IBag TheBag
+\end_layout
+
+\begin_layout Plain Layout
+
+ Infusion (IBag theBag) {TheBag=theBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+ RIVar<double> Duration := TheBag.VolumeOfFluid*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+ TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag:IBag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> VolumeOfFluid := Drug*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+void Main(){
+\end_layout
+
+\begin_layout Plain Layout
+
+IBag bag=new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+Infusion infusion=new Infusion(bag)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Service-Interface-with-cycle"
+
+\end_inset
+
+Service Interface
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \end_body
 \end_document

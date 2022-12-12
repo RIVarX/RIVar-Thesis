@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Modeling Reactive Programming
+Method
 \end_layout
 
 \begin_layout Standard
@@ -1042,7 +1042,7 @@ Essentiality there are two principals.
 \end_layout
 
 \begin_layout Subsection
-observable stream
+Observable Stream
 \end_layout
 
 \begin_layout Standard
@@ -1218,7 +1218,7 @@ Streams of values representing a varying value.
 \end_layout
 
 \begin_layout Subsection
-several sources
+Several Sources
 \end_layout
 
 \begin_layout Standard
@@ -2719,7 +2719,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2937,7 +2937,7 @@ Values' Timestamps
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -3059,6 +3059,10 @@ Comparing Timestamps Set
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Conclusion
 \end_layout
 
 \end_body

@@ -5,6 +5,31 @@
 \save_transient_properties true
 \origin unavailable
 \textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -82,93 +107,49 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-The assignment operator 
+In traditional imperative languages 
+\emph on
+variable
+\emph default
+ is just a symbolic name associated to some memory address containing values.
+ However, in the more advanced languages which adoped the OOP paradigm,
+ 
+\emph on
+instance variable
+\emph default
+ refers to a variable associated to an object.
+ This is significant when talking about conceptual modeling: objects are
+ used to simulate real-world domain objects, therefore instance variables
+ represent the real-world variables.
+\end_layout
+
+\begin_layout Standard
+Simulating the objects over time, need to have the variables values consistence
+ with the real outside world.
+ Values are observed from the (real-world) observable variables 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "abelson1996structure"
+key "dodge2006oxford"
 literal "false"
 
 \end_inset
 
- causes the target variable to depend on the assigned expression.
- This dependency includes three dependancy types: data dependency, control
- dependency and source code dependency.
- 
-\end_layout
-
-\begin_layout Itemize
-Data dependency: a variable's value is derived from other variables' values.
-\end_layout
-
-\begin_layout Itemize
-Control dependency: when a piece of code calls directly to another piece
- of code, then the second piece of code depends on the first piece of code.
- Because, depending on the first piece of code, the second piece of code
- 
-\emph on
-will
-\emph default
- or
-\emph on
- will not 
-\emph default
-be executed.
- An assignment statement causes a control dependency, because the program
- executes the code of the expression, and then flows to assign the result.
-\end_layout
-
-\begin_layout Itemize
-Source code dependency 
+, or inferred the (real-world) latent variables' values 
 \begin_inset CommandInset citation
-LatexCommand citep
-key "martin2018clean"
+LatexCommand cite
+key "dodge2006oxford"
 literal "false"
 
 \end_inset
 
-: when a change in one piece of code requires change in another piece of
- code, then the second piece of code depends on the first piece of code.
- An assignment statement causes a source code depedency by depending on
- the variables' 
-\emph on
-declarations
-\emph default
-.
+ from other variables that are observed.
  
 \end_layout
 
 \begin_layout Standard
-In reactive applications, when variables' values should be continuously
- re-evaluated with other variables' values, it is time consuming to do updates
- when there are no changes.
- Therefore, variables' values are changed as a reaction to other variables'
- changes using the 
+The 
 \emph on
-inversion of control
-\emph default
- principal: 
-\begin_inset Quotes eld
-\end_inset
-
-don't call us, we'll call you
-\begin_inset Quotes erd
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-When using the inversion of control principal, it might be that the data
- dependency is not declared directly.
- Instead, the code that update a variable, should dynamically connected
- to the code that update the variables it depends on.
- 
-\end_layout
-
-\begin_layout Standard
-In the
-\emph on
- Functional Reactive Programming
+Functional Reactive Programming
 \emph default
  (FRP) 
 \begin_inset CommandInset citation
@@ -178,138 +159,137 @@ literal "false"
 
 \end_inset
 
- paradigm, with the push-based model 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-, the inversion of control are used while the data dependencies are declared
- directly.
- With such push-based FRP implementations, developers can declare assigment-like
- statement, i.e., formulas, causing variables' values be changed as a reaction
- to other variables' values' changes.
- Specifically, for a formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Var:=Exp
-\end_layout
-
-\end_inset
-
-, whenever Exp's value is changed then Var's value is changed.
-\end_layout
-
-\begin_layout Standard
-In this thesis, we focus on inverting the 
+ paradigm abstracts away the need to update variables in response to other
+ variables' updates, by providing the abstraction of 
 \emph on
-source code dependency
+reactive variable
 \emph default
- as well: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Var
-\end_layout
-
-\end_inset
-
- will be accessed by an interface, while the actual 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Var
-\end_layout
-
-\end_inset
-
- is encapsulated and managed independently.
- then objects can own logic which continously re-evaluating internal
-\emph on
- and external
-\emph default
- variables by simple formulas
-\emph on
-.
-\end_layout
-
-\begin_layout Standard
-The source code's dependancy inversion (DI) is the main benefit of the 
-\emph on
-Object Oriented Programming
-\emph default
- (OOP) paradigm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "martin2018clean"
-literal "false"
-
-\end_inset
-
-.
- By DI, developers and architects control code change's effects.
- DI promotes the code maintainance, by choosing the allowed change effects
- according to the organizations needs.
-\end_layout
-
-\begin_layout Standard
-This thesis relates to the field of the integration FRP with OOP 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards,boix2013object"
-literal "false"
-
-\end_inset
-
-.
- To the best of our knowledge, the DI aspect has not been researched yet.
-\end_layout
-
-\begin_layout Section
-Contribution
-\end_layout
-
-\begin_layout Itemize
-We propose RIvar, being consistent with both 
-\emph on
-instance variables
-\emph default
- from OOP and 
-\emph on
-reactive variables
-\emph default
- from FRP.
-\end_layout
-
-\begin_layout Itemize
-We characterize the design space of existing algorithms for change propagation,
- motivating the need for new algorithms that better suit to the new setting.
-\end_layout
-
-\begin_layout Itemize
-We present an algorithm for RIvars.
  
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
 
-\begin_layout Itemize
-We present a reduction from the new algorithm to one traditional algorithm.
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-We discuss a small-scale case study to indicate design improvements enabled
- by the proposed abstraction.
+ (with some variations also known as 
+\emph on
+behavior
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) to simulate the observable and latent variables.
 \end_layout
 
 \begin_layout Standard
+The example in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ illustrates a way in which 
+\emph on
+instance
+\emph default
+ variables may be 
+\emph on
+reactive
+\emph default
+ variables.
+ We define it as a parameterized type RIVar, an acronym to full name 
+\emph on
+Reactive Instance Variable
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+In the example, the DrugAdministration class contains the variables Drug,
+ Volume and Concentration.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining Concentration to be calculated whenever Drug or Volume is updated.
+ Then once a drug administration is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its Drug or its Volume causes its Concentration to recalculate.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -317,19 +297,445 @@ status open
 
 
 \backslash
-textbf{Outline.}
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class DrugAdministration{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Drug, Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Concentration := Drug/VolumeOfFluid |
+\backslash
+label{line:formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void Main(){
+\end_layout
+
+\begin_layout Plain Layout
+
+DrugAdministration administration=new DrugAdministration() |
+\backslash
+label{line:ctor}| 
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=50
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Volume=100 // administration.Concentration=0.5
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=25  // administration.Concentration=0.25
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
 \end_layout
 
 \end_inset
 
- Chapter 3 presents a motivation example, Chapter 4 presents the proposed
- semantics, Chapter 5 uses the new semantics by implementing the new type
- 
-\emph on
-RIvar
-\emph default
- for C# programming language.
- Chapter 6 evaluate the results by the help of a prototype application.
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration"
+
+\end_inset
+
+Drug Administration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+RIVars are not distinguished between observable or latent variables, they
+ all accessed uniformly.
+ Specifically, any accessible RIVar can be assigned (:= operator) as a latent
+ variable, and also to get input (= operator) as an observable variable.
+\end_layout
+
+\begin_layout Standard
+RIVar can be accessed externaly by being in service (consumer access variables
+ via an interface) and specialization (subclass access its superclass variables)
+ interfaces 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ as the examples in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Service-Interface"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  IDrugAdministration _drugAdministration
+\end_layout
+
+\begin_layout Plain Layout
+
+  ExtendedDrugAdministration(DrugAdministration drugAdministration){ //
+ constructor
+\end_layout
+
+\begin_layout Plain Layout
+
+    _drugAdministration=drugAdministration
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  _drugAdministration.Drug := _drugAdministration.Concentration*_drugAdministratio
+n.VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Service-Interface"
+
+\end_inset
+
+Service Interface
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration:DrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug := Concentration*VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Specialization-Interface"
+
+\end_inset
+
+Specialization Interface
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+RIVar cannot be supported according to the main stream of the FRP paradigm.
+ Because the functional concept in FRP means no seperation between the reactive
+ variables and their assigned expression 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+, reactive variables are defined by their functions over other reactive
+ variables, or by their values over time.
+\end_layout
+
+\begin_layout Standard
+However, in FRP implemetations, such as ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, reactive variable is a data type.
+ Then, reactive variables just like any other variable, can be assigned
+ through an interface.
+\end_layout
+
+\begin_layout Standard
+In this way, assigning a reactive variable might stop to respond to its
+ old source, starting to respond to its new source, still in contrast to
+ the concept of FRP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Because in FRP we “describe things that exist, rather than actions that
+ have happened or are to happen (i.e., what is, not what does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Nevertheless, with any integratable FRP reactive variables are accessed
+ externaly, because we can set inputs to reactive variables in response
+ other reactive variables' updates.
+ For example, In ReactiveX the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A.Subscribe(val=>B.OnNext(val))
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This method adds the formula to the existing formulas handled by the FRP
+ runtime.
+ But the formula is activated externaly, without the advantages that the
+ paradigm of FRP should provide.
 \end_layout
 
 \end_body

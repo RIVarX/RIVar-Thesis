@@ -103,7 +103,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\listings_params "language=java,backgroundcolor={\color{white}},basicstyle={\ttfamily},belowcaptionskip={1\baselineskip},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,xleftmargin={\parindent},postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},sensitive"
+\listings_params "language={[Sharp]C},escapechar={|},backgroundcolor={\color{white}},basicstyle={\ttfamily},belowcaptionskip={1\baselineskip},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,xleftmargin={\parindent},postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},sensitive"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -374,7 +374,7 @@ filename "Introduction.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Abstraction.lyx"
+filename "Motivation.lyx"
 
 \end_inset
 
@@ -384,7 +384,7 @@ filename "Abstraction.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Background.lyx"
+filename "Cycles.lyx"
 
 \end_inset
 
@@ -394,7 +394,7 @@ filename "Background.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Semantics.lyx"
+filename "Method.lyx"
 
 \end_inset
 
@@ -432,6 +432,26 @@ filename "Conclusion.lyx"
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "IntroductionOld.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Background.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -451,16 +471,6 @@ appendix
 \begin_inset CommandInset include
 LatexCommand include
 filename "UserGuide.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "Motivation.lyx"
 
 \end_inset
 

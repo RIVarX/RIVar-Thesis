@@ -94,7 +94,7 @@ test, and Push-based computation model as its default behavior.
 
 \begin_layout Standard
 Data dependancy graph are easily constructed, while the push-based model
- do the calculations in the order of the DFS traversal.
+ does the calculations in the order of the DFS traversal.
  For example, FRP application with the statements 
 \begin_inset ERT
 status open
@@ -172,8 +172,8 @@ literal "false"
 \end_inset
 
 .
- Signal implements IComparable interface to abstract items that can be compared,
- each tuple can be compared what is the order between the two.
+ Signal implements IComparable interface to abstract items that can be compared
+ beween each other.
  Each signal (Signal's instance) contains its array of timestamps that is
  used in comparisons.
 \end_layout

@@ -115,16 +115,7 @@ in frp what is assigment? like in FP?
 \end_layout
 
 \begin_layout Standard
-in javascript we can write f=function(){} same as function f(){}
-\end_layout
-
-\begin_layout Standard
-in imperative, this is an operator going with the machine clock
-\end_layout
-
-\begin_layout Standard
-there is a confision in mutiple assigment/ reassigment, what is this assigment
- (in FRP+OOP article)
+in javascript we can write f=f
 \end_layout
 
 \begin_layout Section
@@ -177,7 +168,7 @@ node[shape=circle,draw=black] (A) at (3,7) {A};
 
 
 \backslash
-node[shape=rectangle,draw=black] (op1) at (2,5) {+};
+node[shape=circle,draw=black] (op1) at (2,5) {+};
 \end_layout
 
 \begin_layout Plain Layout
@@ -191,14 +182,14 @@ node[shape=circle,draw=black] (C) at (4,5) {C};
 
 
 \backslash
-node[shape=diamond,draw=black] (eq1) at (2,3) {=};
+node[shape=circle,draw=black] (eq1) at (2,3) {=};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=diamond,draw=black] (eq2) at (4,3) {=};
+node[shape=circle,draw=black] (eq2) at (4,3) {=};
 \end_layout
 
 \begin_layout Plain Layout
@@ -361,28 +352,28 @@ node[shape=circle,draw=black] (C) at (5,7) {C};
 
 
 \backslash
-node[shape=rectangle,draw=black] (op1) at (2,5) {+};
+node[shape=circle,draw=black] (op1) at (2,5) {+};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=rectangle,draw=black] (op2) at (4,5) {+};
+node[shape=circle,draw=black] (op2) at (4,5) {+};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=rectangle,draw=black] (op3) at (3,3) {*};
+node[shape=circle,draw=black] (op3) at (3,3) {*};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=diamond,draw=black] (eq) at (3,1) {=};
+node[shape=circle,draw=black] (eq) at (3,1) {=};
 \end_layout
 
 \begin_layout Plain Layout
@@ -508,7 +499,7 @@ Glitch
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -553,28 +544,28 @@ node[shape=circle,draw=black] (C) at (5,7) {C};
 
 
 \backslash
-node[shape=rectangle,draw=black] (op1) at (2,5) {+};
+node[shape=circle,draw=black] (op1) at (2,5) {+};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=rectangle,draw=black] (op2) at (4,5) {+};
+node[shape=circle,draw=black] (op2) at (4,5) {+};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=diamond,draw=black] (eq1) at (2,3) {=};
+node[shape=circle,draw=black] (eq1) at (2,3) {=};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=diamond,draw=black] (eq2) at (4,3) {=};
+node[shape=circle,draw=black] (eq2) at (4,3) {=};
 \end_layout
 
 \begin_layout Plain Layout

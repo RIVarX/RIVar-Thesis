@@ -780,7 +780,7 @@ literal "false"
 Nevertheless, with any integratable FRP reactive variables are accessed
  externaly, because we can set inputs to reactive variables in response
  other reactive variables' updates.
- For example, in ReactiveX the statement 
+ For example, In ReactiveX the statement 
 \begin_inset ERT
 status open
 
@@ -810,23 +810,41 @@ A:=B
 This method adds the formula to the existing formulas handled by the FRP
  runtime.
  The semantics of adding the formula, fits well with the conceptual specializati
-on (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
+on, making the derived class only extending the base class.
  But in the current implementation, the formula is activated externaly,
  without the advantages that the paradigm of FRP should provide.
 \end_layout
 
 \begin_layout Standard
-FRP aims to provide predictability and composability.
- In contrast, adding formulas externaly, by integration between FRP and
- imperative programming, might cause infinite loops 
+Adding the external formula 
+\end_layout
+
+\begin_layout Standard
+The result might be an inpredictable behavior or even an infinite loop,
+ because a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ 
+\end_layout
+
+\begin_layout Standard
+In the integration with FRP there might contain circular dependencies causing
+ infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ 
+\end_layout
+
+\begin_layout Standard
+FRP, in integration of functional-reactive code with imperative code might
+ contain circular dependencies causing infinite loops 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -840,11 +858,12 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Consequently, the challenges to obtain RIVar includes (1) FRP should support
- any added formula (2) Values should be updated by direct calls between
- the variables, the centerlized algorithms used in most FRP implementations
- does not fit with encapsulated objects that should interact directly.
- (3) Achieving predictability and composability by satisfing the 
+The challenges to obtain RIVar are (1) support adding any formula, current
+ FRP implementations are limited in the constructions that they support.
+ (2) values should be updated by direct calls between the variables, the
+ centerlized algorithms used in most FRP implementations does not fit with
+ encapsulated objects that should interact directly.
+ (3) predictability and composability by satisfing the 
 \emph on
 referential transparency
 \emph default
@@ -881,8 +900,8 @@ the same sequence of events produces the same results, regardless of the
 Contribution
 \end_layout
 
-\begin_layout Standard
-We propose RIVar, being consistent with both 
+\begin_layout Itemize
+We propose RIvar, being consistent with both 
 \emph on
 instance variables
 \emph default
@@ -890,8 +909,26 @@ instance variables
 \emph on
 reactive variables
 \emph default
- from FRP, supporting also the hierarchical structuring from OOP and referential
- transparency from FRP.
+ from FRP.
+\end_layout
+
+\begin_layout Itemize
+We characterize the design space of existing algorithms for change propagation,
+ motivating the need for new algorithms that better suit to the new setting.
+\end_layout
+
+\begin_layout Itemize
+We present an algorithm for RIvars.
+ 
+\end_layout
+
+\begin_layout Itemize
+We present a reduction from the new algorithm to one traditional algorithm.
+\end_layout
+
+\begin_layout Itemize
+We discuss a small-scale case study to indicate design improvements enabled
+ by the proposed abstraction.
 \end_layout
 
 \begin_layout Standard

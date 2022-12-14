@@ -126,8 +126,7 @@ instance variable
 \begin_layout Standard
 Simulating the objects over time, need to have the variables values consistence
  with the real outside world.
- The real-world variables are categorized into observable variables and
- latent variables 
+ Values are observed from the (real-world) observable variables 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "dodge2006oxford"
@@ -135,9 +134,16 @@ literal "false"
 
 \end_inset
 
-.
- The observable variables are subject to observe, while latent variables
- are inferred by other variables' values according to certain formulas.
+, or inferred the (real-world) latent variables' values 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dodge2006oxford"
+literal "false"
+
+\end_inset
+
+ from other variables that are observed.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -215,93 +221,6 @@ literal "false"
 \end_inset
 
 ) to simulate the observable and latent variables.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black, label={A}] (A) at (0,5) {};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black ,label={B}] (B) at (3.5,5) {};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[-{Triangle[scale=1]}] (A) -- (B); 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:The-dependancy-graph"
-
-\end_inset
-
-The dependancy graph for the formula A:=B+1
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -483,6 +402,10 @@ Drug Administration
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -493,9 +416,12 @@ RIVars are not distinguished between observable or latent variables, they
  all accessed uniformly.
  Specifically, any accessible RIVar can be assigned (:= operator) as a latent
  variable, and also to get input (= operator) as an observable variable.
- RIVar should be accessible externaly by being in service (consumer access
- variables via an interface) and specialization (subclass access its superclass
- variables) interfaces 
+\end_layout
+
+\begin_layout Standard
+RIVar can be accessed externaly by being in service (consumer access variables
+ via an interface) and specialization (subclass access its superclass variables)
+ interfaces 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "duncan2003component"
@@ -503,7 +429,7 @@ literal "false"
 
 \end_inset
 
-, as the examples in 
+ as the examples in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Specialization-Interface"
@@ -707,11 +633,11 @@ Specialization Interface
 
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Standard
-RIVar cannot be supported according to the main stream of the FRP paradigm.
+RIVar cannot be supported according to the main stream of FRP.
  Because the functional concept in FRP means no seperation between the reactive
  variables and their assigned expression 
 \begin_inset CommandInset citation
@@ -753,9 +679,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-In this way, assigning a reactive variable causes to stop the old source,
- starting to respond to its new source, still in contrast to the concept
- of FRP 
+In this way, assigning reactive variables overrides their old source, still
+ in contrast to the concept of FRP 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "salvaneschi2014towards"
@@ -764,8 +689,8 @@ literal "false"
 \end_inset
 
 .
- Because in FRP we “describe things that exist, rather than actions that
- have happened or are to happen (i.e., what is, not what does)” 
+ In FRP we “describe things that exist, rather than actions that have happened
+ or are to happen (i.e., what is, not what does)” 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "elliott2009push"
@@ -780,7 +705,7 @@ literal "false"
 Nevertheless, with any integratable FRP reactive variables are accessed
  externaly, because we can set inputs to reactive variables in response
  other reactive variables' updates.
- For example, in ReactiveX the statement 
+ For example, In ReactiveX the statement 
 \begin_inset ERT
 status open
 
@@ -803,118 +728,18 @@ A:=B
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
-This method adds the formula to the existing formulas handled by the FRP
- runtime.
- The semantics of adding the formula, fits well with the conceptual specializati
-on (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
- But in the current implementation, the formula is activated externaly,
- without the advantages that the paradigm of FRP should provide.
+This method adds the formula to the existing formulas handled by the FRP.
+ But the for activated externaly, without the advantages that FRP should
+ provide.
 \end_layout
 
 \begin_layout Standard
-FRP aims to provide predictability and composability.
- In contrast, adding formulas externaly, by integration between FRP and
- imperative programming, might cause infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- For example, a change in a reactive variable, might execute an event handler,
- causing the reactive variable to change.
-\end_layout
-
-\begin_layout Standard
-Consequently, the challenges to obtain RIVar includes (1) FRP should support
- any added formula (2) Values should be updated by direct calls between
- the variables, the centerlized algorithms used in most FRP implementations
- does not fit with encapsulated objects that should interact directly.
- (3) Achieving predictability and composability by satisfing the 
-\emph on
-referential transparency
-\emph default
- property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, meaning that the same input will produce consistently the same output,
- or 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-: 
-\begin_inset Quotes eld
-\end_inset
-
-the same sequence of events produces the same results, regardless of the
- timing of those events
-\begin_inset Quotes erd
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Contribution
-\end_layout
-
-\begin_layout Standard
-We propose RIVar, being consistent with both 
-\emph on
-instance variables
-\emph default
- from OOP and 
-\emph on
-reactive variables
-\emph default
- from FRP, supporting also the hierarchical structuring from OOP and referential
- transparency from FRP.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{Outline.}
-\end_layout
-
-\end_inset
-
- Chapter 3 presents a motivation example, Chapter 4 presents the proposed
- semantics, Chapter 5 uses the new semantics by implementing the new type
- 
-\emph on
-RIvar
-\emph default
- for C# programming language.
- Chapter 6 evaluate the results by the help of a prototype application.
+This method adds the formula to the existing formulas handled by the FRP.
+ This thesis aims to bridge the gap between this option, to being part of
+ the the core.
 \end_layout
 
 \end_body

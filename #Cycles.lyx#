@@ -107,48 +107,6 @@ Cycles
 \end_layout
 
 \begin_layout Standard
-Stack overflow has more than one question asking about infinite loop similar
- to the following
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-https://stackoverflow.com/questions/3688117/event-driven-architecture-infinite-lo
-op
-\end_layout
-
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Quotes eld
-\end_inset
-
-I have an event driven architecture where A is waiting for a change from
- B and B is waiting for a change from C and C is waiting for a change from
- A, forming a cycle.
- Now, if B changes, then A fires an event to C, which fires to B, which
- fires to A, which fires to C...ad infinitum.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Quotes eld
-\end_inset
-
-update variables in response to other variables' updates
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 In the integration with FRP there might contain circular dependencies causing
  infinite loops 
 \begin_inset CommandInset citation
@@ -649,7 +607,7 @@ Dependency Graph that might have Glitch
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Cycles casued by reassigments
 \end_layout
 

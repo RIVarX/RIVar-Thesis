@@ -272,7 +272,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -863,7 +863,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3063,6 +3063,48 @@ Comparing Timestamps Set
 
 \begin_layout Section
 Conclusion
+\end_layout
+
+\begin_layout Standard
+The computations must not be handled by a centeral engine, it uses a push
+ model, such that a variable synchronously calls its derived variables whenever
+ it has new value.
+\end_layout
+
+\begin_layout Standard
+In order to cover all types of dependency graphs, we provide semantics to
+ the assigment operator.
+ An assigment means to add more source to get values to the variable, therefore
+ a variable inffer its values over time from all the sources provided.
+ As a result, the assigments and operators have a similarity in that they
+ may produce a single stream by several input streams.
+\end_layout
+
+\begin_layout Standard
+We provide an order model to handle the time issue, because the 
+\emph on
+visit time
+\emph default
+ of the DFS traversal is insufficient for visits caused from the same event
+ (simultaneous events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+).
+ Therefore, values are attached with information to discover their time.
+ 
+\end_layout
+
+\begin_layout Standard
+We use the order model as the algorithm used in the assigment operator,
+ how to choose the values among the input streams.
+ Consequently, whenever there is a new value from any of the sources, it
+ is pushed to the target variable.
+ This makes the similarity stronger between the assignments and operators.
 \end_layout
 
 \end_body

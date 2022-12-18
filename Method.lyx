@@ -103,26 +103,220 @@
 \begin_body
 
 \begin_layout Chapter
-Method
+New Variantion for FRP
 \end_layout
 
 \begin_layout Standard
-We formulate reactive variables to conform also to RIVars.
- Two constraints are added to the original formulation: First, any dependancy
- graph should be supported; not just DAG.
- Second, no centerlized management are alowed.
+This chapter describes our new variantion to FRP, to conform reactive variables
+ to RIVars.
+ RIVar are instance variables, therefore the updates cannot be taken by
+ a centerlized entity.
+ Instead, the updates are being taken by objects interaction, such that
+ variables update each other synchronously in response to their own updates.
+ In addition, in the used strategy RIVar can be assigned externally, so
+ formulas are unconditionally added, sometimes complicating the dependency
+ graph handled by the FRP runtime.
 \end_layout
 
 \begin_layout Standard
-By the mean to support any dependancy graph, reactive variables are assigned
- without to avoid re-assigments, recursions, glitches or being an input
- variable.
- The reason to the decentralized approach is because objects shoud interact
- directly by messages and events.
- Creating a centerlized engine causes the objects the need to share variables,
- to not encapsulate their state, and to depend on a third party to manage
- their state.
+There are two phenomenons in depedancy graphs.
+ First, cycles caused from mutual recursions (or indirect recursions), where
+ reactive variables are defined in terms of each other.
+ Second, variables having several sources, from being an input variable
+ while having one or more assigments, or just from having several assigments.
+\end_layout
+
+\begin_layout Standard
+However, the phenomenons are very related.
+ Because, as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-to-multiple-assignment"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, a 
+\begin_inset Quotes eld
+\end_inset
+
+wave
+\begin_inset Quotes erd
+\end_inset
+
+ of updates through a cycle, must be caused by a variable having more than
+ one source.
+ Therfore, the way to handle cycles is to provide semantics and implementation
+ to variables with several sources.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (5,5) {$input$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-to-multiple-assignment"
+
+\end_inset
+
+If there is a cycle dependency graph must contain a variable with more than
+ one source.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -272,7 +466,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -863,7 +1057,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

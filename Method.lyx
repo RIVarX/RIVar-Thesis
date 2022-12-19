@@ -103,13 +103,13 @@
 \begin_body
 
 \begin_layout Chapter
-New Variantion for FRP
+New Variant of FRP
 \end_layout
 
 \begin_layout Standard
-This chapter describes our new variantion to FRP, to conform reactive variables
+This chapter describes our new variant of FRP, to conform reactive variables
  to RIVars.
- RIVar are instance variables, therefore the updates cannot be taken by
+ RIVars are instance variables, therefore the updates cannot be taken by
  a centerlized entity.
  Instead, the updates are being taken by objects interaction, such that
  variables update each other synchronously in response to their own updates.
@@ -120,8 +120,15 @@ This chapter describes our new variantion to FRP, to conform reactive variables
 
 \begin_layout Standard
 There are two phenomenons in depedancy graphs.
- First, cycles caused from mutual recursions (or indirect recursions), where
- reactive variables are defined in terms of each other.
+ First, cycles caused from 
+\emph on
+mutual recursions
+\emph default
+ (named also 
+\emph on
+indirect recursions
+\emph default
+), where reactive variables are defined in terms of each other.
  Second, variables having several sources, from being an input variable
  while having one or more assigments, or just from having several assigments.
 \end_layout
@@ -148,8 +155,8 @@ wave
 
  of updates through a cycle, must be caused by a variable having more than
  one source.
- Therfore, the way to handle cycles is to provide semantics and implementation
- to variables with several sources.
+ Therefore, the two phenomenons should be handled at once, by providing
+ semantics and implementation to variables with several sources.
  
 \end_layout
 
@@ -304,8 +311,7 @@ name "fig:cycle-to-multiple-assignment"
 
 \end_inset
 
-If there is a cycle dependency graph must contain a variable with more than
- one source.
+Cycle graph must contain a variable with more than one source.
  
 \end_layout
 
@@ -355,6 +361,15 @@ the same sequence of events produces the same results, regardless of the
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+The next sections describe a computation model, such that variables can
+ be connected to several sources, while satisfing the 
+\emph on
+referential transparency
+\emph default
+ property, included with an appropriate execution model.
 \end_layout
 
 \begin_layout Section
@@ -1025,7 +1040,7 @@ literal "false"
  have the special edge, while only the last produced a correct calculation.
  However if the graph contains cycles, it is not simple to identify what
  is the last visit.
- Instead we will use a 
+ So, we use a 
 \emph on
 model of order
 \emph default
@@ -1194,7 +1209,7 @@ end{center}
 \begin_layout Plain Layout
 
 *Dotted Lines means (in constrast to the solid ones) that it is not part
- of the spaning graph of the vertices reached during the search.
+ of the spanning graph of the vertices reached during the search.
 \end_layout
 
 \end_inset
@@ -1240,11 +1255,11 @@ Observable Stream
 \end_layout
 
 \begin_layout Standard
-In addition to the reactive variable's continous abstraction, there is also
- the discrete stream abstraction.
- Because even when a reactive variable represents a real world variable
- in high level, in computers reactive variable's actual values cannot continuous
-ly given.
+In addition to the reactive variable's continuous abstraction, there is
+ also the discrete stream abstraction.
+ Because even when a reactive variable represents a real-world variable
+ in high level, in computers reactive variables' actual values cannot continuous
+ly provided.
  For example, temperature nay depend on an actual stream of discrete events,
  being sampled by a thermometer.
 \end_layout
@@ -1913,10 +1928,10 @@ literal "false"
 There are two stages.
  First, evaluating the statements.
  Second, reacting to the FRP application consumer, i.e., updating and triggering
- variables according external events.
+ variables according to external events.
  In the first stage of evaluation, the elements subscribe to each other
  according to the problem described.
- In the second stage, the connected elements updates each other, by calling
+ In the second stage, the connected elements update each other, by calling
  each other's OnNext, whenever they need to update.
  For example, the statement 
 \begin_inset ERT
@@ -3260,7 +3275,7 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-The computations must not be handled by a centeral engine, it uses a push
+The computations must not be handled by a central engine, it uses a push
  model, such that a variable synchronously calls its derived variables whenever
  it has new value.
 \end_layout

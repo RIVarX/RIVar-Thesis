@@ -365,10 +365,7 @@ the same sequence of events produces the same results, regardless of the
 
 \begin_layout Standard
 The next sections describe a computation model, such that variables can
- be connected to several sources, while satisfing the 
-\emph on
-referential transparency
-\emph default
+ be connected to several sources, while satisfing the referential transparency
  property, included with an appropriate execution model.
 \end_layout
 
@@ -1225,6 +1222,427 @@ name "fig:assigment-special-edge"
 \end_inset
 
 A special edge in DFS to an assigment element 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Model of Order
+\end_layout
+
+\begin_layout Standard
+The external events are sequential.
+ Each event has a timestamp (an incremental natural number) as X, Y and
+ D in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:timestamps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Then a value inferred by other values has several timestamps, the ones
+ that the value is based on (Z1 and Z2 in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:timestamps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Transitively, a value derived from other values has the timestamps produced
+ from the union operation on the timestamps of the values it is derived
+ from (V in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:timestamps"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ For the sake of simplicity, timestamps are uniformely represented as sets
+ containing one or more timestamps.
+ 
+\end_layout
+
+\begin_layout Standard
+Any value can be compared against any other value according to their timestamps
+ set.
+ Greater timestamps, as the first two lines in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Comparing-Timestamps-Set-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are indicators to more recent events.
+ However, if the set is a superset, as in the third line in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Comparing-Timestamps-Set-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then it is a recursive update, so considered as not being more updated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X (external input)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+timestamps: {1}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Y (external input)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+timestamps: {2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D (external input)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+timestamps: {3}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Z1 = X*Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+timestamps: {1,2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Z2 = X+D
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+timestamps: {1,3}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+V=Z1+Z2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Value=25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+timestamps: {1,2,3}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:timestamps"
+
+\end_inset
+
+Values' Timestamps
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+<
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1,2}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+<
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1,3}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1}
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+>
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+{1,2}
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Comparing-Timestamps-Set-1"
+
+\end_inset
+
+Comparing Timestamps Set
 \end_layout
 
 \end_inset
@@ -2413,8 +2831,10 @@ Executing the Assignments
 Executing the assigments statements accumulates merged streams.
  The execution is sequentially, with the imperative style, line by line.
  For example, the statement A:=B+C is executed as A=merge(A,B+C).
- The next statement A:=D+1 is executed as A=merge(A,D+1), however according
- to the current value of A, it becomes A=merge(merge(A,B+C),D+1).
+ The next statement A:=D+1 is executed as A=merge(A,D+1) according to the
+ current value of A.
+ So that the execution if the two statements behaves as A=merge(merge(A,B+C),D+1
+).
 \end_layout
 
 \begin_layout Standard
@@ -2423,7 +2843,7 @@ Executing the merge, is not by creating a new stream to produce values whenever
  Instead, as seen in the example in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Recursive Merge-1"
+reference "fig:Recursive Merge"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2821,7 +3241,7 @@ end{tikzpicture}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Recursive Merge-1"
+name "fig:Recursive Merge"
 
 \end_inset
 
@@ -2837,427 +3257,6 @@ A=merge(A,B)
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-The Model of Order
-\end_layout
-
-\begin_layout Standard
-The external events are sequential.
- Each event has a timestamp (an incremental natural number) as X, Y and
- D in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:timestamps"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- Then a value inferred by other values has several timestamps, the ones
- that the value is based on (Z1 and Z2 in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:timestamps"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- Transitively, a value derived from other values has the timestamps produced
- from the union operation on the timestamps of the values it is derived
- from (V in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:timestamps"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- For the sake of simplicity, timestamps are uniformely represented as sets
- containing one or more timestamps.
- 
-\end_layout
-
-\begin_layout Standard
-Any value can be compared against any other value according to their timestamps
- set.
- Greater timestamps, as the first two lines in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:Comparing-Timestamps-Set"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- are indicators to more recent events.
- However, if the set is a superset, as in the third line in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:Comparing-Timestamps-Set"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, then it is a recursive update, and is considered as the small one.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Y (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-D (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Z1 = X*Y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=16
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Z2 = X+D
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=9
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-V=Z1+Z2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=25
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,2,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:timestamps"
-
-\end_inset
-
-Values' Timestamps
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-<
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,2}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-<
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
->
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:Comparing-Timestamps-Set"
-
-\end_inset
-
-Comparing Timestamps Set
 \end_layout
 
 \end_inset
@@ -3314,6 +3313,200 @@ We use the order model as the algorithm used in the assigment operator,
  Consequently, whenever there is a new value from any of the sources, it
  is pushed to the target variable.
  This makes the similarity stronger between the assignments and operators.
+\end_layout
+
+\begin_layout Section
+Implementation
+\end_layout
+
+\begin_layout Standard
+In this section we will present RIVarX, a lightweight .NET library developed
+ with the presented approach on top of ReactiveX for C# developers.
+ In the presentation we only present the basics of RIVarX, started from
+ some basics of ReactiveX.
+\end_layout
+
+\begin_layout Standard
+ReactiveX provides observable streams which has already been presented as
+ being reactive variables 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ In addition ReactiveX has two useful operators to implement latent variables:
+ Select and CombineLatest.
+ The default behavior is that values are pushed to subscribers synchronously,
+ so it is it appropriates to the required push-based computation model.
+\end_layout
+
+\begin_layout Standard
+By observable streams, basic operators and the push model, data dependancy
+ graph are easily constructed.
+ For example, FRP application with the statements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=D+1
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+ can be implemented by the statements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B=D.Select(x=>x+1)
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B.CombineLatest(C,(x,y)=>x+y))
+\end_layout
+
+\end_inset
+
+.
+ There is only a small gap between the observable streams and the RIVars.
+\end_layout
+
+\begin_layout Paragraph*
+Assignment Operator
+\end_layout
+
+\begin_layout Standard
+The default assigment copies values bit by bit.
+ Therefore, in the context of FRP applications, the assigment just makes
+ the target variable to point on the constructed expressions, disconnecting
+ from the old referenced expression if exists.
+\end_layout
+
+\begin_layout Standard
+Therefore, RIVarX implements an alternative assigment function named Set,
+ because the traditional assigment cannot be overriden.
+ Set uses the new approach to add the expression in addition to existing
+ expressions.
+\end_layout
+
+\begin_layout Standard
+The Set method has two arguments: a reference to the target and the reference
+ to the assigned expression.
+ When Set is called, it subscribes to the two streams, so that for each
+ signal from the assigned expression, it will compare to the signal produced
+ latest in the target.
+ Signal that is greater means later.
+ Therefore, any signal coming from the expression, that is greater than
+ the latest signal in the target, is pushed to the target.
+\end_layout
+
+\begin_layout Paragraph*
+Order Model
+\end_layout
+
+\begin_layout Standard
+The default order model just based on the 
+\emph on
+visit time
+\emph default
+ of the DFS traversal, and is insufficient for visits caused from the same
+ event (simultaneous events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Therefore, RIVar is implemented as an observable of type named Signal.
+ The Signal type represents timed information about a phenomenon 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "priemer1991introductory"
+literal "false"
+
+\end_inset
+
+.
+ Signal implements IComparable interface to abstract items that can be compared
+ beween each other.
+ Each signal (Signal's instance) contains an array of timestamps that is
+ used in comparisons.
+\end_layout
+
+\begin_layout Paragraph*
+Operators
+\end_layout
+
+\begin_layout Standard
+The Select and CombineLatest produce verbose syntax in building FRP applications
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ Furthermore, the CombineLatest operaotr uses the default order model.
+\end_layout
+
+\begin_layout Standard
+Therefore, we developed 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Lift
+\end_layout
+
+\end_inset
+
+ function, to lift functions over values to functions over RIVars (implemented
+ as observable streams).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Lift
+\end_layout
+
+\end_inset
+
+ has two overloads that are wrapper functions to Select and CombineLatest.
+ The one that wraps CombineLatest, before calling to CombineLatest, filters
+ out values that are less updated than their previous values.
 \end_layout
 
 \end_body

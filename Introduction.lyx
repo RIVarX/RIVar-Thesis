@@ -138,6 +138,7 @@ literal "false"
 .
  The observable variables are subject to observe, while latent variables
  are inferred by other variables' values according to certain formulas.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -153,8 +154,7 @@ literal "false"
 
 \end_inset
 
- paradigm abstracts away the need to update variables in response to other
- variables' updates, by providing the abstraction of 
+ provides the abstraction of 
 \emph on
 reactive variable
 \emph default
@@ -215,6 +215,54 @@ literal "false"
 \end_inset
 
 ) to simulate the observable and latent variables.
+ By expressing a formula, the left variable will depend on the variables
+ in the expression, e.g., in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:The-dependancy-graph"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ produces 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ to depend on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+.
+ The dependencies cause values to change, such that whenever variable's
+ value is changed, the variable's dependencies will be changed according
+ to the new value.
 \end_layout
 
 \begin_layout Standard
@@ -777,7 +825,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Nevertheless, with any integratable FRP reactive variables are accessed
+Nevertheless, with any integratable FRP, reactive variables are accessed
  externaly, because we can set inputs to reactive variables in response
  other reactive variables' updates.
  For example, in ReactiveX the statement 

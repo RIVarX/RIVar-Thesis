@@ -24,7 +24,7 @@
 \lstset{%
   breaklines=true,
   breakatwhitespace=true,
-   moredelim=[is][\underbar]{_}{_}
+  moredelim=[is][\underbar]{_}{_}
 }
 \usepackage{tikz,rxmarbles}
 \usetikzlibrary[arrows,shapes,positioning,matrix]
@@ -394,16 +394,6 @@ filename "Background.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Cycles.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
 filename "Method.lyx"
 
 \end_inset
@@ -414,7 +404,7 @@ filename "Method.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Implementation.lyx"
+filename "Adequacy.lyx"
 
 \end_inset
 
@@ -425,16 +415,6 @@ filename "Implementation.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "Evaluation.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "RelatedWork.lyx"
 
 \end_inset
 

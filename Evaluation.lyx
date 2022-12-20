@@ -84,12 +84,17 @@ Evaluation
 \begin_layout Standard
 Developers usually need to develop software, that has already partly developed.
  One strategy is to re-develop the software with the up-to-date requirements.
- For the short coming, it may be easy, beacuse it will not harm existing
- consumers.
+ Comparing to other strategies, it should be easier for the shortcoming,
+ beacuse it will not harm existing consumers.
  However, future changes might require more work, because if change is required
  in the part that was repeated, the change should be repeated.
+\end_layout
+
+\begin_layout Standard
+However, it depends on the paradigm, how easy it to not repeat.
  This chapter compares the code repetition element, when using RIVar, against
- existing paradigms.
+ using the traditional FRP paradigm, the constraints paradigm and the events
+ paradigm.
 \end_layout
 
 \begin_layout Section
@@ -492,8 +497,12 @@ AmountByInput=FromInput()
 
 \begin_layout Plain Layout
 
-_AmountByConcentrationAndVolume=Concentration*Volume_ Alert=Or(IsAbnormal(Amount
-ByInput),
+_AmountByConcentrationAndVolume=Concentration*Volume_ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),
 \end_layout
 
 \begin_layout Plain Layout

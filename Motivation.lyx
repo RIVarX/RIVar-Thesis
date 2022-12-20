@@ -86,7 +86,7 @@
 \begin_body
 
 \begin_layout Chapter
-Motivation Example
+Motivating Example
 \end_layout
 
 \begin_layout Standard
@@ -1253,7 +1253,7 @@ name "fig:Centerlized-Calculation"
 
 \end_inset
 
-Part of a Centralized Calculation Procedure
+Part of a centralized calculation procedure
 \end_layout
 
 \end_inset
@@ -1503,7 +1503,7 @@ name "fig:Calculation-spread-over-objects"
 
 \end_inset
 
-Calculation procedure spread over seperated objects.
+Calculation procedure spread over seperated objects
 \end_layout
 
 \end_inset
@@ -1544,7 +1544,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1737,12 +1737,10 @@ Calculation procedure spread over seperated objects producing unpredictable
 
 \end_layout
 
-\begin_layout Section
-Cycles
-\end_layout
-
 \begin_layout Standard
-When 
+Unpredictable calculation cannot easily prevented in spread calculation,
+ because of cycles mistakenly defined in the data dependencies.
+ The 
 \begin_inset ERT
 status open
 
@@ -1753,7 +1751,28 @@ Infusion
 
 \end_inset
 
- handle its calcualtion, it knows its bag, however it does not aware of
+ is aware of its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+, however it does not aware of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag's
+\end_layout
+
+\end_inset
+
  
 \begin_inset ERT
 status open
@@ -1765,19 +1784,42 @@ Concentration
 
 \end_inset
 
- that will apear in runtime.
- Therfore there should not be a reason to it, to know about 
+ and the formula 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
- VolumeOfFluid := Drug*Concentration
+
+\backslash
+lstinline{VolumeOfFluid := Drug*Concentration}
 \end_layout
 
 \end_inset
 
-, closing a cycle.
+.
+ As a result, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Infusion
+\end_layout
+
+\end_inset
+
+ defines its calculation without being aware of the cycle (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Cycle-created-by-indepedent-classes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) being produced in the dependencies.
 \end_layout
 
 \begin_layout Standard
@@ -2104,6 +2146,12 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Cycle-created-by-indepedent-classes"
+
+\end_inset
+
 Cycle created by independent classes
 \end_layout
 

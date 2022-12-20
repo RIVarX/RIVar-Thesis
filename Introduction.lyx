@@ -154,7 +154,7 @@ literal "false"
 
 \end_inset
 
- provides the abstraction of 
+ paradigm provides an abstraction named 
 \emph on
 reactive variable
 \emph default
@@ -372,7 +372,8 @@ instance
 reactive
 \emph default
  variables.
- We define it as a parameterized type RIVar, an acronym to full name 
+ We define it as a parameterized type RIVar, an acronym to the full name
+ 
 \emph on
 Reactive Instance Variable
 \emph default

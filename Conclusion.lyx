@@ -96,7 +96,7 @@ We presented the abstraction to connect reactive variables to multiple sources
 \end_layout
 
 \begin_layout Standard
-The abstraction can be researched with more semantics options.
+The abstraction should be researched with more semantics options.
  For example, we think to check the abstraction with 
 \emph on
 equality tests

@@ -1156,9 +1156,7 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}[float,frame=single,caption={Centralized Calculation (pseudocod
-e, except handling the states that not all the fields have been set yet)}]
- 
+begin{lstlisting} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1351,7 +1349,7 @@ indirectly
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1546,7 +1544,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1726,7 +1724,7 @@ name "fig:Unpredictable-Calculation"
 \end_inset
 
 Calculation procedure spread over seperated objects producing unpredictable
- Calculation.
+ calculation.
 \end_layout
 
 \end_inset
@@ -1786,7 +1784,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

@@ -716,6 +716,10 @@ Bag code
 
 \end_layout
 
+\begin_layout Section
+The Infusion
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -1110,11 +1114,168 @@ Infusion code
 \end_layout
 
 \begin_layout Section
-Calculation with Indirection
+Calculation
 \end_layout
 
 \begin_layout Standard
-The calculations task is spread over 
+In the original application, the calculation was centerlized.
+ Whenever a user sets a new value to any of the fields, a calculation procedure
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Centerlized-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) is executed.
+ The procedure consists of branches according to the user-cases, in each
+ branch there are three values being used to calculate the other values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[float,frame=single,caption={Centralized Calculation (pseudocod
+e, except handling the states that not all the fields have been set yet)}]
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited triple is of Dose,  Duration, and VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Drug, Dose, and Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Concentration,  Volume, and Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Centerlized-Calculation"
+
+\end_inset
+
+Part of a Centralized Calculation Procedure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, we want to satisfy the contract between the objects, such that
+ each object will handle its calculation internaly.
+ Consequently, the calculations task is spread over 
 \begin_inset ERT
 status open
 
@@ -1137,7 +1298,20 @@ Bag
 \end_inset
 
 .
- Let's describe a cenario: A clinician sets values to 
+\end_layout
+
+\begin_layout Standard
+In the cenario described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Calculation-spread-over-objects"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, a clinician sets values to 
 \begin_inset ERT
 status open
 
@@ -1165,20 +1339,19 @@ Duration
  In response, the bag calculates its Concentration's value, and the Infusion
  calculates its Rate's value, according to the bag's VolumeOfFluid's new
  value.
-\end_layout
-
-\begin_layout Standard
-It can be seen, that the bag calls to the Infusion to calculate its rate's
- value 
+ Bags called Infusion to calculates its Rate 
 \emph on
-indirectly.
+indirectly
+\emph default
+ without to be aware of its existence.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1326,7 +1499,13 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Calculation-spread-over-objects"
 
+\end_inset
+
+Calculation procedure spread over seperated objects.
 \end_layout
 
 \end_inset
@@ -1340,13 +1519,23 @@ end{center}
 \end_layout
 
 \begin_layout Section
-Inpredictable Calculation
+Unpredictable Calculation
 \end_layout
 
 \begin_layout Standard
 Unfortunately, the behavior is not satisfied.
- Let's describe a cenario: the user sets Dose to 10, then Duration to 10,
- in response, according to line 5, Drug is calculated to 100.
+ In the cenario visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ the user sets Dose to 10, then Duration to 10, in response, according to
+ line 5, Drug is calculated to 100.
  The user then sets VolumeOfFluid to 300, in response, according to line
  9, Concentration is calculated to 0.33.
  Then, according to line 10, Drug is overridden to 99.
@@ -1530,7 +1719,14 @@ small (The user set it to 100 and it has been changed to 99.)
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Decentralized calculation causes an unexpected change to the drug.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Unpredictable-Calculation"
+
+\end_inset
+
+Calculation procedure spread over seperated objects producing unpredictable
+ Calculation.
 \end_layout
 
 \end_inset

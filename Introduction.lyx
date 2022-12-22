@@ -417,7 +417,7 @@ ref{line:ctor}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -579,7 +579,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -606,7 +606,7 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-  IDrugAdministration _drugAdministration
+  IDrugAdministration drugAdministration
 \end_layout
 
 \begin_layout Plain Layout
@@ -617,7 +617,7 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-    _drugAdministration=drugAdministration
+    this.drugAdministration=drugAdministration
 \end_layout
 
 \begin_layout Plain Layout
@@ -627,8 +627,8 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-  _drugAdministration.Drug := _drugAdministration.Concentration*_drugAdministratio
-n.VolumeOfFluid
+  drugAdministration.Drug :=  drugAdministration.Concentration*drugAdministration.V
+olumeOfFluid
 \end_layout
 
 \begin_layout Plain Layout

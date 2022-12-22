@@ -107,6 +107,803 @@ Adequacy of The Model
 \end_layout
 
 \begin_layout Standard
+Our model support variables depending on several expressions, such that
+ in runtime values are infered according to time, i.e., the variable's current
+ value depends on the recent input events.
+ On top of this, our model considers dependencies graphs that are not acyclic
+ as graphs containing variables feed from several sources.
+ 
+\end_layout
+
+\begin_layout Section
+Variables Depending on Several Expressions 
+\end_layout
+
+\begin_layout Subsection
+FRP
+\end_layout
+
+\begin_layout Standard
+In FRP, a reactive variable 
+\emph on
+is
+\emph default
+ the expression it is related to.
+ The assigment operator is related to the imperative paradigm, not to the
+ functional paradigm.
+ However, languages in which the assigment symbol is used in the context
+ of functional programming, means that the left side variable is the name
+ of the assigned function.
+ Similary in FRP, a formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=Var
+\end_layout
+
+\end_inset
+
+ declares 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ as a function that its body is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var
+\end_layout
+
+\end_inset
+
+.
+ Adding statement such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=Tar
+\end_layout
+
+\end_inset
+
+, is not suitable to the paradigm.
+ In terms of reactive variables we cannot relate several sources to a single
+ variable so we are forced to use the events abstraction.
+\end_layout
+
+\begin_layout Standard
+In ReactiveX and Sodium, several streams can be merge in one stream by the
+ use of a 
+\emph on
+merge
+\emph default
+ operator.
+ ReactiveX does the merge based on the time according the runtime traversal
+ order, producing it to be no real FRP, because the traversal order is not
+ predictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Sodium provides predictability by forcing the user to define how to merge
+ the streams.
+ The way how to merge the streams left an open issue with no general problem.
+\end_layout
+
+\begin_layout Standard
+If the developer needs to specify the correct order, it is in contrast to
+ the functional paradigm.
+ The functional paradigm was meant to eliminate handling time.
+ If the developer needs to handle time, it is not clear whether the paradigm
+ outperforms the alternative paradigm, in which time is handled by the use
+ of states and events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ Our model handles the merge problem providing the developers the high level
+ abstration without to handle time.
+ 
+\end_layout
+
+\begin_layout Subsection
+Events
+\end_layout
+
+\begin_layout Standard
+In simple cases our model reminds the beavior when using events: when several
+ events handlers calculate a single variable, the variable's value is according
+ to the latest triggered event.
+\end_layout
+
+\begin_layout Subsection
+Constraints
+\end_layout
+
+\begin_layout Standard
+Our model provide the options to declare several statement relating several
+ expressions to a single variable.
+ In terms of constraints, this is named 
+\emph on
+conflict.
+
+\emph default
+ As presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Comparing-to-Constraints"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, our model handles the conflicts similar to constraints systems.
+\end_layout
+
+\begin_layout Section
+Cycles
+\end_layout
+
+\begin_layout Paragraph
+Avoiding
+\end_layout
+
+\begin_layout Standard
+In 
+\emph on
+true FRP
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ the graph must not have cycles, because the code is constructed similar
+ to pure functions.
+ The functional style is used in order to achieve the 
+\emph on
+referential transparency 
+\emph default
+property, i.e., the same input produces consistenctly the same output.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, in 
+\emph on
+glitch free
+\emph default
+ FRP, there are special algoritms to prevent from the incomplete updates
+ .
+ Indeed, avoiding cycles is a necessary condition to the algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Cycles are not handled by default also by Microsoft Excel (with the term
+\emph on
+ circular dependencies
+\emph default
+).
+ Also React provides only one-way dataflow 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+, and so also 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marum2020unified"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There is also an approach to avoid the glitches
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://staltz.com/rx-glitches-arent-actually-a-problem.html
+\end_layout
+
+\end_inset
+
+: variable depends on several variables with a single ancestor will be defined
+ directly by that ancestor.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Limitation
+\end_layout
+
+\begin_layout Paragraph
+Iterations
+\end_layout
+
+\begin_layout Standard
+In contrast, FrTime and other FRP implementations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+ support cycles such as by providing a keyword 
+\emph on
+delay
+\emph default
+ to break an update loop.
+ However, the solution is a 
+\begin_inset Quotes eld
+\end_inset
+
+compromise consistent
+\begin_inset Quotes erd
+\end_inset
+
+.
+ As explained, variables might not complete the calculation by a single
+ update (that might be a glitch).
+ A more reliable solution is provided by Microsoft Excel, when changing
+ the default behavior to avoid cycles by one of the suggested 
+\begin_inset Quotes eld
+\end_inset
+
+calculation options
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The first option is to terminate the updates after an arbitrary iterations
+ amount.
+ The second option is to ignore an update if the new value has not been
+ changed comparing to the value that the variable contains, or changed only
+ less than an arbitrary threshold.
+\end_layout
+
+\begin_layout Standard
+Terminating the updates after an arbitrary iterations amount, may be a solution.
+ However, the developer should find the balance, what constant number to
+ choose.
+ It might be difficult to find out the minimum number, that is the needed
+ amount for applications with many dependencies.
+ While, an high amount might perform low perfomance by unnecessary updates.
+\end_layout
+
+\begin_layout Standard
+In the second method the developers need to find a threshold.
+ The threshold is needed due to loose of information though calculations,
+ e.g., In an application that contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A/3
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B*3
+\end_layout
+
+\end_inset
+
+, if the user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ might be calculated and updated with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100/3=0.33
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ should not be updated with the new calculated value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0.33*3=0.99
+\end_layout
+
+\end_inset
+
+, consequently the chosen constant threshold should be less than 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0.01
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Ad Hoc / Specific
+\end_layout
+
+\begin_layout Standard
+XState
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://xstate.js.org/
+\end_layout
+
+\end_inset
+
+ and Redux 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ reminds the statechart 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1990statemate"
+literal "false"
+
+\end_inset
+
+ or just the simple state-machine.
+ The updates are still controlled by state and conditions, but they are
+ centerlized and not encapsulated in various objects.
+ As a result the variables change become more predictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Conflicts
+\end_layout
+
+\begin_layout Standard
+Hotdrink 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ maintains priority, when a user updates a variable, its priority becomes
+ the highest.
+ The values of the variables with the old priority is overridden by calculating
+ according to the variables with the higher priority.
+ The variables and dependencies are managed by a centralized algorithm named
+ 
+\emph on
+constraints solver
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+In the traditional programming, the developers uses state to recognize when
+ to update or not to update, and when to trigger an event or to not trigger
+ an event.
+ Consequently, it might be difficult to comprehend the variables and dependencie
+s of the functional requirements (required application logic).
+ because the code is tangled with non-functional requirements consisting
+ of the internal variables (state) and conditions to technically implement
+ (as described, to recognize when to update or not to update) the functional
+ requirements.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Comparing-to-Constraints"
+
+\end_inset
+
+Comparing to Constraints Systems
+\end_layout
+
+\begin_layout Standard
+This thesis is like constraints systems, providing consistency between variables.
+ However in constraints systems, developer are forced to one block of code
+ that run on a single machine, while this thesis provides modular architecture.
+ 
+\end_layout
+
+\begin_layout Subsection
+Multi-way Constraints
+\end_layout
+
+\begin_layout Standard
+In constraints systems, we can declare 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B+C
+\end_layout
+
+\end_inset
+
+, and each user update, to any of the variables, follows an automatic update
+ to the left variables.
+ With the proposed Rivars, it is implemented by declaring three formulas:
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A-C
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C:=A-B
+\end_layout
+
+\end_inset
+
+.
+ However, the long verbosity exists also in constraints systems, when developers
+ need specifying methods to satisfy the constraints.
+ In addition, building blocks can easily built on top of our thesis.
+ This means more extensions can be implemented by combining several formulas
+ into a single constraint.
+\end_layout
+
+\begin_layout Subsection
+Handle Consistency
+\end_layout
+
+\begin_layout Standard
+As mentioned, in constraints systems, we can declare 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B+C
+\end_layout
+
+\end_inset
+
+, and each user update, to any of the variables, follows an automatic update
+ to the left variables.
+ However, it is not clear what variable's value should be changed, especially
+ when both other variables are not empty.
+\end_layout
+
+\begin_layout Standard
+The same question is arisen when declaring RIvar' formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A-C
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C:=A-B
+\end_layout
+
+\end_inset
+
+.
+ Our merge method produce variable's values according to the total order
+ over the propogated values, that is derived from a total order over the
+ external input events.
+ In other words, values produced from old events are overidden by new ones.
+\end_layout
+
+\begin_layout Standard
+As in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+, first, constraints systems handle consistency according 
+\emph on
+hierarchical
+\emph default
+ consraints, that is to ignore constraints if they belong to the low levels
+ of hierarchy.
+ Second, they consider external inputs as constraints, for example the constrain
+t 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=1
+\end_layout
+
+\end_inset
+
+ is added when the user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+1
+\end_layout
+
+\end_inset
+
+.
+ Third, external inputs' constraints are set in the hierarchy, according
+ to the events' order.
+\end_layout
+
+\begin_layout Standard
+Consequently, the decision what variables to update in the automatic updates
+ seems the same.
+ 
+\end_layout
+
+\begin_layout Subsection
+Decentralized Calculation
+\end_layout
+
+\begin_layout Standard
+Constraints systems (and most reactive programming implementations
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) manage the constraints and handle them by a one centralized procedure.
+ Similary is the approach in the code, the applications' code are of one
+ block, because: 
+\begin_inset Quotes eld
+\end_inset
+
+If the one-way constraints are defined in separate places, co-ordinating
+ these constraints can be a major software engineering problem
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ Consequently, the market which needs modular solutions, does not adopt
+ such centerlized solutions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+???????????
+\end_layout
+
+\begin_layout Standard
+An application commences scaling might have long pathes of dependencies.
+ Dependency graphs might contain cycles, e.g., as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:A-simple-dependency-2-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, application might contain 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and also 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
 Dependency graphs might contain cycles, e.g., as in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1106,353 +1903,6 @@ Multiple-Assigment
 \end_layout
 
 \begin_layout Section
-?????
-\end_layout
-
-\begin_layout Subsection
-Handling Approaches
-\end_layout
-
-\begin_layout Paragraph
-Avoiding
-\end_layout
-
-\begin_layout Standard
-In 
-\emph on
-true FRP
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- the graph must not have cycles, because the code is constructed similar
- to pure functions.
- The functional style is used in order to achieve the 
-\emph on
-referential transparency 
-\emph default
-property, i.e., the same input produces consistenctly the same output.
- 
-\end_layout
-
-\begin_layout Standard
-In addition, in 
-\emph on
-glitch free
-\emph default
- FRP, there are special algoritms to prevent from the incomplete updates
- .
- Indeed, avoiding cycles is a necessary condition to the algorithms 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Cycles are not handled by default also by Microsoft Excel (with the term
-\emph on
- circular dependencies
-\emph default
-).
- Also React provides only one-way dataflow 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
-, and so also 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marum2020unified"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-There is also an approach to avoid the glitches
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-https://staltz.com/rx-glitches-arent-actually-a-problem.html
-\end_layout
-
-\end_inset
-
-: variable depends on several variables with a single ancestor will be defined
- directly by that ancestor.
- 
-\end_layout
-
-\begin_layout Paragraph
-Iterations
-\end_layout
-
-\begin_layout Standard
-In contrast, FrTime and other FRP implementations 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "demetrescu2011reactive"
-literal "false"
-
-\end_inset
-
- support cycles such as by providing a keyword 
-\emph on
-delay
-\emph default
- to break an update loop.
- However, the solution is a 
-\begin_inset Quotes eld
-\end_inset
-
-compromise consistent
-\begin_inset Quotes erd
-\end_inset
-
-.
- As explained, variables might not complete the calculation by a single
- update (that might be a glitch).
- A more reliable solution is provided by Microsoft Excel, when changing
- the default behavior to avoid cycles by one of the suggested 
-\begin_inset Quotes eld
-\end_inset
-
-calculation options
-\begin_inset Quotes erd
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The first option is to terminate the updates after an arbitrary iterations
- amount.
- The second option is to ignore an update if the new value has not been
- changed comparing to the value that the variable contains, or changed only
- less than an arbitrary threshold.
-\end_layout
-
-\begin_layout Standard
-Terminating the updates after an arbitrary iterations amount, may be a solution.
- However, the developer should find the balance, what constant number to
- choose.
- It might be difficult to find out the minimum number, that is the needed
- amount for applications with many dependencies.
- While, an high amount might perform low perfomance by unnecessary updates.
-\end_layout
-
-\begin_layout Standard
-In the second method the developers need to find a threshold.
- The threshold is needed due to loose of information though calculations,
- e.g., In an application that contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A/3
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B*3
-\end_layout
-
-\end_inset
-
-, if the user set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-100
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- might be calculated and updated with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-100/3=0.33
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- should not be updated with the new calculated value 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-0.33*3=0.99
-\end_layout
-
-\end_inset
-
-, consequently the chosen constant threshold should be less than 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-0.01
-\end_layout
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Paragraph
-Central Management
-\end_layout
-
-\begin_layout Standard
-Hotdrink 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- maintains priority, when a user updates a variable, its priority becomes
- the highest.
- The values of the variables with the old priority is overridden by calculating
- according to the variables with the higher priority.
- The variables and dependencies are managed by a centralized algorithm named
- 
-\emph on
-constraints solver
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-In the traditional programming, the developers uses state to recognize when
- to update or not to update, and when to trigger an event or to not trigger
- an event.
- Consequently, it might be difficult to comprehend the variables and dependencie
-s of the functional requirements (required application logic).
- because the code is tangled with non-functional requirements consisting
- of the internal variables (state) and conditions to technically implement
- (as described, to recognize when to update or not to update) the functional
- requirements.
-\end_layout
-
-\begin_layout Standard
-XState
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-https://xstate.js.org/
-\end_layout
-
-\end_inset
-
- and Redux 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
- reminds the statechart 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1990statemate"
-literal "false"
-
-\end_inset
-
- or just the simple state-machine.
- The updates are still controlled by state and conditions, but they are
- centerlized and not encapsulated in various objects.
- As a result the variables change become more predictable 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
 ??????
 \end_layout
 
@@ -2159,245 +2609,6 @@ indepedent definitions
  when extending an application with various features.
  Nevertheless, The problem will not happen if the new definitions only derive
  existing variables.
-\end_layout
-
-\begin_layout Section
-Constraints
-\end_layout
-
-\begin_layout Standard
-This thesis is like constraints systems, providing consistency between variables.
- However in constraints systems, developer are forced to one block of code
- that run on a single machine, while this thesis provides modular architecture.
- 
-\end_layout
-
-\begin_layout Subsection
-Multi-way Constraints
-\end_layout
-
-\begin_layout Standard
-In constraints systems, we can declare 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=B+C
-\end_layout
-
-\end_inset
-
-, and each user update, to any of the variables, follows an automatic update
- to the left variables.
- With the proposed Rivars, it is implemented by declaring three formulas:
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+C
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A-C
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=A-B
-\end_layout
-
-\end_inset
-
-.
- However, the long verbosity exists also in constraints systems, when developers
- need specifying methods to satisfy the constraints.
- In addition, building blocks can easily built on top of our thesis.
- This means more extensions can be implemented by combining several formulas
- into a single constraint.
-\end_layout
-
-\begin_layout Subsection
-Handle Consistency
-\end_layout
-
-\begin_layout Standard
-As mentioned, in constraints systems, we can declare 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=B+C
-\end_layout
-
-\end_inset
-
-, and each user update, to any of the variables, follows an automatic update
- to the left variables.
- However, it is not clear what variable's value should be changed, especially
- when both other variables are not empty.
-\end_layout
-
-\begin_layout Standard
-The same question is arisen when declaring RIvar' formulas 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+C
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A-C
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=A-B
-\end_layout
-
-\end_inset
-
-.
- Our merge method produce variable's values according to the total order
- over the propogated values, that is derived from a total order over the
- external input events.
- In other words, values produced from old events are overidden by new ones.
-\end_layout
-
-\begin_layout Standard
-As in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-, first, constraints systems handle consistency according 
-\emph on
-hierarchical
-\emph default
- consraints, that is to ignore constraints if they belong to the low levels
- of hierarchy.
- Second, they consider external inputs as constraints, for example the constrain
-t 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=1
-\end_layout
-
-\end_inset
-
- is added when the user set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-1
-\end_layout
-
-\end_inset
-
-.
- Third, external inputs' constraints are set in the hierarchy, according
- to the events' order.
-\end_layout
-
-\begin_layout Standard
-Consequently, the decision what variables to update in the automatic updates
- seems the same.
- 
-\end_layout
-
-\begin_layout Subsection
-Decentralized Calculation
-\end_layout
-
-\begin_layout Standard
-Constraints systems (and most reactive programming implementations
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-) manage the constraints and handle them by a one centralized procedure.
- Similary is the approach in the code, the applications' code are of one
- block, because: 
-\begin_inset Quotes eld
-\end_inset
-
-If the one-way constraints are defined in separate places, co-ordinating
- these constraints can be a major software engineering problem
-\begin_inset Quotes erd
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- Consequently, the market which needs modular solutions, does not adopt
- such centerlized solutions 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
 \end_layout
 
 \end_body

@@ -107,12 +107,15 @@ Adequacy of The Model
 \end_layout
 
 \begin_layout Standard
+TODO: 3 traditional problems in graphs from the poster
+\end_layout
+
+\begin_layout Standard
 Our model support variables depending on several expressions, such that
  in runtime values are infered according to time, i.e., the variable's current
  value depends on the recent input events.
  On top of this, our model considers dependencies graphs that are not acyclic
  as graphs containing variables feed from several sources.
- 
 \end_layout
 
 \begin_layout Section
@@ -232,7 +235,7 @@ Events
 \end_layout
 
 \begin_layout Standard
-In simple cases our model reminds the beavior when using events: when several
+In simple cases our model reminds the behavior when using events: when several
  events handlers calculate a single variable, the variable's value is according
  to the latest triggered event.
 \end_layout
@@ -263,7 +266,420 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
+Glitch
+\end_layout
+
+\begin_layout Standard
+In previous works the glitches problem has been handled 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, even in the distributed settings 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (D) at (3,3) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (C);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch"
+
+\end_inset
+
+Glitch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Cycles
+\end_layout
+
+\begin_layout Standard
+Cycles need a special treatment, because it might lead to infinite loops.
+ As in the example, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, that might lead again to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, and so on.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (0,5) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (3.5,5) {B};       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge [bend left] (B);  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-simple-dependency"
+
+\end_inset
+
+A simple dependency graph with cycles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Furthermore, in the the 
+\emph on
+glitch
+\emph default
+ problem 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, a variable can have several updates caused by a single update.
+ Consequently, ignoring repeating updates might lead to incomplete calculations.
+ e.g., in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+X
+\end_layout
+
+\end_inset
+
+ leads to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y1
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y2
+\end_layout
+
+\end_inset
+
+, each of them might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, therfore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ with an incomplete calculation, therfore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ should not ignore a second update.
 \end_layout
 
 \begin_layout Paragraph
@@ -1181,7 +1597,7 @@ Glitch
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2597,18 +3013,7 @@ I have an event driven architecture where A is waiting for a change from
 \end_layout
 
 \begin_layout Section
-??????
-\end_layout
-
-\begin_layout Standard
-It is likely that infinite loops happens because of 
-\emph on
-indepedent definitions
-\emph default
- to update variable in response to the other variables' updates, such as
- when extending an application with various features.
- Nevertheless, The problem will not happen if the new definitions only derive
- existing variables.
+Glitch
 \end_layout
 
 \end_body

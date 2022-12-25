@@ -1144,7 +1144,7 @@ literal "false"
 \end_inset
 
 .
- In our order model, an incorrect value (or update) by a glitch, is considered
+ In our order model, an incorrect (glitch) value (update), is considered
  as less than an existing value, so it is ignored.
  For example, in the dependency graph of 
 \begin_inset CommandInset ref
@@ -1161,6 +1161,35 @@ noprefix "false"
  of the existing timestamps {1}.
  According to the order model, a superset is not considered greater so it
  is ignored.
+\end_layout
+
+\begin_layout Standard
+Our model seems to solve only types of glitches (among 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics"
+literal "false"
+
+\end_inset
+
+) caused from a single update for a single variable.
+ This should satisfy many applications.
+ Actualy, for UI application, glitch may be not a problem, because a temporary
+ incomplete calculation is replaced very fast with the updated values.
+ Anyway, for more strict requirements, such like requiring several synced
+ variables, there is a possible solution named 
+\emph on
+source unification
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "watanabecomplete"
+literal "false"
+
+\end_inset
+
+, to declare a variable deriving the variables.
 \end_layout
 
 \begin_layout Section

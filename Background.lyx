@@ -181,7 +181,7 @@ Based on OOP and IoC, enterprise applications can provide customers to extend
 \emph on
 Microsoft Dynamics
 \emph default
- developers can extend the web forms with code that are executed in response
+, developers can extend the web forms with code that are executed in response
  to events.
  In addition users can extend the forms without code, but by a user friendly
  customization form.
@@ -232,7 +232,11 @@ literal "false"
 
 \end_inset
 
- and is promoted by XState
+ and is promoted by 
+\emph on
+XState
+\emph default
+
 \begin_inset Foot
 status open
 
@@ -251,7 +255,19 @@ FRP
 
 \begin_layout Standard
 FRP provide the option to define the declerative style to define functions
- over reactive variables, with the behavior named one-way data flow contraint.
+ over reactive variables, with the behavior named 
+\emph on
+one-way data flow contraint
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+.
  Declaration such as 
 \begin_inset ERT
 status open
@@ -296,7 +312,7 @@ C
 
 \end_inset
 
-, with the runtime behavior that updates of 
+, with the runtime behavior that updating 
 \begin_inset ERT
 status open
 
@@ -307,7 +323,7 @@ B
 
 \end_inset
 
- and 
+ or 
 \begin_inset ERT
 status open
 
@@ -318,7 +334,7 @@ C
 
 \end_inset
 
- will trigger updates in 
+ triggering updates of 
 \begin_inset ERT
 status open
 
@@ -330,6 +346,10 @@ A
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsection
+??????
 \end_layout
 
 \begin_layout Standard
@@ -344,11 +364,16 @@ literal "false"
 \end_inset
 
  into the paradigm.
- In one form, FRP uses the concept 
-\emph on
-stream
-\emph default
-, that represent variable's values as a list.
+ A reactive variable sometimes refers to a stream of events representing
+ the variable's values as a list 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
@@ -376,7 +401,7 @@ one way dataflow constraint
 \end_layout
 
 \begin_layout Section
-Integration between OOP and FRP
+Integration between OOP and FRP????????
 \end_layout
 
 \begin_layout Subsection

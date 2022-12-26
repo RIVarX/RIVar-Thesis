@@ -107,19 +107,182 @@ Adequacy of The Model
 \end_layout
 
 \begin_layout Standard
-TODO: 3 traditional problems in graphs from the poster
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Modeling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we presented a new model to FRP.
+ The adequacy of the model with OOP is clear, because it was developed according
+ to the requirements to conform reactive variables with RIVars.
+ In this section, we describe several special behaviors about the new model
+ and compare them to other paradigms, libraries and tools.
+\end_layout
+
+\begin_layout Section
+Several Assigments
 \end_layout
 
 \begin_layout Standard
-Our model support variables depending on several expressions, such that
- in runtime values are infered according to time, i.e., the variable's current
- value depends on the recent input events.
+Our model support variables depending on several expressions such as in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Several-Assigments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, while in runtime values are infered according to time, i.e., the variable's
+ current value depends on the recent input events.
  On top of this, our model considers dependencies graphs that are not acyclic
  as graphs containing variables feed from several sources.
 \end_layout
 
-\begin_layout Section
-Variables Depending on Several Expressions 
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,3) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,-1)$)    {A:=B+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,-1)$)    {A:=C+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Several-Assigments"
+
+\end_inset
+
+Several Assigments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -270,48 +433,10 @@ Cycles
 \end_layout
 
 \begin_layout Standard
-Cycles need a special treatment, because it might lead to infinite loops.
- As in the example, updating 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- might lead to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, that might lead again to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
-, and so on.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -321,7 +446,7 @@ status open
 
 
 \backslash
-centering 
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
@@ -363,7 +488,28 @@ path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
 
 
 \backslash
+node[scale=0.6] at ($(A) + (1.75,-0.75)$)    {A:=B/3};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(A) + (1.75,0.75)$)    {B:=A*3};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
 \end_layout
 
 \end_inset
@@ -375,13 +521,7 @@ end{tikzpicture}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:A-simple-dependency"
-
-\end_inset
-
-A simple dependency graph with cycles
+Loosing informCycle while loose of information
 \end_layout
 
 \end_inset
@@ -389,9 +529,190 @@ A simple dependency graph with cycles
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Cycles might happen when there are 
+\emph on
+indepedent definitions
+\emph default
+ to update variable in response to the other variables' updates.
+\end_layout
+
+\begin_layout Standard
+In Microsoft Dynamics' forms, there is a protection to not running infinite
+ loops.
+ Although that it is defined
+\end_layout
+
+\begin_layout Standard
+in cases that there are cycles in dependencies: the code is executed only
+ in resonse to change that happens directly by the user, and changes happened
+ by business rules are ignored.
+ In the plugins registered to Microsoft Dynamics, there is a shared variable
+ named 
+\emph on
+Depth
+\emph default
+ that is incremented whenever the plugin is executed under the same original
+ message.
+ The developer can prevent an infinite loop, by conditionaly update fields
+ dependnig on Depth's value.
+\end_layout
+
+\begin_layout Standard
+—-
+\end_layout
+
+\begin_layout Standard
+It is likely that infinite loops happens because of 
+\emph on
+indepedent definitions
+\emph default
+ to update variable in response to the other variables' updates.
+ Nevertheless, The problem will not happen if the new definitions only derive
+ existing variables.
+\end_layout
+
+\begin_layout Standard
+In case of mutual recursions such like in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:simple-cycle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ there might be infinite loops, caused from the cycle that A should update
+ B, and B should update A.
+\end_layout
+
+\begin_layout Standard
+is defined by B and B is defined by A.
+\end_layout
+
+\begin_layout Standard
+Our model supports cycles caused from mutual recursions, where reactive
+ variables are defined in terms of each other, e.g., the FRP application in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:simple-cycle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+, application might contain 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and also 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+.
+ Cycles need a special treatment, because it might lead to infinite loops.
+ As in the example, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, that might lead again to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, and so on.
+\end_layout
+
+\begin_layout Standard
+Cycles need a special treatment, because it might lead to infinite loops.
+ As in the example, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, that might lead again to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, and so on.
 \end_layout
 
 \begin_layout Standard
@@ -762,88 +1083,6 @@ status open
 
 .
  
-\end_layout
-
-\begin_layout Paragraph
-Ad Hoc / Specific
-\end_layout
-
-\begin_layout Standard
-XState
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-https://xstate.js.org/
-\end_layout
-
-\end_inset
-
- and Redux 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
- reminds the statechart 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1990statemate"
-literal "false"
-
-\end_inset
-
- or just the simple state-machine.
- The updates are still controlled by state and conditions, but they are
- centerlized and not encapsulated in various objects.
- As a result the variables change become more predictable 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Paragraph
-Conflicts
-\end_layout
-
-\begin_layout Standard
-Hotdrink 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- maintains priority, when a user updates a variable, its priority becomes
- the highest.
- The values of the variables with the old priority is overridden by calculating
- according to the variables with the higher priority.
- The variables and dependencies are managed by a centralized algorithm named
- 
-\emph on
-constraints solver
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-In the traditional programming, the developers uses state to recognize when
- to update or not to update, and when to trigger an event or to not trigger
- an event.
- Consequently, it might be difficult to comprehend the variables and dependencie
-s of the functional requirements (required application logic).
- because the code is tangled with non-functional requirements consisting
- of the internal variables (state) and conditions to technically implement
- (as described, to recognize when to update or not to update) the functional
- requirements.
 \end_layout
 
 \begin_layout Section
@@ -1760,7 +1999,7 @@ Glitch
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2482,6 +2721,47 @@ Multiple-Assigment
 \end_layout
 
 \begin_layout Section
+?????
+\end_layout
+
+\begin_layout Paragraph
+Conflicts
+\end_layout
+
+\begin_layout Standard
+Hotdrink 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ maintains priority, when a user updates a variable, its priority becomes
+ the highest.
+ The values of the variables with the old priority is overridden by calculating
+ according to the variables with the higher priority.
+ The variables and dependencies are managed by a centralized algorithm named
+ 
+\emph on
+constraints solver
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+In the traditional programming, the developers uses state to recognize when
+ to update or not to update, and when to trigger an event or to not trigger
+ an event.
+ Consequently, it might be difficult to comprehend the variables and dependencie
+s of the functional requirements (required application logic).
+ because the code is tangled with non-functional requirements consisting
+ of the internal variables (state) and conditions to technically implement
+ (as described, to recognize when to update or not to update) the functional
+ requirements.
+\end_layout
+
+\begin_layout Section
 ??????
 \end_layout
 
@@ -3138,45 +3418,6 @@ X
 
 \begin_layout Standard
 unsupported constructions, unpredictable results or to no-isolation
-\end_layout
-
-\begin_layout Section
-Cycles
-\end_layout
-
-\begin_layout Standard
-Stack overflow has more than one question asking about infinite loop similar
- to the following
-\begin_inset Note Comment
-status open
-
-\begin_layout Plain Layout
-https://stackoverflow.com/questions/3688117/event-driven-architecture-infinite-lo
-op
-\end_layout
-
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Quotes eld
-\end_inset
-
-I have an event driven architecture where A is waiting for a change from
- B and B is waiting for a change from C and C is waiting for a change from
- A, forming a cycle.
- Now, if B changes, then A fires an event to C, which fires to B, which
- fires to A, which fires to C...ad infinitum.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Glitch
 \end_layout
 
 \end_body

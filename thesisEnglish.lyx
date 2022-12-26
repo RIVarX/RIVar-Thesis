@@ -23,6 +23,7 @@
 \usepackage{tikz,rxmarbles}
 \usetikzlibrary[arrows,shapes,positioning,matrix]
 \tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\usetikzlibrary{calc}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -97,7 +98,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\listings_params "language={[Sharp]C},backgroundcolor={\color{white}},basicstyle={\ttfamily},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},moredelim={[is][\underbar]{_}{_}},escapechar={|}"
+\listings_params "language={[Sharp]C},backgroundcolor={\color{white}},basicstyle={\ttfamily},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},moredelim={[is][\underbar]{_}{_}},escapechar={|},numbers=left,numberfirstline=true,firstnumber=1,stepnumber=1"
 \tracking_changes false
 \output_changes false
 \html_math_output 0

@@ -103,6 +103,12 @@
 \begin_body
 
 \begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Modeling"
+
+\end_inset
+
 Modeling A New Variant of FRP
 \end_layout
 
@@ -119,7 +125,7 @@ This chapter describes our new variant of FRP, to conform reactive variables
 \end_layout
 
 \begin_layout Standard
-There are two phenomenons in depedancy graphs.
+There are two phenomenons in dependency graphs.
  First, cycles caused from 
 \emph on
 mutual recursions
@@ -128,7 +134,18 @@ mutual recursions
 \emph on
 indirect recursions
 \emph default
-), where reactive variables are defined in terms of each other.
+), where reactive variables are defined in terms of each other, as the example
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:simple-cycle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  Second, variables having several sources, from being an input variable
  while having one or more assigments, or just from having several assigments.
 \end_layout
@@ -158,6 +175,114 @@ wave
  Therefore, the two phenomenons should be handled at once, by providing
  semantics and implementation to variables with several sources.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (0,5) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (3.5,5) {B};       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge [bend left] (B);  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(A) + (1.75,-0.75)$)    {A:=B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(A) + (1.75,0.75)$)    {B:=A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:simple-cycle"
+
+\end_inset
+
+A simple dependency graph with cycles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -366,7 +491,7 @@ the same sequence of events produces the same results, regardless of the
 \begin_layout Standard
 The next sections describe a computation model, such that variables can
  be connected to several sources, while satisfing the referential transparency
- property, included with an appropriate execution model.
+ property.
 \end_layout
 
 \begin_layout Section

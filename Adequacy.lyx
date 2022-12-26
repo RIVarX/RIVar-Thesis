@@ -429,14 +429,14 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Cycles
+Cycles????????
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

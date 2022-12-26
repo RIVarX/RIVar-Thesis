@@ -137,8 +137,8 @@ OOP suggests objects encapsulation, by which objects' variables are protected
  from being updated by external code.
  Instead, objects expose methods, by which an object's consumers ask the
  object to update its variables.
- OOP also provides the inheritance mechanism, to extend the software instead
- of doing changes while breaking encapsulation.
+ OOP also provides the inheritance mechanism, to reuse software without
+ breaking the encapsulation.
 \end_layout
 
 \begin_layout Standard
@@ -158,28 +158,42 @@ literal "false"
 
 , such that object's consumer calls a method according to its names and
  arguments, but the actual method is known only in runtime.
- This should keeps on the object's encapsulation, because the object's consumer
+ This should keep on the object's encapsulation, because the object's consumer
  need to call methods according to the interface and not according to the
  actual implementation.
 \end_layout
 
 \begin_layout Standard
-OOP thus provide 
+There is an option named 
 \emph on
-inversion of control 
+inversion of control
 \emph default
-to update variables' dependecnies.
- The principal says 
-\begin_inset Quotes eld
-\end_inset
+ (IoC), such that an object's consumer will register code, that will be
+ executed by the object in certain events.
+ By this option, there is an option to register code that update variables,
+ to be executed in the events that other variables are updated.
+\end_layout
 
-don't call us, we'll call you
-\begin_inset Quotes erd
-\end_inset
-
-, by the observer pattern, the code that update a variable, is dynamically
- connected to the code that update the variables it depends on.
- The observer pattern is usually consructed as events.
+\begin_layout Standard
+Based on OOP and IoC, enterprise applications can provide customers to extend
+ the application according to their business needs.
+ In the enterprise application 
+\emph on
+Microsoft Dynamics
+\emph default
+ developers can extend the web forms with code that are executed in response
+ to events.
+ In addition users can extend the forms without code, but by a user friendly
+ customization form.
+ The user customize 
+\emph on
+business rules
+\emph default
+ by drug and drop and easy selection elements.
+ By those two options the application can be customized to calculate fields
+ in response to other fields changes.
+ Similary in the server side, developers can register plugins that update
+ fields, to be re-calculated according other fields.
 \end_layout
 
 \begin_layout Subsection
@@ -252,13 +266,155 @@ should not
 statechart
 \end_layout
 
+\begin_layout Paragraph
+Ad Hoc / Specific
+\end_layout
+
+\begin_layout Standard
+XState
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://xstate.js.org/
+\end_layout
+
+\end_inset
+
+ and Redux 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ reminds the statechart 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1990statemate"
+literal "false"
+
+\end_inset
+
+ or just the simple state-machine.
+ The updates are still controlled by state and conditions, but they are
+ centerlized and not encapsulated in various objects.
+ As a result the variables change become more predictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Section
 FRP
 \end_layout
 
 \begin_layout Standard
-FRP is paradigm oriented to declarative style for data-dependencies.
- 
+FRP provide the option to define the declerative style to define functions
+ over reactive variables, with the behavior named one-way data flow contraint.
+ Declaration such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+C
+\end_layout
+
+\end_inset
+
+ means 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ to be function of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C
+\end_layout
+
+\end_inset
+
+, with the runtime behavior that updates of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C
+\end_layout
+
+\end_inset
+
+ will trigger updates in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Although the notion of using the high-level syntax of reactive variables,
+ FRP still provides the concept of events that is harmonized in several
+ forms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push,Kamina2018"
+literal "false"
+
+\end_inset
+
+ into the paradigm.
+ In one form, FRP uses the concept 
+\emph on
+stream
+\emph default
+, that represent variable's values as a list.
 \end_layout
 
 \begin_layout Itemize
@@ -275,6 +431,14 @@ conflicts
 
 \begin_layout Itemize
 centeral management / distributed settings
+\end_layout
+
+\begin_layout Itemize
+one way constraint
+\end_layout
+
+\begin_layout Itemize
+one way dataflow constraint
 \end_layout
 
 \begin_layout Section
@@ -950,6 +1114,21 @@ A:=C+1
 \end_inset
 
  in the derived class.
+\end_layout
+
+\begin_layout Section
+Conclusion?????????
+\end_layout
+
+\begin_layout Standard
+It is likely that infinite loops happens because of 
+\emph on
+indepedent definitions
+\emph default
+ to update variable in response to the other variables' updates, such as
+ when extending an application with various features.
+ Nevertheless, The problem will not happen if the new definitions only derive
+ existing variables.
 \end_layout
 
 \end_body

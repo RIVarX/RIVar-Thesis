@@ -196,115 +196,49 @@ business rules
  fields, to be re-calculated according other fields.
 \end_layout
 
-\begin_layout Subsection
-??????????
-\end_layout
-
 \begin_layout Standard
-The key concept behind Objects Oriented Programming (OOP) is that, classes
- evolve without interfering other classes 
+In OOP, an object's variables are called its 
+\emph on
+state
+\emph default
+, because it represents the state of the object 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "duncan2003component"
+key "taivalsaari1996notion"
 literal "false"
 
 \end_inset
 
-.
- Classes use 
+, or that its state is derived from the variables.
+ There is a modeling method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
+
+\end_inset
+
+ to present states and events as transition between them, such that in the
+ transition, there are actions, that are code to execute during the transition.
+ This method is used in front-end applications by the library 
 \emph on
-contracts
+Redux
 \emph default
-, and encapsulate the internal implementation.
- In the simplified form, the contract is the 
-\emph on
-interface
-\emph default
-, which defines variables and methods that are accessible to the consumers
- or subclasses.
- However, in the presence of events an interface is not enough to define
- a contract.
  
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
 
-\begin_layout Standard
-There are various approaches how to define contracts in such cases, but
- they are usually informal and hard to enforce.
- In implementation inheritance in 
-\emph on
-the fragile base class problem
-\emph default
-, the contract between the super class and subclass is broken, such as when
- a change in the super class breaks the sub class.
- And in contracts between providers and consumers, there is a significant
- number of design and implementation errors, often hard to define and correct.
-\end_layout
+\end_inset
 
-\begin_layout Standard
-The reason is that events might lead to 
-\emph on
-unexpected recursive re-entracnce of objects.
- 
-\emph default
-Re-entracnce of objects is when an object's method calls a method that belongs
- to the same object: If a method update several of its instance variables,
- they of course should be consistent (i.e, calculated or updated according
- to each other), so the object's methods 
-\emph on
-should not
-\emph default
- be called until finishing the execution.
- Furthermore, the method 
-\emph on
-should not
-\emph default
- be called again until finishing its execution (but if there is special
- treatment).
-\end_layout
-
-\begin_layout Subsection
-statechart
-\end_layout
-
-\begin_layout Paragraph
-Ad Hoc / Specific
-\end_layout
-
-\begin_layout Standard
-XState
+ and is promoted by XState
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-https://xstate.js.org/
+https://xstate.js.org
 \end_layout
-
-\end_inset
-
- and Redux 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
- reminds the statechart 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1990statemate"
-literal "false"
-
-\end_inset
-
- or just the simple state-machine.
- The updates are still controlled by state and conditions, but they are
- centerlized and not encapsulated in various objects.
- As a result the variables change become more predictable 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
 
 \end_inset
 

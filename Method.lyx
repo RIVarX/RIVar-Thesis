@@ -115,7 +115,20 @@ Modeling A New Variant of FRP
 \begin_layout Standard
 This chapter describes our new variant of FRP, to conform reactive variables
  to RIVars.
- RIVars are instance variables, therefore the updates cannot be taken by
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Fundamentals"
+
+\end_inset
+
+Fundamentals
+\end_layout
+
+\begin_layout Standard
+RIVars are instance variables, therefore the updates cannot be taken by
  a centerlized entity.
  Instead, the updates are being taken by objects interaction, such that
  variables update each other synchronously in response to their own updates.
@@ -569,13 +582,41 @@ noprefix "false"
 
 \end_inset
 
-, the two statements of a FRP application A:=B+C and A:=D+1, produces the
- function 
+, the two statements of a FRP application 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=D+1}
+\end_layout
+
+\end_inset
+
+, produces the function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{
 \begin_inset Quotes eld
 \end_inset
 
@@ -591,7 +632,7 @@ status open
 \begin_inset Quotes erd
 \end_inset
 
-(A,B+C),D)
+(A,B+C),D)}
 \end_layout
 
 \end_inset
@@ -771,6 +812,14 @@ An assigment operator over reactive variables.
 The n-ary assigment operator should be equivalent to a composite of several
  binary assigments.
  For example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{
 \begin_inset Quotes eld
 \end_inset
 
@@ -778,7 +827,20 @@ The n-ary assigment operator should be equivalent to a composite of several
 \begin_inset Quotes erd
 \end_inset
 
-(A,(B+C),D) behaves the same as 
+(A,(B+C),D)}
+\end_layout
+
+\end_inset
+
+ behaves the same as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{
 \begin_inset Quotes eld
 \end_inset
 
@@ -794,7 +856,12 @@ The n-ary assigment operator should be equivalent to a composite of several
 \begin_inset Quotes erd
 \end_inset
 
-(A,B+C),D) (
+(A,B+C),D)}
+\end_layout
+
+\end_inset
+
+ (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:assigmentMutipleLevel"
@@ -811,7 +878,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=B+C
+
+\backslash
+lstinline{A:=B+C}
 \end_layout
 
 \end_inset
@@ -822,6 +891,9 @@ status open
 
 \begin_layout Plain Layout
 
+
+\backslash
+lstinline{
 \begin_inset Quotes eld
 \end_inset
 
@@ -829,7 +901,7 @@ status open
 \begin_inset Quotes erd
 \end_inset
 
-(A,B+C)
+(A,B+C)}
 \end_layout
 
 \end_inset
@@ -840,7 +912,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=D
+
+\backslash
+lstinline{A:=D}
 \end_layout
 
 \end_inset
@@ -851,6 +925,9 @@ status open
 
 \begin_layout Plain Layout
 
+
+\backslash
+lstinline{
 \begin_inset Quotes eld
 \end_inset
 
@@ -866,7 +943,7 @@ status open
 \begin_inset Quotes erd
 \end_inset
 
-(A,B+C),D)
+(A,B+C),D)}
 \end_layout
 
 \end_inset
@@ -1072,7 +1149,9 @@ status open
 
 \begin_layout Plain Layout
 
-Var=input
+
+\backslash
+lstinline{Var=input}
 \end_layout
 
 \end_inset
@@ -1084,7 +1163,9 @@ status open
 
 \begin_layout Plain Layout
 
-A=1
+
+\backslash
+lstinline{A=1}
 \end_layout
 
 \end_inset
@@ -1095,7 +1176,9 @@ status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+lstinline{A}
 \end_layout
 
 \end_inset
@@ -1106,7 +1189,9 @@ status open
 
 \begin_layout Plain Layout
 
-1
+
+\backslash
+lstinline{1}
 \end_layout
 
 \end_inset
@@ -2482,7 +2567,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=B+1
+
+\backslash
+lstinline{A:=B+1}
 \end_layout
 
 \end_inset
@@ -2955,11 +3042,74 @@ Executing the Assignments
 \begin_layout Standard
 Executing the assigments statements accumulates merged streams.
  The execution is sequentially, with the imperative style, line by line.
- For example, the statement A:=B+C is executed as A=merge(A,B+C).
- The next statement A:=D+1 is executed as A=merge(A,D+1) according to the
- current value of A.
- So that the execution if the two statements behaves as A=merge(merge(A,B+C),D+1
-).
+ For example, the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ is executed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(A,B+C)}
+\end_layout
+
+\end_inset
+
+.
+ The next statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=D+1}
+\end_layout
+
+\end_inset
+
+ is executed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(A,D+1)}
+\end_layout
+
+\end_inset
+
+ according to the current value of A.
+ So that the execution if the two statements behaves as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(merge(A,B+C),D+1)}
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -3445,8 +3595,18 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-In this section we will present RIVarX, a lightweight .NET library developed
- with the presented approach on top of ReactiveX for C# developers.
+In this section we will present RIVarX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+, a lightweight .NET library developed according to the presented approach
+ on top of ReactiveX for C# developers.
  In the presentation we only present the basics of RIVarX, started from
  some basics of ReactiveX.
 \end_layout
@@ -3477,7 +3637,9 @@ status open
 
 \begin_layout Plain Layout
 
-B:=D+1
+
+\backslash
+lstinline{B:=D+1}
 \end_layout
 
 \end_inset
@@ -3488,7 +3650,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=B+C
+
+\backslash
+lstinline{A:=B+C}
 \end_layout
 
 \end_inset
@@ -3499,7 +3663,9 @@ status open
 
 \begin_layout Plain Layout
 
-B=D.Select(x=>x+1)
+
+\backslash
+lstinline{B=D.Select(x=>x+1)}
 \end_layout
 
 \end_inset
@@ -3510,7 +3676,9 @@ status open
 
 \begin_layout Plain Layout
 
-A=B.CombineLatest(C,(x,y)=>x+y))
+
+\backslash
+lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
 \end_layout
 
 \end_inset
@@ -3611,7 +3779,9 @@ status open
 
 \begin_layout Plain Layout
 
-Lift
+
+\backslash
+lstinline{Lift}
 \end_layout
 
 \end_inset
@@ -3624,7 +3794,9 @@ status open
 
 \begin_layout Plain Layout
 
-Lift
+
+\backslash
+lstinline{Lift}
 \end_layout
 
 \end_inset

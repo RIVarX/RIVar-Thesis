@@ -179,21 +179,52 @@ Based on OOP and IoC, enterprise applications can provide customers to extend
  the application according to their business needs.
  In the enterprise application 
 \emph on
-Microsoft Dynamics
+Microsoft Power Apps
 \emph default
-, developers can extend the web forms with code that are executed in response
- to events.
- In addition users can extend the forms without code, but by a user friendly
- customization form.
- The user customize 
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://powerapps.microsoft.com
+\end_layout
+
+\end_inset
+
+, developers can register plugins that update fields, to be re-calculated
+ according other fields.
+ The custom plugin might lead to infinite loop of updates caused by several
+ registered plugins.
+ Therefore, the field 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Depth}
+\end_layout
+
+\end_inset
+
+
 \emph on
-business rules
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://carldesouza.com/dynamics-365-understanding-plugin-depth
+\end_layout
+
+\end_inset
+
+
 \emph default
- by drug and drop and easy selection elements.
- By those two options the application can be customized to calculate fields
- in response to other fields changes.
- Similary in the server side, developers can register plugins that update
- fields, to be re-calculated according other fields.
+ is provided to the developer to stop the loop.
+ The field is like the cursion depth, containing how many times the current
+ plugin is executed.
 \end_layout
 
 \begin_layout Standard
@@ -254,8 +285,17 @@ FRP
 \end_layout
 
 \begin_layout Standard
-FRP provide the option to define the declerative style to define functions
- over reactive variables, with the behavior named 
+FRP is a paradigm developed to provide predictable calculations and updates.
+ In traditional programming, developers have difficulties controlling the
+ task of manually maintaining variables, by calling functions to be executed
+ in various events.
+ In contrast, FRP provides a declerative style to define the data dependencies
+ explicit, and a runtime that maintain them.
+\end_layout
+
+\begin_layout Standard
+In the most elegant style, functions over reactive variables are declared,
+ producing the runtime behavior named 
 \emph on
 one-way data flow contraint
 \emph default
@@ -267,6 +307,10 @@ literal "false"
 
 \end_inset
 
+ or 
+\emph on
+spreadsheet behavior
+\emph default
 .
  Declaration such as 
 \begin_inset ERT
@@ -274,7 +318,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=B+C
+
+\backslash
+lstinline{A:=B+C}
 \end_layout
 
 \end_inset
@@ -285,7 +331,9 @@ status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+lstinline{A}
 \end_layout
 
 \end_inset
@@ -296,7 +344,9 @@ status open
 
 \begin_layout Plain Layout
 
-B
+
+\backslash
+lstinline{B}
 \end_layout
 
 \end_inset
@@ -307,7 +357,9 @@ status open
 
 \begin_layout Plain Layout
 
-C
+
+\backslash
+lstinline{C}
 \end_layout
 
 \end_inset
@@ -318,7 +370,9 @@ status open
 
 \begin_layout Plain Layout
 
-B
+
+\backslash
+lstinline{B}
 \end_layout
 
 \end_inset
@@ -329,152 +383,14 @@ status open
 
 \begin_layout Plain Layout
 
-C
+
+\backslash
+lstinline{C}
 \end_layout
 
 \end_inset
 
- triggering updates of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-??????
-\end_layout
-
-\begin_layout Standard
-Although the notion of using the high-level syntax of reactive variables,
- FRP still provides the concept of events that is harmonized in several
- forms 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push,Kamina2018"
-literal "false"
-
-\end_inset
-
- into the paradigm.
- A reactive variable sometimes refers to a stream of events representing
- the variable's values as a list 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Itemize
-unindirectional dataflow (acyclic)
-\end_layout
-
-\begin_layout Itemize
-glitch
-\end_layout
-
-\begin_layout Itemize
-conflicts
-\end_layout
-
-\begin_layout Itemize
-centeral management / distributed settings
-\end_layout
-
-\begin_layout Itemize
-one way constraint
-\end_layout
-
-\begin_layout Itemize
-one way dataflow constraint
-\end_layout
-
-\begin_layout Section
-Integration between OOP and FRP????????
-\end_layout
-
-\begin_layout Subsection
-What is assigment?
-\end_layout
-
-\begin_layout Standard
-in frp what is assigment? like in FP?
-\end_layout
-
-\begin_layout Standard
-in javascript we can write f=function(){} same as function f(){}
-\end_layout
-
-\begin_layout Standard
-in imperative, this is an operator going with the machine clock
-\end_layout
-
-\begin_layout Standard
-there is a confision in mutiple assigment/ reassigment, what is this assigment
- (in FRP+OOP article)
-\end_layout
-
-\begin_layout Subsection
-?????
-\end_layout
-
-\begin_layout Standard
-Various libraries enable the use of FRP with imperative code.
- For example REScala 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
-, which is an extension to Scala programming language 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "odersky2008programming"
-literal "false"
-
-\end_inset
-
-, enables converting between reactive variables and events.
- An additional library SignalJ 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kamina2018"
-literal "false"
-
-\end_inset
-
- includes an interface for reactive variables, with imperative events to
- respond once variables' values are changed.
- An API 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
- for C# programming language 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hejlsberg2008c"
-literal "false"
-
-\end_inset
-
- named ReactiveX 
+ triggers updates of 
 \begin_inset ERT
 status open
 
@@ -482,129 +398,20 @@ status open
 
 
 \backslash
-footnote{https://reactivex.io}
+lstinline{A}
 \end_layout
-
-\end_inset
-
-, adoped by other languages (e.g., RxJS in JavaScript) provides the reactive
- variable 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- as an 
-\emph on
-event stream
-\emph default
-, which is an observable emitting values to subscribers, based on the 
-\emph on
-observer 
-\emph default
-and
-\emph on
- iterator
-\emph default
- patterns 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-, and also provides 
-\emph on
-operators
-\emph default
- being functions over the streams.
-\end_layout
-
-\begin_layout Subsection
-??????
-\end_layout
-
-\begin_layout Standard
-In integration of functional-reactive code with imperative code might contain
- circular dependencies causing infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
 
 \end_inset
 
 .
- For example, a change in a reactive variable, might execute an event handler,
- causing the reactive variable to change.
- The problem might happen also in pure FRP (such as happens by imperative-based
- implementation), in case recursive definitions are presented.
- Even the simple formulas 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A
-\end_layout
-
-\end_inset
-
- contain circular dependencies: the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- is changed in response to any change of the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, while any change in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- triggers a change of the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
+ This elegance is provided automatically instead of manually maintaining
+ the formula as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:manually-maintaining-one-way"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
@@ -612,28 +419,195 @@ A
 \end_layout
 
 \begin_layout Standard
-——
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
 \end_layout
 
-\begin_layout Standard
-In the integration with FRP there might contain circular dependencies causing
- infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+B.changed += { (e) => B=e; A = B+C; }
+\end_layout
+
+\begin_layout Plain Layout
+
+C.changed += { (e) => C=e; A = B+C; }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
 
 \end_inset
 
- (named also ).
- For example, a change in a reactive variable, might execute an event handler,
- causing the reactive variable to change.
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:manually-maintaining-one-way"
+
+\end_inset
+
+Manually maintaining one-way data flow contraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+A=B.CombineLatest(C,(b,c)=>b+c));
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:CombineLatest"
+
+\end_inset
+
+One-way data flow contraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ by using streams of events
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Although the notion of using the high-level syntax of reactive variables,
+ We see in the paradigm the concept of events harmonized in several forms
  
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push,Kamina2018,blackheath2016functional"
+literal "false"
 
-\begin_layout Standard
-Unfortunately, the integration and option to implement calculation externaly
- leads to the problem named cycles accidental recursion 
+\end_inset
+
+.
+ In one form, streams of events are used similar to reactive variables 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -641,7 +615,18 @@ literal "false"
 
 \end_inset
 
-, cycles 
+.
+ Actualy a reactive variable can be represented by a stream of events representi
+ng the variable's values as a list 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ This produces more verbose syntax 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -649,445 +634,17 @@ literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Subsection
-FRP Integration????
-\end_layout
-
-\begin_layout Standard
-Various libraries enable the use of FRP with imperative code.
- For example REScala 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:CombineLatest"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-, which is an extension to Scala programming language 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "odersky2008programming"
-literal "false"
-
-\end_inset
-
-, enables converting between reactive variables and events.
- An additional library SignalJ 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kamina2018"
-literal "false"
-
-\end_inset
-
- includes an interface for reactive variables, with imperative events to
- respond once variables' values are changed.
- An API 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
- for C# programming langauge 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hejlsberg2008c"
-literal "false"
-
-\end_inset
-
- named ReactiveX 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://reactivex.io}
-\end_layout
-
-\end_inset
-
-, adoped by other languages (e.g., RxJS in JavaScript) provides the reactive
- variable as an 
-\emph on
-event stream
-\emph default
-, which is an observable emitting values to subscribers, based on the 
-\emph on
-observer 
-\emph default
-and
-\emph on
- iterator
-\emph default
- patterns 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-, and also provides 
-\emph on
-operators
-\emph default
- being functions over the streams.
-\end_layout
-
-\begin_layout Standard
-integration of functional-reactive code with imperative code might contain
- circular dependencies causing infinite loops.
- For example, a change in a reactive variable, might execute an event handler,
- causing the reactive variable to change.
- The problem might happen also in pure FRP (such as happens by imperative-based
- implementation), in case recursive definitions are presented.
- Even the simple formulas 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A
-\end_layout
-
-\end_inset
-
- contain circular dependencies: the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- is changed in response to any change of the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, while any change in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- triggers a change of the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-???????
-\end_layout
-
-\begin_layout Standard
-In the approach to extend OOP with FRP, an existing language is extended
- with a variation of reactive variables as a data type [42].
- Accordingly, libraries such as ReactiveX
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://reactivex.io}
-\end_layout
-
-\end_inset
-
- and REscala
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-footnote{https://www.rescala-lang.com}
-\end_layout
-
-\end_inset
-
-, support having a variation of reactive variables as objects’ data members
- (named also 
-\emph on
-instance variables
-\emph default
 ).
-\end_layout
-
-\begin_layout Standard
-Therefrom, objects' classes can contain
-\emph on
- reactive instance variables
-\emph default
-, that are instance variables of type reactive variables.
- Also, objects' classes can contain formulas based on the reactive instance
- variables they contain.
- The formulas are activated once the objects are created.
- e.g., class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C
-\end_layout
-
-\end_inset
-
- contains two reactive instance variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
-, and contains also the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-.
- Consequently, in each instance of C, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- that is associated to the instance will continuously re-evaluated in response
- to changes in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- that is associated to the same instance.
-\end_layout
-
-\begin_layout Standard
-Similar to the problems causes by unexpected recursive re-entracnce of objects,
- the problems in reactive instance variables.
- Reactive instance variables might have cycles when classes encapsulate
- their formulas, e.g., base class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, while the derived class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A
-\end_layout
-
-\end_inset
-
-.
- Similary for glitches: base class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=B
-\end_layout
-
-\end_inset
-
- , while the derived class contains 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-D:=A+C
-\end_layout
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-In addition, there is an open question whether to support reassignment 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
- Declaring class variables being reactive variables, arises that conflict,
- whether to enable reassignment e.g.
- declaring 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+1
-\end_layout
-
-\end_inset
-
- and then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=C+1
-\end_layout
-
-\end_inset
-
-.
- In FRP, reassignment should not be enabled, since in FRP we “describe things
- that exist, rather than actions that have happened or are to happen (i.e.,
- what is, not what does)” 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-.
- In contrast, in OOP reassignment should be enabled for assigning independently
- e.g., 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+1
-\end_layout
-
-\end_inset
-
- in a base class, and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=C+1
-\end_layout
-
-\end_inset
-
- in the derived class.
-\end_layout
-
-\begin_layout Section
-Conclusion?????????
-\end_layout
-
-\begin_layout Standard
-It is likely that infinite loops happens because of 
-\emph on
-indepedent definitions
-\emph default
- to update variable in response to the other variables' updates, such as
- when extending an application with various features.
- Nevertheless, The problem will not happen if the new definitions only derive
- existing variables.
 \end_layout
 
 \end_body

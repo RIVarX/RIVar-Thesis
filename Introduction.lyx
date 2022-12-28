@@ -232,7 +232,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=B+1
+
+\backslash
+lstinline{A:=B+1}
 \end_layout
 
 \end_inset
@@ -243,7 +245,9 @@ status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+lstinline{A}
 \end_layout
 
 \end_inset
@@ -254,7 +258,9 @@ status open
 
 \begin_layout Plain Layout
 
-B
+
+\backslash
+lstinline{B}
 \end_layout
 
 \end_inset
@@ -381,8 +387,59 @@ Reactive Instance Variable
 \end_layout
 
 \begin_layout Standard
-In the example, the DrugAdministration class contains the variables Drug,
- Volume and Concentration.
+In the example, the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
  The class contains a formula (
 \begin_inset ERT
 status open
@@ -396,8 +453,60 @@ ref{line:formula}
 
 \end_inset
 
-) defining Concentration to be calculated whenever Drug or Volume is updated.
- Then once a drug administration is created (
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be calculated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
 \begin_inset ERT
 status open
 
@@ -410,7 +519,46 @@ ref{line:ctor}
 
 \end_inset
 
-), any change to its Drug or its Volume causes its Concentration to recalculate.
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to recalculate.
 \end_layout
 
 \begin_layout Standard
@@ -539,9 +687,34 @@ Drug Administration
 
 \begin_layout Standard
 RIVars are not distinguished between observable or latent variables, they
- all accessed uniformly.
- Specifically, any accessible RIVar can be assigned (:= operator) as a latent
- variable, and also to get input (= operator) as an observable variable.
+ are all accessed uniformly.
+ Specifically, any accessible RIVar can be assigned (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ operator) as a latent variable, and also to get input (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ operator) as an observable variable.
  RIVar should be accessible externaly by being in service (consumer access
  variables via an interface) and specialization (subclass access its superclass
  variables) interfaces 
@@ -835,7 +1008,9 @@ status open
 
 \begin_layout Plain Layout
 
-A.Subscribe(val=>B.OnNext(val))
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val))}
 \end_layout
 
 \end_inset
@@ -846,20 +1021,25 @@ status open
 
 \begin_layout Plain Layout
 
-A:=B
+
+\backslash
+lstinline{A:=B}
 \end_layout
 
 \end_inset
 
 .
+ This method 
+\emph on
+adds
+\emph default
+ the formula in addition to the existing formulas handled by the FRP runtime.
  
 \end_layout
 
 \begin_layout Standard
-This method adds the formula to the existing formulas handled by the FRP
- runtime.
- The semantics of adding the formula, fits well with the conceptual specializati
-on (subtyping) 
+The semantics to add the formula, fits well with the conceptual specialization
+ (subtyping) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "taivalsaari1996notion"
@@ -889,11 +1069,10 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Consequently, the challenges to obtain RIVar includes (1) FRP should support
- any added formula (2) Values should be updated by direct calls between
- the variables, the centerlized algorithms used in most FRP implementations
- does not fit with encapsulated objects that should interact directly.
- (3) Achieving predictability and composability by satisfing the 
+Consequently, the challenges to obtain RIVar includes (1) Formulas should
+ be added to the existing formulas handled by the FRP (2) FRP should support
+ any added formula (3) Achieving predictability and composability by satisfing
+ the 
 \emph on
 referential transparency
 \emph default

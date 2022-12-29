@@ -530,8 +530,7 @@ noprefix "false"
 
 , while in runtime values are infered according to time, i.e., the variable's
  current value depends on the recent input events.
- On top of this, our model considers dependencies graphs that are not acyclic
- as graphs containing variables feed from several sources.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -950,7 +949,22 @@ literal "false"
 \end_inset
 
 , stop after a number of iterations, stop if the value has not changed,
- or changed only less than a threshold.
+ or changed only less than a threshold (available in 
+\emph on
+Microsoft Excel
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -964,7 +978,7 @@ None of the techniques covers all graphs, because a repeating update is
 
 \begin_layout Standard
 While the listed techniques provides only the technical aspect, our model
- provides semantics.
+ provides also semantics.
  As described in 
 \begin_inset CommandInset ref
 LatexCommand formatted

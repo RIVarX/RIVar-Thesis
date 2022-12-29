@@ -968,6 +968,47 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
 \end_layout
 
 \begin_layout Standard
+None of the techniques provide a solution generaly to all graphs.
+ An unneeded update might change values unexcpectedly as presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Unpredictable-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ However a repeating update is either needed because previous update was
+ a glitch, or that it is unneeded because the repeating update is caused
+ from a cycle.
+ This unknown causes the various solutions being without one general technique
+ to handle cycles.
+ 
+\end_layout
+
+\begin_layout Standard
+Uneeded update might change value unexcpectedly as presenetd in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Unpredictable-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Repeating update is either caused from a cycle so it should be ignored,
+ or that the previous update was a glitch, so it should not be ignored.
+ 
+\end_layout
+
+\begin_layout Standard
 None of the techniques covers all graphs, because a repeating update is
  either caused from a cycle so it should be ignored, or that the previous
  update was a glitch, so it should not be ignored.

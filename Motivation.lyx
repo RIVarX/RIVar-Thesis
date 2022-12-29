@@ -226,14 +226,10 @@ Bag
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -243,7 +239,7 @@ status open
 
 
 \backslash
-centering 
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
@@ -335,6 +331,20 @@ hline
 end{tabular}
 \end_layout
 
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+*The calculated field appears in 
+\backslash
+textit{italic} 
+\end_layout
+
 \end_inset
 
 
@@ -350,11 +360,8 @@ name "fig:Drug-calculations"
 
 \end_inset
 
-Drug calculations' user interface.
- Represents the cenario in which Dose, Duration and VolumeOfFluid were set,
- and the other fields (
-\backslash
-textit{italic} font) have been calculated.
+Drug calculations' user interface, with set Dose, Duration and VolumeOfFluid
+ and other fields are calculated.
 \end_layout
 
 \end_inset
@@ -1517,6 +1524,12 @@ Calculation procedure spread over seperated objects
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Unpredictable-Calculation"
+
+\end_inset
+
 Unpredictable Calculation
 \end_layout
 

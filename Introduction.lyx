@@ -1069,9 +1069,9 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Consequently, the challenges to obtain RIVar includes: (1) Adding formulas
- to the existing formulas handled by the FRP, (2) Supporting any added formula,
- (3) Achieving predictability and composability by satisfing the 
+The challenges to obtain RIVar includes: (1) Adding formulas to the existing
+ formulas handled by the FRP, (2) Supporting any added formula, (3) Achieving
+ predictability and composability by satisfing the 
 \emph on
 referential transparency
 \emph default
@@ -1134,7 +1134,7 @@ textbf{Outline.}
 
 \end_inset
 
- Chapter 3 presents a motivation example, Chapter 4 presents the proposed
+ Chapter 3 presents a motivating example, Chapter 4 presents the proposed
  semantics, Chapter 5 uses the new semantics by implementing the new type
  
 \emph on

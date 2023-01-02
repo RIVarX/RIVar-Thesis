@@ -78,35 +78,126 @@
 \begin_body
 
 \begin_layout Chapter
-Evaluation
+Results
+\end_layout
+
+\begin_layout Section
+Repeating Solutions
 \end_layout
 
 \begin_layout Standard
-Developers usually need to develop software, that has already partly developed.
+Developers usually need to develop software, that has already been partly
+ developed.
  One strategy is to re-develop the software with the up-to-date requirements.
  Comparing to other strategies, it should be easier for the shortcoming,
  beacuse it will not harm existing consumers.
  However, future changes might require more work, because if change is required
  in the part that was repeated, the change should be repeated.
- 
-\end_layout
-
-\begin_layout Standard
-However, it depends on the paradigm, how easy it to not repeat.
- This chapter compares the code repetition element, when using RIVar, against
- using the traditional FRP paradigm, the constraints paradigm and the events
- paradigm.
+ The OOP paradigm focuses on objects encapsulation, with the meaning to
+ not change, but to extend.
 \end_layout
 
 \begin_layout Section
-State
+Repeating Updates
+\end_layout
+
+\begin_layout Standard
+In the events paradigm, developers need to update variables in the events
+ when other variables are updated.
+ In case that a variable is updated according to several variables, we should
+ register to all the relevant events to call to the variable to update.
+ For example, in order that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x}
+\end_layout
+
+\end_inset
+
+ will contain the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{y+z}
+\end_layout
+
+\end_inset
+
+ whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{y}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{z}
+\end_layout
+
+\end_inset
+
+ is updated, we should calculate 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x}
+\end_layout
+
+\end_inset
+
+ in two events handlers.
+ This can be visualized by a statechart as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If we register to only part of the relevant events, then the behavior is
+ not consistent.
+ If we try to reduce the code repetition by making one event to several
+ variables, it might produce unneeded updates.
+ Unneeded updates might lead to infinite loops of updates.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -289,6 +380,12 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Statechart"
+
+\end_inset
+
 Statechart modeling the execution of 
 \begin_inset ERT
 status open
@@ -316,7 +413,7 @@ lstinline{x:=y+z}
 \end_layout
 
 \begin_layout Section
-FRP
+Repeating Variables
 \end_layout
 
 \begin_layout Standard
@@ -513,12 +610,8 @@ _AmountByConcentrationAndVolume=Concentration*Volume_
 
 \begin_layout Plain Layout
 
-Alert=Or(IsAbnormal(AmountByInput),
-\end_layout
-
-\begin_layout Plain Layout
-
-_IsAbnormal(AmountByConcentration AndVolume)_)
+Alert=Or(IsAbnormal(AmountByInput),_IsAbnormal(AmountByConcentration AndVolume)_
+)
 \end_layout
 
 \begin_layout Plain Layout
@@ -615,13 +708,8 @@ e*Duration_
 
 \begin_layout Plain Layout
 
-Alert=Or(IsAbnormal(AmountByInput),
-\end_layout
-
-\begin_layout Plain Layout
-
-         IsAbnormal(AmountByConcentrationAndVolume),      _IsAbnormal(AmountByDo
-seAndDuration)_) 
+Alert=Or(IsAbnormal(AmountByInput),IsAbnormal(AmountByConcentrationAndVolume),_I
+sAbnormal(AmountByDoseAndDuration)_) 
 \end_layout
 
 \begin_layout Plain Layout
@@ -983,7 +1071,7 @@ lstinline{Alert}
 \end_inset
 
  need updates, therfore there is no chance of consistency problem between
- the variables values.
+ the variables' values.
 \end_layout
 
 \begin_layout Section
@@ -991,190 +1079,20 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-Constraints systems, such as Hotdrink, abstract multi-way constaints, while
- reactive instanse variables abstract one-way dependencies.
- Nevertheless, the code verbosity are very close.
- Both declare the variables, the dependencies and the low level functions
- to enforce the dependencies.
- For example the following is equivilent to the bag class' content.
+Originally, there is a difference between the concepts of FRP and constraints
+ systems.
+ FRP is about defining variables as functions over other variables.
+ In contrast, constraints systems can relate the same variable with several
+ constraints, so that it can be calculated differently depending on the
+ input in runtime.
+ Our new variant of FRP closes the gap between FRP and constraints systems,
+ because in the new model, a variable can be related to several formulas.
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-var model = new hd.ModelBuilder()
-\end_layout
-
-\begin_layout Plain Layout
-
-    .variables( {Drug: 0, VolumeOfFluid: 0, Concentration: 0 )
-\end_layout
-
-\begin_layout Plain Layout
-
-.constraint( Drug, VolumeOfFluid, Concentration' )
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'VolumeOfFluid, Concentration -> Drug', mul  )
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'Drug, VolumeOfFluid -> Concentration', div  )   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-However, reactive instance variables' approach outperforms Hotdrink.
- For a small case study, two applications are required.
- First, containing only the bag from the drug administration.
- Second, containing the whole drug administration.
- As in our design, from the single source of code, bag can be deployed independe
-tly in addition to the deployment of the whole.
- While in Hotdrink, two applications should be developed, duplicating the
- code of the bag.
-\end_layout
-
-\begin_layout Subsection
-Multi-way Constraints????
-\end_layout
-
-\begin_layout Standard
-In constraints systems, we can declare 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=B+C
-\end_layout
-
-\end_inset
-
-, and each user update, to any of the variables, follows an automatic update
- to the left variables.
- With the proposed Rivars, it is implemented by declaring three formulas:
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A:=B+C
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B:=A-C
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C:=A-B
-\end_layout
-
-\end_inset
-
-.
- However, the long verbosity exists also in constraints systems, when developers
- need specifying methods to satisfy the constraints.
- In addition, building blocks can easily built on top of our thesis.
- This means more extensions can be implemented by combining several formulas
- into a single constraint.
-\end_layout
-
-\begin_layout Subsection
-Decentralized Calculation?????
-\end_layout
-
-\begin_layout Standard
-Constraints systems (and most reactive programming implementations
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-) manage the constraints and handle them by a one centralized procedure.
- Similary is the approach in the code, the applications' code are of one
- block, because: 
-\begin_inset Quotes eld
-\end_inset
-
-If the one-way constraints are defined in separate places, co-ordinating
- these constraints can be a major software engineering problem
-\begin_inset Quotes erd
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- Consequently, the market which needs modular solutions, does not adopt
- such centerlized solutions 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
+The difference between our model to the traditional constraints systems
+ is the integration with OOP, so that developers can effectively model common
+ solutions to several applications.
 \end_layout
 
 \begin_layout Section
@@ -1189,7 +1107,7 @@ Conclusion
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1243,7 +1161,7 @@ Solutions
 \begin_inset Text
 
 \begin_layout Plain Layout
-State
+Events
 \end_layout
 
 \end_inset
@@ -1281,7 +1199,7 @@ X
 \begin_inset Text
 
 \begin_layout Plain Layout
-Unidirectional Dataflow
+FRP
 \end_layout
 
 \end_inset

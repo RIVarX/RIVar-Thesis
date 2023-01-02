@@ -90,150 +90,39 @@ Related Work
 \end_layout
 
 \begin_layout Standard
-The problem reminds the 
-\emph on
-nonlinear behavior or chaotic behavior
-\emph default
- in the context of complex systems.
- Complex systems are real-wprld systems composed of many components, each
- has its internal behavior and interaction with the other component.
- In the complex system's behavior, change in the size of the input does
- not produce a proportional change in the size of the output (i.e., small
- input produces huge amount or infinite calculated values).
- The behavior happens by 
-\emph on
-feedback
-\emph default
-, such that output is observed again as an input.
+FRP shares with the paradigm of constraints systems the idea, that developers
+ declare equations, and the runtime automates variables updates according
+ to the equations and input.
+ However, they are different: FRP is about defining variables as functions
+ over other variables, while constraints systems are about to satisfy constraint
+s.
 \end_layout
 
 \begin_layout Standard
-superposition principle: the net response caused by two or more stimuli
- is the sum of the responses that would have been caused by each stimulus
- individually.
- So that if input A produces response X and input B produces response Y
- then input (A + B) produces response (X + Y).
-\end_layout
-
-\begin_layout Standard
-—————–
-\end_layout
-
-\begin_layout Standard
-In order to do the switch from applications with one large network dependencies
- 
+There are constraints systems similar to FRP that handle one-way constraints.
+ There are other constraints systems that handle two-way constraints.
+ Constraints systems that handle two-way constraints, by their nature, handle
+ cycles correctly, and allows defining multiple constraints that output
+ to the same variable 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "marheim2017domain"
+key "sannella1993multi"
 literal "false"
 
 \end_inset
 
- (monolith), we adopt the approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, in which an existing language can be extended with a variation of 
-\emph on
-reactive variable
-\emph default
- as a data type, that is used to declare and automate dependencies.
+.
+ This means that we are not the first to discover reassigment as a way to
+ solve cycles.
+ However, our finding contributes to area of the constraints systems.
 \end_layout
 
 \begin_layout Standard
-———————
-\end_layout
-
-\begin_layout Standard
-ReactiveX was mentioned as 
-\emph on
-not true FRP, 
-\emph default
-because it provides 
-\emph on
-merge
-\emph default
- operator that merges streams based on the computer's clock time, and the
- ability to produce recursion.
- Both prevent from having the referential transparency property, such that
- the same input will produce consistenctly the same output.
- 
-\emph on
-Sodium
-\emph default
- accomplish that by wrapping the FRP code with transactions that handle
- simultaneous events and avoid/ignore recursion calls.
- In contrast, we answer the two open issues by: First, Predictable merge
- operator depending on reliable timestamps.
- Second, support recursion by the predictable merge operator under the wood.
-\end_layout
-
-\begin_layout Standard
-—————
-\end_layout
-
-\begin_layout Standard
-It has been proposed 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "boix2013object"
-literal "false"
-
-\end_inset
-
-: 
-\begin_inset Quotes eld
-\end_inset
-
-According to chapter 3 of Abelson & Sussman 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-, there are two fundamentally dierent ways to organise large systems: according
- to the objects that live in the system, or according to the streams of
- values that ow through the system.
- Even though the notions of 
-\emph on
-object
-\emph default
- and 
-\emph on
-stream
-\emph default
- have meanwhile taken many incarnations, the dichotomy still exists in mod-
- ern programming languages.
- 
-\begin_inset Quotes eld
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-There are two existing approaches: reactive variables that can be defined
- inside objects, and altering the traditional semantics of object and its
- fields and methods.
- In this work, object semantics is altered 
-\emph on
-by
-\emph default
- providing reactive variables defined inside objects.
-\end_layout
-
-\begin_layout Standard
-—————–
-\end_layout
-
-\begin_layout Standard
-FRP has an adjustment 
+Constraints systems' runtime is usualy handled by a constraints solver.
+ A constraints solver is the algorithm that updates the variables according
+ to the constraints and input.
+ The constraints solver has all the data about the variables and constraints.
+ In our days, that distributed applications are on demand 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "drechsler2014distributed"
@@ -241,234 +130,92 @@ literal "false"
 
 \end_inset
 
- to work with distributed applications, and it worked correctly for a small
- case study.
- In the other side, Hotdrink which is a weak FRP variation, has been investigate
-d to work for one real world application, and failed in the integration
- with the micro-services architecture 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
+, this become a problem.
+ In addition, harmonizing constraints systems with OOP may also be helpful.
+ Therefore our new model should be helpful.
 \end_layout
 
 \begin_layout Standard
-————–
-\end_layout
-
-\begin_layout Standard
-The our approach satisfies the guarantee 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-: 
-\emph on
-the same sequence of events produces the same results, regardless of the
- timing of those events.
-
-\emph default
- This is equivalent to the referential transparency property required by
- 
-\end_layout
-
-\begin_layout Standard
-FRP 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, such that the same input will produce consistenctly the same output.
-
-\emph on
- 
-\emph default
-As a result, Despite the existence of cycles, the our approach accomplish
- the referential transparency property, therfore it is FRP.
-\end_layout
-
-\begin_layout Standard
-———-
-\end_layout
-
-\begin_layout Standard
-state management
-\end_layout
-
-\begin_layout Standard
-———
-\end_layout
-
-\begin_layout Standard
-constraints solver - distributed
-\end_layout
-
-\begin_layout Standard
-———–
-\end_layout
-
-\begin_layout Standard
-FRP has an adjustment 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
- to work with distributed applications, and it worked correctly for a small
- case study.
- In the other side, Hotdrink which is a weak FRP variation, has been investigate
-d to work for one real world application, and failed in the integration
- with the micro-services architecture 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Actually the FRP paradigm has problems with the integration.
- The problems are arisen with the presence of 
-\emph on
-cycles
-\emph default
- and 
-\emph on
-glitches
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- In previous works the glitches problem has been handled 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-, even in the distributed settings 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-.
- However, the problem remains with the presence of cycles (then also the
- glitches problem are arisen again).
- Accordingly, the applications are seperated between those with with hierarchica
-l data, in which the dependency graph is acyclic, and those with mutually
- dependent variables, in which the dependency graph contain cycles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-————
-\end_layout
-
-\begin_layout Standard
-Assigments and operators as parties in the graph, should track their input
- values from the inputs streams 
-\begin_inset Quotes eld
-\end_inset
-
-deciding
-\begin_inset Quotes erd
-\end_inset
-
- what values to notify their subscribers.
- The parties need to be coordinated, therefore a 
-\emph on
-distributed algorithm
-\emph default
- must be designed.
- 
-\end_layout
-
-\begin_layout Standard
-—————
-\end_layout
-
-\begin_layout Standard
-We adopt the approach 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, in which an existing language can be extended with a variation of reactive
- variable as a data type.
-\end_layout
-
-\begin_layout Standard
-——–
-\end_layout
-
-\begin_layout Standard
-we use distributed propogation algorithm.
- compare to distributed REScala - they need to know about the source identifiers
-\end_layout
-
-\begin_layout Standard
-————
-\end_layout
-
-\begin_layout Section
-Old from abstraction
-\end_layout
-
-\begin_layout Subsection
-Specialization Interface
-\end_layout
-
-\begin_layout Standard
-In 
+Any two-way constraints are declared with the methods to satisfy it, e.g.,
+ as implemented by Hotdrink in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Specialization-Interface-with-cycle"
+reference "fig:two-way-constraint"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- subclass ExtendedDrugAdministration defines Drug to depend on Concentration,
- while in the superclass DrugAdministration defines Concentration to depend
- on Drug.
- 
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B+C}
+\end_layout
+
+\end_inset
+
+ is attached with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B:=A-C}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C:=A-B}
+\end_layout
+
+\end_inset
+
+.
+ In order to use our model, only the methods should be specified.
+ If one prefers providing the code in terms of two-way constraints, we can
+ think about implementing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Constraint}
+\end_layout
+
+\end_inset
+
+ class providing the same functionality.
 \end_layout
 
 \begin_layout Standard
@@ -492,46 +239,64 @@ begin{center}
 
 
 \backslash
-begin{lstlisting} 
+begin{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
 
-class DrugAdministration{
+function  sum( a, b ) { return a + b; }
 \end_layout
 
 \begin_layout Plain Layout
 
-  RIVar<double> Drug, Volume
+function diff( a, b ) { return a - b; }
 \end_layout
 
 \begin_layout Plain Layout
 
-  RIVar<double> Concentration := Drug/VolumeOfFluid
 \end_layout
 
 \begin_layout Plain Layout
 
-}
+var model = new hd.ModelBuilder()
 \end_layout
 
 \begin_layout Plain Layout
 
-class ExtendedDrugAdministration:DrugAdministration {
+    .variables( {A: 0, B: 0, C: 0} )
 \end_layout
 
 \begin_layout Plain Layout
 
-  Drug := Concentration*VolumeOfFluid
 \end_layout
 
 \begin_layout Plain Layout
 
-}
+    .constraint( A, B, C )
 \end_layout
 
 \begin_layout Plain Layout
 
+      .method( 'B, C -> A', sum  ) // A:=B+C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, C -> B', diff ) // B:=A-C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, B -> C', diff ) // C:=A-B
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .end();
 \end_layout
 
 \begin_layout Plain Layout
@@ -559,57 +324,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Specialization-Interface-with-cycle"
+name "fig:two-way-constraint"
 
 \end_inset
 
-Specialization Interface
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Service Interface
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Service-Interface-with-cycle"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- when Bag is used, then VolumeOfFluid
-\end_layout
-
-\begin_layout Standard
-Considering the figures bellow, from the Infusion alone, the dependency
- graph has no cycles.
- Infusion uses TheBag as a service, i.e., without to learn about its implementatio
-n (Bag class).
- However, an instance of Infusion with TheBag typed as Bag produces a graph
- with cycles.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
+two-way constraint 
 \begin_inset ERT
 status open
 
@@ -617,108 +336,12 @@ status open
 
 
 \backslash
-begin{center}
+lstinline{A=B+C}
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-interface IBag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Infusion { 
-\end_layout
-
-\begin_layout Plain Layout
-
- IBag TheBag
-\end_layout
-
-\begin_layout Plain Layout
-
- Infusion (IBag theBag) {TheBag=theBag}
-\end_layout
-
-\begin_layout Plain Layout
-
- RIVar<double> Duration := TheBag.VolumeOfFluid*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
- TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag:IBag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> VolumeOfFluid := Drug*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-void Main(){
-\end_layout
-
-\begin_layout Plain Layout
-
-IBag bag=new Bag();
-\end_layout
-
-\begin_layout Plain Layout
-
-Infusion infusion=new Infusion(bag)
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
+ implemented by Hotdrink
 \end_layout
 
 \end_inset
@@ -727,29 +350,11 @@ end{center}
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Service-Interface-with-cycle"
-
-\end_inset
-
-Service Interface
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 
 \end_layout
 

@@ -693,7 +693,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=Var
+
+\backslash
+lstinline{A:=Var}
 \end_layout
 
 \end_inset
@@ -704,7 +706,9 @@ status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+lstinline{A}
 \end_layout
 
 \end_inset
@@ -715,7 +719,9 @@ status open
 
 \begin_layout Plain Layout
 
-Var
+
+\backslash
+lstinline{Var}
 \end_layout
 
 \end_inset
@@ -727,7 +733,9 @@ status open
 
 \begin_layout Plain Layout
 
-A:=Tar
+
+\backslash
+lstinline{A:=Tar}
 \end_layout
 
 \end_inset

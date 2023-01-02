@@ -852,22 +852,22 @@ lstinline{A=2}
 
 .
  The model maintains a hierarchy over the statements according to the order
- of the input, such that a statement produced from new input is prioritized
+ of the input, such that a statement produced from a new input is prioritized
  over the statements produced by previous input.
 \end_layout
 
 \begin_layout Standard
-Then there an algorithm to determine a plan to execute the statements in
- an order where no statement outputs to a variable after it has been used
- (either as input or output) by another statement.
+Then there is an algorithm to determine a plan to execute the statements
+ in an order where no statement outputs to a variable after it has been
+ used (either as input or output) by another statement.
  The algorithm chooses the plan that uses the most prioritized statements.
 \end_layout
 
 \begin_layout Standard
-In the model we just described, statements produced directly or transitively
+In the model we just described, the statements produced directly or transitively
  from the input are ignored in case there is a more prioritized statement
  that directly or transitively set the relevant variable.
- This means that values are overridden if there is new input that directly
+ This means that values are overridden if there is a new input that directly
  or transitively (by the plan) set the variable.
  This is like in our model: values are overridden by new input directly
  or transitively, as according to our order model, the new input produces

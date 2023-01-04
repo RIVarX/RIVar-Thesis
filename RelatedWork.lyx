@@ -118,26 +118,21 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Constraints systems' runtime is usualy handled by a constraints solver.
- A constraints solver is the algorithm that updates the variables according
- to the constraints and input.
- The constraints solver has all the data about the variables and constraints.
- In our days, that distributed applications are on demand 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-, this become a problem.
- In addition, harmonizing constraints systems with OOP may also be helpful.
- Therefore our new model should be helpful.
+The traditional constraints systems does not have the nature to work with
+ components based architecture and distributed systems.
+ Because the runtime is handled by constraints solvers, that are algorithms
+ developed for constraints systems to satisfy the constraints.
+ The solvers are centeral components that need access to all the variables
+ and constraints.
+ At this point our new model may help, because it does have the nature to
+ work with OOP and derived architecture designs.
+ 
 \end_layout
 
 \begin_layout Standard
-Any two-way constraints are declared with the methods to satisfy it, e.g.,
- as implemented by Hotdrink in 
+Our new variant of FRP can be refered as a constraints system.
+ In the traditional constraints systems, any two-way constraint are declared
+ with the methods to satisfy it, e.g., as implemented by Hotdrink in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:two-way-constraint"
@@ -202,7 +197,7 @@ lstinline{C:=A-B}
 .
  In order to use our model, only the methods should be specified.
  If one prefers providing the code in terms of two-way constraints, we can
- think about implementing 
+ think about implementing a wrapper 
 \begin_inset ERT
 status open
 
@@ -215,7 +210,8 @@ lstinline{Constraint}
 
 \end_inset
 
- class providing the same functionality.
+ class as a future work.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -346,10 +342,6 @@ lstinline{A=B+C}
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 

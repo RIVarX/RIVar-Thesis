@@ -110,13 +110,38 @@ noprefix "false"
  It observes the fields' change events, once a value is changed, dependant
  fields are calculated and presented.
  The application is a prototype of a small part from an existing application.
- In the traditional application, the code is very complex, because of repetitive
- calculations and complex dependencies.
+ The goal is to reduce the complexity existing in the traditional application.
 \end_layout
 
 \begin_layout Standard
-In order to simplify the application, we seperate the application to two
- micro-frontends 
+In order to simplify the application, we seperate the model to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Infusion}
+\end_layout
+
+\end_inset
+
+.
+ Also the UI is seperated to micro-frontends 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "peltonen2021motivations"
@@ -124,9 +149,18 @@ literal "false"
 
 \end_inset
 
-, depending on related domain objects.
- The domain objects use RIVars and formulas to represent the fields and
- calculations.
+ respectively.
+ The architectural design is illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:The-design-of"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -264,7 +298,7 @@ name "fig:Drug-calculations"
 
 \end_inset
 
-Drug calculations' user interface
+Drug administration user interface
 \end_layout
 
 \end_inset
@@ -281,7 +315,7 @@ Drug calculations' user interface
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -405,7 +439,13 @@ end{tikzpicture}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Drug calculation's application architecture
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-design-of"
+
+\end_inset
+
+The design of the drug administration application
 \end_layout
 
 \end_inset

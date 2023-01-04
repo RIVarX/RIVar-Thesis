@@ -498,7 +498,7 @@ source unification
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "watanabecomplete"
+key "shibanai2018distributed,watanabecomplete"
 literal "false"
 
 \end_inset

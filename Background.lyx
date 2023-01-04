@@ -117,7 +117,7 @@ Adding Formulas
 \begin_layout Standard
 The FRP paradigm provides solutions to the task of updating variables in
  response to other variables' updates.
- The developers should specify formulas, and the solution use its runtime
+ The developers should specify formulas, and the solution uses its runtime
  to enforce them.
  For this discussion, we extend the term 
 \emph on
@@ -132,11 +132,30 @@ The FRP runtime should collect the formulas and continuously reevaluating
  the variables according to the formulas and input.
  FRP solutions usually collects the formulas in its implemented compilation
  or evaluation process.
- Solutions like REScala constructs a graph data structure.
- Solutions like XFRP generates code that handles the updates according to
- the specified formulas.
- In contrast, solutions depending purly on the observable pattern, does
- not need a special mechanism to collect the formulas.
+ Solutions like REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "salvaneschi2014rescala"
+literal "false"
+
+\end_inset
+
+ constructs a graph data structure to enforce later.
+ Solutions like 
+\emph on
+XFRP 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "shibanai2018distributed"
+literal "false"
+
+\end_inset
+
+ generates code that handles the updates according to the specified formulas.
+ In contrast, solutions depending purly on the observer pattern, does not
+ need a special mechanism to collect the formulas.
 \end_layout
 
 \begin_layout Section

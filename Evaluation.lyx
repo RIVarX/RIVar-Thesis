@@ -82,8 +82,10 @@ Results
 \end_layout
 
 \begin_layout Standard
-In this section we consider the code repetitions element in the context
- of using RIVars
+The OOP and FRP paradigms provide different mechanisms to reduce repeating
+ code.
+ The new model harmonizes OOP with FRP, therefore we expect to get advantages
+ from the two paradigms, in the element of repeating code.
 \end_layout
 
 \begin_layout Section
@@ -98,8 +100,9 @@ Developers usually need to develop software, that has already been partly
  beacuse it will not harm existing consumers.
  However, future changes might require more work, because if change is required
  in the part that was repeated, the change should be repeated.
- The OOP paradigm focuses on objects encapsulation, with the meaning to
- not change, but to extend.
+ In addition, it might be hard to rememeber the old duplication, then future
+ changes might not completely done, leading to inconsistent behavior.
+ Therefore, the OOP paradigm provides mechanisms of extending solutions.
 \end_layout
 
 \begin_layout Section
@@ -1084,18 +1087,26 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Our new model provide 
+Our new model helps to use the 
 \emph on
-single souce of truth 
+DRY
 \emph default
-by not repeating code
+ (don't repeat yourself) principle, or the 
 \emph on
-.
+SSOT
+\emph default
+ (Single Source of Truth.
+ By not repeating code, there is no inconsistent behavior, each piece of
+ logic has only one source of truth) principle.
+
+\emph on
  
 \emph default
-It does not repeat calling to recalculate, it uses OOP mechanisms, and it
- does not make variables as function over reactive variables but making
- them according to their conceptual meaning.
+By using OOP, the developers can use and extend existing solution.
+ By using FRP, there is no need to repeat calling to calculations.
+ By using RIVars, there is no need to declare several variables to the same
+ real-world variable.
+ 
 \end_layout
 
 \end_body

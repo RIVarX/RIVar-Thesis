@@ -107,90 +107,16 @@ noprefix "false"
 \end_inset
 
 ) handles drug administration.
- It observe fields' change events, once a value is changed, dependant fields
- are calculated and presented.
+ It observes the fields' change events, once a value is changed, dependant
+ fields are calculated and presented.
  The application is a prototype of a small part from an existing application.
  In the traditional application, the code is very complex, because of repetitive
  calculations and complex dependencies.
 \end_layout
 
 \begin_layout Standard
-In order to simplify the application, we use 
-\emph on
-Domain Driven Design
-\emph default
- (DDD) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "evans2004domain"
-literal "false"
-
-\end_inset
-
-, because modeling according to the real world, should promote the comprehension.
- In the application we simulate
-\emph on
- real world variables
-\emph default
-: characteristics of interest we observe (named 
-\emph on
-observable variables
-\emph default
-) or inferre from other variables that are observed (named
-\emph on
- latent variables
-\emph default
-) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "dodge2006oxford"
-literal "false"
-
-\end_inset
-
-.
- OOP is a perfect paradigm to simulate the real world variables: objects
- represent the identity of real world objects, therefore their instance
- variables should represent real world variables.
- 
-\end_layout
-
-\begin_layout Standard
-As a result, we model the drug administration with two domain objects 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Infusion
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Bag
-\end_layout
-
-\end_inset
-
-.
- Each domain object contains its variables, and also observe, calculate,
- and present its values.
- The observation is by observing fields' change events, and the presentation
- is by updating the fields.
-\end_layout
-
-\begin_layout Standard
-We use
-\emph on
- 
-\emph default
-Micro-frontends 
+In order to simplify the application, we seperate the application to two
+ micro-frontends 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "peltonen2021motivations"
@@ -198,44 +124,16 @@ literal "false"
 
 \end_inset
 
- to simplify code management.
- The UI is seperated into two parts, named micro-frontends.
- Then different teams will own different micro-frontends, and have the sub-domai
-n knowledge, without the need to learn about other sub-domains.
- As a result, we model two micro-frontends to the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Infusion
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Bag
-\end_layout
-
-\end_inset
-
- domain objects.
- The micro-frontend contains one field for each variable existing in their
- object.
- Thereafter, the micro-frontends interacts with the objects to observe and
- present values in the fields.
+, depending on related domain objects.
+ The domain objects use RIVars and formulas to represent the fields and
+ calculations.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -366,8 +264,7 @@ name "fig:Drug-calculations"
 
 \end_inset
 
-Drug calculations' user interface, with set Dose, Duration and VolumeOfFluid
- and other fields are calculated.
+Drug calculations' user interface
 \end_layout
 
 \end_inset
@@ -381,7 +278,7 @@ Drug calculations' user interface, with set Dose, Duration and VolumeOfFluid
 \end_layout
 
 \begin_layout Section
-The Bag
+The Objects
 \end_layout
 
 \begin_layout Standard
@@ -390,7 +287,9 @@ status open
 
 \begin_layout Plain Layout
 
-Bag
+
+\backslash
+lstinline{Bag}
 \end_layout
 
 \end_inset
@@ -398,7 +297,7 @@ Bag
  (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Bag-class-diagram"
+reference "fig:Bag-Class"
 plural "false"
 caps "true"
 noprefix "false"
@@ -489,20 +388,6 @@ end{description}
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Bag
-\end_layout
-
-\end_inset
-
- implemented as object's class with the fields as its instance variables
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
@@ -518,6 +403,40 @@ status open
 
 \backslash
 begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug := Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
@@ -587,11 +506,24 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Bag-class-diagram"
+name "fig:Bag-Class"
 
 \end_inset
 
-Bag class diagram
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ Class
 \end_layout
 
 \end_inset
@@ -610,136 +542,9 @@ status open
 
 \begin_layout Plain Layout
 
-Bag
-\end_layout
-
-\end_inset
-
- object class, should handle its instance variables, to refreshing the value,
- in response to changes.
- By denoting 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-:=
-\end_layout
-
-\end_inset
-
- we mean that the left side variable should be refreshed whenever the expression
-'s value is changed (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Bag-code"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
 
 \backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug := Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Bag-code"
-
-\end_inset
-
-Bag code
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-The Infusion
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Infusion
+lstinline{Infusion}
 \end_layout
 
 \end_inset
@@ -750,7 +555,9 @@ status open
 
 \begin_layout Plain Layout
 
-Bag's content
+
+\backslash
+lstinline{Bag}'s content
 \end_layout
 
 \end_inset
@@ -839,12 +646,40 @@ status open
 
 \begin_layout Plain Layout
 
-Infusion
+
+\backslash
+lstinline{Infusion}
 \end_layout
 
 \end_inset
 
- has fields in addition to bag's content
+ class handles calculations while referring also to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}'s
+\end_layout
+
+\end_inset
+
+ fields, unawaring of the calculations specified within 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -863,6 +698,63 @@ status open
 
 \backslash
 begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Infusion {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration := TheBag.Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate := TheBag.VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = TheBag.Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug := Duration*Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.VolumeOfFluid := Duration*Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -967,67 +859,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Infusion-diagram"
-
-\end_inset
-
-Infusion diagram
-\end_layout
+name "fig:Infusion-class"
 
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Infusion
-\end_layout
-
-\end_inset
-
- object class, handle calculations while referring also to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-bag's
-\end_layout
-
-\end_inset
-
- fields, unawaring of the calculations specified within 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Bag
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1035,85 +871,12 @@ status open
 
 
 \backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Infusion {    
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration := TheBag.Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate := TheBag.VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = TheBag.Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
+lstinline{Infusion}
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Infusion-code"
-
-\end_inset
-
-Infusion code
+ class
 \end_layout
 
 \end_inset
@@ -1131,7 +894,7 @@ Calculation
 \end_layout
 
 \begin_layout Standard
-In the original application, the calculation was centerlized.
+In the original application, the calculation is centerlized.
  Whenever a user sets a new value to any of the fields, a calculation procedure
  (
 \begin_inset CommandInset ref
@@ -1292,7 +1055,9 @@ status open
 
 \begin_layout Plain Layout
 
-Itravenous
+
+\backslash
+lstinline{Infusion}
 \end_layout
 
 \end_inset
@@ -1303,7 +1068,9 @@ status open
 
 \begin_layout Plain Layout
 
-Bag
+
+\backslash
+lstinline{Bag}
 \end_layout
 
 \end_inset
@@ -1328,7 +1095,11 @@ status open
 
 \begin_layout Plain Layout
 
-Infusion' Dose
+
+\backslash
+lstinline{Infusion}'s 
+\backslash
+lstinline{Dose}
 \end_layout
 
 \end_inset
@@ -1339,18 +1110,187 @@ status open
 
 \begin_layout Plain Layout
 
-Duration
+
+\backslash
+lstinline{Duration}
 \end_layout
 
 \end_inset
 
 .
- In response, the itravenous calculates its bag's Drug's value.
- Then the clinician sets a value to the bag's VolumeOfFluid.
- In response, the bag calculates its Concentration's value, and the Infusion
- calculates its Rate's value, according to the bag's VolumeOfFluid's new
- value.
- Bags called Infusion to calculates its Rate 
+ In response, the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Infusion}
+\end_layout
+
+\end_inset
+
+ calculates its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+'s 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+'s value.
+ Then the clinician sets a value to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+'s 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+ In response, the bag calculates its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+'s value, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Infusion}
+\end_layout
+
+\end_inset
+
+ calculates its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Rate}
+\end_layout
+
+\end_inset
+
+'s value, according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+'s 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+'s new value.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ called 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Infusion}
+\end_layout
+
+\end_inset
+
+ to calculates its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Rate}
+\end_layout
+
+\end_inset
+
+ 
 \emph on
 indirectly
 \emph default
@@ -1540,7 +1480,7 @@ Unpredictable Calculation
 \end_layout
 
 \begin_layout Standard
-Unfortunately, the behavior is not satisfied.
+The behavior does not satisfy.
  In the cenario visualized in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1551,11 +1491,98 @@ noprefix "false"
 
 \end_inset
 
- the user sets Dose to 10, then Duration to 10, in response, according to
- line 5, Drug is calculated to 100.
- The user then sets VolumeOfFluid to 300, in response, according to line
- 9, Concentration is calculated to 0.33.
- Then, according to line 10, Drug is overridden to 99.
+ the user sets 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+10
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+ to 10, in response, according to line 5, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is calculated to 100.
+ The user then sets 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ to 300, in response, according to line 9, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ is calculated to 0.33.
+ Then, according to line 10, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is overridden to 99.
  
 \end_layout
 
@@ -1765,7 +1792,9 @@ status open
 
 \begin_layout Plain Layout
 
-Infusion
+
+\backslash
+lstinline{Infusion}
 \end_layout
 
 \end_inset
@@ -1776,7 +1805,9 @@ status open
 
 \begin_layout Plain Layout
 
-Bag
+
+\backslash
+lstinline{Bag}
 \end_layout
 
 \end_inset
@@ -1787,7 +1818,9 @@ status open
 
 \begin_layout Plain Layout
 
-Bag's
+
+\backslash
+lstinline{Bag}'s
 \end_layout
 
 \end_inset
@@ -1798,7 +1831,9 @@ status open
 
 \begin_layout Plain Layout
 
-Concentration
+
+\backslash
+lstinline{{Concentration}
 \end_layout
 
 \end_inset
@@ -1823,7 +1858,9 @@ status open
 
 \begin_layout Plain Layout
 
-Infusion
+
+\backslash
+lstinline{Infusion}
 \end_layout
 
 \end_inset

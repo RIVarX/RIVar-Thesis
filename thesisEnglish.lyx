@@ -369,7 +369,7 @@ filename "Introduction.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Motivation.lyx"
+filename "Background.lyx"
 
 \end_inset
 
@@ -379,7 +379,7 @@ filename "Motivation.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Background.lyx"
+filename "Motivation.lyx"
 
 \end_inset
 

@@ -1,0 +1,3532 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Background
+\end_layout
+
+\begin_layout Section
+What is assigment?
+\end_layout
+
+\begin_layout Standard
+in frp what is assigment? like in FP?
+\end_layout
+
+\begin_layout Standard
+in javascript we can write f=f
+\end_layout
+
+\begin_layout Section
+Types of Dependencies Subgraphs
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (1,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op1) at (2,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq1) at (2,3) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq2) at (4,3) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (T) at (3,1) {T};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op1) edge  (eq1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (eq2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (eq1) edge  (T);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (eq2) edge  (T);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+T:=A+B
+\end_layout
+
+\begin_layout Plain Layout
+
+T:=C
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Multiple-Assigment
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (1,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (5,7) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op1) at (2,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op2) at (4,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op3) at (3,3) {*};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq) at (3,1) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (T) at (3,-1) {T};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op1) edge  (op3);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op2) edge  (op3);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op3) edge  (eq);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (eq) edge  (T);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Glitch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (1,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (5,7) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op1) at (2,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (op2) at (4,5) {+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq1) at (2,3) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (eq2) at (4,3) {=};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (T) at (3,1) {T};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (op2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op1) edge  (eq1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (op2) edge  (eq2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (eq1) edge  (T);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (eq2) edge  (T);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Multiple-Assigment+Glitch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Infinite loops
+\end_layout
+
+\begin_layout Standard
+In the development of user interface applications, the task of update variables
+ in response to other variables' updates, might cause infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hung2018architectural"
+literal "false"
+
+\end_inset
+
+, e.g., variable A might update variable B in response to its update and vice
+ versa.
+ Infinite loops might exist especially when an application commences scaling
+ and have long chains of updates.
+ 
+\end_layout
+
+\begin_layout Standard
+It is likely that infinite loops happens because of 
+\emph on
+indepedent
+\emph default
+ definitions to update variable in response to the other variables' updates,
+ such as in the context of various features.
+ However, the problem will not happen while new definitions do only derive
+ existing variables and not vice versa.
+\end_layout
+
+\begin_layout Section
+Dependencies
+\end_layout
+
+\begin_layout Standard
+The assignment operator 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+ causes the target variable to depend on the assigned expression.
+ This dependency includes three dependancy types: data dependency, control
+ dependency and source code dependency.
+ 
+\end_layout
+
+\begin_layout Itemize
+Data dependency: a variable's value is derived from other variables' values.
+\end_layout
+
+\begin_layout Itemize
+Control dependency: when a piece of code calls directly to another piece
+ of code, then the second piece of code depends on the first piece of code.
+ Because, depending on the first piece of code, the second piece of code
+ 
+\emph on
+will
+\emph default
+ or
+\emph on
+ will not 
+\emph default
+be executed.
+ An assignment statement causes a control dependency, because the program
+ executes the code of the expression, and then flows to assign the result.
+\end_layout
+
+\begin_layout Itemize
+Source code dependency 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+: when a change in one piece of code requires change in another piece of
+ code, then the second piece of code depends on the first piece of code.
+ An assignment statement causes a source code depedency by depending on
+ the variables' 
+\emph on
+declarations
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In reactive applications, when variables' values should be continuously
+ re-evaluated with other variables' values, it is time consuming to do updates
+ when there are no changes.
+ Therefore, variables' values are changed as a reaction to other variables'
+ changes using the 
+\emph on
+inversion of control
+\emph default
+ principal: 
+\begin_inset Quotes eld
+\end_inset
+
+don't call us, we'll call you
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When using the inversion of control principal, it might be that the data
+ dependency is not declared directly.
+ Instead, the code that update a variable, should dynamically connected
+ to the code that update the variables it depends on.
+ 
+\end_layout
+
+\begin_layout Standard
+In the
+\emph on
+ Functional Reactive Programming
+\emph default
+ (FRP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+ paradigm, with the push-based model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, the inversion of control are used while the data dependencies are declared
+ directly.
+ With such push-based FRP implementations, developers can declare assigment-like
+ statement, i.e., formulas, causing variables' values be changed as a reaction
+ to other variables' values' changes.
+ Specifically, for a formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var:=Exp
+\end_layout
+
+\end_inset
+
+, whenever Exp's value is changed then Var's value is changed.
+\end_layout
+
+\begin_layout Standard
+In this thesis, we focus on inverting the 
+\emph on
+source code dependency
+\emph default
+ as well: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var
+\end_layout
+
+\end_inset
+
+ will be accessed by an interface, while the actual 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var
+\end_layout
+
+\end_inset
+
+ is encapsulated and managed independently.
+ then objects can own logic which continously re-evaluating internal
+\emph on
+ and external
+\emph default
+ variables by simple formulas
+\emph on
+.
+\end_layout
+
+\begin_layout Standard
+The source code's dependancy inversion (DI) is the main benefit of the 
+\emph on
+Object Oriented Programming
+\emph default
+ (OOP) paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ By DI, developers and architects control code change's effects.
+ DI promotes the code maintainance, by choosing the allowed change effects
+ according to the organizations needs.
+\end_layout
+
+\begin_layout Section
+FRP
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+ is a paradigm that abstracts away the need to update variables in response
+ to other variables' updates.
+ The main concept is 
+\emph on
+reactive variable
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (with some variations also known as 
+\emph on
+behavior
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+).
+ Reactive variables and 
+\emph on
+lifted
+\emph default
+ functions form expressions in order to assign to reactive variables.
+ By an assignment, reactive variables become dependent on reactive variables
+ containing in the input expressions.
+ 
+\end_layout
+
+\begin_layout Standard
+Reactive variable depends on a set of other reactive variables by assigning
+ an expression consisting of the set of reactive variables, consequently
+ the value of the variable is set to the value of the expression, and continuous
+ly re-evaluated in response to changes in the value of any of the variables
+ appearing in the expression.
+ For example, as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:The-dependancy-graph"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B+1
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ changes in response to any change in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{figure} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black, label={A}] (A) at (0,5) {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black ,label={B}] (B) at (3.5,5) {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (A) -- (B); 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+caption{Dependency Graph: Modeling visually A:=B+1}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{figure}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We presented our goal to provide FRP with source code dependancy inversion,
+ by reactivly assigning expressions to abstract reactive variables.
+ The core idea is in contrast to the FRP, because there is no seperation
+ between the reactive variables and their assigned expression 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+, reactive variables are defined by their functions over other reactive
+ variables, or by their values over time.
+\end_layout
+
+\begin_layout Standard
+However, in FRP implemetations, such as ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, reactive variable is a data type.
+ Then, reactive variables just like any other variable, can be assigned
+ through an interface.
+ Assigning such reactive variables, overrides their old source.
+ However, such reassignments is contrasted with the core of FRP, because
+ FRP aims to declaratively connecting data dependencies without caring about
+ time and control dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+There can be another option, to push values to reactive variables, such
+ that the code pushing the values is a consumer accessing its service through
+ an interface.
+ The implementation should be imperative, instead of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Var:=Exp
+\end_layout
+
+\end_inset
+
+, it looks more like 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Exp.Subscribe(val=>Var.OnNext(val))
+\end_layout
+
+\end_inset
+
+.
+ This might lead to accidental recursion 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In other words, it might be that the program will contain cycles in the
+ data dependencies.
+\end_layout
+
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+—-
+\end_layout
+
+\begin_layout Standard
+Various libraries enable the use of FRP with imperative code.
+ For example REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, which is an extension to Scala programming language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "odersky2008programming"
+literal "false"
+
+\end_inset
+
+, enables converting between reactive variables and events.
+ An additional library SignalJ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+ includes an interface for reactive variables, with imperative events to
+ respond once variables' values are changed.
+ An API 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ for C# programming language 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hejlsberg2008c"
+literal "false"
+
+\end_inset
+
+ named ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+, adoped by other languages (e.g., RxJS in JavaScript) provides the reactive
+ variable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ as an 
+\emph on
+event stream
+\emph default
+, which is an observable emitting values to subscribers, based on the 
+\emph on
+observer 
+\emph default
+and
+\emph on
+ iterator
+\emph default
+ patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+, and also provides 
+\emph on
+operators
+\emph default
+ being functions over the streams.
+\end_layout
+
+\begin_layout Section
+Cycles
+\end_layout
+
+\begin_layout Standard
+In integration of functional-reactive code with imperative code might contain
+ circular dependencies causing infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ The problem might happen also in pure FRP (such as happens by imperative-based
+ implementation), in case recursive definitions are presented.
+ Even the simple formulas 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+ contain circular dependencies: the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ is changed in response to any change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, while any change in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ triggers a change of the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Handling Approaches
+\end_layout
+
+\begin_layout Paragraph
+Avoiding
+\end_layout
+
+\begin_layout Standard
+In 
+\emph on
+true FRP
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ the graph must not have cycles, because the code is constructed similar
+ to pure functions.
+ The functional style is used in order to achieve the 
+\emph on
+referential transparency 
+\emph default
+property, i.e., the same input produces consistenctly the same output.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, in 
+\emph on
+glitch free
+\emph default
+ FRP, there are special algoritms to prevent from the incomplete updates
+ .
+ Indeed, avoiding cycles is a necessary condition to the algorithms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Cycles are not handled by default also by Microsoft Excel (with the term
+\emph on
+ circular dependencies
+\emph default
+).
+ Also React provides only one-way dataflow 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+, and so also 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marum2020unified"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There is also an approach to avoid the glitches
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://staltz.com/rx-glitches-arent-actually-a-problem.html
+\end_layout
+
+\end_inset
+
+: variable depends on several variables with a single ancestor will be defined
+ directly by that ancestor.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Iterations
+\end_layout
+
+\begin_layout Standard
+In contrast, FrTime and other FRP implementations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+ support cycles such as by providing a keyword 
+\emph on
+delay
+\emph default
+ to break an update loop.
+ However, the solution is a 
+\begin_inset Quotes eld
+\end_inset
+
+compromise consistent
+\begin_inset Quotes erd
+\end_inset
+
+.
+ As explained, variables might not complete the calculation by a single
+ update (that might be a glitch).
+ A more reliable solution is provided by Microsoft Excel, when changing
+ the default behavior to avoid cycles by one of the suggested 
+\begin_inset Quotes eld
+\end_inset
+
+calculation options
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The first option is to terminate the updates after an arbitrary iterations
+ amount.
+ The second option is to ignore an update if the new value has not been
+ changed comparing to the value that the variable contains, or changed only
+ less than an arbitrary threshold.
+\end_layout
+
+\begin_layout Standard
+Terminating the updates after an arbitrary iterations amount, may be a solution.
+ However, the developer should find the balance, what constant number to
+ choose.
+ It might be difficult to find out the minimum number, that is the needed
+ amount for applications with many dependencies.
+ While, an high amount might perform low perfomance by unnecessary updates.
+\end_layout
+
+\begin_layout Standard
+In the second method the developers need to find a threshold.
+ The threshold is needed due to loose of information though calculations,
+ e.g., In an application that contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A/3
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B*3
+\end_layout
+
+\end_inset
+
+, if the user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ might be calculated and updated with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+100/3=0.33
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ should not be updated with the new calculated value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0.33*3=0.99
+\end_layout
+
+\end_inset
+
+, consequently the chosen constant threshold should be less than 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0.01
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Central Management
+\end_layout
+
+\begin_layout Standard
+Hotdrink 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ maintains priority, when a user updates a variable, its priority becomes
+ the highest.
+ The values of the variables with the old priority is overridden by calculating
+ according to the variables with the higher priority.
+ The variables and dependencies are managed by a centralized algorithm named
+ 
+\emph on
+constraints solver
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+In the traditional programming, the developers uses state to recognize when
+ to update or not to update, and when to trigger an event or to not trigger
+ an event.
+ Consequently, it might be difficult to comprehend the variables and dependencie
+s of the functional requirements (required application logic).
+ because the code is tangled with non-functional requirements consisting
+ of the internal variables (state) and conditions to technically implement
+ (as described, to recognize when to update or not to update) the functional
+ requirements.
+\end_layout
+
+\begin_layout Standard
+XState
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://xstate.js.org/
+\end_layout
+
+\end_inset
+
+ and Redux 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ reminds the statechart 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1990statemate"
+literal "false"
+
+\end_inset
+
+ or just the simple state-machine.
+ The updates are still controlled by state and conditions, but they are
+ centerlized and not encapsulated in various objects.
+ As a result the variables change become more predictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+ 
+\end_layout
+
+\begin_layout Standard
+ 
+\end_layout
+
+\begin_layout Section
+Old
+\end_layout
+
+\begin_layout Paragraph*
+Events
+\end_layout
+
+\begin_layout Standard
+In the enterprise application 
+\emph on
+Microsoft Dynamics
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
+
+\end_inset
+
+ developers can extend the web forms with code that are executed in response
+ to events, In addition users can extend the forms without code , but by
+ a user friendly customization form.
+ The user customize 
+\emph on
+business rules
+\emph default
+ by drug and drop and easy selection elements.
+ With and without code the application can be customized to calculate fields
+ in response to 
+\emph on
+change events
+\emph default
+.
+ There is a protection to not running infinite loops in cases that there
+ are cycles in dependencies: the code is executed only in resonse to change
+ that happens directly by the user, and changes happened by business rules
+ are ignored.
+\end_layout
+
+\begin_layout Standard
+In addition, Microsoft Dynamics can be extended by registering code as plugins
+ to messages in the server side.
+ In the execution context, there is a field 
+\emph on
+Depth
+\emph default
+, that is provided to the developers to protect code against infinite loops,
+ in cases when the code update fields, and is regsitered in the message
+ 
+\emph on
+update.
+ 
+\emph default
+The developers can use this field to check if the current execution is a
+ repeating update, and how many repetitions (that is depth of execution
+ in the call stack).
+\end_layout
+
+\begin_layout Paragraph*
+Observable Streams
+\end_layout
+
+\begin_layout Standard
+When handling applications over time, updating variables using the assigment
+ operator, we identified time variation in the real world with time variation
+ in the computer.
+ Stream is an alternative to model phenomena over time, such as varying
+ variable's value, without refering explicity the time.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{ReactiveX}
+\end_layout
+
+\end_inset
+
+ is a popular library for the stream programming model.
+ In 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{ReactiveX}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Observable}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Observer}
+\end_layout
+
+\end_inset
+
+ implement the observer pattern for a sequence.
+ Observers subscribe to Observables, and the Observables calls the observers'
+ methods' 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+ for each item in the sequence.
+ 
+\end_layout
+
+\begin_layout Standard
+Based on that observable sequence, there are operators to produce streams
+ from observing other streams.
+ For example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A=B.Select(b=>b+1)
+\end_layout
+
+\end_inset
+
+, observe the items of a stream 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{B}
+\end_layout
+
+\end_inset
+
+, whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{B}'s 
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+ is called, then the lambda expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{b=>b+1}
+\end_layout
+
+\end_inset
+
+ is executed, with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{b}
+\end_layout
+
+\end_inset
+
+ containing the new value, then the result is used as parameter in calling
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{A}'s 
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The use of the operator 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Select}
+\end_layout
+
+\end_inset
+
+, produces pure function over streams, and can compose other pure functions.
+ For example: adding 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{C=A.Select(a=>a+1})
+\end_layout
+
+\end_inset
+
+ to the program, is equivalent to writing only 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C=B.Select(b=>b+2)
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Select
+\end_layout
+
+\end_inset
+
+ is an example to the powerful operators provided, that reserves the functional
+ purity, and calculate not only the values, but also 
+\emph on
+when
+\emph default
+ to get the values.
+\end_layout
+
+\begin_layout Standard
+The values in the input stream, such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{A}
+\end_layout
+
+\end_inset
+
+ in the example, are triggered (by calling the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+), by an external execution, such as an input control, that calls 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{A}'s 
+\backslash
+textit{OnNext}
+\end_layout
+
+\end_inset
+
+ whenever there is a change event.
+ The items if the output stream is produced according to the time of the
+ inputs stream's items.
+ The values in the output stream is used to an external execution, such
+ as updating an input control, by subscribing to the output stream (which
+ is an observable).
+\end_layout
+
+\begin_layout Standard
+Marble diagrams are useful to understand how operators operate the streams,
+ as in figure 2.1, the input and output items are ilustrated over the time-axis.
+ In the example (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Select}
+\end_layout
+
+\end_inset
+
+ operator), whenever value is produced in the input stream, value in the
+ output is provided.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (7,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x0) at (1,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4,0) {8};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (5x0) at (6,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[complete] (6x0) at (6.5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[box,minimum width=7cm] (op) {Select
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}[baseline=-1mm]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[marble,minimum height=6mm] (x) {x};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[marble,minimum height=6mm,right=5mm of x] (y) {x+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw [fdash] (x) -- (y);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+}};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (7,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x2) at (1,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x2) at (3,0) {4};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x2) at (4,0) {9};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (5x2) at (6,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[complete] (6x2) at (6.5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x0) -- (0x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (5x0) -- (5x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (6x0) -- (6x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (0x2) -- (0x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x2) -- (2x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x2) -- (3x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x2) -- (5x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x2) -- (6x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Marble-Diagram-for"
+
+\end_inset
+
+Marble Diagram for an execution example for A=B.Select(b=>b+1)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Constraints
+\end_layout
+
+\begin_layout Standard
+Libraries like Hotdrink, applications like Microsoft Excel and paradigms
+ like FRP provide the framework to declare functional dependancies while
+ enforcing them under the wood.
+ In Hotdrink and the constraints programming the constraints multi-way.
+ In Microsoft Excel and the FRP paradigm, the constraints are one-way constraint
+s, such that imperative assigment statements are lifted to be continuously
+ enforced.
+\end_layout
+
+\begin_layout Section
+Object Oriented Programming (OOP)
+\end_layout
+
+\begin_layout Standard
+The key concept behind Objects Oriented Programming (OOP) is that, classes
+ evolve without interfering other classes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ Classes use 
+\emph on
+contracts
+\emph default
+, and encapsulate the internal implementation.
+ In the simplified form, the contract is the 
+\emph on
+interface
+\emph default
+, which defines variables and methods that are accessible to the consumers
+ or subclasses.
+ However, in the presence of events an interface is not enough to define
+ a contract.
+ 
+\end_layout
+
+\begin_layout Standard
+There are various approaches how to define contracts in such cases, but
+ they are usually informal and hard to enforce.
+ In implementation inheritance in 
+\emph on
+the fragile base class problem
+\emph default
+, the contract between the super class and subclass is broken, such as when
+ a change in the super class breaks the sub class.
+ And in contracts between providers and consumers, there is a significant
+ number of design and implementation errors, often hard to define and correct.
+\end_layout
+
+\begin_layout Standard
+The reason is that events might lead to 
+\emph on
+unexpected recursive re-entracnce of objects.
+ 
+\emph default
+Re-entracnce of objects is when an object's method calls a method that belongs
+ to the same object: If a method update several of its instance variables,
+ they of course should be consistent (i.e, calculated or updated according
+ to each other), so the object's methods 
+\emph on
+should not
+\emph default
+ be called until finishing the execution.
+ Furthermore, the method 
+\emph on
+should not
+\emph default
+ be called again until finishing its execution (but if there is special
+ treatment).
+\end_layout
+
+\begin_layout Standard
+In the approach to extend OOP with FRP, an existing language is extended
+ with a variation of reactive variables as a data type [42].
+ Accordingly, libraries such as ReactiveX
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://reactivex.io}
+\end_layout
+
+\end_inset
+
+ and REscala
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{https://www.rescala-lang.com}
+\end_layout
+
+\end_inset
+
+, support having a variation of reactive variables as objects’ data members
+ (named also 
+\emph on
+instance variables
+\emph default
+).
+\end_layout
+
+\begin_layout Standard
+Therefrom, objects' classes can contain
+\emph on
+ reactive instance variables
+\emph default
+, that are instance variables of type reactive variables.
+ Also, objects' classes can contain formulas based on the reactive instance
+ variables they contain.
+ The formulas are activated once the objects are created.
+ e.g., class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C
+\end_layout
+
+\end_inset
+
+ contains two reactive instance variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, and contains also the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+.
+ Consequently, in each instance of C, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ that is associated to the instance will continuously re-evaluated in response
+ to changes in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ that is associated to the same instance.
+\end_layout
+
+\begin_layout Standard
+Similar to the problems causes by unexpected recursive re-entracnce of objects,
+ the problems in reactive instance variables.
+ Reactive instance variables might have cycles when classes encapsulate
+ their formulas, e.g., base class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+, while the derived class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+.
+ Similary for glitches: base class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C:=B
+\end_layout
+
+\end_inset
+
+ , while the derived class contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D:=A+C
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, there is an open question whether to support reassignment 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Declaring class variables being reactive variables, arises that conflict,
+ whether to enable reassignment e.g.
+ declaring 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ and then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=C+1
+\end_layout
+
+\end_inset
+
+.
+ In FRP, reassignment should not be enabled, since in FRP we “describe things
+ that exist, rather than actions that have happened or are to happen (i.e.,
+ what is, not what does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, in OOP reassignment should be enabled for assigning independently
+ e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ in a base class, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=C+1
+\end_layout
+
+\end_inset
+
+ in the derived class.
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Paragraph*
+Decenterlized/No-Isolation
+\end_layout
+
+\begin_layout Standard
+In the core of OOP paradigm, objects should hide their variables.
+ So instance variables that need to be updated according to other instance's
+ variable, should invovlve direct interaction, without to require a third
+ party.
+\end_layout
+
+\begin_layout Standard
+Hotdrink manages the variables by the constraints solver.
+\end_layout
+
+\begin_layout Paragraph*
+Any dependency
+\end_layout
+
+\begin_layout Standard
+Classes or types that contains reactive instance variables in their interface,
+ allow to declare any dependency from those instance variables.
+ If cycles are avoided such as in Soduium, then there is the limitation
+ to avoid from declaring certain dependencies.
+\end_layout
+
+\begin_layout Paragraph*
+Predictable Propogation
+\end_layout
+
+\begin_layout Standard
+The core of the FRP paradigm is to provide predictable propogation.
+ by the referntial transparcncy property, the same sequence of input produce
+ consistenly the same output.
+\end_layout
+
+\begin_layout Standard
+If there are cycles, if the (Bridging the gui gap with reactive values and
+ relations...)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Safe Propogation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Any dependency
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Decenterlized
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FrTime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ReactiveX
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sodium
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Distributed REscala
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+XState
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hotdrink
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+????????
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unsafe Propogation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+No Cycles
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Centerlized
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FrTime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ReactiveX
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sodium
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Distributed REscala
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+XState
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hotdrink
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+???????
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+unsupported constructions, unpredictable results or to no-isolation
+\end_layout
+
+\end_body
+\end_document

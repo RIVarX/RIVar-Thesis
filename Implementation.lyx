@@ -85,799 +85,66 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-———
+In this chapter we present an implementation to the model presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Modeling"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, attached with a small case study based on the motivating example from
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivating-Example"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The model is implemented as a lightweight .NET library to C# developers
+ named RIVarX
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+.
+ RIVarX provides RIVar functionality based on ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-RIVar is a datatype implementing by a class, We adopt the approach 
+ReactiveX provides observable streams which has already been presented as
+ being reactive variables 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "salvaneschi2014towards"
+key "schuster2016reactive"
 literal "false"
 
 \end_inset
 
-, in which an existing language can be extended with a variation of reactive
- variable as a data type.
-\end_layout
-
-\begin_layout Standard
-————–
-\end_layout
-
-\begin_layout Standard
-The initial order is the sequence of the events; each external input has
- a timestamp.
- Then a value inferred by other values has several timestamps, the ones
- that the value is based on.
- Transitively, value derived from other values has the timestamps produced
- from the union operation on the timestamps of the values it is derived
- from.
+.
+ In addition ReactiveX has two useful operators to implement latent variables:
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-x (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamp: 1
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-y (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamp: 2
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-D (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamp: 3
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Z1 = x*y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=16
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Z2 = x+D
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=9
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-V=Z1+Z2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=25
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,2,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We will uniform the representation: each value has a set of a timestamps.
- Also values from external input have sets, containing a single element.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-x (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-y (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-D (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Z1 = x*y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=16
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Z2 = x+D
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=9
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-V=Z1+Z2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=25
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-timestamps: {1,2,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The order over the values is based on the ability to compare each pair of
- values....
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-<
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,2}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-<
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
->
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-——————
-\end_layout
-
-\begin_layout Standard
-We use ordered values according to the the events, and derive a total order
- over the whole values in the application.
- Each value produced from an event is attached with a timestamp (an incremental
- natural number).
- Values produced from operators or associations are attached with a set
- of timestamps according to the values they were calculated from.
- 
-\end_layout
-
-\begin_layout Standard
-The parties follow the total order by the help of the attached timetsamps,
- such that glitch and recursive notifications are recognized and ignored.
- Any notification that contains a timestamp that is less or equal to the
- latest produced notification's timestamp are a glitch notification.
- Similary, recursive notifications are associations parties' notifications
- produced originally from their own notification, therefore their timestamp
- are less or equal to the latest produced notification's timestamp.
-\end_layout
-
-\begin_layout Section
-Signal
-\end_layout
-
-\begin_layout Standard
-Signal class represents the template for values notifications.
- Signal's instance (or simply 
-\emph on
-signal
-\emph default
-) is 
-\emph on
-external input
-\emph default
-, produced from value observed from the environment, such as from input
- changed by the user.
- Otherwise it is from calculating other signals.
-\end_layout
-
-\begin_layout Standard
-Signals produced from the environment are ordered according to the time,
- each signal contains an identity number according to its time.
- The signals produced from calculating other signals, contain a set of identity
- numbers according to the signals that they are produced from.
-\end_layout
-
-\begin_layout Standard
-For Example:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Signal x (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=8 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-identity number: 1
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Signal y (external input)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=2 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-identity number: 2
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Signal z = x*y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Value=16
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-identity numbers: {1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The signals have a total order.
- External input's signal produced later have an identity number that is
- greater.
- Similary, signal calculated from signals that produced later is greater
- than signals produced from old ones.
- The Signal class implements the 
-\emph on
-IComparable
-\emph default
- interface, so that each two signals can be compared.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-<
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,2}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-<
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,3}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1}
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
->
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-{1,2}
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Streams of Signals
-\end_layout
-
-\begin_layout Standard
-A variable's values is represented by 
 \begin_inset ERT
 status open
 
@@ -885,22 +152,35 @@ status open
 
 
 \backslash
-textit{Subject}
+lstinline{Select}
 \end_layout
 
 \end_inset
 
- instance, which is an 
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://reactivex.io/documentation/operators/map.html
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(in other programming languages it is named 
+\backslash
+lstinline{map})
 \end_layout
 
-\begin_layout Standard
-——
+\end_inset
+
+
 \end_layout
 
-\begin_layout Standard
-RIvar is implemented as stream of signals having assignment method operates
- as subscription.
- The implemented assigment is based on 
+\end_inset
+
+ and 
 \begin_inset ERT
 status open
 
@@ -908,123 +188,1102 @@ status open
 
 
 \backslash
-textit{A:=B}
+lstinline{CombineLatest}
 \end_layout
 
 \end_inset
 
- implemented as 
-\begin_inset ERT
-status open
+
+\begin_inset Foot
+status collapsed
 
 \begin_layout Plain Layout
-
-
-\backslash
-newline
-\backslash
-textit{B.Subscribe(val=>A.OnNext(val))}
-\end_layout
-
-\end_inset
-
-, and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{A:=B+C}
-\end_layout
-
-\end_inset
-
- implemented as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newline
-\backslash
-textit{B.CombineLatest(C,(b,c)=>b+c).Subscribe(val=>A.OnNext(val))}
+https://reactivex.io/documentation/operators/combinelatest.html
 \end_layout
 
 \end_inset
 
 .
- However, the implemented solution propogate the signals according their
- order.
+ The default behavior is that values are pushed to subscribers synchronously,
+ just like the required push model described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Execution-Model"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Consequently, FRP applications can be easily developed.
+ For example, FRP application with the statements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B:=D+1}
 \end_layout
 
-\begin_layout Subsection
-Assigment
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ can be implemented by the statements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B=D.Select(x=>x+1)}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Basics
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Basics"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-The assigment operation checks the signals, by not only subscribing to the
- assigned stream, but also to the stream of the target.
- Each new incoming signal is compared against the target's latest signal.
- The assigment operation will pass an incoming signals only when the result
- is 
-\begin_inset Quotes eld
+To implement our model described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Modeling"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
-greater than
-\begin_inset Quotes erd
+, there is only a small gap.
+\end_layout
+
+\begin_layout Paragraph*
+Assignment Operator
+\end_layout
+
+\begin_layout Standard
+The default assigment copies values bit by bit.
+ Therefore, in the context of FRP applications, the assigment just makes
+ the target variable to point on the constructed expressions, disconnecting
+ from the old referenced expression if exists.
+\end_layout
+
+\begin_layout Standard
+Therefore, RIVarX implements an alternative assigment function named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Set}
+\end_layout
+
+\end_inset
+
+, because the traditional assigment cannot be overriden.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Set}
+\end_layout
+
+\end_inset
+
+ uses the new approach to add the expression in addition to existing expressions.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Set}
+\end_layout
+
+\end_inset
+
+ method has two arguments: a reference to the target and the reference to
+ the assigned expression.
+ When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Set}
+\end_layout
+
+\end_inset
+
+ is called, it subscribes to the two streams, so that for each signal from
+ the assigned expression, it will compare to the signal produced latest
+ in the target.
+ Signal that is greater means later.
+ Therefore, any signal coming from the expression, that is greater than
+ the latest signal in the target, is pushed to the target.
+\end_layout
+
+\begin_layout Paragraph*
+Order Model
+\end_layout
+
+\begin_layout Standard
+The default order model just based on the 
+\emph on
+visit time
+\emph default
+ of the DFS traversal, and is insufficient for visits caused from the same
+ event (simultaneous events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Therefore, RIVar is implemented as an observable of type named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Signal}
+\end_layout
+
+\end_inset
+
+.
+ The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Signal}
+\end_layout
+
+\end_inset
+
+ type represents timed information about a phenomenon 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "priemer1991introductory"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Signal}
+\end_layout
+
+\end_inset
+
+ implements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IComparable}
+\end_layout
+
+\end_inset
+
+ interface to abstract items that can be compared beween each other.
+ Each signal (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Signal}
+\end_layout
+
+\end_inset
+
+'s instance) contains an array of timestamps that is used in comparisons.
+\end_layout
+
+\begin_layout Paragraph*
+Operators
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Select}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{CombineLatest}
+\end_layout
+
+\end_inset
+
+ produce verbose syntax in building FRP applications 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ Furthermore, the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{CombineLatest}
+\end_layout
+
+\end_inset
+
+ operaotr uses the default order model.
+\end_layout
+
+\begin_layout Standard
+Therefore, we developed 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Lift}
+\end_layout
+
+\end_inset
+
+ function, to lift functions over values to functions over RIVars (implemented
+ as observable streams).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Lift}
+\end_layout
+
+\end_inset
+
+ has two overloads that are wrapper functions to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Select}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{CombineLatest}
+\end_layout
+
+\end_inset
+
+.
+ The one that wraps 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{CombineLatest}
+\end_layout
+
+\end_inset
+
+, before calling to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{CombineLatest}
+\end_layout
+
+\end_inset
+
+, filters out values that are less updated than their previous values.
+\end_layout
+
+\begin_layout Section
+Additions and Usage
+\end_layout
+
+\begin_layout Standard
+The model can completely be implemented and used by the ReactiveX types
+ with some extensions described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Basics"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ However, to get it more user friendly, we added the type 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+ to be used.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Using-RIVarX"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ presents a basic unittest to RIVarX to the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+Z}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:instanceFirst}
+\end_layout
+
+\end_inset
+
+-
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:instanceLast}
+\end_layout
+
+\end_inset
+
+ initiate 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X},
+\backslash
+lstinline{Y} and 
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:functionOverValues}
+\end_layout
+
+\end_inset
+
+ defines the function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{+}
+\end_layout
+
+\end_inset
+
+ over values.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:Set}
+\end_layout
+
+\end_inset
+
+ lifts the function to be applied on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y} and 
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+ and set it to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:setInputFirst}-line~
+\backslash
+ref{line:setInputLast}
+\end_layout
+
+\end_inset
+
+ produce inputs like 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y=2} and 
+\backslash
+lstinline{Z=3}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+ triggers the value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{5}
+\end_layout
+
+\end_inset
+
+.
+ This is verified by the subscription in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:subscribe}
+\end_layout
+
+\end_inset
+
+, variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{result}
+\end_layout
+
+\end_inset
+
+ declared in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:declareResult}
+\end_layout
+
+\end_inset
+
+, is updated to the value pushed by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+ and then verified in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:checkResult}
+\end_layout
+
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Subsection
-Monotonic Streams
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+[TestMethod]
+\end_layout
+
+\begin_layout Plain Layout
+
+public void SimpleUsage()
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    //Construction
+\end_layout
+
+\begin_layout Plain Layout
+
+    int result = 0;|
+\backslash
+label{line:declareResult}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    var X = new RIVar<int>();|
+\backslash
+label{line:instanceFirst}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    var Y = new RIVar<int>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    var Z = new RIVar<int>();|
+\backslash
+label{line:instanceLast}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    Func<int, int, int> plus = (op1, op2) => op1 + op2;|
+\backslash
+label{line:functionOverValues}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    X.Set(plus.Lift(Y, Z));|
+\backslash
+label{line:Set}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    X.Subscribe(new observer<int>(i => { result = i; }));|
+\backslash
+label{line:subscribe}|
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    //Action
+\end_layout
+
+\begin_layout Plain Layout
+
+    Y.OnNext(2);|
+\backslash
+label{line:setInputFirst}|
+\end_layout
+
+\begin_layout Plain Layout
+
+    Z.OnNext(3);|
+\backslash
+label{line:setInputLast}|
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    //Test
+\end_layout
+
+\begin_layout Plain Layout
+
+    Assert.AreEqual(5, result);|
+\backslash
+label{line:checkResult}|         
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Using-RIVarX"
+
+\end_inset
+
+Using RIVarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Case Study
 \end_layout
 
 \begin_layout Standard
-When using 
+We implemented the motivating example by using RIVarX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://github.com/RivkaAltshuler/RIVar/tree/main/CaseStudies/DrugAdministration
+\end_layout
+
+\end_inset
+
+.
+ We reached the goal, that 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-CombineLatest
+
+\backslash
+lstinline{Bag}
 \end_layout
 
 \end_inset
 
-, there might be a signal which is greater than its predecessor (associated
- with the 
-\emph on
-glitch
-\emph default
- issue).
- Therefore, we do not use the CombineLatest directly, but calling it upon
- the monotonic streams.
- The monotonic streams produced by the extension method 
-\emph on
-
+'s instance does not aware of 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-Monotonic
+
+\backslash
+lstinline{Pump}
 \end_layout
 
 \end_inset
 
-, 
-\emph default
-which
-\emph on
+.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unit-Test"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the existence of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:pump}
+\end_layout
+
+\end_inset
+
+ does not change the behavior.
  
-\emph default
-filter out signals, if they are not greater than their predecessor.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+decimal result = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+var bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Concentration.Subscribe(new observer(o => result = o));
+\end_layout
+
+\begin_layout Plain Layout
+
+var pump = new Pump(bag);|
+\backslash
+label{line:pump}| // this line has no effect
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Amount.OnNext(100);
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Volume.OnNext(200);
+\end_layout
+
+\begin_layout Plain Layout
+
+Assert.AreEqual(0.5, result);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Unit-Test"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}' instance
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

@@ -81,5 +81,52 @@
 Conclusion
 \end_layout
 
+\begin_layout Paragraph*
+Future work
+\end_layout
+
+\begin_layout Standard
+We presented the abstraction to connect reactive variables to multiple sources
+ each.
+ In inferring the values, we used the semantics, to choose the value based
+ on its time.
+ This semantics equivilent to the hierarchical multi-way dataflow constraint
+ system to the use of user interface development.
+ However, this is only one among available options.
+\end_layout
+
+\begin_layout Standard
+The abstraction should be researched with more semantics options.
+ For example, we think to check the abstraction with 
+\emph on
+equality tests
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+, in which values with no change are ignored.
+ In addition, It might be that values should be rejected, in case that they
+ are conflicted with another source, such case need the abstraction to be
+ extended.
+ Anyway, options should be considered against real-life systems.
+\end_layout
+
+\begin_layout Standard
+The goal for this research is to help real-life systems.
+ We thought about this semantics to inffer values based on time, from experienci
+ng one development path of one real-life complex UI form.
+ We also found this semantics used in the research of constraints systems
+ for user interfaces.
+ However, we have no real-life UI application using this semantics, neither
+ by us nor by others.
+ Also when thinking about more semantics options, it might be that for a
+ real-life system, a single semantics are not enough.
+\end_layout
+
 \end_body
 \end_document

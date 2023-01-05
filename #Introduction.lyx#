@@ -138,7 +138,6 @@ literal "false"
 .
  The observable variables are subject to observe, while latent variables
  are inferred by other variables' values according to certain formulas.
- 
 \end_layout
 
 \begin_layout Standard
@@ -154,7 +153,8 @@ literal "false"
 
 \end_inset
 
- paradigm provides an abstraction named 
+ paradigm abstracts away the need to update variables in response to other
+ variables' updates, by providing the abstraction of 
 \emph on
 reactive variable
 \emph default
@@ -215,60 +215,6 @@ literal "false"
 \end_inset
 
 ) to simulate the observable and latent variables.
- By expressing a formula, the left variable will depend on the variables
- in the expression, e.g., in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:The-dependancy-graph"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+1}
-\end_layout
-
-\end_inset
-
- produces 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- to depend on 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-.
- The dependencies cause values to change, such that whenever variable's
- value is changed, the variable's dependencies will be changed according
- to the new value.
 \end_layout
 
 \begin_layout Standard
@@ -345,7 +291,7 @@ name "fig:The-dependancy-graph"
 
 \end_inset
 
-The dependency graph for the formula A:=B+1
+The dependancy graph for the formula A:=B+1
 \end_layout
 
 \end_inset
@@ -378,8 +324,7 @@ instance
 reactive
 \emph default
  variables.
- We define it as a parameterized type RIVar, an acronym to the full name
- 
+ We define it as a parameterized type RIVar, an acronym to full name 
 \emph on
 Reactive Instance Variable
 \emph default
@@ -387,59 +332,8 @@ Reactive Instance Variable
 \end_layout
 
 \begin_layout Standard
-In the example, the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- class contains the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
+In the example, the DrugAdministration class contains the variables Drug,
+ Volume and Concentration.
  The class contains a formula (
 \begin_inset ERT
 status open
@@ -453,60 +347,8 @@ ref{line:formula}
 
 \end_inset
 
-) defining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be calculated whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- is updated.
- Then once 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- is created (
+) defining Concentration to be calculated whenever Drug or Volume is updated.
+ Then once a drug administration is created (
 \begin_inset ERT
 status open
 
@@ -519,46 +361,7 @@ ref{line:ctor}
 
 \end_inset
 
-), any change to its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- causes its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to recalculate.
+), any change to its Drug or its Volume causes its Concentration to recalculate.
 \end_layout
 
 \begin_layout Standard
@@ -687,34 +490,9 @@ Drug Administration
 
 \begin_layout Standard
 RIVars are not distinguished between observable or latent variables, they
- are all accessed uniformly.
- Specifically, any accessible RIVar can be assigned (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- operator) as a latent variable, and also to get input (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
- operator) as an observable variable.
+ all accessed uniformly.
+ Specifically, any accessible RIVar can be assigned (:= operator) as a latent
+ variable, and also to get input (= operator) as an observable variable.
  RIVar should be accessible externaly by being in service (consumer access
  variables via an interface) and specialization (subclass access its superclass
  variables) interfaces 
@@ -779,7 +557,7 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-  IDrugAdministration drugAdministration
+  IDrugAdministration _drugAdministration
 \end_layout
 
 \begin_layout Plain Layout
@@ -790,7 +568,7 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-    this.drugAdministration=drugAdministration
+    _drugAdministration=drugAdministration
 \end_layout
 
 \begin_layout Plain Layout
@@ -800,8 +578,8 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-  drugAdministration.Drug :=  drugAdministration.Concentration*drugAdministration.V
-olumeOfFluid
+  _drugAdministration.Drug := _drugAdministration.Concentration*_drugAdministratio
+n.VolumeOfFluid
 \end_layout
 
 \begin_layout Plain Layout
@@ -999,18 +777,16 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Nevertheless, with any integratable FRP, reactive variables are accessed
+Nevertheless, with any integratable FRP reactive variables are accessed
  externaly, because we can set inputs to reactive variables in response
  other reactive variables' updates.
- For example, in ReactiveX the statement 
+ For example, In ReactiveX the statement 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{A.Subscribe(val=>B.OnNext(val))}
+A.Subscribe(val=>B.OnNext(val))
 \end_layout
 
 \end_inset
@@ -1021,41 +797,54 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{A:=B}
+A:=B
 \end_layout
 
 \end_inset
 
 .
- This method 
-\emph on
-adds
-\emph default
- the formula in addition to the existing formulas handled by the FRP runtime.
  
 \end_layout
 
 \begin_layout Standard
-The semantics to add the formula, fits well with the conceptual specialization
- (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
+This method adds the formula to the existing formulas handled by the FRP
+ runtime.
+ The semantics of adding the formula, fits well with the conceptual specializati
+on, making the derived class only extending the base class.
  But in the current implementation, the formula is activated externaly,
  without the advantages that the paradigm of FRP should provide.
 \end_layout
 
 \begin_layout Standard
-FRP aims to provide predictability and composability.
- In contrast, adding formulas externaly, by integration between FRP and
- imperative programming, might cause infinite loops 
+Adding the external formula 
+\end_layout
+
+\begin_layout Standard
+The result might be an inpredictable behavior or even an infinite loop,
+ because a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ 
+\end_layout
+
+\begin_layout Standard
+In the integration with FRP there might contain circular dependencies causing
+ infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+ 
+\end_layout
+
+\begin_layout Standard
+FRP, in integration of functional-reactive code with imperative code might
+ contain circular dependencies causing infinite loops 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -1069,9 +858,12 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The challenges to obtain RIVar includes: (1) Adding formulas to the existing
- formulas handled by the FRP, (2) Supporting any added formula, (3) Achieving
- predictability and composability by satisfing the 
+The challenges to obtain RIVar are (1) support adding any formula, current
+ FRP implementations are limited in the constructions that they support.
+ (2) values should be updated by direct calls between the variables, the
+ centerlized algorithms used in most FRP implementations does not fit with
+ encapsulated objects that should interact directly.
+ (3) predictability and composability by satisfing the 
 \emph on
 referential transparency
 \emph default
@@ -1108,8 +900,8 @@ the same sequence of events produces the same results, regardless of the
 Contribution
 \end_layout
 
-\begin_layout Standard
-We propose RIVar, being consistent with both 
+\begin_layout Itemize
+We propose RIvar, being consistent with both 
 \emph on
 instance variables
 \emph default
@@ -1117,8 +909,26 @@ instance variables
 \emph on
 reactive variables
 \emph default
- from FRP, supporting also the hierarchical structuring from OOP and referential
- transparency from FRP.
+ from FRP.
+\end_layout
+
+\begin_layout Itemize
+We characterize the design space of existing algorithms for change propagation,
+ motivating the need for new algorithms that better suit to the new setting.
+\end_layout
+
+\begin_layout Itemize
+We present an algorithm for RIvars.
+ 
+\end_layout
+
+\begin_layout Itemize
+We present a reduction from the new algorithm to one traditional algorithm.
+\end_layout
+
+\begin_layout Itemize
+We discuss a small-scale case study to indicate design improvements enabled
+ by the proposed abstraction.
 \end_layout
 
 \begin_layout Standard
@@ -1134,7 +944,7 @@ textbf{Outline.}
 
 \end_inset
 
- Chapter 3 presents a motivating example, Chapter 4 presents the proposed
+ Chapter 3 presents a motivation example, Chapter 4 presents the proposed
  semantics, Chapter 5 uses the new semantics by implementing the new type
  
 \emph on
@@ -1142,24 +952,6 @@ RIvar
 \emph default
  for C# programming language.
  Chapter 6 evaluate the results by the help of a prototype application.
-\end_layout
-
-\begin_layout Section
-Outline
-\end_layout
-
-\begin_layout Standard
-This is an example of a reference to 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
 \end_layout
 
 \end_body

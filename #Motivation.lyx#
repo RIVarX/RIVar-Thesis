@@ -86,13 +86,7 @@
 \begin_body
 
 \begin_layout Chapter
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Motivating-Example"
-
-\end_inset
-
-Motivating Example
+Motivation 
 \end_layout
 
 \begin_layout Standard
@@ -107,22 +101,62 @@ noprefix "false"
 \end_inset
 
 ) handles drug administration.
- It observes the fields' change events, once a value is changed, dependant
- fields are calculated and presented.
+ It observe fields' change events, once a value is changed, dependant fields
+ are calculated and presented.
  The application is a prototype of a small part from an existing application.
- The goal is to reduce the complexity existing in the traditional application.
+ In the traditional application, the code is very complex, because of repetitive
+ calculations and complex dependencies.
 \end_layout
 
 \begin_layout Standard
-In order to simplify the application, we seperate the model to 
+In order to simplify the application, we use 
+\emph on
+Domain Driven Design
+\emph default
+ (DDD) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+, because modeling according to the real world, should promote the comprehension.
+ In the application we simulate
+\emph on
+ real world variables
+\emph default
+: characteristics of interest we observe (named 
+\emph on
+observable variables
+\emph default
+) or inferre from other variables that are observed (named
+\emph on
+ latent variables
+\emph default
+) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dodge2006oxford"
+literal "false"
+
+\end_inset
+
+.
+ OOP is a perfect paradigm to simulate the real world variables: objects
+ represent the identity of real world objects, therefore their instance
+ variables should represent real world variables.
+ 
+\end_layout
+
+\begin_layout Standard
+As a result, we model the drug administration with two domain objects 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Bag}
+Infusion
 \end_layout
 
 \end_inset
@@ -133,15 +167,24 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Infusion}
+Bag
 \end_layout
 
 \end_inset
 
 .
- Also the UI is seperated to micro-frontends 
+ Each domain object contains its variables, and also observe, calculate,
+ and present its values.
+ The observation is by observing fields' change events, and the presentation
+ is by updating the fields.
+\end_layout
+
+\begin_layout Standard
+We use
+\emph on
+ 
+\emph default
+Micro-frontends 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "peltonen2021motivations"
@@ -149,25 +192,48 @@ literal "false"
 
 \end_inset
 
- respectively.
- The architectural design is illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:The-design-of"
-plural "false"
-caps "false"
-noprefix "false"
+ to simplify code management.
+ The UI is seperated into two parts, named micro-frontends.
+ Then different teams will own different micro-frontends, and have the sub-domai
+n knowledge, without the need to learn about other sub-domains.
+ As a result, we model two micro-frontends to the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Infusion
+\end_layout
 
 \end_inset
 
-.
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+ domain objects.
+ The micro-frontend contains one field for each variable existing in their
+ object.
+ Thereafter, the micro-frontends interacts with the objects to observe and
+ present values in the fields.
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -177,7 +243,7 @@ status open
 
 
 \backslash
-begin{center}
+centering 
 \end_layout
 
 \begin_layout Plain Layout
@@ -269,20 +335,6 @@ hline
 end{tabular}
 \end_layout
 
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-*The calculated field appears in 
-\backslash
-textit{italic} 
-\end_layout
-
 \end_inset
 
 
@@ -298,162 +350,15 @@ name "fig:Drug-calculations"
 
 \end_inset
 
-Drug administration user interface
+Drug calculations' user interface.
+ Represents the cenario in which Dose, Duration and VolumeOfFluid were set,
+ and the other fields (
+\backslash
+textit{italic} font) have been calculated.
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro frontend]
- (C) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Infusion
- micro frontend] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
- (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Infusion
- Domain Object] (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dash dot] (A)--(B) node[anchor=south,inner sep=2pt,midway] {messages};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dash dot] (A)--(C) node[inner sep=2pt,midway] {messages};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dash dot] (D)--(B) node[inner sep=2pt,midway] {messages};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:The-design-of"
-
-\end_inset
-
-The design of the drug administration application
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -463,7 +368,7 @@ The design of the drug administration application
 \end_layout
 
 \begin_layout Section
-The Objects
+The Bag
 \end_layout
 
 \begin_layout Standard
@@ -472,9 +377,7 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Bag}
+Bag
 \end_layout
 
 \end_inset
@@ -482,7 +385,7 @@ lstinline{Bag}
  (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Bag-Class"
+reference "fig:Bag-class-diagram"
 plural "false"
 caps "true"
 noprefix "false"
@@ -573,11 +476,25 @@ end{description}
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+ implemented as object's class with the fields as its instance variables
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -588,40 +505,6 @@ status open
 
 \backslash
 begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug := Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
@@ -691,24 +574,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Bag-Class"
+name "fig:Bag-class-diagram"
 
 \end_inset
 
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- Class
+Bag class diagram
 \end_layout
 
 \end_inset
@@ -727,9 +597,132 @@ status open
 
 \begin_layout Plain Layout
 
+Bag
+\end_layout
+
+\end_inset
+
+ object class, should handle its instance variables, to refreshing the value,
+ in response to changes.
+ By denoting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+:=
+\end_layout
+
+\end_inset
+
+ we mean that the left side variable should be refreshed whenever the expression
+'s value is changed (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bag-code"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
 
 \backslash
-lstinline{Infusion}
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration := Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug := Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bag-code"
+
+\end_inset
+
+Bag code
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Infusion
 \end_layout
 
 \end_inset
@@ -740,9 +733,7 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Bag}'s content
+Bag's content
 \end_layout
 
 \end_inset
@@ -831,40 +822,12 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Infusion}
+Infusion
 \end_layout
 
 \end_inset
 
- class handles calculations while referring also to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s
-\end_layout
-
-\end_inset
-
- fields, unawaring of the calculations specified within 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
+ has fields in addition to bag's content
 \end_layout
 
 \begin_layout Standard
@@ -872,7 +835,7 @@ lstinline{Bag}
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -883,63 +846,6 @@ status open
 
 \backslash
 begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Infusion {    
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration := TheBag.Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate := TheBag.VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = TheBag.Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \begin_layout Plain Layout
@@ -1044,63 +950,65 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Infusion-class"
+name "fig:Infusion-diagram"
+
+\end_inset
+
+Infusion diagram
+\end_layout
 
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Infusion}
+Infusion
 \end_layout
 
 \end_inset
 
- class
+ object class, handle calculations while referring also to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+bag's
 \end_layout
 
 \end_inset
 
+ fields, unawaring of the calculations specified within 
+\begin_inset ERT
+status open
 
+\begin_layout Plain Layout
+
+Bag
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Section
-Calculation
-\end_layout
-
-\begin_layout Standard
-In the original application, the calculation is centerlized.
- Whenever a user sets a new value to any of the fields, a calculation procedure
- (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Centerlized-Calculation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) is executed.
- The procedure consists of branches according to the user-cases, in each
- branch there are three values being used to calculate the other values.
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1117,72 +1025,46 @@ begin{center}
 
 
 \backslash
-begin{lstlisting} 
+begin{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
 
-If edited triple is of Dose,  Duration, and VolumeOfFluid
+class Infusion {    
 \end_layout
 
 \begin_layout Plain Layout
 
-  Drug = Dose*Duration
+  Duration := TheBag.Drug/Dose
 \end_layout
 
 \begin_layout Plain Layout
 
-  Concentration = Drug/VolumeOfFluid
+  Rate := TheBag.VolumeOfFluid/Duration
 \end_layout
 
 \begin_layout Plain Layout
 
-  Rate = VolumeOfFluid/Duration
+  Dose = TheBag.Drug/Duration
 \end_layout
 
 \begin_layout Plain Layout
 
-Else If edited triple is of Drug, Dose, and Rate
+  TheBag.Drug := Duration*Dose
 \end_layout
 
 \begin_layout Plain Layout
 
-  Duration = Drug/Dose
+  TheBag.VolumeOfFluid := Duration*Rate
 \end_layout
 
 \begin_layout Plain Layout
 
-  VolumeOfFluid = Duration*Rate 
+}
 \end_layout
 
 \begin_layout Plain Layout
 
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
 \end_layout
 
 \begin_layout Plain Layout
@@ -1210,11 +1092,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Centerlized-Calculation"
+name "fig:Infusion-code"
 
 \end_inset
 
-Part of a centralized calculation procedure
+Infusion code
 \end_layout
 
 \end_inset
@@ -1222,27 +1104,23 @@ Part of a centralized calculation procedure
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Calculation with Indirection
 \end_layout
 
 \begin_layout Standard
-However, we want to satisfy the contract between the objects, such that
- each object will handle its calculation internaly.
- Consequently, the calculations task is spread over 
+The calculations task is spread over 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Infusion}
+Itravenous
 \end_layout
 
 \end_inset
@@ -1253,38 +1131,19 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Bag}
+Bag
 \end_layout
 
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-In the cenario described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Calculation-spread-over-objects"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, a clinician sets values to 
+ Let's describe a cenario: A clinician sets values to 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Infusion}'s 
-\backslash
-lstinline{Dose}
+Infusion' Dose
 \end_layout
 
 \end_inset
@@ -1295,199 +1154,31 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Duration}
+Duration
 \end_layout
 
 \end_inset
 
 .
- In response, the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
+ In response, the itravenous calculates its bag's Drug's value.
+ Then the clinician sets a value to the bag's VolumeOfFluid.
+ In response, the bag calculates its Concentration's value, and the Infusion
+ calculates its Rate's value, according to the bag's VolumeOfFluid's new
+ value.
 \end_layout
 
-\end_inset
-
- calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-'s 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-'s value.
- Then the clinician sets a value to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-'s 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
- In response, the bag calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-'s value, and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Rate}
-\end_layout
-
-\end_inset
-
-'s value, according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-'s 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-'s new value.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- called 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- to calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Rate}
-\end_layout
-
-\end_inset
-
- 
+\begin_layout Standard
+It can be seen, that the bag calls to the Infusion to calculate its rate's
+ value 
 \emph on
-indirectly
-\emph default
- without to be aware of its existence.
- 
+indirectly.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1635,13 +1326,7 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Calculation-spread-over-objects"
 
-\end_inset
-
-Calculation procedure spread over seperated objects
 \end_layout
 
 \end_inset
@@ -1655,120 +1340,18 @@ Calculation procedure spread over seperated objects
 \end_layout
 
 \begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Unpredictable-Calculation"
-
-\end_inset
-
-Unpredictable Calculation
+Inpredictable Calculation
 \end_layout
 
 \begin_layout Standard
-The behavior does not satisfy.
- In the cenario visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- the user sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-10
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
- to 10, in response, according to line 5, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is calculated to 100.
- The user then sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- to 300, in response, according to line 9, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- is calculated to 0.33.
- Then, according to line 10, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is overridden to 99.
- 
+Unfortunately, the behavior is not satisfied.
+ Let's describe a cenario: the user sets Dose to 10, then Duration to 10,
+ in response, according to line 5, Drug is calculated to 100.
+ The user then sets VolumeOfFluid to 300, in response, according to line
+ 9, Concentration is calculated to 0.33.
+ Then, according to line 10, Drug is overridden to 99.
+ The reason for the unexpected updates is that there are cycles in the dependenc
+ies.
 \end_layout
 
 \begin_layout Standard
@@ -1948,14 +1531,7 @@ small (The user set it to 100 and it has been changed to 99.)
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Unpredictable-Calculation"
-
-\end_inset
-
-Calculation procedure spread over seperated objects producing unpredictable
- calculation.
+Decentralized calculation causes an unexpected change to the drug.
 \end_layout
 
 \end_inset
@@ -1966,101 +1542,6 @@ Calculation procedure spread over seperated objects producing unpredictable
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Unpredictable calculation cannot easily prevented in spread calculation,
- because of cycles mistakenly defined in the data dependencies.
- The 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- is aware of its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-, however it does not aware of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s
-\end_layout
-
-\end_inset
-
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{{Concentration}
-\end_layout
-
-\end_inset
-
- and the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid := Drug*Concentration}
-\end_layout
-
-\end_inset
-
-.
- As a result, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- defines its calculation without being aware of the cycle (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Cycle-created-by-indepedent-classes"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) being produced in the dependencies.
 \end_layout
 
 \begin_layout Standard
@@ -2077,6 +1558,237 @@ status open
 
 
 \backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Drug) at (1,3) {
+\backslash
+textit{Drug}};     
+\backslash
+node[shape=circle,draw=black] (Conc) at (1.5,1) {
+\backslash
+textit{Conc}};     
+\backslash
+node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Rate) at (5,1) {
+\backslash
+textit{Rate}} ;  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dose) -- (Dur);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Dur);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Rate) -- (Vol); 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Rate) -- (Dur);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Dur);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Dose);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Vol) -- (Dur);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Vol) -- (Rate);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Conc) -- (Drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Conc) -- (Vol);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Conc);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Vol);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+medskip 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+small (long names are mentioned by their prefix)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Drug calculation's dependencies.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Cycles Apearance
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Infusion
+\end_layout
+
+\end_inset
+
+ handle its calcualtion, it knows its bag, however it does not aware of
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Concentration
+\end_layout
+
+\end_inset
+
+ that will apear in runtime.
+ Therfore there should not be a reason to it, to know about 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ VolumeOfFluid := Drug*Concentration
+\end_layout
+
+\end_inset
+
+, closing a cycle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
 begin{center}
 \end_layout
 
@@ -2084,7 +1796,7 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}
+begin{lstlisting}[float,frame=single, caption=Cycle Cross Objects] 
 \end_layout
 
 \begin_layout Plain Layout
@@ -2131,251 +1843,270 @@ end{lstlisting}
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[remember picture,align=center,node distance=2cm,
-\end_layout
-
-\begin_layout Plain Layout
-
-  inner/.style={circle} 
-\end_layout
-
-\begin_layout Plain Layout
-
-  ]
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[rectangle,draw=black,label=above:$Bag$] (A) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[shape=circle,draw=black,label=above:$Amount$] (Amount) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Amount,label=above:$Concentration$]
- (Concentration) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Concentration,label=above:$Volume$]
- (Volume) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-node[shape=rectangle,draw=black,below right=0.5cm and 1.5cm of Amount] (Amount_Con
-centration)  {*};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-path[-{Triangle[scale=1]}] (Amount) edge  (Amount_Concentration);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Concentration) edge  (Amount_Concentration);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Amount_Concentration) edge  (Volume);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-  };
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[rectangle,draw=black,below=of A,label=above:$Infusion$] (B) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-node[shape=circle,draw=black,label=below:$Dose$] (Dose)  {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Dose,label=below:$Duration$] (Duration)
-  {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Duration,label=below:$Rate$] (Rate)
-  {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black,above right=0.3cm and 0.8cm of Dose] (Duration_Dos
-e)  {*};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Dose) edge  (Duration_Dose);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Duration) edge  (Duration_Dose);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black,above right=0.3cm and 0.8cm of Duration] (Volume_R
-ate)  {:};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Rate) edge  (Volume_Rate);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Volume_Rate) edge  (Duration);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-  };
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-path[-{Triangle[scale=1]}] (Duration_Dose) edge  (Amount);
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-path[-{Triangle[scale=1]}] (Volume) edge  (Volume_Rate);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
 
 \backslash
 end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Dose) at (0,5) {Dose};     
+\backslash
+node[shape=circle,draw=black] (Dur) at (3.5,5) {Dur};     
+\backslash
+node[shape=circle,draw=black] (Drug) at (1,3) {
+\backslash
+textit{Drug}};     
+\backslash
+node[shape=circle,draw=black] (Conc) at (1.5,1) {
+\backslash
+textit{Conc}};     
+\backslash
+node[shape=circle,draw=black] (Vol) at (3,3) {Vol};     
+\backslash
+node[shape=circle,draw=black] (Rate) at (5,1) {
+\backslash
+textit{Rate}} ;  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Vol) -- (Dur);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Rate) -- (Dur);  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dur) -- (Drug);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Dose) -- (Drug);   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Drug) -- (Vol);       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[-{Triangle[scale=1]}] (Conc) -- (Vol); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Cycle Cross Objects
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Data dependency graphs that contain 
+\emph on
+cycles
+\emph default
+ (named also circular dependencies or recursions) need a special treatment,
+ because it might lead to infinite loops.
+ For instance, if an application contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B
+\end_layout
+
+\end_inset
+
+ and also 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B:=A
+\end_layout
+
+\end_inset
+
+ (as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-simple-dependency"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), then updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+, that might again lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, and so on.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (0,5) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (3.5,5) {B};       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge [bend left] (B);  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
 \end_layout
 
 \end_inset
@@ -2389,11 +2120,245 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Cycle-created-by-indepedent-classes"
+name "fig:A-simple-dependency"
 
 \end_inset
 
-Cycle created by independent classes
+A simple dependency graph with cycles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Furthermore, in the the 
+\emph on
+glitch
+\emph default
+ problem 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, a variable can have several updates caused by a single update.
+ Consequently, ignoring repeating updates might lead to incomplete calculations.
+ e.g., in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+X
+\end_layout
+
+\end_inset
+
+ leads to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y1
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Y2
+\end_layout
+
+\end_inset
+
+, each of them might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+, therfore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ might lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ with an incomplete calculation, therfore 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ should not ignore a second update.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (X) at (2,9) {X};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Y1) at (1,7) {Y1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Y2) at (3,7) {Y2};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (2,5) {A}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,3) {B};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Y1) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Y2) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (X) edge  (Y1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (X) edge  (Y2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch"
+
+\end_inset
+
+Dependency Graph that might have Glitch
 \end_layout
 
 \end_inset
@@ -2411,15 +2376,8 @@ Summary
 \end_layout
 
 \begin_layout Standard
-It is sometimes desirable to assign objects' variables, which we 
-\emph on
-do not
-\emph default
- own, to give them values according data we 
-\emph on
-do
-\emph default
- own.
+It is sometimes desirable to assign objects' variables, which we do not
+ own, to give them values according data we do own.
  The same is true when the variables are reactive variables assigned with
  expressions (to keep getting values).
  As we keep on seperation and isolation, it is not acceptable to avoid cycles

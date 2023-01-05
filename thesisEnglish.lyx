@@ -18,17 +18,12 @@
 \usepackage{pgf-umlsd}
 \usepackage{algorithm,algpseudocode}
 \usepackage{listings}
-\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
 \usepackage[section]{placeins}
 \usetikzlibrary{positioning,arrows,arrows.meta}
-\lstset{%
-  breaklines=true,
-  breakatwhitespace=true,
-   moredelim=[is][\underbar]{_}{_}
-}
 \usepackage{tikz,rxmarbles}
 \usetikzlibrary[arrows,shapes,positioning,matrix]
 \tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\usetikzlibrary{calc}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -103,7 +98,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\listings_params "language=java,backgroundcolor={\color{white}},basicstyle={\ttfamily},belowcaptionskip={1\baselineskip},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,xleftmargin={\parindent},postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},sensitive"
+\listings_params "language={[Sharp]C},backgroundcolor={\color{white}},basicstyle={\ttfamily},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},moredelim={[is][\underbar]{_}{_}},escapechar={|},numbers=left,numberfirstline=true,firstnumber=1,stepnumber=1"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -394,7 +389,7 @@ filename "Motivation.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Abstraction.lyx"
+filename "Method.lyx"
 
 \end_inset
 
@@ -404,7 +399,7 @@ filename "Abstraction.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Semantics.lyx"
+filename "Adequacy.lyx"
 
 \end_inset
 

@@ -476,5 +476,23 @@ RIvar
  Chapter 6 evaluate the results by the help of a prototype application.
 \end_layout
 
+\begin_layout Section
+Outline
+\end_layout
+
+\begin_layout Standard
+This is an example of a reference to 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
 \end_body
 \end_document

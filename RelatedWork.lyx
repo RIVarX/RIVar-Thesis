@@ -125,7 +125,7 @@ The traditional constraints systems does not have the nature to work with
  The solvers are centeral components that need access to all the variables
  and constraints.
  At this point our new model may help, because it does have the nature to
- work with OOP and derived architecture designs.
+ work with OOP, which may be extended to work with more architectural patterns.
  
 \end_layout
 

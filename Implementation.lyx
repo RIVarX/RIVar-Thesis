@@ -143,8 +143,7 @@ literal "false"
 \end_inset
 
 .
- In addition ReactiveX has two useful operators to implement latent variables:
- 
+ ReactiveX has two useful operators to implement latent variables: 
 \begin_inset ERT
 status open
 
@@ -307,10 +306,8 @@ The default assigment copies values bit by bit.
  Therefore, in the context of FRP applications, the assigment just makes
  the target variable to point on the constructed expressions, disconnecting
  from the old referenced expression if exists.
-\end_layout
-
-\begin_layout Standard
-Therefore, RIVarX implements an alternative assigment function named 
+ The traditional assigment cannot be overriden, therefore RIVarX implements
+ an alternative assigment function named 
 \begin_inset ERT
 status open
 
@@ -323,7 +320,7 @@ lstinline{Set}
 
 \end_inset
 
-, because the traditional assigment cannot be overriden.
+.
  
 \begin_inset ERT
 status open
@@ -475,7 +472,7 @@ lstinline{Signal}
 
 \end_inset
 
-'s instance) contains an array of timestamps that is used in comparisons.
+'s instance) contains an array of timestamps that are used in comparisons.
 \end_layout
 
 \begin_layout Paragraph*
@@ -682,22 +679,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:instanceFirst}
-\end_layout
-
-\end_inset
-
--
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:instanceLast}
+cref{line:instanceFirst,line:instanceSecond,line:instanceLast}
 \end_layout
 
 \end_inset
@@ -919,7 +903,7 @@ ref{line:checkResult}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -975,7 +959,9 @@ label{line:instanceFirst}|
 
 \begin_layout Plain Layout
 
-    var Y = new RIVar<int>();
+    var Y = new RIVar<int>();|
+\backslash
+label{line:instanceSecond}|
 \end_layout
 
 \begin_layout Plain Layout

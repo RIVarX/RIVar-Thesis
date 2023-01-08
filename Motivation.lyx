@@ -1796,7 +1796,7 @@ Conclusion
 
 \begin_layout Standard
 We require calculations with no unexpetced updates, while calculations are
- defined seperatly in 
+ defined separately in 
 \begin_inset ERT
 status open
 

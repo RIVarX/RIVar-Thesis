@@ -3047,7 +3047,7 @@ Executing the Assignments
 \end_layout
 
 \begin_layout Standard
-Executing the assigments statements accumulates merged streams.
+Executing the assigment statements accumulates merged streams.
  The execution is sequentially, with the imperative style, line by line.
  For example, the statement 
 \begin_inset ERT

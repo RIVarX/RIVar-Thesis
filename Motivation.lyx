@@ -135,7 +135,7 @@ status open
 
 
 \backslash
-lstinline{Infusion}
+lstinline{Pump}
 \end_layout
 
 \end_inset
@@ -161,6 +161,34 @@ noprefix "false"
 \end_inset
 
 .
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ refers to giving 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}'s content
+\end_layout
+
+\end_inset
+
+.
+ injecting medicines into a patient's bloodstream.
 \end_layout
 
 \begin_layout Standard
@@ -196,7 +224,7 @@ hline
 
 \begin_layout Plain Layout
 
-Drug & VolumeOfFluid & Concentration 
+Drug & Concentration & VolumeOfFluid 
 \backslash
 
 \backslash
@@ -211,11 +239,11 @@ framebox(35,15){
 \backslash
 textit{100}} & 
 \backslash
-framebox(35,15){300} & 
-\backslash
 framebox(35,15){
 \backslash
-textit{0.33}} 
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
 \backslash
 
 \backslash
@@ -325,11 +353,14 @@ status open
 
 
 \backslash
-begin{tikzpicture}
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
 
+
+\backslash
+begin{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
@@ -337,14 +368,6 @@ begin{tikzpicture}
 
 \backslash
 begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \begin_layout Plain Layout
@@ -359,7 +382,7 @@ node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro frontend
 
 
 \backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Infusion
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
  micro frontend] (D) {};
 \end_layout
 
@@ -379,7 +402,7 @@ node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
 
 
 \backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Infusion
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
  Domain Object] (B) {};
 \end_layout
 
@@ -391,21 +414,21 @@ node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Infusion
 
 
 \backslash
-draw[dash dot] (A)--(B) node[anchor=south,inner sep=2pt,midway] {messages};
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {messages};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw[dash dot] (A)--(C) node[inner sep=2pt,midway] {messages};
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {messages};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw[dash dot] (D)--(B) node[inner sep=2pt,midway] {messages};
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {messages};
 \end_layout
 
 \begin_layout Plain Layout
@@ -417,17 +440,16 @@ end{scope}
 
 \begin_layout Plain Layout
 
-\end_layout
 
-\begin_layout Plain Layout
-
+\backslash
+end{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{tikzpicture}
+end{center}
 \end_layout
 
 \end_inset
@@ -463,7 +485,282 @@ The design of the drug administration application
 \end_layout
 
 \begin_layout Section
-The Objects
+Drug Administration Data Model
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ depends on an existing bag, containing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ relates to amount of medication/drug administered to a patient, (e.g.
+ 100 mg).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ relates to the fluid volume mixed with the drug (e.g., 300 ml).
+ Based on the existing bag, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ contains the data related to giving the bag's content over time.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Rate}
+\end_layout
+
+\end_inset
+
+ relates to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ flow administered into the patient’s body per time unit (e.g., 30 ml per
+ hour).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ relates to the dosage, which is the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ administered into the patient’s body per time unit (e.g., 10 mg per hour).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+ relates to the duration from starting the injection until stopping it.
+ According to the architectural design and as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Calculation-spread-over-objects-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the fields in the user interface can trigger changes to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ which trigger changes also to the bag.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ interacts with the bag indirectly using an interface.
+\end_layout
+
+\begin_layout Standard
+In order to achive our goal to seperate the drug administration model, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ and its bag will be loosely coupled.
+ The bag will be defined as an interface, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ will only send messages to it, to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+ Such as example is visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Calculation-spread-over-objects-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ send a message to the bag, it should not be aware of any internal information
+ related to the bag.
 \end_layout
 
 \begin_layout Standard
@@ -479,21 +776,7 @@ lstinline{Bag}
 
 \end_inset
 
- (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Bag-Class"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) refers to an active ingredient mixed with fluid to injecting medicines
- into a patient's bloodstream.
-\end_layout
-
-\begin_layout Standard
+, in addition to 
 \begin_inset ERT
 status open
 
@@ -501,70 +784,267 @@ status open
 
 
 \backslash
-begin{description}      
+lstinline{Drug}
 \end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
 
 \backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Drug
-\begin_inset Quotes erd
-\end_inset
-
-] relates to amount of medication/drug administered to a patient, (e.g.
- 20 mg).
-    
+lstinline{VolumeOfFluid}
 \end_layout
+
+\end_inset
+
+, contains also 
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
 
 \backslash
-item[
-\begin_inset Quotes eld
+lstinline{Concentration}
+\end_layout
+
 \end_inset
 
-VolumeOfFluid
-\begin_inset Quotes erd
+ relating to the amount of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
 \end_inset
 
-] relates to Infusion’ fluid volume.
- An Infusion injects the medication into the patient’s body, by mixing the
- Drug with fluids (e.g., 20 ml).
+ per 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ (e.g.
+ 0.33 mg/ml).
  
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ should not be aware of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ interacts with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ by the interface it is implemented, named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+.
+ The data model and the relationships is visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Concentration
-\begin_inset Quotes erd
-\end_inset
-
-] amount of the 
-\backslash
-textbf{Drug} per 
-\backslash
-textbf{VolumeOfFluid} (e.g.
- 0.5 mg/ml).
-  
+begin{sequencediagram}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{description}
+newthread{A}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{B}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{C}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Dose=10}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Duration=10}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Drug=100}{C}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Calculation-spread-over-objects-1"
+
+\end_inset
+
+Calculation procedure spread over seperated objects
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -594,40 +1074,6 @@ begin{center}
 
 
 \backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration := Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug := Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
 begin{tikzpicture}[scale=0.8]%[show  background  grid]
 \end_layout
 
@@ -635,7 +1081,7 @@ begin{tikzpicture}[scale=0.8]%[show  background  grid]
 
 
 \backslash
-begin{class}{Bag}{0,-10}
+begin{interface}{IBag}{0,-5}
 \end_layout
 
 \begin_layout Plain Layout
@@ -650,6 +1096,69 @@ attribute{Drug}
 
 \backslash
 attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}[text width=8 cm]{Pump}{0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Pump}{TheBag}{}{IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Bag}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+implement {IBag}
 \end_layout
 
 \begin_layout Plain Layout
@@ -691,377 +1200,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Bag-Class"
+name "fig:Drug-Administration-UML"
 
 \end_inset
 
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- Class
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- refers to giving 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s content
-\end_layout
-
-\end_inset
-
- over time:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{description}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Rate
-\begin_inset Quotes erd
-\end_inset
-
-] relates to 
-\backslash
-textbf{VolumeOfFluid} flow administered into the patient’s body per time
- unit (e.g., 20 ml per hour).
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Dose
-\begin_inset Quotes erd
-\end_inset
-
- (or Dosage)] 
-\backslash
-textbf{Drug} administered into the patient’s body per time unit (e.g., 20
- mg per hour).
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Duration
-\begin_inset Quotes erd
-\end_inset
-
-] relates to the duration from starting the injection until stopping it.
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{description}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- class handles calculations while referring also to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s
-\end_layout
-
-\end_inset
-
- fields, unawaring of the calculations specified within 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Infusion {    
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration := TheBag.Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate := TheBag.VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = TheBag.Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.VolumeOfFluid := Duration*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[scale=0.8]%[show  background  grid]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{interface}{Content}{0,-5}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Drug}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{VolumeOfFluid}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{interface}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}[text width=8 cm]{Infusion}{0,0}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Dose}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Rate}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-composition{Infusion}{TheBag}{}{Content}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Infusion-class"
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- class
+Drug administration class diagram
 \end_layout
 
 \end_inset
@@ -1075,7 +1218,7 @@ lstinline{Infusion}
 \end_layout
 
 \begin_layout Section
-Calculation
+Unpredictable Calculation
 \end_layout
 
 \begin_layout Standard
@@ -1094,6 +1237,225 @@ noprefix "false"
 ) is executed.
  The procedure consists of branches according to the user-cases, in each
  branch there are three values being used to calculate the other values.
+ In contrast, following the seperation, the calculations task is spread
+ over 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the cenario visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ the user sets 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+10
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, in response 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is calculated to 100.
+ The user then sets 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ to 300, in response 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ is calculated to 0.33.
+ Then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is calculated to 99 unexpectedly.
+ 
+\end_layout
+
+\begin_layout Standard
+The unpredictable change has two reasons.
+ First, in the update of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ 100/300 was rounded, and lost information in the process.
+ This caused 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be calculated to 0.33, which caused 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ to be calculated to 99.
+ Second, there was a cycle: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ was updated according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, which was updated according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1232,546 +1594,6 @@ Part of a centralized calculation procedure
 \end_layout
 
 \begin_layout Standard
-However, we want to satisfy the contract between the objects, such that
- each object will handle its calculation internaly.
- Consequently, the calculations task is spread over 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In the cenario described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Calculation-spread-over-objects"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, a clinician sets values to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}'s 
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-.
- In response, the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-'s 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-'s value.
- Then the clinician sets a value to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-'s 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
- In response, the bag calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-'s value, and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Rate}
-\end_layout
-
-\end_inset
-
-'s value, according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-'s 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-'s new value.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- called 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- to calculates its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Rate}
-\end_layout
-
-\end_inset
-
- 
-\emph on
-indirectly
-\emph default
- without to be aware of its existence.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{A}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{B}{Infusion}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{C}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{Dose=10}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{Duration=10}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{B}{Drug=100}{C}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{VolumeOfFluid=300}{C}{} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{C}{Concentration=0.33}{C}{}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{C}{Rate=30}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}        
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Calculation-spread-over-objects"
-
-\end_inset
-
-Calculation procedure spread over seperated objects
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Unpredictable-Calculation"
-
-\end_inset
-
-Unpredictable Calculation
-\end_layout
-
-\begin_layout Standard
-The behavior does not satisfy.
- In the cenario visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- the user sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-10
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
- to 10, in response, according to line 5, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is calculated to 100.
- The user then sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- to 300, in response, according to line 9, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- is calculated to 0.33.
- Then, according to line 10, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is overridden to 99.
- 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -1806,7 +1628,7 @@ newthread{A}{User Interface}{}
 
 
 \backslash
-newinst[1]{B}{Infusion}{}     
+newinst[1]{B}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1968,10 +1790,13 @@ Calculation procedure spread over seperated objects producing unpredictable
 
 \end_layout
 
+\begin_layout Section
+Conclusion
+\end_layout
+
 \begin_layout Standard
-Unpredictable calculation cannot easily prevented in spread calculation,
- because of cycles mistakenly defined in the data dependencies.
- The 
+We require calculations with no unexpetced updates, while calculations are
+ defined seperatly in 
 \begin_inset ERT
 status open
 
@@ -1979,12 +1804,12 @@ status open
 
 
 \backslash
-lstinline{Infusion}
+lstinline{Pump}
 \end_layout
 
 \end_inset
 
- is aware of its 
+ and 
 \begin_inset ERT
 status open
 
@@ -1997,440 +1822,8 @@ lstinline{Bag}
 
 \end_inset
 
-, however it does not aware of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s
-\end_layout
-
-\end_inset
-
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{{Concentration}
-\end_layout
-
-\end_inset
-
- and the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid := Drug*Concentration}
-\end_layout
-
-\end_inset
-
-.
- As a result, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Infusion}
-\end_layout
-
-\end_inset
-
- defines its calculation without being aware of the cycle (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Cycle-created-by-indepedent-classes"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) being produced in the dependencies.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Infusion {  
-\end_layout
-
-\begin_layout Plain Layout
-
- Duration := TheBag.VolumeOfFluid*Rate
-\end_layout
-
-\begin_layout Plain Layout
-
- TheBag.Drug := Duration*Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag{
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid := Drug*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[remember picture,align=center,node distance=2cm,
-\end_layout
-
-\begin_layout Plain Layout
-
-  inner/.style={circle} 
-\end_layout
-
-\begin_layout Plain Layout
-
-  ]
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[rectangle,draw=black,label=above:$Bag$] (A) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[shape=circle,draw=black,label=above:$Amount$] (Amount) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Amount,label=above:$Concentration$]
- (Concentration) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Concentration,label=above:$Volume$]
- (Volume) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-node[shape=rectangle,draw=black,below right=0.5cm and 1.5cm of Amount] (Amount_Con
-centration)  {*};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-path[-{Triangle[scale=1]}] (Amount) edge  (Amount_Concentration);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Concentration) edge  (Amount_Concentration);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Amount_Concentration) edge  (Volume);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-  };
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[rectangle,draw=black,below=of A,label=above:$Infusion$] (B) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-node[shape=circle,draw=black,label=below:$Dose$] (Dose)  {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Dose,label=below:$Duration$] (Duration)
-  {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black,right=of Duration,label=below:$Rate$] (Rate)
-  {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black,above right=0.3cm and 0.8cm of Dose] (Duration_Dos
-e)  {*};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Dose) edge  (Duration_Dose);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Duration) edge  (Duration_Dose);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=rectangle,draw=black,above right=0.3cm and 0.8cm of Duration] (Volume_R
-ate)  {:};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Rate) edge  (Volume_Rate);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (Volume_Rate) edge  (Duration);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-  };
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-path[-{Triangle[scale=1]}] (Duration_Dose) edge  (Amount);
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-path[-{Triangle[scale=1]}] (Volume) edge  (Volume_Rate);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Cycle-created-by-indepedent-classes"
-
-\end_inset
-
-Cycle created by independent classes
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Summary
-\end_layout
-
-\begin_layout Standard
-It is sometimes desirable to assign objects' variables, which we 
-\emph on
-do not
-\emph default
- own, to give them values according data we 
-\emph on
-do
-\emph default
- own.
- The same is true when the variables are reactive variables assigned with
- expressions (to keep getting values).
- As we keep on seperation and isolation, it is not acceptable to avoid cycles
- in declaring the data flow.
-\end_layout
-
-\begin_layout Standard
-So, it would be desirable to find out how to propagate the values without
- producing unpredictable values.
- Of course, the solution should not be a central component that handle the
- calculations.
+, and the runtime are managed on top of the objects' interactions (standard
+ calls).
 \end_layout
 
 \end_body

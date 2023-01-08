@@ -24,6 +24,7 @@
 \usetikzlibrary[arrows,shapes,positioning,matrix]
 \tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
 \usetikzlibrary{calc}
+\usepackage{cleveref}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false

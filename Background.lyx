@@ -170,9 +170,8 @@ Predictability
 \end_layout
 
 \begin_layout Standard
-In the development of user interface applications, the task of updating
- variables in response to other variables' updates, might cause unpredictable
- behavior and even infinite loops 
+FRP runtimes might cause unpredictable behavior and even infinite loops
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "hung2018architectural"
@@ -186,8 +185,8 @@ literal "false"
  Specificaly, when adding a functionality to update one variable, that variable
  might be part of a long chains of updates, so it might fall into an endless
  loop.
- This means that, scaling the application is unpredictable, because any
- change might produce an unpredictable behavior.
+ Consequently, scaling the application is unpredictable, because any change
+ might produce an unpredictable behavior.
 \end_layout
 
 \begin_layout Subsection

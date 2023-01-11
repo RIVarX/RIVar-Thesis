@@ -114,7 +114,1489 @@ name "chap:Background"
 \end_layout
 
 \begin_layout Standard
+In software development, state management refers to the process of maintaining
+ and updating the variables of an application or system.
+ One common requirement is implementing 
+\emph on
+reactive variables
+\emph default
+, variables that are recaluclated in response to dependant variables' updates,
+ just like cells containing formulas in spreadsheet applications.
+ The FRP paradigm provides solutions to implement reactive variables.
+ The developers should specify formulas, and the solution uses its runtime
+ to enforce them.
+ For this discussion, we extend the term 
+\emph on
+FRP runtime
+\emph default
+ to any solution that handles the task of updating variables in response
+ to other variables’ updates.
+\end_layout
+
+\begin_layout Standard
+Implementing FRP runtime is challenged, because it might face unpredictable
+ behavior and even infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hung2018architectural"
+literal "false"
+
+\end_inset
+
+.
+ The unpredictable behavior might exist especially when applications scale
+ with many features and have long chains of updates.
+ Specificaly, when adding a functionality to update one variable, that variable
+ might be part of a long chains of updates, so it might fall into an endless
+ loop.
+ Consequently, scaling the application is unpredictable, because any change
+ might produce an unpredictable behavior.
+\end_layout
+
+\begin_layout Standard
+(Solutions achiving predictable are either non-modular or monolithic or
+ both.
+ Non-modular, that the reactive variables and formulas cannot generaly be
+ specified in seperated objects or components.
+ Monolithic, that even when the reactive variables and formulas can be seperated
+, the reactive variables are not interacting like peer to peer.
+ Intsead, there is one centeral algorithm accessing to the entire data.)
+\end_layout
+
+\begin_layout Section
+OOP
+\end_layout
+
+\begin_layout Standard
+Originaly, the OOP paradigm provided 
+\emph on
+objects encapsulation
+\emph default
+ in order to scale applications without making unpredictable behavior.
+ According to the objects encapsulation, objects' variables are protected
+ from being updated by external code.
+ Instead, objects expose methods, by which an object's consumers ask the
+ object to update its variables.
+ OOP also provides 
+\emph on
+indirect control
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, to consumers to call methods only according to the interface.
+ Similary, the 
+\emph on
+inheritance mechanism
+\emph default
+ provides extending objects without to harm them, by depending on the specializa
+tion interface while encapsulating the technical imeplmentation.
+ However, objects sometimes provides consumers the option to update their
+ variables.
+\end_layout
+
+\begin_layout Standard
+Objects can provide consumers to register code that update variables, to
+ be executed in the events that other variables are updated.
+ By this technique, enterprise applications provide customers to extend
+ the application according to their business needs, such as 
+\emph on
+Microsoft Power Apps
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://powerapps.microsoft.com
+\end_layout
+
+\end_inset
+
+ do.
+ In the enterprise application Microsoft Power Apps, developers can register
+ plugins that update fields, to be re-calculated according other fields.
+ Registering one custom plugin might lead to infinite loop of updates caused
+ from several registered plugins.
+ This familiar problem has the ad-hoc solution to stop the loop by the provided
+ field named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Depth}
+\end_layout
+
+\end_inset
+
+
+\emph on
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://carldesouza.com/dynamics-365-understanding-plugin-depth
+\end_layout
+
+\end_inset
+
+
+\emph default
+, containing how many times the current plugin is executed.
+ This situation with Microsoft Power Apps reflects typical situations in
+ maintaining applications' state.
+\end_layout
+
+\begin_layout Section
+FRP
+\end_layout
+
+\begin_layout Standard
+Originaly, in the FRP paradigm functions over reactive variables are declared,
+ in order to have the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ The referential transparency property means that the same input will produce
+ consistently the same output.
+ Thanks to the referential transparency property, functions can be composed
+ and decomposed, producing predictable behavior.
+ The functions are represented as trees in the memory, and used by the runtime
+ to maintain the values.
+ 
+\emph on
+REScala
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014rescala"
+literal "false"
+
+\end_inset
+
+ has implemented one such solution integrated with OOP.
+ Objects can have reactive variables as part of their interface, and there
+ is a propogation system that maintain them 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014rescala"
+literal "false"
+
+\end_inset
+
+.
+ Consequently, the FRP paradigm provides an alternative to the events paradigm,
+ by abstracting away the need to update variables according to other variables.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (D) at (3,3) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (C);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch"
+
+\end_inset
+
+Glitch
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, We see in the paradigm the concept of events harmonized in several
+ forms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push,Kamina2018,blackheath2016functional,proencca2017quality"
+literal "false"
+
+\end_inset
+
+.
+ In one popular approach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, functions over events streams are declared, preserving the referential
+ transparency property.
+ Actualy a reactive variable can be represented by a stream of events representi
+ng the variable's values as a list 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ However, there is a big difference between the original reactive variable
+ to this representation.
+\end_layout
+
+\begin_layout Standard
+In addition to the more verbose syntax 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ achieved by events streams, the mechanism is typicaly very different.
+ Functions over events streams are typicaly not handled by a special runtime
+ with the graph data structure.
+ Instead, The events streams are observables, and there are operators over
+ them, that subscribe and produce events streams.
+ 
+\emph on
+ReactiveX
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ has implemented one such solution.
+ Objects can have reactive variables as part of their interface, and the
+ values are propagated according to the events mechanism.
+ Consequently, reactive variables as events streams does no depend on the
+ madiator exists in the original FRP, because they interact directly.
+\end_layout
+
+\begin_layout Standard
+The madiator has access to all the variables and formulas, so it can provide
+ more predictable behavior.
+ For example, if one variable has several updates caused by a single update,
+ such as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, that updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ leads to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C
+\end_layout
+
+\end_inset
+
+.
+ In case that the variables are interacts directly, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D
+\end_layout
+
+\end_inset
+
+ will have an incorrect update named 
+\emph on
+glitch.
+ 
+\emph default
+In contrast, a madiator has the knowledge of the special construction, and
+ handle the updates efficient, so that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+D
+\end_layout
+
+\end_inset
+
+ will e updated only when both 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+C
+\end_layout
+
+\end_inset
+
+ has been updated.
+ Even though the madiator can provide more predictable behavior, there are
+ sometimes requirements that prefer directed interaction over a madiator.
+ For example, distributed applications prefers directed interacton to reduce
+ perfomance.
+\end_layout
+
+\begin_layout Standard
+In the FRP paradigm with the distributed settings, variables can be located
+ in different processes or hosts 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,shibanai2018distributed,drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ Using solutions like 
+\emph on
+XFRP 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "shibanai2018distributed"
+literal "false"
+
+\end_inset
+
+, developers declare the level functions over reactive variables, and the
+ compiler generates distributed applications, that handle the updates according
+ to the specified formulas.
+\end_layout
+
+\begin_layout Subsection
+Cycles
+\end_layout
+
+\begin_layout Standard
+There are two opposing opinions how to handle cycles.
+ In one approach, cycles should be avoided, because then the referential
+ transparency property is broken 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ But in the second approach, forbidding cycles makes FRP unacceptably weak,
+ because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+ According to this approach, a library named 
+\emph on
+Hotdrink
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+, implements a constraints system for user interfaces.
+ The library re-constructs the dependency graph whenever the user edits
+ a field.
+\end_layout
+
+\begin_layout Standard
+Using the approach that cycles exist and supported, the runtime stops arisen
+ loops either after an amount of iterations, or that it stops if the value
+ has not changed (according to a threshold), or that the language provides
+ a special operator to break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ The two first options are available in 
+\emph on
+Microsoft Excel
+\emph default
+ by the 
+\emph on
+calculation options
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Constraints
+\end_layout
+
+\begin_layout Standard
+FRP shares with the paradigm of constraints systems the idea, that developers
+ declare equations, and the runtime automates variables updates according
+ to the equations and input.
+ However, they are different: FRP is about defining variables as functions
+ over other variables, while constraints systems are about to satisfy constraint
+s.
+\end_layout
+
+\begin_layout Standard
+There are constraints systems similar to FRP that handle one-way constraints.
+ There are other constraints systems that handle two-way constraints.
+ Constraints systems that handle two-way constraints, by their nature, handle
+ cycles correctly, and allows defining multiple constraints that output
+ to the same variable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ This means that we are not the first to discover reassigment as a way to
+ solve cycles.
+ However, our finding contributes to area of the constraints systems.
+\end_layout
+
+\begin_layout Standard
+The traditional constraints systems does not have the nature to work with
+ components based architecture and distributed systems.
+ Because the runtime is handled by constraints solvers, that are algorithms
+ developed for constraints systems to satisfy the constraints.
+ The solvers are centeral components that need access to all the variables
+ and constraints.
+ At this point our new model may help, because it does have the nature to
+ work with OOP, which may be extended to work with more architectural patterns.
+ 
+\end_layout
+
+\begin_layout Standard
+Our new variant of FRP can be refered as a constraints system.
+ In the traditional constraints systems, any two-way constraint are declared
+ with the methods to satisfy it, e.g., as implemented by Hotdrink in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:two-way-constraint-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B+C}
+\end_layout
+
+\end_inset
+
+ is attached with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B:=A-C}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C:=A-B}
+\end_layout
+
+\end_inset
+
+.
+ In order to use our model, only the methods should be specified.
+ If one prefers providing the code in terms of two-way constraints, we can
+ think about implementing a wrapper 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Constraint}
+\end_layout
+
+\end_inset
+
+ class as a future work.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+function  sum( a, b ) { return a + b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+function diff( a, b ) { return a - b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var model = new hd.ModelBuilder()
+\end_layout
+
+\begin_layout Plain Layout
+
+    .variables( {A: 0, B: 0, C: 0} )
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .constraint( A, B, C )
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'B, C -> A', sum  ) // A:=B+C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, C -> B', diff ) // B:=A-C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, B -> C', diff ) // C:=A-B
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .end();
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:two-way-constraint-1"
+
+\end_inset
+
+two-way constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B+C}
+\end_layout
+
+\end_inset
+
+ implemented by Hotdrink
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+FRP runtimes achiving predictability usualy use a madiator.
+ Madiator is another layer needed in the application, with the added complexity
+ compared to traditional simple methods calls.
+ In order to support any added formula while achiving predictability, we
+ are required to use a constraints system, which hardly depends on a madiator.
+ Because when supporting any addes formula, we support any graph, also those
+ containing cycles.
+ Supporting any added formula in the traditional OOP, might produce unpredictabi
+lity from the difficulties to recognize the required changes.
+\end_layout
+
+\begin_layout Section
+???????/
+\end_layout
+
+\begin_layout Section
+????
+\end_layout
+
+\begin_layout Standard
+One modeling method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
+
+\end_inset
+
+ present states and events as transition between them, such that in the
+ transition, there are actions, that are code to execute during the transition.
+ This method is used in front-end applications by the library 
+\emph on
+Redux
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ and is promoted by 
+\emph on
+XState
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+https://xstate.js.org
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In software development, state management refers to the process of maintaining
+ and updating the variables of an application or system.
+ One common requirement is implementing 
+\emph on
+reactive variables
+\emph default
+, variables that are recaluclated in response to dependant variables' updates,
+ just like cells in spreadsheet applications, that are re-calculated according
+ to specified formulas.
+ The FRP paradigm provides solutions to implement reactive variables.
+ The developers should specify formulas, and the solution uses its runtime
+ to enforce them.
+ For this discussion, we extend the term 
+\emph on
+FRP runtime
+\emph default
+ to any solution that handles the task of updating variables in response
+ to other variables’ updates.
+\end_layout
+
+\begin_layout Standard
+FRP runtime can be implemented by the technique named 
+\emph on
+inversion of control
+\emph default
+ (IoC).
+ According to IoC, objects provide consumers to register code that update
+ variables, to be executed in the events that other variables are updated.
+ By this technique, enterprise applications provide customers to extend
+ the application according to their business needs, such as 
+\emph on
+Microsoft Power Apps
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://powerapps.microsoft.com
+\end_layout
+
+\end_inset
+
+ do.
+ In the enterprise application Microsoft Power Apps, developers can register
+ plugins that update fields, to be re-calculated according other fields.
+ Registering one custom plugin might lead to infinite loop of updates caused
+ from several registered plugins.
+ This familiar problem has the ad-hoc solution to stop the loop by the provided
+ field named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Depth}
+\end_layout
+
+\end_inset
+
+
+\emph on
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://carldesouza.com/dynamics-365-understanding-plugin-depth
+\end_layout
+
+\end_inset
+
+
+\emph default
+, containing how many times the current plugin is executed.
+\end_layout
+
+\begin_layout Standard
+A second approach provides reactive variables being 
+\end_layout
+
+\begin_layout Section
 ???????
+\end_layout
+
+\begin_layout Standard
+In software development, state management refers to the process of maintaining
+ and updating the variables of an application or system.
+ One common requirement is implementing 
+\emph on
+reactive variables
+\emph default
+, variables that are recaluclated in response to dependant variables' updates,
+ just like cells in spreadsheet applications, that are re-calculated according
+ to specified formulas.
+ The FRP paradigm provides solutions to implement reactive variables.
+ The developers should specify formulas, and the solution uses its runtime
+ to enforce them.
+ For this discussion, we extend the term 
+\emph on
+FRP runtime
+\emph default
+ to any solution that handles the task of updating variables in response
+ to other variables’ updates.
+\end_layout
+
+\begin_layout Standard
+Implementing FRP runtime is challenged, because it might face unpredictable
+ behavior and even infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hung2018architectural"
+literal "false"
+
+\end_inset
+
+.
+ The unpredictable behavior might exist especially when applications scale
+ with many features and have long chains of updates.
+ Specificaly, when adding a functionality to update one variable, that variable
+ might be part of a long chains of updates, so it might fall into an endless
+ loop.
+ Consequently, scaling the application is unpredictable, because any change
+ might produce an unpredictable behavior.
+\end_layout
+
+\begin_layout Standard
+(Solutions achiving predictable are either non-modular or monolithic or
+ both.
+ Non-modular, that the reactive variables and formulas cannot generaly be
+ specified in seperated objects or components.
+ Monolithic, that even when the reactive variables and formulas can be seperated
+, the reactive variables are not interacting like peer to peer.
+ Intsead, there is one centeral algorithm accessing to the entire data.)
+\end_layout
+
+\begin_layout Section
+Modularity
+\end_layout
+
+\begin_layout Section
+Non Predictability
+\end_layout
+
+\begin_layout Standard
+Originaly, the OOP paradigm provided 
+\emph on
+objects encapsulation
+\emph default
+ in order to scale applications without making unpredictable behavior.
+ According to the objects encapsulation, objects' variables are protected
+ from being updated by external code.
+ Instead, objects expose methods, by which an object's consumers ask the
+ object to update its variables.
+ However, the achievable modular FRP runtime is unpredictable.
+\end_layout
+
+\begin_layout Standard
+By a technique named 
+\emph on
+inversion of control
+\emph default
+ (IoC), objects can provide consumers to register code that update variables,
+ to be executed in the events that other variables are updated.
+ By this technique, enterprise applications provide customers to extend
+ the application according to their business needs, such as 
+\emph on
+Microsoft Power Apps
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://powerapps.microsoft.com
+\end_layout
+
+\end_inset
+
+ do.
+ In the enterprise application Microsoft Power Apps, developers can register
+ plugins that update fields, to be re-calculated according other fields.
+ Registering one custom plugin might lead to infinite loop of updates caused
+ from several registered plugins.
+ This familiar problem has the ad-hoc solution to stop the loop by the provided
+ field named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Depth}
+\end_layout
+
+\end_inset
+
+
+\emph on
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://carldesouza.com/dynamics-365-understanding-plugin-depth
+\end_layout
+
+\end_inset
+
+
+\emph default
+, containing how many times the current plugin is executed.
+\end_layout
+
+\begin_layout Section
+Supporting any added formula
+\end_layout
+
+\begin_layout Standard
+In FRP, the runtime should provide predictable behavior against potential
+ loops caused from cycles in the dependency graph.
+ There are two opposing opinions.
+ In one approach, cycles should be avoided, because then the referential
+ transparency property is broken 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ But in the second approach, forbidding cycles makes FRP unacceptably weak,
+ because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+ According to this approach, a library named 
+\emph on
+Hotdrink
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+, implements a constraints system for user interfaces.
+ The library re-constructs the dependency graph whenever the user edits
+ a field.
+\end_layout
+
+\begin_layout Standard
+Using the approach that cycles exist and supported, the runtime stops arisen
+ loops either after an amount of iterations, or that it stops if the value
+ has not changed (according to a threshold), or that the language provides
+ a special operator to break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ The two first options are available in 
+\emph on
+Microsoft Excel
+\emph default
+ by the 
+\emph on
+calculation options
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Non-Modular
+\end_layout
+
+\begin_layout Standard
+Originaly, FRP is about high level syntax and predictable behavior, not
+ about modularity and components.
+ FRP solutions usually collects the formulas in its implemented compilation
+ or evaluation process.
+ Solutions like REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "salvaneschi2014rescala"
+literal "false"
+
+\end_inset
+
+ constructs a graph data structure and the runtime uses the graph to maintain
+ the variables.
+ Solutions like 
+\emph on
+XFRP 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "shibanai2018distributed"
+literal "false"
+
+\end_inset
+
+ generates code that handles the updates according to the specified formulas.
+\end_layout
+
+\begin_layout Section
+Monolithic
+\end_layout
+
+\begin_layout Section
+Non-Modular
+\end_layout
+
+\begin_layout Standard
+The FRP runtime should collect the formulas and continuously reevaluating
+ the variables according to the formulas and input.
+ FRP solutions usually collects the formulas in its implemented compilation
+ or evaluation process.
+ Solutions like REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "salvaneschi2014rescala"
+literal "false"
+
+\end_inset
+
+ constructs a graph data structure to enforce later.
+ Solutions like 
+\emph on
+XFRP 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "shibanai2018distributed"
+literal "false"
+
+\end_inset
+
+ generates code that handles the updates according to the specified formulas.
+ In contrast, solutions depending purly on the observer pattern, does not
+ need a special mechanism to collect the formulas.
+\end_layout
+
+\begin_layout Section
+??????
+\end_layout
+
+\begin_layout Standard
+——-
+\end_layout
+
+\begin_layout Standard
+Reactive variables by their nature suffer from (1) cycles, (2) glitches
+ and (3) reassigments.
+ This leads approaches achiving predictable being either non-modular or
+ monolithic or both.
+ Non-modular, that the reactive variables and formulas cannot generaly be
+ specified in seperated objects or components.
+ Monolithic, that even when the reactive variables and formulas can be seperated
+, the reactive variables are not interacting like peer to peer.
+ Intsead, there is one centeral algorithm accessing to all of the reactive
+ variables and formulas.
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+In software development, state management refers to the process of maintaining
+ and updating the variables of an application or system.
+ There are many different approaches and techniques that can be used for
+ state management, depending on the specific requirements of the application
+ and the programming language or framework being used.
+ One common requirement is the 
+\emph on
+spreadsheet behavior
+\emph default
+, i.e., to recalculate variables in response to dependant variables' changes,
+ just like cells in spreadsheet applications, that are re-calculated according
+ to specified formulas.
+ 
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+In one technique named 
+\emph on
+inversion of control
+\emph default
+ (IoC), object's consumer registers code to update variables, to be executed
+ in the events that other variables are updated.
+ By this technique, enterprise applications provide customers to extend
+ the application according to their business needs.
+ In the enterprise application 
+\emph on
+Microsoft Power Apps
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://powerapps.microsoft.com
+\end_layout
+
+\end_inset
+
+, developers can register plugins that update fields, to be re-calculated
+ according other fields.
+\end_layout
+
+\begin_layout Standard
+In another approach, 
+\end_layout
+
+\begin_layout Standard
+The custom plugin might lead to infinite loop of updates caused by several
+ registered plugins.
+ Therefore, the field 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Depth}
+\end_layout
+
+\end_inset
+
+
+\emph on
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://carldesouza.com/dynamics-365-understanding-plugin-depth
+\end_layout
+
+\end_inset
+
+
+\emph default
+ is provided to the developer to stop the loop.
+ The field is like the cursion depth, containing how many times the current
+ plugin is executed.
+\end_layout
+
+\begin_layout Standard
+The OOP observable pattern provides a technique to implement the spreadsheet
+ behavior
+\end_layout
+
+\begin_layout Standard
+The used approaches and techniques can be categorized to those who are 
+\end_layout
+
+\begin_layout Standard
+In order to recalculate variables in response to dependant variables' changes,
+ there are diffrent techniques
 \end_layout
 
 \begin_layout Section

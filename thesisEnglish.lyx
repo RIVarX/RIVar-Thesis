@@ -430,16 +430,6 @@ filename "Evaluation.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "RelatedWork.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
 filename "Conclusion.lyx"
 
 \end_inset

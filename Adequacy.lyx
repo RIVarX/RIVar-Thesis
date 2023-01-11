@@ -240,165 +240,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (A) at (3,7) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (B) at (2,5) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (C) at (4,5) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (D) at (3,3) {D};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge  (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge  (C);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (B) edge  (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (C) edge  (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}  
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Glitch"
-
-\end_inset
-
-Glitch
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 First, a topological sorting is possible only when the dependency graph
  has no cycles, in contrast to our conception that every dependency is possible.
  Second, topological sorting means managing the variables centrally, in
@@ -893,6 +734,99 @@ Cycles
 \end_layout
 
 \begin_layout Standard
+In FRP, the runtime should provide predictable behavior against potential
+ loops caused from cycles in the dependency graph.
+ There are two opposing opinions.
+ In one approach, cycles should be avoided, because then the referential
+ transparency property is broken 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ But in the second approach, forbidding cycles makes FRP unacceptably weak,
+ because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+ According to this approach, 
+\emph on
+Hotdrink
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ implements a constraints system for user interfaces.
+ The library re-constructs the dependency graph whenever the user edits
+ a field.
+\end_layout
+
+\begin_layout Standard
+Using the approach that cycles exist and supported, the runtime stops arisen
+ loops either after an amount of iterations, or that it stops if the value
+ has not changed (according to a threshold), or that the language provides
+ a special operator to break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ The two first options are available in 
+\emph on
+Microsoft Excel
+\emph default
+ by the 
+\emph on
+calculation options
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
 There are two opposing methods about cycles.
  In one method cycles are avoided.
  The reason is technical issues 
@@ -934,7 +868,36 @@ literal "false"
 \end_inset
 
 .
- This method requires the runtime to stop arisen loops.
+ Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+According to this approach, 
+\emph on
+Hotdrink
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ implements a constraints system for user interfaces.
+ The library re-constructs the dependency graph whenever the user edits
+ a field.
+ Otherwise, the runtime to stop arisen loops.
 \end_layout
 
 \begin_layout Standard

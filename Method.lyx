@@ -553,6 +553,12 @@ lifted
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Problem-Description-Model"
+
+\end_inset
+
 Problem Description Model
 \end_layout
 

@@ -202,221 +202,6 @@ If we register to only part of the relevant events, then the behavior is
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-[   round/.style={rounded corners=1.5mm,minimum width=1cm,inner sep=2mm,above
- right,draw,align=center,text width=4mm}
-\end_layout
-
-\begin_layout Plain Layout
-
-]
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[round] (S1) at (2.5,2) {S1};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[round] (S2) at (0,0) {S2};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[round] (S3) at (5,0) {S3};
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-node[rounded corners=1.5mm,minimum width=4cm,inner sep=1mm,above right,draw,align
-=center,text width=26mm] (S4) at (1.2,-3) {S4
-\backslash
-
-\backslash
-
-\backslash
-fontsize{5pt}{5pt}
-\backslash
-selectfont y changed/calculate x
-\backslash
-
-\backslash
-
-\backslash
-fontsize{5pt}{5pt}
-\backslash
-selectfont z changed/calculate x};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-draw[-latex] (3.5, 3.5) coordinate (init) to[out=180,in=90] (S1);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-fill (init) circle (0.05);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-path[-latex] (S1) edge[out=180, in=90]  node[scale=0.5] {y changed} (S2);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-latex] (S1) edge[out=0, in=90]  node[scale=0.5] {z changed} (S3);
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-path[-latex] (S2) edge[out=270, in=180]  node[scale=0.5] {z changed/calculate
- x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-path[-latex] (S3) edge[out=270, in=0]  node[scale=0.5] {y changed/calculate
- x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[round,fit=(S1)(S2)(S3)(S4)(init)] (System) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Statechart"
-
-\end_inset
-
-Statechart modeling the execution of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{x:=y+z}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
@@ -613,13 +398,13 @@ AmountByInput=FromInput()
 
 \begin_layout Plain Layout
 
-_AmountByConcentrationAndVolume=Concentration*Volume_ 
+__AmountByConcentrationAndVolume=Concentration*Volume__ 
 \end_layout
 
 \begin_layout Plain Layout
 
-Alert=Or(IsAbnormal(AmountByInput),_IsAbnormal(AmountByConcentration AndVolume)_
-)
+Alert=Or(IsAbnormal(AmountByInput),__IsAbnormal(AmountByConcentration AndVolume)
+__)
 \end_layout
 
 \begin_layout Plain Layout
@@ -710,14 +495,14 @@ AmountByInput=FromInput()
 
 \begin_layout Plain Layout
 
-AmountByConcentrationAndVolume=Concentration*Volume _AmountByDoseAndDuration=Dos
-e*Duration_ 
+AmountByConcentrationAndVolume=Concentration*Volume __AmountByDoseAndDuration=Do
+se*Duration__ 
 \end_layout
 
 \begin_layout Plain Layout
 
-Alert=Or(IsAbnormal(AmountByInput),IsAbnormal(AmountByConcentrationAndVolume),_I
-sAbnormal(AmountByDoseAndDuration)_) 
+Alert=Or(IsAbnormal(AmountByInput),IsAbnormal(AmountByConcentrationAndVolume),__
+IsAbnormal(AmountByDoseAndDuration)__) 
 \end_layout
 
 \begin_layout Plain Layout

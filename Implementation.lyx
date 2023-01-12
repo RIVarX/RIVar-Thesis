@@ -110,7 +110,7 @@ noprefix "false"
  The model is implemented as a lightweight .NET library to C# developers
  named RIVarX
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RIvarX
@@ -118,8 +118,7 @@ https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RI
 
 \end_inset
 
-.
- RIVarX provides RIVar functionality based on ReactiveX
+, based on ReactiveX
 \begin_inset Foot
 status collapsed
 
@@ -130,6 +129,37 @@ https://reactivex.io
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+RIVarX
+\end_layout
+
+\begin_layout Standard
+When implementing RIVarX, we started from adding extensions methods to existing
+ types of ReactiveX.
+ The model can be fully implemented by only add extensions.
+ Only to provide a more user friendly syntax, we defined the class named
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+ providing this type explicity.
+ The main features we developed are to provide our model.
+ The features are: (1) assigment operator, (2) order model and (3) operators.
+\end_layout
+
+\begin_layout Subsection
+ReactiveX
 \end_layout
 
 \begin_layout Standard
@@ -158,7 +188,7 @@ lstinline{Select}
 
 
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 https://reactivex.io/documentation/operators/map.html
@@ -269,32 +299,10 @@ lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
 \end_inset
 
 .
- 
 \end_layout
 
-\begin_layout Section
-Basics
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Basics"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To implement our model described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Modeling"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, there is only a small gap.
+\begin_layout Subsection
+The Main Features
 \end_layout
 
 \begin_layout Paragraph*
@@ -617,23 +625,47 @@ lstinline{CombineLatest}
 \end_layout
 
 \begin_layout Section
-Additions and Usage
+Using RIVarX
 \end_layout
 
 \begin_layout Standard
-The model can completely be implemented and used by the ReactiveX types
- with some extensions described in 
+The unit test in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:Basics"
+reference "fig:Using-RIVarX"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-.
- However, to get it more user friendly, we added the type 
+ gives information how to use RIVarX.
+ The usage inclused two elements: the FRP application and the FRP application
+ consumer.
+ 
+\end_layout
+
+\begin_layout Subsection
+The FRP application
+\end_layout
+
+\begin_layout Standard
+introduces the whole elements to using RIVarX.
+\end_layout
+
+\begin_layout Standard
+The unittest in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Using-RIVarX"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ introduced the whole elements to using RIVarX.
+ First, RIVars are declared 
 \begin_inset ERT
 status open
 
@@ -641,12 +673,67 @@ status open
 
 
 \backslash
-lstinline{RIVar}
+cref{line:instanceFirst,line:instanceSecond,line:instanceLast}
 \end_layout
 
 \end_inset
 
- to be used.
+
+\end_layout
+
+\begin_layout Paragraph
+Declaring RIVars
+\end_layout
+
+\begin_layout Paragraph
+Functions over RIVars
+\end_layout
+
+\begin_layout Paragraph
+Assigning
+\end_layout
+
+\begin_layout Paragraph
+Providing input
+\end_layout
+
+\begin_layout Paragraph
+Get the output
+\end_layout
+
+\begin_layout Standard
+We build an FRP application by declaring functions over RIVars.
+\end_layout
+
+\begin_layout Standard
+An FRP application
+\end_layout
+
+\begin_layout Standard
+A FRP application is constructed by instances of RIVars
+\end_layout
+
+\begin_layout Standard
+In this section we present how to use RIVarX.
+\end_layout
+
+\begin_layout Standard
+An FRP application based on RIVarX, 
+\end_layout
+
+\begin_layout Standard
+As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Problem-Description-Model"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, an FRP application is useless until it is connected to an external consumer.
+ Consuming RIVarX 
 \end_layout
 
 \begin_layout Standard
@@ -681,7 +768,7 @@ status open
 
 
 \backslash
-cref{line:instanceFirst,line:instanceSecond,line:instanceLast}
+Cref{line:instanceFirst,line:instanceSecond,line:instanceLast}
 \end_layout
 
 \end_inset
@@ -710,9 +797,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:functionOverValues}
+cref{line:functionOverValues}
 \end_layout
 
 \end_inset
@@ -737,9 +824,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:Set}
+cref{line:Set}
 \end_layout
 
 \end_inset
@@ -779,11 +866,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:setInputFirst}-line~
-\backslash
-ref{line:setInputLast}
+cref{line:setInputFirst,line:setInputLast}
 \end_layout
 
 \end_inset
@@ -837,9 +922,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:subscribe}
+cref{line:subscribe}
 \end_layout
 
 \end_inset
@@ -863,9 +948,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:declareResult}
+cref{line:declareResult}
 \end_layout
 
 \end_inset
@@ -889,9 +974,9 @@ status open
 
 \begin_layout Plain Layout
 
-line~
+
 \backslash
-ref{line:checkResult}
+cref{line:checkResult}
 \end_layout
 
 \end_inset
@@ -903,7 +988,7 @@ ref{line:checkResult}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1098,7 +1183,233 @@ https://github.com/RivkaAltshuler/RIVar/tree/main/CaseStudies/DrugAdministration
 \end_inset
 
 .
- We reached the goal, that 
+ As in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Class-Pump"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ is a class depending on the interface 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+, containing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ typed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ depends on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+ by containing the class variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{TheBag}
+\end_layout
+
+\end_inset
+
+ typed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+.
+ Based on the existing bag, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Rate}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+ also typed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+.
+ In the constructor of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ we define formulas to calculate the accessible variables.
+ 
+\end_layout
+
+\begin_layout Standard
+Independent of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+, 
 \begin_inset ERT
 status open
 
@@ -1111,7 +1422,34 @@ lstinline{Bag}
 
 \end_inset
 
-'s instance does not aware of 
+ class is implemented deriving from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+.
+ Also in runtime, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ has a consistent behavior when connected or unconnected to 
 \begin_inset ERT
 status open
 
@@ -1125,17 +1463,57 @@ lstinline{Pump}
 \end_inset
 
 .
- In 
+ Unless 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ has input, the connected 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ has no effect on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+.
+ This is simulated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Unit-Test"
+reference "fig:Bag-In-Runtime"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-, the existence of 
+: 
 \begin_inset ERT
 status open
 
@@ -1148,15 +1526,202 @@ ref{line:pump}
 
 \end_inset
 
- does not change the behavior.
- 
+ has no effect on the outcome.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIVar<decimal> Rate = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIVar<decimal> Dose = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIVar<decimal> Duration = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    IBag TheBag;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Pump(IBag bag)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        TheBag = bag;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Dose.Set(TheBag.Amount.Div(Duration));
+\end_layout
+
+\begin_layout Plain Layout
+
+        Rate.Set(TheBag.Volume.Div(Duration));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Duration.Set(TheBag.Amount.Div(Dose));
+\end_layout
+
+\begin_layout Plain Layout
+
+        Duration.Set(TheBag.Volume.Div(Rate));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        TheBag.Amount.Set(Duration.Mul(Dose));
+\end_layout
+
+\begin_layout Plain Layout
+
+        TheBag.Volume.Set(Duration.Mul(Rate));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Class-Pump"
+
+\end_inset
+
+Class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1238,7 +1803,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Unit-Test"
+name "fig:Bag-In-Runtime"
 
 \end_inset
 
@@ -1250,8 +1815,383 @@ status open
 
 
 \backslash
-lstinline{Bag}' instance
+lstinline{Bag} in runtime
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:The-design-of"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we introduced a micro-frontend design.
+ Accordingly, we developed loosly coupled components that can be developed,
+ built and deployed indepedently.
+ The bootsrap is introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bootstrap-of-the"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ is like the bag micro frontend, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ is like the pump micro frontend.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ implements the UI and are connected to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ respectively.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+var bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+var pump = new Pump(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var bagUserControl = new UserControl_Bag(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var pumpUserControl = new UserControl_Pump(pump);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bootstrap-of-the"
+
+\end_inset
+
+Bootstrap of the drug administration components
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The UI components are connected to the model objects (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+) in such that whenever a user changes a field's value, it produces an input
+ to the related variable, causing other variables to be calculated, producing
+ updates in their related fields.
+ The UI components also provide the functionality to indicate calculated
+ values, just like in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ In addition, The UI components append to a log file any value change.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Log"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we introduce the log output of the cenario introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, except the unexpected update.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+Dose_Control:10
+\end_layout
+
+\begin_layout Plain Layout
+Dose_Control: 10 <1>
+\end_layout
+
+\begin_layout Plain Layout
+Duration_Control:10
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100 <2,1>
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control:100
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100 <2,3>
+\end_layout
+
+\begin_layout Plain Layout
+Dose_Control: 10 <3,2>
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100 <3>
+\end_layout
+
+\begin_layout Plain Layout
+Duration_Control: 10 <2>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control:300
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100.00 <3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300.00 <2,3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Rate_Control: 30.00 <3,4,2>
+\end_layout
+
+\begin_layout Plain Layout
+Rate_Control:30.00
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300.00 <2,5>
+\end_layout
+
+\begin_layout Plain Layout
+Rate_Control: 30.00 <5>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300.00 <3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Concentration_Control: 0.33 <3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300 <4>
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Log"
+
+\end_inset
+
+Log for the cenario of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 

@@ -165,8 +165,8 @@ objects encapsulation
  in order to scale applications without making unpredictable behavior.
  According to the objects encapsulation, objects' variables are protected
  from being updated by external code.
- Instead, objects expose methods, by which an object's consumers ask the
- object to update its variables.
+ Instead, objects expose methods to consumers to ask objects to update their
+ variables.
  OOP also provides 
 \emph on
 indirect control
@@ -185,8 +185,8 @@ literal "false"
 inheritance mechanism
 \emph default
  provides extending objects without to harm them, by depending on the specializa
-tion interface while encapsulating the technical imeplmentation.
- However, objects sometimes provides consumers the option to update their
+tion interface while encapsulating the technical implementation.
+ Anyway, objects sometimes provide consumers the option to update their
  variables.
 \end_layout
 
@@ -209,9 +209,9 @@ https://powerapps.microsoft.com
 \end_inset
 
  do.
- In the enterprise application Microsoft Power Apps, developers can register
- plugins that update fields, to be re-calculated according other fields.
- Registering one custom plugin might lead to infinite loop of updates caused
+ In Microsoft Power Apps, developers can register custom plugins that update
+ fields, to be re-calculated according other fields.
+ Registering one such plugin might lead to an infinite loop of updates caused
  from several registered plugins.
  This familiar problem has the ad-hoc solution to stop the loop by the provided
  field named 
@@ -247,25 +247,21 @@ https://carldesouza.com/dynamics-365-understanding-plugin-depth
 \end_layout
 
 \begin_layout Standard
-In the recent front end technalogies, the appli
-\end_layout
+In order to control the updates, there is an approach used by 
+\emph on
+XState
+\begin_inset Foot
+status collapsed
 
-\begin_layout Standard
-In front end development, there are 
+\begin_layout Plain Layout
+https://xstate.js.org
 \end_layout
-
-\begin_layout Standard
-One modeling method 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1995statement"
-literal "false"
 
 \end_inset
 
- present states and events as transition between them, such that in the
- transition, there are actions, that are code to execute during the transition.
- This method is used in front-end applications by the library 
+
+\emph default
+ and 
 \emph on
 Redux
 \emph default
@@ -277,21 +273,238 @@ literal "false"
 
 \end_inset
 
- and is promoted by 
-\emph on
-XState
-\emph default
-
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-https://xstate.js.org
-\end_layout
+, to model applications by logical states 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
 
 \end_inset
 
 .
+ The events are modeled as transition between states.
+ Actions of updates are attached to transitions to clearly control the exact
+ state when the actions should be executed.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+[   round/.style={rounded corners=1.5mm,minimum width=1cm,inner sep=2mm,above
+ right,draw,align=center,text width=4mm}
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S1) at (2.5,2) {S1};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S2) at (0,0) {S2};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S3) at (5,0) {S3};
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+node[rounded corners=1.5mm,minimum width=4cm,inner sep=1mm,above right,draw,align
+=center,text width=26mm] (S4) at (1.2,-3) {S4
+\backslash
+
+\backslash
+
+\backslash
+fontsize{5pt}{5pt}
+\backslash
+selectfont y changed/calculate x
+\backslash
+
+\backslash
+
+\backslash
+fontsize{5pt}{5pt}
+\backslash
+selectfont z changed/calculate x};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+draw[-latex] (3.5, 3.5) coordinate (init) to[out=180,in=90] (S1);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+fill (init) circle (0.05);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+path[-latex] (S1) edge[out=180, in=90]  node[scale=0.5] {y changed} (S2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+path[-latex] (S1) edge[out=0, in=90]  node[scale=0.5] {z changed} (S3);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S2) edge[out=270, in=180]  node[scale=0.5] {z changed/calculate
+ x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+path[-latex] (S3) edge[out=270, in=0]  node[scale=0.5] {y changed/calculate
+ x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[round,fit=(S1)(S2)(S3)(S4)(init)] (System) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Statechart"
+
+\end_inset
+
+Statechart modeling the execution of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x:=y+z}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -299,8 +512,9 @@ FRP
 \end_layout
 
 \begin_layout Standard
-Originaly, in the FRP paradigm functions over reactive variables are declared,
- in order to have the referential transparency property 
+In the FRP paradigm reactive variables are defines as functions over other
+ reactive variables, and the runtime maintain the variables' values accordingly,
+ using a directed acyclic graph data structure 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -309,27 +523,9 @@ literal "false"
 \end_inset
 
 .
- The referential transparency property means that the same input will produce
- consistently the same output.
- Thanks to the referential transparency property, functions can be composed
- and decomposed, producing predictable behavior.
- The functions are represented as trees in the memory, and used by the runtime
- to maintain the values.
- 
-\emph on
-REScala
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014rescala"
-literal "false"
-
-\end_inset
-
- has implemented one such solution integrated with OOP.
- Objects can have reactive variables as part of their interface, and there
- is a propogation system that maintain them 
+ In REScala, also instance variables can be reactive variables (i.e., objects
+ can have reactive variables as part of their interface) having such runtime
+ to maintain them 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "salvaneschi2014rescala"
@@ -338,9 +534,232 @@ literal "false"
 \end_inset
 
 .
- Consequently, the FRP paradigm provides an alternative to the events paradigm,
- by abstracting away the need to update variables according to other variables.
- 
+ For example, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+Z}
+\end_layout
+
+\end_inset
+
+ defines the reactive variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+ to be function of reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+.
+ The runtime uses a graph ilustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Directed-acyclic-graph"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to automaticaly maintain 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+.
+ Consequently, there is no need to repeat calling to re-calculate variables
+ like the ilustration in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The FRP paradigm has the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ from being based on pure functions, with the meaning that the same input
+ will produce consistently the same output.
+ Consequently, the FRP paradigm provides predictability in scaling the applicati
+on.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Y) at (2,5) {Y};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (Z) at (4,5) {Z};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (X) at (3,3) {X};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Y) edge  (X);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Z) edge  (X);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(X) + (0,1)$)    {X:=Y+Z};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Directed-acyclic-graph"
+
+\end_inset
+
+Directed acyclic graph data structure representing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+Z}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -503,8 +922,8 @@ Glitch
 \end_layout
 
 \begin_layout Standard
-However, We see in the paradigm the concept of events harmonized in several
- forms 
+Although the high level abstraction, the events concept still exist in the
+ paradigm 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "elliott2009push,Kamina2018,blackheath2016functional,proencca2017quality"
@@ -513,7 +932,21 @@ literal "false"
 \end_inset
 
 .
- In one popular approach 
+ In the approach used by 
+\emph on
+ReactiveX
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -521,10 +954,25 @@ literal "false"
 
 \end_inset
 
-, functions over events streams are declared, preserving the referential
- transparency property.
- Actualy a reactive variable can be represented by a stream of events representi
-ng the variable's values as a list 
+ and 
+\emph on
+Sodium
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, functions over 
+\emph on
+events streams
+\emph default
+ are declared, preserving the referential transparency property.
+ Actualy reactive variables can be represented by events streams representing
+ the varying value over time, similar to a list 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional,schuster2016reactive"
@@ -546,30 +994,22 @@ literal "false"
 
 \end_inset
 
- achieved by events streams, the mechanism is typicaly very different.
+ achieved by events streams, the mechanism is very different.
  Functions over events streams are typicaly not handled by a special runtime
  with the graph data structure.
- Instead, The events streams are observables, and there are operators over
- them, that subscribe and produce events streams.
- 
+ Instead, The events streams are 
 \emph on
-ReactiveX
+observables
 \emph default
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
- has implemented one such solution.
- Objects can have reactive variables as part of their interface, and the
- values are propagated according to the events mechanism.
- Consequently, reactive variables as events streams does no depend on the
- madiator exists in the original FRP, because they interact directly.
+, with 
+\emph on
+operators
+\emph default
+ over them, that subscribe and produce events streams.
+ This means that objects can have reactive variables as part of their interface,
+ and the values are propagated according to the events mechanism.
+ Generally speaking, reactive variables as events streams does no depend
+ on the madiator exists in the original FRP, because they interact directly.
 \end_layout
 
 \begin_layout Standard
@@ -592,7 +1032,9 @@ status open
 
 \begin_layout Plain Layout
 
-A
+
+\backslash
+lstinline{A}
 \end_layout
 
 \end_inset
@@ -603,7 +1045,9 @@ status open
 
 \begin_layout Plain Layout
 
-B
+
+\backslash
+lstinline{B}
 \end_layout
 
 \end_inset
@@ -614,19 +1058,23 @@ status open
 
 \begin_layout Plain Layout
 
-C
+
+\backslash
+lstinline{C}
 \end_layout
 
 \end_inset
 
 .
- In case that the variables are interacts directly, 
+ In case that the variables interact directly, 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-D
+
+\backslash
+lstinline{D}
 \end_layout
 
 \end_inset
@@ -636,27 +1084,30 @@ D
 glitch.
  
 \emph default
-In contrast, a madiator has the knowledge of the special construction, and
- handle the updates efficient, so that 
+In contrast, a madiator has the knowledge of the special construction to
+ handle the updates correctly.
+ So 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-\emph on
-D
+
+\backslash
+lstinline{D}
 \end_layout
 
 \end_inset
 
- will e updated only when both 
+ will be updated only when both 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-\emph on
-B
+
+\backslash
+lstinline{B}
 \end_layout
 
 \end_inset
@@ -667,8 +1118,9 @@ status open
 
 \begin_layout Plain Layout
 
-\emph on
-C
+
+\backslash
+lstinline{C}
 \end_layout
 
 \end_inset
@@ -676,8 +1128,8 @@ C
  has been updated.
  Even though the madiator can provide more predictable behavior, there are
  sometimes requirements that prefer directed interaction over a madiator.
- For example, distributed applications prefers directed interacton to reduce
- perfomance.
+ For example, typical distributed applications prefer directed interacton
+ to reduce perfomance.
 \end_layout
 
 \begin_layout Standard
@@ -703,51 +1155,42 @@ literal "false"
 
 \end_inset
 
-, developers declare the level functions over reactive variables, and the
- compiler generates distributed applications, that handle the updates according
+, developers declare functions over reactive variables, and the compiler
+ generates a distributed application, that handles the updates according
  to the specified formulas.
 \end_layout
 
-\begin_layout Subsection
-Cycles
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:ConstraintsInBackground"
+
+\end_inset
+
+Constraints
 \end_layout
 
 \begin_layout Standard
-There are two opposing opinions how to handle cycles.
- In one approach, cycles should be avoided, because then the referential
- transparency property is broken 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- But in the second approach, forbidding cycles makes FRP unacceptably weak,
- because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
+FRP shares with the paradigm of constraints systems the idea, that developers
+ declare equations, and the runtime automates variables' updates according
+ to the equations and input.
+ However, they are different: FRP is about defining variables as functions
+ over other variables, while constraints systems are about to satisfy constraint
+s.
 \end_layout
 
 \begin_layout Standard
-Following the approach that cycles are avoided, there is an approach that
- the needed dependency graph is dynamically changed 
+There are constraints systems similar to FRP that handle one-way constraints
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "foust2015generating"
+key "sannella1993multi"
 literal "false"
 
 \end_inset
 
 .
- According to this approach, a library named 
+ Other constraints systems like 
 \emph on
 Hotdrink
 \emph default
@@ -759,65 +1202,18 @@ literal "false"
 
 \end_inset
 
-, implements a constraints system for user interfaces.
- The library re-constructs the dependency graph whenever the user edits
- a field.
-\end_layout
-
-\begin_layout Standard
-Using the approach that cycles exist and supported, the runtime stops arisen
- loops either after an amount of iterations, or that it stops if the value
- has not changed (according to a threshold), or that the language provides
- a special operator to break the cycle 
+ handle two-way constraints 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "cooper2006embedding"
+key "haveraaen2021semantics,foust2015generating,sannella1993multi"
 literal "false"
 
 \end_inset
 
 .
- The two first options are available in 
-\emph on
-Microsoft Excel
-\emph default
- by the 
-\emph on
-calculation options
-\emph default
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Constraints
-\end_layout
-
-\begin_layout Standard
-FRP shares with the paradigm of constraints systems the idea, that developers
- declare equations, and the runtime automates variables updates according
- to the equations and input.
- However, they are different: FRP is about defining variables as functions
- over other variables, while constraints systems are about to satisfy constraint
-s.
-\end_layout
-
-\begin_layout Standard
-There are constraints systems similar to FRP that handle one-way constraints.
- There are other constraints systems that handle two-way constraints.
  Constraints systems that handle two-way constraints, by their nature, handle
- cycles correctly, and allows defining multiple constraints that output
- to the same variable 
+ cycles, and allows defining multiple constraints that output to the same
+ variable 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sannella1993multi"
@@ -826,27 +1222,8 @@ literal "false"
 \end_inset
 
 .
- This means that we are not the first to discover reassigment as a way to
- solve cycles.
- However, our finding contributes to area of the constraints systems.
-\end_layout
-
-\begin_layout Standard
-The traditional constraints systems does not have the nature to work with
- components based architecture and distributed systems.
- Because the runtime is handled by constraints solvers, that are algorithms
- developed for constraints systems to satisfy the constraints.
- The solvers are centeral components that need access to all the variables
- and constraints.
- At this point our new model may help, because it does have the nature to
- work with OOP, which may be extended to work with more architectural patterns.
- 
-\end_layout
-
-\begin_layout Standard
-Our new variant of FRP can be refered as a constraints system.
- In the traditional constraints systems, any two-way constraint are declared
- with the methods to satisfy it, e.g., as implemented by Hotdrink in 
+ Actualy, the developers declaring two-way constraints need to declare also
+ the one-way constraints, e.g., in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:two-way-constraint-1"
@@ -909,9 +1286,42 @@ lstinline{C:=A-B}
 \end_inset
 
 .
- In order to use our model, only the methods should be specified.
- If one prefers providing the code in terms of two-way constraints, we can
- think about implementing a wrapper 
+\end_layout
+
+\begin_layout Standard
+The FRP runtime uses 
+\emph on
+constraints solver
+\emph default
+ to maintain the variables
+\emph on
+.
+ 
+\emph default
+The constraints solvers are algorithms developed for constraints systems
+ to satisfy the constraints.
+ In order to solve a set of two-way constraints, the constraints solver
+ uses a model named 
+\emph on
+constraint hierarchies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borning1987constraint"
+literal "false"
+
+\end_inset
+
+.
+ There are cases that the algorithm cannot satisfy all the constraints,
+ then it satisfies only those that are
+\emph on
+ 
+\emph default
+specified to be in a higher hierarchy.
+ For example, having the following constraints hierarchical in the descending
+ order 
 \begin_inset ERT
 status open
 
@@ -919,13 +1329,117 @@ status open
 
 
 \backslash
-lstinline{Constraint}
+lstinline{A=B}
 \end_layout
 
 \end_inset
 
- class as a future work.
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B=2}
+\end_layout
+
+\end_inset
+
+, the constraints solver will satisfy only the first two constraints, by
  
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B=1}
+\end_layout
+
+\end_inset
+
+.
+ In order to maintain the variables according to the constraints, as in
+ the example in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:constraints hirarchy"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the runtime maintains an added constraints derived from the variables.
+ For each variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+ containing a value 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x}
+\end_layout
+
+\end_inset
+
+, the runtime maintain a constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X=x}
+\end_layout
+
+\end_inset
+
+, with hierarchical according to the order of the input.
 \end_layout
 
 \begin_layout Standard
@@ -1064,20 +1578,221 @@ lstinline{A=B+C}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Input
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Constraints hierarchical in descending order
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Solution
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=1, B=1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, B=2, A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=2, B=2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, A=3, B=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=3, B=3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:constraints hirarchy"
+
+\end_inset
+
+Maintaining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ according to the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B}
+\end_layout
+
+\end_inset
+
+, using constraint hierarchies.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Conclusion
 \end_layout
 
 \begin_layout Standard
-FRP runtimes achiving predictability usualy use a madiator.
- Madiator is another layer needed in the application, with the added complexity
- compared to traditional simple methods calls.
- In order to support any added formula while achiving predictability, we
- are required to use a constraints system, which hardly depends on a madiator.
- Because when supporting any addes formula, we support any graph, also those
- containing cycles.
- Supporting any added formula in the traditional OOP, might produce unpredictabi
-lity from the difficulties to recognize the required changes.
+There are FRP runtimes that are based on the traditional simple methods
+ calls, and are unpredictable.
+ Others more predictable solutions use a madiator with the added complexity
+ of having another layer needed to the application.
+ There are FRP runtimes for distributed applications that do not use a madiator,
+ but as the FRP paradigm, they support only the sets of formulas producing
+ directed acyclic graphs.
 \end_layout
 
 \end_body

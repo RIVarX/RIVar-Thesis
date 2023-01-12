@@ -652,75 +652,26 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-In constraints systems, there is a model named 
-\emph on
-constraint hierarchies
-\emph default
- that solves conflicts, of having several statements relating several expression
-s to a single variable.
- According to the model, there is a priority which determines one statement
- to consider, ignoring the other statements.
- In one model developed for UI 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
+As described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-, the priority is derived from the input provided.
-\end_layout
-
-\begin_layout Standard
-In the model, an input provided to a variable produces a statement relating
- the input to the variable, e.g., an input 2 provided to variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- produces a statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=2}
-\end_layout
-
-\end_inset
-
-.
- The model maintains a hierarchy over the statements according to the order
- of the input, such that a statement produced from a new input is prioritized
- over the statements produced by previous input.
-\end_layout
-
-\begin_layout Standard
-Then there is an algorithm to determine a plan to execute the statements
- in an order where no statement outputs to a variable after it has been
- used (either as input or output) by another statement.
- The algorithm chooses the plan that uses the most prioritized statements.
-\end_layout
-
-\begin_layout Standard
-In the model we just described, the statements produced directly or transitively
- from the input are ignored in case there is a more prioritized statement
- that directly or transitively set the relevant variable.
- This means that values are overridden if there is a new input that directly
- or transitively (by the plan) set the variable.
- This is like in our model: values are overridden by new input directly
- or transitively, as according to our order model, the new input produces
- greater values.
+, constraints systems like HotDrink solve the constraints according to the
+ hierarchy derived from the order of the input.
+ Consequently the produced behavior is the same as our new model.
+ It is true that the constraints system handles two-way constraints while
+ our model handles one-way constraints.
+ However, as said the section, the two-way constraints are declared and
+ handled by one-way constraints that satisfy the two-way constraints.
+ Therefore we keep saying that our model handles multiple assignments such
+ as the constraints systems do.
+ 
 \end_layout
 
 \begin_layout Section
@@ -734,11 +685,10 @@ Cycles
 \end_layout
 
 \begin_layout Standard
-In FRP, the runtime should provide predictable behavior against potential
- loops caused from cycles in the dependency graph.
- There are two opposing opinions.
- In one approach, cycles should be avoided, because then the referential
- transparency property is broken 
+In the FRP paradigm, where FRP runtimes are developed, There are two opposing
+ methods about cycles.
+ In one method, cycles are avoided, because the paradigm derived from the
+ functional paradigm, with the referential transparency property 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -747,98 +697,8 @@ literal "false"
 \end_inset
 
 .
- But in the second approach, forbidding cycles makes FRP unacceptably weak,
- because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Following the approach that cycles are avoided, there is an approach that
- the needed dependency graph is dynamically changed 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
- According to this approach, 
-\emph on
-Hotdrink
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- implements a constraints system for user interfaces.
- The library re-constructs the dependency graph whenever the user edits
- a field.
-\end_layout
-
-\begin_layout Standard
-Using the approach that cycles exist and supported, the runtime stops arisen
- loops either after an amount of iterations, or that it stops if the value
- has not changed (according to a threshold), or that the language provides
- a special operator to break the cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-.
- The two first options are available in 
-\emph on
-Microsoft Excel
-\emph default
- by the 
-\emph on
-calculation options
-\emph default
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-——
-\end_layout
-
-\begin_layout Standard
-There are two opposing methods about cycles.
- In one method cycles are avoided.
- The reason is technical issues 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, because avoiding cycles is a necessary condition to algorithms to handle
- glitches 
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "margara2018semantics,bainomugisha2013survey"
@@ -846,19 +706,8 @@ literal "false"
 
 \end_inset
 
-, or to achive the referential transparency property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
 .
-\end_layout
-
-\begin_layout Standard
-According to the second method, forbidding cycles makes FRP unacceptably
+ According to the second method, forbidding cycles makes FRP unacceptably
  weak, because many applications have cycles by their nature 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -882,26 +731,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-According to this approach, 
-\emph on
-Hotdrink
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- implements a constraints system for user interfaces.
- The library re-constructs the dependency graph whenever the user edits
- a field.
- Otherwise, the runtime to stop arisen loops.
-\end_layout
-
-\begin_layout Standard
-There are various techniques to stop arisen loops.
+FRP runtimes that support cycles uses various techniques to stop arisen
+ loops.
  Terminating when it closes a cycle 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -936,33 +767,13 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
 \end_inset
 
 ).
+ The various methods caused from the unknown, that a repeating update is
+ either needed because previous update was a glitch, or that it is unneeded
+ because the repeating update is caused from a cycle.
 \end_layout
 
 \begin_layout Standard
-None of the techniques provide a solution generaly to all graphs.
- An unneeded update might change values unexcpectedly as presented in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Unpredictable-Calculation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- However the information whether an update is unneeded is unknown.
- Repeating update is either needed because previous update was a glitch,
- or that it is unneeded because the repeating update is caused from a cycle.
- This unknown causes the various solutions being without one general technique
- to handle cycles.
- 
-\end_layout
-
-\begin_layout Standard
-While the listed techniques provides only the technical aspect, our model
- provides also semantics.
- As described in 
+Our model provides the semantics described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:Fundamentals"
@@ -972,10 +783,32 @@ noprefix "false"
 
 \end_inset
 
-, cycles are resulted from variables with more than one source.
+: cycles are resulted from variables with more than one source.
  Those variables are updated whenever there is a newer value from any of
  the sources.
- Then, loops are terminated, because values caused from cycles are not newer.
+ Technically, loops are terminated, because values caused from cycles are
+ not newer.
+ However, we are not the first to handle cycles, as said in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, constraints systems that handle two-way constraints handle cycles by their
+ nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ Nevertheless, the model treats the meaning issue about cycles more explicity.
 \end_layout
 
 \end_body

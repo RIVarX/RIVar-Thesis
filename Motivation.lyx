@@ -86,13 +86,14 @@
 \begin_body
 
 \begin_layout Chapter
+Motivating Example
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Motivating-Example"
 
 \end_inset
 
-Motivating Example
+
 \end_layout
 
 \begin_layout Standard
@@ -910,7 +911,7 @@ lstinline{IBag}
 \end_inset
 
 .
- The data model and the relationships is visualized in 
+ The data model and the relationships are visualized in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration-UML"
@@ -1795,8 +1796,7 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-We require calculations with no unexpetced updates, while calculations are
- defined separately in 
+The calculations are defined separately in 
 \begin_inset ERT
 status open
 
@@ -1822,8 +1822,10 @@ lstinline{Bag}
 
 \end_inset
 
-, and the runtime are managed on top of the objects' interactions (standard
- calls).
+.
+ Also the runtime is seperated, managing the updates on top of the objects'
+ interactions (standard calls).
+ As a result, there are unpredictable calculations.
 \end_layout
 
 \end_body

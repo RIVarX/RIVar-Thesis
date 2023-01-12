@@ -302,6 +302,12 @@ lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:The-Main-Features"
+
+\end_inset
+
 The Main Features
 \end_layout
 
@@ -629,7 +635,73 @@ Using RIVarX
 \end_layout
 
 \begin_layout Standard
-The unit test in 
+The interface provided by RIVarX uses ReactiveX combined with the new implemente
+d interface.
+ The new type 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+, in addition to the operations introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:The-Main-Features"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, has the observation operations, because it implements an interface named
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ISubject}
+\end_layout
+
+\end_inset
+
+ derived from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IObserver}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IObservable}
+\end_layout
+
+\end_inset
+
+.
+ A complete usage example is listed in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Using-RIVarX"
@@ -639,356 +711,14 @@ noprefix "false"
 
 \end_inset
 
- gives information how to use RIVarX.
- The usage inclused two elements: the FRP application and the FRP application
- consumer.
- 
-\end_layout
-
-\begin_layout Subsection
-The FRP application
-\end_layout
-
-\begin_layout Standard
-introduces the whole elements to using RIVarX.
-\end_layout
-
-\begin_layout Standard
-The unittest in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Using-RIVarX"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- introduced the whole elements to using RIVarX.
- First, RIVars are declared 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:instanceFirst,line:instanceSecond,line:instanceLast}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Declaring RIVars
-\end_layout
-
-\begin_layout Paragraph
-Functions over RIVars
-\end_layout
-
-\begin_layout Paragraph
-Assigning
-\end_layout
-
-\begin_layout Paragraph
-Providing input
-\end_layout
-
-\begin_layout Paragraph
-Get the output
-\end_layout
-
-\begin_layout Standard
-We build an FRP application by declaring functions over RIVars.
-\end_layout
-
-\begin_layout Standard
-An FRP application
-\end_layout
-
-\begin_layout Standard
-A FRP application is constructed by instances of RIVars
-\end_layout
-
-\begin_layout Standard
-In this section we present how to use RIVarX.
-\end_layout
-
-\begin_layout Standard
-An FRP application based on RIVarX, 
-\end_layout
-
-\begin_layout Standard
-As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Problem-Description-Model"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, an FRP application is useless until it is connected to an external consumer.
- Consuming RIVarX 
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Using-RIVarX"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- presents a basic unittest to RIVarX to the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X:=Y+Z}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-Cref{line:instanceFirst,line:instanceSecond,line:instanceLast}
-\end_layout
-
-\end_inset
-
- initiate 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X},
-\backslash
-lstinline{Y} and 
-\backslash
-lstinline{Z}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:functionOverValues}
-\end_layout
-
-\end_inset
-
- defines the function 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{+}
-\end_layout
-
-\end_inset
-
- over values.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:Set}
-\end_layout
-
-\end_inset
-
- lifts the function to be applied on 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Y} and 
-\backslash
-lstinline{Z}
-\end_layout
-
-\end_inset
-
- and set it to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:setInputFirst,line:setInputLast}
-\end_layout
-
-\end_inset
-
- produce inputs like 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Y=2} and 
-\backslash
-lstinline{Z=3}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X}
-\end_layout
-
-\end_inset
-
- triggers the value 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{5}
-\end_layout
-
-\end_inset
-
-.
- This is verified by the subscription in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:subscribe}
-\end_layout
-
-\end_inset
-
-, variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{result}
-\end_layout
-
-\end_inset
-
- declared in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:declareResult}
-\end_layout
-
-\end_inset
-
-, is updated to the value pushed by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X}
-\end_layout
-
-\end_inset
-
- and then verified in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{line:checkResult}
-\end_layout
-
-\end_inset
-
-.
+ in the form of a unit test.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1158,13 +888,310 @@ Using RIVarX
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Declaring RIVars
+\end_layout
+
+\begin_layout Standard
+RIVars are declared parameterized with the type of values it should contain,
+ as in 
+\begin_inset ERT
+status open
+
 \begin_layout Plain Layout
 
+(
+\backslash
+cref{line:instanceFirst,line:instanceSecond,line:instanceLast})
 \end_layout
 
 \end_inset
 
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Using-RIVarX"
+plural "false"
+caps "false"
+noprefix "false"
 
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Functions over RIVars
+\end_layout
+
+\begin_layout Standard
+The developer needs to implement the function over values, and then lift
+ it to be over RIVars.
+ For example, the function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{plus}
+\end_layout
+
+\end_inset
+
+ specified in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{line:functionOverValues}
+\end_layout
+
+\end_inset
+
+ is lifted to be over RIVars 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+ by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{plus.Lift(Y, Z)}
+\end_layout
+
+\end_inset
+
+.
+ The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Lift}
+\end_layout
+
+\end_inset
+
+ method returns an expression to be assigned.
+\end_layout
+
+\begin_layout Paragraph
+Assigning
+\end_layout
+
+\begin_layout Standard
+The method 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Set}
+\end_layout
+
+\end_inset
+
+ is used for assignments.
+ The argument is of type 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Expression}
+\end_layout
+
+\end_inset
+
+ produced by the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Lift}
+\end_layout
+
+\end_inset
+
+ method.
+ Consequently 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{line:Set}
+\end_layout
+
+\end_inset
+
+ implements 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+Z}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Providing input
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y=2}
+\end_layout
+
+\end_inset
+
+ is implemented by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y.OnNext(2)}
+\end_layout
+
+\end_inset
+
+ (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{line:setInputFirst,line:setInputLast}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Paragraph
+Get the output
+\end_layout
+
+\begin_layout Standard
+RIVars are observed to get its value's changes by calling to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Subscribe}
+\end_layout
+
+\end_inset
+
+.
+ In the example in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Using-RIVarX"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we update a local variable with the observed value (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{line:subscribe}
+\end_layout
+
+\end_inset
+
+) to verify it againt the expected value (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{line:checkResult}
+\end_layout
+
+\end_inset
+
+).
+ 
 \end_layout
 
 \begin_layout Section

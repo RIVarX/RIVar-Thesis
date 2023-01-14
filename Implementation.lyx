@@ -82,13 +82,20 @@
 
 \begin_layout Chapter
 Implementation
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Implementation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 In this chapter we present an implementation to the model presented in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "chap:Modeling"
+reference "chap:Method"
 plural "false"
 caps "false"
 noprefix "false"
@@ -718,7 +725,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1420,23 +1427,6 @@ lstinline{Pump}
 
  we define formulas to calculate the accessible variables.
  
-\end_layout
-
-\begin_layout Standard
-Independent of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
-, 
 \begin_inset ERT
 status open
 
@@ -1449,7 +1439,7 @@ lstinline{Bag}
 
 \end_inset
 
- class is implemented deriving from 
+ class is independently implemented deriving from 
 \begin_inset ERT
 status open
 
@@ -1459,6 +1449,56 @@ status open
 \backslash
 lstinline{IBag}
 \end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ does not depend on each other, according to the 
+\emph on
+Dependency Inversion Principle
+\emph default
+ (DIP): 
+\begin_inset Quotes eld
+\end_inset
+
+high level modules should not depend on low level modules; both should depend
+ on abstractions
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
 
 \end_inset
 
@@ -1554,6 +1594,73 @@ ref{line:pump}
 \end_inset
 
  has no effect on the outcome.
+ Similary, if we had an inheritance instead of the composition, such that
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ is the base class and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ is the subclass.
+ Then, according to the
+\emph on
+ Liskov Substitution Principle
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, objects of a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ can be replaced by objects of a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ without any effect.
 \end_layout
 
 \begin_layout Standard

@@ -131,5 +131,20 @@ merge
  operator over its inputs' streams.
 \end_layout
 
+\begin_layout Abstract
+———
+\end_layout
+
+\begin_layout Standard
+The original objects present tidy interface to clients, consisting of instance
+ variables and methods.
+ Adding instance variables that are reactive variables caused problems in
+ the semantics, when client assign already assigned reactive variables.
+ In addition, the objects had to be tangled by a special runtime to maintain
+ the reactive variables according to the assigned formulas.
+ Or that the method was based on the plain observer pattern, suffering from
+ unpredictable updates.
+\end_layout
+
 \end_body
 \end_document

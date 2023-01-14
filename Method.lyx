@@ -103,28 +103,23 @@
 \begin_body
 
 \begin_layout Chapter
+Method
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Modeling"
+name "chap:Method"
 
 \end_inset
 
-Modeling A New Variant of FRP
+
 \end_layout
 
 \begin_layout Standard
-This chapter describes our new variant of FRP, to conform reactive variables
- to RIVars.
+This chapter describes a new variant of FRP.
+ The new variant should satisfy the constraints to being used as RIVars.
 \end_layout
 
-\begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Fundamentals"
-
-\end_inset
-
-Fundamentals
+\begin_layout Paragraph*
+Objects' Messages
 \end_layout
 
 \begin_layout Standard
@@ -132,13 +127,17 @@ RIVars are instance variables, therefore the updates cannot be taken by
  a centerlized entity.
  Instead, the updates are being taken by objects interaction, such that
  variables update each other synchronously in response to their own updates.
- In addition, in the used strategy RIVar can be assigned externally, so
- formulas are unconditionally added, sometimes complicating the dependency
- graph handled by the FRP runtime.
+\end_layout
+
+\begin_layout Paragraph*
+Any Formula
 \end_layout
 
 \begin_layout Standard
-There are two phenomenons in dependency graphs.
+In the used strategy RIVar can be assigned externally, so formulas are unconditi
+onally added, sometimes complicating the dependency graph handled by the
+ FRP runtime.
+ There are two phenomenons in dependency graphs.
  First, cycles caused from 
 \emph on
 mutual recursions
@@ -463,6 +462,10 @@ Cycle graph must contain a variable with more than one source.
 
 \end_layout
 
+\begin_layout Paragraph*
+Referential Transparency
+\end_layout
+
 \begin_layout Standard
 In addition to the first two constraints, we would satisfy the 
 \emph on
@@ -502,13 +505,29 @@ the same sequence of events produces the same results, regardless of the
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5mm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The next sections describe a computation model, such that variables can
  be connected to several sources, while satisfing the referential transparency
  property.
 \end_layout
 
 \begin_layout Section
-Computational Model
+The Computational Model
 \end_layout
 
 \begin_layout Standard

@@ -565,7 +565,7 @@ lstinline{Concentration}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -948,7 +948,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-However, in FRP implemetations, such as ReactiveX 
+However, in FRP implemetations, such as ReactiveX
 \begin_inset ERT
 status open
 
@@ -1119,6 +1119,21 @@ reactive variables
 \emph default
  from FRP, supporting also the hierarchical structuring from OOP and referential
  transparency from FRP.
+ RIVars depends on a new variant of FRP supporting any set of formulas,
+ and that the reactive variables are interacted by the traditional procedures
+ calls.
+ We implement the method by C# programming language, providing the library
+ RIVarX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+ attached with a small case study.
 \end_layout
 
 \begin_layout Standard
@@ -1134,32 +1149,91 @@ textbf{Outline.}
 
 \end_inset
 
- Chapter 3 presents a motivating example, Chapter 4 presents the proposed
- semantics, Chapter 5 uses the new semantics by implementing the new type
  
-\emph on
-RIvar
-\emph default
- for C# programming language.
- Chapter 6 evaluate the results by the help of a prototype application.
-\end_layout
+\begin_inset ERT
+status open
 
-\begin_layout Section
-Outline
-\end_layout
+\begin_layout Plain Layout
 
-\begin_layout Standard
-This is an example of a reference to 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
-plural "false"
-caps "false"
-noprefix "false"
+
+\backslash
+Cref{chap:Background}
+\end_layout
 
 \end_inset
 
-.
+ presents a background about implementing FRP under the hood.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+Cref{chap:Motivating-Example}
+\end_layout
+
+\end_inset
+
+ presents an example to demonstrate the need for RIVars.
+ Then in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{chap:Method}
+\end_layout
+
+\end_inset
+
+ we present the new variant of FRP, so that reactive variables will be able
+ to be RIVars.
+ In 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{chap:Evaluation}
+\end_layout
+
+\end_inset
+
+ we compare the model against the other solutions and paradigms, in handling
+ graphs and reducing code duplication.
+ Then in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{chap:Implementation}
+\end_layout
+
+\end_inset
+
+ we present RIVarX with an implementation to the example presented in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{chap:Motivating-Example}
+\end_layout
+
+\end_inset
+
+ being the case study.
 \end_layout
 
 \end_body

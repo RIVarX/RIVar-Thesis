@@ -5,6 +5,31 @@
 \save_transient_properties true
 \origin unavailable
 \textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -78,17 +103,96 @@
 \begin_body
 
 \begin_layout Chapter
-Results
+Evaluation
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Evaluation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-The OOP and FRP paradigms provide different mechanisms to reduce repeating
- code.
- The new model harmonizes OOP with FRP, therefore we expect to get advantages
- from the two paradigms, in the element of repeating code.
+The idea of combining reactive variables from FRP to being instance variables
+ in OOP is not new.
+ However in contrast to previous work, we derive abstraction mechanisms
+ from the two of the paradigms.
+ Our evaluation presents the code duplication aspect (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Code-Reuse"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Our method to handle any graph is also evaluated by comparing between our
+ method and other solutions about special graphs (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Special-Graphs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ At last we give a brief glance about our method compared to the paradigm
+ of constraints systems (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Constraints-System"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Section
+Code Reuse
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Code-Reuse"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Code reuse
+\emph default
+, 
+\emph on
+DRY 
+\emph default
+(Don't Repeat Yourself) or 
+\emph on
+SSOT
+\emph default
+ (Single Source of Truth.
+ By not repeating code, there is no inconsistent behavior, each piece of
+ logic has only one source of truth)
+\emph on
+ 
+\emph default
+are obvious principles in programming.
+ The OOP and FRP paradigms provide different mechanisms to achieve the principle.
+ In the way we integrate OOP and FRP, we derive the mechanisms from both
+ of them.
+ 
+\end_layout
+
+\begin_layout Subsection
 Repeating Solutions
 \end_layout
 
@@ -102,10 +206,27 @@ Developers usually need to develop software, that has already been partly
  in the part that was repeated, the change should be repeated.
  In addition, it might be hard to rememeber the old duplication, then future
  changes might not completely done, leading to inconsistent behavior.
- Therefore, the OOP paradigm provides mechanisms of extending solutions.
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+In terms of OOP, when there is a class with an existing clients, if we change
+ it, we can produce unexpected changes to the clients.
+ However, if we make another class with copy and paste from the old class
+ , then in the future, then we have duplication.
+ Consequently, in the maintainance (future changes), we should manualy synchroni
+ze the classes, in order to keep them from inconsistency.
+ For this duplication problem, OOP suggests the inheritance and composition
+ mechanism.
+\end_layout
+
+\begin_layout Standard
+While reactive instance variables are not new.
+ With our model it is supported with inheritance and composition mechanism.
+ So, it is expected that developers will not need to copy and paste solutions,
+ in the existence of reactive instance variables.
+\end_layout
+
+\begin_layout Subsection
 Repeating Updates
 \end_layout
 
@@ -201,11 +322,7 @@ If we register to only part of the relevant events, then the behavior is
  Unneeded updates might lead to infinite loops of updates.
 \end_layout
 
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 Repeating Variables
 \end_layout
 
@@ -501,8 +618,17 @@ se*Duration__
 
 \begin_layout Plain Layout
 
-Alert=Or(IsAbnormal(AmountByInput),IsAbnormal(AmountByConcentrationAndVolume),__
-IsAbnormal(AmountByDoseAndDuration)__) 
+Alert=Or(IsAbnormal(AmountByInput),
+\end_layout
+
+\begin_layout Plain Layout
+
+IsAbnormal(AmountByConcentrationAndVolume),
+\end_layout
+
+\begin_layout Plain Layout
+
+__IsAbnormal(AmountByDoseAndDuration)__) 
 \end_layout
 
 \begin_layout Plain Layout
@@ -868,30 +994,987 @@ lstinline{Alert}
 \end_layout
 
 \begin_layout Section
-Conclusion
+Special Graphs
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Special-Graphs"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Our new model helps to use the 
-\emph on
-DRY
-\emph default
- (don't repeat yourself) principle, or the 
-\emph on
-SSOT
-\emph default
- (Single Source of Truth.
- By not repeating code, there is no inconsistent behavior, each piece of
- logic has only one source of truth) principle.
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
 
+\end_inset
+
+ we presented the new model that provides adding and supporting any formula.
+ In order to support any formula, the model need to handle special graphs.
+ In this section we compare the model against the traditional methods, in
+ the way they handle glitches (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), cycles (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Cycles"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and several-assigments (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Several-Assigments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Glitch"
+
+\end_inset
+
+Glitch
+\end_layout
+
+\begin_layout Standard
+A variable might have several updates caused by a single update, e.g., in
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A
+\end_layout
+
+\end_inset
+
+ leads to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+B
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+C
+\end_layout
+
+\end_inset
+
+, each of them lead to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+D
+\end_layout
+
+\end_inset
+
+.
+ The updates that are not the last update, are incorrect, and called 
 \emph on
- 
+glitch
 \emph default
-By using OOP, the developers can use and extend existing solution.
- By using FRP, there is no need to repeat calling to calculations.
- By using RIVars, there is no need to declare several variables to the same
- real-world variable.
+.
+ This is handled by doing topological sorting 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, so each of the variables will be updated after all its dependencies have
+ already been updated.
+ But we cannot use this method for two reasons.
+\end_layout
+
+\begin_layout Standard
+First, a topological sorting is possible only when the dependency graph
+ has no cycles, in contrast to our conception that every dependency is possible.
+ Second, topological sorting means managing the variables centrally, in
+ contrast to the concept of objects managing their variables on their own.
+ The need to manage the updates with a decentralized settings reminds the
+ distributed settings.
+\end_layout
+
+\begin_layout Standard
+The decentralized and distributed share the property that it is not applicable
+ to have “global centralized knowledge about the topology of the dependency
+ structure” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ However, they are not distinct.
+ Whereas distributed settings have challenges related to the network.
+ FRP with decentralized settings is more about respecting encapsulation.
+ Therefore, and because we support cycles, adapting existing algorithms
+ becomes irrelevant most of the times.
+\end_layout
+
+\begin_layout Standard
+We use the strategy like in the distributed settings, to attach data to
+ the values 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shibanai2018distributed,proencca2017quality"
+literal "false"
+
+\end_inset
+
+.
+ However we avoid the situation in the distributed settings, that the data
+ about variables is public.
+ The data becomes public, because the glitch is handled by tracking variables'
+ versions, and because information about variables' versions is attached
+ with the values.
+\end_layout
+
+\begin_layout Standard
+Our order model reminds the order of 
+\emph on
+updates
+\emph default
+ described in the distributed system model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics"
+literal "false"
+
+\end_inset
+
+.
+ In our order model, an incorrect (glitch) value (update), is considered
+ as less than an existing value, so it is ignored.
+ For example, in the dependency graph of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, D with timestamps set {1}, getting an update depending on updated B {2}
+ and not updated C {1}, produces timestamps set {1,2} that is a superset
+ of the existing timestamps {1}.
+ According to the order model, a superset is not considered greater so it
+ is ignored.
+\end_layout
+
+\begin_layout Standard
+Our model seems to solve only types of glitches (among 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics"
+literal "false"
+
+\end_inset
+
+) caused from a single update for a single variable.
+ This should satisfy many applications.
+ Actualy, for UI application, glitch may be not a problem, because a temporary
+ incomplete calculation is replaced very fast with the updated values.
+ Anyway, for more strict requirements, such like requiring several synced
+ variables, there is a possible solution named 
+\emph on
+source unification
+\emph default
  
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shibanai2018distributed,watanabecomplete"
+literal "false"
+
+\end_inset
+
+, to declare a variable deriving the variables.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Several-Assigments"
+
+\end_inset
+
+Several Assigments
+\end_layout
+
+\begin_layout Standard
+Our model supports variables depending on several expressions such as in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Several-Assigments"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, while in runtime values are infered according to time, i.e., the variable's
+ current value depends on the recent input events.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,3) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,-1)$)    {A:=B+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,-1)$)    {A:=C+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Several-Assigments"
+
+\end_inset
+
+Several Assigments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+FRP
+\end_layout
+
+\begin_layout Standard
+In FRP, a reactive variable 
+\emph on
+is
+\emph default
+ the expression it is related to.
+ The assigment operator is related to the imperative paradigm, not to the
+ functional paradigm.
+ However, languages in which the assigment symbol is used in the context
+ of functional programming, means that the left side variable is the name
+ of the assigned function.
+ Similary in FRP, a formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=Var}
+\end_layout
+
+\end_inset
+
+ declares 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ as a function that its body is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Var}
+\end_layout
+
+\end_inset
+
+.
+ Adding statement such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=Tar}
+\end_layout
+
+\end_inset
+
+, is not suitable to the paradigm.
+ In terms of reactive variables we cannot relate several sources to a single
+ variable so we are forced to use the events abstraction.
+\end_layout
+
+\begin_layout Standard
+In ReactiveX and Sodium, several streams can be merged into one stream by
+ the use of an operator named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Merge}
+\end_layout
+
+\end_inset
+
+.
+ ReactiveX merges the streams based on the time according the runtime traversal
+ order, which is unpredictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Sodium provides predictability by forcing the user to define how to merge
+ the streams.
+ Namely, no general predictable merge has been provided.
+\end_layout
+
+\begin_layout Standard
+If the developer needs to specify the correct order, it is in contrast to
+ the functional paradigm.
+ The functional paradigm was meant to eliminate handling time.
+ If the developer needs to handle time, it is not clear whether the paradigm
+ outperforms the alternative paradigm, in which time is handled by the use
+ of states and events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ Our model handles the merge problem providing the developers the high level
+ abstration without to handle time.
+ 
+\end_layout
+
+\begin_layout Paragraph*
+Events
+\end_layout
+
+\begin_layout Standard
+In simple cases our model reminds the behavior when using events: when several
+ events handlers calculate a single variable, the variable's value is according
+ to the latest triggered event.
+\end_layout
+
+\begin_layout Paragraph*
+Constraints
+\end_layout
+
+\begin_layout Standard
+As described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, constraints systems like HotDrink solve the constraints according to the
+ hierarchy derived from the order of the input.
+ Consequently the produced behavior is the same as our new model.
+ It is true that the constraints system handles two-way constraints while
+ our model handles one-way constraints.
+ However, as said in the section, the two-way constraints are declared and
+ handled by one-way constraints.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Cycles"
+
+\end_inset
+
+Cycles
+\end_layout
+
+\begin_layout Standard
+In the FRP paradigm, where FRP runtimes are developed, There are two opposing
+ methods about cycles.
+ In one method, cycles are avoided, because the paradigm derived from the
+ functional paradigm, with the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ According to the second method, forbidding cycles makes FRP unacceptably
+ weak, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+ Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+FRP runtimes that support cycles uses various techniques to stop arisen
+ loops.
+ Terminating when it closes a cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, adding to the language a special operator to inform the runtime when to
+ break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+, stop after a number of iterations, stop if the value has not changed,
+ or changed only less than a threshold (available in 
+\emph on
+Microsoft Excel
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+).
+ The various methods caused from the unknown, that a repeating update is
+ either needed because previous update was a glitch, or that it is unneeded
+ because the repeating update is caused from a cycle.
+\end_layout
+
+\begin_layout Standard
+Our model provides the semantics described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Fundamentals"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: cycles are resulted from variables with more than one source.
+ Those variables are updated whenever there is a newer value from any of
+ the sources.
+ Technically, loops are terminated, because values caused from cycles are
+ not newer.
+ However, we are not the first to handle cycles, as said in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, constraints systems that handle two-way constraints handle cycles by their
+ nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ Nevertheless, the model treats the meaning issue about cycles more explicity.
+\end_layout
+
+\begin_layout Section
+Constraints System
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Constraints-System"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FRP shares with the paradigm of constraints systems the idea, that developers
+ declare equations, and the runtime automates variables updates according
+ to the equations and input.
+ However, they are different: FRP is about defining variables as functions
+ over other variables, while constraints systems are about to satisfy constraint
+s.
+\end_layout
+
+\begin_layout Standard
+There are constraints systems similar to FRP that handle one-way constraints.
+ There are other constraints systems that handle two-way constraints.
+ Constraints systems that handle two-way constraints, by their nature, handle
+ cycles correctly, and allows defining multiple constraints that output
+ to the same variable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ This means that we are not the first to discover reassigment as a way to
+ solve cycles.
+ However, our finding contributes to area of the constraints systems.
+\end_layout
+
+\begin_layout Standard
+The traditional constraints systems does not have the nature to work with
+ components based architecture and distributed systems.
+ Because the runtime is handled by constraints solvers, that are algorithms
+ developed for constraints systems to satisfy the constraints.
+ The solvers are centeral components that need access to all the variables
+ and constraints.
+ At this point our new model may help, because it does have the nature to
+ work with OOP, which may be extended to work with more architectural patterns.
+ 
+\end_layout
+
+\begin_layout Standard
+Our new variant of FRP can be refered as a constraints system.
+ In the traditional constraints systems, any two-way constraint are declared
+ with the methods to satisfy it, e.g., as implemented by Hotdrink in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:two-way-constraint"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B+C}
+\end_layout
+
+\end_inset
+
+ is attached with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B:=A-C}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C:=A-B}
+\end_layout
+
+\end_inset
+
+.
+ In order to use our model, only the methods should be specified.
+ If one prefers providing the code in terms of two-way constraints, we can
+ think about implementing a wrapper 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Constraint}
+\end_layout
+
+\end_inset
+
+ class as a future work.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+function  sum( a, b ) { return a + b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+function diff( a, b ) { return a - b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var model = new hd.ModelBuilder()
+\end_layout
+
+\begin_layout Plain Layout
+
+    .variables( {A: 0, B: 0, C: 0} )
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .constraint( A, B, C )
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'B, C -> A', sum  ) // A:=B+C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, C -> B', diff ) // B:=A-C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, B -> C', diff ) // C:=A-B
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .end();
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:two-way-constraint"
+
+\end_inset
+
+two-way constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B+C}
+\end_layout
+
+\end_inset
+
+ implemented by Hotdrink
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

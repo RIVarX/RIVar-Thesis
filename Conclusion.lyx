@@ -79,6 +79,59 @@
 
 \begin_layout Chapter
 Conclusion
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Conclusion"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We developed a model allowing a single reactive variable being assigned
+ by several clients, with the semantics that the reactive variable's value
+ can be provided from several sources, while the reactive variable observes
+ its sources by itself.
+ The method is easily implemented and integrated in C# with a small case
+ study.
+\end_layout
+
+\begin_layout Standard
+The model has the following advantages:
+\end_layout
+
+\begin_layout Itemize
+The model depends only on the basic objects, as tidy interface to clients,
+ consisting of instance variables and methods.
+ This is in contrast to the method used in REScala, that there is a mediator
+ observing and updating the variables.
+\end_layout
+
+\begin_layout Itemize
+The new method corresponds to the concept of inheritance with subtyping.
+ Because assigning reactive variable that belongs to a base class, 
+\emph on
+adds
+\emph default
+ a dependency.
+ This is in contrast to REScala and ReactiveX, there the same action 
+\emph on
+replaces
+\emph default
+ a dependency.
+\end_layout
+
+\begin_layout Itemize
+the model has the referential transparency property, consequently, the model
+ is predictable.
+ This is altough we support any graph (and not just DAG), and we do not
+ use a madiator.
+\end_layout
+
+\begin_layout Itemize
+The model combines the two abstraction mechanisms from FRP and OOP, producing
+ SSOT for the application logic.
 \end_layout
 
 \begin_layout Paragraph*

@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Adequacy of The Model
+Evaluation
 \end_layout
 
 \begin_layout Standard
@@ -120,8 +120,8 @@ noprefix "false"
  we presented the new model that provides adding and supporting any formula,
  while achieving referential transparency property.
  In order to support any formula, the model need to handle special graphs.
- In this section we compare the model against competitors, in the way they
- handle glitches (
+ In this section we compare the model against the traditional methods, in
+ the way they handle glitches (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:Glitch"
@@ -141,7 +141,7 @@ noprefix "false"
 
 \end_inset
 
-) and reassigments (
+) and several-assigments (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:Several-Assigments"

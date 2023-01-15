@@ -131,6 +131,13 @@ RIVars are instance variables, therefore the updates cannot be taken by
 
 \begin_layout Paragraph*
 Any Formula
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Any-Formula"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

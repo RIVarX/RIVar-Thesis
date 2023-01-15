@@ -186,10 +186,10 @@ SSOT
  
 \emph default
 are obvious principles in programming.
- The OOP and FRP paradigms provide different mechanisms to achieve the principle.
- In the way we integrate OOP and FRP, we derive the mechanisms from both
- of them.
- 
+ In this section, we presents three types of code repetition being removed
+ by the new method.
+ In the presentation, we refer to the used abstraction mechanisms and compare
+ to the traditional methods.
 \end_layout
 
 \begin_layout Subsection
@@ -1019,6 +1019,13 @@ lstinline{Alert}
 
 \begin_layout Subsection
 Repeating Solutions
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Repeating-Solutions"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1042,8 +1049,7 @@ cref{subsec:Repeating-Updates,subsec:Repeating-Variables}
 
 , the new method provides an abstraction mechanism to not repeat on updates
  and variables.
- However, we are not the first to provide an abstraction mechanism to not
- repeat on updates and variables.
+ However, we are not the first to provide such an abstraction mechanism.
  As mentioned in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1668,6 +1674,13 @@ In simple cases our model reminds the behavior when using events: when several
 
 \begin_layout Paragraph*
 Constraints
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Constraints"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1792,7 +1805,7 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
 Our model provides the semantics described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:Fundamentals"
+reference "par:Any-Formula"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1839,20 +1852,121 @@ name "sec:Constraints-System"
 \end_layout
 
 \begin_layout Standard
-FRP shares with the paradigm of constraints systems the idea, that developers
- declare equations, and the runtime automates variables updates according
- to the equations and input.
- However, they are different: FRP is about defining variables as functions
- over other variables, while constraints systems are about to satisfy constraint
-s.
+In this section, we compare our method to Hotdrink mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "par:Constraints"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, FRP and so our method are similar to Hotdrink in that they share declare
+ equations, providing runtime automates to automate variables' updates,
+ they support cycles and several assigments, and that they handle the variables'
+ values according to the order of the input.
+ Our method is diffrent from Hotdrink in that it is a 
+\emph on
+decenterlized
+\emph default
+ constraints system, and that it handles one-way constraints.
+\end_layout
+
+\begin_layout Paragraph*
+decenterlized constraints system
 \end_layout
 
 \begin_layout Standard
-There are constraints systems similar to FRP that handle one-way constraints.
- There are other constraints systems that handle two-way constraints.
- Constraints systems that handle two-way constraints, by their nature, handle
- cycles correctly, and allows defining multiple constraints that output
- to the same variable 
+Hotdrink needs for each input, to run against the entire constraints and
+ existing values, to generate a new dependancy graph according to the variables'
+ existing values.
+ This algorithm is executed by a madiator coupling the entire variables
+ and dependencies.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Repeating-Solutions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this design causes applications to not being reused.
+ In other words, Hotdrink can be used only to building monolith applications
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, our method provides a decentrelized constraints system, the
+ variables observe their sources and update their values by regular objects'
+ messages.
+ Consequently, by nature, relations between variables can be specified,
+ even when variables are located in diffrent components.
+\end_layout
+
+\begin_layout Paragraph*
+one-way constraints
+\end_layout
+
+\begin_layout Standard
+Hotdrink handles two-way constraints while our method handle one-way constraints.
+ As explained in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the two-way constraints need attached one-way constraints, that are the
+ 
+\emph on
+methods 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ to satisfy the two-way constraints.
+ Consequently, with the two methods, the developer needs to specify one-way
+ constraints.
+ However, it has been augmented that it is more correct to specify two-way
+ constraints, because several one-way constraints defined separately might
+ define inconsistent requirements 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sannella1993multi"
@@ -1861,92 +1975,13 @@ literal "false"
 \end_inset
 
 .
- This means that we are not the first to discover reassigment as a way to
- solve cycles.
- However, our finding contributes to area of the constraints systems.
-\end_layout
-
-\begin_layout Standard
-The traditional constraints systems does not have the nature to work with
- components based architecture and distributed systems.
- Because the runtime is handled by constraints solvers, that are algorithms
- developed for constraints systems to satisfy the constraints.
- The solvers are centeral components that need access to all the variables
- and constraints.
- At this point our new model may help, because it does have the nature to
- work with OOP, which may be extended to work with more architectural patterns.
- 
-\end_layout
-
-\begin_layout Standard
-Our new variant of FRP can be refered as a constraints system.
- In the traditional constraints systems, any two-way constraint are declared
- with the methods to satisfy it, e.g., as implemented by Hotdrink in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:two-way-constraint"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B+C}
-\end_layout
-
-\end_inset
-
- is attached with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B:=A-C}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C:=A-B}
-\end_layout
-
-\end_inset
-
-.
- In order to use our model, only the methods should be specified.
- If one prefers providing the code in terms of two-way constraints, we can
- think about implementing a wrapper 
+ We leave this for future work.
+ For this stage we provide two arguments to the claim.
+ First, according to the motivating example, we need the option to write
+ the one-way constraints separately.
+ Second, the method should be used in a programming language that supports
+ OOP.
+ Consequently, it should not be hard to implement a wrapper class 
 \begin_inset ERT
 status open
 
@@ -1959,144 +1994,7 @@ lstinline{Constraint}
 
 \end_inset
 
- class as a future work.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-function  sum( a, b ) { return a + b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-function diff( a, b ) { return a - b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-var model = new hd.ModelBuilder()
-\end_layout
-
-\begin_layout Plain Layout
-
-    .variables( {A: 0, B: 0, C: 0} )
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .constraint( A, B, C )
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'B, C -> A', sum  ) // A:=B+C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, C -> B', diff ) // B:=A-C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, B -> C', diff ) // C:=A-B
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .end();
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:two-way-constraint"
-
-\end_inset
-
-two-way constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B+C}
-\end_layout
-
-\end_inset
-
- implemented by Hotdrink
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+ containing one-way constraints given as arguments.
 \end_layout
 
 \end_body

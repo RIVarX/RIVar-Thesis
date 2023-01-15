@@ -1190,7 +1190,17 @@ Glitch
 \end_layout
 
 \begin_layout Standard
-A variable might have several updates caused by a single update, e.g., in
+As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:background-FRP"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, a variable might have several updates caused by a single update, e.g., in
  
 \begin_inset CommandInset ref
 LatexCommand ref

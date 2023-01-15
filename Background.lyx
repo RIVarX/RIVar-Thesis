@@ -509,6 +509,13 @@ lstinline{x:=y+z}
 
 \begin_layout Section
 FRP
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:background-FRP"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

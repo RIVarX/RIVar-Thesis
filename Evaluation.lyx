@@ -193,49 +193,46 @@ are obvious principles in programming.
 \end_layout
 
 \begin_layout Subsection
-Repeating Solutions
-\end_layout
-
-\begin_layout Standard
-Developers usually need to develop software, that has already been partly
- developed.
- One strategy is to re-develop the software with the up-to-date requirements.
- Comparing to other strategies, it should be easier for the shortcoming,
- beacuse it will not harm existing consumers.
- However, future changes might require more work, because if change is required
- in the part that was repeated, the change should be repeated.
- In addition, it might be hard to rememeber the old duplication, then future
- changes might not completely done, leading to inconsistent behavior.
-\end_layout
-
-\begin_layout Standard
-In terms of OOP, when there is a class with an existing clients, if we change
- it, we can produce unexpected changes to the clients.
- However, if we make another class with copy and paste from the old class
- , then in the future, then we have duplication.
- Consequently, in the maintainance (future changes), we should manualy synchroni
-ze the classes, in order to keep them from inconsistency.
- For this duplication problem, OOP suggests the inheritance and composition
- mechanism.
-\end_layout
-
-\begin_layout Standard
-While reactive instance variables are not new.
- With our model it is supported with inheritance and composition mechanism.
- So, it is expected that developers will not need to copy and paste solutions,
- in the existence of reactive instance variables.
-\end_layout
-
-\begin_layout Subsection
 Repeating Updates
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Repeating-Updates"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-In the events paradigm, developers need to update variables in the events
+Derived from the FRP paradigm, we abstract away the need to update variables
+ in response to dependant variables' updates.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:background-FRP"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, The FRP paradigm maintain formulas automatically, so that there is no
+ need to repeat registering to events to re-calculate variables.
+ In the events paradigm, developers need to update variables in the events
  when other variables are updated.
  In case that a variable is updated according to several variables, we should
  register to all the relevant events to call to the variable to update.
- For example, in order that 
+ For example, as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, in order that 
 \begin_inset ERT
 status open
 
@@ -301,33 +298,54 @@ lstinline{x}
 \end_inset
 
  in two events handlers.
- This can be visualized by a statechart as in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "false"
-noprefix "false"
+ We provide the abstraction mechanism so that the developers don't have
+ to repeat on the code, they only need to declare 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x:=y+z}
+\end_layout
 
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Standard
-If we register to only part of the relevant events, then the behavior is
- not consistent.
- If we try to reduce the code repetition by making one event to several
- variables, it might produce unneeded updates.
- Unneeded updates might lead to infinite loops of updates.
-\end_layout
-
 \begin_layout Subsection
 Repeating Variables
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Repeating-Variables"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-We use an example of two variables 
+In the FRP paradigm by nature, several reactive variables are declared to
+ represent a single real world variable.
+ the reactive variables are the functions they represent.
+ This means that naturaly, once there is a function to calculate a varying
+ value, a new reactive variable is declared.
+ In contrast, we use the principal of several assigments, such that a single
+ reactive variable is assigned to several functions.
+ As a result, our method use a mechanism to not duplicate variables.
+\end_layout
+
+\begin_layout Subsubsection
+Example
+\end_layout
+
+\begin_layout Standard
+In the example, we demonstrate a development process.
+ We use a bold font style to indicate for code, that it is changed compared
+ to the previous step.
+ The process is about the two variables 
 \begin_inset ERT
 status open
 
@@ -353,9 +371,8 @@ lstinline{Alert}
 
 \end_inset
 
-.
- The first refers to medication amount administered to a patient, the second
- refers to whether the application should alert about abnormal medication
+, the first refers to medication amount administered to a patient, and the
+ second refers to whether the application should alert about abnormal medication
  amount.
  The following formula relates 
 \begin_inset ERT
@@ -708,8 +725,15 @@ lstinline{Alert}
 .
 \end_layout
 
-\begin_layout Subsection*
-Implemented by RIVar
+\begin_layout Paragraph*
+Implementing by the new method
+\begin_inset CommandInset label
+LatexCommand label
+name "par:no-duplicate-variables-example"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -991,6 +1015,104 @@ lstinline{Alert}
 
  need updates, therfore there is no chance of consistency problem between
  the variables' values.
+\end_layout
+
+\begin_layout Subsection
+Repeating Solutions
+\end_layout
+
+\begin_layout Standard
+The new method also provides an abstraction mechanism to not repeat on 
+\emph on
+solutions
+\emph default
+.
+ As mentioned in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{subsec:Repeating-Updates,subsec:Repeating-Variables}
+\end_layout
+
+\end_inset
+
+, the new method provides an abstraction mechanism to not repeat on updates
+ and variables.
+ However, we are not the first to provide an abstraction mechanism to not
+ repeat on updates and variables.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, in constraints systems, several constraints can output to the same variable,
+ while constraints are such like formulas in FRP.
+ Anyway, solutions created by constraints systems cannot be reused and extended
+ with more constraints, without to change the original solution, because
+ the constraints systems handle the updates using a centeral constraints
+ solver.
+ In contrast, with the new method, solutions can be reused, because our
+ new variant of FRP provides adding formulas to existing solutions.
+\end_layout
+
+\begin_layout Standard
+We derive from OOP the ability to reuse solutions.
+ Before OOP, in order to reuse solutions, the developer has two alternatives:
+ either to use an existing solution to the new client, or to copy-and paste
+ it.
+ The first alternative might cause unexpected changes to existing clients,
+ because the developer might change the solution to the new client, affecting
+ other cliebts unexpetcedly.
+ The second alternative produce code duplication.
+ In the second alternative, the duplicated code is related to a common logic,
+ if it is changed in one solution, there might be an inconsistency in the
+ behavior.
+ OOP provides the inheritance and composition mechanisms to reuse existings
+ solution without to duplicate and without to change existing solutions.
+\end_layout
+
+\begin_layout Standard
+The inheritance and composition mechanisms are actually not simple to use.
+ It is expected that the new code will not change the original behavior,
+ however even if the code is specified only in the service or in the subclass,
+ it might change the original behavior 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ When assigning reactive instance variables through a service or a specializatio
+n interface (subclass assign a reactive variable of its base class), in
+ REScala and ReactiveX, it 
+\emph on
+replaces
+\emph default
+ a dependency, then it 
+\emph on
+changes
+\emph default
+ the original behavior.
+ In our method it 
+\emph on
+adds
+\emph default
+ the dependency, then it only 
+\emph on
+extends
+\emph default
+ the original behavior.
 \end_layout
 
 \begin_layout Section

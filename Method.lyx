@@ -3157,7 +3157,7 @@ Executing the merge, is not by creating a new stream to produce values whenever
  Instead, as seen in the example in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Recursive Merge"
+reference "fig:Recursive-Merge"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3555,7 +3555,7 @@ end{tikzpicture}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Recursive Merge"
+name "fig:Recursive-Merge"
 
 \end_inset
 

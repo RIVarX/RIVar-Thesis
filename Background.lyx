@@ -1533,7 +1533,7 @@ lstinline{B=1}
  the example in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "tab:constraints hirarchy"
+reference "tab:constraints-hirarchy"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1723,7 +1723,7 @@ lstinline{A=B+C}
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1862,7 +1862,7 @@ A=3, B=3
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:constraints hirarchy"
+name "tab:constraints-hirarchy"
 
 \end_inset
 

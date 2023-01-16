@@ -88,62 +88,78 @@
 \begin_body
 
 \begin_layout Abstract
-Our goal is to facilitate Excel-like formulas in objects' classes.
- Therefore we combine the 
+The Functional Reactive Programming (FRP) paradigm specializes on maintaining
+ derived variables' values.
+ However, this task have difficulties in performing predictable behavior
+ especially when applications scale with many features and have long chains
+ of updates.
+ In this thesis, we use the combination of 
 \emph on
 reactive variable
 \emph default
- from Functional Reactive Programming with the
+ from Functional Reactive Programming and the
 \emph on
  instance variable
 \emph default
- from Object Oriented Programming.
- The new concept is named 
+ from Object Oriented Programming, calling it 
 \emph on
 RIVar
 \emph default
-, a shortcut to 
+, a shortcut to the full name 
 \emph on
 Reactive Instance Variable
 \emph default
 .
+ 
 \end_layout
 
 \begin_layout Abstract
-Reactive variables by their nature suffer from cycles, glitches and reassigments.
- Current approaches include: avoidance, iterations, and central management.
- However, when combining reactive variables with instance variables in OOP
- -- RIVars are subject to unsupported constructions, unpredictable results,
- and no-isolation.
+We propose a method that a RIVar can be assigned with formulas by several
+ clients.
+ The assignment semantics adopts the meaning from FRP, to relate the variable
+ to be updated according to the specified formula.
+ However, in contrast to FRP, there can be several assignments to the same
+ variable.
+ Under the hood, RIVars observe several formulas, and infer values when
+ and according to the latest value coming from any of the sources.
+ We establish our method on the hierarchical structuring from OOP and referentia
+l transparency from FRP (to achieve predictability).
 \end_layout
 
 \begin_layout Abstract
-We suggest that RIVar will support 
-\emph on
-multiple assignment
-\emph default
-, and that RIVar values over time will be an observable stream.
- Then RIVar with several inputs will have its varying value from executing
- a 
-\emph on
-merge
-\emph default
- operator over its inputs' streams.
+To evaluate the method, we compare the method against traditional methods,
+ in how they handle variables' updates, and what code-reuse options are
+ available.
+ In addition, we present our implementation attached with a case study.
+ The implementation is provided as an extension library, named RIVarX, to
+ C# programming language.
+ The case study presents how we separate one domain logic into sub-domains,
+ saparating a central calculation procedure.
+ In the case study, each object manages its formulas, even when the formulas
+ consist of variables belonging to other objects.
 \end_layout
 
 \begin_layout Abstract
-———
+According to our results, not only we integrate FRP with OOP, but also their
+ features are integrated.
+ As a result, in the context of code-reuse options our method achives the
+ best results.
+ However, our results are limited to the semantics that variables' value
+ are coming from several sources.
+ Furthermore, in this thesis, we use the specific option to inffer values
+ based on time (when and according to the latest value coming from any of
+ the sources).
 \end_layout
 
-\begin_layout Standard
-The original objects present tidy interface to clients, consisting of instance
- variables and methods.
- Adding instance variables that are reactive variables caused problems in
- the semantics, when client assign already assigned reactive variables.
- In addition, the objects had to be tangled by a special runtime to maintain
- the reactive variables according to the assigned formulas.
- Or that the method was based on the plain observer pattern, suffering from
- unpredictable updates.
+\begin_layout Abstract
+The specific semantics are currently used only in small case studies.
+ We hope that in future we will find the method used in real life applications,
+ either with this specific semantics, or only using the basis of our method.
+ However, this specific semantics is used in the resrach of constraints
+ systems.
+ this leads our method being the first decentralized mechanism to handle
+ constraints systems, to the best of our knowledge.
+ In addition, it provides another more interesting aspect for future research.
 \end_layout
 
 \end_body

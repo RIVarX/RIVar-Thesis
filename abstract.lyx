@@ -91,13 +91,20 @@
 The Functional Reactive Programming (FRP) paradigm specializes on maintaining
  derived variables' values.
  However, this task have difficulties in performing predictable behavior
- especially when applications scale with many features and have long chains
- of updates.
- In this thesis, we use the combination of 
+ especially when applications grow with many code duplications and long
+ chains of updates.
+ While the FRP paradigm contributes to the predictability of variables'
+ updates, The Object Oriented Programming (OOP) patadigm contributes to
+ the predictability of code changes.
+ In this thesis, we combine the two paradigms to promote the predictability.
+\end_layout
+
+\begin_layout Abstract
+We use the combination of 
 \emph on
 reactive variable
 \emph default
- from Functional Reactive Programming and the
+ from FRP and the
 \emph on
  instance variable
 \emph default
@@ -110,11 +117,7 @@ RIVar
 Reactive Instance Variable
 \emph default
 .
- 
-\end_layout
-
-\begin_layout Abstract
-We propose a method that a RIVar can be assigned with formulas by several
+ We propose a method that a RIVar can be assigned with formulas by several
  clients.
  The assignment semantics adopts the meaning from FRP, to relate the variable
  to be updated according to the specified formula.
@@ -122,8 +125,7 @@ We propose a method that a RIVar can be assigned with formulas by several
  variable.
  Under the hood, RIVars observe several formulas, and infer values when
  and according to the latest value coming from any of the sources.
- We establish our method on the hierarchical structuring from OOP and referentia
-l transparency from FRP (to achieve predictability).
+ 
 \end_layout
 
 \begin_layout Abstract
@@ -142,7 +144,7 @@ To evaluate the method, we compare the method against traditional methods,
 \begin_layout Abstract
 According to our results, not only we integrate FRP with OOP, but also their
  features are integrated.
- As a result, in the context of code-reuse options our method achives the
+ As a result, in the context of code-reuse options our method archives the
  best results.
  However, our results are limited to the semantics that variables' value
  are coming from several sources.
@@ -157,8 +159,8 @@ The specific semantics are currently used only in small case studies.
  either with this specific semantics, or only using the basis of our method.
  However, this specific semantics is used in the resrach of constraints
  systems.
- this leads our method being the first decentralized mechanism to handle
- constraints systems, to the best of our knowledge.
+ this leads our method, to the best of our knowledge, being the first decentrali
+zed mechanism to handle constraints systems.
  In addition, it provides another more interesting aspect for future research.
 \end_layout
 

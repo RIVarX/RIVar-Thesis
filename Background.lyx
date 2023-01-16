@@ -182,10 +182,10 @@ literal "false"
 , to consumers to call methods only according to the interface.
  Similary, the 
 \emph on
-inheritance mechanism
+inheritance 
 \emph default
- provides extending objects without to harm them, by depending on the specializa
-tion interface while encapsulating the technical implementation.
+mechanism provides extending objects by depending on the specialization
+ interface while encapsulating the technical implementation.
  Anyway, objects sometimes provide consumers the option to update their
  variables.
 \end_layout

@@ -88,15 +88,15 @@
 \begin_body
 
 \begin_layout Abstract
-The Functional Reactive Programming (FRP) paradigm specializes on maintaining
+The Functional Reactive Programming (FRP) paradigm specializes in maintaining
  derived variables' values.
- However, this task have difficulties in performing predictable behavior
+ However, this task has difficulties in performing predictable behavior
  especially when applications grow with many code duplications and long
  chains of updates.
  While the FRP paradigm contributes to the predictability of variables'
- updates, The Object Oriented Programming (OOP) patadigm contributes to
+ updates, The Object Oriented Programming (OOP) paradigm contributes to
  the predictability of code changes.
- In this thesis, we combine the two paradigms to promote the predictability.
+ In this thesis, we combine the two paradigms to promote predictability.
 \end_layout
 
 \begin_layout Abstract

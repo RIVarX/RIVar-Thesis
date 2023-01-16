@@ -197,13 +197,6 @@ newpage
 }
 \end_layout
 
-\begin_layout Plain Layout
-
-
-\backslash
-blankpage
-\end_layout
-
 \end_inset
 
 
@@ -369,49 +362,6 @@ OOP
 Interface
 \lang hebrew
 (.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-blankpage
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-selectlanguage{english}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset External
-	template PDFPages
-	filename thesisTocHebrew.pdf
-	extra LaTeX "pages={1-2}"
-
-\end_inset
-
-
 \end_layout
 
 \end_body

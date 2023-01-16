@@ -470,7 +470,7 @@ options "abbrv"
 	template PDFPages
 	filename thesisHebrew.pdf
 	display false
-	extra LaTeX "pages={5-1}"
+	extra LaTeX "pages={2-1}"
 
 \end_inset
 

@@ -194,11 +194,8 @@ mechanism provides extending objects by depending on the specialization
 Objects can provide consumers to register code that update variables, to
  be executed in the events that other variables are updated.
  By this technique, enterprise applications provide customers to extend
- the application according to their business needs, such as 
-\emph on
-Microsoft Power Apps
-\emph default
-
+ the application according to their business needs, such as Microsoft Power
+ Apps
 \begin_inset Foot
 status collapsed
 
@@ -247,9 +244,9 @@ https://carldesouza.com/dynamics-365-understanding-plugin-depth
 \end_layout
 
 \begin_layout Standard
-In order to control the updates, there is an approach used by 
+In order to control the updates, there is an approach used by XState
 \emph on
-XState
+
 \begin_inset Foot
 status collapsed
 
@@ -261,11 +258,7 @@ https://xstate.js.org
 
 
 \emph default
- and 
-\emph on
-Redux
-\emph default
- 
+ and Redux 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "caspers2017react"
@@ -939,11 +932,7 @@ literal "false"
 \end_inset
 
 .
- In the approach used by 
-\emph on
-ReactiveX
-\emph default
-
+ In the approach used by ReactiveX
 \begin_inset Foot
 status collapsed
 
@@ -961,11 +950,7 @@ literal "false"
 
 \end_inset
 
- and 
-\emph on
-Sodium
-\emph default
- 
+ and Sodium 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -1284,9 +1269,9 @@ literal "false"
 \end_inset
 
 .
- Using solutions like 
+ Using solutions like XFRP
 \emph on
-XFRP 
+ 
 \emph default
 
 \begin_inset CommandInset citation
@@ -1331,11 +1316,7 @@ literal "false"
 \end_inset
 
 .
- Other constraints systems like 
-\emph on
-Hotdrink
-\emph default
- 
+ Other constraints systems like Hotdrink 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -1456,11 +1437,7 @@ literal "false"
 
 .
  There are cases that the algorithm cannot satisfy all the constraints,
- then it satisfies only those that are
-\emph on
- 
-\emph default
-specified to be in a higher hierarchy.
+ then it satisfies only those that are specified to be in a higher hierarchy.
  For example, having the following constraints hierarchical in the descending
  order 
 \begin_inset ERT

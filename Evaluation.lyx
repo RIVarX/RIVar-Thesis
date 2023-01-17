@@ -116,9 +116,44 @@ name "chap:Evaluation"
 \begin_layout Standard
 The idea of combining reactive variables from FRP to being instance variables
  in OOP is not new.
- However in contrast to previous work, we derive abstraction mechanisms
- from the two of the paradigms.
- Our evaluation presents the code duplication aspect (
+ REScala and ReactiveX has also reactive variable being an instance variable.
+ Anyway, the new model has several additional properties:
+\end_layout
+
+\begin_layout Itemize
+The model depends only on the basic objects, as tidy interface to clients,
+ consisting of instance variables and methods.
+ ReactiveX is also based on the basic objects, however it does not have
+ the next property, therefore produces non predictable results in case of
+ cycles and merges.
+\end_layout
+
+\begin_layout Itemize
+The model has the referential transparency property, such that each of the
+ variables has a function declaring its stream of values according to the
+ input provided.
+ This property is basic in FRP, however according to REScala, it requires
+ a mediator to observe and update the variables, not just the objects model,
+ as the previous property.
+\end_layout
+
+\begin_layout Itemize
+The model corresponds to the concept of inheritance with subtyping.
+ Because assigning a variable that belongs to a base class, 
+\emph on
+adds
+\emph default
+ a dependency.
+ This is in contrast to REScala and ReactiveX, there the same action 
+\emph on
+replaces
+\emph default
+ a dependency.
+\end_layout
+
+\begin_layout Standard
+In the next sections we will evaluate the results Our evaluation presents
+ the code duplication aspect (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:Code-Reuse"

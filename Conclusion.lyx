@@ -89,68 +89,65 @@ name "chap:Conclusion"
 \end_layout
 
 \begin_layout Standard
-We developed a model allowing a single reactive variable being assigned
- by several clients, with the semantics that the reactive variable's value
- can be provided from several sources, while the reactive variable observes
- its sources by itself.
- The method is easily implemented and integrated in C# with a small case
- study.
+This thesis handles the task to perform predictable behavior when applications
+ grow with many code duplications and long chains of updates.
+ Therefore we combine the OOP paradigm with the FRP paradigm.
+ The OOP contributes the predictability to changing code, while the FRP
+ contributes the predictability in the variables' updates.
 \end_layout
 
 \begin_layout Standard
-The model has the following advantages:
-\end_layout
-
-\begin_layout Itemize
-The model depends only on the basic objects, as tidy interface to clients,
- consisting of instance variables and methods.
- This is in contrast to the method used in REScala, that there is a mediator
- observing and updating the variables.
-\end_layout
-
-\begin_layout Itemize
-The new method corresponds to the concept of inheritance with subtyping.
- Because assigning reactive variable that belongs to a base class, 
-\emph on
-adds
-\emph default
- a dependency.
- This is in contrast to REScala and ReactiveX, there the same action 
-\emph on
-replaces
-\emph default
- a dependency.
-\end_layout
-
-\begin_layout Itemize
-the model has the referential transparency property, consequently, the model
- is predictable.
- This is altough we support any graph (and not just DAG), and we do not
- use a madiator.
-\end_layout
-
-\begin_layout Itemize
-The model combines the two abstraction mechanisms from FRP and OOP, producing
- SSOT for the application logic.
-\end_layout
-
-\begin_layout Paragraph*
-Future work
+We described our model by introducing RIVar as a special type of variable,
+ being a reactive and instance variable, with an assignment specification.
+ A single variable can be assigned by several clients, with the semantics
+ that the variable's value can be provided from several sources, while the
+ variable observes its sources by itself.
+ The variables use an order model, to update consistently according to the
+ latest produced input.
 \end_layout
 
 \begin_layout Standard
-We presented the abstraction to connect reactive variables to multiple sources
- each.
- In inferring the values, we used the semantics, to choose the value based
- on its time.
- This semantics equivilent to the hierarchical multi-way dataflow constraint
- system to the use of user interface development.
- However, this is only one among available options.
+To evaluate the model, we compared it to prevoius paradigms and solutions
+ and also implemented it as a library with an attached case study.
+ In the comparison, we compared the model to REScala and ReactiveX providing
+ an investigation on how we derive properties from OOP and FRP.
+ We then showed how the model outperforms the previous paradigms in terms
+ of code reuse, while handling correctly any dependancy graph.
+ We also compared the model to constraints systems, and provided a presentation
+ to the model to being as a decenterlized constraints system.
+\end_layout
+
+\begin_layout Section
+Future Work
 \end_layout
 
 \begin_layout Standard
-The abstraction should be researched with more semantics options.
- For example, we think to check the abstraction with 
+We expect this method being implemented as a state management solution and
+ ease the development of front end applications.
+ In the area of front end, the state menegement is seperated from the other
+ parts of the development.
+ There are various solutions to handle the role 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
+\end_layout
+
+\end_inset
+
+.
+ Each solution has its maintenance and behavior limitations.
+ our model should be ease in the maintenance, but the behavior is limited
+ to inferring values according to the latest value coming from any of the
+ sources.
+ 
+\end_layout
+
+\begin_layout Standard
+There are more options to be resarched for reactive variables to inffer
+ their values.
+ We think about the 
 \emph on
 equality tests
 \emph default
@@ -163,22 +160,10 @@ literal "false"
 \end_inset
 
 , in which values with no change are ignored.
- In addition, It might be that values should be rejected, in case that they
+ In addition, it might be that values should be rejected, in case that they
  are conflicted with another source, such case need the abstraction to be
  extended.
- Anyway, options should be considered against real-life systems.
-\end_layout
-
-\begin_layout Standard
-The goal for this research is to help real-life systems.
- We thought about this semantics to inffer values based on time, from experienci
-ng one development path of one real-life complex UI form.
- We also found this semantics used in the research of constraints systems
- for user interfaces.
- However, we have no real-life UI application using this semantics, neither
- by us nor by others.
- Also when thinking about more semantics options, it might be that for a
- real-life system, a single semantics are not enough.
+ In addition, we should check about integrating several semantics options.
 \end_layout
 
 \end_body

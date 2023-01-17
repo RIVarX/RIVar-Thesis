@@ -94,7 +94,7 @@ The Functional Reactive Programming (FRP) paradigm specializes in maintaining
  especially when applications grow with many code duplications and long
  chains of updates.
  While the FRP paradigm contributes to the predictability of variables'
- updates, The Object Oriented Programming (OOP) paradigm contributes to
+ updates, the Object Oriented Programming (OOP) paradigm contributes to
  the predictability of code changes.
  In this thesis, we combine the two paradigms to promote predictability.
 \end_layout
@@ -142,26 +142,14 @@ To evaluate the method, we compare the method against traditional methods,
 \end_layout
 
 \begin_layout Abstract
-According to our results, not only we integrate FRP with OOP, but also their
- features are integrated.
- As a result, in the context of code-reuse options our method archives the
- best results.
- However, our results are limited to the semantics that variables' value
- are coming from several sources.
- Furthermore, in this thesis, we use the specific option to inffer values
- based on time (when and according to the latest value coming from any of
- the sources).
-\end_layout
-
-\begin_layout Abstract
-The specific semantics are currently used only in small case studies.
- We hope that in future we will find the method used in real life applications,
- either with this specific semantics, or only using the basis of our method.
- However, this specific semantics is used in the resrach of constraints
- systems.
- this leads our method, to the best of our knowledge, being the first decentrali
-zed mechanism to handle constraints systems.
- In addition, it provides another more interesting aspect for future research.
+We expect this method being implemented as a state management solution and
+ ease the development of front end applications.
+ In this process, it is expected that we will discover that the method as
+ is is too limited to being used in real-life applications.
+ Because the model currently provides only one method to the variable to
+ infer values from its sources.
+ However, with the current method, the model is handled as a decentralized
+ solution for Multiway Dataflow Constraint Systems suited for user interfaces.
 \end_layout
 
 \end_body

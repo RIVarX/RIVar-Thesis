@@ -1123,7 +1123,7 @@ literal "false"
  achieved by events streams, the mechanism is very different.
  Functions over events streams are typicaly not handled by a special runtime
  with the graph data structure.
- Instead, The events streams are 
+ Instead, the events streams are 
 \emph on
 observables
 \emph default
@@ -1132,8 +1132,8 @@ observables
 operators
 \emph default
  over them, that subscribe and produce events streams.
- This means that objects can have reactive variables as part of their interface,
- and the values are propagated according to the events mechanism.
+ Accordingly objects can have reactive variables as part of their interface,
+ while the values are propagated according to the events mechanism.
  Generally speaking, reactive variables as events streams does no depend
  on the madiator exists in the original FRP, because they interact directly.
 \end_layout

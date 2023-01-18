@@ -934,8 +934,17 @@ Specialization Interface
 
 \begin_layout Standard
 RIVar cannot be supported according to the main stream of the FRP paradigm.
- Because the functional concept in FRP means no seperation between the reactive
- variables and their assigned expression 
+ Because FRP is based on the Functional Programming paradigm 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, where there is no seperation between the reactive variables and their
+ assigned expression, reactive variables are defined by their functions
+ over other reactive variables, or by their values over time 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "perez2015bridging"
@@ -943,8 +952,7 @@ literal "false"
 
 \end_inset
 
-, reactive variables are defined by their functions over other reactive
- variables, or by their values over time.
+.
 \end_layout
 
 \begin_layout Standard

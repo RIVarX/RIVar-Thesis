@@ -390,7 +390,7 @@ lstinline{Set}
  is called, it subscribes to the two streams, so that for each signal from
  the assigned expression, it will compare to the signal produced latest
  in the target.
- Signal that is greater means later.
+ Signal that is greater refers to a signal that is later.
  Therefore, any signal coming from the expression, that is greater than
  the latest signal in the target, is pushed to the target.
 \end_layout

@@ -715,7 +715,7 @@ lstinline{=}
 \end_inset
 
  operator) as an observable variable.
- RIVar should be accessible externaly by being in service (consumer access
+ RIVar should be accessible externally by being in service (consumer access
  variables via an interface) and specialization (subclass access its superclass
  variables) interfaces 
 \begin_inset CommandInset citation
@@ -1000,7 +1000,7 @@ literal "false"
 
 \begin_layout Standard
 Nevertheless, with any integratable FRP, reactive variables are accessed
- externaly, because we can set inputs to reactive variables in response
+ externally, because we can set inputs to reactive variables in response
  other reactive variables' updates.
  For example, in ReactiveX the statement 
 \begin_inset ERT
@@ -1048,13 +1048,13 @@ literal "false"
 \end_inset
 
 , making the derived class only extending the base class.
- But in the current implementation, the formula is activated externaly,
+ But in the current implementation, the formula is activated externally,
  without the advantages that the paradigm of FRP should provide.
 \end_layout
 
 \begin_layout Standard
 FRP aims to provide predictability and composability.
- In contrast, adding formulas externaly, by integration between FRP and
+ In contrast, adding formulas externally, by integration between FRP and
  imperative programming, might cause infinite loops 
 \begin_inset CommandInset citation
 LatexCommand cite

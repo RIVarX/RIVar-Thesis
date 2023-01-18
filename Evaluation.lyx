@@ -1310,7 +1310,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-First, a topological sorting is possible only when the dependency graph
+First, topological sorting is possible only when the dependency graph
  has no cycles, in contrast to our conception that every dependency is possible.
  Second, topological sorting means managing the variables centrally, in
  contrast to the concept of objects managing their variables on their own.

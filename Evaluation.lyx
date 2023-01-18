@@ -367,7 +367,7 @@ In the FRP paradigm by nature, several reactive variables are declared to
  the reactive variables are the functions they represent.
  This means that naturaly, once there is a function to calculate a varying
  value, a new reactive variable is declared.
- In contrast, we use the principal of several assigments, such that a single
+ In contrast, we use the principal of several assignments, such that a single
  reactive variable is assigned to several functions.
  As a result, our method use a mechanism to not duplicate variables.
 \end_layout
@@ -1201,10 +1201,10 @@ noprefix "false"
 
 \end_inset
 
-) and several-assigments (
+) and several-assignments (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:Several-Assigments"
+reference "sec:Several-Assignments"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1420,11 +1420,11 @@ literal "false"
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Several-Assigments"
+name "sec:Several-Assignments"
 
 \end_inset
 
-Several Assigments
+Several Assignments
 \end_layout
 
 \begin_layout Standard
@@ -1432,7 +1432,7 @@ Our model supports variables depending on several expressions such as in
  
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Several-Assigments"
+reference "fig:Several-Assignments"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1566,11 +1566,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Several-Assigments"
+name "fig:Several-Assignments"
 
 \end_inset
 
-Several Assigments
+Several Assignments
 \end_layout
 
 \end_inset
@@ -1593,9 +1593,9 @@ In FRP, a reactive variable
 is
 \emph default
  the expression it is related to.
- The assigment operator is related to the imperative paradigm, not to the
+ The assignment operator is related to the imperative paradigm, not to the
  functional paradigm.
- However, languages in which the assigment symbol is used in the context
+ However, languages in which the assignment symbol is used in the context
  of functional programming, means that the left side variable is the name
  of the assigned function.
  Similary in FRP, a formula 
@@ -1930,7 +1930,7 @@ noprefix "false"
 
 , FRP and so our method are similar to Hotdrink in that they share declare
  equations, providing runtime automates to automate variables' updates,
- they support cycles and several assigments, and that they handle the variables'
+ they support cycles and several assignments, and that they handle the variables'
  values according to the order of the input.
  Our method is diffrent from Hotdrink in that it is a 
 \emph on

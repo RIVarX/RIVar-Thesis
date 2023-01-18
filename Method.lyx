@@ -166,7 +166,7 @@ noprefix "false"
 
 .
  Second, variables having several sources, from being an input variable
- while having one or more assigments, or just from having several assigments.
+ while having one or more assignments, or just from having several assignments.
 \end_layout
 
 \begin_layout Standard
@@ -551,7 +551,7 @@ Basic Items
 \end_layout
 
 \begin_layout Standard
-There are three basic items: reactive variables, operators and assigments.
+There are three basic items: reactive variables, operators and assignments.
  reactive variables are the typical 
 \emph on
 continuous
@@ -569,11 +569,11 @@ literal "false"
  Operator is a lifted function, such that a function over values are lifted
  to being over reactive variables: the constructed expression continously
  reflects the varying value calculated from the reactive variables.
- Assigment over reactive variables would be a 
+ Assignment over reactive variables would be a 
 \emph on
 lifted
 \emph default
- assigment, such that an assigned reactive variable should reflect the assigned
+ assignment, such that an assigned reactive variable should reflect the assigned
  expression continuously.
  
 \end_layout
@@ -589,20 +589,20 @@ Problem Description Model
 \end_layout
 
 \begin_layout Standard
-The reactive variables, operators and assigments are used to build FRP applicati
+The reactive variables, operators and assignments are used to build FRP applicati
 ons.
  A FRP application has the functional style, in such that any statement
  is just like declaring functions over reactive variables.
  Unlike the functional paradigm there may be 
 \emph on
-several-assigments
+several-assignments
 \emph default
 , i.e., several formulas in which their target variable is pointed to the
  same variable.
 \end_layout
 
 \begin_layout Standard
-Nevertheless, the case of several assigments is interepted as a single assigment
+Nevertheless, the case of several assignments is interepted as a single assignment
  operator over the variable and assigned expressions in the various statements.
  For example, as seen in 
 \begin_inset CommandInset ref
@@ -827,7 +827,7 @@ name "fig:assigmentOperator"
 
 \end_inset
 
-An assigment operator over reactive variables.
+An assignment operator over reactive variables.
 \end_layout
 
 \end_inset
@@ -841,8 +841,8 @@ An assigment operator over reactive variables.
 \end_layout
 
 \begin_layout Standard
-The n-ary assigment operator should be equivalent to a composite of several
- binary assigments.
+The n-ary assignment operator should be equivalent to a composite of several
+ binary assignments.
  For example, 
 \begin_inset ERT
 status open
@@ -1143,7 +1143,7 @@ name "fig:assigmentMutipleLevel"
 
 \end_inset
 
-A composition of binary assigments
+A composition of binary assignments
 \end_layout
 
 \end_inset
@@ -1269,7 +1269,7 @@ special
 \emph default
  edges (back edges, cross edges and forward edges).
  Reactive variables will always be visited through tree edges going from
- an assigment, so we should consider only assigments and operators.
+ an assignment, so we should consider only assignments and operators.
 \end_layout
 
 \begin_layout Standard
@@ -1294,12 +1294,12 @@ model of order
 \end_layout
 
 \begin_layout Standard
-For assigments, in the first glance it does not make sence having a special
+For assignments, in the first glance it does not make sence having a special
  edge, because it seems to be defined conflicts.
  However, as in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:assigment-special-edge"
+reference "fig:assignment-special-edge"
 plural "false"
 caps "false"
 noprefix "false"
@@ -1466,11 +1466,11 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:assigment-special-edge"
+name "fig:assignment-special-edge"
 
 \end_inset
 
-A special edge in DFS to an assigment element 
+A special edge in DFS to an assignment element 
 \end_layout
 
 \end_inset
@@ -1913,8 +1913,8 @@ Essentiality there are two principals.
  First, variable's low level abstraction is an observable stream of values
  represeting its varying value.
  Second, a single variable can have several sources (from being an input
- variable while having one or more assigments, or just from having several
- assigments).
+ variable while having one or more assignments, or just from having several
+ assignments).
 \end_layout
 
 \begin_layout Subsection
@@ -2529,9 +2529,9 @@ A variable varying value inffered from several sources.
 \end_layout
 
 \begin_layout Standard
-The assigment element is a function over streams that should produce a single
+The assignment element is a function over streams that should produce a single
  stream, with the meaning of inferring the value, by merging the streams.
- Therfore, the assigment element will be referred to, as the 
+ Therfore, the assignment element will be referred to, as the 
 \emph on
 merge
 \emph default
@@ -2569,7 +2569,7 @@ literal "false"
 \end_inset
 
 .
- Each operator and assigment provides its subscribers 
+ Each operator and assignment provides its subscribers 
 \emph on
 a single values stream based on several values streams
 \emph default
@@ -3079,7 +3079,7 @@ Executing the Assignments
 \end_layout
 
 \begin_layout Standard
-Executing the assigment statements accumulates merged streams.
+Executing the assignment statements accumulates merged streams.
  The execution is sequentially, with the imperative style, line by line.
  For example, the statement 
 \begin_inset ERT
@@ -3173,7 +3173,7 @@ adding
 \end_inset
 
  the missing values according to the other source.
- In order to add the missing values, the assigment/merge operator need to
+ In order to add the missing values, the assignment/merge operator need to
  track the two sources, and do comparison according to our model of order.
 \end_layout
 
@@ -3595,10 +3595,10 @@ The computations must not be handled by a central engine, it uses a push
 
 \begin_layout Standard
 In order to cover all types of dependency graphs, we provide semantics to
- the assigment operator.
- An assigment means to add more source to get values to the variable, therefore
+ the assignment operator.
+ An assignment means to add more source to get values to the variable, therefore
  a variable inffer its values over time from all the sources provided.
- As a result, the assigments and operators have a similarity in that they
+ As a result, the assignments and operators have a similarity in that they
  may produce a single stream by several input streams.
 \end_layout
 
@@ -3622,7 +3622,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-We use the order model as the algorithm used in the assigment operator,
+We use the order model as the algorithm used in the assignment operator,
  how to choose the values among the input streams.
  Consequently, whenever there is a new value from any of the sources, it
  is pushed to the target variable.

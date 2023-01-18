@@ -162,7 +162,7 @@ lstinline{RIVar}
 
  providing this type explicity.
  The main features we developed are to provide our model.
- The features are: (1) assigment operator, (2) order model and (3) operators.
+ The features are: (1) assignment operator, (2) order model and (3) operators.
 \end_layout
 
 \begin_layout Subsection
@@ -323,12 +323,12 @@ Assignment Operator
 \end_layout
 
 \begin_layout Standard
-The default assigment copies values bit by bit.
- Therefore, in the context of FRP applications, the assigment just makes
+The default assignment copies values bit by bit.
+ Therefore, in the context of FRP applications, the assignment just makes
  the target variable to point on the constructed expressions, disconnecting
  from the old referenced expression if exists.
- The traditional assigment cannot be overriden, therefore RIVarX implements
- an alternative assigment function named 
+ The traditional assignment cannot be overriden, therefore RIVarX implements
+ an alternative assignment function named 
 \begin_inset ERT
 status open
 

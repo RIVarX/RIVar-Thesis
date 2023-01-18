@@ -117,8 +117,8 @@ RIVar
 Reactive Instance Variable
 \emph default
 .
- We propose a method that a RIVar can be assigned with formulas by several
- clients.
+ We propose an approach and method to a single RIVar assigned with formulas
+ by several clients.
  The assignment semantics adopts the meaning from FRP, to relate the variable
  to be updated according to the specified formula.
  However, in contrast to FRP, there can be several assignments to the same
@@ -129,10 +129,10 @@ Reactive Instance Variable
 \end_layout
 
 \begin_layout Abstract
-To evaluate the method, we compare the method against traditional methods,
+To evaluate the approach, we compare it against traditional approaches,
  in how they handle variables' updates, and what code-reuse options are
  available.
- In addition, we present our implementation attached with a case study.
+ In addition, we present an implementation attached with a case study.
  The implementation is provided as an extension library, named RIVarX, to
  C# programming language.
  The case study presents how we separate one domain logic into sub-domains,
@@ -142,8 +142,8 @@ To evaluate the method, we compare the method against traditional methods,
 \end_layout
 
 \begin_layout Abstract
-We expect this method being implemented as a state management solution and
- ease the development of front end applications.
+We expect this approach being implemented as a state management solution
+ and ease the development of front end applications.
  In this process, it is expected that we will discover that the method as
  is is too limited to being used in real-life applications.
  Because the model currently provides only one method to the variable to

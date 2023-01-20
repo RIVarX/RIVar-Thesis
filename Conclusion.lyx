@@ -122,7 +122,7 @@ Future Work
 \end_layout
 
 \begin_layout Standard
-We expect this method being implemented as a state management solution and
+We expect this approach being implemented as a state management solution and
  ease the development of front end applications.
  In the area of front end, the state menegement is seperated from the other
  parts of the development.

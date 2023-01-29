@@ -158,7 +158,7 @@ In the next sections we will evaluate the results Our evaluation presents
 LatexCommand formatted
 reference "sec:Code-Reuse"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -170,7 +170,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:Special-Graphs"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -182,7 +182,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:Constraints-System"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -246,7 +246,7 @@ Derived from the FRP paradigm, we abstract away the need to update variables
 LatexCommand ref
 reference "sec:background-FRP"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -262,7 +262,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:Statechart"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1090,7 +1090,7 @@ cref{subsec:Repeating-Updates,subsec:Repeating-Variables}
 LatexCommand ref
 reference "sec:ConstraintsInBackground"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1173,7 +1173,7 @@ In
 LatexCommand formatted
 reference "chap:Method"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1186,7 +1186,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:Glitch"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1196,7 +1196,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:Cycles"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1206,7 +1206,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:Several-Assignments"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1230,7 +1230,7 @@ As mentioned in
 LatexCommand formatted
 reference "sec:background-FRP"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1241,7 +1241,7 @@ noprefix "false"
 LatexCommand ref
 reference "fig:Glitch"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1376,7 +1376,7 @@ literal "false"
 LatexCommand ref
 reference "fig:Glitch"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1434,7 +1434,7 @@ Our model supports variables depending on several expressions such as in
 LatexCommand formatted
 reference "fig:Several-Assignments"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1734,7 +1734,7 @@ As described in
 LatexCommand formatted
 reference "sec:ConstraintsInBackground"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1852,7 +1852,7 @@ Our model provides the semantics described in
 LatexCommand formatted
 reference "par:Any-Formula"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1867,7 +1867,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:ConstraintsInBackground"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1902,7 +1902,7 @@ In this section, we compare our method to Hotdrink mentioned in
 LatexCommand formatted
 reference "sec:ConstraintsInBackground"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1913,7 +1913,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:ConstraintsInBackground"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1923,7 +1923,7 @@ noprefix "false"
 LatexCommand formatted
 reference "par:Constraints"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1954,7 +1954,7 @@ Hotdrink needs for each input, to run against the entire constraints and
 LatexCommand formatted
 reference "subsec:Repeating-Solutions"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1988,7 +1988,7 @@ Hotdrink handles two-way constraints while our method handle one-way constraints
 LatexCommand formatted
 reference "sec:ConstraintsInBackground"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

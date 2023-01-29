@@ -592,7 +592,7 @@ lstinline{Z}
 LatexCommand formatted
 reference "fig:Directed-acyclic-graph"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -617,7 +617,7 @@ lstinline{X}
 LatexCommand formatted
 reference "fig:Statechart"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1147,7 +1147,7 @@ The madiator has access to all the variables and formulas, so it can provide
 LatexCommand ref
 reference "fig:Glitch"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1350,7 +1350,7 @@ literal "false"
 LatexCommand formatted
 reference "fig:two-way-constraint-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1512,7 +1512,7 @@ lstinline{B=1}
 LatexCommand formatted
 reference "tab:constraints-hirarchy"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1670,7 +1670,7 @@ name "fig:two-way-constraint-1"
 
 \end_inset
 
-Two-way constraint 
+two-way constraint 
 \begin_inset ERT
 status open
 

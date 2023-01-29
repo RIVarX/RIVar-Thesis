@@ -137,7 +137,7 @@ Our new variant of FRP can be refered as a constraints system.
 LatexCommand formatted
 reference "fig:two-way-constraint"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

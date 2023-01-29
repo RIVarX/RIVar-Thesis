@@ -221,7 +221,7 @@ literal "false"
 LatexCommand formatted
 reference "fig:The-dependancy-graph"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -364,7 +364,7 @@ The example in
 LatexCommand formatted
 reference "fig:Drug-Administration"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -730,7 +730,7 @@ literal "false"
 LatexCommand formatted
 reference "fig:Specialization-Interface"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -740,7 +740,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:Service-Interface"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

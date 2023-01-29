@@ -97,7 +97,7 @@ In this chapter we present an implementation to the model presented in
 LatexCommand formatted
 reference "chap:Method"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -108,7 +108,7 @@ noprefix "false"
 LatexCommand formatted
 reference "chap:Motivating-Example"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -246,7 +246,7 @@ https://reactivex.io/documentation/operators/combinelatest.html
 LatexCommand formatted
 reference "subsec:Execution-Model"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -662,7 +662,7 @@ lstinline{RIVar}
 LatexCommand formatted
 reference "subsec:The-Main-Features"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -713,7 +713,7 @@ lstinline{IObservable}
 LatexCommand formatted
 reference "fig:Using-RIVarX"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -924,7 +924,7 @@ cref{line:instanceFirst,line:instanceSecond,line:instanceLast})
 LatexCommand formatted
 reference "fig:Using-RIVarX"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1166,7 +1166,7 @@ lstinline{Subscribe}
 LatexCommand formatted
 reference "fig:Using-RIVarX"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1222,7 +1222,7 @@ https://github.com/RivkaAltshuler/RIVar/tree/main/CaseStudies/DrugAdministration
 LatexCommand formatted
 reference "fig:Class-Pump"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1575,7 +1575,7 @@ lstinline{Bag}
 LatexCommand formatted
 reference "fig:Bag-In-Runtime"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1973,7 +1973,7 @@ In
 LatexCommand formatted
 reference "fig:The-design-of"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1986,7 +1986,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:Bootstrap-of-the"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2197,7 +2197,7 @@ lstinline{Pump}
 LatexCommand formatted
 reference "fig:Drug-Administration"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2209,7 +2209,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:Log"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2219,7 +2219,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:Unpredictable-Calculation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2324,7 +2324,7 @@ Log for the cenario of
 LatexCommand formatted
 reference "fig:Unpredictable-Calculation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

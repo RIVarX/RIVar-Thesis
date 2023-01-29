@@ -156,7 +156,7 @@ literal "false"
 LatexCommand formatted
 reference "fig:The-design-of"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -646,7 +646,7 @@ lstinline{Duration}
 LatexCommand formatted
 reference "fig:Calculation-spread-over-objects-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -741,7 +741,7 @@ lstinline{VolumeOfFluid}
 LatexCommand formatted
 reference "fig:Calculation-spread-over-objects-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -916,7 +916,7 @@ lstinline{IBag}
 LatexCommand formatted
 reference "fig:Drug-Administration-UML"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1230,7 +1230,7 @@ In the original application, the calculation is centerlized.
 LatexCommand formatted
 reference "fig:Centerlized-Calculation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1274,7 +1274,7 @@ In the cenario visualized in
 LatexCommand formatted
 reference "fig:Unpredictable-Calculation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

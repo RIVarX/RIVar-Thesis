@@ -512,9 +512,9 @@ name "sec:background-FRP"
 \end_layout
 
 \begin_layout Standard
-In the FRP paradigm reactive variables are defines as functions over other
- reactive variables, and the runtime maintain the variables' values accordingly,
- using a directed acyclic graph data structure 
+In the FRP paradigm reactive variables are defined as functions over other
+ reactive variables, while the runtime maintains the variables' values according
+ly, using a directed acyclic graph data structure 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -560,7 +560,7 @@ lstinline{X}
 
 \end_inset
 
- to be function of reactive variables 
+ to be a function of reactive variables 
 \begin_inset ERT
 status open
 

@@ -107,122 +107,76 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In traditional imperative languages 
+
 \emph on
-variable
+Reactive 
 \emph default
- is just a symbolic name associated to some memory address containing values.
- However, in the more advanced languages which adoped the OOP paradigm,
- 
-\emph on
-instance variable
-\emph default
- refers to a variable associated to an object.
- This is significant when talking about conceptual modeling: objects are
- used to simulate real-world domain objects, therefore instance variables
- represent the real-world variables.
+variables refer to variables that are automatically recaluclated in response
+ and according to to dependant variables' updates, similar to cells containing
+ formulas in spreadsheet applications.
+ variables can get input (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
 \end_layout
 
-\begin_layout Standard
-Simulating the objects over time, need to have the variables values consistence
- with the real outside world.
- The real-world variables are categorized into observable variables and
- latent variables 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "dodge2006oxford"
-literal "false"
-
 \end_inset
 
-.
- The observable variables are subject to observe, while latent variables
- are inferred by other variables' values according to certain formulas.
- 
+ operator) or be assigned (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
 \end_layout
 
-\begin_layout Standard
-The 
-\emph on
-Functional Reactive Programming
-\emph default
- (FRP) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional,elliott2009push"
-literal "false"
-
 \end_inset
 
- paradigm provides an abstraction named 
-\emph on
-reactive variable
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- (with some variations also known as 
-\emph on
-behavior
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-, 
-\emph on
-signal
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-, 
-\emph on
-cell
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- and also
-\emph on
- reactive value
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-) to simulate the observable and latent variables.
- By expressing a formula, the left variable will depend on the variables
- in the expression, e.g., in 
+ operator) to an expression consisting of a set of other reactive variables.
+ The assigment defines that the value of the variable is set to the value
+ of the expression, and continuously re-evaluated in response to changes
+ in the value of any of the variables appearing in the expression.
+ For example (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:The-dependancy-graph"
+reference "fig:Reactive-variables-basics"
 plural "false"
 caps "true"
 noprefix "false"
+
+\end_inset
+
+), given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
 
 \end_inset
 
@@ -239,7 +193,7 @@ lstinline{A:=B+1}
 
 \end_inset
 
- produces 
+ associates the variable 
 \begin_inset ERT
 status open
 
@@ -252,7 +206,33 @@ lstinline{A}
 
 \end_inset
 
- to depend on 
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any input provided to the value of 
 \begin_inset ERT
 status open
 
@@ -266,9 +246,7 @@ lstinline{B}
 \end_inset
 
 .
- The dependencies cause values to change, such that whenever variable's
- value is changed, the variable's dependencies will be changed according
- to the new value.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -292,35 +270,24 @@ begin{center}
 
 
 \backslash
-begin{tikzpicture}  
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+A:=B+1 // assign
+\end_layout
+
+\begin_layout Plain Layout
+
+B=1 // B get input, consequently A is re-evaluated, so that A=2.
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[shape=circle,draw=black, label={A}] (A) at (0,5) {};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black ,label={B}] (B) at (3.5,5) {};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[-{Triangle[scale=1]}] (A) -- (B); 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture} 
+end{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
@@ -341,11 +308,12 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:The-dependancy-graph"
+name "fig:Reactive-variables-basics"
 
 \end_inset
 
-The dependency graph for the formula A:=B+1
+Reactive variables: assigned, get input and re-evaluated.
+ 
 \end_layout
 
 \end_inset
@@ -359,7 +327,45 @@ The dependency graph for the formula A:=B+1
 \end_layout
 
 \begin_layout Standard
-The example in 
+We introduce 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+ is a shortened form of the full phrase 
+\emph on
+Reactive Instance Variable.
+
+\emph default
+ Such variables refer to reactive variables that belong to instances of
+ a class in 
+\emph on
+Object Oriented Programming
+\emph default
+ (OOP).
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration"
@@ -369,25 +375,8 @@ noprefix "false"
 
 \end_inset
 
- illustrates a way in which 
-\emph on
-instance
-\emph default
- variables may be 
-\emph on
-reactive
-\emph default
- variables.
- We define it as a parameterized type RIVar, an acronym to the full name
- 
-\emph on
-Reactive Instance Variable
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-In the example, the 
+ illustrates an example from the healthcare domain.
+ In the example, 
 \begin_inset ERT
 status open
 
@@ -466,7 +455,7 @@ lstinline{Concentration}
 
 \end_inset
 
- to be calculated whenever 
+ to be re-evaluated whenever 
 \begin_inset ERT
 status open
 
@@ -493,7 +482,7 @@ lstinline{Volume}
 \end_inset
 
  is updated.
- Then once 
+ Then once an instance of 
 \begin_inset ERT
 status open
 
@@ -558,14 +547,45 @@ lstinline{Concentration}
 
 \end_inset
 
- to recalculate.
+ to re-evaluate.
+ By nature, the variables are accessible externally by being in service
+ (consumer access variables via an interface) or specialization (subclass
+ access its superclass variables) interfaces 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+, as the examples in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Service-Interface"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -686,73 +706,10 @@ Drug Administration
 \end_layout
 
 \begin_layout Standard
-RIVars are not distinguished between observable or latent variables, they
- are all accessed uniformly.
- Specifically, any accessible RIVar can be assigned (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- operator) as a latent variable, and also to get input (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
- operator) as an observable variable.
- RIVar should be accessible externally by being in service (consumer access
- variables via an interface) and specialization (subclass access its superclass
- variables) interfaces 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
-, as the examples in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Specialization-Interface"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Service-Interface"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -784,8 +741,7 @@ class ExtendedDrugAdministration {
 
 \begin_layout Plain Layout
 
-  ExtendedDrugAdministration(DrugAdministration drugAdministration){ //
- constructor
+  ExtendedDrugAdministration(DrugAdministration drugAdministration){ 
 \end_layout
 
 \begin_layout Plain Layout
@@ -929,42 +885,18 @@ Specialization Interface
 
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Standard
-RIVar cannot be supported according to the main stream of the FRP paradigm.
- Because FRP is based on the Functional Programming paradigm 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-, where there is no seperation between the reactive variables and their
- assigned expression, reactive variables are defined by their functions
- over other reactive variables, or by their values over time 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-However, in FRP implemetations, such as ReactiveX
-\begin_inset ERT
-status open
+Existing implementations provide two methods for assigning variables externally,
+ both have difficulties in compatibility with FRP.
+ ReactiveX
+\begin_inset Foot
+status collapsed
 
 \begin_layout Plain Layout
-
-
-\backslash
-footnote{https://reactivex.io}
+https://reactivex.io
 \end_layout
 
 \end_inset
@@ -977,25 +909,29 @@ literal "false"
 
 \end_inset
 
-, reactive variable is a data type.
- Then, reactive variables just like any other variable, can be assigned
- through an interface (by setters).
-\end_layout
-
-\begin_layout Standard
-In this way, assigning a reactive variable causes to stop the old source,
- starting to respond to its new source, still in contrast to the concept
- of FRP 
+ provide reactive variables as standard data types, causing reactive variables
+ being able to be assigned through an interface (by setters).
+ However, this strategy is contrasted with the concept of reactive variables.
+ The concept of reactive variables originates from the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP), that is based on 
+\emph on
+Functional Programming
+\emph default
+ 
 \begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
+LatexCommand citep
+key "elliott2009push"
 literal "false"
 
 \end_inset
 
 .
- Because in FRP we “describe things that exist, rather than actions that
- have happened or are to happen (i.e., what is, not what does)” 
+ According to FRP, the programs should “describe things that exist, rather
+ than actions that have happened or are to happen (i.e., what is, not what
+ does)” 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "elliott2009push"
@@ -1004,11 +940,26 @@ literal "false"
 \end_inset
 
 .
+ In contrast, in ReactiveX and REScala, an assigment causes to stop the
+ old source, and then start to respond to new source.
+ In general, seperating the variables and expressions between interfaces
+ and consumers (or classes and sub-classes) seems incompatible with FRP,
+ because reactive variables are defined by their functions over other reactive
+ variables, or by their values over time 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Nevertheless, with any integratable FRP, reactive variables are accessed
- externally, because we can set inputs to reactive variables in response
+In the second method, reactive variables are accessed externally by injecting
+ events handlers.
+ In events handlers, we can set inputs to reactive variables in response
  other reactive variables' updates.
  For example, in ReactiveX the statement 
 \begin_inset ERT
@@ -1042,11 +993,7 @@ lstinline{A:=B}
 adds
 \emph default
  the formula in addition to the existing formulas handled by the FRP runtime.
- 
-\end_layout
-
-\begin_layout Standard
-The semantics to add the formula, fits well with the conceptual specialization
+ The semantics to add the formula, fits well with the conceptual specialization
  (subtyping) 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1058,10 +1005,7 @@ literal "false"
 , making the derived class only extending the base class.
  But in the current implementation, the formula is activated externally,
  without the advantages that the paradigm of FRP should provide.
-\end_layout
-
-\begin_layout Standard
-FRP aims to provide predictability and composability.
+ FRP aims to provide predictability and composability.
  In contrast, adding formulas externally, by integration between FRP and
  imperative programming, might cause infinite loops 
 \begin_inset CommandInset citation
@@ -1077,9 +1021,22 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The challenges to obtain RIVar includes: (1) Adding formulas to the existing
- formulas handled by the FRP, (2) Supporting any added formula, (3) Achieving
- predictability and composability by satisfing the 
+The challenges to obtain 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+ include: (1) Adding formulas to the existing formulas handled by the FRP,
+ (2) Supporting any added formula, (3) Achieving predictability and composabilit
+y by satisfing the 
 \emph on
 referential transparency
 \emph default
@@ -1117,7 +1074,20 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-We propose RIVar, being consistent with both 
+We introduce 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+, being consistent with both 
 \emph on
 instance variables
 \emph default
@@ -1127,9 +1097,21 @@ reactive variables
 \emph default
  from FRP, supporting also the hierarchical structuring from OOP and referential
  transparency from FRP.
- RIVars depends on a new variant of FRP supporting any set of formulas,
- and that the reactive variables are interacted by the traditional procedures
- calls.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}s
+\end_layout
+
+\end_inset
+
+ depend on a new variant of FRP supporting any set of formulas, and that
+ the reactive variables are interacted by the traditional procedures calls.
  We implement the method by C# programming language, providing the library
  RIVarX
 \begin_inset Foot

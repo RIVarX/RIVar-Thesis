@@ -109,6 +109,1708 @@ Introduction
 \begin_layout Standard
 
 \emph on
+Functional Reactive Programming
+\emph default
+ (FRP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+ is a paradigm that abstracts away the need to update variables in response
+ to other variables' updates.
+ 
+\emph on
+reactive variable
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (with some variations also known as 
+\emph on
+behavior
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) can be assigned (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ operator) by an expression consisting of a set of other reactive variables,
+ consequently the value of the variable is set to the value of the expression,
+ and continuously re-evaluated in response to changes in the value of any
+ of the variables appearing in the expression.
+ Variables' values are changed either from an assigned expression or from
+ an input provided (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ operator).
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+A:=B+1 
+\end_layout
+
+\begin_layout Plain Layout
+
+B=1 // A=2
+\end_layout
+
+\begin_layout Plain Layout
+
+B=6 // A=7
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Reactive-variables-basics"
+
+\end_inset
+
+Given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the traditional events paradigm, developers implement reactive variables
+ by tangling events to when variables are updated.
+ Code to update variables is registered to the needed events, to be executed
+ whenever the dependant variables are updated.
+ For example, in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Implementing-by-events"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ the class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DataService}
+\end_layout
+
+\end_inset
+
+ implements the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ by defining two reactive variables, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueA}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueB}
+\end_layout
+
+\end_inset
+
+, and providing events for their changes.
+ When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueB}
+\end_layout
+
+\end_inset
+
+ is changed, the event 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueBChanged}
+\end_layout
+
+\end_inset
+
+ is triggered, which updates 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueA}
+\end_layout
+
+\end_inset
+
+ based on the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+.
+ The event 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueAChanged}
+\end_layout
+
+\end_inset
+
+ is then triggered, and the new value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ValueA}
+\end_layout
+
+\end_inset
+
+ is displayed in the console.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+public class DataService
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    public event EventHandler<double> ValueAChanged;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public double ValueA { get; private set; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public event EventHandler<double> ValueBChanged;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public double ValueB { get; set; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public DataService()
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        ValueBChanged += (sender, value) =>
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            UpdateValueA(value);
+\end_layout
+
+\begin_layout Plain Layout
+
+        };
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    private void UpdateValueA(double valueB)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        ValueA = valueB + 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        ValueAChanged?.Invoke(this, ValueA);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+class Program
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    static void Main(string[] args)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        DataService dataService = new DataService();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        dataService.ValueAChanged += (sender, value) =>
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Console.WriteLine("Value A changed to " + value);
+\end_layout
+
+\begin_layout Plain Layout
+
+        };
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        dataService.ValueB = 5;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Console.WriteLine("Value B changed to 5");
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Console.ReadLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Implementing-by-events"
+
+\end_inset
+
+Implementing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ by using events
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We focus on managing the complexity of the application logic.
+ The FRP paradigm helps to manage applications logic by defining data dependenci
+es explicitly.
+ In contrast, in the events paradgm, the data dependencies are not explicit
+ because they are not directly expressed in the code, but are instead implied
+ by the event handling logic.
+ The event handling logic determines what happens when an event is triggered,
+ and in this case, it sets the values of reactive variables and updates
+ their dependencies.
+ However, we manage not only the data depedencies, but also the source code
+ dependencies.
+\end_layout
+
+\begin_layout Standard
+According to the Clean Architecture book by Robert C.
+ Martin 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, the 
+\emph on
+Dependency Inversion Principle
+\emph default
+ (DIP) is used to manage the source code dependencies and this helps to
+ manage the complexity of the application logic.
+ The DIP states that high-level code should not depend on low-level code,
+ but both should depend on abstractions.
+ This means that the source code of the application's core logic should
+ not be tightly coupled to specific implementations or details of the dependenci
+es, but rather be based on abstractions that can be easily swapped or modified.
+ Accordingly, we handle data dependencies without to depend on reactive
+ variables' details.
+\end_layout
+
+\begin_layout Standard
+As a result, we manage the complexity by introducing reactive variables
+ being in interfaces.
+ Variables can be assigned or get input externally by being in service (consumer
+ access variables via an interface) or specialization (subclass access its
+ superclass variables) interfaces.
+ For example, a service 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{service}
+\end_layout
+
+\end_inset
+
+ can provide the reactive variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ to be assigned with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, by specifing the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{service.A:=B+1}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+Reactive variables hosted in objects of Object Oriented Programming (OOP)
+ can be assigned as a service 
+\end_layout
+
+\begin_layout Standard
+We introduce 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+ is a shortened form of the full phrase 
+\emph on
+Reactive Instance Variable.
+
+\emph default
+ Such variables refer to reactive variables that belong to instances of
+ a class in 
+\emph on
+Object Oriented Programming
+\emph default
+ (OOP).
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ illustrates an example from the healthcare domain.
+ In the example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be re-evaluated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to re-evaluate.
+ By nature, the variables are accessible externally by being in service
+ (consumer access variables via an interface) or specialization (subclass
+ access its superclass variables) interfaces 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+, as the examples in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Service-Interface"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+——-
+\end_layout
+
+\begin_layout Standard
+For example, in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Implementing-by-events"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ there are three properties: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+, and two events: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{AChanged}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{BChanged}
+\end_layout
+
+\end_inset
+
+.
+ The properties 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ are used to access the values of the reactive variables and the events
+ are triggered whenever the values of these properties are updated.
+ In the constructor, the events are subscribed to update the underlying
+ reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{_A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{_B}
+\end_layout
+
+\end_inset
+
+, and also the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{_Z}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The data dependencies are not explicit because they are not directly expressed
+ in the code, but are instead implied by the event handling logic.
+ The event handling logic determines what happens when an event is triggered,
+ and in this case, it sets the values of reactive variables and updates
+ their dependencies.
+ 
+\end_layout
+
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+by using the inversion of control.
+ The principal is that in order to update variable in response and according
+ to other variables, the other variables updates will be tangled to events
+ to be executed
+\end_layout
+
+\begin_layout Standard
+then the developer should register code that update the variables, the code
+ will be controlled (executed) when the variables 
+\end_layout
+
+\begin_layout Standard
+The FRP paradigm is better than the tradtiotnal events paradigm, in that
+ the data dependencies are explicit.
+ In the events paradigm the developer understabd the data dependencies from
+ the following the flow of the control.
+ The developers can debug the code to manage the dependencies, however it
+ is become vary hard when the applications grow.
+\end_layout
+
+\begin_layout Standard
+—–
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Reactive 
+\emph default
+variables refer to variables that are automatically recaluclated in response
+ and according to to dependant variables' updates.
+ In the FRP paradigm, reactive variables are first-class citizen, similar
+ to cells containing formulas in spreadsheet applications.
+ variables can get input (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ operator) or be assigned (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ operator) to an expression consisting of a set of other reactive variables.
+ The assigment defines that the value of the variable is set to the value
+ of the expression, and continuously re-evaluated in response to changes
+ in the value of any of the variables appearing in the expression.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Reactive 
+\emph default
+variables refer to variables that are automatically recaluclated in response
+ and according to to dependant variables' updates.
+ In the FRP paradigm, reactive variables are first-class citizen, and the
+ data dependenicies are explicit.
+\end_layout
+
+\begin_layout Standard
+The concept of reactive variables originates from the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP), that is based on 
+\emph on
+Functional Programming
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+In front end developmnt, state management solutions like Redux promotes
+ a centeral management, while micro frontend architecture promotes de-centralize
+d management.
+ The two contrasting approaches both work towards the same goal of managing
+ complexity.
+ Centeral management provides one place to manage instead of many, while
+ de-centralized management is used to seperate the responsibility into smaller
+ independent parts.
+ Accordingly, solutions are divided in their approaches in implementing
+ 
+\emph on
+reactive variables.
+\end_layout
+
+\begin_layout Standard
+Reactive variables refer to variables that are recaluclated in response
+ and according to to dependant variables' updates, similar to cells containing
+ formulas in spreadsheet applications.
+ The variables can get input (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ operator) or be assigned (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ operator) to an expression consisting of a set of other reactive variables.
+ The assigment defines that the value of the variable is set to the value
+ of the expression, and continuously re-evaluated in response to changes
+ in the value of any of the variables appearing in the expression.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+
+\emph on
 Reactive 
 \emph default
 variables refer to variables that are automatically recaluclated in response
@@ -247,83 +1949,6 @@ lstinline{B}
 
 .
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-A:=B+1 // assign
-\end_layout
-
-\begin_layout Plain Layout
-
-B=1 // B get input, consequently A is re-evaluated, so that A=2.
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Reactive-variables-basics"
-
-\end_inset
-
-Reactive variables: assigned, get input and re-evaluated.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -709,7 +2334,7 @@ Drug Administration
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1087,7 +2712,18 @@ lstinline{RIVar}
 
 \end_inset
 
-, being consistent with both 
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Reactive Instance Variable
+\end_layout
+
+\end_inset
+
+ being consistent with both 
 \emph on
 instance variables
 \emph default

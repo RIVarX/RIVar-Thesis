@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Method
+Approach and Method
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Method"
@@ -114,22 +114,68 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-This chapter describes a new variant of FRP.
- The new variant should satisfy the constraints to being used as RIVars.
+In this section, we present the fundamentals of our approach.
+ Then we describe our method to implement it.
+ In the description, we provide an overview of a new variant of FRP, that
+ supports several assignments to the same variable according to the fundamentals
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:The-Computational-Model"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Then we describe a method to order the values to the variable to inffer
+ from the several sources (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Order-Model"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Accordingly, we describe a method of implementation, by introducing the
+ variables' low level as events streams (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:stream"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
-\begin_layout Paragraph*
+\begin_layout Section
+Fundamentals
+\end_layout
+
+\begin_layout Standard
+In our approach, in implementing FRP, we should satisfy the following fundamenta
+ls.
+ 
+\end_layout
+
+\begin_layout Subsection
 Objects' Messages
 \end_layout
 
 \begin_layout Standard
-RIVars are instance variables, therefore the updates cannot be taken by
- a centerlized entity.
+The updates cannot be taken by a centerlized entity.
  Instead, the updates are being taken by objects interaction, such that
  variables update each other synchronously in response to their own updates.
 \end_layout
 
-\begin_layout Paragraph*
+\begin_layout Subsection
 Any Formula
 \begin_inset CommandInset label
 LatexCommand label
@@ -141,9 +187,8 @@ name "par:Any-Formula"
 \end_layout
 
 \begin_layout Standard
-In the used strategy RIVar can be assigned externally, so formulas are unconditi
-onally added, sometimes complicating the dependency graph handled by the
- FRP runtime.
+Variables assigned externally, so formulas are unconditionally added, sometimes
+ complicating the dependency graph handled by the FRP runtime.
  There are two phenomenons in dependency graphs.
  First, cycles caused from 
 \emph on
@@ -469,7 +514,7 @@ Cycle graph must contain a variable with more than one source.
 
 \end_layout
 
-\begin_layout Paragraph*
+\begin_layout Subsection
 Referential Transparency
 \end_layout
 
@@ -533,11 +578,19 @@ The next sections describe a computation model, such that variables can
 
 \begin_layout Section
 The Computational Model
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:The-Computational-Model"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-In this section we present our computation model for FRP applications in
- high level.
+This section provides a new variant of FRP in high level, that follows the
+ approach's fundamentals.
+ We describe this as a computation model.
  The computation model comprises the basic items used in FRP applications,
  the problem description model, that is the style or method used to represent
  an FRP application, and the execution model, which present the process
@@ -1483,6 +1536,13 @@ A special edge in DFS to an assignment element
 
 \begin_layout Section
 The Model of Order
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Order-Model"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1904,6 +1964,13 @@ Comparing Timestamps Set
 
 \begin_layout Section
 Computation with the Stream Model
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:stream"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3583,13 +3650,17 @@ A=merge(A,B)
 \end_layout
 
 \begin_layout Section
-Conclusion
+Summary
 \end_layout
 
 \begin_layout Standard
-The computations must not be handled by a central engine, it uses a push
- model, such that a variable synchronously calls its derived variables whenever
- it has new value.
+According to our approach, the variables are interacted by traditional messages
+ from the objects containing them.
+ Therefore, in the implemented solution of FRP, the computations must not
+ be handled by a central engine.
+ Instead, we use a push model, such that a variable synchronously calls
+ its derived variables whenever it has a new value.
+ In addition, any dependency produced from any formula, is supported.
 \end_layout
 
 \begin_layout Standard

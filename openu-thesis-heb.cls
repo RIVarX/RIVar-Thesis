@@ -103,8 +103,8 @@
     \vfill
 	%{Submitted to the Senate of the Open University of Israel \par}
 	{הוגש לסנט האו"פ}\par
-	%{Elul 5772, Raananna, August 2012}
-	{אלול תשע"ב, רעננה, אוגוסט 2102}
+	%{Nisan 5783, Raananna, April 2023}
+	{ניסן תשפ"ג, רעננה, אפריל 2023}
     }
   \end{center}
   %\null\vfill

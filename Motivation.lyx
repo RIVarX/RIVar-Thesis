@@ -154,7 +154,7 @@ literal "false"
  The architectural design is illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:The-design-of"
+reference "fig:Drug-calculations"
 plural "false"
 caps "true"
 noprefix "false"
@@ -196,7 +196,7 @@ lstinline{Bag}'s content
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -305,13 +305,6 @@ end{tabular}
 end{center}
 \end_layout
 
-\begin_layout Plain Layout
-
-*The calculated field appears in 
-\backslash
-textit{italic} 
-\end_layout
-
 \end_inset
 
 
@@ -327,7 +320,9 @@ name "fig:Drug-calculations"
 
 \end_inset
 
-Drug administration user interface
+Drug administration user interface.
+ The user-defined values are in a regular typeface and the calculated values
+ are in an italic typeface.
 \end_layout
 
 \end_inset
@@ -415,21 +410,21 @@ node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
 
 
 \backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {messages};
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {messages};
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {messages};
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
 \end_layout
 
 \begin_layout Plain Layout
@@ -462,13 +457,8 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:The-design-of"
-
-\end_inset
-
-The design of the drug administration application
+Design of the drug administration application, showcasing observer interaction
+ through dashed lines.
 \end_layout
 
 \end_inset
@@ -945,7 +935,7 @@ begin{center}
 
 
 \backslash
-begin{sequencediagram}     
+begin{sequencediagram}   
 \end_layout
 
 \begin_layout Plain Layout

@@ -117,12 +117,12 @@ RIVar
 Reactive Instance Variable
 \emph default
 .
- We propose an approach and method for a single RIVar assigned with formulas
+ We introduce an approach and method for a single RIVar assigned with formulas
  by several clients.
  The assignment semantics adopts the meaning from FRP, to relate the variable
  to be updated according to the specified formula.
- However, in contrast to FRP, there can be several assignments to the same
- variable.
+ However, in contrast to the traditional FRP, there can be several assignments
+ to the same variable.
  Under the hood, RIVars observe several formulas, and infer values when
  and according to the latest value coming from any of the sources.
  

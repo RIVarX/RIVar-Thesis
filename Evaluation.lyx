@@ -121,11 +121,19 @@ The idea of combining reactive variables from FRP to being instance variables
 \end_layout
 
 \begin_layout Itemize
-The model depends only on the basic objects, as tidy interface to clients,
+The model depends only on the basic objects, as a tidy interface to clients,
  consisting of instance variables and methods.
  ReactiveX is also based on the basic objects, however it does not have
- the next property, therefore produces non predictable results in case of
- cycles and merges.
+ the referential transparency (as in the next property), therefore produces
+ non predictable results in case of cycles and merges 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
@@ -152,8 +160,8 @@ replaces
 \end_layout
 
 \begin_layout Standard
-In the next sections we will evaluate the results Our evaluation presents
- the code duplication aspect (
+In the next sections we will evaluate the results.
+ Our evaluation presents the code duplication aspect (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "sec:Code-Reuse"

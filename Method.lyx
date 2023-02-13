@@ -3607,8 +3607,7 @@ Summary
 \begin_layout Standard
 According to our approach, the variables are interacted by traditional messages
  from the objects containing them.
- Therefore, in the implemented solution of FRP, the computations must not
- be handled by a central engine.
+ Therefore, in the implemented solution of FRP, a mediator is not allowed.
  Instead, we use a push model, such that a variable synchronously calls
  its derived variables whenever it has a new value.
  In addition, any dependency produced from any formula, is supported.

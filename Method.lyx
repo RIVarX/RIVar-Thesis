@@ -114,81 +114,71 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-In this section, we present the fundamentals of our approach.
- Then we describe our method to implement it.
- In the description, we provide an overview of a new variant of FRP, that
- supports several assignments to the same variable according to the fundamentals
- (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:The-Computational-Model"
-plural "false"
-caps "true"
-noprefix "false"
+We introduce a special variable named 
+\emph on
+reactive instance variable
+\emph default
+, or by the short name 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+RIVar
+\end_layout
 
 \end_inset
 
-).
- Then we describe a method to order the values to the variable to inffer
- from the several sources (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Order-Model"
-plural "false"
-caps "true"
-noprefix "false"
+.
+ Similar to 
+\emph on
+instance
+\emph default
+ variables, the variables are associated to objects.
+ The variables also remind the 
+\emph on
+reactive
+\emph default
+ variables: the variables can be updated directly by external inputs, and
+ also by transitive updates according to assigned expressions.
+ The variables has the two assignment forms: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
 
 \end_inset
 
-).
- Accordingly, we describe a method of implementation, by introducing the
- variables' low level as events streams (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:stream"
-plural "false"
-caps "true"
-noprefix "false"
+ to associate expressions and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
 
 \end_inset
 
-).
-\end_layout
-
-\begin_layout Section
-Fundamentals
-\end_layout
-
-\begin_layout Standard
-In our approach, in implementing FRP, we should satisfy the following fundamenta
-ls.
- 
-\end_layout
-
-\begin_layout Subsection
-Objects' Messages
-\end_layout
-
-\begin_layout Standard
-The updates cannot be taken by a centerlized entity.
- Instead, the updates are being taken by objects interaction, such that
- variables update each other synchronously in response to their own updates.
-\end_layout
-
-\begin_layout Subsection
-Any Formula
-\begin_inset CommandInset label
-LatexCommand label
-name "par:Any-Formula"
-
-\end_inset
-
-
+ to provide input.
+ The assignment behaves similar to instance variables' 
+\emph on
+setters
+\emph default
+ (objects' methods used to set instance variables) in that the variables
+ can be assigned from outside of objects.
 \end_layout
 
 \begin_layout Standard
 Variables assigned externally, so formulas are unconditionally added, sometimes
- complicating the dependency graph handled by the FRP runtime.
+ complicating the dependency graph.
  There are two phenomenons in dependency graphs.
  First, cycles caused from 
 \emph on
@@ -198,24 +188,10 @@ mutual recursions
 \emph on
 indirect recursions
 \emph default
-), where reactive variables are defined in terms of each other, as the example
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:simple-cycle"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
+), where reactive variables are defined in terms of each other.
  Second, variables having several sources, from being an input variable
  while having one or more assignments, or just from having several assignments.
-\end_layout
-
-\begin_layout Standard
-However, the phenomenons are very related.
+ However, the phenomenons are very related.
  Because, as visualized in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -501,7 +477,6 @@ name "fig:cycle-to-multiple-assignment"
 \end_inset
 
 Cycle graph must contain a variable with more than one source.
- 
 \end_layout
 
 \end_inset
@@ -512,18 +487,18 @@ Cycle graph must contain a variable with more than one source.
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsection
-Referential Transparency
 \end_layout
 
 \begin_layout Standard
-In addition to the first two constraints, we would satisfy the 
+In the next sections we introduce a new variant of FRP that supports complex
+ dependancy graphs from introducing mutual recursions and several assignments.
+ The updates are taken with two fundamentals.
+ First, we use only synchronous method calls from the basic objects framework.
+ Second, we satisfy the 
 \emph on
 referential transparency
 \emph default
- property 
+ property related to FRP 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -532,9 +507,7 @@ literal "false"
 \end_inset
 
 , i.e.,  the same input will produce consistently the same output.
- The referential transparency property is what causes FRP to be predictable
- and composable.
- However, we use a formulation of the guarantee 
+ We provide the property using the formulation of the guarantee 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -552,28 +525,6 @@ the same sequence of events produces the same results, regardless of the
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-vspace{5mm}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The next sections describe a computation model, such that variables can
- be connected to several sources, while satisfing the referential transparency
- property.
 \end_layout
 
 \begin_layout Section

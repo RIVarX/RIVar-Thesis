@@ -518,7 +518,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-For large scale applications, the 
+For large-scale applications, the 
 \emph on
 Object Oriented Programming
 \emph default
@@ -534,9 +534,8 @@ literal "false"
 .
  It is desirable, that reactive variables and formulas can be spread to
  the different objects, enabling to assign reactive variables externaly.
- In particular, reactive variables can be assigned and receive input through
- the use of services or specialization (subclass access its superclass variables
-) interfaces.
+ In particular, objects will expose a well-defined interface for assigning
+ the reactive variables and receiving input.
  For example, an object 
 \begin_inset ERT
 status open
@@ -550,7 +549,7 @@ lstinline{X}
 
 \end_inset
 
- can provide the reactive variable 
+ would provide the reactive variable 
 \begin_inset ERT
 status open
 
@@ -590,7 +589,135 @@ lstinline{X.A:=B+1}
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+Existing implementations provide two methods for assigning variables externally,
+ both have difficulties in compatibility with FRP.
+ ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+ provide reactive variables as standard data types, causing reactive variables
+ being able to be assigned through an interface (by setters).
+ However, this strategy is contrasted with the concept of reactive variables.
+ The concept of reactive variables originates from the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP), that is based on 
+\emph on
+Functional Programming
+\emph default
  
+\begin_inset CommandInset citation
+LatexCommand citep
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ According to FRP, the programs should “describe things that exist, rather
+ than actions that have happened or are to happen (i.e., what is, not what
+ does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, in ReactiveX and REScala, an assigment causes to stop the
+ old source, and then start to respond to new source.
+ In general, seperating the variables and expressions between interfaces
+ and consumers seems incompatible with FRP, because reactive variables are
+ defined by their functions over other reactive variables, or by their values
+ over time 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the second method, reactive variables are accessed externally by injecting
+ events handlers.
+ In events handlers, we can set inputs to reactive variables in response
+ other reactive variables' updates.
+ For example, in ReactiveX the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+.
+ This method 
+\emph on
+adds
+\emph default
+ the formula in addition to the existing formulas handled by the runtime
+ of the FRP solution.
+ But in the current implementation, the formula is activated externally,
+ without the advantages that the paradigm of FRP should provide.
+ FRP aims to provide predictability and composability.
+ In contrast, adding formulas externally, by integration between FRP and
+ imperative programming, might cause infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+\end_layout
+
+\begin_layout Standard
+We present an approach where the assignment operator adds formulas, while
+ the added formulas are managed by the runtime.
+ To this end, we present a new variation of FRP that meets the new requirements.
 \end_layout
 
 \begin_layout Section
@@ -615,7 +742,7 @@ lstinline{RIVar}
 \emph on
 Reactive Instance Variable
 \emph default
- being consistent with both 
+ to be consistent with both 
 \emph on
 instance variables
 \emph default
@@ -623,7 +750,7 @@ instance variables
 \emph on
 reactive variables
 \emph default
- from FRP, supporting the features of both paradigms.
+ from FRP to support the features of both paradigms.
  We also provide the library RIVarX
 \begin_inset Foot
 status collapsed

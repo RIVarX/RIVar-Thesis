@@ -522,7 +522,7 @@ For large scale applications, the
 \emph on
 Object Oriented Programming
 \emph default
- (OOP) paradigm is used to seperate application logic to diffrent objects
+ (OOP) paradigm is used to seperate application logic to different objects
  that are loosly coupled 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -537,7 +537,7 @@ literal "false"
  In particular, reactive variables can be assigned and receive input through
  the use of services or specialization (subclass access its superclass variables
 ) interfaces.
- For example, a service 
+ For example, an object 
 \begin_inset ERT
 status open
 
@@ -545,7 +545,7 @@ status open
 
 
 \backslash
-lstinline{service}
+lstinline{X}
 \end_layout
 
 \end_inset
@@ -584,7 +584,7 @@ status open
 
 
 \backslash
-lstinline{service.A:=B+1}
+lstinline{X.A:=B+1}
 \end_layout
 
 \end_inset
@@ -612,16 +612,9 @@ lstinline{RIVar}
 \end_inset
 
 , 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
+\emph on
 Reactive Instance Variable
-\end_layout
-
-\end_inset
-
+\emph default
  being consistent with both 
 \emph on
 instance variables
@@ -631,8 +624,7 @@ instance variables
 reactive variables
 \emph default
  from FRP, supporting the features of both paradigms.
- We implement the method by C# programming language, providing the library
- RIVarX
+ We also provide the library RIVarX
 \begin_inset Foot
 status collapsed
 
@@ -642,7 +634,20 @@ https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RI
 
 \end_inset
 
- attached with a small case study.
+ with an implemented 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+ in C# programming language, attached with a case study.
 \end_layout
 
 \begin_layout Standard

@@ -180,9 +180,9 @@ literal "false"
 \end_inset
 
 ) to automate variables updates.
- Reactive variables generaly refered to variables that are recaluclated
- in response and according to to dependant variables' updates, similar to
- cells containing formulas in spreadsheet applications.
+ Reactive variables are variables that are recaluclated in response and
+ according to to dependant variables' updates, similar to cells containing
+ formulas in spreadsheet applications.
  The variables can get input (
 \begin_inset ERT
 status open
@@ -480,7 +480,7 @@ literal "false"
  Specificaly, when adding a functionality to update one variable, that variable
  might be part of a long chains of updates, so it might fall into an endless
  loop.
- In the research of FRP only part of the complexity has been solved.
+ In the research of FRP the complexity has only been partially solved.
 \end_layout
 
 \begin_layout Standard
@@ -501,11 +501,19 @@ literal "false"
  The event handling logic determines what happens when an event is triggered,
  and in this case, it sets the values of variables and updates their dependencie
 s.
- This probem has been solved in the research of FRP, because reactive variables
- enable to explicty declare the data dependencies 
+ This problem has been solved in the research of FRP, in explicty declaring
+ the data dependencies 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "bainomugisha2013survey"
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, for where the data dependencies graph does not have cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging,cooper2006embedding,foust2015generating"
 literal "false"
 
 \end_inset
@@ -704,7 +712,7 @@ adds
  imperative programming, might cause infinite loops 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "schuster2016reactive"
+key "schuster2016reactive,blackheath2016functional"
 literal "false"
 
 \end_inset

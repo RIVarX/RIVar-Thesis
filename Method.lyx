@@ -114,33 +114,19 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-We introduce a special variable named 
-\emph on
-reactive instance variable
-\emph default
-, or by the short name 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-RIVar
-\end_layout
-
-\end_inset
-
-.
- Similar to 
-\emph on
-instance
-\emph default
- variables, the variables are associated to objects.
- The variables also remind the 
+The name RIVar refers to Reactive Instance Variable.
+ This special variable is similar to a 
 \emph on
 reactive
 \emph default
- variables: the variables can be updated directly by external inputs, and
- also by transitive updates according to assigned expressions.
+ variable and an 
+\emph on
+instance
+\emph default
+ variable.
+ Similar to reactive variables, the variables can be updated directly by
+ external inputs, and also by transitive updates according to assigned expressio
+ns.
  The variables has the two assignment forms: 
 \begin_inset ERT
 status open
@@ -168,18 +154,135 @@ lstinline{=}
 \end_inset
 
  to provide input.
- The assignment behaves similar to instance variables' 
+ Similar to instance variables, the variables are associated to objects
+ of the OOP paradigm.
+ Accordingly, the updates are executed by direct interactions by synchronous
+ method calls.
+ In addition, The assignment behaves similar to instance variables (or their
+ 
 \emph on
 setters
 \emph default
- (objects' methods used to set instance variables) in that the variables
- can be assigned from outside of objects.
+, that are objects' methods used to assign instance variables) in that the
+ variables can be assigned from outside of objects.
+\end_layout
+
+\begin_layout Standard
+Objects can expose a well-defined interface for assigning the variables.
+ Therefore, services can expose variables for their clients to assign.
+ In addition, subclasses can assign variables belong to the superclass (speciali
+zation interface).
+ The assignment relates the variable to be updated according to the specified
+ formula.
+ Consequently, formulas are unconditionally added, sometimes complicating
+ the calculations.
+\end_layout
+
+\begin_layout Standard
+Two issues might exist in a dependency graph represents an application data
+ dependencies.
+ First, cycles caused from 
+\emph on
+mutual recursions
+\emph default
+ (named also 
+\emph on
+indirect recursions
+\emph default
+), where reactive variables are defined in terms of each other.
+ Second, a variable depends on two or more expressions.
+ Similary, a variable might depends on a single expression but get updates
+ from external input in addition to the updates coming from the assigned
+ expression.
+ However, the issues are related.
+ Because, as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-to-multiple-assignment"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, a 
+\begin_inset Quotes eld
+\end_inset
+
+wave
+\begin_inset Quotes erd
+\end_inset
+
+ of updates through a cycle, must be caused by a variable having more than
+ one source.
+ Therefore, the two phenomenons should be handled at once, by providing
+ semantics and implementation to variables with several sources.
+ Given a cycle in a data dependancy graph, in order that the data will flow
+ in the cycle, there must be, that one of the nodes get updates from a node
+ or input that is does not belong to the cycle.
+ This node depends on node fro the cycle and also depends
+\end_layout
+
+\begin_layout Standard
+Objects can expose a well-defined interface for assigning the variables.
+ Therefore, services can expose variables for their clients to assign.
+ In addition, subclasses can assign variables belong to the superclass (speciali
+zation interface).
+ The assignment relates the variable to be updated according to the specified
+ formula in addition to existing assignments related to the same variable.
+ This means that the assignment adds the formula to the existing formulas
+ handled by the runtime.
+ The semantics to add the formula, fits well with the conceptual specialization
+ (subtyping) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+, making the derived class only extending the base class.
+ 
 \end_layout
 
 \begin_layout Standard
 Variables assigned externally, so formulas are unconditionally added, sometimes
- complicating the dependency graph.
- There are two phenomenons in dependency graphs.
+ complicating the calculations.
+ There might be 
+\emph on
+mutual recursions
+\emph default
+ (named also 
+\emph on
+indirect recursions
+\emph default
+), where reactive variables are defined in terms of each other.
+ In addition, there might be a variable with several diffrent assignments.——
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+The semantics to add the formula, fits well with the conceptual specialization
+ (subtyping) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+, making the derived class only extending the base class.
+\end_layout
+
+\begin_layout Standard
+—–
+\end_layout
+
+\begin_layout Standard
+There are two phenomenons in dependency graphs.
  First, cycles caused from 
 \emph on
 mutual recursions
@@ -221,7 +324,7 @@ wave
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -312,7 +415,39 @@ name "fig:simple-cycle"
 
 \end_inset
 
-A simple dependency graph with cycles
+A dependancy graph that consists of a single cycle from the mutual recursion,
+ such that the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ are defined in terms of each other.
+ The nodes denote the variables and and each directed edge represents a
+ dependency between two variables.
+ The direction of the edge represents the direction of the dependence, with
+ the head of the edge pointing towards the dependent variable and the tail
+ pointing towards the independent variable.
 \end_layout
 
 \end_inset
@@ -339,7 +474,7 @@ status open
 
 
 \backslash
-centering 
+begin{center}  
 \end_layout
 
 \begin_layout Plain Layout
@@ -404,9 +539,11 @@ n * (
 \backslash
 s - 1)}:
 \backslash
-radius) {};   
+radius) {
 \backslash
-draw[->, >=latex] ({360/
+j};   
+\backslash
+draw[<-, >=latex] ({360/
 \backslash
 n * (
 \backslash
@@ -444,14 +581,14 @@ radius);
 
 
 \backslash
-node[above] (X) at (5,5) {$input$};    
+node[above] (X) at (-3,3) {$input$};    
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw[dotted][->, >=latex] (X) -- (B);
+draw[dotted][<-, >=latex] (X) -- (C);
 \end_layout
 
 \begin_layout Plain Layout
@@ -459,6 +596,13 @@ draw[dotted][->, >=latex] (X) -- (B);
 
 \backslash
 end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
 \end_layout
 
 \end_inset
@@ -476,7 +620,103 @@ name "fig:cycle-to-multiple-assignment"
 
 \end_inset
 
-Cycle graph must contain a variable with more than one source.
+Illustrating the relationship between cycles and several assignments.
+ A cycle of variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+-
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{E}
+\end_layout
+
+\end_inset
+
+ defined in terms of each other are represented by a directed graph with
+ a cycle of directed edges.
+ In addition, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C}
+\end_layout
+
+\end_inset
+
+ depends directly or indirectly on external input, is represented by a dashed
+ arrow.
+ As a result, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C}
+\end_layout
+
+\end_inset
+
+ has two assignments (two 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ or one 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+).
 \end_layout
 
 \end_inset

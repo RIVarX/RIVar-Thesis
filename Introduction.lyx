@@ -594,7 +594,7 @@ compositionality
 \begin_layout Standard
 In this thesis, we use the second alternative and extend it to add the benefits
  from the first alternative.
- In the new design, each variable consider the updates from its dependencies
+ In the new design, each variable considers the updates from its dependencies
  and update its subscribers in a proper order.
  
 \end_layout

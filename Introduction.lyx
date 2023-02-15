@@ -499,99 +499,6 @@ literal "false"
 s.
  The second complexity part is to separate the task into small manageable
  and independent tasks, for being in seperated loosly-coupled components.
-\end_layout
-
-\begin_layout Standard
-The complexity has been partly solved in the presence of reactive variables
- in explicitly declaring the data dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
- Two alternative approaches have emerged in implementing the reactive variables.
- The first alternative, implemented by ReactiveX, provide loosely coupled
- reactive variables that interact by the observer pattern.
- The reactive variables are events streams or observables that update their
- subscribers in a form of an iterator.
- However, the method call chain does not fit with the needed updates order.
- The second alternative, implemented by REScala, updates the variables in
- a correct order by a centralized mediator 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
-, that does the analysis to find the correct order and has the access to
- the variables and their formulas.
-\end_layout
-
-\begin_layout Standard
-—————–
-\end_layout
-
-\begin_layout Standard
-In maintaining and updating the variables, we sometimes face unpredictable
- behavior and even infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hung2018architectural"
-literal "false"
-
-\end_inset
-
-.
- The unpredictable behavior might exist especially when applications grow
- and have long chains of updates.
- Specificaly, when adding a functionality to update one variable, that variable
- might be part of a long chains of updates, so it might fall into an endless
- loop.
- In the research of FRP the complexity has only been partially solved.
-\end_layout
-
-\begin_layout Standard
-The complexity of this task has two parts.
- First, the difficulties to control the data dependencies implied implicity
- by event handling logic 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
- In the events paradigm, the data dependencies are not explicit because
- they are not directly expressed in the code, but are instead implied by
- the event handling logic.
- The event handling logic determines what happens when an event is triggered,
- and in this case, it sets the values of variables and updates their dependencie
-s.
- This problem has been solved in the research of FRP, in explicty declaring
- the data dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-, for where the data dependencies graph does not have cycles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "perez2015bridging,cooper2006embedding,foust2015generating"
-literal "false"
-
-\end_inset
-
-.
- The second complexity part is the inability to separate the task into small
- manageable tasks, for being in seperated components.
  In other words, components become coupled by affecting each other's state
  
 \begin_inset CommandInset citation
@@ -605,106 +512,27 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-For large-scale applications, the 
+The first complexity type has the solution of reactive variables, in explicitly
+ declaring the data dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ The second complexity type has the solution to integrate with the 
 \emph on
 Object Oriented Programming
 \emph default
- (OOP) paradigm is used to seperate application logic to different objects
- that are loosly coupled 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "martin2018clean"
-literal "false"
-
-\end_inset
-
-.
- It is desirable, that reactive variables and formulas can be spread to
- the different objects, enabling to assign reactive variables externaly.
- In particular, objects will expose a well-defined interface for assigning
- the reactive variables and receiving input.
- For example, an object 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X}
-\end_layout
-
-\end_inset
-
- would provide the reactive variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- to be assigned with the expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B+1}
-\end_layout
-
-\end_inset
-
-, by specifing the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X.A:=B+1}
-\end_layout
-
-\end_inset
-
-.
- Executing the formula initiates a continuous direct interaction to update
+ (OOP) paradigm.
+ The OOP paradigm is used to seperate application logic to different objects.
  
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{X.A}
 \end_layout
 
-\end_inset
-
- according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B+1}
-\end_layout
-
-\end_inset
-
-.
- In ReactiveX
+\begin_layout Standard
+In REScala and ReactiveX
 \begin_inset Foot
 status collapsed
 
@@ -714,156 +542,59 @@ https://reactivex.io
 
 \end_inset
 
- and REScala 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
- reactive variables and formulas can be spread to different objects.
- However, in REScala the variabes are updated by a centralized madiator
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
-.
- In ReactiveX it works without a madiator, but does not achive the referntial
- transparent property leading that the calcuations are not predictable.
-\end_layout
-
-\begin_layout Standard
-Existing implementations provide two methods for assigning variables externally,
- both have difficulties in compatibility with FRP.
- ReactiveX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
- and REScala 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
- provide reactive variables as standard data types, causing reactive variables
- being able to be assigned through an interface (by setters).
- However, this strategy is contrasted with the concept of reactive variables.
- The concept of reactive variables originates from the field of 
-\emph on
-Functional Reactive Programming
-\emph default
- (FRP), that is based on 
-\emph on
-Functional Programming
-\emph default
  
 \begin_inset CommandInset citation
 LatexCommand citep
-key "elliott2009push"
+key "Salvaneschi2014"
 literal "false"
 
 \end_inset
 
-.
- According to FRP, the programs should “describe things that exist, rather
- than actions that have happened or are to happen (i.e., what is, not what
- does)” 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-.
- In contrast, in ReactiveX and REScala, an assigment causes to stop the
- old source, and then start to respond to new source.
- In general, seperating the variables and expressions between interfaces
- and consumers seems incompatible with FRP, because reactive variables are
- defined by their functions over other reactive variables, or by their values
- over time 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
+ the reactive variables and formulas can be spread in the different objects
+ implemented differently.
+ REScala derives previous FRP implementations, in using an algorithm that
+ carefuly determines the order in which to update the variables.
+ ReactiveX derives the observer pattern.
+ The reactive variables implemented as events streams or observables, subscribed
+ to input and/or other reactive variables, to update their subscribers,
+ in a form of an iterator.
+ 
 \end_layout
 
 \begin_layout Standard
-In the second method, reactive variables are accessed externally by injecting
- events handlers.
- In events handlers, we can set inputs to reactive variables in response
- other reactive variables' updates.
- For example, in ReactiveX the statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A.Subscribe(val=>B.OnNext(val))}
-\end_layout
-
-\end_inset
-
- produces the meaning of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B}
-\end_layout
-
-\end_inset
-
-.
- This method 
+Both alternatives have their tradeoffs, which calls for an integration of
+ their concepts.
+ REScala gives the 
 \emph on
-adds
+referential transparency
 \emph default
- the formula in addition to the existing formulas handled by the runtime
- of the FRP solution.
- But in the current implementation, the formula is activated externally,
- without the advantages that the paradigm of FRP should provide.
- FRP aims to provide predictability and composability.
- In contrast, adding formulas externally, by integration between FRP and
- imperative programming, might cause infinite loops 
+ property 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "schuster2016reactive,blackheath2016functional"
+key "blackheath2016functional"
 literal "false"
 
 \end_inset
 
-.
- For example, a change in a reactive variable, might execute an event handler,
- causing the reactive variable to change.
+, meaning that the same input will produce consistently the same output.
+ This property gives REScala the power from the functional paradigm to compose
+ similar to composing mathematical functions.
+ However, in REScala there is a madiator that manages the updates.
+ In contrast, ReactiveX provides the needed seperation but does not achive
+ the 
+\emph on
+referential transparency
+\emph default
+ property.
 \end_layout
 
 \begin_layout Standard
-We present an approach where the assignment operator adds formulas, while
- the added formulas are managed by the a decenterlized runtime.
- To this end, we present a new variation of FRP that meets the new requirements.
+In this thesis, we introduce an idea that the graph of the data dependencies
+ can be maintained by the nodes, as events streams.
+ The reactive variables and the functions over them (expressions) have the
+ form of events stream, and spread in the objects.
+ The nodes as events streams consider their updates and update their subscribers
+ with a proper order.
 \end_layout
 
 \begin_layout Section

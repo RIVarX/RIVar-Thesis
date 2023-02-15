@@ -209,7 +209,7 @@ lstinline{:=}
 
 \end_inset
 
- operator) to an expression consisting of a set of other reactive variables.
+ operator) with an expression consisting of a set of other reactive variables.
  The assigment defines that the value of the variable is set to the value
  of the expression, and continuously re-evaluated in response to changes
  in the value of any of the variables appearing in the expression.
@@ -477,6 +477,77 @@ literal "false"
 .
  The unpredictable behavior might exist especially when applications grow
  and have long chains of updates.
+ Specificaly, when adding a functionality to update one variable, where
+ that update is part of a long chains of updates, so it might fall into
+ an endless loop.
+ The complexity of this task has two parts.
+ First, the difficulties to control the data dependencies implied implicity
+ by event handling logic 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ In the events paradigm, the data dependencies are not explicit because
+ they are not directly expressed in the code, but are instead implied by
+ the event handling logic.
+ The event handling logic determines what happens when an event is triggered,
+ and in this case, it sets the values of variables and updates their dependencie
+s.
+ The second complexity part is to separate the task into small manageable
+ and independent tasks, for being in seperated loosly-coupled components.
+\end_layout
+
+\begin_layout Standard
+The complexity has been partly solved in the presence of reactive variables
+ in explicitly declaring the data dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ Two alternative approaches have emerged in implementing the reactive variables.
+ The first alternative, implemented by ReactiveX, provide loosely coupled
+ reactive variables that interact by the observer pattern.
+ The reactive variables are events streams or observables that update their
+ subscribers in a form of an iterator.
+ However, the method call chain does not fit with the needed updates order.
+ The second alternative, implemented by REScala, updates the variables in
+ a correct order by a centralized mediator 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+, that does the analysis to find the correct order and has the access to
+ the variables and their formulas.
+\end_layout
+
+\begin_layout Standard
+—————–
+\end_layout
+
+\begin_layout Standard
+In maintaining and updating the variables, we sometimes face unpredictable
+ behavior and even infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hung2018architectural"
+literal "false"
+
+\end_inset
+
+.
+ The unpredictable behavior might exist especially when applications grow
+ and have long chains of updates.
  Specificaly, when adding a functionality to update one variable, that variable
  might be part of a long chains of updates, so it might fall into an endless
  loop.
@@ -521,8 +592,16 @@ literal "false"
 .
  The second complexity part is the inability to separate the task into small
  manageable tasks, for being in seperated components.
- In other words, components become coupled by affecting each other's state,
- causing the task to be centralized.
+ In other words, components become coupled by affecting each other's state
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jiang2020event"
+literal "false"
+
+\end_inset
+
+, causing the task to be centralized.
 \end_layout
 
 \begin_layout Standard
@@ -597,6 +676,65 @@ lstinline{X.A:=B+1}
 \end_inset
 
 .
+ Executing the formula initiates a continuous direct interaction to update
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X.A}
+\end_layout
+
+\end_inset
+
+ according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+.
+ In ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+ reactive variables and formulas can be spread to different objects.
+ However, in REScala the variabes are updated by a centralized madiator
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ In ReactiveX it works without a madiator, but does not achive the referntial
+ transparent property leading that the calcuations are not predictable.
 \end_layout
 
 \begin_layout Standard
@@ -724,7 +862,7 @@ literal "false"
 
 \begin_layout Standard
 We present an approach where the assignment operator adds formulas, while
- the added formulas are managed by the runtime.
+ the added formulas are managed by the a decenterlized runtime.
  To this end, we present a new variation of FRP that meets the new requirements.
 \end_layout
 

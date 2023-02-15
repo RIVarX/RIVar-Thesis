@@ -170,68 +170,11 @@ setters
 \begin_layout Standard
 Objects can expose a well-defined interface for assigning the variables.
  Therefore, services can expose variables for their clients to assign.
- In addition, subclasses can assign variables belong to the superclass (speciali
-zation interface).
+ This includes subclasses that can assign variables belonging to the superclass
+ (specialization interface).
  The assignment relates the variable to be updated according to the specified
  formula.
- Consequently, formulas are unconditionally added, sometimes complicating
- the calculations.
-\end_layout
-
-\begin_layout Standard
-Two issues might exist in a dependency graph represents an application data
- dependencies.
- First, cycles caused from 
-\emph on
-mutual recursions
-\emph default
- (named also 
-\emph on
-indirect recursions
-\emph default
-), where reactive variables are defined in terms of each other.
- Second, a variable depends on two or more expressions.
- Similary, a variable might depends on a single expression but get updates
- from external input in addition to the updates coming from the assigned
- expression.
- However, the issues are related.
- Because, as visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:cycle-to-multiple-assignment"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, a 
-\begin_inset Quotes eld
-\end_inset
-
-wave
-\begin_inset Quotes erd
-\end_inset
-
- of updates through a cycle, must be caused by a variable having more than
- one source.
- Therefore, the two phenomenons should be handled at once, by providing
- semantics and implementation to variables with several sources.
- Given a cycle in a data dependancy graph, in order that the data will flow
- in the cycle, there must be, that one of the nodes get updates from a node
- or input that is does not belong to the cycle.
- This node depends on node fro the cycle and also depends
-\end_layout
-
-\begin_layout Standard
-Objects can expose a well-defined interface for assigning the variables.
- Therefore, services can expose variables for their clients to assign.
- In addition, subclasses can assign variables belong to the superclass (speciali
-zation interface).
- The assignment relates the variable to be updated according to the specified
- formula in addition to existing assignments related to the same variable.
- This means that the assignment adds the formula to the existing formulas
- handled by the runtime.
+ Consequently, formulas are unconditionally added.
  The semantics to add the formula, fits well with the conceptual specialization
  (subtyping) 
 \begin_inset CommandInset citation
@@ -242,496 +185,12 @@ literal "false"
 \end_inset
 
 , making the derived class only extending the base class.
- 
-\end_layout
-
-\begin_layout Standard
-Variables assigned externally, so formulas are unconditionally added, sometimes
- complicating the calculations.
- There might be 
-\emph on
-mutual recursions
-\emph default
- (named also 
-\emph on
-indirect recursions
-\emph default
-), where reactive variables are defined in terms of each other.
- In addition, there might be a variable with several diffrent assignments.——
-\end_layout
-
-\begin_layout Standard
-——–
-\end_layout
-
-\begin_layout Standard
-The semantics to add the formula, fits well with the conceptual specialization
- (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
-\end_layout
-
-\begin_layout Standard
-—–
-\end_layout
-
-\begin_layout Standard
-There are two phenomenons in dependency graphs.
- First, cycles caused from 
-\emph on
-mutual recursions
-\emph default
- (named also 
-\emph on
-indirect recursions
-\emph default
-), where reactive variables are defined in terms of each other.
- Second, variables having several sources, from being an input variable
- while having one or more assignments, or just from having several assignments.
- However, the phenomenons are very related.
- Because, as visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:cycle-to-multiple-assignment"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, a 
-\begin_inset Quotes eld
-\end_inset
-
-wave
-\begin_inset Quotes erd
-\end_inset
-
- of updates through a cycle, must be caused by a variable having more than
- one source.
- Therefore, the two phenomenons should be handled at once, by providing
- semantics and implementation to variables with several sources.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (A) at (0,5) {A};     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (B) at (3.5,5) {B};       
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge [bend left] (B);  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (B) edge [bend left] (A);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(A) + (1.75,-0.75)$)    {A:=B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(A) + (1.75,0.75)$)    {B:=A};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:simple-cycle"
-
-\end_inset
-
-A dependancy graph that consists of a single cycle from the mutual recursion,
- such that the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- are defined in terms of each other.
- The nodes denote the variables and and each directed edge represents a
- dependency between two variables.
- The direction of the edge represents the direction of the dependence, with
- the head of the edge pointing towards the dependent variable and the tail
- pointing towards the independent variable.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[<-, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] (X) at (-3,3) {$input$};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][<-, >=latex] (X) -- (C);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycle-to-multiple-assignment"
-
-\end_inset
-
-Illustrating the relationship between cycles and several assignments.
- A cycle of variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
--
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{E}
-\end_layout
-
-\end_inset
-
- defined in terms of each other are represented by a directed graph with
- a cycle of directed edges.
- In addition, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C}
-\end_layout
-
-\end_inset
-
- depends directly or indirectly on external input, is represented by a dashed
- arrow.
- As a result, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C}
-\end_layout
-
-\end_inset
-
- has two assignments (two 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- or one 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
-).
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+ However added formulas sometimes complicates the calculations.
 \end_layout
 
 \begin_layout Standard
 In the next sections we introduce a new variant of FRP that supports complex
- dependancy graphs from introducing mutual recursions and several assignments.
+ calculations.
  The updates are taken with two fundamentals.
  First, we use only synchronous method calls from the basic objects framework.
  Second, we satisfy the 
@@ -1712,7 +1171,7 @@ name "fig:assignment-special-edge"
 
 \end_inset
 
-A special edge in DFS to an assignment element 
+A special edge in DFS to an assignment element
 \end_layout
 
 \end_inset
@@ -2183,7 +1642,7 @@ In addition to the reactive variable's continuous abstraction, there is
  Because even when a reactive variable represents a real-world variable
  in high level, in computers reactive variables' actual values cannot continuous
 ly provided.
- For example, temperature nay depend on an actual stream of discrete events,
+ For example, temperature depends on an actual stream of discrete events,
  being sampled by a thermometer.
 \end_layout
 
@@ -2336,7 +1795,63 @@ name "fig:Streams-of-values"
 
 \end_inset
 
-Streams of values representing a varying value.
+Illustrating a stream of values representing the varying value of a variable.
+ The axis represents the time, and whenever the value is changed, there
+ is a circle with the new value.
+ The visualized stream presents a variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ updated to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{5}
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{3}
+\end_layout
+
+\end_inset
+
+, then after a longer period 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{2}
+\end_layout
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \end_inset

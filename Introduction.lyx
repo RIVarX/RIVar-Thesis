@@ -179,7 +179,7 @@ literal "false"
 
 \end_inset
 
-) to automate variables updates.
+) to automate updates.
  Reactive variables are variables that are recaluclated in response and
  according to to dependant variables' updates, similar to cells containing
  formulas in spreadsheet applications.
@@ -499,8 +499,7 @@ literal "false"
 s.
  The second complexity part is to separate the task into small manageable
  and independent tasks, for being in seperated loosly-coupled components.
- In other words, components become coupled by affecting each other's state
- 
+ Typically components become coupled by affecting each other's state 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "jiang2020event"
@@ -522,13 +521,14 @@ literal "false"
 \end_inset
 
 .
- The second complexity type has the solution to integrate with the 
+ The second, we relate to the 
 \emph on
 Object Oriented Programming
 \emph default
  (OOP) paradigm.
- The OOP paradigm is used to seperate application logic to different objects.
- 
+ This paradigm enable that different parts of the software, in the form
+ of objects, are loosely coupled and do not depend on one another.
+ This makes it easier to change objects without affecting the others.
 \end_layout
 
 \begin_layout Standard
@@ -550,10 +550,11 @@ literal "false"
 
 \end_inset
 
- the reactive variables and formulas can be spread in the different objects
- implemented differently.
- REScala derives previous FRP implementations, in using an algorithm that
- carefuly determines the order in which to update the variables.
+ the reactive variables are part of the object interface, but implemented
+ differently.
+ REScala derives previous FRP implementations, in its functional style,
+ and in using an algorithm that carefuly determines the order in which to
+ update the variables.
  ReactiveX derives the observer pattern.
  The reactive variables implemented as events streams or observables, subscribed
  to input and/or other reactive variables, to update their subscribers,
@@ -577,24 +578,25 @@ literal "false"
 \end_inset
 
 , meaning that the same input will produce consistently the same output.
- This property gives REScala the power from the functional paradigm to compose
- similar to composing mathematical functions.
- However, in REScala there is a madiator that manages the updates.
- In contrast, ReactiveX provides the needed seperation but does not achive
- the 
+ This property gives REScala the power from the functional paradigm, the
+ property of 
 \emph on
-referential transparency
+compositionality
 \emph default
- property.
+, to build bigger functions out of smaller ones.
+ However, the updates are taken by a central madiator.
+ ReactiveX is good in seperation: It let to decouple formulas from the used
+ reactive variables, to associate an expression to a reactive variables
+ from outside of an object, and that variables are updated directly by their
+ dependencies
 \end_layout
 
 \begin_layout Standard
-In this thesis, we introduce an idea that the graph of the data dependencies
- can be maintained by the nodes, as events streams.
- The reactive variables and the functions over them (expressions) have the
- form of events stream, and spread in the objects.
- The nodes as events streams consider their updates and update their subscribers
- with a proper order.
+In this thesis, we use the second alternative and extend it to add the benefits
+ from the first alternative.
+ In the new design, each variable consider the updates from its dependencies
+ and update its subscribers in a proper order.
+ 
 \end_layout
 
 \begin_layout Section

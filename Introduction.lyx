@@ -465,7 +465,7 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
-In maintaining and updating the variables, we sometimes face unpredictable
+In maintaining and updating the variables, we sometimes face an unpredictable
  behavior and even infinite loops 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -526,7 +526,7 @@ literal "false"
 Object Oriented Programming
 \emph default
  (OOP) paradigm.
- This paradigm enable that different parts of the software, in the form
+ This paradigm enables that different parts of the software, in the form
  of objects, are loosely coupled and do not depend on one another.
  This makes it easier to change objects without affecting the others.
 \end_layout
@@ -594,10 +594,11 @@ compositionality
 \begin_layout Standard
 In this thesis, we use the approach from the second alternative and extend
  it to add the benefits from the first alternative.
- The variables have the form of the events streams.
- But instead of passing immediately any value to subscribers, and instead
- of a centerlized madiator that consider the order of the updates, the variables
- consider the coming updates and properly order the updates for the subscribers.
+ The variables have the form of the events streams like ReactiveX.
+ But instead of the default behavior to pass immediately any value to subscriber
+s, and instead of a centerlized madiator used in REScala to consider the
+ order of the updates, the variables consider the coming updates by themselves,
+ properly ordering the updates to the subscribers.
 \end_layout
 
 \begin_layout Section
@@ -630,7 +631,7 @@ instance variables
 \emph on
 reactive variables
 \emph default
- from FRP to support the features of both paradigms.
+ from FRP to support the features from both paradigms.
  We also provide the library RIVarX
 \begin_inset Foot
 status collapsed

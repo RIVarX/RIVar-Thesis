@@ -556,9 +556,9 @@ literal "false"
  and in using an algorithm that carefuly determines the order in which to
  update the variables.
  ReactiveX derives the observer pattern.
- The reactive variables implemented as events streams or observables, subscribed
- to input and/or other reactive variables, to update their subscribers,
- in a form of an iterator.
+ The reactive variables are implemented as events streams or observables,
+ subscribed to input and/or other reactive variables, to update their subscriber
+s, in a form of an iterator.
  
 \end_layout
 
@@ -588,15 +588,16 @@ compositionality
  ReactiveX is good in seperation: It let to decouple formulas from the used
  reactive variables, to associate an expression to a reactive variables
  from outside of an object, and that variables are updated directly by their
- dependencies
+ dependencies (without a central madiator).
 \end_layout
 
 \begin_layout Standard
-In this thesis, we use the second alternative and extend it to add the benefits
- from the first alternative.
- In the new design, each variable considers the updates from its dependencies
- and update its subscribers in a proper order.
- 
+In this thesis, we use the approach from the second alternative and extend
+ it to add the benefits from the first alternative.
+ The variables have the form of the events streams.
+ But instead of passing immediately any value to subscribers, and instead
+ of a centerlized madiator that consider the order of the updates, the variables
+ consider the coming updates and properly order the updates for the subscribers.
 \end_layout
 
 \begin_layout Section

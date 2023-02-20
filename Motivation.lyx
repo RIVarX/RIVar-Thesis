@@ -196,7 +196,7 @@ lstinline{Bag}'s content
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -492,7 +492,35 @@ lstinline{Pump}
 
 \end_inset
 
- depends on an existing bag, containing 
+ refers to a medical device used to deliver fluids with medication into
+ a patient’s body in a controlled manner.
+ Accordingly, we model 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ class with contained 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+ representing the connected bag, containing 
 \begin_inset ERT
 status open
 
@@ -532,7 +560,7 @@ lstinline{Drug}
 
 \end_inset
 
- relates to amount of medication/drug administered to a patient, (e.g.
+ relates to amount of medication administered to a patient, (e.g.
  100 mg).
  
 \begin_inset ERT
@@ -918,7 +946,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1030,7 +1058,7 @@ name "fig:Calculation-spread-over-objects-1"
 
 \end_inset
 
-Calculation procedure spread over seperated objects
+Calculation procedure spread over seperated objects.
 \end_layout
 
 \end_inset
@@ -1786,7 +1814,8 @@ Summary
 \end_layout
 
 \begin_layout Standard
-The calculations are defined separately in 
+We tried to seperate an application unsuccessfully.
+ The calculations are defined separately in 
 \begin_inset ERT
 status open
 
@@ -1815,7 +1844,7 @@ lstinline{Bag}
 .
  Also the runtime is seperated, managing the updates on top of the objects'
  interactions (standard calls).
- As a result, there are unpredictable calculations.
+ But the resulted calculations does not fit the requirements.
 \end_layout
 
 \end_body

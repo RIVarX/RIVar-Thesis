@@ -826,7 +826,7 @@ lstinline{Concentration}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -982,7 +982,7 @@ lstinline{VolumeOfFluid}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1287,7 +1287,7 @@ lstinline{B}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1487,7 +1487,7 @@ lstinline{C}
 
  depends directly or indirectly on external input, is represented by a dashed
  arrow.
- As a result, 
+ So, it must be that 
 \begin_inset ERT
 status open
 
@@ -1526,7 +1526,7 @@ lstinline{:=}
 
 \end_inset
 
- and 
+ and one 
 \begin_inset ERT
 status open
 

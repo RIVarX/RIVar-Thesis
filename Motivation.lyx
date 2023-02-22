@@ -370,7 +370,7 @@ begin{scope}
 
 
 \backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro frontend]
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
  (C) {};
 \end_layout
 
@@ -379,7 +379,7 @@ node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro frontend
 
 \backslash
 node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- micro frontend] (D) {};
+ micro-frontend] (D) {};
 \end_layout
 
 \begin_layout Plain Layout
@@ -970,28 +970,28 @@ begin{sequencediagram}
 
 
 \backslash
-newthread{A}{User Interface}{}     
+newthread{UI}{User Interface}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-newinst[1]{B}{Pump}{}     
+newinst[1]{Pump}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-newinst[2]{C}{Bag}{}     
+newinst[2]{Bag}{Bag}{}    
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{A}{Dose=10}{B}{}     
+begin{call}{UI}{Duration=10}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1005,14 +1005,14 @@ end{call}
 
 
 \backslash
-begin{call}{A}{Duration=10}{B}{}     
+begin{call}{UI}{Drug=100}{Bag}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{B}{Drug=100}{C}{}     
+begin{call}{Bag}{Dose=10}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1626,7 +1626,7 @@ status open
 
 
 \backslash
-centering 
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
@@ -1640,49 +1640,28 @@ begin{sequencediagram}
 
 
 \backslash
-newthread{A}{User Interface}{}     
+newthread{UI}{User Interface}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-newinst[1]{B}{Pump}{}     
+newinst[1]{Pump}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-newinst[2]{C}{Bag}{}     
+newinst[2]{Bag}{Bag}{}    
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{A}{Dose=10}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{A}{Duration=10}{B}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{B}{Drug=100}{C}{}     
+begin{call}{UI}{Duration=10}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1696,6 +1675,20 @@ end{call}
 
 
 \backslash
+begin{call}{UI}{Drug=100}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Dose=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 end{call}     
 \end_layout
 
@@ -1703,21 +1696,28 @@ end{call}
 
 
 \backslash
-begin{call}{A}{VolumeOfFluid=300}{C}{} 
+end{call}      
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{C}{Concentration=0.33}{C}{}    
+begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{C}{Drug=99}{C}{}  
+begin{call}{Bag}{Concentration=0.33}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Drug=99}{Bag}{}  
 \end_layout
 
 \begin_layout Plain Layout
@@ -1738,7 +1738,7 @@ end{call}
 
 
 \backslash
-begin{call}{C}{Rate=30}{B}{}     
+begin{call}{Bag}{Rate=30}{Pump}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -1759,25 +1759,14 @@ end{call}
 
 
 \backslash
-end{sequencediagram} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-medskip 
+end{sequencediagram}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-small (The user set it to 100 and it has been changed to 99.)
+end{center}
 \end_layout
 
 \end_inset
@@ -1797,6 +1786,20 @@ name "fig:Unpredictable-Calculation"
 
 Calculation procedure spread over seperated objects producing unpredictable
  calculation.
+ The user set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ to 100 and it has been changed to 99.
 \end_layout
 
 \end_inset

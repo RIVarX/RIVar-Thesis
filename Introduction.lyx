@@ -585,9 +585,9 @@ compositionality
 \emph default
 , to build bigger functions out of smaller ones.
  However, the updates are taken by a central madiator.
- ReactiveX is good in seperation: It let to decouple formulas from the used
- reactive variables, to associate an expression to a reactive variables
- from outside of an object, and that variables are updated directly by their
+ ReactiveX is good in seperation: It lets to decouple formulas from the
+ used reactive variables, to associate expressions to reactive variables
+ from outside of objects, and that variables are updated directly by their
  dependencies (without a central madiator).
 \end_layout
 

@@ -169,6 +169,7 @@ setters
 \emph default
 , that are objects' methods used to assign instance variables) in that the
  variables can be assigned from outside of objects.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -190,6 +191,7 @@ literal "false"
 \end_inset
 
 , making the derived class only extending the base class.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -230,7 +232,7 @@ the same sequence of events produces the same results, regardless of the
 \end_layout
 
 \begin_layout Standard
-Accordingly, we introduce a new variant for FRP, with the following constraints:
+Accordingly, we need the new variant for FRP, satisfy the following constraints:
 \end_layout
 
 \begin_layout Itemize
@@ -245,11 +247,291 @@ Each variable updates its dependencies (no madiator).
 Referential transparency property.
 \end_layout
 
+\begin_layout Subsection
+Examples
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be re-evaluated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to re-evaluate.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ extends 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ and adds the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug:=Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we illustrates 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ by composition.
+ In the example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is assigned from outside of the object.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

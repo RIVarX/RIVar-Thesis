@@ -87,9 +87,33 @@
 
 \begin_body
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\myName}[1]{\textcolor{blue}{\textsf{#1}}\index{#1}}
+{\mathbf{myName}\{#1\}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\RIVar}{\myName{RIVar}}
+{\mathbf{RIVar}}
+\end_inset
+
+
+\begin_inset FormulaMacro
+\newcommand{\RIVarX}{\myName{RIVarX}}
+{\mathbf{RIVarX}}
+\end_inset
+
+
+\end_layout
+
 \begin_layout Abstract
-The Functional Reactive Programming (FRP) paradigm specializes in maintaining
- derived variables' values.
+The 
+\emph on
+Functional Reactive Programming (FRP)
+\emph default
+ paradigm specializes in maintaining derived variables' values.
  However, this task has difficulties in performing predictable behavior
  especially when applications grow with many code duplications and long
  chains of updates.
@@ -109,22 +133,29 @@ reactive variable
  instance variable
 \emph default
  from OOP, calling it 
-\emph on
-RIVar
-\emph default
+\begin_inset Formula $\RIVar$
+\end_inset
+
 , a shortcut to the full name 
 \emph on
 Reactive Instance Variable
 \emph default
 .
- We introduce an approach and method for a single RIVar assigned with formulas
- by several clients.
+ We introduce an approach and method for a single 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ assigned with formulas by several clients.
  The assignment semantics adopts the meaning from FRP, to relate the variable
  to be updated according to the specified formula.
  However, in contrast to the traditional FRP, there can be several assignments
  to the same variable.
- Under the hood, RIVars observe several formulas, and infer values when
- and according to the latest value coming from any of the sources.
+ Under the hood, 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s observe several formulas, and infer values when and according to the latest
+ value coming from any of the sources.
  
 \end_layout
 
@@ -133,8 +164,11 @@ To evaluate the approach, we compare it against traditional approaches,
  in how they handle variables' updates, and what code-reuse options are
  available.
  In addition, we present an implementation attached with a case study.
- The implementation is provided as an extension library, named RIVarX, to
- C# programming language.
+ The implementation is provided as an extension library, named 
+\begin_inset Formula $\RIVarX$
+\end_inset
+
+, to C# programming language.
  The case study presents how we separate one domain logic into sub-domains,
  saparating a central calculation procedure.
  In the case study, each object manages its formulas, even when the formulas

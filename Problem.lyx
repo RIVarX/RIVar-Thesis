@@ -211,8 +211,16 @@ ies, and the mainstream of the FRP does not support this settings.
 \begin_layout Standard
 The FRP paradigm was developed to manage data dependencies since controlling
  dependencies in the events paradigm can be difficult.
- The most challenging issue with the events paradigm is the occurrence of
- cycles, which can lead to infinite loops during updates.
+ One very challenging issue is the occurrence of cycles, which can lead
+ to infinite loops during updates 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "paul2019react"
+literal "false"
+
+\end_inset
+
+.
  Despite this, current solutions proposed in FRP research only consider
  cycles as a minor concern, applicable to only a few applications 
 \begin_inset CommandInset citation

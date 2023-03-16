@@ -76,3 +76,13 @@ Style List_of_Publications
 	LabelString           "List of Publications: "
 End
 
+InsetLayout Flex:Name
+    LyXType        custom
+    LabelString    "Name"
+    Decoration     classic
+    LatexName      Name
+    LatexType      command
+    Preamble
+      \newcommand{\Name}[1]{\textbf{#1}}
+    EndPreamble
+End

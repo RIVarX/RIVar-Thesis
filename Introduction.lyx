@@ -532,7 +532,17 @@ Object Oriented Programming
 \end_layout
 
 \begin_layout Standard
-In REScala and ReactiveX
+In 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+REScala
+\end_layout
+
+\end_inset
+
+ and ReactiveX
 \begin_inset Foot
 status collapsed
 
@@ -552,9 +562,19 @@ literal "false"
 
  the reactive variables are part of the object interface, but implemented
  differently.
- REScala derives previous FRP implementations, in its functional style,
- and in using an algorithm that carefuly determines the order in which to
- update the variables.
+ 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+REScala
+\end_layout
+
+\end_inset
+
+ derives previous FRP implementations, in its functional style, and in using
+ an algorithm that carefuly determines the order in which to update the
+ variables.
  ReactiveX derives the observer pattern.
  The reactive variables are implemented as events streams or observables,
  subscribed to input and/or other reactive variables, to update their subscriber
@@ -565,7 +585,17 @@ s, in a form of an iterator.
 \begin_layout Standard
 Both alternatives have their tradeoffs, which calls for an integration of
  their concepts.
- REScala gives the 
+ 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+REScala
+\end_layout
+
+\end_inset
+
+ gives the 
 \emph on
 referential transparency
 \emph default
@@ -593,12 +623,12 @@ compositionality
 
 \begin_layout Standard
 In this thesis, we use the approach from the second alternative and extend
- it to add the benefits from the first alternative.
+ it to add benefits from the first alternative.
  The variables have the form of the events streams like ReactiveX.
  But instead of the default behavior to pass immediately any value to subscriber
-s, and instead of a centerlized madiator used in REScala to consider the
- order of the updates, the variables consider the coming updates by themselves,
- properly ordering the updates to the subscribers.
+s, (and instead of a centerlized madiator used in REScala to consider the
+ order of the updates), the variables consider the coming updates, properly
+ ordering the updates to the subscribers.
 \end_layout
 
 \begin_layout Section

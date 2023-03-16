@@ -197,7 +197,7 @@ literal "false"
 \begin_layout Standard
 However, formulas that are unconditionally added, might complicate the calculati
 ons.
- FRP used to support only lifted functions, providing the 
+ In contrast, FRP used to support only lifted functions, providing the 
 \emph on
 referential transparency
 \emph default
@@ -1287,7 +1287,7 @@ lstinline{B}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

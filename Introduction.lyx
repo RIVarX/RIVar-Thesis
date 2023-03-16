@@ -102,6 +102,51 @@
 
 \begin_body
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\myName}[1]{\textcolor{blue}{\textsf{#1}}\index{#1}}
+{\mathbf{myName}\{#1\}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\REScala}{\myName{REScala}}
+{\mathbf{REScala}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\ReactiveX}{\myName{ReactiveX}}
+{\mathbf{ReactiveX}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\RIVar}{\myName{RIVar}}
+{\mathbf{RIVar}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\RIVarX}{\myName{RIVarX}}
+{\mathbf{RIVarX}}
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
 Introduction
 \end_layout
@@ -533,16 +578,14 @@ Object Oriented Programming
 
 \begin_layout Standard
 In 
-\begin_inset Flex Name
-status open
-
-\begin_layout Plain Layout
-REScala
-\end_layout
-
+\begin_inset Formula $\REScala$
 \end_inset
 
- and ReactiveX
+ and 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+
 \begin_inset Foot
 status collapsed
 
@@ -563,19 +606,17 @@ literal "false"
  the reactive variables are part of the object interface, but implemented
  differently.
  
-\begin_inset Flex Name
-status open
-
-\begin_layout Plain Layout
-REScala
-\end_layout
-
+\begin_inset Formula $\REScala$
 \end_inset
 
  derives previous FRP implementations, in its functional style, and in using
  an algorithm that carefuly determines the order in which to update the
  variables.
- ReactiveX derives the observer pattern.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ derives the observer pattern.
  The reactive variables are implemented as events streams or observables,
  subscribed to input and/or other reactive variables, to update their subscriber
 s, in a form of an iterator.
@@ -586,13 +627,7 @@ s, in a form of an iterator.
 Both alternatives have their tradeoffs, which calls for an integration of
  their concepts.
  
-\begin_inset Flex Name
-status open
-
-\begin_layout Plain Layout
-REScala
-\end_layout
-
+\begin_inset Formula $\REScala$
 \end_inset
 
  gives the 
@@ -608,27 +643,41 @@ literal "false"
 \end_inset
 
 , meaning that the same input will produce consistently the same output.
- This property gives REScala the power from the functional paradigm, the
- property of 
+ This property gives 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ the power from the functional paradigm, the property of 
 \emph on
 compositionality
 \emph default
 , to build bigger functions out of smaller ones.
  However, the updates are taken by a central madiator.
- ReactiveX is good in seperation: It lets to decouple formulas from the
- used reactive variables, to associate expressions to reactive variables
- from outside of objects, and that variables are updated directly by their
- dependencies (without a central madiator).
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ is good in seperation: It lets to decouple formulas from the used reactive
+ variables, to associate expressions to reactive variables from outside
+ of objects, and that variables are updated directly by their dependencies
+ (without a central madiator).
 \end_layout
 
 \begin_layout Standard
 In this thesis, we use the approach from the second alternative and extend
  it to add benefits from the first alternative.
- The variables have the form of the events streams like ReactiveX.
+ The variables have the form of the events streams like 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+.
  But instead of the default behavior to pass immediately any value to subscriber
-s, (and instead of a centerlized madiator used in REScala to consider the
- order of the updates), the variables consider the coming updates, properly
- ordering the updates to the subscribers.
+s, (and instead of a centerlized madiator used in 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ to consider the order of the updates), the variables consider the coming
+ updates, properly ordering the updates to the subscribers.
 \end_layout
 
 \begin_layout Section
@@ -637,16 +686,7 @@ Contribution
 
 \begin_layout Standard
 We introduce 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{RIVar}
-\end_layout
-
+\begin_inset Formula $\RIVar$
 \end_inset
 
 , 
@@ -662,7 +702,11 @@ instance variables
 reactive variables
 \emph default
  from FRP to support the features from both paradigms.
- We also provide the library RIVarX
+ We also provide the library 
+\begin_inset Formula $\RIVarX$
+\end_inset
+
+
 \begin_inset Foot
 status collapsed
 
@@ -673,16 +717,7 @@ https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RI
 \end_inset
 
  with an implemented 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{RIVar}
-\end_layout
-
+\begin_inset Formula $\RIVar$
 \end_inset
 
  in C# programming language, attached with a case study.
@@ -728,7 +763,11 @@ Cref{chap:Motivating-Example}
 
 \end_inset
 
- presents an example to demonstrate the need for RIVars.
+ presents an example to demonstrate the need for 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
  Then in 
 \begin_inset ERT
 status open
@@ -743,7 +782,11 @@ cref{chap:Method}
 \end_inset
 
  we present the new variant of FRP, so that reactive variables will be able
- to be RIVars.
+ to be 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
  In 
 \begin_inset ERT
 status open
@@ -772,7 +815,11 @@ cref{chap:Implementation}
 
 \end_inset
 
- we present RIVarX with an implementation to the example presented in 
+ we present 
+\begin_inset Formula $\RIVarX$
+\end_inset
+
+ with an implementation to the example presented in 
 \begin_inset ERT
 status open
 

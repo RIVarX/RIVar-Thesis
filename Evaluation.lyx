@@ -229,7 +229,7 @@ SSOT
  
 \emph default
 are obvious principles in programming.
- In this section, we presents three types of code repetition being removed
+ In this section, we present three types of code repetition being removed
  by the new method.
  In the presentation, we refer to the used abstraction mechanisms and compare
  to the traditional methods.

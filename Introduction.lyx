@@ -696,20 +696,15 @@ https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RI
  in C# programming language, attached with a case study.
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{Outline.}
+\begin_layout Paragraph
+Outline.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
 
- 
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -722,8 +717,27 @@ Cref{chap:Background}
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
  presents a background about implementing FRP under the hood.
  
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -736,12 +750,31 @@ Cref{chap:Motivating-Example}
 
 \end_inset
 
- presents an example to demonstrate the need for 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Problem"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+presents an example to demonstrate the need for 
 \begin_inset Formula $\RIVar$
 \end_inset
 
 s.
  Then in 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -754,6 +787,21 @@ cref{chap:Method}
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
  we present the new variant of FRP, so that reactive variables will be able
  to be 
 \begin_inset Formula $\RIVar$
@@ -761,6 +809,10 @@ cref{chap:Method}
 
 s.
  In 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -773,9 +825,28 @@ cref{chap:Evaluation}
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Evaluation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
  we compare the model against the other solutions and paradigms, in handling
  graphs and reducing code duplication.
  Then in 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -788,11 +859,30 @@ cref{chap:Implementation}
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Implementation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
  we present 
 \begin_inset Formula $\RIVarX$
 \end_inset
 
  with an implementation to the example presented in 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -802,6 +892,21 @@ status open
 \backslash
 cref{chap:Motivating-Example}
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Problem"
+plural "false"
+caps "true"
+noprefix "false"
 
 \end_inset
 

@@ -266,7 +266,7 @@ begin{romanpages}
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "acknowledgments.lyx"
+filename "Acknowledgments.lyx"
 
 \end_inset
 
@@ -276,7 +276,7 @@ filename "acknowledgments.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "abstract.lyx"
+filename "Abstract.lyx"
 
 \end_inset
 

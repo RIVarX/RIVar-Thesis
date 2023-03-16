@@ -114,6 +114,52 @@ name "chap:Background"
 \end_layout
 
 \begin_layout Standard
+???????
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+When specifing a formula, to continously re-evaluaiting the variable according
+ to some expression, a cycle might be constructed.
+ For example, specifing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+Z}
+\end_layout
+
+\end_inset
+
+ constructs a cycle, if the program has already contained 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y:=X-Z}
+\end_layout
+
+\end_inset
+
+.
+ Such situations lead developers and architechts to choose the tradeoff
+ between a monolith and non predictabe calculations.
+\end_layout
+
+\begin_layout Standard
+————–
+\end_layout
+
+\begin_layout Standard
 Reactive systems are systems that get inputs and provide outputs over time.
  In the context of reactive variables in user interfaces or front-end developmen
 t, the inputs and outputs are value changes in input controls.
@@ -483,7 +529,7 @@ literal "false"
  to maintain them 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "salvaneschi2014rescala"
+key "Salvaneschi2014"
 literal "false"
 
 \end_inset
@@ -859,7 +905,7 @@ name "fig:Glitch"
 
 \end_inset
 
-A data dependency graph that in push-based evaluation might have glitches.
+A data dependency graph, that in push-based evaluation, might have glitches.
  The nodes represent variables that should be updated either by input or
  by updating according to the specified function in the label.
  Each variable's update leads to update the depedencies.

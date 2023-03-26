@@ -97,18 +97,49 @@ name "chap:Problem"
 \end_layout
 
 \begin_layout Standard
-In the paradigm of FRP, developers create a data dependency graph with directed
- edges by linking corresponding nodes through formulas.
- This graph is created in any framework that updates variables based on
- changes in other variables.
- In mainstream FRP research, the graph is expected to be acyclic.
+In front-end applications, 
+\emph on
+state management
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "youframeworkless"
+literal "false"
+
+\end_inset
+
+ refers to the process of maintaining and updating variables.
+ In cases where fields should be automatically filled based on other fields,
+ developers implicitly create a 
+\emph on
+data dependency graph
+\emph default
+ in which updates to variables recursively trigger updates to dependent
+ variables.
+ The FRP paradigm offers an explicit way to declare these graphs and provides
+ 
+\emph on
+predictability
+\emph default
+, which stems from the 
+\emph on
+referential transparency
+\emph default
+ property of defining data dependencies as composed pure functions.
 \end_layout
 
 \begin_layout Standard
-To avoid cycles in the graph, developers must ensure that no node has a
- path leading back to itself.
- This requires the developer to have knowledge of all data dependencies
- and to detect existing paths before adding new formulas that involve existing
+However, this requires the graphs to be acyclic leading a limitation in
+ 
+\emph on
+separation of concerns.
+
+\emph default
+ In order to ensure that the graph is acyclic, developers must ensure that
+ no node has a path leading back to itself.
+ This requires the developer to have knowledge of data dependencies and
+ to detect existing paths before adding new formulas that involve existing
  variables.
  If a cycle is detected, the developer should avoid adding the new formula
  to the graph to prevent the creation of a cycle.
@@ -192,55 +223,263 @@ lstinline{Z}
 \end_inset
 
 .
- As a result, if the developer does not have access to the entire code,
- the data dependency graph in FRP might contain cycles.
+ If a calculation is linked to a variable, but the variable has dependencies
+ that fall under a separate concern, it is linked without considering those
+ dependencies.
+ This means that the graph may not necessarily be acyclic.
 \end_layout
 
 \begin_layout Standard
-In contrast, in OOP, it is expected to separate the code, so that the developer
- does not have access to the complete knowledge of all data dependencies.
- Based on the business needs, the variables are seperated from the calculations
- producing their values.
- Once a developer associate a calculation to the variable as its outer form
- (by an object's interface), he or she does not have access to dependencies
- of the concrete variable.
- This should be an implementation of the dependency inversion principle,
- where the code does not rely on the concrete variable.
- The dependency inversion principle represents a good seperation, in case
- that the object containing the cencerete variable can be replaced without
- requiring changes in the clients associating the calculations.
- However, as has been recoginzed, it is error prone to handle the data dependenc
-ies, and the mainstream of the FRP does not support this settings.
- The developer are forced to return back from the FRP paradgm, to the error
- prone events paradigm.
+This thesis address the issue, focusing on cycles caused by 
+\emph on
+mutual recursions
+\emph default
+ (also known as 
+\emph on
+indirect recursions
+\emph default
+).
+ Mutual recursions arise when reactive variables are defined in terms of
+ each other.
+ By narrowing down the cycles to only those created from mutual recursions,
+ we find that there must be a node among the cycle's constituents that depends
+ on a node originating from outside the cycle or receive updates from external
+ input.
+ This node is connected to multiple sources, including the node that links
+ it to the cycle and a node or input from outside the cycle.
+ Therefore, we provide a semantic framework that permits cycles in data
+ dependencies by allowing nodes to receive inputs from multiple sources.
 \end_layout
 
 \begin_layout Standard
-The FRP paradigm was developed to manage data dependencies since controlling
- dependencies in the events paradigm can be difficult.
- One very challenging issue is the occurrence of cycles, which can lead
- to infinite loops during updates 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "paul2019react"
-literal "false"
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[<-, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$input$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][<-, >=latex] (X) -- (C);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
 
 \end_inset
 
-.
- Despite this, current solutions proposed in FRP research only consider
- cycles as a minor concern, applicable to only a few applications 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-to-multiple-assignment"
 
 \end_inset
 
-.
- To enable developers to manage code separation and dependencies fully,
- it is essential to have a solution for handling data dependencies, even
- when cycles are present.
+Illustrating the relationship between cycles and variables with multiple
+ sources.
+ A cycle of variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+-
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{E}
+\end_layout
+
+\end_inset
+
+ defined in terms of each other are represented by a directed graph with
+ a cycle of directed edges.
+ In addition, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C}
+\end_layout
+
+\end_inset
+
+ depends directly or indirectly on external input, is represented by a dashed
+ arrow.
+ So, it must be that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C}
+\end_layout
+
+\end_inset
+
+ has two sources.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

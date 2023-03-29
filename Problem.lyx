@@ -456,7 +456,7 @@ lstinline{C}
 
  depends directly or indirectly on external input, is represented by a dashed
  arrow.
- So, it must be that 
+ Consequently, it can be inferred that 
 \begin_inset ERT
 status open
 
@@ -469,7 +469,7 @@ lstinline{C}
 
 \end_inset
 
- has two sources.
+ originates from two distinct sources.
 \end_layout
 
 \end_inset
@@ -480,6 +480,162 @@ lstinline{C}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Reactive Instance Variable
+\end_layout
+
+\begin_layout Standard
+This problem pertains to the investigation of how to combine the Object-Oriented
+ Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
+ On one hand, the focus is on defining functions that operate on reactive
+ variables, while on the other, the emphasis is on associating these variables
+ with objects that represent different concerns.
+ Together, variables can be linked to calculations from outside of objects,
+ without considering any hidden dependencies.
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\renewcommand{\RIVar}{\myName{RIVar}}
+{\mathbf{RIVar}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We define a special variable type named 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ refering to Reactive Instance Variable.
+ This special variable is similar to a 
+\emph on
+reactive
+\emph default
+ variable and an 
+\emph on
+instance
+\emph default
+ variable.
+ Like reactive variables, the variables can be updated directly by external
+ inputs, and also by transitive updates according to assigned expressions.
+ The variables has the two assignment forms: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ to associate expressions and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ to provide input.
+ Similar to instance variables, the variables are associated to objects
+ of the OOP paradigm.
+ Accordingly, the updates are executed by direct interactions by synchronous
+ method calls.
+ In addition, The assignment behaves similar to instance variables (or their
+ 
+\emph on
+setters
+\emph default
+, that are objects' methods used to assign instance variables) in that the
+ variables can be assigned from outside of objects.
+ 
+\end_layout
+
+\begin_layout Standard
+Objects can expose a well-defined interface for assigning the variables.
+ Therefore, services can expose variables for their clients to assign.
+ This includes subclasses that can assign variables belonging to their superclas
+s (specialization interface).
+ The assignment relates (subscribes) the variable to be updated (directly,
+ without a madiator) according to the specified formula.
+ In executing a formula, we say that the formula is added to the existing
+ formulas that the runtime maintains.
+ The semantics to add the formula, fits well with the conceptual specialization
+ (subtyping) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+, making the derived class only extending the base class.
+ 
+\end_layout
+
+\begin_layout Standard
+However, formulas that are unconditionally added, might complicate the calculati
+ons.
+ In contrast, FRP used to support only lifted functions, providing the 
+\emph on
+referential transparency
+\emph default
+ property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, i.e.,  the same input will produce consistently the same output.
+ In order to support the new settings, we need a new variant for FRP.
+ The property can be provided using the formulation of the guarantee 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+: 
+\begin_inset Quotes eld
+\end_inset
+
+the same sequence of events produces the same results, regardless of the
+ timing of those events
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Accordingly, we need the new variant for FRP, satisfy the following constraints:
+\end_layout
+
+\begin_layout Itemize
+Support complex data dependencies.
+\end_layout
+
+\begin_layout Itemize
+Each variable updates its dependencies (no madiator).
+\end_layout
+
+\begin_layout Itemize
+Referential transparency property.
 \end_layout
 
 \begin_layout Section
@@ -1343,7 +1499,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2013,7 +2169,7 @@ Part of a centralized calculation procedure
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2197,6 +2353,866 @@ lstinline{Drug}
 \end_inset
 
  to 100 and it has been changed unexpectedly to 99.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+???
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be re-evaluated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to re-evaluate.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ extends 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ and adds the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug:=Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we illustrates 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ by composition.
+ In the example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is assigned from outside of the object.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class DrugAdministration{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Drug, Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Concentration:=Drug/VolumeOfFluid |
+\backslash
+label{line:formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void Main(){
+\end_layout
+
+\begin_layout Plain Layout
+
+DrugAdministration administration=new DrugAdministration() |
+\backslash
+label{line:ctor}| 
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=50
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Volume=100 // administration.Concentration=0.5
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=25  // administration.Concentration=0.25
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be re-evaluated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to re-evaluate.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  IDrugAdministration drugAdministration
+\end_layout
+
+\begin_layout Plain Layout
+
+  ExtendedDrugAdministration(DrugAdministration drugAdministration){ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.drugAdministration=drugAdministration
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  drugAdministration.Drug:= drugAdministration.Concentration*drugAdministration.Vol
+umeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Service-Interface"
+
+\end_inset
+
+ An example to a variable that is assigned externally by an expression.
+ The instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ has a variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ which is assigned externaly to be updated according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration:DrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Dose, Rate, Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug:=Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Specialization-Interface"
+
+\end_inset
+
+An example of a subclass that assigns variables that belonged to the superclass.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ assigns variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ belonging to its superclass 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset

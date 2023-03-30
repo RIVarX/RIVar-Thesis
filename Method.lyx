@@ -113,6 +113,40 @@ name "chap:Method"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The assignment's first type relates (subscribes) the variable to be updated
+ (directly, without a madiator) according to the specified formula.
+\end_layout
+
+\begin_layout Plain Layout
+———-
+\end_layout
+
+\begin_layout Plain Layout
+In executing a formula, we say that the formula is added to the existing
+ formulas that the runtime maintains.
+ The semantics to add the formula, fits well with the conceptual specialization
+ (subtyping) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+, making the derived class only extending the base class.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 The Computational Model
 \begin_inset CommandInset label

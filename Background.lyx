@@ -1313,10 +1313,7 @@ literal "false"
 \end_inset
 
  provide reactive variables as part of the object's interface.
-\end_layout
-
-\begin_layout Standard
-Existing implementations provide two methods for assigning reactive variables
+ Existing implementations provide two methods for assigning reactive variables
  externally, both have difficulties in compatibility with FRP.
  ReactiveX
 \begin_inset Foot

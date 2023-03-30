@@ -487,16 +487,6 @@ Reactive Instance Variable
 \end_layout
 
 \begin_layout Standard
-This problem pertains to the investigation of how to combine the Object-Oriented
- Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
- On one hand, the focus is on defining functions that operate on reactive
- variables, while on the other, the emphasis is on associating these variables
- with objects that represent different concerns.
- Together, variables can be linked to calculations from outside of objects,
- without considering any hidden dependencies.
-\end_layout
-
-\begin_layout Standard
 \begin_inset FormulaMacro
 \renewcommand{\RIVar}{\myName{RIVar}}
 {\mathbf{RIVar}}
@@ -506,36 +496,35 @@ This problem pertains to the investigation of how to combine the Object-Oriented
 \end_layout
 
 \begin_layout Standard
-We define a special variable type named 
+The present challenge is to integrate the Object-Oriented Programming (OOP)
+ and Functional Reactive Programming (FRP) paradigms effectively.
+ Reactive variables, as part of an object's interface, can be linked to
+ external calculations without considering hidden dependencies.
+ These dependencies may arise from other calculations linked to the object's
+ variables by other concerns, whether within the object itself or among
+ other consumers, as is currently the case.
+ We define such variables type with the name 
 \begin_inset Formula $\RIVar$
 \end_inset
 
- refering to Reactive Instance Variable.
- This special variable is similar to a 
+, which is an abbreviation for
+\series bold
+ Reactive Instance Variable
+\series default
+.
+ This type represents both a 
 \emph on
 reactive
 \emph default
- variable and an 
+ and an 
 \emph on
 instance
 \emph default
  variable.
- Like reactive variables, the variables can be updated directly by external
- inputs, and also by transitive updates according to assigned expressions.
- The variables has the two assignment forms: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
 \end_layout
 
-\end_inset
-
- to associate expressions and 
+\begin_layout Standard
+Such variable type can receive input by 
 \begin_inset ERT
 status open
 
@@ -548,29 +537,43 @@ lstinline{=}
 
 \end_inset
 
- to provide input.
- Similar to instance variables, the variables are associated to objects
- of the OOP paradigm.
- Accordingly, the updates are executed by direct interactions by synchronous
- method calls.
- In addition, The assignment behaves similar to instance variables (or their
- 
-\emph on
-setters
-\emph default
-, that are objects' methods used to assign instance variables) in that the
- variables can be assigned from outside of objects.
- 
+, and has an assignment operator 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ that links calculations to receive inputs based on that calculation.
+ Services can make these variables available for their clients to use, and
+ subclasses can use the variables belonging to their superclass through
+ a specialization interface.
+ Since one variable can be used by many clients or subclasses, it can have
+ multiple links to multiple calculations, providing it with multiple sources
+ to receive input.
 \end_layout
 
 \begin_layout Standard
-Objects can expose a well-defined interface for assigning the variables.
- Therefore, services can expose variables for their clients to assign.
- This includes subclasses that can assign variables belonging to their superclas
-s (specialization interface).
- The assignment relates (subscribes) the variable to be updated (directly,
- without a madiator) according to the specified formula.
- In executing a formula, we say that the formula is added to the existing
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The assignment's first type relates (subscribes) the variable to be updated
+ (directly, without a madiator) according to the specified formula.
+\end_layout
+
+\begin_layout Plain Layout
+———-
+\end_layout
+
+\begin_layout Plain Layout
+In executing a formula, we say that the formula is added to the existing
  formulas that the runtime maintains.
  The semantics to add the formula, fits well with the conceptual specialization
  (subtyping) 
@@ -582,10 +585,13 @@ literal "false"
 \end_inset
 
 , making the derived class only extending the base class.
- 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+————
+\end_layout
+
+\begin_layout Plain Layout
 However, formulas that are unconditionally added, might complicate the calculati
 ons.
  In contrast, FRP used to support only lifted functions, providing the 
@@ -622,7 +628,7 @@ the same sequence of events produces the same results, regardless of the
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Accordingly, we need the new variant for FRP, satisfy the following constraints:
 \end_layout
 
@@ -638,8 +644,13 @@ Each variable updates its dependencies (no madiator).
 Referential transparency property.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
-Motivating Example
+Motivation
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Motivating-Example"
@@ -647,6 +658,26 @@ name "chap:Motivating-Example"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Large complex front end applications typicaly have UI elements that change
+ dynamically based on the value entered in another field.
+\end_layout
+
+\begin_layout Standard
+In UI applications, dependent fields refer to fields or UI elements that
+ change dynamically based on the value entered in another field.
+ For example, if a user selects a particular option in a dropdown menu,
+ it may cause other fields to change.
+\end_layout
+
+\begin_layout Standard
+There are applications that need to update fields according to other fields
+ and in response to their changes.
+ This functionality reminds the abstraction of reactive variables, where
+ updating variables is tangled to the task of updating subscribers and dependant
+ variables.
 \end_layout
 
 \begin_layout Standard

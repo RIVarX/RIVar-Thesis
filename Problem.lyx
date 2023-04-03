@@ -483,173 +483,6 @@ lstinline{C}
 \end_layout
 
 \begin_layout Section
-Reactive Instance Variable
-\end_layout
-
-\begin_layout Standard
-\begin_inset FormulaMacro
-\renewcommand{\RIVar}{\myName{RIVar}}
-{\mathbf{RIVar}}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The present challenge is to integrate the Object-Oriented Programming (OOP)
- and Functional Reactive Programming (FRP) paradigms effectively.
- Reactive variables, as part of an object's interface, can be linked to
- external calculations without considering hidden dependencies.
- These dependencies may arise from other calculations linked to the object's
- variables by other concerns, whether within the object itself or among
- other consumers, as is currently the case.
- We define such variables type with the name 
-\begin_inset Formula $\RIVar$
-\end_inset
-
-, which is an abbreviation for
-\series bold
- Reactive Instance Variable
-\series default
-.
- This type represents both a 
-\emph on
-reactive
-\emph default
- and an 
-\emph on
-instance
-\emph default
- variable.
-\end_layout
-
-\begin_layout Standard
-Such variable type can receive input by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
-, and has an assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- that links calculations to receive inputs based on that calculation.
- Services can make these variables available for their clients to use, and
- subclasses can use the variables belonging to their superclass through
- a specialization interface.
- Since one variable can be used by many clients or subclasses, it can have
- multiple links to multiple calculations, providing it with multiple sources
- to receive input.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The assignment's first type relates (subscribes) the variable to be updated
- (directly, without a madiator) according to the specified formula.
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-In executing a formula, we say that the formula is added to the existing
- formulas that the runtime maintains.
- The semantics to add the formula, fits well with the conceptual specialization
- (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
-\end_layout
-
-\begin_layout Plain Layout
-————
-\end_layout
-
-\begin_layout Plain Layout
-However, formulas that are unconditionally added, might complicate the calculati
-ons.
- In contrast, FRP used to support only lifted functions, providing the 
-\emph on
-referential transparency
-\emph default
- property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, i.e.,  the same input will produce consistently the same output.
- In order to support the new settings, we need a new variant for FRP.
- The property can be provided using the formulation of the guarantee 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-: 
-\begin_inset Quotes eld
-\end_inset
-
-the same sequence of events produces the same results, regardless of the
- timing of those events
-\begin_inset Quotes erd
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-Accordingly, we need the new variant for FRP, satisfy the following constraints:
-\end_layout
-
-\begin_layout Itemize
-Support complex data dependencies.
-\end_layout
-
-\begin_layout Itemize
-Each variable updates its dependencies (no madiator).
-\end_layout
-
-\begin_layout Itemize
-Referential transparency property.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
 Motivation
 \begin_inset CommandInset label
 LatexCommand label
@@ -661,8 +494,115 @@ name "chap:Motivating-Example"
 \end_layout
 
 \begin_layout Standard
+The goal is to divide a complex frontend application into manageable micro
+ frontends, with the ability to automatically fill fields in one microfrontend
+ based on information from others.
+ This is necessary for cases where one field is dependent on another, such
+ as in a form.
+ To achieve efficient and automated data entry, the micro frontends must
+ communicate and share information about specific fields.
+ This requires them to agree on contracts that expose only the minimum required
+ information about these fields.
+\end_layout
+
+\begin_layout Standard
+As an example, consider a drug administration form that is split into two
+ micro frontends: one for the materials being injected into the patient,
+ and another for the pump data when these materials enter the patient's
+ bloodstream.
+ If the rate and duration of injection are changed, the volume value in
+ the first micro frontend should also change accordingly.
+ Additionally, updating the drug should be based on the values of the dose
+ and duration fields.
+ According to the context (domain), the pump depends on the meterial to
+ execute.
+ We expect to design it, to declare those volume and drug calculations in
+ the pump context.
+\end_layout
+
+\begin_layout Standard
+The fields in this example, depend on each other, so that changing the drug
+ might lead to changing it again, because there is a cycle in the dependencies.
+ 
+\end_layout
+
+\begin_layout Standard
+———
+\end_layout
+
+\begin_layout Standard
+Our objective is to break down a large and complex frontend application
+ into manageable micro frontends.
+ Specifically, we want to enable the automatic filling of fields in one
+ microfrontend based on information from other micro frontends, such as
+ filling out a form where one field is dependent on another.
+ This requires communication between the micro frontends to share information
+ about specific fields, allowing for more efficient and automated data entry.
+ To achieve this, the micro frontends must agree on contracts that expose
+ only the minimum required information about these fields.
+\end_layout
+
+\begin_layout Standard
+In the drug administration example, we seperate the form into two panels,
+ the first represent materials injected to a patient, the second represent
+ pump data, when the matrials are injected into the patient blood stream.
+ In the example, chaning rate and duration should lead the volume's value
+ to change.
+ Also the drug can be updated according to the values of dose and duration.
+ As the minimum required information for the micro fronrtends to expose,
+ the first microfronend should expose the volume and drug to be update according
+ to the fields they should depend on.
+\end_layout
+
+\begin_layout Standard
+———–
+\end_layout
+
+\begin_layout Standard
+We try to seperate a large complex front end appliaction to managable micro
+ front ends.
+ We focus on microfroneend s that need to comunicate, because they need
+ to automaticaly fill fields of one microfrontend based on other fields
+ from other micro frontends.
+ To effectfuly seperate the application, the micro fronends aggree about
+ contracts, that will expose minimum information.
+\end_layout
+
+\begin_layout Standard
+If micro frontend expose their internals, then the seperation is not effectful.
+ This is according to the ISP principle, when code in one micro frontend
+ use information from another micro fronend, it depends on this information,
+ and we want minimum dependencies (accodring to the ISP).
+ The micro frontneds should design contracts, how to comunicate.
+\end_layout
+
+\begin_layout Standard
+In the best pracitce, the micro frontends should depend on minimum 
+\end_layout
+
+\begin_layout Standard
+This comunication might lead the mico frontend, to expose knowledge 
+\end_layout
+
+\begin_layout Standard
+———
+\end_layout
+
+\begin_layout Standard
+Micro frontends are an architectural pattern for building web applications
+ where the frontend of the application is composed of smaller, independently
+ deployable, and scalable components.
+ Each micro frontend represents a distinct feature or part of the user interface
+, and each can be developed and deployed independently.
+ The key idea behind micro frontends is to break down large monolithic frontend
+ codebases into smaller, more manageable pieces.
+ This allows teams to work on different parts of the application independently,
+ which can lead to faster development times and easier maintenance.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Large complex front end applications typicaly have UI elements that change
@@ -789,7 +729,7 @@ lstinline{Bag}'s content
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2393,866 +2333,6 @@ lstinline{Drug}
 \end_inset
 
  to 100 and it has been changed unexpectedly to 99.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-???
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- class contains the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
- The class contains a formula (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:formula}
-\end_layout
-
-\end_inset
-
-) defining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be re-evaluated whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- is updated.
- Then once an instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- is created (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:ctor}
-\end_layout
-
-\end_inset
-
-), any change to its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- causes its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to re-evaluate.
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Specialization-Interface"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{ExtendedDrugAdministration}
-\end_layout
-
-\end_inset
-
- extends 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- and adds the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug:=Dose*Duration}
-\end_layout
-
-\end_inset
-
-.
- In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Specialization-Interface"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, we illustrates 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{ExtendedDrugAdministration}
-\end_layout
-
-\end_inset
-
- by composition.
- In the example, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is assigned from outside of the object.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class DrugAdministration{
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> Drug, Volume
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> Concentration:=Drug/VolumeOfFluid |
-\backslash
-label{line:formula}|
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-void Main(){
-\end_layout
-
-\begin_layout Plain Layout
-
-DrugAdministration administration=new DrugAdministration() |
-\backslash
-label{line:ctor}| 
-\end_layout
-
-\begin_layout Plain Layout
-
-administration.Drug=50
-\end_layout
-
-\begin_layout Plain Layout
-
-administration.Volume=100 // administration.Concentration=0.5
-\end_layout
-
-\begin_layout Plain Layout
-
-administration.Drug=25  // administration.Concentration=0.25
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-Administration"
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- class contains the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
- The class contains a formula (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:formula}
-\end_layout
-
-\end_inset
-
-) defining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be re-evaluated whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- is updated.
- Then once an instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- is created (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:ctor}
-\end_layout
-
-\end_inset
-
-), any change to its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- causes its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to re-evaluate.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class ExtendedDrugAdministration {
-\end_layout
-
-\begin_layout Plain Layout
-
-  IDrugAdministration drugAdministration
-\end_layout
-
-\begin_layout Plain Layout
-
-  ExtendedDrugAdministration(DrugAdministration drugAdministration){ 
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.drugAdministration=drugAdministration
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-  drugAdministration.Drug:= drugAdministration.Concentration*drugAdministration.Vol
-umeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Service-Interface"
-
-\end_inset
-
- An example to a variable that is assigned externally by an expression.
- The instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- has a variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- which is assigned externaly to be updated according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class ExtendedDrugAdministration:DrugAdministration {
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> Dose, Rate, Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug:=Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Specialization-Interface"
-
-\end_inset
-
-An example of a subclass that assigns variables that belonged to the superclass.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{ExtendedDrugAdministration}
-\end_layout
-
-\end_inset
-
- assigns variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- belonging to its superclass 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
-.
 \end_layout
 
 \end_inset

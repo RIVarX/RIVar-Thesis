@@ -1,0 +1,535 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+In front-end applications, 
+\emph on
+state management
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "youframeworkless"
+literal "false"
+
+\end_inset
+
+ refers to the process of maintaining and updating the variables.
+ There are applications that need to update fields according to other fields
+ and in response to their changes.
+ This functionality reminds the abstraction of reactive variables from the
+ field of FRP, where updates are tangled to the task of updating subscribers
+ and dependant variables.
+ For example, for fields X and Y, X depends on Y, so it should be updated
+ according to Y and in response to its update.
+ fields X and Y have the representation of the reactive variables _X and
+ _Y.
+ The fields update and subscribe to the reactive variables that represent
+ them.
+ The high level logic will specify _X:=f(_Y), while f is the lifted function
+ to the calculation.
+\end_layout
+
+\begin_layout Standard
+In the field of FRP, the developers need to define the data dependancy graph.
+ Defining formulas adds the dependencies to the graph.
+ For example, X:=Y+1 adds an edge connecting the nodes X and Y.
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+Given f as the lifted function to clculate X according to Y, then we specify
+ _X:=f(_Y)
+\end_layout
+
+\begin_layout Standard
+The fields update and subscribe to the reactive variables that represent
+ them.
+\end_layout
+
+\begin_layout Standard
+In order that X will be updated according to Y and in response to its changes,
+ we specify the formula _X:=f(_Y), while f is a lifted function over reactive
+ variables.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+In the research field of FRP, fields can represent by reactive variables,
+ where updates are tangled to the task of updating subscribers and dependant
+ variables.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+In the research field of FRP, fields have representation of reactive variables,
+ where updates are tangled to the task of updating subscribers and dependant
+ variables.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+In front-end applications, 
+\emph on
+state management
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "youframeworkless"
+literal "false"
+
+\end_inset
+
+ refers to the process of maintaining and updating the variables.
+ There are applications that need to update fields according to other fields
+ and in response to their changes.
+ In the research field of FRP, the needed requirement has solutions by the
+ abstraction of 
+\emph on
+reactive variables
+\emph default
+.
+ In the solutions provided, developers only need to specify the formulas
+ , and the runtime enforces them according and in response to input.
+\end_layout
+
+\begin_layout Standard
+————-
+\end_layout
+
+\begin_layout Standard
+In the FRP paradigm, the variables and functions are lifted.
+ The variables are lifted to be reactive variables connected to input.
+ The functions are lifted to be reactive variables that are functions of
+ other reactive variables.
+ Accordingly, the a program can be represented by a graph.
+ Each node in the graph represents a reactive variable
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+Reactive variables form a network of variables connected to each other according
+ to the needed calculations.
+\end_layout
+
+\begin_layout Standard
+———-
+\end_layout
+
+\begin_layout Standard
+We focus on seperating the concerns of reactive variables and calculations.
+ In order to define a calcuation to update the variable based on other variables.
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+We focus on seperating the variables from the 
+\end_layout
+
+\begin_layout Standard
+In the context of reactive variables, we focus on seperating the concerns
+ of variables and calculations.
+ The variables represent the reactive variables
+\end_layout
+
+\begin_layout Standard
+—–
+\end_layout
+
+\begin_layout Standard
+We focus on seperating applications contained reactive variables.
+ In FRP, a reactive variable, that is not an input variable, is defined
+ by its functions over other reactive variables.
+ 
+\end_layout
+
+\begin_layout Standard
+———–
+\end_layout
+
+\begin_layout Standard
+We focus on seperating applications contained reactive variables.
+ The term reactive variable includes three parts.
+ First, the interface, that is the variable as its outer form.
+ Second, the concrete variable.
+ Third, the relation defined the calcuation to update the variable based
+ on other variables.
+ Relations sometimes need to not depend on the variables' concrete implementatio
+ns, because it may have 
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+We focus on seperating applications with variables containing changeable
+ values.
+ The applications have should handle the concerns of reactiing to external
+ input or values' changes, and update subscribers about the changes.
+\end_layout
+
+\begin_layout Standard
+reacting changing the values, updating subscribers about changes, 
+\end_layout
+
+\begin_layout Standard
+changeable value that can update subscribers about its change, and that
+ its changes are controlled by external input or other reactive variables.
+\end_layout
+
+\begin_layout Standard
+The term reactive variable includes three parts.
+ First, the interface, that is the variable as its outer form.
+ Second, the concrete variable.
+ Third, the relation defined the calcuation to update the variable based
+ on other variables.
+ 
+\end_layout
+
+\begin_layout Standard
+By seperating By the use of the interface, reactive variables can be defined
+ in interfaces of OOP, and to represent a real world objects attributes.
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+There are several soncepts around reactive variables.
+\end_layout
+
+\begin_layout Itemize
+the reactive variable as representing a real world variable.
+\end_layout
+
+\begin_layout Itemize
+reactive relation defines a calcuation to update a reactive variable based
+ on other reactive variables
+\end_layout
+
+\begin_layout Itemize
+the concerete reactive variable, representing the implemented reactive variable,
+ connected to the 
+\end_layout
+
+\begin_layout Standard
+————
+\end_layout
+
+\begin_layout Standard
+In front-end applications, 
+\emph on
+state management
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "youframeworkless"
+literal "false"
+
+\end_inset
+
+ refers to the process of maintaining and updating the variables.
+ There are applications that need to update fields according to other fields
+ and in response to their changes.
+ In the research field of FRP, the needed requirement has solutions by the
+ abstraction of 
+\emph on
+reactive variables
+\emph default
+.
+ In the solutions provided, developers only need to specify the formulas
+ , and the runtime enforces them according and in response to input.
+\end_layout
+
+\begin_layout Standard
+Although that large calculations becomes clear and cosize by the functional
+ compositions, it is not effective in seperating the application, into indepeden
+t calculations.
+ because
+\end_layout
+
+\begin_layout Standard
+———–
+\end_layout
+
+\begin_layout Standard
+However, according to the recent solutions, developers are limited.
+ In a growing application, developers can add 
+\emph on
+derived
+\emph default
+ variables, that is a new variable that is updated according to existing
+ variables.
+ However, developers cannot add 
+\end_layout
+
+\begin_layout Standard
+The recent solutions implicity, support adding only derived variables.
+\end_layout
+
+\begin_layout Standard
+—–
+\end_layout
+
+\begin_layout Standard
+Across the solutions, there are three approaches implicity supported.
+ First, adding only derived variables.
+ Second, 
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+In the various implementing options, it is very unclear how to handle situations
+ in which developers specify 
+\emph on
+cycles.
+
+\emph default
+ Cycles can be caused from 
+\emph on
+mutual recursions
+\emph default
+ (named also 
+\emph on
+indirect recursions
+\emph default
+), where variables are defined in terms of each other.
+ For example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B:=A}
+\end_layout
+
+\end_inset
+
+.
+ that defines that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ should be updated according and in response to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ and vise verca.
+\end_layout
+
+\begin_layout Standard
+According to several papers, in order to achive predictable calculations,
+ the framework need to support unindirected daflows without cycles.
+ 
+\end_layout
+
+\begin_layout Standard
+Implicity, they support adding only derived variables.
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+In case we update the variables in response to the variable ir depend on
+ 
+\end_layout
+
+\begin_layout Standard
+According to many implementa
+\end_layout
+
+\begin_layout Standard
+Moreever, this dilema influences without being noticed
+\end_layout
+
+\begin_layout Standard
+In maintaining and updating the variables, we sometimes face an unpredictable
+ behavior and even infinite loops
+\end_layout
+
+\begin_layout Standard
+In maintaining and updating the variables, we sometimes face an unpredictable
+ behavior and even infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hung2018architectural"
+literal "false"
+
+\end_inset
+
+.
+ The unpredictable behavior might exist especially when applications grow
+ and have long chains of updates.
+ Specificaly, when adding a functionality to update one variable, where
+ that update is part of a long chains of updates, so it might fall into
+ an endless loop.
+ The complexity of this task has two parts.
+ First, the difficulties to control the data dependencies implied implicity
+ by event handling logic 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ In the events paradigm, the data dependencies are not explicit because
+ they are not directly expressed in the code, but are instead implied by
+ the event handling logic.
+ The event handling logic determines what happens when an event is triggered,
+ and in this case, it sets the values of variables and updates their dependencie
+s.
+ The second complexity part is to separate the task into small manageable
+ and independent tasks, for being in seperated loosly-coupled components.
+ Typically components become coupled by affecting each other's state 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jiang2020event"
+literal "false"
+
+\end_inset
+
+, causing the task to be centralized.
+\end_layout
+
+\end_body
+\end_document

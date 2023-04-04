@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Approach
+Approach and Method
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Method"
@@ -114,56 +114,90 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-\begin_inset FormulaMacro
-\renewcommand{\RIVar}{\myName{RIVar}}
-{\mathbf{RIVar}}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The present challenge can be represented as a means of integrating the Object-Or
-iented Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
- Reactive variables, as part of an object's interface, can be linked to
- external calculations without considering hidden dependencies.
- These dependencies may arise from other calculations linked to the object's
- variables by other concerns, whether within the object itself or among
- other consumers, as is currently the case.
- We define such variables type with the name 
-\begin_inset Formula $\RIVar$
-\end_inset
-
-, which is an abbreviation for
-\series bold
- Reactive Instance Variable
-\series default
-.
- This type represents both a 
+The name RIVar refers to Reactive Instance Variable.
+ This special variable is similar to a 
 \emph on
 reactive
 \emph default
- and an 
+ variable and an 
 \emph on
 instance
 \emph default
  variable.
+ Similar to reactive variables, the variables can be updated directly by
+ external inputs, and also by transitive updates according to assigned expressio
+ns.
+ The variables has the two assignment forms: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ to associate expressions and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ to provide input.
+ Similar to instance variables, the variables are associated to objects
+ of the OOP paradigm.
+ Accordingly, the updates are executed by direct interactions by synchronous
+ method calls.
+ In addition, The assignment behaves similar to instance variables (or their
+ 
+\emph on
+setters
+\emph default
+, that are objects' methods used to assign instance variables) in that the
+ variables can be assigned from outside of objects.
 \end_layout
 
 \begin_layout Standard
-In order to achieve the goal, we developed a new variant of FRP that addresses
- three key requirements.
- First, the new variant enables support data dependencies that arise when
- linking calculations to the objects' variables.
- Second, to avoid coupling to a specific architectural design with a bottleneck
- of another component that has access to the objects' internal state, we
- adopted a "no-mediator" approach where each variable updates its dependencies.
- Third, we ensured that the new variant maintains the desirable property
- of 
+Objects can expose a well-defined interface for assigning the variables.
+ Therefore, services can expose variables for their clients to assign.
+ In addition, subclasses can assign variables belong to the superclass (speciali
+zation interface).
+ The assignment relates the variable to be updated according to the specified
+ formula.
+ Consequently, formulas are unconditionally added.
+ The semantics to add the formula, fits well with the conceptual specialization
+ (subtyping) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+, making the derived class only extending the base class.
+ However added formulas sometimes complicates the calculations.
+\end_layout
+
+\begin_layout Standard
+In the next sections we introduce a new variant of FRP that supports complex
+ calculations.
+ The updates are taken with two fundamentals.
+ First, we use only synchronous method calls from the basic objects framework.
+ Second, we satisfy the 
 \emph on
-predictability
+referential transparency
 \emph default
- 
+ property related to FRP 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -171,13 +205,8 @@ literal "false"
 
 \end_inset
 
-.
- In the original FRP, predictability is achieved through a property known
- as functional purity, which ensures that the output of a function depends
- solely on its input and not on any external factors.
- In our variant of FRP, we maintain this property by guaranteeing that "the
- same sequence of events produces the same results, regardless of the timing
- of those events" 
+, i.e.,  the same input will produce consistently the same output.
+ We provide the property using the formulation of the guarantee 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -185,677 +214,23 @@ literal "false"
 
 \end_inset
 
+: 
+\begin_inset Quotes eld
+\end_inset
+
+the same sequence of events produces the same results, regardless of the
+ timing of those events
+\begin_inset Quotes erd
+\end_inset
+
 .
 \end_layout
 
 \begin_layout Section
-Introduction to the New Variant of FRP
-\end_layout
-
-\begin_layout Standard
-Our noval approach, or the unique feature about the new variant, is about
- the assginment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
-.
- The new variant enables multiple assigment to the same variable.
- This means that an assignment refers to adding more source to get values
- to the variable.
- 
-\end_layout
-
-\begin_layout Standard
-The methodology used to determine variable values relies on multiple sources,
- which are situated at a lower level of variable abstraction.
- These observable streams of values represent the variable's fluctuations
- in value.
- Therefore, when a variable has more than one source, it implies that there
- are several streams of samples that contribute to inferring its values.
- This is similar to the scenario where multiple devices sample a single
- real-world variable.
- Consequently, the assignment operator can function as a merge function
- over these streams.
-\end_layout
-
-\begin_layout Standard
-Esch case of several assignments is interepted as a merge operator over
- the variable and assigned expressions in the various statements.
- For example, the two statements 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=D+1}
-\end_layout
-
-\end_inset
-
- means produces the function 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{merge(A,B+C,D)}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-————
-\end_layout
-
-\begin_layout Plain Layout
-In our new variant, the assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- has a unique capability of allowing multiple assignments to a single variable.
- As a result, the variable integrates the newly assigned expression as an
- additional source for determining its values, and dynamically utilizes
- all available sources over time.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The underlying principle lies in the lower level of abstraction of the variables
-, where the variable's values are represented by an observable stream of
- values.
- Thus, if a variable has multiple sources, it implies that there are several
- streams of samples contributing to inferring its values, similar to the
- scenario where several devices sample a single real-world variable.
- As a result, the assignment operator can operate as a merge function over
- these streams.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-less technical version:
-\end_layout
-
-\begin_layout Plain Layout
-The methodology used to determine variable values relies on multiple sources,
- which are situated at a lower level of variable abstraction.
- These observable streams of values represent the variable's fluctuations
- in value.
- Therefore, when a variable has more than one source, it implies that there
- are several streams of samples that contribute to inferring its values.
- This is similar to the scenario where multiple devices sample a single
- real-world variable.
- Consequently, the assignment operator can function as a merge function
- over these streams.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-When multiple assignments are made to a variable, they are treated as a
- single assignment operator for the variable and the expressions in the
- various statements.
- For example, the statements 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=D+1}
-\end_layout
-
-\end_inset
-
- together produce the function 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{"="(A,B+C,D)}
-\end_layout
-
-\end_inset
-
-.
- This n-ary assignment operator is equivalent to the composite of the binary
- assignments accumulating.
- For instance, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
- refers to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{"="(A,B+C)}
-\end_layout
-
-\end_inset
-
-, and then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=D}
-\end_layout
-
-\end_inset
-
- accumulates the meaning to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{"="("="(A,B+C),D)}
-\end_layout
-
-\end_inset
-
-, and this is equivalent to the flattened version 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{"="(A,B+C,D)}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-matrix[row sep=0.5cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {Source A};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-node at (0.2,0.2) {Source B};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (0x1) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x1) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x1) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[box,minimum width=6.5cm] (op) {Merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node at (0.2,0.2) {Variable};
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x3) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x3) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x3) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[marble,circle] (4x3) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (5x3) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (6x3) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (1x0) -- (1x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (2x0) -- (2x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (3x0) -- (3x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (0x1) -- (0x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (1x1) -- (1x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (2x1) -- (2x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (1x3) -- (1x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (2x3) -- (2x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (3x3) -- (3x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (4x3) -- (4x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (5x3) -- (5x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (6x3) -- (6x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
+The Computational Model
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:merge-several-sources-1"
-
-\end_inset
-
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-Marble diagram of a merge operation for inferring variable values from two
- sources
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
+name "sec:The-Computational-Model"
 
 \end_inset
 
@@ -863,105 +238,74 @@ Marble diagram of a merge operation for inferring variable values from two
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-old draft
+This section provides a new variant of FRP in high level, that follows the
+ approach's fundamentals.
+ We describe this as a computation model.
+ The computation model comprises the basic items used in FRP applications,
+ the problem description model, that is the style or method used to represent
+ an FRP application, and the execution model, which present the process
+ of how the FRP application is executed according to the specification.
 \end_layout
 
-\begin_layout Plain Layout
-——–
+\begin_layout Subsection
+Basic Items
 \end_layout
 
-\begin_layout Plain Layout
-Our new variant has a unique feature related to the assignment operator
+\begin_layout Standard
+There are three basic items: reactive variables, operators and assignments.
+ reactive variables are the typical 
+\emph on
+continuous
+\emph default
  
-\backslash
-lstinline{:=}.
- With this new variant, multiple assignments can be made to the same variable.
- This means that when an assignment is made, an additional source is added
- to the variable to obtain its values.
- The variable uses the various sources of values and uses them to infer
- its values over time.
-\end_layout
-
-\begin_layout Plain Layout
-When multiple assignments are made, they are treated as a single assignment
- operator for the variable and the expressions in the various statements.
- For example, the two statements 
-\backslash
-lstinline{A:=B+C} and 
-\backslash
-lstinline{A:=D+1} produce the function 
-\backslash
-lstinline{"="(A,B+C,D)}.
- The n-ary assignment operator is equivalent to a composite of several binary
- assignments.
- For instance, 
-\backslash
-lstinline{"="(A,(B+C),D)} behaves the same as 
-\backslash
-lstinline{"="("="(A,B+C),D)}.
- Thus, 
-\backslash
-lstinline{A:=B+C} refers to 
-\backslash
-lstinline{"="(A,B+C)}, and then 
-\backslash
-lstinline{A:=D} accumulates the meaning to 
-\backslash
-lstinline{"="("="(A,B+C),D)}.
-\end_layout
-
-\begin_layout Plain Layout
-To provide values, the principal used relies on several sources and is based
- on the lower-level abstraction of the variable.
- The low-level abstraction of a variable is an observable stream of values
- that represents its varying value.
- Therefore, a variable with multiple sources implies having several streams
- of samples that contribute to inferring its values.
- This is similar to situations where several devices sample a single real-world
- variable.
- Consequently, the assignment operator can function as a merge function
- over the streams.
- So, 
-\backslash
-lstinline{"="("="(A,B+C),D)} is actualy 
-\backslash
-lstinline{"merge"("merge"(A,B+C),D)}
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-Our noval approach, or the unique feature about the new variant, is about
- the assginment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
 
 \end_inset
 
-.
- The new variant enables multiple assigment to the same variable.
- This means that an assignment refers to adding more source to get values
- to the variable.
- The variable subscribes to the sources of values, and uses all of them
- to inffer its values over time.
+ variables represeting real world variables in the problem domain, independant
+ of time.
+ Operator is a lifted function, such that a function over values are lifted
+ to being over reactive variables: the constructed expression continously
+ reflects the varying value calculated from the reactive variables.
+ Assignment over reactive variables would be a 
+\emph on
+lifted
+\emph default
+ assignment, such that an assigned reactive variable should reflect the
+ assigned expression continuously.
+ 
 \end_layout
 
-\begin_layout Plain Layout
-The case of several assignments is interepted as a single assignment operator
- over the variable and assigned expressions in the various statements.
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Problem-Description-Model"
+
+\end_inset
+
+Problem Description Model
+\end_layout
+
+\begin_layout Standard
+The reactive variables, operators and assignments are used to build FRP
+ applications.
+ A FRP application has the functional style, in such that any statement
+ is just like declaring functions over reactive variables.
+ Unlike the functional paradigm there may be 
+\emph on
+several-assignments
+\emph default
+, i.e., several formulas in which their target variable is pointed to the
+ same variable.
+\end_layout
+
+\begin_layout Standard
+Nevertheless, the case of several assignments is interepted as a single
+ assignment operator over the variable and assigned expressions in the various
+ statements.
  For example, as seen in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1028,1552 +372,6 @@ lstinline{
 \end_inset
 
 .
- The n-ary assignment operator should be equivalent to a composite of several
- binary assignments.
- For example, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,(B+C),D)}
-\end_layout
-
-\end_inset
-
- behaves the same as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,B+C),D)}
-\end_layout
-
-\end_inset
-
- (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:assigmentMutipleLevel"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
- In this sense, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
- referes to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,B+C)}
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=D}
-\end_layout
-
-\end_inset
-
- accumulates the meaning to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
-(A,B+C),D)}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-The used principal to provide values are based on the several sources, lies
- on the lower level abstraction of the variables.
- variable’s low level abstraction is an observable stream of values represeting
- its varying value.
- Accordingly, a variable with more than one source refers to having several
- streams of samples contributing to inferre its values.
- This is similar to situations when several devices sample a single real-world
- variable.
- As a result, the assingment operator can operate as a merge function over
- the streams.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The new variant of FRP introduces a mechanism where variables supply values
- to their subscribers.
- Subscribers receive values via the equal sign operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
- and can utilize the assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- to link calculations to obtain values based on the specified expression.
- By subscribing to a variable, the assignment operator updates it according
- to the provided expression, which represents a function over the variables
- and delivers values to the subscribers.
-\end_layout
-
-\begin_layout Plain Layout
-The new variant enables multiple assigment to the same variable.
- This means that an assignment refers to adding more source to get values
- to the variable.
- The variable subscribes to the sources of values, and uses all of them
- to inffer its values over time.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Section
-Drafts
-\end_layout
-
-\begin_layout Plain Layout
-The assignment's first type relates (subscribes) the variable to be updated
- (directly, without a madiator) according to the specified formula.
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-——–
-\end_layout
-
-\begin_layout Plain Layout
-The variables provide values to subscribers.
- They recive values by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
-, and mainly use an assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- that links calculations to receive values based on that calculation.
- The assignment relates (subscribes) the variable to be updated according
- to the specified expression.
- An expressions are functions over the variables, providing values to the
- subscribers.
-\end_layout
-
-\begin_layout Plain Layout
-In executing a formula, we say that the formula is added to the existing
- formulas that the runtime maintains.
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-Such variable type can receive input by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
-, and has an assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- that links calculations to receive inputs based on that calculation.
- Services can make these variables available for their clients to use, and
- subclasses can use the variables belonging to their superclass through
- a specialization interface.
- Since one variable can be used by many clients or subclasses, it can have
- multiple assignments.
-\end_layout
-
-\begin_layout Plain Layout
-With the capability of multiple assignments, it is possible to create formulas
- that accommodate large and complex data dependencies.
- As a formula is executed, it is incorporated into the existing formulas
- that the runtime manages.
- The semantics that the assgiment adds the formula to the existing formulas
- to maintain , fits well with the conceptual specialization (subtyping)
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
-\end_layout
-
-\begin_layout Plain Layout
-By enabling multiple assignments, formulas can be created, even in the presence
- of large and complex data dependencies.
- In executing a formula, we say that the formula is added to the existing
- formulas that the runtime maintains.
- The semantics to add the formula, fits well with the conceptual specialization
- (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
-\end_layout
-
-\begin_layout Plain Layout
-———–
-\end_layout
-
-\begin_layout Plain Layout
-Such variable type can provide values to subscribers based on given input.
- It receives input by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
-, and has an assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- that links calculations to receive inputs based on that calculation.
- The assignment subscribes the variable to be updated (directly, without
- a madiator) according to the specified expression.
-\end_layout
-
-\begin_layout Plain Layout
-Services can make these variables available for their clients to use, and
- subclasses can use the variables belonging to their superclass through
- a specialization interface.
- Since one variable can be used by many clients or subclasses, it can have
- multiple assignments.
-\end_layout
-
-\begin_layout Plain Layout
-The assignment relates (subscribes) the variable to be updated (directly,
- without a madiator) according to the specified formula.
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-Such variable type can receive input by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
-, and has an assignment operator 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- that links calculations to receive inputs based on that calculation.
- Services can make these variables available for their clients to use, and
- subclasses can use the variables belonging to their superclass through
- a specialization interface.
- Since one variable can be used by many clients or subclasses, it can have
- multiple links to multiple calculations, providing it with multiple sources
- to receive input.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Integration of the New Variant of FRP in Object-Oriented Programming
-\end_layout
-
-\begin_layout Standard
-The semantics to add the formula, fits well with the conceptual specialization
- (subtyping) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "taivalsaari1996notion"
-literal "false"
-
-\end_inset
-
-, making the derived class only extending the base class.
-\end_layout
-
-\begin_layout Standard
-——
-\end_layout
-
-\begin_layout Standard
-Services can make these variables available for their clients to use, and
- subclasses can use the variables belonging to their superclass through
- a specialization interface.
- Since one variable can be used by many clients or subclasses, it can have
- multiple assignments.
-\end_layout
-
-\begin_layout Standard
-——-
-\end_layout
-
-\begin_layout Standard
-Since one variable can be used by many clients or subclasses, it can have
- multiple links to multiple calculations, providing it with multiple sources
- to receive input.
-\end_layout
-
-\begin_layout Subsection
-???
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- class contains the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
- The class contains a formula (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:formula}
-\end_layout
-
-\end_inset
-
-) defining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be re-evaluated whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- is updated.
- Then once an instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- is created (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:ctor}
-\end_layout
-
-\end_inset
-
-), any change to its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- causes its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to re-evaluate.
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Specialization-Interface"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{ExtendedDrugAdministration}
-\end_layout
-
-\end_inset
-
- extends 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- and adds the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug:=Dose*Duration}
-\end_layout
-
-\end_inset
-
-.
- In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Specialization-Interface"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, we illustrates 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{ExtendedDrugAdministration}
-\end_layout
-
-\end_inset
-
- by composition.
- In the example, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is assigned from outside of the object.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class DrugAdministration{
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> Drug, Volume
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> Concentration:=Drug/VolumeOfFluid |
-\backslash
-label{line:formula}|
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-void Main(){
-\end_layout
-
-\begin_layout Plain Layout
-
-DrugAdministration administration=new DrugAdministration() |
-\backslash
-label{line:ctor}| 
-\end_layout
-
-\begin_layout Plain Layout
-
-administration.Drug=50
-\end_layout
-
-\begin_layout Plain Layout
-
-administration.Volume=100 // administration.Concentration=0.5
-\end_layout
-
-\begin_layout Plain Layout
-
-administration.Drug=25  // administration.Concentration=0.25
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-Administration"
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- class contains the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
- The class contains a formula (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:formula}
-\end_layout
-
-\end_inset
-
-) defining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be re-evaluated whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- is updated.
- Then once an instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- is created (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:ctor}
-\end_layout
-
-\end_inset
-
-), any change to its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- causes its 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to re-evaluate.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class ExtendedDrugAdministration {
-\end_layout
-
-\begin_layout Plain Layout
-
-  IDrugAdministration drugAdministration
-\end_layout
-
-\begin_layout Plain Layout
-
-  ExtendedDrugAdministration(DrugAdministration drugAdministration){ 
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.drugAdministration=drugAdministration
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-  drugAdministration.Drug:= drugAdministration.Concentration*drugAdministration.Vol
-umeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Service-Interface"
-
-\end_inset
-
- An example to a variable that is assigned externally by an expression.
- The instance of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
- has a variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- which is assigned externaly to be updated according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class ExtendedDrugAdministration:DrugAdministration {
-\end_layout
-
-\begin_layout Plain Layout
-
-  RIVar<double> Dose, Rate, Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug:=Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Specialization-Interface"
-
-\end_inset
-
-An example of a subclass that assigns variables that belonged to the superclass.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{ExtendedDrugAdministration}
-\end_layout
-
-\end_inset
-
- assigns variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- belonging to its superclass 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{DrugAdministration}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Evaluation Model
-\end_layout
-
-\begin_layout Standard
-The evaluation model used in this study is based on the push-based evaluation
- model, which is commonly used in reactive programming and implemented by
- ReactiveX.
- This model uses the observer pattern and synchronized calls to propagate
- updates through a chain of computations.
- The push-based evaluation model can be viewed as a depth-first search (DFS)
- algorithm, where updates or events are propagated through the chain of
- computations in a depth-first order.
- In this model, each computation is executed before its dependencies, ensuring
- that computations are executed in the correct order and the results are
- available to their dependents when needed.
- The dependencies between computations are defined by the data flow graph
- of the program or system, and the updates are propagated through this graph
- in a depth-first order.
-\end_layout
-
-\begin_layout Standard
-In the depth-first order, there is an issue named 
-\emph on
-simultaneous events 
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, when multiple input events are received at the same time, often caused
- by a single event triggering multiple updates.
- This can lead to glitches, where a variable is calculated based on an outdated
- value, when only part of the related events have been propogated.
-\end_layout
-
-\begin_layout Standard
-To address this issue, we present a model that organizes the propagated
- events in a specific order, enabling the comparison of any two events.
- We accomplish this by utilizing the sequence of input events, with each
- event in the system assigned a position in the order.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The introduced evaluation method is based on the push based evaluation model,
- as it is implemented by ReactiveX.
- It uses the observer pattern with synchronized calls as its underlying
- model for propagating updates through a chain of computations.
- The push based evaulation model can be seen as a depth-first search (DFS)
- propagation algorithm, in the sense that updates or events are propagated
- through a chain of computations in a depth-first order.
-\end_layout
-
-\begin_layout Plain Layout
-In a DFS traversal, the algorithm explores as far as possible along each
- branch before backtracking.
- Similarly, in a push-based evaluation model, the updates or events are
- propagated through the chain of computations in a depth-first order, meaning
- that each computation is executed before its dependencies.
- This ensures that the computations are executed in the correct order, and
- that the results of each computation are available to its dependents when
- they are needed.
-\end_layout
-
-\begin_layout Plain Layout
-In this sense, the push-based evaluation model used in reactive programming
- can be seen as a variation of the DFS algorithm, where the dependencies
- between computations are defined by the data flow graph of the program
- or system, and the updates or events are propagated through this graph
- in a depth-first order.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-——-
-\end_layout
-
-\begin_layout Standard
-Executing the assignment statements accumulates merged streams.
- The execution is sequentially, with the imperative style, line by line.
- For example, the statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
- is executed as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=merge(A,B+C)}
-\end_layout
-
-\end_inset
-
-.
- The next statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=D+1}
-\end_layout
-
-\end_inset
-
- is executed as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=merge(A,D+1)}
-\end_layout
-
-\end_inset
-
- according to the current value of A.
- So that the execution if the two statements behaves as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=merge(merge(A,B+C),D+1)}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Executing the merge, is not by creating a new stream to produce values whenever
- there is a value in any of the two sources.
- Instead, as seen in the example in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Recursive-Merge-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, we use the existing stream of the variable, and produce the merge by 
-\begin_inset Quotes eld
-\end_inset
-
-adding
-\begin_inset Quotes erd
-\end_inset
-
- the missing values according to the other source.
- In order to add the missing values, the assignment/merge operator need
- to track the two sources, and do comparison according to our model of order.
-\end_layout
-
-\begin_layout Standard
-(That's correct.
- The merge operator is a functional operator that combines multiple streams
- into a single stream.
- It takes multiple source observables and subscribes to all of them, forwarding
- the emitted values from all of them into a single output observable.
- On the other hand, using a Subject to implement the same behavior is an
- imperative approach that involves calling onNext on the subject to emit
- values from the various streams, and then subscribing to the subject to
- receive the merged output.
-\end_layout
-
-\begin_layout Standard
-While both approaches can achieve the same result, the functional approach
- with merge is often preferred as it promotes a more declarative programming
- style and can simplify the code by abstracting away the low-level details
- of merging streams.)
 \end_layout
 
 \begin_layout Standard
@@ -2595,340 +393,116 @@ centering
 
 \begin_layout Plain Layout
 
-
+            
 \backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
+begin{tikzpicture}  
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-matrix[row sep=0.5cm]
+node[shape=circle,draw=black] (A) at (1,1) {A};
 \end_layout
 
 \begin_layout Plain Layout
 
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
 
 \backslash
-
+node[shape=circle,draw=black] (B) at (3,1) {B};
 \end_layout
 
 \begin_layout Plain Layout
 
-  
-\end_layout
 
-\begin_layout Plain Layout
-
-  
 \backslash
-draw [time] (0,0) -- (6.5,0);
+node[shape=circle,draw=black] (C) at (5,1) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (D) at (7,1) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus) at (4,3) {+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus1) at (6,3) {+1}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=diamond,draw=black] (Equal) at (4,5) {=};     
 \end_layout
 
 \begin_layout Plain Layout
 
    
-\backslash
-node at (0.2,0.2) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (0x1) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x1) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x1) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[box,minimum width=6.5cm] (op) {Merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x3) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x3) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x3) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[marble,circle] (4x3) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (5x3) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (6x3) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
+path (B) edge  (Plus);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [fdash] (1x0) -- (1x0|-op.north);
+path (C) edge  (Plus);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [fdash] (2x0) -- (2x0|-op.north);
+path (Plus) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [fdash] (3x0) -- (3x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (0x1) -- (0x1|-op.north);
+path (D) edge  (Plus1);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [fdash] (1x1) -- (1x1|-op.north);
+path (A) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [fdash] (2x1) -- (2x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
+path (Plus1) edge  (Equal);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-draw [rdash] (1x3) -- (1x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (2x3) -- (2x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (3x3) -- (3x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (4x3) -- (4x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (5x3) -- (5x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (6x3) -- (6x3|-op.south);
+end{tikzpicture} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -2941,9 +515,6 @@ draw [rdash] (6x3) -- (6x3|-op.south);
 
 \begin_layout Plain Layout
 
-
-\backslash
-end{tikzpicture}
 \end_layout
 
 \end_inset
@@ -2954,17 +525,11 @@ end{tikzpicture}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Recursive-Merge-1"
+name "fig:assigmentOperator"
 
 \end_inset
 
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A=merge(A,B)
+An assignment operator over reactive variables.
 \end_layout
 
 \end_inset
@@ -2975,15 +540,6 @@ A=merge(A,B)
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-———
 \end_layout
 
 \begin_layout Standard
@@ -3615,7 +1171,7 @@ name "fig:assignment-special-edge"
 
 \end_inset
 
-A special edge in DFS to an assignment element
+A special edge in DFS to an assignment element 
 \end_layout
 
 \end_inset
@@ -4086,7 +1642,7 @@ In addition to the reactive variable's continuous abstraction, there is
  Because even when a reactive variable represents a real-world variable
  in high level, in computers reactive variables' actual values cannot continuous
 ly provided.
- For example, temperature depends on an actual stream of discrete events,
+ For example, temperature nay depend on an actual stream of discrete events,
  being sampled by a thermometer.
 \end_layout
 
@@ -4239,62 +1795,7 @@ name "fig:Streams-of-values"
 
 \end_inset
 
-Illustrating a stream of values representing the varying value of a variable.
- The axis represents the time, and whenever the value is changed, there
- is a circle with the new value.
- The visualized stream presents a variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- updated to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{5}
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{3}
-\end_layout
-
-\end_inset
-
-, then after a longer period 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{2}
-\end_layout
-
-\end_inset
-
-.
+Streams of values representing a varying value.
 \end_layout
 
 \end_inset

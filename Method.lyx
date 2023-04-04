@@ -2391,6 +2391,32 @@ The evaluation model used in this study is based on the push-based evaluation
 \end_layout
 
 \begin_layout Standard
+In the depth-first order, there is an issue named 
+\emph on
+simultaneous events 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, when multiple input events are received at the same time, often caused
+ by a single event triggering multiple updates.
+ This can lead to glitches, where a variable is calculated based on an outdated
+ value, when only part of the related events have been propogated.
+\end_layout
+
+\begin_layout Standard
+To address this issue, we present a model that organizes the propagated
+ events in a specific order, enabling the comparison of any two events.
+ We accomplish this by utilizing the sequence of input events, with each
+ event in the system assigned a position in the order.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 

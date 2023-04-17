@@ -153,8 +153,8 @@ instance
 \begin_layout Standard
 In order to achieve the goal, we developed a new variant of FRP that addresses
  three key requirements.
- First, the new variant enables support data dependencies that arise when
- linking calculations to the objects' variables.
+ First, the new variant enables support for complex data dependencies that
+ arise when linking calculations to the objects' variables.
  Second, to avoid coupling to a specific architectural design with a bottleneck
  of another component that has access to the objects' internal state, we
  adopted a "no-mediator" approach where each variable updates its dependencies.
@@ -186,6 +186,730 @@ literal "false"
 \end_inset
 
 .
+ By this new variant of FRP, we have developed a new semantic framework
+ to represent objects with reactive instance variables.
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Standard
+When implementing dependent fields in a UI, it is important to ensure that
+ they are synchronized properly.
+ This means that when the value of the parent field changes, the dependent
+ field should also update accordingly.
+ Such syncromization updates are called 
+\emph on
+push-based evaluation model
+\emph default
+, because changes are 
+\begin_inset Quotes eld
+\end_inset
+
+pushed
+\begin_inset Quotes erd
+\end_inset
+
+ down to dependant variables.
+ 
+\end_layout
+
+\begin_layout Standard
+The push-based evaluation model can be viewed as a depth-first search (DFS)
+ algorithm, where updates or events are propagated through the chain of
+ computations in a depth-first order.
+ However, this traversal has the problem, that it produces 
+\emph on
+simultaneous 
+\emph default
+events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ simultaneous
+\emph on
+ 
+\emph default
+events are happeed when several values (some are 
+\emph on
+glitches
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, calculated based on outdated values) has been triggered to the same variable,
+ from the same input event.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, reactive variables can be implemented using observable streams, as mentioned
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ This involves representing a variable's values over time as a stream of
+ events, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Streams-of-values-1-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ These events can be triggered by changes in UI controls or by subscribing
+ to changes in other variables.
+ Similarly, events can trigger changes in UI controls and cause subscribed
+ variables to update accordingly.
+\end_layout
+
+\begin_layout Standard
+There are two stages.
+ First subscribing, Second, updating according to the input events.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (1,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (2,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Streams-of-values-1-1"
+
+\end_inset
+
+Illustrating an event stream that represents the changes in the values of
+ variable A over time.
+ Based on the illustration, it can be observed that variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changed to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{5}
+\end_layout
+
+\end_inset
+
+ initially, then to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{3}
+\end_layout
+
+\end_inset
+
+, and after a longer period, it changed to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{2}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}       
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{Subscribe}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evaluating-the-formula-1-1"
+
+\end_inset
+
+Evaluating the formula A:=B+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{OnNext(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{OnNext(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{OnNext(3)}{A}{}         
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{OnNext(3)}{E}{}        
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Propogation-on-the-1-1"
+
+\end_inset
+
+Illustrating a synchronous update according to the subscriptions.
+ Following a change in the field of B in the UI, B update  UI, when the
+ An input event.
+ Propogation on the formula A:=B+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (D) at (3,3) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (C);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch-1"
+
+\end_inset
+
+A data dependency graph, that in push-based evaluation, might have glitches.
+ The nodes represent variables that should be updated either by input or
+ by updating according to the specified function in the label.
+ Each variable's update leads to update the depedencies.
+ Updating A leads to updating B and C, each leads to updating D.
+ In the first update, the value is incorrect (a glitch), because B or C
+ has not been updated yet.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -193,8 +917,7 @@ Introduction to the New Variant of FRP
 \end_layout
 
 \begin_layout Standard
-Our noval approach, or the unique feature about the new variant, is about
- the assginment operator 
+Our novel approach introduces a special assignment operator 
 \begin_inset ERT
 status open
 
@@ -207,29 +930,25 @@ lstinline{:=}
 
 \end_inset
 
-.
- The new variant enables multiple assigment to the same variable.
- This means that an assignment refers to adding more source to get values
- to the variable.
- 
+ to enable the complex data dependencies.
+ This enables multiple assignments to the same variable, such that an assignment
+ refers to adding more source to get values to the variable.
 \end_layout
 
 \begin_layout Standard
-The methodology used to determine variable values relies on multiple sources,
- which are situated at a lower level of variable abstraction.
- These observable streams of values represent the variable's fluctuations
- in value.
- Therefore, when a variable has more than one source, it implies that there
- are several streams of samples that contribute to inferring its values.
+The methodology utilized to determine variable values relies on multiple
+ sources that are meaningful when examining the variable abstraction at
+ a lower level.
+ The variables are essentially observable streams of values that represent
+ the variable's values over time.
+ Consequently, when a variable has multiple sources, it suggests the existence
+ of several streams of samples that contribute to the inference of its values.
  This is similar to the scenario where multiple devices sample a single
  real-world variable.
  Consequently, the assignment operator can function as a merge function
  over these streams.
-\end_layout
-
-\begin_layout Standard
-Esch case of several assignments is interepted as a merge operator over
- the variable and assigned expressions in the various statements.
+ When a variable as several assignments, it is interepted as a merge operator
+ over the variable and assigned expressions in the various statements.
  For example, the two statements 
 \begin_inset ERT
 status open
@@ -256,7 +975,7 @@ lstinline{A:=D+1}
 
 \end_inset
 
- means produces the function 
+ mean 
 \begin_inset ERT
 status open
 
@@ -270,6 +989,486 @@ lstinline{merge(A,B+C,D)}
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+Furthermore, the meaning is accumulated during an imperative interpretation,
+ where each statement adds a source to a target variable.
+ The target variable's result stream is accumulated based on the requirement
+ that the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{merge}
+\end_layout
+
+\end_inset
+
+ operator is associative.
+ For example, the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ is interpreted as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{merge(A,B+C)}
+\end_layout
+
+\end_inset
+
+.
+ The next statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=D+1}
+\end_layout
+
+\end_inset
+
+ accumulates it to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{merge(merge(A,B+C,D+1)}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {Source A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+node at (0.2,0.2) {Source B};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x1) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x1) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x1) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[box,minimum width=6.5cm] (op) {Merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node at (0.2,0.2) {Variable};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x3) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x3) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x3) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[marble,circle] (4x3) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (5x3) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (6x3) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x0) -- (1x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x1) -- (0x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x1) -- (1x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x1) -- (2x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (1x3) -- (1x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x3) -- (2x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x3) -- (3x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (4x3) -- (4x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x3) -- (5x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x3) -- (6x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:merge-several-sources-2"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ilustrating  variable varying value inffered from several sources.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1471,12 +2670,22 @@ lstinline{:=}
 \end_layout
 
 \begin_layout Section
-Integration of the New Variant of FRP in Object-Oriented Programming
+The Framework
 \end_layout
 
 \begin_layout Standard
-The semantics to add the formula, fits well with the conceptual specialization
- (subtyping) 
+Thanks to the new variant of FRP, we can introduce 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+, which is the name for reactive instance variables.
+ Similar to reactive variables, they are automatically updated based on
+ their dependencies.
+ Similar to instance variables, they are part of the objects, and therefore
+ services can make these variables available in their interfaces for their
+ clients to use.
+ Subclasses can also use the variables belonging to their superclass via
+ the specialization interface 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "taivalsaari1996notion"
@@ -1484,36 +2693,477 @@ literal "false"
 
 \end_inset
 
-, making the derived class only extending the base class.
+.
+ This concept leads us to a new framework that extends the traditional OOP.
 \end_layout
 
 \begin_layout Standard
-——
+With this new framework, developers can model domain business concepts that
+ are connected to graphical user interfaces (GUI).
+ As the ilustrated drug administration example (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Drug-Administration-UML-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), real-world entities can be represented by objects, and their attributes
+ by 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:PumpCode"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, objects' classes can contain assignments in their defintions, to continously
+ calculate 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ The assignments are part of the objects' internal behavior, connecting
+ the public 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ The values of the attributes are observable streams, the lower-level of
+ the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ The input streams can be connected to user interface change events, and
+ output streams can trigger field updates, displaying the calculated values
+ from the model.
 \end_layout
 
 \begin_layout Standard
-Services can make these variables available for their clients to use, and
- subclasses can use the variables belonging to their superclass through
- a specialization interface.
- Since one variable can be used by many clients or subclasses, it can have
- multiple assignments.
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{interface}{IBag}{0,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug : RIVar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid : RIVar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}[text width=8 cm]{Pump}{0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration : RIVar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose : RIVar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate : RIVar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Pump}{TheBag}{}{IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Bag}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+implement {IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration : RIVar}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration-UML-1"
+
+\end_inset
+
+Illustrating Drug Administration domain objects.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ and its bag are loosely coupled.
+ The bag is defined as an interface, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ only sends messages to it, to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-——-
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  IBag TheBag;|
+\backslash
+label{line:TheBag}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Duration, Dose, Rate|
+\backslash
+label{line:RIVars}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug=Dose*Duration  |
+\backslash
+label{line:formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PumpCode"
+
+\end_inset
+
+Pseudo code for the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ class definition.
+ The class defines a pump object with 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s as its attributes (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:RIVars}
+\end_layout
+
+\end_inset
+
+).
+ The pump is connected to a bug object ((
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:TheBag}
+\end_layout
+
+\end_inset
+
+)), and continuously adjusts its attribute 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Since one variable can be used by many clients or subclasses, it can have
- multiple links to multiple calculations, providing it with multiple sources
- to receive input.
-\end_layout
-
-\begin_layout Subsection
-???
+The framework empowers OOP framework with enhanced extensibility.
+ The unique concept of assignments adding the source to the variable, and
+ allowing assignments to be hidden, results in an "extend only" operator.
+ This is particularly evident in the inheritance mechanism, where subclasses
+ only extend their input stream by inheriting assignments assigned to their
+ superclass's reactive instance variables.
+ This approach avoids the "fragile base class" issue, where changes in the
+ implementation or behavior of a superclass inadvertently affect the behavior
+ of its subclasses, even if the subclasses were not intended to be modified.
+ Similarly, objects can expose reactive instance variables, and in a composition
+, the functionality of objects is only extended.
+ Overall, the introduction of this assignment operator has the potential
+ to develop software that is open to extensions and closed to modifications,
+ aligning with the principles of the Open-Closed Principle (OCP).
+ 
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1698,7 +3348,7 @@ lstinline{Concentration}
  to re-evaluate.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1789,7 +3439,7 @@ lstinline{Drug}
  is assigned from outside of the object.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2084,7 +3734,7 @@ lstinline{Concentration}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2239,7 +3889,7 @@ lstinline{VolumeOfFluid}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2369,6 +4019,11 @@ lstinline{DrugAdministration}
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Evaluation Model
 \end_layout
@@ -2405,57 +4060,20 @@ literal "false"
 
 , when multiple input events are received at the same time, often caused
  by a single event triggering multiple updates.
- This can lead to glitches, where a variable is calculated based on an outdated
- value, when only part of the related events have been propogated.
+ This can lead to 
+\emph on
+glitches
+\emph default
+, where a variable is calculated based on an outdated value, when only part
+ of the related events have been propogated.
+\end_layout
+
+\begin_layout Subsection
+Background
 \end_layout
 
 \begin_layout Standard
-To address this issue, we present a model that organizes the propagated
- events in a specific order, enabling the comparison of any two events.
- We accomplish this by utilizing the sequence of input events, with each
- event in the system assigned a position in the order.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The introduced evaluation method is based on the push based evaluation model,
- as it is implemented by ReactiveX.
- It uses the observer pattern with synchronized calls as its underlying
- model for propagating updates through a chain of computations.
- The push based evaulation model can be seen as a depth-first search (DFS)
- propagation algorithm, in the sense that updates or events are propagated
- through a chain of computations in a depth-first order.
-\end_layout
-
-\begin_layout Plain Layout
-In a DFS traversal, the algorithm explores as far as possible along each
- branch before backtracking.
- Similarly, in a push-based evaluation model, the updates or events are
- propagated through the chain of computations in a depth-first order, meaning
- that each computation is executed before its dependencies.
- This ensures that the computations are executed in the correct order, and
- that the results of each computation are available to its dependents when
- they are needed.
-\end_layout
-
-\begin_layout Plain Layout
-In this sense, the push-based evaluation model used in reactive programming
- can be seen as a variation of the DFS algorithm, where the dependencies
- between computations are defined by the data flow graph of the program
- or system, and the updates or events are propagated through this graph
- in a depth-first order.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-——-
+———-
 \end_layout
 
 \begin_layout Standard
@@ -2514,7 +4132,786 @@ lstinline{A=merge(A,D+1)}
 
 \end_inset
 
- according to the current value of A.
+ according to the current value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+.
+ So that the execution if the two statements behaves as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(merge(A,B+C),D+1)}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+The evaluation model contains two stages.
+ First, evaluating the application statements, creating the model to run
+ in the beckend.
+ Second, that the model will update variables correctly according to external
+ events.
+ 
+\end_layout
+
+\begin_layout Subsection
+Stage 1
+\end_layout
+
+\begin_layout Standard
+Executing the assignment statements accumulates merged streams.
+ The execution is sequentially, with the imperative style, line by line.
+ For example, the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ is executed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(A,B+C)}
+\end_layout
+
+\end_inset
+
+.
+ The next statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=D+1}
+\end_layout
+
+\end_inset
+
+ is executed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(A,D+1)}
+\end_layout
+
+\end_inset
+
+ according to the current value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+.
+ So that the execution if the two statements behaves as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(merge(A,B+C),D+1)}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+In the first stage of evaluation, the elements subscribe to each other according
+ to the problem described.
+ In the second stage, the connected elements update each other, by calling
+ each other's OnNext, whenever they need to update.
+ For example, the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Formula-Graph-2variables-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, is evaluated as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, then as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, when the UI updates B with the value 2 causing the elements update each
+ other.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,7) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=rectangle,draw=black] (Plus) at (2,5) {+1}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=diamond,draw=black] (Equal) at (2,3) {=};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (2,1) {A};     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (Plus);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Plus) edge  (Equal);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (Equal) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Formula-Graph-2variables-1"
+
+\end_inset
+
+Formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\end_inset
+
+ over reactive variables A and B
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, and 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evaluating-the-formula-1"
+
+\end_inset
+
+Evaluating the formula A:=B+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{OnNext(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{OnNext(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{OnNext(3)}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{OnNext(3)}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{OnNext(3)}{E}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Propogation-on-the-1"
+
+\end_inset
+
+Propogation on the formula A:=B+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The evaluation model used in this study is based on the push-based evaluation
+ model, which is commonly used in reactive programming and implemented by
+ ReactiveX.
+ This model uses the observer pattern and synchronized calls to propagate
+ updates through a chain of computations.
+ The push-based evaluation model can be viewed as a depth-first search (DFS)
+ algorithm, where updates or events are propagated through the chain of
+ computations in a depth-first order.
+ In this model, each computation is executed before its dependencies, ensuring
+ that computations are executed in the correct order and the results are
+ available to their dependents when needed.
+ The dependencies between computations are defined by the data flow graph
+ of the program or system, and the updates are propagated through this graph
+ in a depth-first order.
+\end_layout
+
+\begin_layout Plain Layout
+In the depth-first order, there is an issue named 
+\emph on
+simultaneous events 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, when multiple input events are received at the same time, often caused
+ by a single event triggering multiple updates.
+ This can lead to 
+\emph on
+glitches
+\emph default
+, where a variable is calculated based on an outdated value, when only part
+ of the related events have been propogated.
+\end_layout
+
+\begin_layout Plain Layout
+To address this issue, we present a model that organizes the propagated
+ events in a specific order, enabling the comparison of any two events.
+ We accomplish this by utilizing the sequence of input events, with each
+ event in the system assigned a position in the order.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The introduced evaluation method is based on the push based evaluation model,
+ as it is implemented by ReactiveX.
+ It uses the observer pattern with synchronized calls as its underlying
+ model for propagating updates through a chain of computations.
+ The push based evaulation model can be seen as a depth-first search (DFS)
+ propagation algorithm, in the sense that updates or events are propagated
+ through a chain of computations in a depth-first order.
+\end_layout
+
+\begin_layout Plain Layout
+In a DFS traversal, the algorithm explores as far as possible along each
+ branch before backtracking.
+ Similarly, in a push-based evaluation model, the updates or events are
+ propagated through the chain of computations in a depth-first order, meaning
+ that each computation is executed before its dependencies.
+ This ensures that the computations are executed in the correct order, and
+ that the results of each computation are available to its dependents when
+ they are needed.
+\end_layout
+
+\begin_layout Plain Layout
+In this sense, the push-based evaluation model used in reactive programming
+ can be seen as a variation of the DFS algorithm, where the dependencies
+ between computations are defined by the data flow graph of the program
+ or system, and the updates or events are propagated through this graph
+ in a depth-first order.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Executing the assignment statements accumulates merged streams.
+ The execution is sequentially, with the imperative style, line by line.
+ For example, the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+ is executed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(A,B+C)}
+\end_layout
+
+\end_inset
+
+.
+ The next statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=D+1}
+\end_layout
+
+\end_inset
+
+ is executed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=merge(A,D+1)}
+\end_layout
+
+\end_inset
+
+ according to the current value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+.
  So that the execution if the two statements behaves as 
 \begin_inset ERT
 status open
@@ -4807,6 +7204,10 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 There are two stages.
  First, evaluating the statements.
  Second, reacting to the FRP application consumer, i.e., updating and triggering
@@ -4862,7 +7263,7 @@ noprefix "false"
  other.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -4978,7 +7379,7 @@ A:=B+1
 , and 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -5118,7 +7519,7 @@ Evaluating the formula A:=B+1
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -5277,6 +7678,11 @@ name "fig:Propogation-on-the"
 \end_inset
 
 Propogation on the formula A:=B+1
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

@@ -2388,29 +2388,23 @@ Background
 \end_layout
 
 \begin_layout Standard
-When implementing dependent fields in a UI, it is important to ensure that
- they are synchronized properly.
+When implementing dependent fields in a user interface, it is important
+ to ensure that they are properly synchronized.
  This means that when the value of the parent field changes, the dependent
  field should also update accordingly.
- Such syncromization updates are called 
+ Such synchronization updates are called a 
 \emph on
 push-based evaluation model
 \emph default
-, because changes are 
-\begin_inset Quotes eld
-\end_inset
-
-pushed
-\begin_inset Quotes erd
-\end_inset
-
- down to dependant variables.
+ because changes are "pushed" down to dependent variables.
  This evaluation model can be viewed as a depth-first search (DFS) algorithm,
- when a change event causes a chain of computations in a depth-first order.
+ where a change event triggers a chain of computations in a depth-first
+ order.
 \end_layout
 
 \begin_layout Standard
-However, there are cases, like the case in 
+However, there are cases where the order of visits can produce incorrect
+ update processes, such as the case shown in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Glitch-1"
@@ -2420,15 +2414,11 @@ noprefix "false"
 
 \end_inset
 
-,where the order of the visits produce wrong update processes.
- When the spaning tree resulted from the chain of computations contains
- nodes with more than one incoming edges, this means that there were variables
- that updated more than once about the change, while some updates (known
- as 
-\emph on
-glitch
-\emph default
-es, 
+.
+ When the spanning tree resulting from the chain of computations contains
+ nodes with more than one incoming edge, it means that some variables were
+ updated multiple times regarding the change, and some updates may be based
+ on outdated values (known as glitches, 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -2436,12 +2426,8 @@ literal "false"
 
 \end_inset
 
-) are based on outdated values.
- Several incoming edges of a node represent 
-\emph on
-simultaneous 
-\emph default
-events 
+).
+ Nodes with multiple incoming edges represent simultaneous events 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -2449,7 +2435,7 @@ literal "false"
 
 \end_inset
 
-, other than the depth-first order.
+ that occur in a different order than the depth-first order.
 \end_layout
 
 \begin_layout Standard
@@ -2599,6 +2585,7 @@ name "fig:Glitch-1"
 \end_inset
 
 A spanning graph for a chain of computations produced from updating a variable
+ 
 \begin_inset ERT
 status open
 
@@ -2633,7 +2620,7 @@ lstinline{D})
 
 \end_inset
 
- while the expected order is (
+ while the expected order is 
 \begin_inset ERT
 status open
 
@@ -2652,7 +2639,7 @@ lstinline{D})
 
 \end_inset
 
-).
+.
 \end_layout
 
 \end_inset

@@ -2405,14 +2405,39 @@ pushed
 \end_inset
 
  down to dependant variables.
- 
+ This evaluation model can be viewed as a depth-first search (DFS) algorithm,
+ when a change event causes a chain of computations in a depth-first order.
 \end_layout
 
 \begin_layout Standard
-The push-based evaluation model can be viewed as a depth-first search (DFS)
- algorithm, where updates or events are propagated through the chain of
- computations in a depth-first order.
- However, this traversal has the problem, that it produces 
+However, there are cases, like the case in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,where the order of the visits produce wrong update processes.
+ When the spaning tree resulted from the chain of computations contains
+ nodes with more than one incoming edges, this means that there were variables
+ that updated more than once about the change, while some updates (known
+ as 
+\emph on
+glitch
+\emph default
+es, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+) are based on outdated values.
+ Several incoming edges of a node represent 
 \emph on
 simultaneous 
 \emph default
@@ -2424,28 +2449,227 @@ literal "false"
 
 \end_inset
 
-.
- simultaneous
-\emph on
- 
-\emph default
-events are happeed when several values (some are 
-\emph on
-glitches
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-, calculated based on outdated values) has been triggered to the same variable,
- from the same input event.
+, other than the depth-first order.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (D) at (3,3) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (A) edge  (C);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch-1"
+
+\end_inset
+
+A spanning graph for a chain of computations produced from updating a variable
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+.
+ The traversal order is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+lstinline{A},
+\backslash
+lstinline{B},
+\backslash
+lstinline{D},
+\backslash
+lstinline{C},
+\backslash
+lstinline{D})
+\end_layout
+
+\end_inset
+
+ while the expected order is (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+lstinline{A},
+\backslash
+lstinline{B},
+\backslash
+lstinline{C},
+\backslash
+lstinline{D})
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In 
 \begin_inset Formula $\ReactiveX$
 \end_inset
@@ -2478,13 +2702,13 @@ noprefix "false"
  variables to update accordingly.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 There are two stages.
  First subscribing, Second, updating according to the input events.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2672,7 +2896,7 @@ lstinline{2}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2787,7 +3011,7 @@ Evaluating the formula A:=B+1
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2933,166 +3157,6 @@ Illustrating a synchronous update according to the subscriptions.
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (A) at (3,7) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (B) at (2,5) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (C) at (4,5) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (D) at (3,3) {D};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge  (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (A) edge  (C);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (B) edge  (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (C) edge  (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}  
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Glitch-1"
-
-\end_inset
-
-A data dependency graph, that in push-based evaluation, might have glitches.
- The nodes represent variables that should be updated either by input or
- by updating according to the specified function in the label.
- Each variable's update leads to update the depedencies.
- Updating A leads to updating B and C, each leads to updating D.
- In the first update, the value is incorrect (a glitch), because B or C
- has not been updated yet.
 \end_layout
 
 \end_inset

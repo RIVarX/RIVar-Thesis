@@ -2384,7 +2384,7 @@ lstinline{Bag}
 \end_layout
 
 \begin_layout Chapter
-Background
+Background To Delete
 \end_layout
 
 \begin_layout Standard
@@ -2415,10 +2415,11 @@ noprefix "false"
 \end_inset
 
 .
- When the spanning tree resulting from the chain of computations contains
- nodes with more than one incoming edge, it means that some variables were
- updated multiple times regarding the change, and some updates may be based
- on outdated values (known as glitches, 
+ When the spanning tree, resulting from the chain of computations, contains
+ nodes with more than one incoming edge.
+ This means that some variables were updated multiple times regarding the
+ change, while some of the updates are based on outdated values (known as
+ glitches, 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -2427,7 +2428,11 @@ literal "false"
 \end_inset
 
 ).
- Nodes with multiple incoming edges represent simultaneous events 
+ The multiple incoming edges of a node represent 
+\emph on
+simultaneous events
+\emph default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -2435,7 +2440,7 @@ literal "false"
 
 \end_inset
 
- that occur in a different order than the depth-first order.
+ that happen at different times.
 \end_layout
 
 \begin_layout Standard
@@ -2654,7 +2659,7 @@ lstinline{D})
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In 

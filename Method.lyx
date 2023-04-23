@@ -231,7 +231,7 @@ To enable multiple assignments, we utilize a methodology in which the variable
 LatexCommand formatted
 reference "fig:Streams-of-values-1-1-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1050,7 +1050,7 @@ With this new framework, developers can model domain business concepts that
 LatexCommand formatted
 reference "fig:Drug-Administration-UML-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1066,7 +1066,7 @@ s.
 LatexCommand formatted
 reference "fig:PumpCode"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1824,7 +1824,7 @@ In
 LatexCommand formatted
 reference "fig:Specialization-Interface"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1874,7 +1874,7 @@ lstinline{Drug:=Dose*Duration}
 LatexCommand formatted
 reference "fig:Specialization-Interface"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2526,7 +2526,7 @@ An observer might have incoming stale values.
 LatexCommand formatted
 reference "fig:Glitch-1-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2785,7 +2785,7 @@ simultaneous events
 LatexCommand formatted
 reference "chap:Problem"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2795,7 +2795,7 @@ noprefix "false"
 LatexCommand formatted
 reference "sec:VariantFRP"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2805,7 +2805,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:cycle-merge-produce-concurrent-events"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -2981,7 +2981,7 @@ Illustrating how the merge function is in charge of simultaneous events.
 LatexCommand ref
 reference "fig:cycle-to-multiple-assignment"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -3024,7 +3024,7 @@ The procedure starts with the external input sequence being provided with
 LatexCommand formatted
 reference "tab:timestamps"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -3038,7 +3038,7 @@ noprefix "false"
 LatexCommand formatted
 reference "tab:Comparing-Timestamps-Set-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

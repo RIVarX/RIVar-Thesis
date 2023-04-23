@@ -368,18 +368,9 @@ filename "Introduction.lyx"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand include
 filename "Background.lyx"
-
-\end_inset
-
-
-\end_layout
 
 \end_inset
 

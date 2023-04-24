@@ -356,12 +356,21 @@ begin{center}
 
 
 \backslash
+begin{minipage}{0.4
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 begin{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
 
-A:=B+1 
+A:=B+1
 \end_layout
 
 \begin_layout Plain Layout
@@ -379,6 +388,64 @@ B=6 // A=7
 
 \backslash
 end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (B) at (0,0) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (A) at (-2,0) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] (A) -- node[above] {} (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
 \end_layout
 
 \begin_layout Plain Layout
@@ -403,7 +470,65 @@ name "fig:Reactive-variables-basics-1"
 
 \end_inset
 
-An example for using reactive variables.
+This is an example of using reactive variables, where the value of variable
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ depends on the value of variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+ (We choose to represent the dependancy from the derived variable to the
+ variable it is derived from, to be consistent with derived class that in
+ uml the dependencay is illustrated from the derived class to the subclass.
+ The direction presents that change causes the dependancy to change, and
+ not the direction of the data flow.) Whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ is updated, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ is automatically updated accordingly.
  The formula 
 \begin_inset ERT
 status open
@@ -443,7 +568,7 @@ lstinline{B+1}
 
 \end_inset
 
-, so that the value of 
+, which means that the value of 
 \begin_inset ERT
 status open
 
@@ -456,7 +581,7 @@ lstinline{A}
 
 \end_inset
 
- changes in response to any input provided to the value of 
+ changes in response to any changes in the value of 
 \begin_inset ERT
 status open
 
@@ -681,7 +806,7 @@ reactive variables
 
 
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RIvarX

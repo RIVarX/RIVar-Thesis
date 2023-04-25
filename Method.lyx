@@ -150,46 +150,6 @@ instance
  variable.
 \end_layout
 
-\begin_layout Standard
-In order to achieve the goal, we developed a new variant of FRP that addresses
- three key requirements.
- First, the new variant enables support for complex data dependencies that
- arise when linking calculations to the objects' variables.
- Second, to avoid coupling to a specific architectural design with a bottleneck
- of another component that has access to the objects' internal state, we
- adopted a "no-mediator" approach where each variable updates its dependencies.
- Third, we ensured that the new variant maintains the desirable property
- of 
-\emph on
-predictability
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In the original FRP, predictability is achieved through a property known
- as functional purity, which ensures that the output of a function depends
- solely on its input and not on any external factors.
- In our variant of FRP, we maintain this property by guaranteeing that "the
- same sequence of events produces the same results, regardless of the timing
- of those events" 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
- By this new variant of FRP, we have developed a new semantic framework
- to represent objects with reactive instance variables.
-\end_layout
-
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -2439,7 +2399,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3899,154 +3859,75 @@ Propogation on the formula A:=B+1
 
 \end_layout
 
+\begin_layout Subsection
+Consistency
+\end_layout
+
+\begin_layout Standard
+The evaluation model dictates that any subsequent value, whether from calculatio
+ns or external input, only overrides the effects of a variable's previous
+ value, which refers to the values in the updates caused by that value.
+ This ensures that all variables remain consistent based on the latest specified
+ values.
+ However, if a defined formula relies on input variables that have not been
+ updated to the same extent as the variable in question, the application
+ will become inconsistent with the formula.
+ Therefore, consistency is only guaranteed for formulas whose input variables
+ contain the latest values.
+\end_layout
+
 \begin_layout Section
 Summary
 \end_layout
 
 \begin_layout Standard
-Originating from FRP and OOP, we introduced a new framework.
- The framework enables that the variables have several assignments.
- The semantics, that the variable values is given from several sources,
- so thay each subsequent value, from any of calculations or external input,
- will override the effect of a previous value, while the value affected
- the previous value 
+Our method focuses on completely separating data dependencies into different
+ concerns.
+ We identified the problem as stemming from the integration between FRP
+ and OOP, specifically in the contract of reactive variable assignment.
+ To address this problem, we developed a new variant of FRP that satisfies
+ three key requirements and enables the desired settings:
+\end_layout
+
+\begin_layout Itemize
+Support for complex data dependencies that arise when linking calculations
+ to the objects' variables.
+\end_layout
+
+\begin_layout Itemize
+Avoid coupling to a specific architectural design with a bottleneck of another
+ component that has access to the objects' internal state, we adopted a
+ "no-mediator" approach where each variable updates its dependencies.
+\end_layout
+
+\begin_layout Itemize
+Maintaining the desirable property of 
 \emph on
-should
+predictability
 \emph default
- be overriden by the new effect.
- This framework, following those semantics, removes the obstacle of separating
- networks of data dependencies into different objects.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-———–
-\end_layout
-
-\begin_layout Plain Layout
-By the help of the frameworks of FRP and OOP, we introduces a semantics
- that unblock networks of the data depepdencies from being seperated into
- diffrent objects.
- The semantics is that va each subsequent value, to any of the varables,
- from any of calculations or external input, will override the effect of
- a previous value.
- So that the variables' values are consistent according to the latest events
- and their effects.
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-We used the framework of FRP and OOP to introduce the new framework, that
- reactive intance variables expose interface that support both incoming
- and outgoing dependencies.
- We introduces a semantics that unblock networks of the data depepdencies
- from being seperated into diffrent objects.
  
-\end_layout
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-We introduced an assigment operator, by the term of a merge function over
- streams.
-\end_layout
-
-\begin_layout Plain Layout
-for a predictable behavior to where a single variable depends on several
- sources, even when there are 
-\end_layout
-
-\begin_layout Plain Layout
-Several streams can contribute to one variable's stream
-\end_layout
-
-\begin_layout Plain Layout
-We introduced the semantics that several streams are merged according to
- their events' s time
-\end_layout
-
-\begin_layout Plain Layout
-We provided the semantics, that a variable as an observable stream is a
- merge of several sources.
- We also provided a strategic to block stale inputs or/and those that are
- coming from a cycle.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The graph describes the data dependencies 
-\end_layout
-
-\begin_layout Plain Layout
-We provided an abstraction to the variables that depends on several diffrent
- calculation
-\end_layout
-
-\begin_layout Plain Layout
-——-
-\end_layout
-
-\begin_layout Plain Layout
-We provided a method to allow reactive variables to depends on severa sources
-\end_layout
-
-\begin_layout Plain Layout
-We introduced a framework to seperate the data dependecies management.
- The network of the data depepdencies can be seperated to diffrent objects,
- because the exposed interface started to support both incoming and outgoing
- dependencies.
-\end_layout
-
-\begin_layout Plain Layout
-———–
-\end_layout
-
-\begin_layout Plain Layout
-We introduced a framework to separate the management of data dependencies.
- The network of data dependencies can be split across different objects
- because the exposed interface now supports both incoming and outgoing dependenc
-ies.
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-———-
-\end_layout
-
-\begin_layout Plain Layout
-We introduce an integration between the ideas from FRP and OOP.
- OOP is about to seperate concern.
- FRP is about to automate data dependencies.
- With the integration we've introduced, developers are no longer constrained
- in their ability to separate data dependencies.
- They can now use multiple objects to manage graphs of dependencies, with
- the freedom to connect these graphs in any way they see fit.
- While it is clear tat it has impact in the update process, each subsequent
- value, to any of the varables, from any of calculations or external input,
- will override the effect of a previous value.
- So that the variables' values are consistent according to the latest events
- and their effects.
-\end_layout
+.
+ In the original FRP, predictability is achieved through a property known
+ as functional purity, which ensures that the output of a function depends
+ solely on its input and not on any external factors.
+ In our variant of FRP, we maintain this property by guaranteeing that "the
+ same sequence of events produces the same results, regardless of the timing
+ of those events" 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_body

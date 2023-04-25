@@ -125,12 +125,7 @@ name "chap:Method"
 \begin_layout Standard
 The present challenge can be represented as a means of integrating the Object-Or
 iented Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
- Reactive variables, as part of an object's interface, can be linked to
- external calculations without considering hidden dependencies.
- These dependencies may arise from other calculations linked to the object's
- variables by other concerns, whether within the object itself or among
- other consumers, as is currently the case.
- We define such variables type with the name 
+ 
 \begin_inset Formula $\RIVar$
 \end_inset
 
@@ -138,8 +133,7 @@ iented Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
 \series bold
  Reactive Instance Variable
 \series default
-.
- This type represents both a 
+ represents both a 
 \emph on
 reactive
 \emph default
@@ -148,6 +142,11 @@ reactive
 instance
 \emph default
  variable.
+ This variable can be associated with calculations without considering hidden
+ dependencies, because dependencies can be internal, and association can
+ be external.
+ Thus, the challenge lies in developing an assignment operator that can
+ be a well-specified contract.
 \end_layout
 
 \begin_layout Section
@@ -157,7 +156,7 @@ name "sec:VariantFRP"
 
 \end_inset
 
-Introduction to the New Variant of FRP
+Introduction to a New Variant of FRP
 \end_layout
 
 \begin_layout Standard
@@ -3865,8 +3864,8 @@ Consistency
 
 \begin_layout Standard
 The evaluation model dictates that any subsequent value, whether from calculatio
-ns or external input, only overrides the effects of a variable's previous
- value, which refers to the values in the updates caused by that value.
+ns or external input, overrides the effects of a variable's previous value,
+ which refers to the values in the updates caused by that value.
  This ensures that all variables remain consistent based on the latest specified
  values.
  However, if a defined formula relies on input variables that have not been

@@ -1487,131 +1487,6 @@ ref{line:formula}
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{UI}{User Interface}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{Duration}{Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{Drug}{Drug}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[3]{Dose}{Dose}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{OnNext(10)}{Duration}{}
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{OnNext(100)}{Drug}{}
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Drug}{OnNext(10)}{Dose}{}
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:direct-interaction-between-variables"
-
-\end_inset
-
-TBD.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The framework empowers OOP framework with enhanced extensibility.
  The unique concept of assignments adding the source to the variable, and
  allowing assignments to be hidden, results in an "extend only" operator.
@@ -2564,7 +2439,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2574,14 +2449,152 @@ status open
 
 
 \backslash
-begin{center}  
+begin{center}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{tikzpicture}  
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.7
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{A}{A}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{B}{B}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{C}{C}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[3]{D}{D}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{next(1)}{B}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{next(1)}{D}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{next(1)}{C}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{C}{next(2)}{D}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.2
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
@@ -2618,59 +2631,51 @@ node[shape=circle,draw=black] (D) at (3,3) {D};
 
 \begin_layout Plain Layout
 
+
+\backslash
+node[scale=0.6] at ($(B) + (0,1)$) {B:=A+1};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (A) edge  (B);
+node[scale=0.6] at ($(C) + (0,1)$) {C:=A+1};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (A) edge  (C);
+node[scale=0.6] at ($(D) + (0,1)$) {D:=B+C};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (B) edge  (D);
+path[-{Triangle[scale=1]}] (A) edge (B);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-path[-{Triangle[scale=1]}] (C) edge  (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(B) + (0,1)$)    {B:=A+1};
+path[-{Triangle[scale=1]}] (A) edge (C);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[scale=0.6] at ($(C) + (0,1)$)    {C:=A+1};
+path[-{Triangle[scale=1]}] (B) edge (D);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-node[scale=0.6] at ($(D) + (0,1)$)    {D:=B+C};
+path[-{Triangle[scale=1]}] (C) edge (D);
 \end_layout
 
 \begin_layout Plain Layout
@@ -2686,9 +2691,13 @@ end{tikzpicture}
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
 
 \backslash
-end{center}  
+end{center}
 \end_layout
 
 \end_inset
@@ -2706,28 +2715,18 @@ name "fig:Glitch-1-1"
 
 \end_inset
 
-A spanning graph for a chain of computations produced from updating a variable
- 
+
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
+The left sequence diagram depicts the DFS traversal during the evaluation
+ process that results from updating the variable 
 \backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
-.
- The traversal order is 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
+lstinline{A}.
+ On the right, the corresponding spanning graph is shown.
+ The traversal order of the graph is (
 \backslash
 lstinline{A},
 \backslash
@@ -2737,18 +2736,7 @@ lstinline{D},
 \backslash
 lstinline{C},
 \backslash
-lstinline{D})
-\end_layout
-
-\end_inset
-
- while the expected order is 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
+lstinline{D}), but the expected order is (
 \backslash
 lstinline{A},
 \backslash
@@ -2756,12 +2744,12 @@ lstinline{B},
 \backslash
 lstinline{C},
 \backslash
-lstinline{D})
+lstinline{D}).
 \end_layout
 
 \end_inset
 
-.
+
 \end_layout
 
 \end_inset

@@ -103,7 +103,7 @@
 \begin_body
 
 \begin_layout Chapter
-Motivation and Background
+Background and Motivation
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Background"
@@ -114,9 +114,7 @@ name "chap:Background"
 \end_layout
 
 \begin_layout Standard
-The main focus of this work is on front end aplication , in developing fields
- that are automatically filled based on other fields, such as the drug administr
-ation form showcased in 
+In 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-calculations"
@@ -126,1918 +124,30 @@ noprefix "false"
 
 \end_inset
 
-.
- These applications are a type of reactive application and can be implemented
- using three conventional approaches
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-We have implemented the method of dividing the subject as described in https://w
-ww.infoq.com/presentations/reactive-programming-evolution/.
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Section
-Motivation
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Motivating-Example"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-The goal is to divide a complex frontend application into manageable micro
- frontends, with the ability to automatically fill fields in one microfrontend
- based on information from others.
- This is necessary for cases where one field is dependent on another, such
- as in a form.
- To achieve efficient and automated data entry, the micro frontends must
- communicate and share information about specific fields.
- This requires them to agree on contracts that expose only the minimum required
- information about these fields.
-\end_layout
-
-\begin_layout Plain Layout
-As an example, consider a drug administration form that is split into two
- micro frontends: one for the materials being injected into the patient,
- and another for the pump data when these materials enter the patient's
- bloodstream.
- If the rate and duration of injection are changed, the volume value in
- the first micro frontend should also change accordingly.
- Additionally, updating the drug should be based on the values of the dose
- and duration fields.
- According to the context (domain), the pump depends on the meterial to
- execute.
- We expect to design it, to declare those volume and drug calculations in
- the pump context.
-\end_layout
-
-\begin_layout Plain Layout
-The fields in this example, depend on each other, so that changing the drug
- might lead to changing it again, because there is a cycle in the dependencies.
-\end_layout
-
-\begin_layout Plain Layout
-———
-\end_layout
-
-\begin_layout Plain Layout
-Our objective is to break down a large and complex frontend application
- into manageable micro frontends.
- Specifically, we want to enable the automatic filling of fields in one
- microfrontend based on information from other micro frontends, such as
- filling out a form where one field is dependent on another.
- This requires communication between the micro frontends to share information
- about specific fields, allowing for more efficient and automated data entry.
- To achieve this, the micro frontends must agree on contracts that expose
- only the minimum required information about these fields.
-\end_layout
-
-\begin_layout Plain Layout
-In the drug administration example, we seperate the form into two panels,
- the first represent materials injected to a patient, the second represent
- pump data, when the matrials are injected into the patient blood stream.
- In the example, chaning rate and duration should lead the volume's value
- to change.
- Also the drug can be updated according to the values of dose and duration.
- As the minimum required information for the micro fronrtends to expose,
- the first microfronend should expose the volume and drug to be update according
- to the fields they should depend on.
-\end_layout
-
-\begin_layout Plain Layout
-———–
-\end_layout
-
-\begin_layout Plain Layout
-We try to seperate a large complex front end appliaction to managable micro
- front ends.
- We focus on microfroneend s that need to comunicate, because they need
- to automaticaly fill fields of one microfrontend based on other fields
- from other micro frontends.
- To effectfuly seperate the application, the micro fronends aggree about
- contracts, that will expose minimum information.
-\end_layout
-
-\begin_layout Plain Layout
-If micro frontend expose their internals, then the seperation is not effectful.
- This is according to the ISP principle, when code in one micro frontend
- use information from another micro fronend, it depends on this information,
- and we want minimum dependencies (accodring to the ISP).
- The micro frontneds should design contracts, how to comunicate.
-\end_layout
-
-\begin_layout Plain Layout
-In the best pracitce, the micro frontends should depend on minimum
-\end_layout
-
-\begin_layout Plain Layout
-This comunication might lead the mico frontend, to expose knowledge
-\end_layout
-
-\begin_layout Plain Layout
-———
-\end_layout
-
-\begin_layout Plain Layout
-Micro frontends are an architectural pattern for building web applications
- where the frontend of the application is composed of smaller, independently
- deployable, and scalable components.
- Each micro frontend represents a distinct feature or part of the user interface
-, and each can be developed and deployed independently.
- The key idea behind micro frontends is to break down large monolithic frontend
- codebases into smaller, more manageable pieces.
- This allows teams to work on different parts of the application independently,
- which can lead to faster development times and easier maintenance.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Large complex front end applications typicaly have UI elements that change
- dynamically based on the value entered in another field.
-\end_layout
-
-\begin_layout Plain Layout
-In UI applications, dependent fields refer to fields or UI elements that
- change dynamically based on the value entered in another field.
- For example, if a user selects a particular option in a dropdown menu,
- it may cause other fields to change.
-\end_layout
-
-\begin_layout Plain Layout
-There are applications that need to update fields according to other fields
- and in response to their changes.
- This functionality reminds the abstraction of reactive variables, where
- updating variables is tangled to the task of updating subscribers and dependant
- variables.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-The following UI application (
+, we see an example of interdependent fields in a front-end application.
+ The drug dosage is calculated based on the medication's concentration and
+ the volume of fluid.
+ Similarly, the volume of fluid is calculated based on the medication's
+ dosage and rate, while the medication's concentration is calculated based
+ on the volume of fluid and duration.
+ When fields are interdependent like this, updating one field requires modifying
+ all the locations where the other fields are updated, creating a centralized
+ maintenance model.
+ This is demonstrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Drug-calculations-1"
+reference "fig:Centerlized-Calculation"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-) handles drug administration.
- It observes the fields' change events, once a value is changed, dependant
- fields are calculated and presented.
- The application is a prototype of a small part from an existing application.
- The goal is to reduce the complexity existing in the traditional application.
-\end_layout
-
-\begin_layout Plain Layout
-In order to simplify the application, we seperate the model to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
-.
- Also the UI is seperated to micro-frontends 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "peltonen2021motivations"
-literal "false"
-
-\end_inset
-
- respectively.
- The architectural design is illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-calculations-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- refers to giving 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s content
-\end_layout
-
-\end_inset
-
-.
- injecting medicines into a patient's bloodstream.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{|c c c| }    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Drug & Concentration & VolumeOfFluid 
-\backslash
-
-\backslash
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-framebox(35,15){
-\backslash
-textit{100}} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{0.33}} & 
-\backslash
-framebox(35,15){300} 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline  
-\end_layout
-
-\begin_layout Plain Layout
-
- Dose & Duration & Rate 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{30}} 
-\backslash
-
-\backslash
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-calculations-1"
-
-\end_inset
-
-Drug administration user interface.
- The user-defined values are in a regular typeface and the calculated values
- are in an italic typeface.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
- (C) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- micro-frontend] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
- (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
- Domain Object] (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Design of the drug administration application, showcasing observer interaction
- through dashed lines.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Drug Administration Data Model
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- refers to a medical device used to deliver fluids with medication into
- a patient’s body in a controlled manner.
- Accordingly, we model 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- class with contained 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{IBag}
-\end_layout
-
-\end_inset
-
- representing the connected bag, containing 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- relates to amount of medication administered to a patient, (e.g.
- 100 mg).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- relates to the fluid volume mixed with the drug (e.g., 300 ml).
- Based on the existing bag, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- contains the data related to giving the bag's content over time.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Rate}
-\end_layout
-
-\end_inset
-
- relates to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- flow administered into the patient’s body per time unit (e.g., 30 ml per
- hour).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- relates to the dosage, which is the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- administered into the patient’s body per time unit (e.g., 10 mg per hour).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
- relates to the duration from starting the injection until stopping it.
- According to the architectural design and as visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Calculation-spread-over-objects-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the fields in the user interface can trigger changes to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- which trigger changes also to the bag.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- interacts with the bag indirectly using an interface.
-\end_layout
-
-\begin_layout Plain Layout
-In order to achive our goal to seperate the drug administration model, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- and its bag will be loosely coupled.
- The bag will be defined as an interface, and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- will only send messages to it, to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
- Such as example is visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Calculation-spread-over-objects-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- When 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- send a message to the bag, it should not be aware of any internal information
- related to the bag.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-, in addition to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-, contains also 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- relating to the amount of the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- per 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- (e.g.
- 0.33 mg/ml).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- should not be aware of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- interacts with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- by the interface it is implemented, named 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{IBag}
-\end_layout
-
-\end_inset
-
-.
- The data model and the relationships are visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration-UML"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{UI}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{Pump}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{Bag}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Duration=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Drug=100}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Dose=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Calculation-spread-over-objects-1-1"
-
-\end_inset
-
-Calculation procedure spread over seperated objects.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[scale=0.8]%[show  background  grid]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{interface}{IBag}{0,-5}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Drug}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{VolumeOfFluid}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{interface}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}[text width=8 cm]{Pump}{0,0}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Dose}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Rate}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-composition{Pump}{TheBag}{}{IBag}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}{Bag}{0,-10}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-implement {IBag}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Concentration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-Administration-UML"
-
-\end_inset
-
-Drug administration class diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Unpredictable Calculation
-\end_layout
-
-\begin_layout Plain Layout
-In the original application, the calculation is centerlized.
- Whenever a user sets a new value to any of the fields, a calculation procedure
- (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Centerlized-Calculation-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) is executed.
- The procedure consists of branches according to the user-cases, in each
- branch there are three values being used to calculate the other values.
- In contrast, following the seperation, the calculations task is spread
- over 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-In the cenario visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- the user sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-10
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-, in response 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is calculated to 100.
- The user then sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- to 300, in response 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- is calculated to 0.33.
- Then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is calculated to 99 unexpectedly.
-\end_layout
-
-\begin_layout Plain Layout
-The unpredictable change has two reasons.
- First, in the update of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- 100/300 was rounded, and lost information in the process.
- This caused 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be calculated to 0.33, which caused 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- to be calculated to 99.
- Second, there was a cycle: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- was updated according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, which was updated according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited triple is of Dose,  Duration, and VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Centerlized-Calculation-1"
-
-\end_inset
-
-Part of a centralized calculation procedure
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{UI}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{Pump}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{Bag}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Duration=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Drug=100}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Dose=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Concentration=0.33}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Drug=99}{Bag}{}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Rate=30}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}        
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Unpredictable-Calculation"
-
-\end_inset
-
-Calculation procedure spread over seperated objects producing unpredictable
- calculation.
- The user set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- to 100 and it has been changed unexpectedly to 99.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Summary
-\end_layout
-
-\begin_layout Plain Layout
-We tried to seperate an application unsuccessfully.
- The calculations are defined separately in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
- Also the runtime is seperated, managing the updates on top of the objects'
- interactions (standard calls).
- But the resulted calculations does not fit the requirements.
-\end_layout
-
-\end_inset
-
-
+, where all the calculation logic is centralized and tightly coupled, making
+ it harder to isolate the code for each field.
+ As a result, making changes to one field can have unintended consequences
+ for other fields, making it harder to reason about the behavior of the
+ application as a whole.
 \end_layout
 
 \begin_layout Standard
@@ -2219,168 +329,6 @@ lstinline{Duration} indicates the duration of the injection, from the start
 
 \end_layout
 
-\begin_layout Section
-Events update the state
-\end_layout
-
-\begin_layout Standard
-In object-oriented programming, updating variable A in response to changes
- in variable B can be challenging if the relevant locations are inaccessible.
- The observer pattern provides a solution to this problem by allowing objects
- to be extended while hiding their internals.
- Object X, which owns B, provides a mechanism to register code that will
- be executed whenever B changes.
- This concept is also known as events, and in the context of systems, it
- is often referred to as hooks.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
- (C) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- micro-frontend] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
- (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
- Domain Object] (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Design of the drug administration application, showcasing observer interaction
- through dashed lines.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The provided strategy enables many patterns.
- One such strategy is to develop a single calculation procedure that can
- be implemented and called in response to field change events.
- However, this approach has the disadvantage of recomputing fields even
- when they do not need to be recomputed, which can lead to performance issues
- and unnecessary re-rendering of field values that have not been updated.
- Furthermore, a single calculation procedure can become overly complex and
- difficult to maintain as the application grows.
-\end_layout
-
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -2499,12 +447,43 @@ name "fig:Centerlized-Calculation"
 
 \end_inset
 
-Part of a centralized calculation procedure
+Example calculation logic for interdependent fields in a drug administration
+ front-end application.
+ The code shows how to calculate the values of the fields Drug, Concentration,
+ VolumeOfFluid, Dose, Duration, and Rate based on different combinations
+ of three input fields.
+ When fields are interdependent like this, updating one field requires modifying
+ all the locations where the other fields are updated, creating a centralized
+ maintenance model.
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Events
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The OOP paradigm provides an alernative by the observer pattern.
+ Objects can provide observers to register, to later execute tehri code,
+ whenever variables are updated.
+ Similary, objects can expose an OnChange event, that will be used to eceute
+ code that update dependant variables.
+ Cross systems, there are sometimes hooks, to call external code in response
+ to a change in the data.
+ 
 \end_layout
 
 \end_inset
@@ -2513,8 +492,22 @@ Part of a centralized calculation procedure
 \end_layout
 
 \begin_layout Standard
-In practical situations, updating dependent fields in response to OnChange
- events of the fields they rely on can be difficult, as seen in 
+The Observer pattern in Object-Oriented Programming (OOP) can help mitigate
+ the issue of interdependent fields in a front-end application.
+ In OOP, objects contain variables that are equivalent to the fields in
+ UI applications, as well as frondends can be seperated to microfrontends.
+ By using the Observer pattern or events, it is possible to register code
+ to be executed when a variable is changed.
+ As a result, there is no longer a need to manually update the code that
+ updates the dependent variables.
+ This provides the ability to hide logic, which can help to separate concerns
+ and make code easier to manage.
+\end_layout
+
+\begin_layout Standard
+In practice, it has been observed that relying solely on onchange events,
+ based on object contracts can result in unexpected updates and values,
+ as depicted in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Calculation-spread-over-objects-1"
@@ -2525,10 +518,61 @@ noprefix "false"
 \end_inset
 
 .
- Sometimes, even when the OnChange event is triggered, recalculating the
- field may not be necessary, and this decision may depend on certain details
- that are intended to remain inaccessible, like the origin of the chain
- of updates.
+ To address this, developers often add logic to determine when to update
+ variables.
+ To mitigate this challenge, many modern applications incorporate tools
+ such as XState (https://xstate.js.org) or Redux 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+, which model events as state transitions between logical states 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
+
+\end_inset
+
+ derived from variable values.
+ These tools ensure that variables are updated based on the application
+ state when an onchange event occurs, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This highlights a weakness in object-oriented programming, where objects
+ that encapsulate internal state and expose events might become tightly
+ coupled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The provided strategy enables many patterns.
+ One such strategy is to develop a single calculation procedure that can
+ be implemented and called in response to field change events.
+ However, this approach has the disadvantage of recomputing fields even
+ when they do not need to be recomputed, which can lead to performance issues
+ and unnecessary re-rendering of field values that have not been updated.
+ Furthermore, a single calculation procedure can become overly complex and
+ difficult to maintain as the application grows.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2767,31 +811,6 @@ lstinline{Concentration}.
 \end_layout
 
 \begin_layout Standard
-This issue exposes a weakness in OOP where objects that encapsulate internal
- state and expose events can become tightly coupled.
- To address this, many modern applications explicitly model this coupling.
- XState (https://xstate.js.org) and Redux 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
- model applications using logical states 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1995statement"
-literal "false"
-
-\end_inset
-
-, with events represented as transitions between states.
- Actions that update the state are attached to transitions to ensure they
- are executed at the right time.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -2984,7 +1003,36 @@ name "fig:Statechart"
 
 \end_inset
 
-Statechart modeling the execution of 
+This statechart models the handling of events to calculate the value of
+ x based on changes in the variables y and z.
+ The statechart consists of states S1, S2, S3, and S4, with transitions
+ triggered by events 'y changed' and 'z changed'.
+ Whenever either y or z changes, the calculation of x is triggered.
+ This statechart serves as an illustration of a model where events are not
+ used to separate concerns in objects.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2992,7 +1040,116 @@ status open
 
 
 \backslash
-lstinline{x:=y+z}
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
+ (C) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ micro-frontend] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
+ (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ Domain Object] (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Design of the drug administration application, showcasing observer interaction
+ through dashed lines.
 \end_layout
 
 \end_inset
@@ -3011,10 +1168,218 @@ lstinline{x:=y+z}
 \end_layout
 
 \begin_layout Section
-Reactive Programming (Processing Events streams)
+DataFlow
 \end_layout
 
 \begin_layout Standard
+Frameworks based on the dataflow paradigm allow for the explicit specification
+ of data dependencies, which were previously implicit.
+ In the Functional Reactive Programming (FRP) paradigm, data dependencies
+ are constructed using pure functions.
+ Alternatively, frameworks for event streams, like ReactiveX, enable the
+ application of functions to streams, where each stream produces its values
+ based on the values of the input streams.
+ It is commonly suggested that in order to ensure predictability, the graph
+ should not contain cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The dataflow paradigm provide frameworks to explicity specify the data dependenc
+ies, that previously specified implicity.
+ In the FRP paradigm data dependencies are composed as pure functions.
+ Alternatively, events streams frameworks, such as ReactiveX, enable to
+ function over the streams, such that each each stream produces its values
+ depending on the values of the input streams.
+ It is often claimed that, in order to provde 
+\emph on
+predictability,
+\emph default
+ the graph should be acyclic.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The observer pattern can be used with the iterator pattern to provide observable
+ stream.
+ Observables streams push values notifications to their subsribers.
+ On top of it, operators over observable stream, produce values to subseuent
+ subscribers, based on the input observable streams.
+\end_layout
+
+\begin_layout Plain Layout
+For example, in ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val+1))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, in order to ensure that the graph is acyclic, developers must ensure
+ that no node has a path leading back to itself.
+ This requires the developer to have knowledge of data dependencies and
+ to detect existing paths before adding new formulas that involve existing
+ variables.
+ If a cycle is detected, the developer should avoid adding the new formula
+ to the graph to prevent the creation of a cycle.
+ For instance, if there are already two formulas, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y:=Z+1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z:=X-1}
+\end_layout
+
+\end_inset
+
+, and the developer wants to add a third formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+1}
+\end_layout
+
+\end_inset
+
+, they must have access to all three formulas and detect the existing cycle
+ among nodes 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y}
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+.
+ If a calculation is linked to a variable, but the variable has dependencies
+ that fall under a separate concern, it is linked without considering those
+ dependencies.
+ This means that the graph may not necessarily be acyclic.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+While in the events paradigm, developers 
+\emph on
+implicitly
+\emph default
+ create a 
+\emph on
+data dependency graph
+\emph default
+, frameworks such the ones of FRP provides this explicity.
+\end_layout
+
+\begin_layout Plain Layout
+The FRP paradigm, enable to express reactive variables as pure functions,
+ so that the data dependemcy management can be predictable composed, depending
+ on the 
+\emph on
+referential transparency
+\emph default
+ property.
+\end_layout
+
+\begin_layout Plain Layout
 In the FRP paradigm reactive variables are defined as functions over other
  reactive variables, while the runtime maintains the variables' values.
  The runtime uses a directed acyclic graph data structure 
@@ -3028,7 +1393,7 @@ literal "false"
  to manage the updates.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 accordingly, using a directed acyclic graph data structure 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3152,7 +1517,7 @@ literal "false"
 on.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -3273,7 +1638,7 @@ lstinline{X:=Y+Z}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -3438,556 +1803,13 @@ A data dependency graph, that in push-based evaluation, might have glitches.
 
 \end_layout
 
-\begin_layout Standard
-Although the high level abstraction, the events concept still exist in the
- paradigm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push,Kamina2018,blackheath2016functional,proencca2017quality"
-literal "false"
-
-\end_inset
-
-.
- In the approach used by ReactiveX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- and Sodium 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, functions over 
-\emph on
-events streams
-\emph default
- are declared, preserving the referential transparency property.
- Actualy reactive variables can be represented by events streams representing
- the varying value over time, similar to a list 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional,schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- However, there is a big difference between the original reactive variable
- to this representation.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-matrix[row sep=0.5cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (1,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (2,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
 \end_inset
 
 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Streams-of-values-1"
-
-\end_inset
-
-An events stream representing a varying value.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In addition to the more verbose syntax 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- achieved by events streams, the mechanism is very different.
- Functions over events streams are typicaly not handled by a special runtime
- with the graph data structure.
- Instead, the events streams are 
-\emph on
-observables
-\emph default
-, with 
-\emph on
-operators
-\emph default
- over them, that subscribe and produce events streams.
- Accordingly objects can have reactive variables as part of their interface,
- while the values are propagated according to the events mechanism.
- Generally speaking, reactive variables as events streams does no depend
- on the madiator exists in the original FRP, because they interact directly.
-\end_layout
-
-\begin_layout Standard
-The madiator has access to all the variables and formulas, so it can provide
- more predictable behavior.
- For example, if one variable has several updates caused by a single update,
- such as in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Glitch"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, that updating 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- leads to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C}
-\end_layout
-
-\end_inset
-
-.
- In case that the variables interact directly, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{D}
-\end_layout
-
-\end_inset
-
- will have an incorrect update named 
-\emph on
-glitch.
- 
-\emph default
-In contrast, a madiator has the knowledge of the special construction to
- handle the updates correctly.
- So 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{D}
-\end_layout
-
-\end_inset
-
- will be updated only when both 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C}
-\end_layout
-
-\end_inset
-
- has been updated.
- Even though the madiator can provide more predictable behavior, there are
- sometimes requirements that prefer directed interaction over a madiator.
- For example, typical distributed applications prefer directed interacton
- to reduce perfomance.
-\end_layout
-
-\begin_layout Standard
-In the FRP paradigm with the distributed settings, variables can be located
- in different processes or hosts 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,shibanai2018distributed,drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-.
- Using solutions like XFRP
-\emph on
- 
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand citep
-key "shibanai2018distributed"
-literal "false"
-
-\end_inset
-
-, developers declare functions over reactive variables, and the compiler
- generates a distributed application, that handles the updates according
- to the specified formulas.
-\end_layout
-
-\begin_layout Subsection
-Integrate with Objects
-\end_layout
-
-\begin_layout Standard
-ReactiveX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
- and REScala 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
- provide reactive variables as part of the object's interface.
- Existing implementations provide two methods for assigning reactive variables
- externally, both have difficulties in compatibility with FRP.
- ReactiveX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
- and REScala 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
- provide reactive variables as standard data types, causing reactive variables
- being able to be assigned through an interface (by setters).
- However, this strategy is contrasted with the concept of reactive variables.
- The concept of reactive variables originates from the field of 
-\emph on
-Functional Reactive Programming
-\emph default
- (FRP), that is based on 
-\emph on
-Functional Programming
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-.
- According to FRP, the programs should “describe things that exist, rather
- than actions that have happened or are to happen (i.e., what is, not what
- does)” 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-.
- In contrast, in ReactiveX and REScala, an assigment causes to stop the
- old source, and then start to respond to new source.
- In general, seperating the variables and expressions between interfaces
- and consumers seems incompatible with FRP, because reactive variables are
- defined by their functions over other reactive variables, or by their values
- over time 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In the second method, reactive variables are accessed externally by injecting
- events handlers.
- In events handlers, we can set inputs to reactive variables in response
- other reactive variables' updates.
- For example, in ReactiveX the statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A.Subscribe(val=>B.OnNext(val))}
-\end_layout
-
-\end_inset
-
- produces the meaning of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B}
-\end_layout
-
-\end_inset
-
-.
- This method 
-\emph on
-adds
-\emph default
- the formula in addition to the existing formulas handled by the runtime
- of the FRP solution.
- But in the current implementation, the formula is activated externally,
- without the advantages that the paradigm of FRP should provide.
- FRP aims to provide predictability and composability.
- In contrast, adding formulas externally, by integration between FRP and
- imperative programming, might cause infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive,blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- For example, a change in a reactive variable, might execute an event handler,
- causing the reactive variable to change.
-\end_layout
-
-\begin_layout Standard
-(REScala is a library in Scala programming languauge, that supports reactive
- variables under the name 
-\emph on
-signals
-\emph default
-, being part of the object interface.
- Instead of declaring events and invoking them when variables change, the
- library enables the developers to declare the data dependencies.
- The signals interact with the inputs of the user interfaces, because signals
- changes and events can be converted between each other.
- REScala is the result of an active research in FRP, and adopts recent updates
- in the field.
-\end_layout
-
-\begin_layout Standard
-ReactiveX is another library, developed first in C# programming langaue
- and adopted in many others programming langugaes.
- This library implements an observable that updates its subscribers in a
- form of an iterator.
-\end_layout
-
-\begin_layout Standard
-The values that it updates the subscribers are values that it 
-\end_layout
-
-\begin_layout Standard
-also supports reactive variables diffrently, but they are also a part of
- the objects interface.
-\end_layout
-
-\begin_layout Standard
-ReactiveX important concept is the observable which is similar to events
- stream.
- )
 \end_layout
 
 \begin_layout Section
-Constraints (the state satisy constraints)
+Constraints
 \end_layout
 
 \begin_layout Standard
@@ -4595,11 +2417,399 @@ lstinline{A=B}
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+title(observable streams)....Although the high level abstraction, the events
+ concept still exist in the paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push,Kamina2018,blackheath2016functional,proencca2017quality"
+literal "false"
+
+\end_inset
+
+.
+ In the approach used by ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and Sodium 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, functions over 
+\emph on
+events streams
+\emph default
+ are declared, preserving the referential transparency property.
+ Actualy reactive variables can be represented by events streams representing
+ the varying value over time, similar to a list 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ However, there is a big difference between the original reactive variable
+ to this representation.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (1,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (2,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Streams-of-values-1"
+
+\end_inset
+
+An events stream representing a varying value.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In addition to the more verbose syntax 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ achieved by events streams, the mechanism is very different.
+ Functions over events streams are typicaly not handled by a special runtime
+ with the graph data structure.
+ Instead, the events streams are 
+\emph on
+observables
+\emph default
+, with 
+\emph on
+operators
+\emph default
+ over them, that subscribe and produce events streams.
+ Accordingly objects can have reactive variables as part of their interface,
+ while the values are propagated according to the events mechanism.
+ Generally speaking, reactive variables as events streams does no depend
+ on the madiator exists in the original FRP, because they interact directly.
+\end_layout
+
+\begin_layout Plain Layout
+The madiator has access to all the variables and formulas, so it can provide
+ more predictable behavior.
+ For example, if one variable has several updates caused by a single update,
+ such as in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, that updating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ leads to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C}
+\end_layout
+
+\end_inset
+
+.
+ In case that the variables interact directly, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{D}
+\end_layout
+
+\end_inset
+
+ will have an incorrect update named 
+\emph on
+glitch.
+ 
+\emph default
+In contrast, a madiator has the knowledge of the special construction to
+ handle the updates correctly.
+ So 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{D}
+\end_layout
+
+\end_inset
+
+ will be updated only when both 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C}
+\end_layout
+
+\end_inset
+
+ has been updated.
+ Even though the madiator can provide more predictable behavior, there are
+ sometimes requirements that prefer directed interaction over a madiator.
+ For example, typical distributed applications prefer directed interacton
+ to reduce perfomance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Conclusion
 \end_layout
 
 \begin_layout Standard
+Developers may create a data dependency graph explicitly or implicitly in
+ front-end applications that automatically populate fields based on other
+ fields.
+ However, in some cases, due to the application's data dependencies and
+ predictability requirements, a centralized or monolithic graph may be necessary.
+ This requires the data dependency definitions to be located in a single
+ code base that cannot be separated, or relying on the runtime to couple
+ with an intermediary for variable updates.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In front-end applications, where fields are automatically filled based on
+ other fields, the developers explicity or implicitly create one centeral
+ 
+\emph on
+data dependency graph
+\emph default
+ in which updates to variables recursively trigger updates to dependent
+ variables.
+ This graph
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The existing frameworks suggest seperating between declating dependencies
+ to maintaining them, between diffrent acyclic graphs only if ther are unconnect
+ed or that they produced acyclic graph,
+\end_layout
+
+\begin_layout Plain Layout
 There are FRP runtimes that are based on the traditional simple methods
  calls, and are unpredictable.
  Others more predictable solutions use a madiator with the added complexity
@@ -4607,6 +2817,11 @@ There are FRP runtimes that are based on the traditional simple methods
  There are FRP runtimes for distributed applications that do not use a madiator,
  but as the FRP paradigm, they support only the sets of formulas producing
  directed acyclic graphs.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

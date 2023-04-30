@@ -350,5 +350,290 @@ lstinline{A=B+C}
 
 \end_layout
 
+\begin_layout Standard
+—————-
+\end_layout
+
+\begin_layout Subsubsection
+Integrate with Objects
+\end_layout
+
+\begin_layout Standard
+ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+ provide reactive variables as part of the object's interface.
+ Existing implementations provide two methods for assigning reactive variables
+ externally, both have difficulties in compatibility with FRP.
+ ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+ provide reactive variables as standard data types, causing reactive variables
+ being able to be assigned through an interface (by setters).
+ However, this strategy is contrasted with the concept of reactive variables.
+ The concept of reactive variables originates from the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP), that is based on 
+\emph on
+Functional Programming
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ According to FRP, the programs should “describe things that exist, rather
+ than actions that have happened or are to happen (i.e., what is, not what
+ does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, in ReactiveX and REScala, an assigment causes to stop the
+ old source, and then start to respond to new source.
+ In general, seperating the variables and expressions between interfaces
+ and consumers seems incompatible with FRP, because reactive variables are
+ defined by their functions over other reactive variables, or by their values
+ over time 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the second method, reactive variables are accessed externally by injecting
+ events handlers.
+ In events handlers, we can set inputs to reactive variables in response
+ other reactive variables' updates.
+ For example, in ReactiveX the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+.
+ This method 
+\emph on
+adds
+\emph default
+ the formula in addition to the existing formulas handled by the runtime
+ of the FRP solution.
+ But in the current implementation, the formula is activated externally,
+ without the advantages that the paradigm of FRP should provide.
+ FRP aims to provide predictability and composability.
+ In contrast, adding formulas externally, by integration between FRP and
+ imperative programming, might cause infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive,blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+\end_layout
+
+\begin_layout Standard
+(REScala is a library in Scala programming languauge, that supports reactive
+ variables under the name 
+\emph on
+signals
+\emph default
+, being part of the object interface.
+ Instead of declaring events and invoking them when variables change, the
+ library enables the developers to declare the data dependencies.
+ The signals interact with the inputs of the user interfaces, because signals
+ changes and events can be converted between each other.
+ REScala is the result of an active research in FRP, and adopts recent updates
+ in the field.
+\end_layout
+
+\begin_layout Standard
+ReactiveX is another library, developed first in C# programming langaue
+ and adopted in many others programming langugaes.
+ This library implements an observable that updates its subscribers in a
+ form of an iterator.
+\end_layout
+
+\begin_layout Standard
+The values that it updates the subscribers are values that it 
+\end_layout
+
+\begin_layout Standard
+also supports reactive variables diffrently, but they are also a part of
+ the objects interface.
+\end_layout
+
+\begin_layout Standard
+ReactiveX important concept is the observable which is similar to events
+ stream.
+ )
+\end_layout
+
+\begin_layout Standard
+————————–
+\end_layout
+
+\begin_layout Standard
+The idea of combining reactive variables from FRP to being instance variables
+ in OOP is not new.
+ REScala and ReactiveX has also reactive variable being an instance variable.
+ Anyway, the new model has several additional properties:
+\end_layout
+
+\begin_layout Itemize
+The model depends only on the basic objects, as a tidy interface to clients,
+ consisting of instance variables and methods.
+ ReactiveX is also based on the basic objects, however it does not have
+ the referential transparency (as in the next property), therefore produces
+ non predictable results in case of cycles and merges 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+The model has the referential transparency property, such that each of the
+ variables has a function declaring its stream of values according to the
+ input provided.
+ This property is basic in FRP, however according to REScala, it requires
+ a mediator to observe and update the variables, not just the objects model,
+ as the previous property.
+\end_layout
+
+\begin_layout Itemize
+The model corresponds to the concept of inheritance with subtyping.
+ Because assigning a variable that belongs to a base class, 
+\emph on
+adds
+\emph default
+ a dependency.
+ This is in contrast to REScala and ReactiveX, there the same action 
+\emph on
+replaces
+\emph default
+ a dependency.
+\end_layout
+
+\begin_layout Section
+distributed
+\end_layout
+
+\begin_layout Standard
+In the FRP paradigm with the distributed settings, variables can be located
+ in different processes or hosts 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,shibanai2018distributed,drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ Using solutions like XFRP
+\emph on
+ 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "shibanai2018distributed"
+literal "false"
+
+\end_inset
+
+, developers declare functions over reactive variables, and the compiler
+ generates a distributed application, that handles the updates according
+ to the specified formulas.
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+quarp
+\end_layout
+
+\begin_layout Section
+glitch/simulanous events/merge
+\end_layout
+
+\begin_layout Section
+constraints?
+\end_layout
+
 \end_body
 \end_document

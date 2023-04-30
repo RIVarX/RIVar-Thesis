@@ -126,16 +126,14 @@ predictability
 referential transparency
 \emph default
  property of defining data dependencies as composed pure functions.
-\end_layout
-
-\begin_layout Standard
-However, this requires the graphs to be acyclic leading a limitation in
+ However, this requires the graphs to be acyclic leading a limitation in
  
 \emph on
 separation of concerns.
+\end_layout
 
-\emph default
- In order to ensure that the graph is acyclic, developers must ensure that
+\begin_layout Standard
+In order to ensure that the graph is acyclic, developers must ensure that
  no node has a path leading back to itself.
  This requires the developer to have knowledge of data dependencies and
  to detect existing paths before adding new formulas that involve existing

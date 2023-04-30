@@ -400,6 +400,16 @@ filename "Method.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
+filename "Implementation.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
 filename "Evaluation.lyx"
 
 \end_inset
@@ -410,7 +420,7 @@ filename "Evaluation.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Implementation.lyx"
+filename "RelatedWork.lyx"
 
 \end_inset
 

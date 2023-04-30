@@ -143,7 +143,7 @@ instance
 \emph default
  variable.
  This variable can be associated with calculations without considering hidden
- dependencies, because dependencies can be internal, and association can
+ dependencies, because dependencies can be internal, and associations can
  be external.
  Thus, the challenge lies in developing an assignment operator that can
  be a well-specified contract.
@@ -2419,7 +2419,7 @@ begin{center}
 
 
 \backslash
-begin{minipage}{0.7
+begin{minipage}{0.5
 \backslash
 textwidth}
 \end_layout

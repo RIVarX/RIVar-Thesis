@@ -118,10 +118,10 @@ We are studying a subset of front-end applications, focusing on how to divide
  them into small components with non-overlapping logic.
  
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "fig:Drug-calculations"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -132,10 +132,10 @@ noprefix "false"
  the other fields are updated.
  This leads to a centralized maintenance model, as seen in 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "fig:Centerlized-Calculation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -1018,151 +1018,6 @@ This statechart models the handling of events to calculate the value of
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
- (C) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- micro-frontend] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
- (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
- Domain Object] (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Design of the drug administration application, showcasing observer interaction
- through dashed lines.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 DataFlow
 \end_layout
@@ -1259,8 +1114,121 @@ lstinline{A:=B}
 \end_layout
 
 \begin_layout Standard
-However, in order to ensure that the graph is acyclic, developers must ensure
- that no node has a path leading back to itself.
+However, some applications, including the example we provided, inherently
+ have cycles in their data dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+ Ensuring that the dependency graph is acyclic becomes a challenge, and
+ it limits the ability to separate the code.
+ Developers need to be aware of data dependencies and detect existing paths
+ before adding new formulas that involve existing variables to prevent cycles.
+ For example, if there are already two formulas, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y:=Z+1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z:=X-1}
+\end_layout
+
+\end_inset
+
+, and the developer wants to add a third formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X:=Y+1}
+\end_layout
+
+\end_inset
+
+, they must have access to all three formulas and detect the existing cycle
+ among nodes 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{X}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Y}
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Z}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+However, many applications, as our example, have cycles by their nature
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+ Furthermore, in order to ensure that the graph is acyclic, the ability
+ to seperate the code is reduced.
+ Because, in order to ensure that the graph is acyclic, developers must
+ ensure that no node has a path leading back to itself.
  This requires the developer to have knowledge of data dependencies and
  to detect existing paths before adding new formulas that involve existing
  variables.
@@ -1350,6 +1318,11 @@ lstinline{Z}
  that fall under a separate concern, it is linked without considering those
  dependencies.
  This means that the graph may not necessarily be acyclic.
+\end_layout
+
+\end_inset
+
+
 \begin_inset Note Note
 status collapsed
 
@@ -2759,19 +2732,18 @@ lstinline{C}
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Conclusion
 \end_layout
 
 \begin_layout Standard
-Developers may create a data dependency graph explicitly or implicitly in
- front-end applications that automatically populate fields based on other
- fields.
- However, in some cases, due to the application's data dependencies and
- predictability requirements, a centralized or monolithic graph may be necessary.
- This requires the data dependency definitions to be located in a single
- code base that cannot be separated, or relying on the runtime to couple
- with an intermediary for variable updates.
+In front-end applications, developers may create a data dependency graph
+ either explicitly or implicitly to populate fields based on other fields.
+ However, in certain scenarios where the application's data dependencies
+ are complex, a centralized or monolithic graph might be required.
+ This means that the data dependency definitions are located in a single
+ code base that cannot be separated, or the runtime relies on an intermediary
+ for variable updates.
 \end_layout
 
 \begin_layout Standard

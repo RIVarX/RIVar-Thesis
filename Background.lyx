@@ -114,40 +114,36 @@ name "chap:Background"
 \end_layout
 
 \begin_layout Standard
-In 
+We are studying a subset of front-end applications, focusing on how to divide
+ them into small components with non-overlapping logic.
+ 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "fig:Drug-calculations"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
-, we see an example of interdependent fields in a front-end application.
- The drug dosage is calculated based on the medication's concentration and
- the volume of fluid.
- Similarly, the volume of fluid is calculated based on the medication's
- dosage and rate, while the medication's concentration is calculated based
- on the volume of fluid and duration.
- When fields are interdependent like this, updating one field requires modifying
- all the locations where the other fields are updated, creating a centralized
- maintenance model.
- This is demonstrated in 
+ provides an example of interdependent fields in a front-end application.
+ In such cases, when updating one field requires updates to other fields
+ as well, modifying one field would mean changing all the locations where
+ the other fields are updated.
+ This leads to a centralized maintenance model, as seen in 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "fig:Centerlized-Calculation"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
 , where all the calculation logic is centralized and tightly coupled, making
- it harder to isolate the code for each field.
- As a result, making changes to one field can have unintended consequences
- for other fields, making it harder to reason about the behavior of the
- application as a whole.
+ it difficult to isolate the code for each field.
+ Consequently, modifying one field can unintentionally affect other fields,
+ making it challenging to comprehend the application's behavior as a whole.
 \end_layout
 
 \begin_layout Standard
@@ -505,11 +501,11 @@ The Observer pattern in Object-Oriented Programming (OOP) can help mitigate
 \end_layout
 
 \begin_layout Standard
-In practice, it has been observed that relying solely on onchange events,
- based on object contracts can result in unexpected updates and values,
- as depicted in 
+In practice, it has been observed that relying solely on onchange events
+ based on object contracts can lead to unexpected updates and values, as
+ shown in 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "fig:Calculation-spread-over-objects-1"
 plural "false"
 caps "false"
@@ -518,10 +514,10 @@ noprefix "false"
 \end_inset
 
 .
- To address this, developers often add logic to determine when to update
- variables.
- To mitigate this challenge, many modern applications incorporate tools
- such as XState (https://xstate.js.org) or Redux 
+ To address this issue, developers often add logic to determine when to
+ update variables.
+ Many modern applications use tools like XState (https://xstate.js.org) or
+ Redux 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "caspers2017react"
@@ -529,7 +525,7 @@ literal "false"
 
 \end_inset
 
-, which model events as state transitions between logical states 
+ to model events as state transitions between logical states 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "harel1995statement"
@@ -538,10 +534,9 @@ literal "false"
 \end_inset
 
  derived from variable values.
- These tools ensure that variables are updated based on the application
- state when an onchange event occurs, as illustrated in 
+ As illustrated in 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "fig:Statechart"
 plural "false"
 caps "false"
@@ -549,10 +544,11 @@ noprefix "false"
 
 \end_inset
 
-.
- This highlights a weakness in object-oriented programming, where objects
- that encapsulate internal state and expose events might become tightly
- coupled.
+, these tools allow specifying updates not only when an event occurs but
+ also based on the exact state of the application, which is derived from
+ previous interactions.
+ However, this approach still relies on centralized management of the applicatio
+n's state, making it a monolithic approach.
 \end_layout
 
 \begin_layout Standard

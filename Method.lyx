@@ -123,9 +123,10 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-The present challenge can be represented as a means of integrating the Object-Or
-iented Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
- 
+The current challenge of separating the maintenance and updates of data
+ dependencies can be addressed by integrating Object-Oriented Programming
+ (OOP) and Functional Reactive Programming (FRP) paradigms.
+ We define 
 \begin_inset Formula $\RIVar$
 \end_inset
 
@@ -133,7 +134,7 @@ iented Programming (OOP) and Functional Reactive Programming (FRP) paradigms.
 \series bold
  Reactive Instance Variable
 \series default
- represents both a 
+ to represent both a 
 \emph on
 reactive
 \emph default

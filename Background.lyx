@@ -150,7 +150,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1026,10 +1026,27 @@ DataFlow
 Frameworks based on the dataflow paradigm allow for the explicit specification
  of data dependencies, which were previously implicit.
  In the Functional Reactive Programming (FRP) paradigm, data dependencies
- are constructed using pure functions.
- Alternatively, frameworks for event streams, like ReactiveX, enable the
- application of functions to streams, where each stream produces its values
- based on the values of the input streams.
+ are constructed using pure functions, like the 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Signals
+\end_layout
+
+\end_inset
+
+ in 
+\begin_inset Formula $\REScala$
+\end_inset
+
+.
+ Alternatively, frameworks for event streams, like 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, enable the application of functions to streams, where each stream produces
+ its values based on the values of the input streams.
  It is commonly suggested that in order to ensure predictability, the graph
  should not contain cycles 
 \begin_inset CommandInset citation
@@ -1124,8 +1141,8 @@ literal "false"
 \end_inset
 
 .
- Ensuring that the dependency graph is acyclic becomes a challenge, and
- it limits the ability to separate the code.
+ Furthermore, ensuring that the dependency graph is acyclic becomes a challenge,
+ and it limits the ability to separate the code.
  Developers need to be aware of data dependencies and detect existing paths
  before adding new formulas that involve existing variables to prevent cycles.
  For example, if there are already two formulas, 
@@ -1208,6 +1225,8 @@ lstinline{Z}
 \end_inset
 
 .
+ Consequently, it is not possible to establish boundaries that prevent access
+ to the formulas, which can lead to a monolithic codebase.
 \end_layout
 
 \begin_layout Standard
@@ -1782,16 +1801,15 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-FRP shares with the paradigm of constraints systems the idea, that developers
- declare equations, and the runtime automates variables' updates according
+FRP shares with the paradigm of constraint systems the idea, that developers
+ declare equations, and the runtime automates variable updates according
  to the equations and input.
  However, they are different: FRP is about defining variables as functions
- over other variables, while constraints systems are about to satisfy constraint
-s.
+ of other variables, while constraint systems are about to satisfy constraints.
 \end_layout
 
 \begin_layout Standard
-There are constraints systems similar to FRP that handle one-way constraints
+There are constraint systems similar to FRP that handle one-way constraints
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1801,7 +1819,7 @@ literal "false"
 \end_inset
 
 .
- Other constraints systems like Hotdrink 
+ Other constraint systems like Hotdrink 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -1818,7 +1836,7 @@ literal "false"
 \end_inset
 
 .
- Constraints systems that handle two-way constraints, by their nature, handle
+ Constraint systems that handle two-way constraints, by their nature, handle
  cycles, and allows defining multiple constraints that output to the same
  variable 
 \begin_inset CommandInset citation
@@ -1829,8 +1847,8 @@ literal "false"
 \end_inset
 
 .
- Actualy, the developers declaring two-way constraints need to declare also
- the one-way constraints, e.g., in 
+ Actually, the developers declaring two-way constraints need to declare
+ also the one-way constraints, e.g., in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:two-way-constraint-1"
@@ -1905,7 +1923,7 @@ constraints solver
 .
  
 \emph default
-The constraints solvers are algorithms developed for constraints systems
+The constraints solvers are algorithms developed for constraint systems
  to satisfy the constraints.
  In order to solve a set of two-way constraints, the constraints solver
  uses a model named 
@@ -1923,7 +1941,7 @@ literal "false"
 .
  There are cases that the algorithm cannot satisfy all the constraints,
  then it satisfies only those that are specified to be in a higher hierarchy.
- For example, having the following constraints hierarchical in the descending
+ For example, having the following constraints hierarchy in the descending
  order 
 \begin_inset ERT
 status open
@@ -2002,7 +2020,7 @@ noprefix "false"
 
 \end_inset
 
-, the runtime maintains an added constraints derived from the variables.
+, the runtime maintains additional constraints derived from the variables.
  For each variable 
 \begin_inset ERT
 status open
@@ -2029,7 +2047,7 @@ lstinline{x}
 
 \end_inset
 
-, the runtime maintain a constraint 
+, the runtime maintains a constraint 
 \begin_inset ERT
 status open
 
@@ -2042,7 +2060,7 @@ lstinline{X=x}
 
 \end_inset
 
-, with hierarchical according to the order of the input.
+, with hierarchy according to the order of the input.
 \end_layout
 
 \begin_layout Standard

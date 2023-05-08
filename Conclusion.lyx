@@ -122,11 +122,11 @@ Future Work
 \end_layout
 
 \begin_layout Standard
-We expect this approach being implemented as a state management solution and
- ease the development of front end applications.
- In the area of front end, the state menegement is seperated from the other
- parts of the development.
- There are various solutions to handle the role 
+We expect this approach to be implemented as a state management solution
+ to ease the development of front-end applications.
+ In front-end development, state management is separated from other parts
+ of the development process.
+ There are various solutions to handle this role
 \begin_inset Foot
 status collapsed
 
@@ -136,18 +136,15 @@ https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
 
 \end_inset
 
-.
- Each solution has its maintenance and behavior limitations.
- our model should be ease in the maintenance, but the behavior is limited
- to inferring values according to the latest value coming from any of the
- sources.
- 
+, each with its own maintenance and behavior limitations.
+ Our model should be easy to maintain, but its behavior is limited to inferring
+ values based on the latest value received from any of the sources.
 \end_layout
 
 \begin_layout Standard
-There are additional options to be researched for reactive variables to inffer
- their values.
- We think about the 
+There are additional options to be researched for reactive variables to
+ infer their values.
+ One such option is the use of 
 \emph on
 equality tests
 \emph default
@@ -159,11 +156,10 @@ literal "false"
 
 \end_inset
 
-, in which values with no change are ignored.
- In addition, it might be that values should be rejected, in case that they
- are conflicted with another source, such case need the abstraction to be
- extended.
- In addition, we should check about integrating several semantics options.
+, in which values that have not changed are ignored.
+ Additionally, values that conflict with another source may need to be rejected,
+ requiring an extension of the abstraction.
+ We should also explore integrating several semantic options.
 \end_layout
 
 \end_body

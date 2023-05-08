@@ -81,61 +81,33 @@
 \begin_body
 
 \begin_layout Chapter
-Implementation
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Implementation"
 
 \end_inset
 
-
+Implementation
 \end_layout
 
 \begin_layout Standard
-In this chapter we present an implementation to the model presented in 
+In this chapter, we present an implementation of the model described in
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Method"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
-, attached with a small case study based on the motivating example from
- 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivating-Example"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- The model is implemented as a lightweight .NET library to C# developers
- named RIVarX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://github.com/RivkaAltshuler/RIVar, https://www.nuget.org/packages/RIvar.RIvarX
-\end_layout
-
-\end_inset
-
-, based on ReactiveX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
-.
+ as a lightweight .NET library for C# developers named RIVarX.
+ The library is available on GitHub at https://github.com/RivkaAltshuler/RIVar
+ and can also be downloaded from the NuGet package manager at https://www.nuget.or
+g/packages/RIvar.RIvarX.
+ RIVarX is based on ReactiveX and provides C# developers with a simple way
+ to implement reactive variables in their projects.
 \end_layout
 
 \begin_layout Section
@@ -241,17 +213,7 @@ https://reactivex.io/documentation/operators/combinelatest.html
 
 .
  The default behavior is that values are pushed to subscribers synchronously,
- just like the required push model described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Execution-Model"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
+ just like the required push model.
  Consequently, FRP applications can be easily developed.
  For example, FRP application with the statements 
 \begin_inset ERT
@@ -393,6 +355,34 @@ lstinline{Set}
  Signal that is greater refers to a signal that is later.
  Therefore, any signal coming from the expression, that is greater than
  the latest signal in the target, is pushed to the target.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(That's correct.
+ The merge operator is a functional operator that combines multiple streams
+ into a single stream.
+ It takes multiple source observables and subscribes to all of them, forwarding
+ the emitted values from all of them into a single output observable.
+ On the other hand, using a Subject to implement the same behavior is an
+ imperative approach that involves calling onNext on the subject to emit
+ values from the various streams, and then subscribing to the subject to
+ receive the merged output.
+\end_layout
+
+\begin_layout Plain Layout
+While both approaches can achieve the same result, the functional approach
+ with merge is often preferred as it promotes a more declarative programming
+ style and can simplify the code by abstracting away the low-level details
+ of merging streams.)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph*

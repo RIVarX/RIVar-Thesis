@@ -103,14 +103,221 @@
 \begin_body
 
 \begin_layout Chapter
-Evaluation
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Evaluation"
 
 \end_inset
 
+Evaluation
+\end_layout
 
+\begin_layout Standard
+Our objective was that the data dependencies will not be required to be
+ managed centerlizledly, by that ew need not to avoid cyckes.
+ And also that the runtime will not require a centeral madiator, but the
+ objects will interact directly.
+\end_layout
+
+\begin_layout Standard
+———
+\end_layout
+
+\begin_layout Standard
+The drug administration example is implemented, without to detect cycles,
+ providing 
+\end_layout
+
+\begin_layout Standard
+The drug administration example we started from, had unexpected updates
+ which leaded to unexpected values, when depending on the OnChange events.
+ 
+\end_layout
+
+\begin_layout Standard
+In this section, we present a solution to the drug administration example
+ we started from.
+ 
+\end_layout
+
+\begin_layout Standard
+In this section, we show an applocation example (drug administration application
+ with that with), that we seperate data depedencies to objects.
+ The data dependencies contain cycles
+\end_layout
+
+\begin_layout Standard
+The code dependencies reflect only directed depedencies in the variables.
+\end_layout
+
+\begin_layout Standard
+while they realy hide variables and dependencies.
+ Only when the dependency be
+\end_layout
+
+\begin_layout Standard
+In order to show that our approach is feasable, we implemented the drug
+ administration application, we started with, with sepeation to two components.
+\end_layout
+
+\begin_layout Standard
+with seperating 
+\end_layout
+
+\begin_layout Standard
+ilustarated in the first of this thesis.
+ While the traditional paradigms did not give a solution to isolate variables
+ and calculations, 
+\end_layout
+
+\begin_layout Standard
+, with two components, that their code dependencies are based on 
+\end_layout
+
+\begin_layout Standard
+that their static dependencies use RIVars, interacts based on that their
+ contracts are based on RIVars.
+ However
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
+ (C) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ micro-frontend] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
+ (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ Domain Object] (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Design of the drug administration application, showcasing observer interaction
+ through dashed lines.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+———-
 \end_layout
 
 \begin_layout Standard
@@ -1289,6 +1496,14 @@ noprefix "false"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+????
+\end_layout
+
 \begin_layout Section
 Code Reuse
 \begin_inset CommandInset label
@@ -1300,7 +1515,7 @@ name "sec:Code-Reuse"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \emph on
 Code reuse
@@ -1337,7 +1552,7 @@ name "subsec:Repeating-Updates"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Derived from the FRP paradigm, we abstract away the need to update variables
  in response to dependant variables' updates.
  As mentioned in 
@@ -1460,7 +1675,7 @@ name "subsec:Repeating-Variables"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the FRP paradigm by nature, several reactive variables are declared to
  represent a single real world variable.
  Because reactive variables are the functions they represent.
@@ -1475,7 +1690,7 @@ In the FRP paradigm by nature, several reactive variables are declared to
 Example
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the example, we demonstrate a development process.
  We use a bold font style to indicate for code, that it is changed compared
  to the previous step.
@@ -1563,7 +1778,7 @@ lstinline{Amount}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1610,7 +1825,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The doctor may administer the 
 \begin_inset ERT
 status open
@@ -1641,7 +1856,7 @@ lstinline{Volume}
  be changed:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1694,7 +1909,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The doctor may administer by setting 
 \begin_inset ERT
 status open
@@ -1738,7 +1953,7 @@ lstinline{Dose*Duration}
  In such a case, we should again update the code:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1801,7 +2016,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 It can be seen, that whenever 
 \begin_inset ERT
 status open
@@ -1870,7 +2085,7 @@ name "par:no-duplicate-variables-example"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The should be an alert if the amount is abnormal, therefore the following
  formula relates 
 \begin_inset ERT
@@ -1927,7 +2142,7 @@ textit{Amount}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1974,7 +2189,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The doctor may administer the 
 \begin_inset ERT
 status open
@@ -2005,7 +2220,7 @@ lstinline{Volume}
  It is enough to only add the code:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2047,7 +2262,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The doctor may administer by setting 
 \begin_inset ERT
 status open
@@ -2091,7 +2306,7 @@ lstinline{Dose*Duration}
  It is enough to only add the code:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2133,7 +2348,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Nothing about variable 
 \begin_inset ERT
 status open
@@ -2162,7 +2377,7 @@ name "subsec:Repeating-Solutions"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The new method also provides an abstraction mechanism to not repeat on 
 \emph on
 solutions
@@ -2204,7 +2419,7 @@ noprefix "false"
  new variant of FRP provides adding formulas to existing solutions.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We derive from OOP the ability to reuse solutions.
  Before OOP, in order to reuse solutions, the developer has two alternatives:
  either to use an existing solution to the new client, or to copy-and paste
@@ -2220,7 +2435,7 @@ We derive from OOP the ability to reuse solutions.
  solution without to duplicate and without to change existing solutions.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The inheritance and composition mechanisms are actually not simple to use.
  It is expected that the new code will not change the original behavior,
  however even if the code is specified only in the service or in the subclass,
@@ -2255,733 +2470,9 @@ extends
  the original behavior.
 \end_layout
 
-\begin_layout Section
-Special Graphs
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Special-Graphs"
-
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- we presented the new model that provides adding and supporting any formula.
- In order to support any formula, the model need to handle special graphs.
- In this section we compare the model against the traditional methods, in
- the way they handle glitches (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Glitch"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), cycles (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Cycles"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) and several-assignments (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:Several-Assignments"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Glitch"
-
-\end_inset
-
-Glitch
-\end_layout
-
-\begin_layout Standard
-As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:background-FRP"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, a variable might have several updates caused by a single update, e.g., in
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Glitch"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, updating 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-A
-\end_layout
-
-\end_inset
-
- leads to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-B
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-C
-\end_layout
-
-\end_inset
-
-, each of them lead to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-D
-\end_layout
-
-\end_inset
-
-.
- The updates that are not the last update, are incorrect, and called 
-\emph on
-glitch
-\emph default
-.
- This is handled by doing topological sorting 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-, so each of the variables will be updated after all its dependencies have
- already been updated.
- But we cannot use this method for two reasons.
-\end_layout
-
-\begin_layout Standard
-First, topological sorting is possible only when the dependency graph has
- no cycles, in contrast to our conception that every dependency is possible.
- Second, topological sorting means managing the variables centrally, in
- contrast to the concept of objects managing their variables on their own.
- The need to manage the updates with a decentralized settings reminds the
- distributed settings.
-\end_layout
-
-\begin_layout Standard
-The decentralized and distributed share the property that it is not applicable
- to have “global centralized knowledge about the topology of the dependency
- structure” 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-.
- However, they are not distinct.
- Whereas distributed settings have challenges related to the network.
- FRP with decentralized settings is more about respecting encapsulation.
- Therefore, and because we support cycles, adapting existing algorithms
- becomes irrelevant most of the times.
-\end_layout
-
-\begin_layout Standard
-We use the strategy like in the distributed settings, to attach data to
- the values 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "shibanai2018distributed,proencca2017quality"
-literal "false"
-
-\end_inset
-
-.
- However we avoid the situation in the distributed settings, that the data
- about variables is public.
- The data becomes public, because the glitch is handled by tracking variables'
- versions, and because information about variables' versions is attached
- with the values.
-\end_layout
-
-\begin_layout Standard
-Our order model reminds the order of 
-\emph on
-updates
-\emph default
- described in the distributed system model 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics"
-literal "false"
-
-\end_inset
-
-.
- In our order model, an incorrect (glitch) value (update), is considered
- as less than an existing value, so it is ignored.
- For example, in the dependency graph of 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Glitch"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, D with timestamps set {1}, getting an update depending on updated B {2}
- and not updated C {1}, produces timestamps set {1,2} that is a superset
- of the existing timestamps {1}.
- According to the order model, a superset is not considered greater so it
- is ignored.
-\end_layout
-
-\begin_layout Standard
-Our model seems to solve only types of glitches (among 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics"
-literal "false"
-
-\end_inset
-
-) caused from a single update for a single variable.
- This should satisfy many applications.
- Actualy, for UI application, glitch may be not a problem, because a temporary
- incomplete calculation is replaced very fast with the updated values.
- Anyway, for more strict requirements, such like requiring several synced
- variables, there is a possible solution named 
-\emph on
-source unification
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "shibanai2018distributed,watanabecomplete"
-literal "false"
-
-\end_inset
-
-, to declare a variable deriving the variables.
-\end_layout
-
-\begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Several-Assignments"
-
-\end_inset
-
-Several Assignments
-\end_layout
-
-\begin_layout Standard
-Our model supports variables depending on several expressions such as in
- 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Several-Assignments"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, while in runtime values are infered according to time, i.e., the variable's
- current value depends on the recent input events.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}  
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (B) at (2,5) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (C) at (4,5) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[shape=circle,draw=black] (A) at (3,3) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (B) edge  (A);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-path[-{Triangle[scale=1]}] (C) edge  (A);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(B) + (0,-1)$)    {A:=B+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[scale=0.6] at ($(C) + (0,-1)$)    {A:=C+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Several-Assignments"
-
-\end_inset
-
-Several Assignments
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph*
-FRP
-\end_layout
-
-\begin_layout Standard
-In FRP, a reactive variable 
-\emph on
-is
-\emph default
- the expression it is related to.
- The assignment operator is related to the imperative paradigm, not to the
- functional paradigm.
- However, in languages where the assignment symbol is used in the context
- of functional programming, the assignment symbol connects a function body
- to its name.
- Similary in FRP, a formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=Var}
-\end_layout
-
-\end_inset
-
- declares 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- as a function that its body is 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Var}
-\end_layout
-
-\end_inset
-
-.
- Adding statement such as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=Tar}
-\end_layout
-
-\end_inset
-
-, is not suitable to the paradigm.
- In terms of reactive variables we cannot relate several sources to a single
- variable so we are forced to use the events abstraction.
-\end_layout
-
-\begin_layout Standard
-In ReactiveX and Sodium, several streams can be merged into one stream by
- the use of an operator named 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Merge}
-\end_layout
-
-\end_inset
-
-.
- ReactiveX merges the streams based on the time according the runtime traversal
- order, which is unpredictable 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Sodium provides predictability by forcing the user to define how to merge
- the streams.
- Namely, no general predictable merge has been provided.
-\end_layout
-
-\begin_layout Standard
-If the developer needs to specify the correct order, it is in contrast to
- the functional paradigm.
- The functional paradigm was meant to eliminate handling time.
- If the developer needs to handle time, it is not clear whether the paradigm
- outperforms the alternative paradigm, in which time is handled by the use
- of states and events 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- Our model handles the merge problem providing the developers the high level
- abstration without to handle time.
- 
-\end_layout
-
-\begin_layout Paragraph*
-Events
-\end_layout
-
-\begin_layout Standard
-In simple cases our model reminds the behavior when using events: when several
- events handlers calculate a single variable, the variable's value is according
- to the latest triggered event.
-\end_layout
-
-\begin_layout Paragraph*
-Constraints
-\begin_inset CommandInset label
-LatexCommand label
-name "par:Constraints"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-As described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, constraints systems like HotDrink solve the constraints according to the
- hierarchy derived from the order of the input.
- Consequently the produced behavior is the same as our new model.
- It is true that the constraints system handles two-way constraints while
- our model handles one-way constraints.
- However, as said in the section, the two-way constraints are declared and
- handled by one-way constraints.
-\end_layout
-
-\begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Cycles"
-
-\end_inset
-
-Cycles
-\end_layout
-
-\begin_layout Standard
-In the FRP paradigm, where FRP runtimes are developed, There are two opposing
- methods about cycles.
- In one method, cycles are avoided, because the paradigm derived from the
- functional paradigm, with the referential transparency property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to the second method, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
- Following the approach that cycles are avoided, there is an approach that
- the needed dependency graph is dynamically changed 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-FRP runtimes that support cycles uses various techniques to stop arisen
- loops.
- Terminating when it closes a cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, adding to the language a special operator to inform the runtime when to
- break the cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-, stop after a number of iterations, stop if the value has not changed,
- or changed only less than a threshold (available in 
-\emph on
-Microsoft Excel
-\emph default
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-).
- The various methods caused from the unknown, that a repeating update is
- either needed because previous update was a glitch, or that it is unneeded
- because the repeating update is caused from a cycle.
-\end_layout
-
-\begin_layout Standard
-Our model provides the semantics described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "par:Any-Formula"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-: cycles are resulted from variables with more than one source.
- Those variables are updated whenever there is a newer value from any of
- the sources.
- Technically, loops are terminated, because values caused from cycles are
- not newer.
- However, we are not the first to handle cycles, as said in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, constraints systems that handle two-way constraints handle cycles by their
- nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- Nevertheless, the model treats the meaning issue about cycles more explicity.
 \end_layout
 
 \begin_layout Section

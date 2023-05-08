@@ -86,97 +86,170 @@
 \begin_body
 
 \begin_layout Chapter
-Related Work 
+Related Work
 \end_layout
 
 \begin_layout Standard
-FRP shares with the paradigm of constraints systems the idea, that developers
- declare equations, and the runtime automates variables updates according
- to the equations and input.
- However, they are different: FRP is about defining variables as functions
- over other variables, while constraints systems are about to satisfy constraint
-s.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Our work adds 
 \end_layout
 
-\begin_layout Standard
-There are constraints systems similar to FRP that handle one-way constraints.
- There are other constraints systems that handle two-way constraints.
- Constraints systems that handle two-way constraints, by their nature, handle
- cycles correctly, and allows defining multiple constraints that output
- to the same variable 
+\begin_layout Plain Layout
+Our work contains an algorithm to propogation changes, an addition to previous
+ works.
+ However
+\end_layout
+
+\begin_layout Plain Layout
+Our algoritm is built to variables that update their dependencies directly
+ r indirectly, on top of a somple events chanel, or by observable and observer
+ pattern.
+ In contrast, the previous
+\end_layout
+
+\begin_layout Section
+FRP
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP paradigm with the distributed settings, variables can be located
+ in different processes or hosts 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "sannella1993multi"
+key "margara2018semantics,shibanai2018distributed,drechsler2014distributed"
 literal "false"
 
 \end_inset
 
 .
- This means that we are not the first to discover reassigment as a way to
- solve cycles.
- However, our finding contributes to area of the constraints systems.
-\end_layout
-
-\begin_layout Standard
-The traditional constraints systems does not have the nature to work with
- components based architecture and distributed systems.
- Because the runtime is handled by constraints solvers, that are algorithms
- developed for constraints systems to satisfy the constraints.
- The solvers are centeral components that need access to all the variables
- and constraints.
- At this point our new model may help, because it does have the nature to
- work with OOP, which may be extended to work with more architectural patterns.
+ Using solutions like XFRP
+\emph on
  
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "shibanai2018distributed"
+literal "false"
+
+\end_inset
+
+, developers declare functions over reactive variables, and the compiler
+ generates a distributed application, that handles the updates according
+ to the specified formulas.
 \end_layout
 
-\begin_layout Standard
-Our new variant of FRP can be refered as a constraints system.
- In the traditional constraints systems, any two-way constraint are declared
- with the methods to satisfy it, e.g., as implemented by Hotdrink in 
+\begin_layout Section
+Special Graphs
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Special-Graphs"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:two-way-constraint"
+reference "chap:Method"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, 
+ we presented the new model that provides adding and supporting any formula.
+ In order to support any formula, the model need to handle special graphs.
+ In this section we compare the model against the traditional methods, in
+ the way they handle glitches (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Glitch"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), cycles (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Cycles"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) and several-assignments (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:Several-Assignments"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Glitch"
+
+\end_inset
+
+Glitch
+\end_layout
+
+\begin_layout Plain Layout
+As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:background-FRP"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, a variable might have several updates caused by a single update, e.g., in
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, updating 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{A=B+C}
+A
 \end_layout
 
 \end_inset
 
- is attached with 
+ leads to update 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{A:=B+C}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B:=A-C}
+B
 \end_layout
 
 \end_inset
@@ -187,34 +260,177 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{C:=A-B}
+C
 \end_layout
 
 \end_inset
 
-.
- In order to use our model, only the methods should be specified.
- If one prefers providing the code in terms of two-way constraints, we can
- think about implementing a wrapper 
+, each of them lead to update 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Constraint}
+D
 \end_layout
 
 \end_inset
 
- class as a future work.
+.
+ The updates that are not the last update, are incorrect, and called 
+\emph on
+glitch
+\emph default
+.
+ This is handled by doing topological sorting 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, so each of the variables will be updated after all its dependencies have
+ already been updated.
+ But we cannot use this method for two reasons.
+\end_layout
+
+\begin_layout Plain Layout
+First, topological sorting is possible only when the dependency graph has
+ no cycles, in contrast to our conception that every dependency is possible.
+ Second, topological sorting means managing the variables centrally, in
+ contrast to the concept of objects managing their variables on their own.
+ The need to manage the updates with a decentralized settings reminds the
+ distributed settings.
+\end_layout
+
+\begin_layout Plain Layout
+The decentralized and distributed share the property that it is not applicable
+ to have “global centralized knowledge about the topology of the dependency
+ structure” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ However, they are not distinct.
+ Whereas distributed settings have challenges related to the network.
+ FRP with decentralized settings is more about respecting encapsulation.
+ Therefore, and because we support cycles, adapting existing algorithms
+ becomes irrelevant most of the times.
+\end_layout
+
+\begin_layout Plain Layout
+We use the strategy like in the distributed settings, to attach data to
+ the values 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shibanai2018distributed,proencca2017quality"
+literal "false"
+
+\end_inset
+
+.
+ However we avoid the situation in the distributed settings, that the data
+ about variables is public.
+ The data becomes public, because the glitch is handled by tracking variables'
+ versions, and because information about variables' versions is attached
+ with the values.
+\end_layout
+
+\begin_layout Plain Layout
+Our order model reminds the order of 
+\emph on
+updates
+\emph default
+ described in the distributed system model 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics"
+literal "false"
+
+\end_inset
+
+.
+ In our order model, an incorrect (glitch) value (update), is considered
+ as less than an existing value, so it is ignored.
+ For example, in the dependency graph of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Glitch"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, D with timestamps set {1}, getting an update depending on updated B {2}
+ and not updated C {1}, produces timestamps set {1,2} that is a superset
+ of the existing timestamps {1}.
+ According to the order model, a superset is not considered greater so it
+ is ignored.
+\end_layout
+
+\begin_layout Plain Layout
+Our model seems to solve only types of glitches (among 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics"
+literal "false"
+
+\end_inset
+
+) caused from a single update for a single variable.
+ This should satisfy many applications.
+ Actualy, for UI application, glitch may be not a problem, because a temporary
+ incomplete calculation is replaced very fast with the updated values.
+ Anyway, for more strict requirements, such like requiring several synced
+ variables, there is a possible solution named 
+\emph on
+source unification
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shibanai2018distributed,watanabecomplete"
+literal "false"
+
+\end_inset
+
+, to declare a variable deriving the variables.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Several-Assignments"
+
+\end_inset
+
+Several Assignments
+\end_layout
+
+\begin_layout Plain Layout
+Our model supports variables depending on several expressions such as in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Several-Assignments"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, while in runtime values are infered according to time, i.e., the variable's
+ current value depends on the recent input events.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -235,17 +451,7 @@ begin{center}
 
 
 \backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-function  sum( a, b ) { return a + b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-function diff( a, b ) { return a - b; }
+begin{tikzpicture}  
 \end_layout
 
 \begin_layout Plain Layout
@@ -254,52 +460,78 @@ function diff( a, b ) { return a - b; }
 
 \begin_layout Plain Layout
 
-var model = new hd.ModelBuilder()
-\end_layout
-
-\begin_layout Plain Layout
-
-    .variables( {A: 0, B: 0, C: 0} )
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .constraint( A, B, C )
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'B, C -> A', sum  ) // A:=B+C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, C -> B', diff ) // B:=A-C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, B -> C', diff ) // C:=A-B
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .end();
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{lstlisting}
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[shape=circle,draw=black] (A) at (3,3) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (B) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+path[-{Triangle[scale=1]}] (C) edge  (A);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(B) + (0,-1)$)    {A:=B+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[scale=0.6] at ($(C) + (0,-1)$)    {A:=C+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
@@ -320,11 +552,39 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:two-way-constraint"
+name "fig:Several-Assignments"
 
 \end_inset
 
-two-way constraint 
+Several Assignments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+FRP
+\end_layout
+
+\begin_layout Plain Layout
+In FRP, a reactive variable 
+\emph on
+is
+\emph default
+ the expression it is related to.
+ The assignment operator is related to the imperative paradigm, not to the
+ functional paradigm.
+ However, in languages where the assignment symbol is used in the context
+ of functional programming, the assignment symbol connects a function body
+ to its name.
+ Similary in FRP, a formula 
 \begin_inset ERT
 status open
 
@@ -332,12 +592,146 @@ status open
 
 
 \backslash
-lstinline{A=B+C}
+lstinline{A:=Var}
 \end_layout
 
 \end_inset
 
- implemented by Hotdrink
+ declares 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ as a function that its body is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Var}
+\end_layout
+
+\end_inset
+
+.
+ Adding statement such as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=Tar}
+\end_layout
+
+\end_inset
+
+, is not suitable to the paradigm.
+ In terms of reactive variables we cannot relate several sources to a single
+ variable so we are forced to use the events abstraction.
+\end_layout
+
+\begin_layout Plain Layout
+In ReactiveX and Sodium, several streams can be merged into one stream by
+ the use of an operator named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Merge}
+\end_layout
+
+\end_inset
+
+.
+ ReactiveX merges the streams based on the time according the runtime traversal
+ order, which is unpredictable 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Sodium provides predictability by forcing the user to define how to merge
+ the streams.
+ Namely, no general predictable merge has been provided.
+\end_layout
+
+\begin_layout Plain Layout
+If the developer needs to specify the correct order, it is in contrast to
+ the functional paradigm.
+ The functional paradigm was meant to eliminate handling time.
+ If the developer needs to handle time, it is not clear whether the paradigm
+ outperforms the alternative paradigm, in which time is handled by the use
+ of states and events 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ Our model handles the merge problem providing the developers the high level
+ abstration without to handle time.
+ 
+\end_layout
+
+\begin_layout Paragraph*
+Events
+\end_layout
+
+\begin_layout Plain Layout
+In simple cases our model reminds the behavior when using events: when several
+ events handlers calculate a single variable, the variable's value is according
+ to the latest triggered event.
+\end_layout
+
+\begin_layout Paragraph*
+Constraints
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Constraints"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+As described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, constraints systems like HotDrink solve the constraints according to the
+ hierarchy derived from the order of the input.
+ Consequently the produced behavior is the same as our new model.
+ It is true that the constraints system handles two-way constraints while
+ our model handles one-way constraints.
+ However, as said in the section, the two-way constraints are declared and
+ handled by one-way constraints.
 \end_layout
 
 \end_inset
@@ -345,20 +739,494 @@ lstinline{A=B+C}
 
 \end_layout
 
-\end_inset
-
-
+\begin_layout Section
+Integration between FRP and OOP
 \end_layout
 
 \begin_layout Standard
-—————-
+Our primary objective was to separate the management of data dependencies,
+ which we achieved by integrating FRP and OOP.
+ Our approach differed from previous efforts in this integration, which
+ focused on connecting these two worlds rather than separating the management
+ of data dependencies.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
+Events and Signals
+\end_layout
+
+\begin_layout Standard
+In the first stage, previous attempts focused on converting or reconciling
+ concepts between FRP and OOP.
+ One example of this is REScala, which provides Signals that represent a
+ continuous abstraction and can be converted to events to fit into the OOP
+ paradigm.
+ Another library, SignalJ, offers an API for functional reactive programming
+ that includes the option of a change event as a side effect.
+ The idea we used, found in ReactiveX or RxJS, involves implementing reactive
+ variables as the observable and iterator design pattern, where values are
+ pushed to subscribers by executing their method.
+ This approach harmonizes previous ideas by treating observables as streams
+ of events in the OOP world and streams of effects in the functional realm
+ that FRP is originally based on.
+\end_layout
+
+\begin_layout Subsection
+Objects and Reactive Variables
+\end_layout
+
+\begin_layout Standard
+Our work harmonized two traditional methods seen in the context of reactive
+ variables as objects' attributes.
+ First, we adopted the approach of ReactiveX and REScala of having a data
+ type to being reactive variables , and can be assigned from outside of
+ the objects.
+ However, the assignment replaces the calculation, stopping the old source
+ in order to start responding to the new source.
+ This is in contrast to the declarative and functional approach originating
+ in FRP, where programs should "describe things that exist, rather than
+ actions that have happened or are to happen (i.e., what is, not what does)"
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In general, seperating the variables and expressions between interfaces
+ and consumers seems incompatible with FRP, because reactive variables are
+ defined by their functions over other reactive variables, or by their values
+ over time 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+ The concept of reactive variables originates from the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP), that is based on 
+\emph on
+Functional Programming
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ According to FRP, the programs should “describe things that exist, rather
+ than actions that have happened or are to happen (i.e., what is, not what
+ does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+.
+ Therefore, we developed a modified version of the assignment operation
+ that only adds the source without removing previous assignments.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to add the sources, we use the second method.
+ reactive variables can be updated externally by injecting event handlers.
+ In events handlers, we can set inputs to reactive variables in response
+ other reactive variables' updates.
+ For example, in ReactiveX the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+.
+ This method means an integration between FRP and imperative programming,
+ and is used cross compnents or systems, even when not saying explicitly
+ OOP.
+ We found this method useful for two reasons.
+ First, that the interaction between the objects are directed, without the
+ need of a madiator that acess to objetct's encapsuated state or behavior.
+ Second, that the method adds, instead of replaces, the formula in addition
+ to the existing formulas handled by the runtime of the FRP solution.
+ 
+\end_layout
+
+\begin_layout Standard
+We extended the method to achieve predictability.
+ In the traditional integration between FRP and imperative programming,
+ there might be infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable might execute an event handler,
+ causing the reactive variable to change.
+ On the other hand, traditional implementations that achieve predictability
+ need a mediator that accesses the whole variable.
+ Even in REScala, where this approach is implemented, the traditional events
+ modules could not be used, and another mechanism is built to maintain the
+ values hosted in the objects.
+ We succeeded in providing predictability, even though no mediator exists.
+\end_layout
+
+\begin_layout Subsection
+Inheritance
+\end_layout
+
+\begin_layout Standard
+Our approach effectively addresses the issue of inheritance, which has long
+ been recognized as a challenge in managing data dependencies between parent
+ and child classes.
+ When classes and their subclasses maintain their own variables, there is
+ a risk of object re-entrance, where an object indirectly calls another
+ object that then calls it back.
+ In subsequent calls, the variables may be inconsistent because the execution
+ has not finished.
+ To avoid such problems, developers need to carefully define contracts between
+ classes and their subclasses.
+\end_layout
+
+\begin_layout Standard
+We have established a contract that addresses the issue resulted from adding
+ reactive variables to objects.
+ Specifically, we have considered whether a subclass should be allowed to
+ override dependencies defined in its parent.
+ If a subclass changes the behavior of its super class, the resulting type
+ does not inherit the entire behavior of the parent.
+ Therefore, we have defined that the assignment only adds dependencies without
+ overriding old ones.
+ As a result, the resulting object derives its entire functionality from
+ the hierarchy.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+then it break the parent class behavior.
+ In contrast, the idea that an assignment does not override the prevsiu
+ dependencies, but only adds new onces, cuases the subclasses only extending
+ the parents, even when they assign the parents' variables.
+ (the previus option also OK, that derived class has only derived values).
+\end_layout
+
+\begin_layout Plain Layout
+inheritance with subtyping, by not only that the derived class derived its
+ parent class's values.
+ Subclass need 
+\end_layout
+
+\begin_layout Plain Layout
+Inheritance is a 
+\end_layout
+
+\begin_layout Plain Layout
+The concept of assignment that only adds calculation, provides a good and
+ consize answer to traditional issues.
+ reassignment 
+\end_layout
+
+\begin_layout Plain Layout
+In our assignment opertor, we provided a new solution to inheritance.
+ solves previous problems in inheritance.
+ In the previous approach, it was unclear
+\end_layout
+
+\begin_layout Plain Layout
+When classes and their subclasses maintain their variables, they might have
+ the problem named object re-entrance.
+ By the use of events, object can indirectly calls another object, which
+ might calls it back.
+ In the susequent call, uniendtly, the variables might be inconsistent,
+ because they execution has not been finished.
+\end_layout
+
+\begin_layout Plain Layout
+——
+\end_layout
+
+\begin_layout Plain Layout
+, in the chain of executions 
+\end_layout
+
+\begin_layout Plain Layout
+Originaly, inheritance mean that developers can extend functionality by
+ deriving exsting classes.
+ However, the diffrence bteween extension to change, can be challnged.
+ The developers has the best practice LSP, to ensure that the subclass only
+ extend and do not do changes: Preconditions cannot be strengthened in the
+ subtype.
+ Postconditions cannot be weakened in the subtype.
+\end_layout
+
+\begin_layout Plain Layout
+exsting code that use the original class, can unexpectly change, when the
+ provided objects are related to the subclass, with n
+\end_layout
+
+\begin_layout Plain Layout
+Traditionaly, there is a problem in inheritance in OOP, that the contract
+ between the parent class and child class, is not so good.
+ With the meaning that 
+\end_layout
+
+\begin_layout Plain Layout
+—————–
+\end_layout
+
+\begin_layout Plain Layout
+ReactiveX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ and REScala 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+ provide reactive variables as standard data types, causing reactive variables
+ being able to be assigned through an interface (by setters).
+ However, this strategy is contrasted with the concept of reactive variables.
+ The concept of reactive variables originates from the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP), that is based on 
+\emph on
+Functional Programming
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ According to FRP, the programs should “describe things that exist, rather
+ than actions that have happened or are to happen (i.e., what is, not what
+ does)” 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, in ReactiveX and REScala, an assigment causes to stop the
+ old source, and then start to respond to new source.
+ In general, seperating the variables and expressions between interfaces
+ and consumers seems incompatible with FRP, because reactive variables are
+ defined by their functions over other reactive variables, or by their values
+ over time 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In the second method, reactive variables are accessed externally by injecting
+ events handlers.
+ In events handlers, we can set inputs to reactive variables in response
+ other reactive variables' updates.
+ For example, in ReactiveX the statement 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+.
+ This method 
+\emph on
+adds
+\emph default
+ the formula in addition to the existing formulas handled by the runtime
+ of the FRP solution.
+ But in the current implementation, the formula is activated externally,
+ without the advantages that the paradigm of FRP should provide.
+ FRP aims to provide predictability and composability.
+ In contrast, adding formulas externally, by integration between FRP and
+ imperative programming, might cause infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive,blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable, might execute an event handler,
+ causing the reactive variable to change.
+\end_layout
+
+\begin_layout Plain Layout
+————–
+\end_layout
+
+\begin_layout Plain Layout
+———–
+\end_layout
+
+\begin_layout Plain Layout
+we we can seamlessly integrate reactive variables with events.
+ Similar to SignalJ, we compose the reactive variables, and the resulting
+ changes are considered effects in functional terms because they are a stream
+ of events.
+\end_layout
+
+\begin_layout Plain Layout
+————
+\end_layout
+
+\begin_layout Plain Layout
+The idea that a reactive variable can be represented as an events stream
+ is seen in the documentation of RXJS
+\end_layout
+
+\begin_layout Plain Layout
+Our implementation is based on ReactiveX, in which reactive variable is
+ a stream of events that update the value over time.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+First, the idea that reactive variables and events can be converted.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+There are libraries that allowes to use FRP with the imperative programming
+ that is used in the OOP paradigm.
+ For example, REScala that is an extension to Scala programming langauge,
+ allows to convert between reactive variables and events.
+ Another library SignalJ, suggests that an event can be tangled to reactive
+ variable's changes, meaning a side effect.
+ ReactiveX is a vary popular extension, developed in C#, and more programmig
+ lamngaguges, known most by RXJS for Javascript.
+ In ReactiveX, a reactive variable is a stream of events that update the
+ value over time.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In addition to the conversions efforts, there is also discussion or works
+ researching about integrating the core concepts of the paradigms.
+\end_layout
+
+\begin_layout Plain Layout
+There is the concept 
+\begin_inset Quotes eld
+\end_inset
+
+reactive object
+\begin_inset Quotes erd
+\end_inset
+
+, or to update to model an entire object, that its state change over time.
+ Another direction provide reactive variables as part of the object's interface.
+ The first discuuse more about updating the semantics of OOP, while the
+ second 
+\end_layout
+
+\begin_layout Plain Layout
+FRP in the 
+\end_layout
+
+\begin_layout Plain Layout
+the mean of objects that contain varying values.
+\end_layout
+
+\begin_layout Subsection
 Integrate with Objects
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ReactiveX
 \begin_inset Foot
 status collapsed
@@ -445,7 +1313,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the second method, reactive variables are accessed externally by injecting
  events handlers.
  In events handlers, we can set inputs to reactive variables in response
@@ -500,48 +1368,11 @@ literal "false"
  causing the reactive variable to change.
 \end_layout
 
-\begin_layout Standard
-(REScala is a library in Scala programming languauge, that supports reactive
- variables under the name 
-\emph on
-signals
-\emph default
-, being part of the object interface.
- Instead of declaring events and invoking them when variables change, the
- library enables the developers to declare the data dependencies.
- The signals interact with the inputs of the user interfaces, because signals
- changes and events can be converted between each other.
- REScala is the result of an active research in FRP, and adopts recent updates
- in the field.
-\end_layout
-
-\begin_layout Standard
-ReactiveX is another library, developed first in C# programming langaue
- and adopted in many others programming langugaes.
- This library implements an observable that updates its subscribers in a
- form of an iterator.
-\end_layout
-
-\begin_layout Standard
-The values that it updates the subscribers are values that it 
-\end_layout
-
-\begin_layout Standard
-also supports reactive variables diffrently, but they are also a part of
- the objects interface.
-\end_layout
-
-\begin_layout Standard
-ReactiveX important concept is the observable which is similar to events
- stream.
- )
-\end_layout
-
-\begin_layout Standard
+\begin_layout Plain Layout
 ————————–
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The idea of combining reactive variables from FRP to being instance variables
  in OOP is not new.
  REScala and ReactiveX has also reactive variable being an instance variable.
@@ -587,52 +1418,9 @@ replaces
  a dependency.
 \end_layout
 
-\begin_layout Section
-distributed
-\end_layout
-
-\begin_layout Standard
-In the FRP paradigm with the distributed settings, variables can be located
- in different processes or hosts 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,shibanai2018distributed,drechsler2014distributed"
-literal "false"
-
 \end_inset
 
-.
- Using solutions like XFRP
-\emph on
- 
-\emph default
 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "shibanai2018distributed"
-literal "false"
-
-\end_inset
-
-, developers declare functions over reactive variables, and the compiler
- generates a distributed application, that handles the updates according
- to the specified formulas.
-\end_layout
-
-\begin_layout Standard
-——
-\end_layout
-
-\begin_layout Standard
-quarp
-\end_layout
-
-\begin_layout Section
-glitch/simulanous events/merge
-\end_layout
-
-\begin_layout Section
-constraints?
 \end_layout
 
 \end_body

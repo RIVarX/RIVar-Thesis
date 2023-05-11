@@ -919,9 +919,24 @@ Inheritance
 \end_layout
 
 \begin_layout Standard
-Our approach effectively addresses the issue of inheritance, which has long
- been recognized as a challenge in managing data dependencies between parent
- and child classes.
+Our approach effectively addresses the issue of inheritance 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, which has long been recognized as a challenge in managing data dependencies
+ between parent and child classes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
  When classes and their subclasses maintain their own variables, there is
  a risk of object re-entrance, where an object indirectly calls another
  object that then calls it back.

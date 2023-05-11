@@ -126,23 +126,6 @@ noprefix "false"
 \end_inset
 
  provides an example of interdependent fields in a front-end application.
- In such cases, when updating one field requires updates to other fields
- as well, modifying one field would mean changing all the locations where
- the other fields are updated.
- This leads to a centralized maintenance model, as seen in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Centerlized-Calculation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, where all the calculation logic is centralized and tightly coupled, making
- it difficult to isolate the code for each field.
- Consequently, modifying one field can unintentionally affect other fields,
- making it challenging to comprehend the application's behavior as a whole.
 \end_layout
 
 \begin_layout Standard
@@ -484,25 +467,54 @@ The OOP paradigm provides an alernative by the observer pattern.
 \end_inset
 
 
-\end_layout
+\begin_inset Note Note
+status collapsed
 
-\begin_layout Standard
-The Observer pattern in Object-Oriented Programming (OOP) can help mitigate
- the issue of interdependent fields in a front-end application.
- In OOP, objects contain variables that are equivalent to the fields in
- UI applications, as well as frondends can be seperated to microfrontends.
+\begin_layout Plain Layout
+(I wrote this, and asked the gpt generate )The Observer pattern in Object-Orient
+ed Programming (OOP) can adress the issue of interdependent fields in for
+ front-end applications.
+ Objects can contain variables that are equivalent to the fields in UI applicati
+ons.
  By using the Observer pattern or events, it is possible to register code
- to be executed when a variable is changed.
- As a result, there is no longer a need to manually update the code that
- updates the dependent variables.
- This provides the ability to hide logic, which can help to separate concerns
- and make code easier to manage.
+ to be executed when a field or a variable is changed.
+ Otherwise, code that update a variable (or a field) might be changed, to
+ update other depedant variables.
+ Instead, by t the observer pattern, we have the ability to hide logic,
+ which can help to separate concerns and make code easier to manage.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-In practice, it has been observed that relying solely on onchange events
- based on object contracts can lead to unexpected updates and values, as
- shown in 
+Objects can use the observer pattern, or expose events to execute code when
+ fields are updated, to enable other fields to be updated accordingly.
+ If the code that updates one field needs to directly update additional
+ fields, modifying the code to update one field might require changing the
+ locations in the code where the other fields are updated.
+ This leads to a centralized maintenance model, as seen in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Centerlized-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, where all the calculation logic is centralized and tightly coupled, making
+ it difficult to isolate the code for each field.
+ As an alternative, each field or variable has an onchange event, and multiple
+ event handlers are registered, that update depedant fields.
+\end_layout
+
+\begin_layout Standard
+In reality, the onchange events did not effectively address the issue.
+ It has been observed that relying solely on onchange events based on object
+ contracts can lead to unexpected updates and values, as shown in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Calculation-spread-over-objects-1"
@@ -1233,6 +1245,12 @@ lstinline{Z}
 status collapsed
 
 \begin_layout Plain Layout
+
+\series bold
+old
+\end_layout
+
+\begin_layout Plain Layout
 However, many applications, as our example, have cycles by their nature
  
 \begin_inset CommandInset citation
@@ -1343,6 +1361,12 @@ lstinline{Z}
 
 \begin_inset Note Note
 status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+old
+\end_layout
 
 \begin_layout Plain Layout
 While in the events paradigm, developers 
@@ -1931,6 +1955,29 @@ literal "false"
 
 .
  Nevertheless, the model treats the meaning issue about cycles more explicity.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+duplication
+\end_layout
+
+\begin_layout Plain Layout
+Comparing to the traditional pure frp, we increased the ability to extend
+ applications.
+ Because that variables as pure functions can be extended by only deriving
+ variables.
+ This limitation in FRP, to not link calculations to existing variables
+ causes variables duplications.
+ Becasue, if we cannot target to exsting variable, we create a new one.
+ (excel examples)
 \end_layout
 
 \end_inset

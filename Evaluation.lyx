@@ -316,1281 +316,6 @@ A UML diagram showing a composition relationship between a Pump class and
 \end_layout
 
 \begin_layout Section
-Propogation Algorithm
-\end_layout
-
-\begin_layout Standard
-In our implementation, we provided a strict general propogation algorithm,
- to provide the developers to sepcify clear logic.
- In the drug administration example, the business logic is well specified:
- the objects, the variables, and how they are calculated from each other.
- However, the order of the updates are strict to our implementation.
- there may be domain-specific requirements for other orders for the updates.
- In addition, performance considerations (non functional requirements) may
- require changing the order of the updates, such as reducing consistency
- levels for heavy calculations.
- now we will weaken this argument.
-\end_layout
-
-\begin_layout Subsection
-The state of the art
-\end_layout
-
-\begin_layout Standard
-This is like previous works had to face the balancing between the abstraction
- level and the generalism of the propogation algorithm.
- The technaogy that enables completely custom propogation, has a problematic
- abstraction.
- Event-driven programming theortecaly provide customizable propagation.
- Hoever, the paradigm is error prone, so that it hard to realy customize
- according to the needs.
- Therfore, it is not new that the customizability, is by only choose a general
- propogation strategy.
- 
-\end_layout
-
-\begin_layout Standard
-In working with streams such like like ReactiveX.
- In reactiveX, the developer can choose between several scueduler, to indicate
- the order of the updates.
- Hwoever, in working with streams, there is has the same general time problem
- we have in the events driven.
- Here, it is called 
-\series bold
-merge
-\series default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- In the industry libraries, as can be seen in ReactiveX and Sodium, there
- is either an inpredictable merge function or that the developer need to
- specify the method to merge 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In the FRP field reserach, the centeral high level concept is that the developer
-s need only to specify the data dependencies, and the runtime maintain the
- updates.
- saying that the the runtime handles the non functional requirements, and
- the developer is free to handle only the functional equirements.
- Suprisngly, the general algorithm handles also some functional requirements,
- and also some non functional requirements break the neat abstraction.
- The root causes are glitches and cycles.
-\end_layout
-
-\begin_layout Paragraph
-Glitches
-\end_layout
-
-\begin_layout Standard
-Glitch means an extra recomputation then expected.
- This is not only the extra work, that affect the perfomance, but also that
- the values that are based on stale values, until the last recomutation.
- There are several glicthes types,that arerelated to the required level
- of the consistency.
- So, this is a functional requirement, depending on the applicaton business.
- Hwever, it is handled strictly by the runtime.
-\end_layout
-
-\begin_layout Paragraph
-Cycles
-\end_layout
-
-\begin_layout Standard
-In order to customize the way in which to evaluate cycles, the abstracion
- is not totaly high.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Our approach can be implemented (as we already implemented) as internal
- dsl, based on the existing popular frameworks.
- the comunication between the nodes is based on a simpler observer chanel.
- theoreticaly, the developers can debug the updates (however, in our implementat
-ion, it is still not the case, because we use the framework that implemented
- the streams with schduler, and not completly directly method calls.
- theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
- because the protocal (propogation algorthm) is peer to peer (means no madiator).
- The only limitation, is that the external input will be atached with an
- order, such that each input is atached with the incerenetal number.
- In large network, it might be a bottleneck.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-The Algorithm
-\end_layout
-
-\begin_layout Standard
-first, front end need syncronization updates.
-\end_layout
-
-\begin_layout Standard
-second, our resulted libraries actualy produces a framework for decenterlized
- constraints systems.
- We provide the ability to declare one-way dataflow constraints targeting
- to variables that we do not own.
- While the entire system maintain the whole constraints as in hirarchial
- constraints systems.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-In this section, we compare our method to Hotdrink mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "par:Constraints"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, FRP and so our method are similar to Hotdrink in that they share declare
- equations, providing runtime automates to automate variables' updates,
- they support cycles and several assignments, and that they handle the variables
-' values according to the order of the input.
- Our method is diffrent from Hotdrink in that it is a 
-\emph on
-decenterlized
-\emph default
- constraints system, and that it handles one-way constraints.
-\end_layout
-
-\begin_layout Paragraph*
-decenterlized constraints system
-\end_layout
-
-\begin_layout Plain Layout
-Hotdrink needs for each input, to run against the entire constraints and
- existing values, to generate a new dependancy graph according to the variables'
- existing values.
- This algorithm is executed by a madiator coupling the entire variables
- and dependencies.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Repeating-Solutions"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, this design causes applications to not being reused.
- In other words, Hotdrink can be used only to building monolith applications
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
- In contrast, our method provides a decentrelized constraints system, the
- variables observe their sources and update their values by regular objects'
- messages.
- Consequently, by nature, relations between variables can be specified,
- even when variables are located in diffrent components.
-\end_layout
-
-\begin_layout Paragraph*
-one-way constraints
-\end_layout
-
-\begin_layout Plain Layout
-Hotdrink handles two-way constraints while our method handle one-way constraints.
- As explained in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the two-way constraints need attached one-way constraints, that are the
- 
-\emph on
-methods 
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- to satisfy the two-way constraints.
- Consequently, with the two methods, the developer needs to specify one-way
- constraints.
- However, it has been augmented that it is more correct to specify two-way
- constraints, because several one-way constraints defined separately might
- define inconsistent requirements 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- We leave this for future work.
- For this stage we provide two arguments to the claim.
- First, according to the motivating example, we need the option to write
- the one-way constraints separately.
- Second, the method should be used in a programming language that supports
- OOP.
- Consequently, it should not be hard to implement a wrapper class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Constraint}
-\end_layout
-
-\end_inset
-
- containing one-way constraints given as arguments.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Future Enhancments
-\end_layout
-
-\begin_layout Standard
-We provided a new abstraction with an elsticity.
- The fact that we provided an actual end to end solution, does not strict
- it.
- The merge function can be replaced depending on the feasibilty and requiremtns.
-\end_layout
-
-\begin_layout Standard
-????
-\end_layout
-
-\begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Code-Reuse"
-
-\end_inset
-
-Code Reuse
-\end_layout
-
-\begin_layout Standard
-
-\emph on
-Code reuse
-\emph default
-, 
-\emph on
-DRY 
-\emph default
-(Don't Repeat Yourself) or 
-\emph on
-SSOT
-\emph default
- (Single Source of Truth.
- By not repeating code, there is no inconsistent behavior, each piece of
- logic has only one source of truth)
-\emph on
- 
-\emph default
-are obvious principles in programming.
- In this section, we present three types of code repetition being removed
- by the new method.
- In the presentation, we refer to the used abstraction mechanisms and compare
- to the traditional methods.
-\end_layout
-
-\begin_layout Subsection
-Repeating Updates
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Repeating-Updates"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Derived from the FRP paradigm, we abstract away the need to update variables
- in response to dependant variables' updates.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:background-FRP"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, The FRP paradigm maintain formulas automatically, so that there is no
- need to repeat registering to events to re-calculate variables.
- In the events paradigm, developers need to update variables in the events
- when other variables are updated.
- In case that a variable is updated according to several variables, we should
- register to all the relevant events to call to the variable to update.
- For example, as in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, in order that 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{x}
-\end_layout
-
-\end_inset
-
- will contain the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{y+z}
-\end_layout
-
-\end_inset
-
- whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{y}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{z}
-\end_layout
-
-\end_inset
-
- is updated, we should calculate 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{x}
-\end_layout
-
-\end_inset
-
- in two events handlers.
- We provide the abstraction mechanism so that the developers don't have
- to repeat on the code, they only need to declare 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{x:=y+z}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Repeating Variables
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Repeating-Variables"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In the FRP paradigm by nature, several reactive variables are declared to
- represent a single real world variable.
- Because reactive variables are the functions they represent.
- In other words, once there is a function to calculate a varying value,
- usualy a new reactive variable is declared.
- In contrast, we use the principal of several assignments, such that a single
- reactive variable is assigned to several functions.
- As a result, our method use a mechanism to not duplicate variables.
-\end_layout
-
-\begin_layout Subsubsection
-Example
-\end_layout
-
-\begin_layout Standard
-In the example, we demonstrate a development process.
- We use a bold font style to indicate for code, that it is changed compared
- to the previous step.
- The process is about the two variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
-, the first refers to medication amount administered to a patient, and the
- second refers to whether the application should alert about abnormal medication
- amount.
- The following formula relates 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
-, so that 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}'s
-\end_layout
-
-\end_inset
-
- value be automatically according to the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=FromInput()
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=IsAbnormal(Amount)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The doctor may administer the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
-, then the amount will be calculated by as product, thefore the code will
- be changed:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-AmountByInput=FromInput()
-\end_layout
-
-\begin_layout Plain Layout
-
-__AmountByConcentrationAndVolume=Concentration*Volume__ 
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=Or(IsAbnormal(AmountByInput),__IsAbnormal(AmountByConcentration AndVolume)
-__)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The doctor may administer by setting 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-, then the medication amount will be calculated by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose*Duration}
-\end_layout
-
-\end_inset
-
-.
- In such a case, we should again update the code:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none] 
-\end_layout
-
-\begin_layout Plain Layout
-
-AmountByInput=FromInput() 
-\end_layout
-
-\begin_layout Plain Layout
-
-AmountByConcentrationAndVolume=Concentration*Volume __AmountByDoseAndDuration=Do
-se*Duration__ 
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=Or(IsAbnormal(AmountByInput),
-\end_layout
-
-\begin_layout Plain Layout
-
-IsAbnormal(AmountByConcentrationAndVolume),
-\end_layout
-
-\begin_layout Plain Layout
-
-__IsAbnormal(AmountByDoseAndDuration)__) 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-It can be seen, that whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
- need more values source, then we should update the assignment to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
-.
- If we forget to update (as may happen in large complex applications), there
- become inconsistencies between 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Paragraph*
-Implementing by the new method
-\begin_inset CommandInset label
-LatexCommand label
-name "par:no-duplicate-variables-example"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The should be an alert if the amount is abnormal, therefore the following
- formula relates 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
-, so that 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}'s
-\end_layout
-
-\end_inset
-
- value be automatically according to the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textit{Amount}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=FromInput()
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=IsAbnormal(Amount)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The doctor may administer the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
-, then the amount will be calculated by as product.
- It is enough to only add the code:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=Concentration*Volume
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The doctor may administer by setting 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-, then the medication amount will be calculated by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose*Duration}
-\end_layout
-
-\end_inset
-
-.
- It is enough to only add the code:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none] 
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Nothing about variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
- need updates, therfore there is no chance of consistency problem between
- the variables' values.
-\end_layout
-
-\begin_layout Subsection
-Repeating Solutions
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Repeating-Solutions"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The new method also provides an abstraction mechanism to not repeat on 
-\emph on
-solutions
-\emph default
-.
- As mentioned in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-cref{subsec:Repeating-Updates,subsec:Repeating-Variables}
-\end_layout
-
-\end_inset
-
-, the new method provides an abstraction mechanism to not repeat on updates
- and variables.
- However, we are not the first to provide such an abstraction mechanism.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, in constraints systems, several constraints can output to the same variable,
- while constraints are such like formulas in FRP.
- Anyway, solutions created by constraints systems cannot be reused and extended
- with more constraints, without to change the original solution, because
- the constraints systems handle the updates using a centeral constraints
- solver.
- In contrast, with the new method, solutions can be reused, because our
- new variant of FRP provides adding formulas to existing solutions.
-\end_layout
-
-\begin_layout Standard
-We derive from OOP the ability to reuse solutions.
- Before OOP, in order to reuse solutions, the developer has two alternatives:
- either to use an existing solution to the new client, or to copy-and paste
- it.
- The first alternative might cause unexpected changes to existing clients,
- because the developer might change the solution to the new client, affecting
- other cliebts unexpetcedly.
- The second alternative produce code duplication.
- In the second alternative, the duplicated code is related to a common logic,
- if it is changed in one solution, there might be an inconsistency in the
- behavior.
- OOP provides the inheritance and composition mechanisms to reuse existings
- solution without to duplicate and without to change existing solutions.
-\end_layout
-
-\begin_layout Standard
-The inheritance and composition mechanisms are actually not simple to use.
- It is expected that the new code will not change the original behavior,
- however even if the code is specified only in the service or in the subclass,
- it might change the original behavior 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
-.
- When assigning reactive instance variables through a service or a specializatio
-n interface (subclass assign a reactive variable of its base class), in
- REScala and ReactiveX, it 
-\emph on
-replaces
-\emph default
- a dependency, then it 
-\emph on
-changes
-\emph default
- the original behavior.
- In our method it 
-\emph on
-adds
-\emph default
- the dependency, then it only 
-\emph on
-extends
-\emph default
- the original behavior.
-\end_layout
-
-\begin_layout Section
 The Case Study
 \end_layout
 
@@ -2725,6 +1450,1279 @@ noprefix "false"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Propogation Algorithm
+\end_layout
+
+\begin_layout Standard
+In our implementation, we provided a strict general propogation algorithm,
+ to provide the developers to sepcify clear logic.
+ In the drug administration example, the business logic is well specified:
+ the objects, the variables, and how they are calculated from each other.
+ However, the order of the updates are strict to our implementation.
+ there may be domain-specific requirements for other orders for the updates.
+ In addition, performance considerations (non functional requirements) may
+ require changing the order of the updates, such as reducing consistency
+ levels for heavy calculations.
+ now we will weaken this argument.
+\end_layout
+
+\begin_layout Subsection
+The state of the art
+\end_layout
+
+\begin_layout Standard
+This is like previous works had to face the balancing between the abstraction
+ level and the generalism of the propogation algorithm.
+ The technaogy that enables completely custom propogation, has a problematic
+ abstraction.
+ Event-driven programming theortecaly provide customizable propagation.
+ Hoever, the paradigm is error prone, so that it hard to realy customize
+ according to the needs.
+ Therfore, it is not new that the customizability, is by only choose a general
+ propogation strategy.
+ 
+\end_layout
+
+\begin_layout Standard
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the FRP field reserach, the centeral high level concept is that the developer
+s need only to specify the data dependencies, and the runtime maintain the
+ updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+ Suprisngly, the general algorithm handles also some functional requirements,
+ and also some non functional requirements break the neat abstraction.
+ The root causes are glitches and cycles.
+\end_layout
+
+\begin_layout Paragraph
+Glitches
+\end_layout
+
+\begin_layout Standard
+Glitch means an extra recomputation then expected.
+ This is not only the extra work, that affect the perfomance, but also that
+ the values that are based on stale values, until the last recomutation.
+ There are several glicthes types,that arerelated to the required level
+ of the consistency.
+ So, this is a functional requirement, depending on the applicaton business.
+ Hwever, it is handled strictly by the runtime.
+\end_layout
+
+\begin_layout Paragraph
+Cycles
+\end_layout
+
+\begin_layout Standard
+In order to customize the way in which to evaluate cycles, the abstracion
+ is not totaly high.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Our approach can be implemented (as we already implemented) as internal
+ dsl, based on the existing popular frameworks.
+ the comunication between the nodes is based on a simpler observer chanel.
+ theoreticaly, the developers can debug the updates (however, in our implementat
+ion, it is still not the case, because we use the framework that implemented
+ the streams with schduler, and not completly directly method calls.
+ theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
+ because the protocal (propogation algorthm) is peer to peer (means no madiator).
+ The only limitation, is that the external input will be atached with an
+ order, such that each input is atached with the incerenetal number.
+ In large network, it might be a bottleneck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The Algorithm
+\end_layout
+
+\begin_layout Standard
+first, front end need syncronization updates.
+\end_layout
+
+\begin_layout Standard
+second, our resulted libraries actualy produces a framework for decenterlized
+ constraints systems.
+ We provide the ability to declare one-way dataflow constraints targeting
+ to variables that we do not own.
+ While the entire system maintain the whole constraints as in hirarchial
+ constraints systems.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In this section, we compare our method to Hotdrink mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "par:Constraints"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, FRP and so our method are similar to Hotdrink in that they share declare
+ equations, providing runtime automates to automate variables' updates,
+ they support cycles and several assignments, and that they handle the variables
+' values according to the order of the input.
+ Our method is diffrent from Hotdrink in that it is a 
+\emph on
+decenterlized
+\emph default
+ constraints system, and that it handles one-way constraints.
+\end_layout
+
+\begin_layout Paragraph*
+decenterlized constraints system
+\end_layout
+
+\begin_layout Plain Layout
+Hotdrink needs for each input, to run against the entire constraints and
+ existing values, to generate a new dependancy graph according to the variables'
+ existing values.
+ This algorithm is executed by a madiator coupling the entire variables
+ and dependencies.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Repeating-Solutions"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, this design causes applications to not being reused.
+ In other words, Hotdrink can be used only to building monolith applications
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, our method provides a decentrelized constraints system, the
+ variables observe their sources and update their values by regular objects'
+ messages.
+ Consequently, by nature, relations between variables can be specified,
+ even when variables are located in diffrent components.
+\end_layout
+
+\begin_layout Paragraph*
+one-way constraints
+\end_layout
+
+\begin_layout Plain Layout
+Hotdrink handles two-way constraints while our method handle one-way constraints.
+ As explained in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the two-way constraints need attached one-way constraints, that are the
+ 
+\emph on
+methods 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ to satisfy the two-way constraints.
+ Consequently, with the two methods, the developer needs to specify one-way
+ constraints.
+ However, it has been augmented that it is more correct to specify two-way
+ constraints, because several one-way constraints defined separately might
+ define inconsistent requirements 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ We leave this for future work.
+ For this stage we provide two arguments to the claim.
+ First, according to the motivating example, we need the option to write
+ the one-way constraints separately.
+ Second, the method should be used in a programming language that supports
+ OOP.
+ Consequently, it should not be hard to implement a wrapper class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Constraint}
+\end_layout
+
+\end_inset
+
+ containing one-way constraints given as arguments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Future Enhancments
+\end_layout
+
+\begin_layout Standard
+We provided a new abstraction with an elsticity.
+ The fact that we provided an actual end to end solution, does not strict
+ it.
+ The merge function can be replaced depending on the feasibilty and requiremtns.
+\end_layout
+
+\begin_layout Section
+The Goal
+\end_layout
+
+\begin_layout Standard
+Separation of concerns facilitates reuse.
+ When code is divided into smaller, more manageable pieces, it becomes easier
+ to identify and extract reusable components.
+ These components can then be repurposed in other projects without having
+ to reinvent the wheel.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Code reuse
+\emph default
+, 
+\emph on
+DRY 
+\emph default
+(Don't Repeat Yourself) or 
+\emph on
+SSOT
+\emph default
+ (Single Source of Truth.
+ By not repeating code, there is no inconsistent behavior, each piece of
+ logic has only one source of truth)
+\emph on
+ 
+\emph default
+are obvious principles in programming.
+ In this section, we present three types of code repetition being removed
+ by the new method.
+ In the presentation, we refer to the used abstraction mechanisms and compare
+ to the traditional methods.
+\end_layout
+
+\begin_layout Subsection
+Repeating Updates
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Repeating-Updates"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Derived from the FRP paradigm, we abstract away the need to update variables
+ in response to dependant variables' updates.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:background-FRP"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, The FRP paradigm maintain formulas automatically, so that there is no
+ need to repeat registering to events to re-calculate variables.
+ In the events paradigm, developers need to update variables in the events
+ when other variables are updated.
+ In case that a variable is updated according to several variables, we should
+ register to all the relevant events to call to the variable to update.
+ For example, as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in order that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x}
+\end_layout
+
+\end_inset
+
+ will contain the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{y+z}
+\end_layout
+
+\end_inset
+
+ whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{y}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{z}
+\end_layout
+
+\end_inset
+
+ is updated, we should calculate 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x}
+\end_layout
+
+\end_inset
+
+ in two events handlers.
+ We provide the abstraction mechanism so that the developers don't have
+ to repeat on the code, they only need to declare 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{x:=y+z}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Repeating Variables
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Repeating-Variables"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the FRP paradigm by nature, several reactive variables are declared to
+ represent a single real world variable.
+ Because reactive variables are the functions they represent.
+ In other words, once there is a function to calculate a varying value,
+ usualy a new reactive variable is declared.
+ In contrast, we use the principal of several assignments, such that a single
+ reactive variable is assigned to several functions.
+ As a result, our method use a mechanism to not duplicate variables.
+\end_layout
+
+\begin_layout Subsubsection
+Example
+\end_layout
+
+\begin_layout Standard
+In the example, we demonstrate a development process.
+ We use a bold font style to indicate for code, that it is changed compared
+ to the previous step.
+ The process is about the two variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+, the first refers to medication amount administered to a patient, and the
+ second refers to whether the application should alert about abnormal medication
+ amount.
+ The following formula relates 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+, so that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}'s
+\end_layout
+
+\end_inset
+
+ value be automatically according to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=IsAbnormal(Amount)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The doctor may administer the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+, then the amount will be calculated by as product, thefore the code will
+ be changed:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByInput=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+__AmountByConcentrationAndVolume=Concentration*Volume__ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),__IsAbnormal(AmountByConcentration AndVolume)
+__)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The doctor may administer by setting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, then the medication amount will be calculated by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ In such a case, we should again update the code:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none] 
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByInput=FromInput() 
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByConcentrationAndVolume=Concentration*Volume __AmountByDoseAndDuration=Do
+se*Duration__ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),
+\end_layout
+
+\begin_layout Plain Layout
+
+IsAbnormal(AmountByConcentrationAndVolume),
+\end_layout
+
+\begin_layout Plain Layout
+
+__IsAbnormal(AmountByDoseAndDuration)__) 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It can be seen, that whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ need more values source, then we should update the assignment to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+.
+ If we forget to update (as may happen in large complex applications), there
+ become inconsistencies between 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph*
+Implementing by the new method
+\begin_inset CommandInset label
+LatexCommand label
+name "par:no-duplicate-variables-example"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The should be an alert if the amount is abnormal, therefore the following
+ formula relates 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+, so that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}'s
+\end_layout
+
+\end_inset
+
+ value be automatically according to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textit{Amount}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=IsAbnormal(Amount)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The doctor may administer the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+, then the amount will be calculated by as product.
+ It is enough to only add the code:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=Concentration*Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The doctor may administer by setting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, then the medication amount will be calculated by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ It is enough to only add the code:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none] 
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nothing about variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ need updates, therfore there is no chance of consistency problem between
+ the variables' values.
+\end_layout
+
+\begin_layout Subsection
+Repeating Solutions
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Repeating-Solutions"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The new method also provides an abstraction mechanism to not repeat on 
+\emph on
+solutions
+\emph default
+.
+ As mentioned in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cref{subsec:Repeating-Updates,subsec:Repeating-Variables}
+\end_layout
+
+\end_inset
+
+, the new method provides an abstraction mechanism to not repeat on updates
+ and variables.
+ However, we are not the first to provide such an abstraction mechanism.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in constraints systems, several constraints can output to the same variable,
+ while constraints are such like formulas in FRP.
+ Anyway, solutions created by constraints systems cannot be reused and extended
+ with more constraints, without to change the original solution, because
+ the constraints systems handle the updates using a centeral constraints
+ solver.
+ In contrast, with the new method, solutions can be reused, because our
+ new variant of FRP provides adding formulas to existing solutions.
+\end_layout
+
+\begin_layout Standard
+We derive from OOP the ability to reuse solutions.
+ Before OOP, in order to reuse solutions, the developer has two alternatives:
+ either to use an existing solution to the new client, or to copy-and paste
+ it.
+ The first alternative might cause unexpected changes to existing clients,
+ because the developer might change the solution to the new client, affecting
+ other cliebts unexpetcedly.
+ The second alternative produce code duplication.
+ In the second alternative, the duplicated code is related to a common logic,
+ if it is changed in one solution, there might be an inconsistency in the
+ behavior.
+ OOP provides the inheritance and composition mechanisms to reuse existings
+ solution without to duplicate and without to change existing solutions.
+\end_layout
+
+\begin_layout Standard
+The inheritance and composition mechanisms are actually not simple to use.
+ It is expected that the new code will not change the original behavior,
+ however even if the code is specified only in the service or in the subclass,
+ it might change the original behavior 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ When assigning reactive instance variables through a service or a specializatio
+n interface (subclass assign a reactive variable of its base class), in
+ REScala and ReactiveX, it 
+\emph on
+replaces
+\emph default
+ a dependency, then it 
+\emph on
+changes
+\emph default
+ the original behavior.
+ In our method it 
+\emph on
+adds
+\emph default
+ the dependency, then it only 
+\emph on
+extends
+\emph default
+ the original behavior.
 \end_layout
 
 \end_body

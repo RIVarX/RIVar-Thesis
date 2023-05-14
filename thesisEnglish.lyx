@@ -408,10 +408,6 @@ filename "Implementation.lyx"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand include
 filename "Evaluation.lyx"
@@ -420,6 +416,11 @@ filename "Evaluation.lyx"
 
 
 \end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "ev2"
 
 \end_inset
 

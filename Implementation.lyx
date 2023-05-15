@@ -90,8 +90,12 @@ name "chap:Implementation"
 Implementation
 \end_layout
 
+\begin_layout Section
+RIVarX
+\end_layout
+
 \begin_layout Standard
-In this chapter, we present an implementation of the model described in
+In this section, we present an implementation of the model described in
  
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -108,10 +112,6 @@ noprefix "false"
 g/packages/RIvar.RIvarX.
  RIVarX is based on ReactiveX and provides C# developers with a simple way
  to implement reactive variables in their projects.
-\end_layout
-
-\begin_layout Section
-RIVarX
 \end_layout
 
 \begin_layout Standard
@@ -270,6 +270,29 @@ lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
 .
 \end_layout
 
+\begin_layout Standard
+The framewrk has also the function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{merge}
+\end_layout
+
+\end_inset
+
+ that combines multiple streams into a single stream.
+ It takes multiple source observables and subscribes to all of them, forwarding
+ the emitted values from all of them into a single output observable.
+ This is a functional operator.
+ On the other hand, the same behavior can be imperatively achived by using
+ a Subject and calling onNext on the subject to emit values from the various
+ streams.
+\end_layout
+
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -355,11 +378,8 @@ lstinline{Set}
  Signal that is greater refers to a signal that is later.
  Therefore, any signal coming from the expression, that is greater than
  the latest signal in the target, is pushed to the target.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 (That's correct.
@@ -627,7 +647,7 @@ lstinline{CombineLatest}
 , filters out values that are less updated than their previous values.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Using RIVarX
 \end_layout
 
@@ -1189,6 +1209,72 @@ cref{line:checkResult}
 
 ).
  
+\end_layout
+
+\begin_layout Section
+rivarjs
+\end_layout
+
+\begin_layout Standard
+To allow a wider adoption, we implemented the approach also in javascript,
+ and published to npm as a library rivarjs available in 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+.
+ We also published our case study (drug administration) that uses it, and
+ it can be accessed at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rivarx.github.io/Evaluation/
+\end_layout
+
+\end_inset
+
+ .
+ JavaScript has a large and active open source community, which makes it
+ an attractive platform for publishing and evaluating libraries.
+ in addition, the library is intended to be used in front-end applications,
+ and the majority of front-end development is currently done using JavaScript.
+\end_layout
+
+\begin_layout Standard
+To incorporate the rivarjs library into a web form, all that is required
+ of the developer is to add script tags to the HTML file.
+ Firstly, the rxjs library on which rivarjs depends should be added, similar
+ to how RVIarX depends on ReactiveX.
+ Secondly, rivarjs itself should be added as our implemented library.
+ Lastly, the custom script that utilizes the framework should be added.
+\end_layout
+
+\begin_layout Standard
+The library is designed to be user-friendly.
+ rivarjs offers three main elements: RIVar, Signal, and lift.
+ RIVar is a Subject from rxjs, which is extended by the Set method, used
+ to connect calculations.
+ The arguments for the calculation are actually the result of the lift function.
+ This function takes a given function and lifts it to be over the next two
+ RIVar arguments.
+ The input elements are linked to the RIVars, and they necessitate event
+ handlers to keep each other up to date on any changes.
+\end_layout
+
+\begin_layout Standard
+The library is in line with our proposed framework.
+ In modern versions of JavaScript (ES6), developers have the ability to
+ create classes and subclasses but interfaces are not supported.
+ As a workaround, developers can set the RIVars of an object depending on
+ the dynamic nature of the language.
 \end_layout
 
 \end_body

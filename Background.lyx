@@ -516,10 +516,10 @@ In reality, the onchange events did not effectively address the issue.
  It has been observed that relying solely on onchange events based on object
  contracts can lead to unexpected updates and values, as shown in 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "fig:Calculation-spread-over-objects-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -547,10 +547,10 @@ literal "false"
  derived from variable values.
  As illustrated in 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "fig:Statechart"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

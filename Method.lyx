@@ -1323,7 +1323,7 @@ label{line:RIVars}|
 
 \begin_layout Plain Layout
 
-  TheBag.Drug=Dose*Duration  |
+  TheBag.Drug:=Dose*Duration  |
 \backslash
 label{line:formula}|
 \end_layout

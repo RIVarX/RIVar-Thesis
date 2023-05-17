@@ -91,7 +91,7 @@ Related Work
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Section
 FRP
@@ -668,6 +668,142 @@ noprefix "false"
  our model handles one-way constraints.
  However, as said in the section, the two-way constraints are declared and
  handled by one-way constraints.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Cycles-1"
+
+\end_inset
+
+Cycles
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP paradigm, where FRP runtimes are developed, There are two opposing
+ methods about cycles.
+ In one method, cycles are avoided, because the paradigm derived from the
+ functional paradigm, with the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ According to the second method, forbidding cycles makes FRP unacceptably
+ weak, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+ Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+FRP runtimes that support cycles uses various techniques to stop arisen
+ loops.
+ Terminating when it closes a cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, adding to the language a special operator to inform the runtime when to
+ break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+, stop after a number of iterations, stop if the value has not changed,
+ or changed only less than a threshold (available in 
+\emph on
+Microsoft Excel
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+).
+ The various methods caused from the unknown, that a repeating update is
+ either needed because previous update was a glitch, or that it is unneeded
+ because the repeating update is caused from a cycle.
+\end_layout
+
+\begin_layout Plain Layout
+Our model provides the semantics described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "par:Any-Formula"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+: cycles are resulted from variables with more than one source.
+ Those variables are updated whenever there is a newer value from any of
+ the sources.
+ Technically, loops are terminated, because values caused from cycles are
+ not newer.
+ However, we are not the first to handle cycles, as said in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, constraints systems that handle two-way constraints handle cycles by their
+ nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ Nevertheless, the model treats the meaning issue about cycles more explicity.
 \end_layout
 
 \end_inset

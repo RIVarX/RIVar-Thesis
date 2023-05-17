@@ -26,6 +26,7 @@
 \usetikzlibrary{calc}
 \usepackage{cleveref}
 \usepackage{subcaption}
+\renewcommand\thesubfigure{\alph{subfigure}}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false

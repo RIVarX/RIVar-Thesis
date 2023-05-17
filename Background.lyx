@@ -1999,7 +1999,10 @@ FRP shares with the paradigm of constraint systems the idea, that developers
 
 \begin_layout Standard
 There are constraint systems similar to FRP that handle one-way constraints
- 
+\begin_inset space \thinspace{}
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sannella1993multi"
@@ -2008,7 +2011,11 @@ literal "false"
 \end_inset
 
 .
- Other constraint systems like Hotdrink 
+ Other constraint systems like Hotdrink
+\begin_inset space \thinspace{}
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "foust2015generating"
@@ -2016,7 +2023,11 @@ literal "false"
 
 \end_inset
 
- handle two-way constraints 
+ handle two-way constraints
+\begin_inset space \thinspace{}
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "haveraaen2021semantics,foust2015generating,sannella1993multi"

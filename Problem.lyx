@@ -260,21 +260,203 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{center}  
 \end_layout
 
 \begin_layout Plain Layout
 
+  
+\backslash
+centering
+\end_layout
 
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{subfigure}[b]{0.45
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+    
 \backslash
 begin{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
 
+      
+\backslash
+def 
+\backslash
+n {5}
+\end_layout
 
+\begin_layout Plain Layout
+
+      
+\backslash
+def 
+\backslash
+radius {3cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+def 
+\backslash
+margin {8}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E}
+\end_layout
+
+\begin_layout Plain Layout
+
+      {
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+draw[<-, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)
+\end_layout
+
+\begin_layout Plain Layout
+
+          arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+caption{Illustrating a directed graph with a cycle of directed edges (
+\backslash
+textbf{B} depends on 
+\backslash
+textbf{A} and so on) representing interdependent variables forming a cyclic
+ relationship.} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:graph}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+hfill
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{subfigure}[b]{0.45
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
 \backslash
 def 
 \backslash
@@ -283,7 +465,7 @@ n {5}
 
 \begin_layout Plain Layout
 
-
+      
 \backslash
 def 
 \backslash
@@ -292,7 +474,7 @@ radius {3cm}
 
 \begin_layout Plain Layout
 
-
+      
 \backslash
 def 
 \backslash
@@ -301,7 +483,7 @@ margin {8} % margin in angles, depends on the radius
 
 \begin_layout Plain Layout
 
-
+      
 \backslash
 foreach [count=
 \backslash
@@ -312,12 +494,12 @@ j in {A,B,...,E}
 
 \begin_layout Plain Layout
 
-{   
+      {   
 \end_layout
 
 \begin_layout Plain Layout
 
-
+        
 \backslash
 node[draw, circle] (
 \backslash
@@ -330,8 +512,13 @@ s - 1)}:
 radius) {
 \backslash
 j};   
+\end_layout
+
+\begin_layout Plain Layout
+
+        
 \backslash
-draw[<-, >=latex] ({360/
+draw[->, >=latex] ({360/
 \backslash
 n * (
 \backslash
@@ -339,7 +526,12 @@ s - 1)+
 \backslash
 margin}:
 \backslash
-radius)      arc ({360/
+radius)      
+\end_layout
+
+\begin_layout Plain Layout
+
+          arc ({360/
 \backslash
 n * (
 \backslash
@@ -358,39 +550,63 @@ radius);
 
 \begin_layout Plain Layout
 
-} 
+      } 
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-
+      
 \backslash
 node[above] (X) at (-3,3) {$input$};    
 \end_layout
 
 \begin_layout Plain Layout
 
-
+      
 \backslash
-draw[dotted][<-, >=latex] (X) -- (C);
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {};
 \end_layout
 
 \begin_layout Plain Layout
 
-
+    
 \backslash
 end{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
 
-
+    
 \backslash
-end{center} 
+caption{Illustrating the dataflow originating from an external input, which
+ flows either directly or indirectly to one of the nodes within the cycle.}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:dataflow}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -410,63 +626,9 @@ name "fig:cycle-to-multiple-assignment"
 
 Illustrating the relationship between cycles and variables with multiple
  sources.
- A cycle of variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
--
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{E}
-\end_layout
-
-\end_inset
-
- defined in terms of each other are represented by a directed graph with
- a cycle of directed edges.
- In addition, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C}
-\end_layout
-
-\end_inset
-
- depends directly or indirectly on external input, is represented by a dashed
- arrow.
- Consequently, it can be inferred that 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{C}
-\end_layout
-
-\end_inset
-
- originates from two distinct sources.
+ In a cycle of variables, it is a necessary outcome for at least one of
+ the nodes to depend directly or indirectly on external input, in addition
+ to the other nodes within the cycle.
 \end_layout
 
 \end_inset

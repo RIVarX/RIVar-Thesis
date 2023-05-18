@@ -2334,9 +2334,10 @@ Change Propagation
 \end_layout
 
 \begin_layout Standard
-We utilize the basic propagation of changes by observers, where each observable
- variable triggers its corresponding observer variable, which notifies its
- subscribers, and so on.
+The variables are independent objects that update each other directly, without
+ any intermediaries involved.
+ Each observable variable triggers its corresponding observer variable,
+ which notifies its subscribers, and so on.
  This might lead to infinite loops caused by cycles or errors resulting
  from outdated values.
  Therefore, we establish a predictable order for updates and ensure that
@@ -2348,15 +2349,17 @@ Stale Values
 \end_layout
 
 \begin_layout Standard
-An observer might have incoming stale values.
- In the used strategy for propogating a change, variale that have an input,
- calls its observer variable, which in turn calls its subscribers, and so
- on.
- This evaluation model can be viewed as a depth-first search (DFS) algorithm,
- where a change event triggers a chain of computations in a depth-first
+The process of variables independently responding to changes by passing
+ them forward can occasionally result in the propagation of stale values.
+ This traversal can be likened to a depth-first search (DFS) algorithm,
+ where a change event initiates a sequence of computations in a depth-first
  order.
- However, there are cases where the order of visits can produce incorrect
- update processes, such as the case shown in 
+ Consequently, certain nodes may be visited multiple times, with some of
+ these visits involving outdated values.
+\end_layout
+
+\begin_layout Standard
+For instance, in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Glitch-1-1"
@@ -2366,9 +2369,8 @@ noprefix "false"
 
 \end_inset
 
-.
- When the spanning tree, resulting from a change event, contains nodes with
- more than one incoming edge.
+ the spanning tree, resulting from a change event, contains nodes with more
+ than one incoming edge.
  This means that some variables were updated multiple times regarding the
  change, while some of the updates are based on outdated values (known as
  glitches, 

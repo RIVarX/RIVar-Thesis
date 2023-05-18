@@ -1043,8 +1043,8 @@ s.
 \end_inset
 
 s.
- The values of the attributes are represented in the observable streams,
- which are the lower-level representation of 
+ The values of the attributes are stored within observable streams, which
+ serve as a lower-level representation off 
 \begin_inset Formula $\RIVar$
 \end_inset
 
@@ -2330,17 +2330,17 @@ lstinline{DrugAdministration}
 \end_layout
 
 \begin_layout Section
-Evaluation Model
+Change Propagation
 \end_layout
 
 \begin_layout Standard
-We utilize the basic observer's propagation of changes, where each observable
+We utilize the basic propagation of changes by observers, where each observable
  variable triggers its corresponding observer variable, which notifies its
  subscribers, and so on.
- To avoid infinite loops caused by cycles and errors resulting from outdated
- values, we establish a sequence for all events.
- This creates a predictable order for updates by ensuring that the observer
- doesn't process outdated events.
+ This might lead to infinite loops caused by cycles or errors resulting
+ from outdated values.
+ Therefore, we establish a predictable order for updates and ensure that
+ the observer doesn't process outdated events.
 \end_layout
 
 \begin_layout Subsection

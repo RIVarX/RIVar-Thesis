@@ -132,10 +132,20 @@ The Propogation Algorithm
 \begin_layout Standard
 We have implemented and made publicly available
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
 https://rivarx.github.io/Evaluation
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2811,10 +2821,37 @@ If we need to create another application based on an existing one without
  Therefore, it is highly preferable to design reusable components.
  This is where our framework, with its dedicated propagation algorithm,
  outperforms constraint systems for GUI.
- We have specifically created examples (available at https://github.com/RivkaAlts
-huler/RIvar) for reusable classes and user controls.
+ We have specifically created examples
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/RivkaAltshuler/RIvar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for reusable classes and user controls.
  In contrast, when using Hotdrink, we generate a single block of code that
- is managed by a centralized algorithm.
+ is managed by a centralized algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain,foust2015generating"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

@@ -2356,10 +2356,7 @@ The process of variables independently responding to changes by passing
  order.
  Consequently, certain nodes may be visited multiple times, with some of
  these visits involving outdated values.
-\end_layout
-
-\begin_layout Standard
-For instance, in 
+ For instance, in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Glitch-1-1"
@@ -2371,9 +2368,9 @@ noprefix "false"
 
  the spanning tree, resulting from a change event, contains nodes with more
  than one incoming edge.
- This means that some variables were updated multiple times regarding the
- change, while some of the updates are based on outdated values (known as
- glitches, 
+ This implies that certain variables were updated multiple times in response
+ to the change, but some of these updates relied on outdated values, which
+ are referred to as glitches 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -2381,8 +2378,8 @@ literal "false"
 
 \end_inset
 
-).
- The multiple incoming edges of a node represent the issue that 
+.
+ The multiple incoming edges of a node represent 
 \emph on
 simultaneous events
 \emph default
@@ -2394,7 +2391,8 @@ literal "false"
 
 \end_inset
 
- are executed at different times.
+, indicating that they occurred at the same time as a result of a single
+ event.
 \end_layout
 
 \begin_layout Standard

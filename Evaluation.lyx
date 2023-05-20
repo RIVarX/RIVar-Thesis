@@ -113,32 +113,75 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-We have implemented and made publicly available
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
+We have implemented and made the drug administration example, discussed
+ in , available at 
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
-https://rivarx.github.io/Evaluation
+https://rivarx.github.io/Evaluation/RIVar/DrugAdministration.html
 \end_layout
 
 \end_inset
 
+.
+ You can view the source code of the example by using the "view source"
+ option in your browser.
+ The main components of this example are the 
+\begin_inset CommandInset href
+LatexCommand href
+name "Bag"
+target "https://rivarx.github.io/Evaluation/RIVar/Bag.js"
+literal "false"
 
+\end_inset
+
+ and 
+\begin_inset CommandInset href
+LatexCommand href
+name "Pump"
+target "https://rivarx.github.io/Evaluation/RIVar/Pump.js"
+literal "false"
+
+\end_inset
+
+ classes, which are loosely coupled.
+ You can find the UML diagram illustrating this in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The state is managed by initializing instances of the Bag and Pump classes
+ and binding them to their corresponding fields.
+\end_layout
+
+\begin_layout Standard
+Additionally, we have provided a public implementation side by side at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rivarx.github.io/Evaluation/hotdrink/DrugAdministration_Hotdrink.html
 \end_layout
 
 \end_inset
 
- two drug administration examples: one using rivarjs and the other using
- hotdrink.
+, where the drug administration is implemented using Hotdrink.
  Upon observation, both implementations exhibit similar behavior.
- Once a field is updated, the fields that relied on the previous input,
- specifically the oldest input, are overwritten.
- In the case of Hotdrink, the addition of new input triggers the creation
+ When a field is updated, the fields that rely on the previous input, particular
+ly the oldest input, are overwritten.
+\end_layout
+
+\begin_layout Standard
+In the case of Hotdrink, the introduction of new input triggers the creation
  of an equation constraint at the highest level of the hierarchy, involving
  the variable and the input.
  Plans are then generated, with each plan recursively searching for equations
@@ -353,7 +396,7 @@ Bootstrap of the drug administration components
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT

@@ -119,7 +119,7 @@ We have implemented and made the drug administration example, discussed
 LatexCommand formatted
 reference "chap:Background"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -160,9 +160,9 @@ literal "false"
  You can find the UML diagram illustrating this in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Drug-Administration-UML-2"
+reference "fig:Drug-Administration-UML-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

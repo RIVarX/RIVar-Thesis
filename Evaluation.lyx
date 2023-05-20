@@ -114,7 +114,17 @@ Evaluation
 
 \begin_layout Standard
 We have implemented and made the drug administration example, discussed
- in , available at 
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, available at 
 \begin_inset Flex URL
 status collapsed
 

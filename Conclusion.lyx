@@ -79,42 +79,29 @@
 
 \begin_layout Chapter
 Conclusion
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Conclusion"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-This thesis handles the task to perform predictable behavior when applications
- grow with many code duplications and long chains of updates.
- Therefore we combine the OOP paradigm with the FRP paradigm.
- The OOP contributes the predictability to changing code, while the FRP
- contributes the predictability in the variables' updates.
+Our journey began by formalizing an approach that enables mutual recursion,
+ reducing the need for maintaining acyclic data dependency graphs.
+ Instead, we established a well-defined contract for reactive instance variables
+, allowing assignments more freely.
+ This approach served as the foundation for our work in enabling FRP within
+ the context of OOP, combining the strengths of both paradigms.
 \end_layout
 
 \begin_layout Standard
-We described our model by introducing RIVar as a special type of variable,
- being a reactive and instance variable, with an assignment specification.
- A single variable can be assigned by several clients, with the semantics
- that the variable's value can be provided from several sources, while the
- variable observes its sources by itself.
- The variables use an order model, to update consistently according to the
- latest produced input.
+To implement this approach, we utilized observable streams inspired by the
+ dataflow paradigm.
+ This allowed us to create a framework that aligns with constraint programming
+ principles, further enhancing its capabilities.
 \end_layout
 
 \begin_layout Standard
-To evaluate the model, we compared it to prevoius paradigms and solutions
- and also implemented it as a library with an attached case study.
- In the comparison, we compared the model to REScala and ReactiveX providing
- an investigation on how we derive properties from OOP and FRP.
- We then showed how the model outperforms the previous paradigms in terms
- of code reuse, while handling correctly any dependancy graph.
- We also compared the model to constraints systems, and provided a presentation
- to the model to being as a decenterlized constraints system.
+As a result, our new framework capitalizes on the advantages derived from
+ the paradigms and frameworks it builds upon.
+ It simplifies the derivation of variables and classes, ensuring predictable
+ outcomes.
 \end_layout
 
 \begin_layout Section
@@ -122,13 +109,66 @@ Future Work
 \end_layout
 
 \begin_layout Standard
+We anticipate that this approach can be utilized as a state management solution
+ to simplify front-end application development.
+ In front-end development, state management is often treated separately
+ from other aspects of the development process.
+ Numerous solutions exist to address this role (refer to 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
+\end_layout
+
+\end_inset
+
+), each with its own maintenance and behavior limitations.
+ Our model aims to be easily maintainable, but its behavior is primarily
+ focused on inferring values based on the latest received value from any
+ source.
+\end_layout
+
+\begin_layout Standard
+Further research should explore additional options for inferring values
+ using reactive variables.
+ One possible approach is employing 
+\emph on
+equality tests
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+, where values that remain unchanged are disregarded.
+ Additionally, dealing with conflicting values from different sources may
+ require extending the abstraction to handle rejection.
+ Furthermore, we should investigate the integration of multiple semantic
+ options.
+\end_layout
+
+\begin_layout Standard
+By considering these avenues, we can continue to enhance our approach and
+ expand its capabilities.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 We expect this approach to be implemented as a state management solution
  to ease the development of front-end applications.
  In front-end development, state management is separated from other parts
  of the development process.
  There are various solutions to handle this role
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
@@ -141,7 +181,7 @@ https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
  values based on the latest value received from any of the sources.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 There are additional options to be researched for reactive variables to
  infer their values.
  One such option is the use of 
@@ -160,6 +200,24 @@ literal "false"
  Additionally, values that conflict with another source may need to be rejected,
  requiring an extension of the abstraction.
  We should also explore integrating several semantic options.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+databases? implement in distributed settings
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

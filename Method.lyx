@@ -115,7 +115,7 @@ name "chap:Method"
 
 \begin_layout Standard
 \begin_inset FormulaMacro
-\newcommand{\RIVar}{\myName{RIVar}}
+\renewcommand{\RIVar}{\myName{RIVar}}
 {\mathbf{RIVar}}
 \end_inset
 
@@ -2757,32 +2757,15 @@ lstinline{D}).
 \end_layout
 
 \begin_layout Standard
-Furthermore, due to our support in cycles, 
-\emph on
-simultaneous events
-\emph default
- are frequently coming for a variable thet depends indirectly on itself.
- Such a variable has multiple sources as explained in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Problem"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, that are merged as explained in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:VariantFRP"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- (such example is illustarted in 
+Additionally, simultaneous events also occur in supporting cycles.
+ As we explained, in a cycle, there should be a node that depends on an
+ external input, in addition to its dependencies on nodes within the cycle.
+ According to the principles we presented, the merge function should be
+ applied, combining updates from both sources.
+ Therefore, this particular node should be the first to receive an update
+ caused by itself.
+ It is expected that it should not propagate this stale update forward.
+ This principle is further illustrated by an example in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:cycle-merge-produce-concurrent-events"
@@ -2792,9 +2775,7 @@ noprefix "false"
 
 \end_inset
 
-).
- So, the incoming stream that indirectly produced from the variable, consists
- of values in the same times of the variable itself.
+.
 \end_layout
 
 \begin_layout Standard
@@ -2957,21 +2938,12 @@ name "fig:cycle-merge-produce-concurrent-events"
 
 \end_inset
 
-Illustrating how the merge function is in charge of simultaneous events.
- The assignments that create the dependencies as shown in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:cycle-to-multiple-assignment"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- utilize the merge function.
- Specifically, C:=B implies that C=merge(C,B).
- Therefore, values provided to C propagates through the cycle until it reaches
- the merge function.
+Illustrating the spanning graph in the case of a cycle in the dependencies,
+ when node C receives an input, it propagates it to node D, then to node
+ E, and so on, until node B forwards it back to node C through the merge
+ operator.
+ However, this update is stale and should not be propagated again to node
+ D.
 \end_layout
 
 \end_inset

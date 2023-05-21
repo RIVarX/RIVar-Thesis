@@ -90,179 +90,170 @@ name "chap:Implementation"
 Implementation
 \end_layout
 
+\begin_layout Standard
+In this section, we will delve into the implementation details of our approach.
+ We leverage existing elements from ReactiveX as the foundation and introduce
+ only a few additional components to bridge the remaining gap.
+ These components include the RIVar and Signal classes, along with the Lift
+ function.
+ By incorporating these elements, we have successfully developed concrete
+ libraries that demonstrate the feasibility and effectiveness of our approach.
+\end_layout
+
 \begin_layout Section
-RIVarX
+Required Elements from ReactiveX
 \end_layout
 
 \begin_layout Standard
-In this section, we present an implementation of the model described in
+ReactiveX, available in languages like C# and JavaScript through frameworks
+ like RxJS, provides observable streams that can be used as reactive instance
+ variables.
+ It offers useful operators such as Select (or map in JavaScript) and CombineLat
+est for implementing latent variables.
+ By default, values are synchronously pushed to subscribers, following the
+ required push model.
+ This makes it easy to develop Functional Reactive Programming (FRP) application
+s.
+ To illustrate this, consider the example of an FRP application with the
+ statements B:=D+1 and A:=B+C.
+ These statements can be implemented in ReactiveX as B=D.Select(x=>x+1) and
+ A=B.CombineLatest(C,(x,y)=>x+y).
+\end_layout
+
+\begin_layout Standard
+ReactiveX also offers the merge function, which combines multiple streams
+ into a single stream.
+ It takes multiple source observables, subscribes to all of them, and forwards
+ the emitted values from each stream into a single output observable.
+ This operator follows a functional approach.
+ We will use an alterantive approach.
+ we achieve the same behavior imperatively, by using a Subject.
+ In this approach, you create a Subject and call onNext on the subject to
+ emit values from the various streams.
+\end_layout
+
+\begin_layout Section
+Identifying Gaps and Challenges
+\end_layout
+
+\begin_layout Standard
+Despite the functionality provided by ReactiveX, there are several remaining
+ issues that need to be addressed.
+ Firstly, the order model must be considered.
+ In cases where a node has an output stream constructed with multiple input
+ streams, there is a possibility of stale values.
+ This necessitates handling CombineLatest and merge to exclude stale values.
+ Secondly, The default assignment copies values bit by bit, instead we need
+ the custom assignment operators, that are based on the merge operation.
+ Lastly, lift operations need to be taken into account.
+ The verbose syntax produced by Select and CombineLatest in building FRP
+ applications can be mitigated.
+ However, the primary reason for not using Select and CombineLatest directly
+ is to address the issue of stale values.
+\end_layout
+
+\begin_layout Section
+Bridging the Gap
+\end_layout
+
+\begin_layout Standard
+To address the required functionality and overcome the gaps in ReactiveX,
+ two data types are introduced: RIVar and Signal.
+ RIVar is derived from Subject and serves as the carrier for signals.
+ Each item in the stream is treated as a distinct signal, analogous to individua
+l elements in a list.
+ Just as a list comprises multiple elements, the stream contains multiple
+ signals, where each signal represents a specific value.
+\end_layout
+
+\begin_layout Standard
+To handle the ordering of signals and identify stale ones, we establish
+ a static, strictly increasing number.
+ When creating a new signal, it can be assigned a number that corresponds
+ to its time or order relative to other signals.
+ Additionally, new signals can be derived from existing signals, inheriting
+ a set of timestamps from their source signals.
+ These timestamps associated with the signals play a crucial role in establishin
+g the order among signals and identifying any stale ones.
+\end_layout
+
+\begin_layout Standard
+We also provide a lift function and the Set method.
+ The lift function, lift function over values to function over RIVars.
+ The Set method, facilitates RIVar objects, to be asked to assign calculations.
+ The two functions need to not pass stale values, that are propogating to
+ them.
+ The Set method execution contributes to the merge of its variable.
+ The Set method pass the signals by imperatively calls the OnNext.
+ In order to not pass the stale values, it subscribes to the two streams,
+ and compare incoming signals against the previous publshued signal.
  
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "false"
-noprefix "false"
+\end_layout
 
-\end_inset
-
- as a lightweight .NET library for C# developers named RIVarX.
- The library is available on GitHub at https://github.com/RivkaAltshuler/RIVar
- and can also be downloaded from the NuGet package manager at https://www.nuget.or
-g/packages/RIvar.RIvarX.
- RIVarX is based on ReactiveX and provides C# developers with a simple way
- to implement reactive variables in their projects.
+\begin_layout Section
+Implemented Libraries
 \end_layout
 
 \begin_layout Standard
-When implementing RIVarX, we started from adding extensions methods to existing
- types of ReactiveX.
- The model can be fully implemented by only add extensions.
- Only to provide a more user friendly syntax, we defined the class named
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{RIVar}
+We have successfully developed two lightweight libraries, RIVarX for C#
+ developers and rivarjs for JavaScript (ES6) developers, with the aim of
+ facilitating separated data dependencies management for user interfaces.
 \end_layout
 
-\end_inset
-
- providing this type explicity.
- The main features we developed are to provide our model.
- The features are: (1) assignment operator, (2) order model and (3) operators.
-\end_layout
-
-\begin_layout Subsection
-ReactiveX
+\begin_layout Paragraph
+RIVarX (C#)
 \end_layout
 
 \begin_layout Standard
-ReactiveX provides observable streams which has already been presented as
- being reactive variables 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- ReactiveX has two useful operators to implement latent variables: 
-\begin_inset ERT
+RIVarX is a .NET library designed specifically for C# developers.
+ It provides the capability to expose RIVars in classes and interfaces and
+ allows for the assignment of calculations to them.
+ This enables the creation of loosely coupled components with separated
+ data dependencies.
+ The library is publicly available on GitHub at
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Select}
+ https://github.com/RivkaAltshuler/RIVar
 \end_layout
 
 \end_inset
 
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io/documentation/operators/map.html
-\begin_inset ERT
+ and can be easily downloaded through the NuGet package manager at
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-(in other programming languages it is named 
-\backslash
-lstinline{map})
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{CombineLatest}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io/documentation/operators/combinelatest.html
+ https://www.nuget.org/packages/RIVar.RIVarX
 \end_layout
 
 \end_inset
 
 .
- The default behavior is that values are pushed to subscribers synchronously,
- just like the required push model.
- Consequently, FRP applications can be easily developed.
- For example, FRP application with the statements 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B:=D+1}
 \end_layout
 
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+C}
+\begin_layout Paragraph
+rivarjs (JavaScript)
 \end_layout
 
-\end_inset
-
- can be implemented by the statements 
-\begin_inset ERT
+\begin_layout Standard
+To ensure wider adoption and cater to the vast JavaScript community, we
+ have implemented the same approach in JavaScript (ES6) and released it
+ as the rivarjs library.
+ JavaScript has a thriving open-source ecosystem, making it an ideal platform
+ for publishing and evaluating libraries.
+ Additionally, since front-end development predominantly utilizes JavaScript,
+ this library is specifically designed for front-end applications.
+ You can access the rivarjs library on npm at 
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{B=D.Select(x=>x+1)}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
+https://www.npmjs.com/package/rivarjs
 \end_layout
 
 \end_inset
@@ -271,387 +262,36 @@ lstinline{A=B.CombineLatest(C,(x,y)=>x+y))}
 \end_layout
 
 \begin_layout Standard
-The framewrk has also the function 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{merge}
-\end_layout
-
+\begin_inset VSpace defskip
 \end_inset
 
- that combines multiple streams into a single stream.
- It takes multiple source observables and subscribes to all of them, forwarding
- the emitted values from all of them into a single output observable.
- This is a functional operator.
- On the other hand, the same behavior can be imperatively achived by using
- a Subject and calling onNext on the subject to emit values from the various
- streams.
-\end_layout
 
-\begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:The-Main-Features"
-
-\end_inset
-
-The Main Features
-\end_layout
-
-\begin_layout Paragraph*
-Assignment Operator
 \end_layout
 
 \begin_layout Standard
-The default assignment copies values bit by bit.
- Therefore, in the context of FRP applications, the assignment just makes
- the target variable to point on the constructed expressions, disconnecting
- from the old referenced expression if exists.
- The traditional assignment cannot be overriden, therefore RIVarX implements
- an alternative assignment function named 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Set}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Set}
-\end_layout
-
-\end_inset
-
- uses the new approach to add the expression in addition to existing expressions.
+By implementing these two libraries, we have showcased the viability of
+ our approach and demonstrated its seamless integration into different programmi
+ng languages.
+ Leveraging the popularity of reactive extensions, which are widely embraced
+ in modern programming paradigms, we have successfully developed RIVarX
+ for C# developers and rivarjs for JavaScript developers.
+ This highlights the versatility of our approach and paves the way for its
+ adoption in other object-oriented languages that support reactive extensions.
 \end_layout
 
 \begin_layout Standard
-The 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Set}
-\end_layout
-
-\end_inset
-
- method has two arguments: a reference to the target and the reference to
- the assigned expression.
- When 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Set}
-\end_layout
-
-\end_inset
-
- is called, it subscribes to the two streams, so that for each signal from
- the assigned expression, it will compare to the signal produced latest
- in the target.
- Signal that is greater refers to a signal that is later.
- Therefore, any signal coming from the expression, that is greater than
- the latest signal in the target, is pushed to the target.
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-(That's correct.
- The merge operator is a functional operator that combines multiple streams
- into a single stream.
- It takes multiple source observables and subscribes to all of them, forwarding
- the emitted values from all of them into a single output observable.
- On the other hand, using a Subject to implement the same behavior is an
- imperative approach that involves calling onNext on the subject to emit
- values from the various streams, and then subscribing to the subject to
- receive the merged output.
-\end_layout
-
-\begin_layout Plain Layout
-While both approaches can achieve the same result, the functional approach
- with merge is often preferred as it promotes a more declarative programming
- style and can simplify the code by abstracting away the low-level details
- of merging streams.)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph*
-Order Model
-\end_layout
-
-\begin_layout Standard
-The default order model just based on the 
-\emph on
-visit time
-\emph default
- of the DFS traversal, and is insufficient for visits caused from the same
- event (simultaneous events 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-Therefore, RIVar is implemented as an observable of type named 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Signal}
-\end_layout
-
-\end_inset
-
-.
- The 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Signal}
-\end_layout
-
-\end_inset
-
- type represents timed information about a phenomenon 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "priemer1991introductory"
-literal "false"
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Signal}
-\end_layout
-
-\end_inset
-
- implements 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{IComparable}
-\end_layout
-
-\end_inset
-
- interface to abstract items that can be compared beween each other.
- Each signal (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Signal}
-\end_layout
-
-\end_inset
-
-'s instance) contains an array of timestamps that are used in comparisons.
-\end_layout
-
-\begin_layout Paragraph*
-Operators
-\end_layout
-
-\begin_layout Standard
-The 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Select}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{CombineLatest}
-\end_layout
-
-\end_inset
-
- produce verbose syntax in building FRP applications 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- Furthermore, the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{CombineLatest}
-\end_layout
-
-\end_inset
-
- operaotr uses the default order model.
-\end_layout
-
-\begin_layout Standard
-Therefore, we developed 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Lift}
-\end_layout
-
-\end_inset
-
- function, to lift functions over values to functions over RIVars (implemented
- as observable streams).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Lift}
-\end_layout
-
-\end_inset
-
- has two overloads that are wrapper functions to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Select}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{CombineLatest}
-\end_layout
-
-\end_inset
-
-.
- The one that wraps 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{CombineLatest}
-\end_layout
-
-\end_inset
-
-, before calling to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{CombineLatest}
-\end_layout
-
-\end_inset
-
-, filters out values that are less updated than their previous values.
+...
 \end_layout
 
 \begin_layout Subsection
 Using RIVarX
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The interface provided by RIVarX uses ReactiveX combined with the new implemente
 d interface.
  The new type 
@@ -731,7 +371,7 @@ noprefix "false"
  in the form of a unit test.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -914,7 +554,7 @@ Using RIVarX
 Declaring RIVars
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 RIVars are declared parameterized with the type of values it should contain,
  as in 
 \begin_inset ERT
@@ -946,7 +586,7 @@ noprefix "false"
 Functions over RIVars
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The developer needs to implement the function over values, and then lift
  it to be over RIVars.
  For example, the function 
@@ -1035,7 +675,7 @@ lstinline{Lift}
 Assigning
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The method 
 \begin_inset ERT
 status open
@@ -1110,7 +750,7 @@ lstinline{X:=Y+Z}
 Providing input
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1156,7 +796,7 @@ cref{line:setInputFirst,line:setInputLast}
 Get the output
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 RIVars are observed to get its value's changes by calling to 
 \begin_inset ERT
 status open
@@ -1209,6 +849,11 @@ cref{line:checkResult}
 
 ).
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2570,44 +2215,19 @@ A UML diagram showing a composition relationship between a Pump class and
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
 \begin_layout Section
 rivarjs
 \end_layout
 
-\begin_layout Standard
-To allow a wider adoption, we implemented the approach also in javascript,
- and published to npm as a library rivarjs available in 
-\begin_inset Flex URL
-status collapsed
-
 \begin_layout Plain Layout
-
-https://www.npmjs.com/package/rivarjs
-\end_layout
-
-\end_inset
-
-.
- We also published our case study (drug administration) that uses it, and
- it can be accessed at 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://rivarx.github.io/Evaluation/
-\end_layout
-
-\end_inset
-
- .
- JavaScript has a large and active open source community, which makes it
- an attractive platform for publishing and evaluating libraries.
- in addition, the library is intended to be used in front-end applications,
- and the majority of front-end development is currently done using JavaScript.
-\end_layout
-
-\begin_layout Standard
 To incorporate the rivarjs library into a web form, all that is required
  of the developer is to add script tags to the HTML file.
  Firstly, the rxjs library on which rivarjs depends should be added, similar
@@ -2616,24 +2236,17 @@ To incorporate the rivarjs library into a web form, all that is required
  Lastly, the custom script that utilizes the framework should be added.
 \end_layout
 
-\begin_layout Standard
-The library is designed to be user-friendly.
- rivarjs offers three main elements: RIVar, Signal, and lift.
- RIVar is a Subject from rxjs, which is extended by the Set method, used
- to connect calculations.
- The arguments for the calculation are actually the result of the lift function.
- This function takes a given function and lifts it to be over the next two
- RIVar arguments.
- The input elements are linked to the RIVars, and they necessitate event
- handlers to keep each other up to date on any changes.
-\end_layout
-
-\begin_layout Standard
+\begin_layout Plain Layout
 The library is in line with our proposed framework.
  In modern versions of JavaScript (ES6), developers have the ability to
  create classes and subclasses but interfaces are not supported.
  As a workaround, developers can set the RIVars of an object depending on
  the dynamic nature of the language.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

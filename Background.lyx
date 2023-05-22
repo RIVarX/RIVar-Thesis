@@ -527,8 +527,27 @@ noprefix "false"
 .
  To address this issue, developers often add logic to determine when to
  update variables.
- Many modern applications use tools like XState (https://xstate.js.org) or
- Redux 
+ Many modern applications use tools like 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+XState
+\end_layout
+
+\end_inset
+
+ (https://xstate.js.org) or 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Redux
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "caspers2017react"
@@ -1036,8 +1055,8 @@ DataFlow
 \begin_layout Standard
 Frameworks based on the dataflow paradigm allow for the explicit specification
  of data dependencies, which were previously implicit.
- In the Functional Reactive Programming (FRP) paradigm, data dependencies
- are constructed using pure functions, like the 
+ In FRP, data dependencies are constructed using pure functions, like the
+ 
 \begin_inset Flex Name
 status open
 
@@ -2011,7 +2030,17 @@ literal "false"
 \end_inset
 
 .
- Other constraint systems like Hotdrink
+ Other constraint systems like 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Hotdrink
+\end_layout
+
+\end_inset
+
+
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -2038,7 +2067,11 @@ literal "false"
 .
  Constraint systems that handle two-way constraints, by their nature, handle
  cycles, and allows defining multiple constraints that output to the same
- variable 
+ variable
+\begin_inset space \thinspace{}
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sannella1993multi"
@@ -2386,7 +2419,17 @@ lstinline{A=B+C}
 
 \end_inset
 
- implemented by Hotdrink
+ implemented by 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Hotdrink
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

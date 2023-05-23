@@ -181,12 +181,11 @@ lstinline{:=}
 \end_layout
 
 \begin_layout Standard
-To enable multiple assignments, we utilize a methodology in which the variable
- infers its value over time based on several streams of samples.
- We define reactive variables and functions using the lower-level form of
- an events stream, in which the stream continuously reflects the variable's
- varying value while the discrete items represent only the changes.
- For example, please refer to 
+In order to support multiple assignments, we employ a methodology that involves
+ the variable inferring its value over time from various streams of samples.
+ This is achieved by considering reactive variables and functions in relation
+ to a lower-level form of an events stream.
+ As illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Streams-of-values-1-1-1"
@@ -196,7 +195,22 @@ noprefix "false"
 
 \end_inset
 
- for a visual representation of this concept.
+, the events stream consistently represents the variable's changing value,
+ while discrete items solely capture the modifications.
+ In technical terms, the traditional assignment operator 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ is utilized for making discrete changes.
 \end_layout
 
 \begin_layout Standard

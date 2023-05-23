@@ -114,15 +114,6 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-\begin_inset FormulaMacro
-\renewcommand{\RIVar}{\myName{RIVar}}
-{\mathbf{RIVar}}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The current challenge of separating the maintenance and updates of data
  dependencies can be addressed by integrating Object-Oriented Programming
  (OOP) and Functional Reactive Programming (FRP) paradigms.
@@ -331,6 +322,16 @@ end{center}
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Streams-of-values-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Eevent stream.
+\end_layout
 
 \end_inset
 

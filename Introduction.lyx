@@ -102,24 +102,6 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset FormulaMacro
-\newcommand{\REScala}{\myName{REScala}}
-{\mathbf{REScala}}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset FormulaMacro
-\newcommand{\ReactiveX}{\myName{ReactiveX}}
-{\mathbf{ReactiveX}}
-\end_inset
-
-
-\end_layout
-
 \begin_layout Chapter
 Introduction
 \end_layout
@@ -178,8 +160,12 @@ To ensure graph acyclicity, developers need to be aware of data dependencies
  If a cycle is detected, adding the new formula should be avoided to prevent
  cycle creation.
  For example, if there are already two formulas, 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -190,7 +176,20 @@ lstinline{Y:=Z+1}
 
 \end_inset
 
- and
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{Y:=Z+1}$
+\end_inset
+
+ and 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -203,7 +202,20 @@ lstinline{Z:=X-1}
 
 \end_inset
 
-, and a developer intends to add a third formula
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{Z:=X-1}$
+\end_inset
+
+, and a developer intends to add a third formula 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -216,8 +228,21 @@ lstinline{X:=Y+1}
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{X:=Y+1}$
+\end_inset
+
 , they must examine all three formulas and identify any existing cycles
  among the nodes 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -230,7 +255,20 @@ lstinline{X}
 
 \end_inset
 
-,
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE X$
+\end_inset
+
+, 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -243,7 +281,20 @@ lstinline{Y}
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE Y$
+\end_inset
+
 , and 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -254,6 +305,15 @@ status open
 lstinline{Z}
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE Z$
 \end_inset
 
 .
@@ -282,7 +342,7 @@ However, this thesis addresses the issue by allowing cycles, specifically
 LatexCommand formatted
 reference "fig:cycle-to-multiple-assignment"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -315,11 +375,7 @@ status open
 
 \begin_layout Plain Layout
 
-\end_layout
 
-\begin_layout Plain Layout
-
-  
 \backslash
 centering
 \end_layout
@@ -651,19 +707,6 @@ label{fig:dataflow}
 end{subfigure}
 \end_layout
 
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -676,6 +719,16 @@ end{subfigure}
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:cycle-to-multiple-assignment"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+A cycle of variables.
+\end_layout
 
 \end_inset
 

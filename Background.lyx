@@ -132,7 +132,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -253,6 +253,16 @@ end{center}
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Drug-calculations"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+User interface for drug administration.
+\end_layout
 
 \end_inset
 
@@ -422,6 +432,16 @@ end{center}
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Centerlized-Calculation"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug administration calculation.
+\end_layout
 
 \end_inset
 
@@ -774,6 +794,16 @@ name "fig:Calculation-spread-over-objects-1"
 \end_inset
 
 
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+A sequence diagram for the drug administration behavior.
+\end_layout
+
+\end_inset
+
+
 \begin_inset ERT
 status open
 
@@ -1026,6 +1056,16 @@ end{center}
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Statechart"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Statechart.
+\end_layout
 
 \end_inset
 

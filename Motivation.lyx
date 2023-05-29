@@ -90,21 +90,11 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-The concept of reactive variables from FRP may be beneficial in component-based
- applications.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-.
- However, typically, the data dependency graphs produced by this type of
- application are more complex than the typical graphs handled in the field.
-\end_layout
-
-\end_inset
-
- We illustrate the concept using a simple drug administration example, that
- will be seperated into two UI components, as shown in 
+The integration of reactive variables from FRP presents a promising opportunity
+ for component-based applications.
+ To demonstrate this concept, we illustrate the concept using a simple drug
+ administration example, that will be seperated into two UI components,
+ as shown in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-calculations-1"
@@ -131,10 +121,25 @@ d to the patient's body per unit of time (e.g., 10 mg per hour).
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+.
+ However, typically, the data dependency graphs produced by this type of
+ application are more complex than the typical graphs handled in the field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -604,8 +609,8 @@ Mutual recursion created in runtime from created dependency graphs within
 
 Mutual recursion created in runtime from created dependency graphs within
  Bag and Pump.
- The nodes Volume, Drug, and Duration that are interconnected through edges
- represent the mutual recursion.
+ The nodes Volume, Drug, and Duration that are interconnected through the
+ edges represent the mutual recursion.
  The solid edges denote dependencies initiated within the Pump instance,
  while dotted edges indicate dependencies initiated within the Bag instance.
 \end_layout

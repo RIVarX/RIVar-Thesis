@@ -114,31 +114,20 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
-The current challenge of separating the maintenance and updates of data
- dependencies can be addressed by integrating Object-Oriented Programming
- (OOP) and Functional Reactive Programming (FRP) paradigms.
- We define 
+This thesis addresses the complex data dependencies that arise in component-base
+d UI applications, particularly those involving mutual recursion.
+ We utilize the frameworks of OOP and FRP.
+ Subsequently, we define 
 \begin_inset Formula $\RIVar$
 \end_inset
 
-, which is an abbreviation for
+, which stands for 
 \series bold
- Reactive Instance Variable
+Reactive Instance Variable
 \series default
- to represent both a 
-\emph on
-reactive
-\emph default
- and an 
-\emph on
-instance
-\emph default
- variable.
- This variable can be associated with calculations without considering hidden
- dependencies, because dependencies can be internal, and associations can
- be external.
- Thus, the challenge lies in developing an assignment operator that can
- be a well-specified contract.
+, to specify the data dependencies in a similar fashion to how reactive
+ variables operate in FRP and how instance variables are accessed from outside
+ of objects.
 \end_layout
 
 \begin_layout Section
@@ -514,7 +503,7 @@ ng.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1374,6 +1363,29 @@ end{center}
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:PumpCode"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Pseudo code for the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ class definition.
+\end_layout
 
 \end_inset
 

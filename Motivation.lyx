@@ -86,10 +86,201 @@
 \begin_body
 
 \begin_layout Chapter
-Motivating Example
+Motivation
+\end_layout
+
+\begin_layout Standard
+The concept of reactive variables from FRP may be beneficial in component-based
+ applications.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+.
+ However, typically, the data dependency graphs produced by this type of
+ application are more complex than the typical graphs handled in the field.
+\end_layout
+
+\end_inset
+
+ We illustrate the concept using a simple drug administration example, that
+ will be seperated into two UI components, as shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The example consists of a UI component with six fields.
+ The "Drug" field specifies the amount of medication administered to the
+ patient (e.g., 100 mg).
+ The "VolumeOfFluid" field indicates the volume of fluid mixed with the
+ drug (e.g., 300 ml).
+ The "Concentration" field represents the amount of the drug per unit volume
+ of fluid (e.g., 0.33 mg/ml).
+ The "Rate" field specifies the flow rate of the fluid into the patient's
+ body per unit of time (e.g., 30 ml per hour).
+ The "Dose" field represents the dosage, which is the amount of drug administere
+d to the patient's body per unit of time (e.g., 10 mg per hour).
+ The "Duration" field indicates the duration of the injection, from start
+ to end.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & VolumeOfFluid 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){
+\backslash
+textit{100}} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{30}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "chap:Motivating-Example"
+name "fig:Drug-calculations-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+User interface component for drug administration.
+\end_layout
+
+\end_inset
+
+User interface component for drug administration.
+ The upper panel represents the bag component, and the lower panel represents
+ the pump component.
+ The fields are illustrated with example values, in case the user sets Volume
+ dose and duration.
+ The fields Drug, Concentration, and Volume are displayed in italic typeface
+ to indicate that these values are calculated based on the set values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -97,6 +288,1420 @@ name "chap:Motivating-Example"
 \end_layout
 
 \begin_layout Standard
+As previously stated, we seperate the drug administration UI component into
+ two distinct components: the pump and the bag.
+ This enhances modularity and code reuse.
+ The bag component encapsulates the drug, volume, and concentration fields,
+ while the pump component incorporates an instance of the bag along with
+ the dose, rate, and duration fields.
+ This separation allows for the creation of different variants of the drug
+ administration without duplicating the entire component.
+ For instance, we can create two types of bags: one with concentration and
+ one without.
+ By duplicating only the bag, we minimize code redundancy, simplifying future
+ changes.
+ Otherwise, duplicating the entire component would necessitate making updates
+ in multiple places whenever changes are required in the pump.
+\end_layout
+
+\begin_layout Standard
+The required behavior is similat to behavior produced by reactive variables.
+ For example, "Concentration" field, which denotes the drug amount per unit
+ volume, should be recalculated in response to changes in the values of
+ "Amount" and "Volume".
+ To maintain the specified design, each component must implement its own
+ internal coherence behavior.
+ For instance, within the pump component, we explicitly state that the amount
+ of the bag should be recalculated based on the dose and duration values.
+ Meanwhile, other specifications that are internally related to the bag
+ component remain hidden, such as the concentration being recalculated in
+ response to updates in the "Amount" and "Volume" fields.
+\end_layout
+
+\begin_layout Standard
+By specifying behavior similar to reactive variables, we establish a dependency
+ graph.
+ For instance, when we specify that the Concentration field should update
+ based on "Amount" and "Volume", we create a dependency where the concentration
+ depends on the amount and volume.
+ Each component defines its own private dependency graph according to its
+ specified behavior.
+ During runtime, these dependency graphs from the two components are combined
+ to form the overall dependency graph.
+\end_layout
+
+\begin_layout Standard
+As ilustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycleByComponents"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this graph might include cycles.
+ The pump exhibits a behavior where the duration depends on the volume,
+ and the bag's drug depends on the duration.
+ Initially, this graph is acyclic.
+ However, during runtime, the dependency graph specified within the pump's
+ bag instance becomes connected, As the volume depends on the drug, this
+ connection forms a cycle: the duration depends on the volume (and rate),
+ which depends on the drug (and concentration), which in turn depends again
+ on the duration (and dose).
+ Such cycles make the data dependency graph being complex.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}[node distance=3cm, 
+\end_layout
+
+\begin_layout Plain Layout
+
+                      ByPumpEdge/.style={draw=black,<-},
+\end_layout
+
+\begin_layout Plain Layout
+
+                      ByBagEdge/.style={draw=black,<-, dashed},
+\end_layout
+
+\begin_layout Plain Layout
+
+                      >=latex]
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (concentration) [circle, draw] at (0,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (concentration.south) {concentration};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (volume) [circle, draw, below left of=concentration] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (volume.south) {volume};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (drug) [circle, draw, below right of=concentration] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (drug.south) {drug};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (dose) [circle, draw, below of=drug] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (dose.south) {dose};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (rate) [circle, draw, below of=volume] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (rate.south) {rate};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (duration) [circle, draw, below right of=rate] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (duration.south) {duration};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Edges
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (rate) -- (duration);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (volume) -- (duration);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (duration) -- (drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (dose) -- (drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByBagEdge] (concentration) -- (volume);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByBagEdge] (drug) -- (volume);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycleByComponents"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Mutual recursion created in runtime from created dependency graphs within
+ independent components.
+\end_layout
+
+\end_inset
+
+Mutual recursion created in runtime from created dependency graphs within
+ Bag and Pump.
+ The nodes Volume, Drug, and Duration that are interconnected through edges
+ represent the mutual recursion.
+ The solid edges denote dependencies initiated within the Pump instance,
+ while dotted edges indicate dependencies initiated within the Bag instance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{UI}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{Pump}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Bag}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Duration=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Drug=100}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Dose=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Concentration=0.33}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Drug=99}{Bag}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Rate=30}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}        
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Calculation-spread-over-objects-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+A sequence diagram for the drug administration behavior.
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+The drug administration behavior is represented by a sequence diagram, which
+ is divided into two objects or microfrontends.
+ The task of performing calculations is shared between the 
+\backslash
+lstinline{Pump} and 
+\backslash
+lstinline{Bag}.
+ Initially, the user specifies a 
+\backslash
+lstinline{Dose} of 10 and a 
+\backslash
+lstinline{Duration}.
+ In response, the 
+\backslash
+lstinline{Drug} is calculated to be 100.
+ Next, the user sets the 
+\backslash
+lstinline{VolumeOfFluid} to 300, which causes the 
+\backslash
+lstinline{Concentration} to be calculated as 0.33.
+ However, the subsequent calculation of 
+\backslash
+lstinline{Drug} unexpectedly results in 99.
+ This unpredictability can be attributed to two factors.
+ Firstly, during the update of 
+\backslash
+lstinline{Concentration}, the value of 100/300 was rounded, leading to the
+ loss of information in the process.
+ This caused 
+\backslash
+lstinline{Concentration} to be calculated as 0.33, and consequently, 
+\backslash
+lstinline{Drug} was calculated to be 99.
+ Secondly, there was a cycle in which 
+\backslash
+lstinline{Concentration} was updated based on 
+\backslash
+lstinline{Drug}, which was in turn updated based on 
+\backslash
+lstinline{Concentration}.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We use the simple drug administration example, ilustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+The example is a UI component that contains 6 fields.
+ The field 
+\backslash
+lstinline{Drug} specifies the amount of medication administered to the patient,
+ for example, 100 mg.
+ The field 
+\backslash
+lstinline{VolumeOfFluid} indicates the volume of fluid mixed with the drug,
+ for example, 300 ml.
+ The field 
+\backslash
+lstinline{Concentration} represents the amount of the drug per unit volume
+ of fluid, for example, 0.33 mg/ml.
+ The field 
+\backslash
+lstinline{Rate} specifies the flow rate of the fluid into the patient's
+ body per unit of time, for example, 30 ml per hour.
+ The field 
+\backslash
+lstinline{Dose} represents the dosage, which is the amount of drug administered
+ to the patient's body per unit of time, for example, 10 mg per hour.
+ The field 
+\backslash
+lstinline{Duration} indicates the duration of the injection, from the start
+ to the end.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The drug administration UI component need to be seperated into two UI components
+: the pump and the bag.
+ The bag contains the drug, volume, and concentration, while the pump contains
+ an instance of the bag along with the fields for dose, rate, and duration.
+ Consequently, to create a different variant of the drug administration,
+ we don't need to duplicate the entire component.
+ Instead, we can create two types of bags: one that includes concentration
+ and one that doesn't.
+ By duplicating only the bag, we reduce code redundancy and make future
+ changes easier.
+ If we had duplicated the entire component, any updates to the pump would
+ require making changes in two places.
+\end_layout
+
+\begin_layout Plain Layout
+The fields need to behaves similar to reactive variables.
+ For example, consider the field "Concentration" which represents the amount
+ of a drug per unit volume.
+ Similar to reactive variables, this field should be recalculated in response
+ to updates in the "Amount" and "Volume" values.
+ In order, to keep on the specified design, we need that each component
+ implement its internal coherence behavior.
+ For instance, in the pump component, it should be specified, that the Amount
+ of the bag, should be recalculated according to the Dose and Duration.
+ In the same time, other specifications that is related intenaly to bag
+ remain hodden.
+ For instance, that the concentration is recalculated in response to updates
+ in the "Amount" and "Volume".
+\end_layout
+
+\begin_layout Plain Layout
+By spedifiing behavior similar to reactive variables, we initiate a depedancy
+ graph.
+ For example, in specifiing Concentration to update based on "Amount" and
+ "Volume" values, we iniate a dependency, that concentration depends on
+ amount and volume.
+ As the components specified such behavuier privetly, each contains privately
+ a depedency graph, according to its specified behavior.
+ while the runtime, the epedency graph is composed from the two components.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Seperation
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The fields in the example need to be similar to reactive variables.
+ For example, consider the field "Concentration" which represents the amount
+ of a drug per unit volume.
+ Similar to reactive variables, this field should be recalculated in response
+ to updates in the "Amount" and "Volume" values.
+ One common tool for implementing this functionality is a spreadsheet.
+ In spreadsheets, a cell represents a field and can contain a formula that
+ defines its dependency on other cells.
+ Alternatively, the visual fields can be connected to reactive variables.
+ For instance, MobX provides a framework to implement reactive variables
+ as a state management solution to integrate with React.
+ React provide a framework that continuously update the view, containing
+ the visual fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Redandantancy
+\end_layout
+
+\begin_layout Plain Layout
+in the code->need to mainain it, when we need to add or update code, that
+ have
+\end_layout
+
+\begin_layout Plain Layout
+in variables/calculations, it might be heavy executions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Redandant Code
+\end_layout
+
+\begin_layout Plain Layout
+In implementing the example by reactive variables, each reactive variable
+ is classified into either 
+\emph on
+input
+\emph default
+ or 
+\emph on
+output
+\emph default
+ categories, often resulting in duplications.
+ For instance, in spreadsheets, a cell can contain either a formula or a
+ value.
+ This leads to implement several modes to the drug administration.
+ In the first mode, users set the concentration, volume, and duration, and
+ the other fields are calculated.
+ In the second mode, users set the dose, rate, and duration, and once again,
+ the other fields are calculated.
+ This pattern can continue for additional modes, but has redundancy across
+ the different modes.
+\end_layout
+
+\begin_layout Plain Layout
+In implementing the example without reactive variables, we can customize
+ the updates by using visual field change events.
+ For instance, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Centerlized-Calculation-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, if the dose, duration, and volume of fluid have changed, then the drug,
+ concentration, and rate are calculated.
+ If the drug, dose, and rate have changed, then the duration, volume, and
+ concentration are calculated, and so on.
+ However, this method also introduces redundancy, as seen in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume2}
+\end_layout
+
+\end_inset
+
+ where the same statement is repeated.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited triple is of Dose,  Duration, and VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid |
+\backslash
+label{line:concentrationByDrugAndVolume1}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Drug, Dose, and Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid |
+\backslash
+label{line:concentrationByDrugAndVolume2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Concentration,  Volume, and Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Centerlized-Calculation-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug administration calculation.
+\end_layout
+
+\end_inset
+
+Example calculation logic for interdependent fields in a drug administration
+ front-end application.
+ The code shows how to calculate the values of the fields Drug, Concentration,
+ VolumeOfFluid, Dose, Duration, and Rate based on different combinations
+ of three input fields.
+ When fields are interdependent like this, updating one field requires modifying
+ all the locations where the other fields are updated, creating a centralized
+ maintenance model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In applications such as the drug administration illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, there is a requirement to implement fields that reminds reactive variables.
+ For example, consider the field "Concentration" which represents the amount
+ of a drug per unit volume of fluid.
+ Similar to reactive variables, this field should be recalculated in response
+ to updates in the "Amount" and "Volume" values.
+ One common tool for implementing this functionality is a spreadsheet.
+ In spreadsheets, a cell represents a field and can contain a formula that
+ defines its dependency on other cells.
+ Alternatively, the visual fields can be connected to reactive variables.
+ In frameworks such as React, the view can be continuously updated by the
+ framework.
+\end_layout
+
+\begin_layout Plain Layout
+The drug administration application contain fields, in such that a field
+ is sometimes useful to fill it directly by the user, while the same field
+ can be usefull to be computed according to ther fields that the user filled.
+ However, reactive variables are classified into input and output categories.
+ In spreadsheet, a cell can either contain a formula or a value.
+ Similary in MobX, the property can have either an observable annotation
+ or computed annotation.
+ typicaly, there is a need to duplicate fields or sets of related fields.
+ For example, making several drug administration forms.
+ The user then should choose the needed form, before filling the form out.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Cycles-1"
+
+\end_inset
+
+Cycles
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP paradigm, where FRP runtimes are developed, There are two opposing
+ methods about cycles.
+ In one method, cycles are avoided, because the paradigm derived from the
+ functional paradigm, with the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ According to the second method, forbidding cycles makes FRP unacceptably
+ weak, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+ Following the approach that cycles are avoided, there is an approach that
+ the needed dependency graph is dynamically changed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+FRP runtimes that support cycles uses various techniques to stop arisen
+ loops.
+ Terminating when it closes a cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, adding to the language a special operator to inform the runtime when to
+ break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+, stop after a number of iterations, stop if the value has not changed,
+ or changed only less than a threshold (available in 
+\emph on
+Microsoft Excel
+\emph default
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+).
+ The various methods caused from the unknown, that a repeating update is
+ either needed because previous update was a glitch, or that it is unneeded
+ because the repeating update is caused from a cycle.
+\end_layout
+
+\begin_layout Plain Layout
+Our model provides the semantics described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "par:Any-Formula"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+: cycles are resulted from variables with more than one source.
+ Those variables are updated whenever there is a newer value from any of
+ the sources.
+ Technically, loops are terminated, because values caused from cycles are
+ not newer.
+ However, we are not the first to handle cycles, as said in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, constraints systems that handle two-way constraints handle cycles by their
+ nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ Nevertheless, the model treats the meaning issue about cycles more explicity.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This is like previous works had to face the balancing between the abstraction
+ level and the generalism of the propogation algorithm.
+ The technaogy that enables completely custom propogation, has a problematic
+ abstraction.
+ Event-driven programming theortecaly provide customizable propagation.
+ Hoever, the paradigm is error prone, so that it hard to realy customize
+ according to the needs.
+ Therfore, it is not new that the customizability, is by only choose a general
+ propogation strategy.
+\end_layout
+
+\begin_layout Plain Layout
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP field reserach, the centeral high level concept is that the developer
+s need only to specify the data dependencies, and the runtime maintain the
+ updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+ Suprisngly, the general algorithm handles also some functional requirements,
+ and also some non functional requirements break the neat abstraction.
+ The root causes are glitches and cycles.
+\end_layout
+
+\begin_layout Paragraph
+Glitches
+\end_layout
+
+\begin_layout Plain Layout
+Glitch means an extra recomputation then expected.
+ This is not only the extra work, that affect the perfomance, but also that
+ the values that are based on stale values, until the last recomutation.
+ There are several glicthes types,that arerelated to the required level
+ of the consistency.
+ So, this is a functional requirement, depending on the applicaton business.
+ Hwever, it is handled strictly by the runtime.
+\end_layout
+
+\begin_layout Paragraph
+Cycles
+\end_layout
+
+\begin_layout Plain Layout
+In order to customize the way in which to evaluate cycles, the abstracion
+ is not totaly high.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The fields in the example need to be similar to reactive variables.
+ For example, consider the field "Concentration" which represents the amount
+ of a drug per unit volume.
+ Similar to reactive variables, this field should be recalculated in response
+ to updates in the "Amount" and "Volume" values.
+ In various programming environments, including JavaScript, a similar behavior
+ can be achieved by associating code with a change event for a specific
+ field.
+ This code will be triggered and executed whenever there is a modification
+ to the field's value 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mdn-change-event"
+literal "false"
+
+\end_inset
+
+.
+ For example, to recalculate the Concentration when the "Amount" and "Volume"
+ values are updated, we can register the code responsible for updating the
+ Concentration within the change events associated with the "Amount" and
+ "Volume" fields.
+\end_layout
+
+\begin_layout Plain Layout
+The example need to be seperated into two UI components: the pump and the
+ bag.
+ The bag contains the drug, volume, and concentration, while the pump contains
+ an instance of the bag along with the fields for dose, rate, and duration.
+ Consequently, to create a different variant of the drug administration,
+ we don't need to duplicate the entire component.
+ Instead, we can create two types of bags: one that includes concentration
+ and one that doesn't.
+ By duplicating only the bag, we reduce code redundancy and make future
+ changes easier.
+ If we had duplicated the entire component, any updates to the pump would
+ require making changes in two places.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The fields in the example need to be similar to reactive variables.
+ For example, consider the field "Concentration" which represents the amount
+ of a drug per unit volume.
+ Similar to reactive variables, this field should be recalculated in response
+ to updates in the "Amount" and "Volume" values.
+ One common tool for implementing this functionality is a spreadsheet.
+ In spreadsheets, a cell represents a field and can contain a formula that
+ defines its dependency on other cells.
+ Alternatively, the visual fields can be connected to reactive variables.
+ For instance, MobX provides a framework to implement reactive variables
+ as a state management solution to integrate with React.
+ React provide a framework that continuously update the view, containing
+ the visual fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In implementing the example by reactive variables, each reactive variable
+ is classified into either 
+\emph on
+input
+\emph default
+ or 
+\emph on
+output
+\emph default
+ categories, often resulting in duplications.
+ For instance, in spreadsheets, a cell can contain either a formula or a
+ value.
+ This leads to implement several modes to the drug administration.
+ In the first mode, users set the concentration, volume, and duration, and
+ the other fields are calculated.
+ In the second mode, users set the dose, rate, and duration, and once again,
+ the other fields are calculated.
+ This pattern can continue for additional modes, but has redundancy across
+ the different modes.
+\end_layout
+
+\begin_layout Plain Layout
+In implementing the example without reactive variables, we can customize
+ the updates by using visual field change events.
+ For instance, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Centerlized-Calculation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, if the dose, duration, and volume of fluid have changed, then the drug,
+ concentration, and rate are calculated.
+ If the drug, dose, and rate have changed, then the duration, volume, and
+ concentration are calculated, and so on.
+ However, this method also introduces redundancy, as seen in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume2}
+\end_layout
+
+\end_inset
+
+ where the same statement is repeated.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The following UI application (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -114,7 +1719,7 @@ noprefix "false"
  The goal is to reduce the complexity existing in the traditional application.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to simplify the application, we seperate the model to 
 \begin_inset ERT
 status open
@@ -192,7 +1797,7 @@ lstinline{Bag}'s content
  injecting medicines into a patient's bloodstream.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -335,7 +1940,7 @@ Drug administration user interface.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -466,10 +2071,6 @@ Design of the drug administration application, showcasing observer interaction
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -479,7 +2080,7 @@ Design of the drug administration application, showcasing observer interaction
 Drug Administration Data Model
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -699,7 +2300,7 @@ lstinline{Pump}
  interacts with the bag indirectly using an interface.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to achive our goal to seperate the drug administration model, 
 \begin_inset ERT
 status open
@@ -782,7 +2383,7 @@ lstinline{Pump}
  related to the bag.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -942,7 +2543,7 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1071,7 +2672,7 @@ Calculation procedure spread over seperated objects.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 placement h
 wide false
@@ -1240,7 +2841,7 @@ Drug administration class diagram
 Unpredictable Calculation
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the original application, the calculation is centerlized.
  Whenever a user sets a new value to any of the fields, a calculation procedure
  (
@@ -1286,7 +2887,7 @@ lstinline{Bag}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the cenario visualized in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1392,7 +2993,7 @@ lstinline{Drug}
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The unpredictable change has two reasons.
  First, in the update of 
 \begin_inset ERT
@@ -1477,7 +3078,7 @@ lstinline{Concentration}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1603,16 +3204,12 @@ Part of a centralized calculation procedure
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1816,7 +3413,7 @@ lstinline{Drug}
 Summary
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We tried to seperate an application unsuccessfully.
  The calculations are defined separately in 
 \begin_inset ERT
@@ -1848,6 +3445,11 @@ lstinline{Bag}
  Also the runtime is seperated, managing the updates on top of the objects'
  interactions (standard calls).
  But the resulted calculations does not fit the requirements.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

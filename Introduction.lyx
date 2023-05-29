@@ -107,6 +107,668 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+In the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+ effort has been invested in implementing 
+\emph on
+reactive variables
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (with some variations also known as 
+\emph on
+behavior
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) to automate updates.
+ Reactive variables are variables that are recaluclated in response and
+ according to to dependant variables' updates, similar to cells containing
+ formulas in spreadsheet applications.
+ The variables can get input (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{=}
+\end_layout
+
+\end_inset
+
+ operator) or be assigned (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{:=}
+\end_layout
+
+\end_inset
+
+ operator) with an expression consisting of a set of other reactive variables.
+ The assigment defines that the value of the variable is set to the value
+ of the expression, and continuously re-evaluated in response to changes
+ in the value of any of the variables appearing in the expression.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), given two reactive variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+, the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, and the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\begin_layout Plain Layout
+
+B=1 // A=2
+\end_layout
+
+\begin_layout Plain Layout
+
+B=6 // A=7
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (B) at (0,0) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (A) at (-2,0) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[->] (A) -- node[above] {} (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Reactive-variables-basics-1"
+
+\end_inset
+
+This is an example of using reactive variables, where the value of variable
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ depends on the value of variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+ (We choose to represent the dependancy from the derived variable to the
+ variable it is derived from, to be consistent with derived class that in
+ uml the dependencay is illustrated from the derived class to the subclass.
+ The direction presents that change causes the dependancy to change, and
+ not the direction of the data flow.) Whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ is updated, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ is automatically updated accordingly.
+ The formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, which means that the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any changes in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In maintaining and updating the variables, we sometimes face an unpredictable
+ behavior and even infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hung2018architectural"
+literal "false"
+
+\end_inset
+
+.
+ The unpredictable behavior might exist especially when applications grow
+ and have long chains of updates.
+ Specificaly, when adding a functionality to update one variable, where
+ that update is part of a long chains of updates, so it might fall into
+ an endless loop.
+ 
+\end_layout
+
+\begin_layout Standard
+The complexity of this task has two parts.
+ First, the difficulties to control the data dependencies implied implicity
+ by event handling logic 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ In the events paradigm, the data dependencies are not explicit because
+ they are not directly expressed in the code, but are instead implied by
+ the event handling logic.
+ The event handling logic determines what happens when an event is triggered,
+ and in this case, it sets the values of variables and updates their dependencie
+s.
+ The second complexity part is to separate the task into small manageable
+ and independent tasks, for being in seperated loosly-coupled components.
+ Typically components become coupled by affecting each other's state 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jiang2020event"
+literal "false"
+
+\end_inset
+
+, causing the task to be centralized.
+\end_layout
+
+\begin_layout Standard
+The first complexity type has the solution of reactive variables, in explicitly
+ declaring the data dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ The second, we relate to the 
+\emph on
+Object Oriented Programming
+\emph default
+ (OOP) paradigm.
+ This paradigm enables that different parts of the software, in the form
+ of objects, are loosely coupled and do not depend on one another.
+ This makes it easier to change objects without affecting the others.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ and 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://reactivex.io
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+ the reactive variables are part of the object interface, but implemented
+ differently.
+ 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ derives previous FRP implementations, in its functional style, and in using
+ an algorithm that carefuly determines the order in which to update the
+ variables.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ derives the observer pattern.
+ The reactive variables are implemented as events streams or observables,
+ subscribed to input and/or other reactive variables, to update their subscriber
+s, in a form of an iterator.
+ 
+\end_layout
+
+\begin_layout Standard
+Both alternatives have their tradeoffs, which calls for an integration of
+ their concepts.
+ 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ gives the 
+\emph on
+referential transparency
+\emph default
+ property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, meaning that the same input will produce consistently the same output.
+ This property gives 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ the power from the functional paradigm, the property of 
+\emph on
+compositionality
+\emph default
+, to build bigger functions out of smaller ones.
+ However, the updates are taken by a central madiator.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ is good in seperation: It lets to decouple formulas from the used reactive
+ variables, to associate expressions to reactive variables from outside
+ of objects, and that variables are updated directly by their dependencies
+ (without a central madiator).
+\end_layout
+
+\begin_layout Standard
+In this thesis, we use the approach from the second alternative and extend
+ it to add benefits from the first alternative.
+ The variables have the form of the events streams like 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+.
+ But instead of the default behavior to pass immediately any value to subscriber
+s, (and instead of a centerlized madiator used in 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ to consider the order of the updates), the variables consider the coming
+ updates, properly ordering the updates to the subscribers.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 In front-end applications, 
 \emph on
 state management
@@ -130,7 +792,7 @@ data dependency graph
  to dependent variables.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The Functional Reactive Programming (FRP) paradigm offers an explicit approach
  to define these graphs, providing 
 \emph on
@@ -153,7 +815,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 To ensure graph acyclicity, developers need to be aware of data dependencies
  and detect existing paths before introducing new formulas involving existing
  variables.
@@ -319,7 +981,7 @@ lstinline{Z}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our focus is on achieving
 \emph on
  separation of concerns
@@ -332,7 +994,7 @@ Our focus is on achieving
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 However, this thesis addresses the issue by allowing cycles, specifically
  those created from mutual recursions.
  Mutual recursions occur when reactive variables are defined in terms of
@@ -354,7 +1016,7 @@ noprefix "false"
  it to the cycle and a node or input from outside the cycle.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Therefore, in order to achive 
 \emph on
 separation of concerns
@@ -363,7 +1025,7 @@ separation of concerns
  by allowing nodes to receive inputs from multiple sources.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -747,668 +1409,6 @@ Illustrating the relationship between cycles and variables with multiple
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-In the field of 
-\emph on
-Functional Reactive Programming
-\emph default
- (FRP) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional,elliott2009push"
-literal "false"
-
-\end_inset
-
- effort has been invested in implementing 
-\emph on
-reactive variables
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- (with some variations also known as 
-\emph on
-behavior
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-, 
-\emph on
-signal
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-, 
-\emph on
-cell
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- and also
-\emph on
- reactive value
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-) to automate updates.
- Reactive variables are variables that are recaluclated in response and
- according to to dependant variables' updates, similar to cells containing
- formulas in spreadsheet applications.
- The variables can get input (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{=}
-\end_layout
-
-\end_inset
-
- operator) or be assigned (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
-\end_inset
-
- operator) with an expression consisting of a set of other reactive variables.
- The assigment defines that the value of the variable is set to the value
- of the expression, and continuously re-evaluated in response to changes
- in the value of any of the variables appearing in the expression.
- For example (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Reactive-variables-basics-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), given two reactive variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-, the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+1}
-\end_layout
-
-\end_inset
-
- associates the variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- with the expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B+1}
-\end_layout
-
-\end_inset
-
-, and the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- changes in response to any input provided to the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}{0.4
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-A:=B+1
-\end_layout
-
-\begin_layout Plain Layout
-
-B=1 // A=2
-\end_layout
-
-\begin_layout Plain Layout
-
-B=6 // A=7
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}{0.4
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (B) at (0,0) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (A) at (-2,0) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[->] (A) -- node[above] {} (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Reactive-variables-basics-1"
-
-\end_inset
-
-This is an example of using reactive variables, where the value of variable
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- depends on the value of variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-.
- (We choose to represent the dependancy from the derived variable to the
- variable it is derived from, to be consistent with derived class that in
- uml the dependencay is illustrated from the derived class to the subclass.
- The direction presents that change causes the dependancy to change, and
- not the direction of the data flow.) Whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- is updated, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- is automatically updated accordingly.
- The formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+1}
-\end_layout
-
-\end_inset
-
- associates the variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- with the expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B+1}
-\end_layout
-
-\end_inset
-
-, which means that the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- changes in response to any changes in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-In maintaining and updating the variables, we sometimes face an unpredictable
- behavior and even infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hung2018architectural"
-literal "false"
-
-\end_inset
-
-.
- The unpredictable behavior might exist especially when applications grow
- and have long chains of updates.
- Specificaly, when adding a functionality to update one variable, where
- that update is part of a long chains of updates, so it might fall into
- an endless loop.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The complexity of this task has two parts.
- First, the difficulties to control the data dependencies implied implicity
- by event handling logic 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
- In the events paradigm, the data dependencies are not explicit because
- they are not directly expressed in the code, but are instead implied by
- the event handling logic.
- The event handling logic determines what happens when an event is triggered,
- and in this case, it sets the values of variables and updates their dependencie
-s.
- The second complexity part is to separate the task into small manageable
- and independent tasks, for being in seperated loosly-coupled components.
- Typically components become coupled by affecting each other's state 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "jiang2020event"
-literal "false"
-
-\end_inset
-
-, causing the task to be centralized.
-\end_layout
-
-\begin_layout Plain Layout
-The first complexity type has the solution of reactive variables, in explicitly
- declaring the data dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
- The second, we relate to the 
-\emph on
-Object Oriented Programming
-\emph default
- (OOP) paradigm.
- This paradigm enables that different parts of the software, in the form
- of objects, are loosely coupled and do not depend on one another.
- This makes it easier to change objects without affecting the others.
-\end_layout
-
-\begin_layout Plain Layout
-In 
-\begin_inset Formula $\REScala$
-\end_inset
-
- and 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://reactivex.io
-\end_layout
-
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
- the reactive variables are part of the object interface, but implemented
- differently.
- 
-\begin_inset Formula $\REScala$
-\end_inset
-
- derives previous FRP implementations, in its functional style, and in using
- an algorithm that carefuly determines the order in which to update the
- variables.
- 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- derives the observer pattern.
- The reactive variables are implemented as events streams or observables,
- subscribed to input and/or other reactive variables, to update their subscriber
-s, in a form of an iterator.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Both alternatives have their tradeoffs, which calls for an integration of
- their concepts.
- 
-\begin_inset Formula $\REScala$
-\end_inset
-
- gives the 
-\emph on
-referential transparency
-\emph default
- property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, meaning that the same input will produce consistently the same output.
- This property gives 
-\begin_inset Formula $\REScala$
-\end_inset
-
- the power from the functional paradigm, the property of 
-\emph on
-compositionality
-\emph default
-, to build bigger functions out of smaller ones.
- However, the updates are taken by a central madiator.
- 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- is good in seperation: It lets to decouple formulas from the used reactive
- variables, to associate expressions to reactive variables from outside
- of objects, and that variables are updated directly by their dependencies
- (without a central madiator).
-\end_layout
-
-\begin_layout Plain Layout
-In this thesis, we use the approach from the second alternative and extend
- it to add benefits from the first alternative.
- The variables have the form of the events streams like 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-.
- But instead of the default behavior to pass immediately any value to subscriber
-s, (and instead of a centerlized madiator used in 
-\begin_inset Formula $\REScala$
-\end_inset
-
- to consider the order of the updates), the variables consider the coming
- updates, properly ordering the updates to the subscribers.
 \end_layout
 
 \end_inset

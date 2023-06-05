@@ -113,29 +113,1109 @@ Background
 \end_layout
 
 \begin_layout Standard
-In front-end applications, when certain fields need to be automatically
- populated based on other fields, developers create an implicit 
+The functionality, that fields are recalculated based on other fields, is
+ familiar from 
 \emph on
-data dependency graph
+spreadsheets
 \emph default
 .
- One common tool for implementing this functionality is a spreadsheet.
- In spreadsheets, a cell represents a field and can contain a formula that
- defines its dependency on other cells.
- Alternatively, the visual fields can be connected to reactive variables.
+ There, cells, representing the fields, can contain formulas to determine
+ their values based on other cells.
+ In application development, this functionality is typically handled using
+ variables that are connected to the visual elements of the application.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We find several existing approaches that harmonize components-based applications
+ with the functionality to calculate fields based on other fields.
+ The functionality to calculate fields based on other fields is familar
+ from spreadsheets where cells, that represent the fields, can contain formulas
+ to determine the value based on other cells.
+ Before delving into haronizing with components, we will present the familiar
+ models used for fields calculation.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The components-based applications 
+\end_layout
+
+\begin_layout Plain Layout
+The functionality to calculate fields based on other fields can be achived
+ by various approaches.
+\end_layout
+
+\begin_layout Plain Layout
+The most popular application is spreadsheets, where cells, that represent
+ the fields, can contain formulas to determine the value based on other
+ cells.
+ Among developers, the functionality 
+\end_layout
+
+\begin_layout Plain Layout
+Alternatively, visual fields can be connected to reactive variables.
  For instance, MobX provides a framework to implement reactive variables
  as a state management solution to integrate with React.
  React provide a framework that continuously update the view, containing
  the visual fields.
 \end_layout
 
-\begin_layout Section
-Events
+\begin_layout Plain Layout
+???
+\end_layout
+
+\begin_layout Plain Layout
+provide it is hard to implement fields that are calculated according to
+ other fields.
+\end_layout
+
+\begin_layout Plain Layout
+This section should present the exsiting solutions for reactive variables,
+ provdiing the understaning about the drawbacks existing in them, in the
+ context of components-based applications.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
+
+\begin_layout Plain Layout
+This way, it aims to provide an alternatve to dealing with the mutate variables.
+ The problem about the the variables is, that it is hard to reason about
+ the values that variables contains.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Programming Models
+\end_layout
+
+\begin_layout Subsection
+Events
+\end_layout
+
+\begin_layout Standard
+In programming frameworks, such as in web development, code that update
+ fields based on other fields, can be registered to be executed when a fields
+ are changed.
+ For example, in 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+JavaScript
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{input.addEventListener('input', calculate)}
+\end_layout
+
+\end_inset
+
+ means to execute 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{calculate}
+\end_layout
+
+\end_inset
+
+, when the user interacts with the input element by changing its value.
+ 
+\end_layout
+
+\begin_layout Subsection
+Constraints
+\end_layout
+
+\begin_layout Standard
+In libraries like Hotdrink, we only need to specify the constraints, and
+ the library automaticaly update the fields during the user interaction.
+ For example, for cpecifying 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+C}
+\end_layout
+
+\end_inset
+
+, each edited tuple, the third variable will be updated automaticaly.
+ The library need to get as input, not only the constraints, but also methods
+ to execute to update the fields .
+ For this example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B+C}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B=B-C}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{C=A-B}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Reactive Variables
+\end_layout
+
+\begin_layout Standard
+In the concept of reactive variables, an assignment is executed by continuously
+ updating the variable instead of executing it once 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ This is sometimes referred to as a 
+\emph on
+one-way dataflow constraint
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "haveraaen2021semantics"
+literal "false"
+
+\end_inset
+
+.
+ In the context of FRP, it draws inspiration from the functional paradigm
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Saying A:=B+C is like stating that A is a function with a body of B+C.
+ This implies that the value returned by A is derived from the values returned
+ by B and C.
+ In other words, A continuously contains the value derived from the values
+ contained in B and C.
+ The formula actually initiates a dependency, where A depends on B and C.
+\end_layout
+
+\begin_layout Subsection
+Observable Streams
+\end_layout
+
+\begin_layout Standard
+ReactiveX, available in languages such as C# and JavaScript through frameworks
+ like RxJS, offers observable streams.
+ Observable streams can be thought of as lists that generate items.
+ These streams can be initiated by field change events.
+ Visual elements can subscribe to observables to receive updates and modify
+ values accordingly.
+ The operators Select and CombineLatest create observables whose items are
+ generated based on the values of other observables.
+ For example, if we have B = D.Select(x => x + 1), each value in D is passed
+ through the function x => x + 1, resulting in a new value for B.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ReactiveX, available in languages like C# and JavaScript through frameworks
+ like RxJS, provides observable streams.
+ Observable streams are like a list, that produce the items.
+ Field change events can be used to iniate an observable streams.
+ and in the other hand, an observable can be subscriebd by visual elements
+ to update values.
+ The operators Select and CombineLatest creates observables, that their
+ items are creatd in response to items in other observables, and based on
+ their values.
+ For exmaple, B=D.Select(x=>x+1), each value in D is executed by the function
+ x=>x+1, and produe the result in D.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, enable the application of functions to streams, where each stream produces
+ its values based on the values of the input streams.
+ It is commonly suggested that in order to ensure predictability, the graph
+ should not contain cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+FRP adopts this concept, so A:=B+C signifies that the reactive variable
+ A depends on both B and C.
+ During runtime, A continuously contains the value derived from the values
+ contained in B and C, respectively.
+\end_layout
+
+\begin_layout Plain Layout
+The composition can be visualized as a tree or graph, where each variable
+ represents a node, and the dependencies between them are represented by
+ edges.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This works nice for hirarchial data.
+ Inherently FRP does not support cycles.
+ neverthless , frameworks provide special constructs to introduce cycles
+ directly.
+ This is less elegance, because it should be specified to the framework
+ 
+\emph on
+how
+\emph default
+ to not come into an infinite loop 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ (algorithm to handle cycles, keeping on the abstraction?)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Components
+\end_layout
+
+\begin_layout Standard
+The complexity of field calculations can be divided into several components,
+ allowing larger and more complex components to be constructed from smaller
+ and simpler ones.
+\end_layout
+
+\begin_layout Subsection
+Multiple Components
+\end_layout
+
+\begin_layout Standard
+Many systems enable to register components with code to execute in response
+ to field updates, that contains code that calculate and update fields.
+ Te registered components might be non-coordinated components.
+ For example, if the first component recalculate a field B whenever A is
+ changed, and the second component reclculated field A whenever B is changed.
+ 
+\end_layout
+
+\begin_layout Standard
+Similary, any objects provided as a service has an informal contract with
+ the clients.
+ For example, code that the client registers, to be executed when an object's
+ variables changed, should not update this object's variables, by calling
+ to another method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Two Components
+\end_layout
+
+\begin_layout Standard
+Contemporary frameworks, such as 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+React
+\end_layout
+
+\end_inset
+
+, allow for the specification of the visual view as a function of the applicatio
+n's state (i.e., variables).
+ This means that the calculations for fields are handled within dedicated
+ components using a centralized state management solution.
+ Specifically, 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Redux
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ is often used as a centralized state management solution to handle the
+ state.
+ Events are modeled as state transitions between logical states, which are
+ derived from variable values.
+ As described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
+
+\end_inset
+
+ and shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, these tools not only allow for updates to occur when an event happens
+ but also enable updates based on the exact state of the application, derived
+ from previous interactions.
+\end_layout
+
+\begin_layout Standard
+In addition to the 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+React
+\end_layout
+
+\end_inset
+
+ programming model, there are also constraint systems like 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Hotdrink
+\end_layout
+
+\end_inset
+
+ and FRP languages like 
+\begin_inset Formula $\REScala$
+\end_inset
+
+, which have their own dedicated runtime components for handling centralized
+ state management.
+\end_layout
+
+\begin_layout Subsection
+Sequential Connections
+\end_layout
+
+\begin_layout Standard
+In the distributed setting in the FRP paradigm, components can be connected
+ in sequential, so each component can give its output to the next component
+ variable as its input 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+The fact that there are multiple approaches to the fields calculations indicates
+ the complexity, while also indicating its relevance and significance.
+ To separate field calculations among multiple components, we can either
+ rely on fragile events or leverage hierarchical data, where each component
+ provides input to the subsequent one.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Example, react component can be reactive variable, the view is calculated
+ according to the state.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+——
+\end_layout
+
+\begin_layout Plain Layout
+The system executes code of a registered plugin in response to fields updates.
+ This code can contain code that update fields according to other fields.
+\end_layout
+
+\begin_layout Plain Layout
+The OOP paradigm 
+\end_layout
+
+\begin_layout Plain Layout
+The OOP paradigm helps to build components-based applications, because the
+ components contain objects and use the principles of the OOP paradigm.
+ Objects and cmponents use the information hiding principle and introducing
+ contracts to how they interacts, without that they need to be aware of
+ implementation details.
+\end_layout
+
+\begin_layout Plain Layout
+The OOP paradigm helps to build components-based applications, because the
+ components contain objects and use the principles of the OOP paradigm.
+ In components based applications, organizations can deploy components that
+ would extend an exsting application.
+ For example, in the plugin architeture, code components named plugins,
+ can be registered in the system to be executed in certain events.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The main concept of the OOP paradigm, is the information hiding.
+ It has been introduced to solve the problem of variables calculations.
+ In software development has the problem about the the variables is, that
+ it is hard to reason about the values that variables contains.
+ To solve this problem, in the OOP paradigm,programs are modeled according
+ to objects, so that each object will hide its variables.
+ The objects have methods, by which they are used.
+ fields can be updated only by those methods.
+ The implementation details of the methods and the variables need to be
+ hidden.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The objects or components methods signitures are used to be a contract,
+ and the implementain details are hidden.
+ The idea of OOP, is code that consists of method calls to objects, depending
+ on the contract.
+ building larger components from smaller ones while preserving their individual
+ behaviors.
+\end_layout
+
+\begin_layout Plain Layout
+The system executes code of a registered plugin in response to fields updates.
+ This code can contain code that update fields according to other fields.
+ the developer need to be aware of more information, consisdered as the
+ informal contract.
+\end_layout
+
+\begin_layout Subsection
+Separation between the fields calculation specification and the runtime
+\end_layout
+
+\begin_layout Plain Layout
+By using constrains system, we have two components: the constraints specificatio
+n, and the system.
+ This seperation helps the developers, so he or she does not need to specify
+ how to calculate fields, but only what calculations to apply.
+ Also in the FRP paradigm, langugages like REScala (that is not in the distribut
+ed settings), the langague has the runtime, that update the variables.
+\end_layout
+
+\begin_layout Subsection
+OOP
+\end_layout
+
+\begin_layout Plain Layout
+As an alternative, the components are stateless, and the whole state is
+ used by a dedicate solution.
+ for example, in react, there is redux, that helps to build a dedicated
+ components to handle the state, to the specific needed logic (varuable
+ to state?).
+ Another example, Hotdrink, handle the variables according to specified
+ constraints.
+\end_layout
+
+\begin_layout Plain Layout
+A third option depends on informal contracts between components.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In react application, the state can be managed like a state machine
+\end_layout
+
+\begin_layout Plain Layout
+reasons when no hirarciala data: plugins, DDD, granularity.
+\end_layout
+
+\begin_layout Plain Layout
+in order to extend applicaion by plugin
+\end_layout
+
+\begin_layout Plain Layout
+contemporary frameworks, like react, provides a building blocks for composing
+ components.
+ The component consists of the html that is the view.
+\end_layout
+
+\begin_layout Plain Layout
+Component in react is a view given as function.
+\end_layout
+
+\begin_layout Plain Layout
+.
+ In frameowkrs like react, the developer declare the view as a function
+ of the variables of the applicatiom, called state.
+ the framework continuously present the view according to the appliation's
+ state.
+ this method connects betwee MobX provides a framework to implement (like)
+ reactive variables as a state management solution to integrate with React.
+\end_layout
+
+\begin_layout Plain Layout
+The problem about variables that it is hard to reason about the values that
+ variables contains.
+\end_layout
+
+\begin_layout Plain Layout
+We find two opposing approaches.
+ First, OOP, objectes that interacts, plugins to extend the application,
+ conceptual modeling.
+ Second, a special component to handle the state.
+ OOP is usefull to provide widgets.
+ a centeral state management is usefull to improve reasoning.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In Front end components, we find the concept of reactive variables usefull,
+ to develop fields that compute values depending on the values in other
+ fields.
+ The most popular tool is spreadsheets, a cell represents a field and can
+ contain a formula that defines its dependency on other cells.
+ Alternatively, by frameworks like REScala are used to declare the data
+ dependencies, which is then connected to events.
+ In frameowkrs like react, the developer declare the view as a function
+ of the variables of the applicatiom, called state.
+ the framework continuously present the view according to the appliation's
+ state.
+ this method connects betwee MobX provides a framework to implement (like)
+ reactive variables as a state management solution to integrate with React.
+\end_layout
+
+\begin_layout Plain Layout
+(reactive variable's change produes an even and vise verca.
+ MobX provides a framework to implement (like) reactive variables as a state
+ management solution to integrate with React.
+ React provide a framework that continuously update the view, containing
+ the visual fields (the view is reactive variable by declaring it by function
+ of the application's variables).
+ This enables to only specify the data dependencies, and the runtime does
+ the updates.
+\end_layout
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+Reactve variablres are
+\end_layout
+
+\begin_layout Plain Layout
+A langaguse with an abstraction like reactive variables depends on coming
+ changes, and it preserve on the assignments, by reassigning whenener there
+ is a change.
+\end_layout
+
+\begin_layout Plain Layout
+In our focus is on front end applications, we find the concept of reactive
+ variables usefull, in the common functionality to customize fields that
+ are aytomaticaly filled based on other fields.
+ One common tool for implementing this functionality is a spreadsheet.
+ In spreadsheets, a cell represents a field and can contain a formula that
+ defines its dependency on other cells.
+ Alternatively, visual fields can be connected to reactive variables.
+ For instance, MobX provides a framework to implement (like) reactive variables
+ as a state management solution to integrate with React.
+ React provide a framework that continuously update the view, containing
+ the visual fields (the view is reactive variable by declaring it by function
+ of the application's variables).
+\end_layout
+
+\begin_layout Plain Layout
+Alternatvely, reactive variables can implicity implemented by the events
+ driven programming 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+.
+ It invovlves iniating a mutable variables, and change events, for whom
+ code can be registered to update other variables.
+ Another alternative suggests to function over streams.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In FRP, data dependencies are constructed using pure functions, like the
+ 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Signals
+\end_layout
+
+\end_inset
+
+ in 
+\begin_inset Formula $\REScala$
+\end_inset
+
+.
+ Alternatively, frameworks for event streams, like 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, enable the application of functions to streams, where each stream produces
+ its values based on the values of the input streams.
+ It is commonly suggested that in order to ensure predictability, the graph
+ should not contain cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The FRP paradigm is derived from the functional paradigm to ensure explicit
+ depedencies.
+ Concretely, the code composed of pure functions, without to deal with the
+ mutate variables.
+ The problem about the variables, that it is hard to reason about the values
+ that the variables contains.
+ Therfore, in FRP, the code are composed of functions.
+ The paradigm aims to rpovide the high level langage with a predictale behavior.
+\end_layout
+
+\begin_layout Plain Layout
+As a result, the FRP paradigm helps to simplify front ends applications,
+ specificaly when fields need to contously contain values depending on the
+ values in other fields.
+ The reactive variables are categorized into input and output variables.
+ The input variables are typicaly connected to recive events from a visual
+ elements, and the output variables are connected to update visual elements.
+ This most popular use for this concept is in spreadsheets applications.
+ Each cell of a spreadsheet, represented a field, can contain a formula
+ to contiuously update dependong on the values of the cells used in the
+ formula.
+ In other libraries, like REScala, the variables are connected by an API
+ built for this purpose.
+ In countermporary frameowkrs like react , the developer declare the view
+ as a function of the variables of the applicatiom, called state.
+ the framework continuously present the view according to the appliation's
+ state.
+ this method connects betwee MobX provides a framework to implement (like)
+ reactive variables as a state management solution to integrate with React.
+\end_layout
+
+\begin_layout Plain Layout
+In our context, the composed reactive variables need to not
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Implementing reactive variables for a front end is suited as state management.
+\end_layout
+
+\begin_layout Plain Layout
+There are two opposing methods,
+\end_layout
+
+\begin_layout Plain Layout
+Most reactive variables solutions consists of a centerlized mechanizm in
+ their reactive variables 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ Therfore, in the context of components-based applications, it coupled the
+ application to a madiaotr, that have access to
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Building Blocks
+\end_layout
+
+\begin_layout Plain Layout
+In the context of developing systems, reactive variables, streams, and events
+ can be considered as building blocks or units that you can utilize to construct
+ or implement reactive and event-driven functionality.
+ They serve as fundamental concepts or tools that enable you to handle and
+ propagate changes within your system.
+ Here's a breakdown of their roles:
+\end_layout
+
+\begin_layout Paragraph*
+Reactive Variables
+\end_layout
+
+\begin_layout Plain Layout
+Reactive variables provide a way to represent and manage data that automatically
+ updates when dependent data changes.
+ They are building blocks that allow you to define dependencies and establish
+ reactive behavior within your system.
+ Reactive variables enable you to express how data should react to changes
+ and facilitate automatic propagation of updates.
+\end_layout
+
+\begin_layout Paragraph*
+Streams
+\end_layout
+
+\begin_layout Plain Layout
+Streams represent a sequence of data that can be processed incrementally
+ or asynchronously.
+ They serve as building blocks for modeling and transforming data flows
+ within your system.
+ Streams allow you to express the continuous flow of data and enable you
+ to apply operations or transformations to the data as it moves through
+ the stream pipeline.
+\end_layout
+
+\begin_layout Paragraph*
+Events
+\end_layout
+
+\begin_layout Plain Layout
+Events are mechanisms that allow components or entities within a system
+ to communicate and react to specific occurrences or triggers.
+ They serve as building blocks for handling and propagating notifications
+ or signals about important system events or changes.
+ Events facilitate loose coupling and decoupled communication between components
+, enabling them to react to relevant events without having direct knowledge
+ of each other.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+By utilizing reactive variables, streams, and events as building blocks,
+ you can develop systems that are responsive, flexible, and can effectively
+ handle and propagate changes.
+ These concepts provide the necessary foundations to build reactive, event-drive
+n, or data-driven systems, depending on your specific requirements and use
+ cases.
+\end_layout
+
+\begin_layout Section
+Complexity Graphs
+\end_layout
+
+\begin_layout Section
+Change Propagation
+\end_layout
+
+\begin_layout Plain Layout
+There are mechanism that make a graph data structure in the memory 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This is like previous works had to face the balancing between the abstraction
+ level and the generalism of the propogation algorithm.
+ The technaogy that enables completely custom propogation, has a problematic
+ abstraction.
+ Event-driven programming theortecaly provide customizable propagation.
+ Hoever, the paradigm is error prone, so that it hard to realy customize
+ according to the needs.
+ Therfore, it is not new that the customizability, is by only choose a general
+ propogation strategy.
+\end_layout
+
+\begin_layout Plain Layout
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP field reserach, the centeral high level concept is that the developer
+s need only to specify the data dependencies, and the runtime maintain the
+ updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+ Suprisngly, the general algorithm handles also some functional requirements,
+ and also some non functional requirements break the neat abstraction.
+ The root causes are glitches and cycles.
+\end_layout
+
+\begin_layout Paragraph
+Glitches
+\end_layout
+
+\begin_layout Plain Layout
+Glitch means an extra recomputation then expected.
+ This is not only the extra work, that affect the perfomance, but also that
+ the values that are based on stale values, until the last recomutation.
+ There are several glicthes types,that arerelated to the required level
+ of the consistency.
+ So, this is a functional requirement, depending on the applicaton business.
+ Hwever, it is handled strictly by the runtime.
+\end_layout
+
+\begin_layout Paragraph
+Cycles
+\end_layout
+
+\begin_layout Plain Layout
+In order to customize the way in which to evaluate cycles, the abstracion
+ is not totaly high.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Section
+Events
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
 
 \begin_layout Plain Layout
 The OOP paradigm provides an alernative by the observer pattern.
@@ -145,14 +1225,13 @@ The OOP paradigm provides an alernative by the observer pattern.
  code that update dependant variables.
  Cross systems, there are sometimes hooks, to call external code in response
  to a change in the data.
- 
 \end_layout
 
 \end_inset
 
 
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 (I wrote this, and asked the gpt generate )The Observer pattern in Object-Orient
@@ -173,7 +1252,7 @@ ons.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Objects can use the observer pattern, or expose events to execute code when
  fields are updated, to enable other fields to be updated accordingly.
  If the code that updates one field needs to directly update additional
@@ -195,7 +1274,7 @@ noprefix "false"
  event handlers are registered, that update depedant fields.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In reality, the onchange events did not effectively address the issue.
  It has been observed that relying solely on onchange events based on object
  contracts can lead to unexpected updates and values, as shown in 
@@ -265,9 +1344,9 @@ noprefix "false"
 n's state, making it a monolithic approach.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The provided strategy enables many patterns.
@@ -285,11 +1364,11 @@ The provided strategy enables many patterns.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -511,44 +1590,13 @@ This statechart models the handling of events to calculate the value of
 DataFlow
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Frameworks based on the dataflow paradigm allow for the explicit specification
  of data dependencies, which were previously implicit.
- In FRP, data dependencies are constructed using pure functions, like the
  
-\begin_inset Flex Name
-status open
+\end_layout
 
 \begin_layout Plain Layout
-Signals
-\end_layout
-
-\end_inset
-
- in 
-\begin_inset Formula $\REScala$
-\end_inset
-
-.
- Alternatively, frameworks for event streams, like 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-, enable the application of functions to streams, where each stream produces
- its values based on the values of the input streams.
- It is commonly suggested that in order to ensure predictability, the graph
- should not contain cycles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -564,7 +1612,6 @@ ies, that previously specified implicity.
 predictability,
 \emph default
  the graph should be acyclic.
- 
 \end_layout
 
 \end_inset
@@ -572,9 +1619,9 @@ predictability,
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The observer pattern can be used with the iterator pattern to provide observable
@@ -619,7 +1666,7 @@ lstinline{A:=B}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 However, some applications, including the example we provided, inherently
  have cycles in their data dependencies 
 \begin_inset CommandInset citation
@@ -718,9 +1765,9 @@ lstinline{Z}
  to the formulas, which can lead to a monolithic codebase.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -838,7 +1885,7 @@ lstinline{Z}
 
 
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1010,7 +2057,7 @@ on.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1131,7 +2178,7 @@ lstinline{X:=Y+Z}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1296,7 +2343,7 @@ A data dependency graph, that in push-based evaluation, might have glitches.
 
 
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Subsection
 \begin_inset CommandInset label
@@ -1351,7 +2398,6 @@ literal "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1439,7 +2485,7 @@ literal "false"
 
 
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1467,7 +2513,7 @@ Comparing to the traditional pure frp, we increased the ability to extend
 Constraints
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 FRP shares with the paradigm of constraint systems the idea, that developers
  declare equations, and the runtime automates variable updates according
  to the equations and input.
@@ -1475,7 +2521,7 @@ FRP shares with the paradigm of constraint systems the idea, that developers
  of other variables, while constraint systems are about to satisfy constraints.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 There are constraint systems similar to FRP that handle one-way constraints
 \begin_inset space \thinspace{}
 \end_inset
@@ -1605,7 +2651,7 @@ lstinline{C:=A-B}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The FRP runtime uses 
 \emph on
 constraints solver
@@ -1755,7 +2801,7 @@ lstinline{X=x}
 , with hierarchy according to the order of the input.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1901,7 +2947,7 @@ Hotdrink
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -2106,7 +3152,7 @@ lstinline{A=B}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -2456,7 +3502,7 @@ lstinline{C}
 Conclusion
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In front-end applications, developers may create a data dependency graph
  either explicitly or implicitly to populate fields based on other fields.
  However, in certain scenarios where the application's data dependencies
@@ -2466,9 +3512,9 @@ In front-end applications, developers may create a data dependency graph
  for variable updates.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In front-end applications, where fields are automatically filled based on
@@ -2487,9 +3533,9 @@ data dependency graph
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The existing frameworks suggest seperating between declating dependencies
@@ -2505,6 +3551,11 @@ There are FRP runtimes that are based on the traditional simple methods
  There are FRP runtimes for distributed applications that do not use a madiator,
  but as the FRP paradigm, they support only the sets of formulas producing
  directed acyclic graphs.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

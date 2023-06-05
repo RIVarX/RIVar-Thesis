@@ -626,8 +626,14 @@ literal "false"
  The event handling logic determines what happens when an event is triggered,
  and in this case, it sets the values of variables and updates their dependencie
 s.
- The second complexity part is to separate the task into small manageable
- and independent tasks, for being in seperated loosly-coupled components.
+ The second complexity part is in managing the amount of data depedencies.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+to separate the task into small manageable and independent tasks, for being
+ in seperated loosly-coupled components.
  Typically components become coupled by affecting each other's state 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -637,6 +643,11 @@ literal "false"
 \end_inset
 
 , causing the task to be centralized.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -650,18 +661,12 @@ literal "false"
 \end_inset
 
 .
- The second, we relate to the 
-\emph on
-Object Oriented Programming
-\emph default
- (OOP) paradigm.
- This paradigm enables that different parts of the software, in the form
- of objects, are loosely coupled and do not depend on one another.
- This makes it easier to change objects without affecting the others.
+ The second type of complexity involves separating data dependencies into
+ distinct responsibilities, allowing each responsibility to be managed individua
+lly by a dedicated object.
 \end_layout
 
 \begin_layout Standard
-In 
 \begin_inset Formula $\REScala$
 \end_inset
 
@@ -687,8 +692,8 @@ literal "false"
 
 \end_inset
 
- the reactive variables are part of the object interface, but implemented
- differently.
+ are two extension types, in which reactive variables are part of the object
+ interface, but implemented differently.
  
 \begin_inset Formula $\REScala$
 \end_inset
@@ -1029,7 +1034,7 @@ separation of concerns
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1443,7 +1448,7 @@ We present a semantic framework that enables the separation of data dependency
 
 \begin_layout Paragraph
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Paragraph
 Outline.

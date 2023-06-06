@@ -90,106 +90,106 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-The following UI application (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-calculations"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) handles drug administration.
- It observes the fields' change events, once a value is changed, dependant
- fields are calculated and presented.
- The application is a prototype of a small part from an existing application.
- The goal is to reduce the complexity existing in the traditional application.
-\end_layout
-
-\begin_layout Standard
-In order to simplify the application, we seperate the model to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
+The objective of this thesis is to improve the way we build front end applicatio
+ns.
+ Therefore, we design objects that contain 
+\emph on
+calculations
+\emph default
+ that involve variables it directly holds, as well as variables from other
+ objects it contains or variables from its parent object.
+ These calculations are similar to establishing reactive variables because
+ they establish dependencies.
+ However, unlike reactive variables, calculations can establish dependencies
+ on existing variables.
+ This approach is illustrated by the drug administration example involving
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
  and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
+\begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
 .
- Also the UI is seperated to micro-frontends 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "peltonen2021motivations"
-literal "false"
-
-\end_inset
-
- respectively.
- The architectural design is illustrated in 
+ According to the relationships ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Drug-calculations"
+reference "fig:Drug-Administration-UML-1"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
+, 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ can contain calculations involving 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
 .
+ And 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ can contain calculations involving its variables: 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, as well as the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:PumpCode"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ In this way, developers can specify the behavior of objects, implicitly
+ creating data dependency graphs.
+ The dependency graphs from the objects are then combined to form the overall
+ dependency graph.
  
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- refers to giving 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}'s content
-\end_layout
-
-\end_inset
-
-.
- injecting medicines into a patient's bloodstream.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -206,89 +206,84 @@ begin{center}
 
 
 \backslash
-begin{tabular}{|c c c| }    
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Drug, Volume, Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Volume:=Concentration*Drug |
+\backslash
+label{line:formula3}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  IBag TheBag|
+\backslash
+label{line:TheBag}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Duration, Dose, Rate|
+\backslash
+label{line:RIVars}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug:=Dose*Duration  |
+\backslash
+label{line:formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration:=Rate*Volume |
+\backslash
+label{line:formula2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Drug & Concentration & VolumeOfFluid 
-\backslash
-
-\backslash
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-framebox(35,15){
-\backslash
-textit{100}} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{0.33}} & 
-\backslash
-framebox(35,15){300} 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline  
-\end_layout
-
-\begin_layout Plain Layout
-
- Dose & Duration & Rate 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{30}} 
-\backslash
-
-\backslash
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
+end{lstlisting}
 \end_layout
 
 \begin_layout Plain Layout
@@ -309,745 +304,36 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Drug-calculations"
-
-\end_inset
-
-Drug administration user interface.
- The user-defined values are in a regular typeface and the calculated values
- are in an italic typeface.
-\end_layout
+name "fig:PumpCode"
 
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
+\begin_inset Argument 1
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
- (C) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- micro-frontend] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
- (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
- Domain Object] (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
+Drug Administration Pseudo Code.
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Design of the drug administration application, showcasing observer interaction
- through dashed lines.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Drug Administration Data Model
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- refers to a medical device used to deliver fluids with medication into
- a patient’s body in a controlled manner.
- Accordingly, we model 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- class with contained 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{IBag}
-\end_layout
-
-\end_inset
-
- representing the connected bag, containing 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
+Drug Administration Pseudo Code.
+ Illustrating the code of the classes to specify the behavior of objects.
  
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
+~
 \backslash
-lstinline{Drug}
+cref{line:formula,line:formula2,line:formula3}
 \end_layout
 
 \end_inset
 
- relates to amount of medication administered to a patient, (e.g.
- 100 mg).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- relates to the fluid volume mixed with the drug (e.g., 300 ml).
- Based on the existing bag, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- contains the data related to giving the bag's content over time.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Rate}
-\end_layout
-
-\end_inset
-
- relates to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- flow administered into the patient’s body per time unit (e.g., 30 ml per
- hour).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- relates to the dosage, which is the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- administered into the patient’s body per time unit (e.g., 10 mg per hour).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
- relates to the duration from starting the injection until stopping it.
- According to the architectural design and as visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Calculation-spread-over-objects-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the fields in the user interface can trigger changes to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- which trigger changes also to the bag.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- interacts with the bag indirectly using an interface.
-\end_layout
-
-\begin_layout Standard
-In order to achive our goal to seperate the drug administration model, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- and its bag will be loosely coupled.
- The bag will be defined as an interface, and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- will only send messages to it, to update 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- or 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-.
- Such as example is visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Calculation-spread-over-objects-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- When 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- send a message to the bag, it should not be aware of any internal information
- related to the bag.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-, in addition to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
-, contains also 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- relating to the amount of the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- per 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- (e.g.
- 0.33 mg/ml).
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- should not be aware of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- interacts with 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- by the interface it is implemented, named 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{IBag}
-\end_layout
-
-\end_inset
-
-.
- The data model and the relationships are visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration-UML-3"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{UI}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{Pump}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{Bag}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Duration=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Drug=100}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Dose=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Calculation-spread-over-objects-1"
-
-\end_inset
-
-Calculation procedure spread over seperated objects.
+ represent the calculations that initiate the data dependencies.
 \end_layout
 
 \end_inset
@@ -1173,7 +459,7 @@ implement {IBag}
 
 
 \backslash
-attribute{Concentration}
+attribute{Concentration }
 \end_layout
 
 \begin_layout Plain Layout
@@ -1208,11 +494,76 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Drug-Administration-UML-3"
+name "fig:Drug-Administration-UML-1"
 
 \end_inset
 
-Drug administration class diagram
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug Administration Class Diagram.
+\end_layout
+
+\end_inset
+
+Drug Administration Class Diagram.
+ Illustrating the access relationships between the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ can perform calculations involving 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+ variables.
+ 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ can perform calculations involving its variables: 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, as well as the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
 \end_layout
 
 \end_inset
@@ -1223,378 +574,66 @@ Drug administration class diagram
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Unpredictable Calculation
 \end_layout
 
 \begin_layout Standard
-In the original application, the calculation is centerlized.
- Whenever a user sets a new value to any of the fields, a calculation procedure
- (
+The objective of this thesis is to satisfy the 
+\emph on
+superposition
+\emph default
+ property, which ensures that the behaviors produced by smaller objects
+ are preserved when constructing larger composite objects.
+ Formally, the behavior of a class is denoted as 
+\begin_inset Formula $\LSTINLINE{F(x)}$
+\end_inset
+
+, where 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ represents an instance of the class.
+ We expect that this behavior satisfies the property 
+\begin_inset Formula $\LSTINLINE{F(x_{1}+x_{2})=F(x_{1})+F(x_{2})}$
+\end_inset
+
+.
+ However, in the context of calculations, redundant updates pose a challenge
+ to achieving this property.
+\end_layout
+
+\begin_layout Standard
+The issue is how to avoid redundant updates from an 
+\emph on
+unexpected feedback loop
+\emph default
+, where a change in one variable leads to a subsequent change that feeds
+ back and affects the original variable itself.
+ In the provided example, the graph exhibits a cycle involving the nodes
+ duration, volume, and drug (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Centerlized-Calculation"
+reference "fig:cycleByComponents"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
-) is executed.
- The procedure consists of branches according to the user-cases, in each
- branch there are three values being used to calculate the other values.
- In contrast, following the seperation, the calculations task is spread
- over 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In the cenario visualized in 
+), which can potentially result in an infinite loop due to such an unexpected
+ feedback loop.
+ Even a single redundant update can be undesirable.
+ If the feedback loop causes a variable to be updated, it can potentially
+ override previous valid values, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Unpredictable-Calculation"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
- the user sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-10
-\end_layout
-
-\end_inset
-
-, then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-, in response 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is calculated to 100.
- The user then sets 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{VolumeOfFluid}
-\end_layout
-
-\end_inset
-
- to 300, in response 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- is calculated to 0.33.
- Then 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- is calculated to 99 unexpectedly.
- 
-\end_layout
-
-\begin_layout Standard
-The unpredictable change has two reasons.
- First, in the update of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- 100/300 was rounded, and lost information in the process.
- This caused 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- to be calculated to 0.33, which caused 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- to be calculated to 99.
- Second, there was a cycle: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- was updated according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
-, which was updated according to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited triple is of Dose,  Duration, and VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Centerlized-Calculation"
-
-\end_inset
-
-Part of a centralized calculation procedure
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1769,283 +808,33 @@ name "fig:Unpredictable-Calculation"
 
 \end_inset
 
-Calculation procedure spread over seperated objects producing unpredictable
- calculation.
- The user set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Drug}
-\end_layout
-
-\end_inset
-
- to 100 and it has been changed to 99.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Summary
-\end_layout
-
-\begin_layout Standard
-We tried to seperate an application unsuccessfully.
- The calculations are defined separately in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
-.
- Also the runtime is seperated, managing the updates on top of the objects'
- interactions (standard calls).
- But the resulted calculations does not fit the requirements.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In order to update existing fields according to other fields, we need
-\end_layout
-
-\begin_layout Plain Layout
-Front ends applications typicaly invovles behavior like reactive variables.
- Specificaly in the following drug administration example, the UI component
- contains six fields: The "Drug" field specifies the amount of medication
- administered to the patient (e.g., 100 mg).
- The "VolumeOfFluid" field indicates the volume of fluid mixed with the
- drug (e.g., 300 ml).
- The "Concentration" field represents the amount of the drug per unit volume
- of fluid (e.g., 0.33 mg/ml).
- The "Rate" field specifies the flow rate of the fluid into the patient's
- body per unit of time (e.g., 30 ml per hour).
- The "Dose" field represents the dosage, which is the amount of drug administere
-d to the patient's body per unit of time (e.g., 10 mg per hour).
- The "Duration" field indicates the duration of the injection, from start
- to end.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-.
- However, typically, the data dependency graphs produced by this type of
- application are more complex than the typical graphs handled in the field.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{|c c c| }    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Drug & Concentration & VolumeOfFluid 
-\backslash
-
-\backslash
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-framebox(35,15){
-\backslash
-textit{100}} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{0.33}} & 
-\backslash
-framebox(35,15){300} 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
- Dose & Duration & Rate 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{30}} 
-\backslash
-
-\backslash
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-calculations-1"
-
-\end_inset
-
 
 \begin_inset Argument 1
 status open
 
 \begin_layout Plain Layout
-User interface component for drug administration.
+Unexpected Feedback Loop: Unintended Override of User Input
 \end_layout
 
 \end_inset
 
-User interface component for drug administration.
- The upper panel represents the bag component, and the lower panel represents
- the pump component.
- The fields are illustrated with example values, in case the user sets Volume
- dose and duration.
- The fields Drug, Concentration, and Volume are displayed in italic typeface
- to indicate that these values are calculated based on the set values.
+Sequence diagram illustrating the interactions between the User Interface
+ (UI), Pump, and Bag objects.
+ Initially, the UI sets the value of 
+\backslash
+lstinline{Drug} to 100.
+ However, due to the complex interactions and dependencies between the objects,
+ the 
+\backslash
+lstinline{Drug} value undergoes modifications and eventually gets updated
+ to 99.
+ This unintended alteration exemplifies the challenge posed by feedback
+ loops, which can result unintended override of user input.
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-.
- the duration depends on the volume (and rate), which depends on the drug
- (and concentration), which in turn depends again on the duration (and dose).
- The components behavior are indepedently, so the behavior is inpredictable.
 \end_layout
 
 \end_inset
@@ -2322,6 +1111,2023 @@ Mutual recursion created in runtime from created dependency graphs within
 
 \begin_layout Standard
 \begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & VolumeOfFluid 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){
+\backslash
+textit{100}} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{30}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-calculations-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+User interface component for drug administration.
+\end_layout
+
+\end_inset
+
+User interface component for drug administration.
+ The upper panel represents the bag component, and the lower panel represents
+ the pump component.
+ The fields are illustrated with example values, in case the user sets Volume
+ dose and duration.
+ The fields Drug, Concentration, and Volume are displayed in italic typeface
+ to indicate that these values are calculated based on the set values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+A cenetral problem historicaly arisen in legacy applications are 
+\emph on
+unexpected feedback loop
+\emph default
+.
+ This term
+\emph on
+ 
+\emph default
+refers to a situation where a change in one element leads to a subsequent
+ change that feeds back and affects the original element.
+\end_layout
+
+\begin_layout Plain Layout
+In order to improve legacy applications, that contain fields that are recalculat
+ed based on other fields, we focus on the problem named 
+\emph on
+unexpected feedback loop
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In our approach, each object contains 
+\emph on
+calculations
+\emph default
+ that involve variables it directly holds, as well as variables from other
+ objects it contains or variables from its parent object.
+ Calculations are similar to establishing reactive variables, because they
+ establish dependencies.
+ However, unlike reactive variables, calculations can establish dependencies
+ to existing variables.
+ This approach are illustrated by the drug adminstration example.
+ The example consists of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ objects illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ can contain calculations invovlve 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Drug
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Volume
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Concentration
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Pump
+\end_layout
+
+\end_inset
+
+ can contain calculations involve its variables: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Dose
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Rate
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Duration
+\end_layout
+
+\end_inset
+
+, and also the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Drug
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Volume
+\end_layout
+
+\end_inset
+
+ of the instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Bag
+\end_layout
+
+\end_inset
+
+.
+ In this way, developers can specify the objects behavior, creating implicity
+ a 
+\emph on
+data dependency graph, 
+\emph default
+while the dependency graphs from the objects are combined to form the overall
+ dependency graph.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The following UI application (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) handles drug administration.
+ It observes the fields' change events, once a value is changed, dependant
+ fields are calculated and presented.
+ The application is a prototype of a small part from an existing application.
+ The goal is to reduce the complexity existing in the traditional application.
+\end_layout
+
+\begin_layout Plain Layout
+In order to simplify the application, we seperate the model to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+.
+ Also the UI is seperated to micro-frontends 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+ respectively.
+ The architectural design is illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ refers to giving 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}'s content
+\end_layout
+
+\end_inset
+
+.
+ injecting medicines into a patient's bloodstream.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & VolumeOfFluid 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){
+\backslash
+textit{100}} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline  
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{30}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-calculations"
+
+\end_inset
+
+Drug administration user interface.
+ The user-defined values are in a regular typeface and the calculated values
+ are in an italic typeface.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag micro-frontend]
+ (C) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ micro-frontend] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag Domain Object]
+ (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ Domain Object] (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Design of the drug administration application, showcasing observer interaction
+ through dashed lines.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Drug Administration Data Model
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ refers to a medical device used to deliver fluids with medication into
+ a patient’s body in a controlled manner.
+ Accordingly, we model 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ class with contained 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+ representing the connected bag, containing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ relates to amount of medication administered to a patient, (e.g.
+ 100 mg).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ relates to the fluid volume mixed with the drug (e.g., 300 ml).
+ Based on the existing bag, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ contains the data related to giving the bag's content over time.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Rate}
+\end_layout
+
+\end_inset
+
+ relates to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ flow administered into the patient’s body per time unit (e.g., 30 ml per
+ hour).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ relates to the dosage, which is the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ administered into the patient’s body per time unit (e.g., 10 mg per hour).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+ relates to the duration from starting the injection until stopping it.
+ According to the architectural design and as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Calculation-spread-over-objects-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the fields in the user interface can trigger changes to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ which trigger changes also to the bag.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ interacts with the bag indirectly using an interface.
+\end_layout
+
+\begin_layout Plain Layout
+In order to achive our goal to seperate the drug administration model, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ and its bag will be loosely coupled.
+ The bag will be defined as an interface, and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ will only send messages to it, to update 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+ Such as example is visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Calculation-spread-over-objects-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ send a message to the bag, it should not be aware of any internal information
+ related to the bag.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+, in addition to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+, contains also 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ relating to the amount of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ per 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ (e.g.
+ 0.33 mg/ml).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ should not be aware of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ interacts with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ by the interface it is implemented, named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+.
+ The data model and the relationships are visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-3"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{UI}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{Pump}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Bag}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Duration=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Drug=100}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Dose=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Calculation-spread-over-objects-1"
+
+\end_inset
+
+Calculation procedure spread over seperated objects.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{interface}{IBag}{0,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}[text width=8 cm]{Pump}{0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Pump}{TheBag}{}{IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Bag}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+implement {IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration-UML-3"
+
+\end_inset
+
+Drug administration class diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Unpredictable Calculation
+\end_layout
+
+\begin_layout Plain Layout
+In the original application, the calculation is centerlized.
+ Whenever a user sets a new value to any of the fields, a calculation procedure
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Centerlized-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) is executed.
+ The procedure consists of branches according to the user-cases, in each
+ branch there are three values being used to calculate the other values.
+ In contrast, following the seperation, the calculations task is spread
+ over 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In the cenario visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ the user sets 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+10
+\end_layout
+
+\end_inset
+
+, then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, in response 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is calculated to 100.
+ The user then sets 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ to 300, in response 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ is calculated to 0.33.
+ Then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is calculated to 99 unexpectedly.
+\end_layout
+
+\begin_layout Plain Layout
+The unpredictable change has two reasons.
+ First, in the update of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ 100/300 was rounded, and lost information in the process.
+ This caused 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be calculated to 0.33, which caused 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ to be calculated to 99.
+ Second, there was a cycle: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ was updated according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, which was updated according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited triple is of Dose,  Duration, and VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Drug, Dose, and Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Concentration,  Volume, and Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Centerlized-Calculation"
+
+\end_inset
+
+Part of a centralized calculation procedure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Plain Layout
+We tried to seperate an application unsuccessfully.
+ The calculations are defined separately in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+.
+ Also the runtime is seperated, managing the updates on top of the objects'
+ interactions (standard calls).
+ But the resulted calculations does not fit the requirements.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In order to update existing fields according to other fields, we need
+\end_layout
+
+\begin_layout Plain Layout
+Front ends applications typicaly invovles behavior like reactive variables.
+ Specificaly in the following drug administration example, the UI component
+ contains six fields: The "Drug" field specifies the amount of medication
+ administered to the patient (e.g., 100 mg).
+ The "VolumeOfFluid" field indicates the volume of fluid mixed with the
+ drug (e.g., 300 ml).
+ The "Concentration" field represents the amount of the drug per unit volume
+ of fluid (e.g., 0.33 mg/ml).
+ The "Rate" field specifies the flow rate of the fluid into the patient's
+ body per unit of time (e.g., 30 ml per hour).
+ The "Dose" field represents the dosage, which is the amount of drug administere
+d to the patient's body per unit of time (e.g., 10 mg per hour).
+ The "Duration" field indicates the duration of the injection, from start
+ to end.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+.
+ However, typically, the data dependency graphs produced by this type of
+ application are more complex than the typical graphs handled in the field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+.
+ the duration depends on the volume (and rate), which depends on the drug
+ (and concentration), which in turn depends again on the duration (and dose).
+ The components behavior are indepedently, so the behavior is inpredictable.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
@@ -2576,7 +3382,7 @@ lstinline{Concentration}.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 We use the simple drug administration example, ilustrated in 
@@ -2678,7 +3484,7 @@ By spedifiing behavior similar to reactive variables, we initiate a depedancy
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...
@@ -3161,7 +3967,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The fields in the example need to be similar to reactive variables.
@@ -3210,7 +4016,7 @@ The example need to be seperated into two UI components: the pump and the
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The fields in the example need to be similar to reactive variables.
@@ -3235,7 +4041,7 @@ The fields in the example need to be similar to reactive variables.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In implementing the example by reactive variables, each reactive variable

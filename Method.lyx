@@ -114,6 +114,548 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
+We introduce a new variant for FRP.
+ In the new variant of FRP, the variables and operators, including the assignmen
+t operator, are treated as observable streams (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Therefore, the components involved in the formulas create subscriptions
+ to establish connections for change propagation.
+ For instance, the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ implies that the operator 
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+).
+ The established connections are then used to the change propogation for
+ connected UI fields.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evaluating-the-formula-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Subscriptions created by components involved in the formula 
+\begin_inset Formula $\LSTINLINE{A:B+1}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+Subscriptions created by components involved in the formula 
+\begin_inset Formula $\LSTINLINE{A:B+1}$
+\end_inset
+
+.
+ The sequence diagram illustrates interaction between the components in
+ creating the subscriptions.
+ the 
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ observes 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+ (representing the function
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{OnNext(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{OnNext(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{OnNext(3)}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{OnNext(3)}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{OnNext(3)}{E}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Propogation-on-the-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ The sequence diagram illustrates an interaction among the components involved
+ in the formula, utilizing the 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ method used by observables in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+.
+ The sequence starts with the UI field triggering an event, emitting the
+ value 2.
+ This change is propagated based on the established subscriptions, as shown
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the new variant the variables and operators, including the assignment
+ operator, are observable streams as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Therefore, the formulas create subscribtions which establish connections
+ to the change propogation.
+ For instance, the 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+means that the operator 
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ observes 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and the operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (which means
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+In the new variant of FRP, the variables and operators, including the assignment
+ operator, are treated as observable streams (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Subscriptions are created by observers to establish connections for change
+ propagation.
+ For instance, the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ implies that the operator 
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+).
+ Observers create subscriptions to these observable streams to receive and
+ react to changes in the emitted values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+————
+\end_layout
+
+\begin_layout Plain Layout
 Our approach introduces a new variant for FRP for calculations that objects
  will contain.
  As described in 
@@ -128,14 +670,18 @@ noprefix "false"
 
 , a graph are composed from objects' internal calculations that involve
  shared variables.
- Consequently, a variable can have multiple assignments.
+ Consequently, the new variant need to satisfy constraints: first, to support
+ multiple assignments into a single variable.
+ Second, The objects internals should not be updated observed from outside
+ by a madiator or a centeral mechanism, Instead, each variable is an observable
+ stream, leading that each variable updates its depedant variables.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 the calculations that objects will contain establishes a depedancy graph.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our approach introduces a new variant for FRP for calculations that objects
  will contain (as described in 
 \begin_inset CommandInset ref
@@ -152,7 +698,7 @@ noprefix "false"
  the specified calculations.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our approach introduces a new variant for FRP for calculations that objects
  will contain (as defined in 
 \begin_inset CommandInset ref
@@ -172,7 +718,7 @@ noprefix "false"
  This 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -191,11 +737,10 @@ This includes the propogation change nechanism that each variable updates
 Avoid coupling to a specific architectural design with a bottleneck of another
  component that has access to the objects' internal state, we adopted a
  "no-mediator" approach where each variable updates its dependencies.
- 
 \end_layout
 
 \begin_layout Plain Layout
-Therefore, the 
+Therefore, the
 \end_layout
 
 \begin_layout Plain Layout
@@ -211,7 +756,7 @@ Therefore we inroduce a custom assignment operation
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -226,7 +771,7 @@ Our approach incorporates an assignment operator,
 \end_layout
 
 \begin_layout Plain Layout
-This initiates the 
+This initiates the
 \end_layout
 
 \begin_layout Plain Layout
@@ -244,12 +789,12 @@ Considering feedback loops situations, we describe variables expressions
 \end_layout
 
 \begin_layout Plain Layout
-describing the flow of the data 
+describing the flow of the data
 \end_layout
 
 \begin_layout Plain Layout
 the node for which there is the feedback depends on several expression,
- or an expression has an input that trigger a chain of updates which 
+ or an expression has an input that trigger a chain of updates which
 \end_layout
 
 \begin_layout Plain Layout
@@ -645,6 +1190,11 @@ Reactive Instance Variable
 , to specify the data dependencies in a similar fashion to how reactive
  variables operate in FRP and how instance variables are accessed from outside
  of objects.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

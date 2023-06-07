@@ -114,6 +114,145 @@ name "chap:Method"
 \end_layout
 
 \begin_layout Standard
+Our approach introduces a new variant for FRP for calculations that objects
+ will contain.
+ As described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, a graph are composed from objects' internal calculations that involve
+ shared variables.
+ Consequently, a variable can have multiple assignments.
+\end_layout
+
+\begin_layout Standard
+the calculations that objects will contain establishes a depedancy graph.
+\end_layout
+
+\begin_layout Standard
+Our approach introduces a new variant for FRP for calculations that objects
+ will contain (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ The new variant should handle, for an application, the overral graph from
+ the specified calculations.
+\end_layout
+
+\begin_layout Standard
+Our approach introduces a new variant for FRP for calculations that objects
+ will contain (as defined in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ The new variant should handle for an application, the overral graph from
+ the specified calculations.
+ Additionaly, the objects internals should not be observed outside, or be
+ accessed, also in runtime.
+ This 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The fact the the calculations are associated internaly to objects means
+ for the FRP variant, that in the propogation change, we avoid coupling
+ to a madiator approach where each variable updates its dependencies
+\end_layout
+
+\begin_layout Plain Layout
+This includes the propogation change nechanism that each variable updates
+ its dependencies
+\end_layout
+
+\begin_layout Plain Layout
+Avoid coupling to a specific architectural design with a bottleneck of another
+ component that has access to the objects' internal state, we adopted a
+ "no-mediator" approach where each variable updates its dependencies.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Therefore, the 
+\end_layout
+
+\begin_layout Plain Layout
+The variables are observable streams,
+\end_layout
+
+\begin_layout Plain Layout
+Therefore we inroduce a custom assignment operation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Our approach incorporates an assignment operator, 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, which links a variable to be continually updated according to an expression,
+ similar to traditional FRP implementations.
+ However, unlike FRP, this does not replace or override previous assignments.
+\end_layout
+
+\begin_layout Plain Layout
+This initiates the 
+\end_layout
+
+\begin_layout Plain Layout
+The dataflow in a situation of feedback loops can be descirbed as a graph.
+ The edges represents the flow of the data
+\end_layout
+
+\begin_layout Plain Layout
+We describe variables expressions and input as nodes.
+\end_layout
+
+\begin_layout Plain Layout
+Considering feedback loops situations, we describe variables expressions
+ and input nodes.
+\end_layout
+
+\begin_layout Plain Layout
+describing the flow of the data 
+\end_layout
+
+\begin_layout Plain Layout
+the node for which there is the feedback depends on several expression,
+ or an expression has an input that trigger a chain of updates which 
+\end_layout
+
+\begin_layout Plain Layout
 To address the feedback loops typicaly caused by the objects interactions,
  we introduce 
 \begin_inset Formula $\RIVar$
@@ -126,7 +265,7 @@ Reactive Instance Variable
 , as its instances are reactive variables that can be associated to objects.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -402,12 +541,12 @@ Mutual recursion created in runtime from created dependency graphs within
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-delete: 
+delete:
 \end_layout
 
 \begin_layout Plain Layout
@@ -418,7 +557,7 @@ We address cycles created from mutual recursions, where reactive variables
 
 \begin_layout Plain Layout
 One of the nodes must be connected to a node from outside of the cycle or
- to a 
+ to a
 \end_layout
 
 \begin_layout Plain Layout
@@ -444,7 +583,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Plain Layout
-In our approach components can be interconnected, by fields 
+In our approach components can be interconnected, by fields
 \end_layout
 
 \begin_layout Plain Layout
@@ -480,7 +619,6 @@ Each component defines its own private dependency graph according to its
  specified behavior.
  However, during runtime, the dependency graphs from the components are
  combined to form the overall dependency graph.
- 
 \end_layout
 
 \end_inset
@@ -488,9 +626,9 @@ Each component defines its own private dependency graph according to its
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 This thesis addresses the complex data dependencies that arise in component-base
@@ -514,6 +652,11 @@ Reactive Instance Variable
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -521,52 +664,28 @@ name "sec:VariantFRP"
 
 \end_inset
 
-Introduction to a New Variant of FRP
+Assignment Operator
 \end_layout
 
 \begin_layout Standard
-Our approach incorporates an assignment operator, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{:=}
-\end_layout
-
+Since the graphs are composed of objects' internal calculations involving
+ shared variables, we need to support multiple assignments to a single variable.
+ We introduce the assignment operator, 
+\begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
-, which links a variable to be continually updated according to an expression,
+, which links a variable to be continually updated based on an expression,
  similar to traditional FRP implementations.
  However, unlike FRP, this does not replace or override previous assignments.
 \end_layout
 
 \begin_layout Standard
-In order to support multiple assignments, we employ a methodology that involves
- the variable inferring its value over time from various streams of samples.
- As illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Streams-of-values-1-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, a variable can be represented by an events stream, in which the items
- represent the variable's updates.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
+In order that subsequent assignment statements will only add expressions,
+ the assignment operator is defined to be an accumulation operator.
+ As an accumulation operator, it merges the stream on the right-hand side
+ of the operator with the stream on the left-hand side of the operator,
+ and stores the merged result back in the left-hand side variable.
+ For example, the statement 
 \begin_inset ERT
 status open
 
@@ -574,125 +693,12 @@ status open
 
 
 \backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-matrix[row sep=0.5cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (1,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (2,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
+lstinline{A:=B}
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Streams-of-values-1-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Eevent stream.
-\end_layout
-
-\end_inset
-
-Illustrating an event stream that represents the changes in the values of
- variable 
+ is interpreted as 
 \begin_inset ERT
 status open
 
@@ -700,81 +706,20 @@ status open
 
 
 \backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- over time.
- Based on the illustration, it can be observed that variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- changed to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{5}
-\end_layout
-
-\end_inset
-
- initially, then to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{3}
-\end_layout
-
-\end_inset
-
-, and after a longer period, it changed to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{2}
+lstinline{A=merge(A,B)}
 \end_layout
 
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+ 
 \end_layout
 
 \begin_layout Standard
-Using this representation, a variable with multiple assignments is interpreted
- as a merge operator over the variable and assigned expressions in the various
- statements.
+In order to support multiple assignments, we employ a methodology that involves
+ the variable inferring its value over time from various streams of samples.
+ A variable with multiple assignments is interpreted as a merge operator
+ over the variable and assigned expressions in the various statements.
  For instance, if we have two statements, 
 \begin_inset ERT
 status open
@@ -815,42 +760,6 @@ lstinline{merge(A,B,D)}
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The assignment operator is an accumulation operator, which means it merges
- the stream on the right-hand side of the operator with the stream on the
- left-hand side of the operator, and stores the merged result back in the
- left-hand side variable.
- For example, the statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B}
-\end_layout
-
-\end_inset
-
- can be interpreted as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=merge(A,B)}
-\end_layout
-
-\end_inset
-
-.
- Subsequent assignment statements will cause the variable to continue accumulati
-ng.
 \end_layout
 
 \begin_layout Standard
@@ -1272,8 +1181,8 @@ lstinline{A=merge(A,B)}.
 \end_layout
 
 \begin_layout Standard
-The merge operation is associative, meaning that it can be applied in any
- order without changing the final result.
+Therefore, the merge operation is also associative, meaning that it can
+ be applied in any order without changing the final result.
  Therefore, merging multiple streams using assignment statements is equivalent
  to executing an n-array merge on the streams of the variable and assigned
  expressions.
@@ -2384,6 +2293,12 @@ lstinline{DrugAdministration}
 
 \begin_layout Section
 Change Propagation
+\end_layout
+
+\begin_layout Standard
+The objects internals should not be updated observed from outside by a madiator
+ or a centeral mechanism, Instead, each variable is an observable stream,
+ leading that each variable updates its depedant variables.
 \end_layout
 
 \begin_layout Standard

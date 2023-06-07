@@ -86,6 +86,12 @@
 \begin_body
 
 \begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Motivation"
+
+\end_inset
+
 Motivation
 \end_layout
 

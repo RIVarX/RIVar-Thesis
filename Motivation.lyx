@@ -96,10 +96,10 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-The objective of this thesis is to improve the way we build front end applicatio
-ns.
- We adopt the recomended practices that several objects, for several resposibili
-ties should be designed 
+The objective of this thesis is to enhance the process of constructing front-end
+ applications by implementing recommended practices that emphasize the design
+ of multiple objects with distinct responsibilities.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "martin2018clean"
@@ -131,7 +131,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Each object contain 
+Each object contains 
 \emph on
 calculations
 \emph default
@@ -628,7 +628,7 @@ unexpected feedback loop
 LatexCommand formatted
 reference "fig:cycleByComponents"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -642,7 +642,7 @@ noprefix "false"
 LatexCommand formatted
 reference "fig:Unpredictable-Calculation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

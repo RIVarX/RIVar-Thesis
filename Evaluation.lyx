@@ -112,8 +112,101 @@ name "chap:Evaluation"
 Evaluation
 \end_layout
 
+\begin_layout Section
+Feasibility 
+\end_layout
+
 \begin_layout Standard
-We have implemented and made the drug administration example, discussed
+We have developed two lightweight libraries, RIVarX for C# developers and
+ rivarjs for JavaScript (ES6) developers, with the aim of facilitating separated
+ data dependencies management for user interfaces.
+\end_layout
+
+\begin_layout Paragraph
+RIVarX (C#)
+\end_layout
+
+\begin_layout Standard
+RIVarX is a .NET library designed specifically for C# developers.
+ It provides the capability to expose RIVars in classes and interfaces and
+ allows for the assignment of calculations to them.
+ This enables the creation of loosely coupled components with separated
+ data dependencies.
+ The library is publicly available on GitHub at
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+ https://github.com/RivkaAltshuler/RIVar
+\end_layout
+
+\end_inset
+
+ and can be easily downloaded through the NuGet package manager at
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+ https://www.nuget.org/packages/RIVar.RIVarX
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+rivarjs (JavaScript)
+\end_layout
+
+\begin_layout Standard
+To ensure wider adoption and cater to the vast JavaScript community, we
+ have implemented the same approach in JavaScript (ES6) and released it
+ as the rivarjs library.
+ JavaScript has a thriving open-source ecosystem, making it an ideal platform
+ for publishing and evaluating libraries.
+ Additionally, since front-end development predominantly utilizes JavaScript,
+ this library is specifically designed for front-end applications.
+ You can access the rivarjs library on npm at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By implementing these two libraries, we have showcased the viability of
+ our approach and demonstrated its seamless integration into different programmi
+ng languages.
+ Leveraging the popularity of reactive extensions, which are widely embraced
+ in modern programming paradigms, we have successfully developed RIVarX
+ for C# developers and rivarjs for JavaScript developers.
+ This highlights the versatility of our approach and paves the way for its
+ adoption in other object-oriented languages that support reactive extensions.
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have also implemented and made the drug administration example, discussed
  in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -205,13 +298,17 @@ In the case of Hotdrink, the introduction of new input triggers the creation
 \end_layout
 
 \begin_layout Section
+Superposition
+\end_layout
+
+\begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:VariantFRP"
 
 \end_inset
 
-Assignments
+Referential Transparency
 \end_layout
 
 \begin_layout Standard
@@ -787,7 +884,7 @@ lstinline{merge(A,B,D)}
 \end_layout
 
 \begin_layout Section
-Summary
+Summary -??
 \end_layout
 
 \begin_layout Standard

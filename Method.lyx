@@ -103,14 +103,13 @@
 \begin_body
 
 \begin_layout Chapter
-Approach
 \begin_inset CommandInset label
 LatexCommand label
 name "chap:Method"
 
 \end_inset
 
-
+Approach
 \end_layout
 
 \begin_layout Standard
@@ -433,7 +432,7 @@ noprefix "false"
 \end_inset
 
 , if the value is derived from a newer event, it still can be a stale value.
- A newer value must be one that overrides the effects of a variable's previous
+ A newer value must be one, that overrides the effects of a variable's previous
  value.
 \end_layout
 
@@ -610,7 +609,7 @@ These examples demonstrate how to compare values associated with the timestamps
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ..

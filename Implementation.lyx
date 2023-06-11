@@ -91,7 +91,7 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-We introduce a new variant of FRP.
+We implement a new variant of FRP that handle the unexpected feedback loop.
  In the new variant, variables and building blocks are treated as observers
  and observable streams (as described in 
 \begin_inset CommandInset ref
@@ -571,7 +571,11 @@ noprefix "false"
  observations.
  The passed notifications produces a merged stream from the streams that
  the variable is subscribed to.
- In addition, as illustrated in 
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:cycle-merge-produce-concurrent-events"
@@ -581,8 +585,19 @@ noprefix "false"
 
 \end_inset
 
-, mutual recursion can be declared, causing cycles in the established connection
-s.
+, the merge operation need to handle the unexpected feedback loop.
+ The notifications contain the timestamps, and they are used to compare,
+ as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, each notification with its previous.
 \end_layout
 
 \begin_layout Standard
@@ -763,11 +778,19 @@ Illustrating the spanning graph in the case of a cycle in the dependencies,
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+..
+\end_layout
+
 \begin_layout Chapter
 Old
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In this section, we will delve into the implementation details of our approach.
  We leverage existing elements from ReactiveX as the foundation and introduce
  only a few additional components to bridge the remaining gap.
@@ -781,7 +804,7 @@ In this section, we will delve into the implementation details of our approach.
 Required Elements from ReactiveX
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ReactiveX, available in languages like C# and JavaScript through frameworks
  like RxJS, provides observable streams that can be used as reactive instance
  variables.
@@ -797,7 +820,7 @@ s.
  A=B.CombineLatest(C,(x,y)=>x+y).
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ReactiveX also offers the merge function, which combines multiple streams
  into a single stream.
  It takes multiple source observables, subscribes to all of them, and forwards
@@ -813,7 +836,7 @@ ReactiveX also offers the merge function, which combines multiple streams
 Identifying Gaps and Challenges
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Despite the functionality provided by ReactiveX, there are several remaining
  issues that need to be addressed.
  Firstly, the order model must be considered.
@@ -833,7 +856,7 @@ Despite the functionality provided by ReactiveX, there are several remaining
 Bridging the Gap
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 To address the required functionality and overcome the gaps in ReactiveX,
  two data types are introduced: RIVar and Signal.
  RIVar is derived from Subject and serves as the carrier for signals.
@@ -843,7 +866,7 @@ l elements in a list.
  signals, where each signal represents a specific value.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 To handle the ordering of signals and identify stale ones, we establish
  a static, strictly increasing number.
  When creating a new signal, it can be assigned a number that corresponds
@@ -854,7 +877,7 @@ To handle the ordering of signals and identify stale ones, we establish
 g the order among signals and identifying any stale ones.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We also provide a lift function and the Set method.
  The lift function, lift function over values to function over RIVars.
  The Set method, facilitates RIVar objects, to be asked to assign calculations.
@@ -864,96 +887,11 @@ We also provide a lift function and the Set method.
  The Set method pass the signals by imperatively calls the OnNext.
  In order to not pass the stale values, it subscribes to the two streams,
  and compare incoming signals against the previous publshued signal.
+\end_layout
+
+\end_inset
+
  
-\end_layout
-
-\begin_layout Section
-Implemented Libraries
-\end_layout
-
-\begin_layout Standard
-We have successfully developed two lightweight libraries, RIVarX for C#
- developers and rivarjs for JavaScript (ES6) developers, with the aim of
- facilitating separated data dependencies management for user interfaces.
-\end_layout
-
-\begin_layout Paragraph
-RIVarX (C#)
-\end_layout
-
-\begin_layout Standard
-RIVarX is a .NET library designed specifically for C# developers.
- It provides the capability to expose RIVars in classes and interfaces and
- allows for the assignment of calculations to them.
- This enables the creation of loosely coupled components with separated
- data dependencies.
- The library is publicly available on GitHub at
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
- https://github.com/RivkaAltshuler/RIVar
-\end_layout
-
-\end_inset
-
- and can be easily downloaded through the NuGet package manager at
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
- https://www.nuget.org/packages/RIVar.RIVarX
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Paragraph
-rivarjs (JavaScript)
-\end_layout
-
-\begin_layout Standard
-To ensure wider adoption and cater to the vast JavaScript community, we
- have implemented the same approach in JavaScript (ES6) and released it
- as the rivarjs library.
- JavaScript has a thriving open-source ecosystem, making it an ideal platform
- for publishing and evaluating libraries.
- Additionally, since front-end development predominantly utilizes JavaScript,
- this library is specifically designed for front-end applications.
- You can access the rivarjs library on npm at 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rivarjs
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-By implementing these two libraries, we have showcased the viability of
- our approach and demonstrated its seamless integration into different programmi
-ng languages.
- Leveraging the popularity of reactive extensions, which are widely embraced
- in modern programming paradigms, we have successfully developed RIVarX
- for C# developers and rivarjs for JavaScript developers.
- This highlights the versatility of our approach and paves the way for its
- adoption in other object-oriented languages that support reactive extensions.
 \end_layout
 
 \begin_layout Standard

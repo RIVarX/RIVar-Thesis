@@ -91,6 +91,683 @@ Implementation
 \end_layout
 
 \begin_layout Standard
+We introduce a new variant of FRP.
+ In the new variant, variables and building blocks are treated as observers
+ and observable streams (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ As observables streams, the components involved in the formulas create
+ subscriptions to establish connections for change propagation.
+ For instance (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ implies that the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+) observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ and finaly 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ observes the assignment operator.
+ The established connections are then used to the change propogation for
+ connected UI fields (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evaluating-the-formula-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Subscriptions created by components involved in the formula 
+\begin_inset Formula $\LSTINLINE{A:B+1}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+Subscriptions created by components involved in the formula 
+\begin_inset Formula $\LSTINLINE{A:B+1}$
+\end_inset
+
+.
+ The sequence diagram illustrates interaction between the components in
+ creating the subscriptions.
+ the 
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ observes 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{OnNext(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{OnNext(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{OnNext(3)}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{OnNext(3)}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{OnNext(3)}{E}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Propogation-on-the-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ The sequence diagram illustrates an interaction among the components involved
+ in the formula, utilizing the 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ method used by observables in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+.
+ The sequence starts with the UI field triggering an event, emitting the
+ value 2.
+ This change is propagated based on the established subscriptions, as shown
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The concept that the assignment behaves as an observable, makes the new
+ variant different from the traditional FRP (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Reactive-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Because the variable stopped from being defined by its expression.
+ Instead, the variable is an observable that pass notifications from its
+ observations.
+ The passed notifications produces a merged stream from the streams that
+ the variable is subscribed to.
+ In addition, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-merge-produce-concurrent-events"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, mutual recursion can be declared, causing cycles in the established connection
+s.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$input$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-merge-produce-concurrent-events"
+
+\end_inset
+
+Illustrating the spanning graph in the case of a cycle in the dependencies,
+ when node C receives an input, it propagates it to node D, then to node
+ E, and so on, until node B forwards it back to node C through the merge
+ operator.
+ However, this update is stale and should not be propagated again to node
+ D.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Old
+\end_layout
+
+\begin_layout Standard
 In this section, we will delve into the implementation details of our approach.
  We leverage existing elements from ReactiveX as the foundation and introduce
  only a few additional components to bridge the remaining gap.

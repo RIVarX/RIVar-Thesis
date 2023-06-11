@@ -115,13 +115,19 @@ Background
 \begin_layout Standard
 The functionality, that fields are recalculated based on other fields, is
  familiar from 
-\emph on
-spreadsheets
-\emph default
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Spreadsheets
+\end_layout
+
+\end_inset
+
 .
  There, cells, representing the fields, can contain formulas to determine
  their values based on other cells.
- In application development, this functionality is typically handled using
+ In application development, this functionality can typically handled using
  variables that are connected to the visual elements of the application.
 \end_layout
 
@@ -265,8 +271,18 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-In libraries like Hotdrink, we only need to specify the constraints, and
- the library automaticaly update the fields during the user interaction.
+In libraries like 
+\begin_inset Flex Name
+status open
+
+\begin_layout Plain Layout
+Hotdrink
+\end_layout
+
+\end_inset
+
+, we only need to specify the constraints, and the library automaticaly
+ update the fields during the user interaction.
  For example, for cpecifying 
 \begin_inset ERT
 status open
@@ -326,52 +342,12 @@ lstinline{C=A-B}
 \end_layout
 
 \begin_layout Subsection
-Reactive Variables
-\end_layout
-
-\begin_layout Standard
-In the concept of reactive variables, an assignment is executed by continuously
- updating the variable instead of executing it once 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Observable-Streams"
 
 \end_inset
 
-.
- This is sometimes referred to as a 
-\emph on
-one-way dataflow constraint
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "haveraaen2021semantics"
-literal "false"
-
-\end_inset
-
-.
- In the context of FRP, it draws inspiration from the functional paradigm
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Saying A:=B+C is like stating that A is a function with a body of B+C.
- This implies that the value returned by A is derived from the values returned
- by B and C.
- In other words, A continuously contains the value derived from the values
- contained in B and C.
- The formula actually initiates a dependency, where A depends on B and C.
-\end_layout
-
-\begin_layout Subsection
 Observable Streams
 \end_layout
 
@@ -403,7 +379,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -636,7 +612,7 @@ ReactiveX, available in languages like C# and JavaScript through frameworks
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Formula $\ReactiveX$
@@ -713,6 +689,61 @@ literal "false"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Reactive-Variables"
+
+\end_inset
+
+Reactive Variables
+\end_layout
+
+\begin_layout Standard
+We call reactive variables (like in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+) to the variables in FRP.
+ They are automaticaly recalculateed as reaction to the UI input events.
+ Input variables are those connected to the input fields.
+ Based on these variables, other variables can be created.
+ The concept is simetomes explained that diffrently from the imperative
+ paradigm, an assignment is executed to continuously updating the variable
+ instead of executing it once 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+This is inspired from the functional paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Saying A:=B+C is like stating that A is a function with a body of B+C,
+ so that each value returned by A is derived from the values returned by
+ B and C.
+ This implies that A continuously contains the value derived from the values
+ contained in B and C, by initiating a dependency that A depends on B and
+ C.
 \end_layout
 
 \begin_layout Section
@@ -863,6 +894,428 @@ literal "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Change-Propogation"
+
+\end_inset
+
+Change Propogation
+\end_layout
+
+\begin_layout Standard
+With observable streams, the default change propogation, is that the observables
+ syncrounsly respond to notifications by passing them forward.
+ This traversal can be likened to a depth-first search (DFS) algorithm,
+ where a change event initiates a sequence of computations in a depth-first
+ order.
+ By this traversal order, certain nodes may be visited multiple times, while
+ some of these visits involving outdated values.
+ For instance, in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Glitch-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ the tree, resulting from a change event, contains nodes with more than
+ one incoming edge.
+ This implies that certain variables were updated multiple times in response
+ to the change, but some of these updates relied on outdated values, which
+ are referred to as 
+\emph on
+glitches
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ The multiple incoming edges of a node represent 
+\emph on
+simultaneous events
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, indicating that they are related to the same time as they are resulted
+ from a single event.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{0.75
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+newthread{A}{A}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+newinst[1]{B}{B}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+newinst[2]{C}{C}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+newinst[3]{D}{D}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+begin{call}{A}{next(1)}{B}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+begin{call}{B}{next(1)}{D}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+begin{call}{A}{next(1)}{C}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+begin{call}{C}{next(2)}{D}{}
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+end{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:sequence}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{subfigure}[b]{0.25
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[shape=circle,draw=black] (A) at (3,7) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[shape=circle,draw=black] (B) at (2,5) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[shape=circle,draw=black] (C) at (4,5) {C};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[shape=circle,draw=black] (D) at (3,3) {D};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[scale=0.6] at ($(B) + (0,1)$) {B:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[scale=0.6] at ($(C) + (0,1)$) {C:=A+1};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[scale=0.6] at ($(D) + (0,1)$) {D:=B+C};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+path[-{Triangle[scale=1]}] (A) edge (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+path[-{Triangle[scale=1]}] (A) edge (C);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+path[-{Triangle[scale=1]}] (B) edge (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+path[-{Triangle[scale=1]}] (C) edge (D);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:graph}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:cycle-to-multiple-assignment}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Glitch-1-1"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:sequence}) presents sequence diagram depicts the DFS traversal
+ during the evaluation process that results from updating the variable 
+\backslash
+lstinline{A}.
+ In (
+\backslash
+subref{fig:graph}) the corresponding spanning graph is shown.
+ The traversal order of the graph is (
+\backslash
+lstinline{A},
+\backslash
+lstinline{B},
+\backslash
+lstinline{D},
+\backslash
+lstinline{C},
+\backslash
+lstinline{D}), but the expected order is (
+\backslash
+lstinline{A},
+\backslash
+lstinline{B},
+\backslash
+lstinline{C},
+\backslash
+lstinline{D}).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

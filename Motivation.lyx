@@ -98,18 +98,17 @@ Motivation
 \begin_layout Standard
 The objective of this thesis is to improve the way we build front end applicatio
 ns.
- Therefore, we design objects that contain 
-\emph on
-calculations
-\emph default
- that involve variables it directly holds, as well as variables from other
- objects it contains or variables from its parent object.
- These calculations are similar to establishing reactive variables because
- they establish dependencies.
- However, unlike reactive variables, calculations can establish dependencies
- on existing variables.
- This approach is illustrated by the drug administration example involving
- 
+ We adopt the recomended practices that several objects, for several resposibili
+ties should be designed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ As an example, we create 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -117,8 +116,8 @@ calculations
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
-.
- According to the relationships ilustrated in 
+ to compose a drug administration front end application, with relationships
+ ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration-UML-1"
@@ -128,11 +127,21 @@ noprefix "false"
 
 \end_inset
 
-, 
+.
+\end_layout
+
+\begin_layout Standard
+Each object contain 
+\emph on
+calculations
+\emph default
+ that involve variables it directly holds, as well as variables from other
+ objects it contains or variables from its parent object.
+ In the example, 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
- can contain calculations involving 
+ contain calculations involving 
 \begin_inset Formula $\LSTINLINE{Drug}$
 \end_inset
 
@@ -144,12 +153,11 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{Concentration}$
 \end_inset
 
-.
- And 
+, and 
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- can contain calculations involving its variables: 
+ contain calculations involving its variables: 
 \begin_inset Formula $\LSTINLINE{Dose}$
 \end_inset
 
@@ -173,7 +181,9 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
- instance (
+ instance.
+ The variables need to recalculate according to changes in other variables.
+ (We can define this by formulas, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:PumpCode"
@@ -183,12 +193,10 @@ noprefix "false"
 
 \end_inset
 
-).
- In this way, developers can specify the behavior of objects, implicitly
- creating data dependency graphs.
+.) Therefore, we define that behavior of objects, creates data dependency
+ graphs.
  The dependency graphs from the objects are then combined to form the overall
  dependency graph.
- 
 \end_layout
 
 \begin_layout Standard
@@ -629,7 +637,7 @@ noprefix "false"
  feedback loop.
  Even a single redundant update can be undesirable.
  If the feedback loop causes a variable to be updated, it can potentially
- override previous valid values, as illustrated in 
+ override previous valid values, as the example illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Unpredictable-Calculation"
@@ -1117,13 +1125,13 @@ Mutual recursion created in runtime from created dependency graphs within
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3388,7 +3396,7 @@ lstinline{Concentration}.
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 We use the simple drug administration example, ilustrated in 
@@ -3490,7 +3498,7 @@ By spedifiing behavior similar to reactive variables, we initiate a depedancy
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...
@@ -3973,7 +3981,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The fields in the example need to be similar to reactive variables.
@@ -4022,7 +4030,7 @@ The example need to be seperated into two UI components: the pump and the
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The fields in the example need to be similar to reactive variables.
@@ -4047,7 +4055,7 @@ The fields in the example need to be similar to reactive variables.
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In implementing the example by reactive variables, each reactive variable

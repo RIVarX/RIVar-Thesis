@@ -92,14 +92,14 @@ name "chap:Motivation"
 
 \end_inset
 
-Motivation
+Problem
 \end_layout
 
 \begin_layout Standard
-The objective of this thesis is to enhance the process of constructing front-end
- applications by implementing recommended practices that emphasize the design
- of multiple objects with distinct responsibilities.
- 
+This thesis focuses on the problem, of how to create field calculations
+ easily in front ends applications.
+ Specifically in adapting the recommended practices emphasizes the design
+ of multiple objects with distinct responsibilities
 \begin_inset CommandInset citation
 LatexCommand cite
 key "martin2018clean"
@@ -107,8 +107,20 @@ literal "false"
 
 \end_inset
 
+, designed according to the domain 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
 .
- As an example, we create 
+ 
+\end_layout
+
+\begin_layout Standard
+As an example, we create 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -116,7 +128,7 @@ literal "false"
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- to compose a drug administration front end application, with relationships
+ to compose a drug administration front end application, with the relationships
  ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -128,10 +140,7 @@ noprefix "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Each object contains 
+ Each object contains 
 \emph on
 calculations
 \emph default
@@ -183,7 +192,11 @@ calculations
 
  instance.
  The variables need to recalculate according to changes in other variables.
- (We can define this by formulas, as illustrated in 
+ 
+\end_layout
+
+\begin_layout Standard
+We define this by formulas, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:PumpCode"
@@ -193,10 +206,32 @@ noprefix "false"
 
 \end_inset
 
-.) Therefore, we define that behavior of objects, creates data dependency
- graphs.
+.
+ Therefore, the defined behavior of objects, creates data dependency graphs.
  The dependency graphs from the objects are then combined to form the overall
  dependency graph.
+ The problem is how to satisfy the 
+\emph on
+superposition
+\emph default
+ property, which ensures that the behaviors produced by smaller objects
+ are preserved when constructing larger composite objects.
+ Formally, the behavior of a class is denoted as 
+\begin_inset Formula $F(x)$
+\end_inset
+
+, where 
+\begin_inset Formula $x$
+\end_inset
+
+ represents an instance of the class.
+ We expect that this behavior satisfies the property 
+\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
+\end_inset
+
+.
+ However, in the context of calculations, redundant updates pose a challenge
+ to achieving this property.
 \end_layout
 
 \begin_layout Standard
@@ -347,7 +382,7 @@ cref{line:formula,line:formula2,line:formula3}
 
 \end_inset
 
- represent the calculations that initiate the data dependencies.
+ represent the needed calculations.
 \end_layout
 
 \end_inset
@@ -591,31 +626,6 @@ Drug Administration Class Diagram.
 \end_layout
 
 \begin_layout Standard
-The objective of this thesis is to satisfy the 
-\emph on
-superposition
-\emph default
- property, which ensures that the behaviors produced by smaller objects
- are preserved when constructing larger composite objects.
- Formally, the behavior of a class is denoted as 
-\begin_inset Formula $\LSTINLINE{F(x)}$
-\end_inset
-
-, where 
-\begin_inset Formula $\LSTINLINE x$
-\end_inset
-
- represents an instance of the class.
- We expect that this behavior satisfies the property 
-\begin_inset Formula $\LSTINLINE{F(x_{1}+x_{2})=F(x_{1})+F(x_{2})}$
-\end_inset
-
-.
- However, in the context of calculations, redundant updates pose a challenge
- to achieving this property.
-\end_layout
-
-\begin_layout Standard
 The issue is how to avoid redundant updates from an 
 \emph on
 unexpected feedback loop
@@ -833,15 +843,44 @@ Unexpected Feedback Loop: Unintended Override of User Input
 \end_inset
 
 Sequence diagram illustrating the interactions between the User Interface
- (UI), Pump, and Bag objects.
+ (UI), 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ objects.
  Initially, the UI sets the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
 \backslash
-lstinline{Drug} to 100.
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ to 100.
  However, due to the complex interactions and dependencies between the objects,
- the 
+ the
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
 \backslash
-lstinline{Drug} value undergoes modifications and eventually gets updated
- to 99.
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ value undergoes modifications and eventually gets updated to 99.
  This unintended alteration exemplifies the challenge posed by feedback
  loops, which can result unintended override of user input.
 \end_layout
@@ -1106,11 +1145,38 @@ Mutual recursion created in runtime from created dependency graphs within
 \end_inset
 
 Mutual recursion created in runtime from created dependency graphs within
- Bag and Pump.
- The nodes Volume, Drug, and Duration that are interconnected through the
- edges represent the mutual recursion.
- The solid edges denote dependencies initiated within the Pump instance,
- while dotted edges indicate dependencies initiated within the Bag instance.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+.
+ The nodes 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ that are interconnected through the edges represent the mutual recursion.
+ The solid edges denote dependencies initiated within the 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instance, while dotted edges indicate dependencies initiated within the
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
 \end_layout
 
 \end_inset
@@ -1125,7 +1191,7 @@ Mutual recursion created in runtime from created dependency graphs within
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Float figure

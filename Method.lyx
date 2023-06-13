@@ -113,26 +113,26 @@ Approach
 \end_layout
 
 \begin_layout Standard
-Our approach focus on handling unexpected feedback loops.
- The value that is fed back is derived from the same original event that
+The value that is fed back is derived from the same original event that
  triggered the previous value.
- This is the same as the simultaneous events, detailed in 
+ This reminds the simultaneous events, detailed in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "sec:Change-Propogation"
+reference "subsec:Observable-Streams"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, that cause glitches.
- In the two of them, the stale values would be ignored.
+, that causes glitches.
+ Therefore we demonstrate an order over the values, so that stale values
+ will be ignored.
 \end_layout
 
 \begin_layout Standard
-This means that the values have an order.
- We depend on a sequential change events, that are the external inputs.
+The order over the values depends on a sequential change events, that are
+ the external inputs.
  Each value is derived from a set of events, so also from their time, or
  their locations in the order.
  As in the examples in 
@@ -147,8 +147,11 @@ noprefix "false"
 
 , a value that is directly triggered by an event is mapped to its timestamp.
  A value that is derived from other values is mapped to a timestamps set
- resulted from the union operation on the timestamps of the values it is
- derived from.
+ resulted from the 
+\begin_inset Formula $\LSTINLINE{union}$
+\end_inset
+
+ operation on the timestamps of the values it is derived from.
  
 \end_layout
 
@@ -420,7 +423,7 @@ Mapping between values and sets of timestamps.
 \end_layout
 
 \begin_layout Standard
-Then each value tuple can be compared.
+Subsequently, it is possible to compare each pair of values.
  As seen in the examples in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -431,7 +434,25 @@ noprefix "false"
 
 \end_inset
 
-, if the value is derived from a newer event, it still can be a stale value.
+, values that are mapped to greater timetsamps can still be stale.
+ Because it might be a superset, which resulted from a feedback.
+ Instead, a newer value must be one, that overrides the effects of a variable's
+ previous value.
+\end_layout
+
+\begin_layout Standard
+Subsequently, it is possible to compare each value tuple.
+ As seen in the examples in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Comparing-Timestamps-Set-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, if the value is derived from newer events, it still can be a stale value.
  A newer value must be one, that overrides the effects of a variable's previous
  value.
 \end_layout
@@ -586,15 +607,36 @@ name "tab:Comparing-Timestamps-Set-1"
 
 \end_inset
 
-These examples demonstrate how to compare values associated with the timestamps
- of their original events.
- Each line represents two sets of values and their relationship.
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Comparing the order of the values, based on their set of timetsamps.
+\end_layout
+
+\end_inset
+
+Comparing the order of the values, based on their set of timetsamps.
+ Each line represents two values that are compared.
+ The cells in the columns of the operands, contain the timestamps of the
+ values, that are used in the comparison
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+according to their timetsamps.
  Generally, a greater timestamp indicates a newer event, which means a "greater"
  value.
  However, a superset is considered "less than" a subset in this case, and
  this is a critical point to note.
  This is because the value is generated recursively and there is no timestamp
  indicating a stale value in the subset.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

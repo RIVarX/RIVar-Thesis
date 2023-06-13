@@ -580,7 +580,7 @@ In addition, as illustrated in
 LatexCommand formatted
 reference "fig:cycle-merge-produce-concurrent-events"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

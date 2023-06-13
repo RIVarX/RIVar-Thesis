@@ -91,22 +91,47 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-We implement a new variant of FRP that handle the unexpected feedback loop.
- In the new variant, variables and building blocks are treated as observers
- and observable streams (as described in 
+As we have a solution for unexpected feedback loop (presented in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "subsec:Observable-Streams"
+reference "chap:Method"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
-).
- As observables streams, the components involved in the formulas create
- subscriptions to establish connections for change propagation.
- For instance (
+), we can introduce a new variant for FRP to the introduced framework in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The introduced variant is based on the model of observable streams presented
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Other than the described model, not only the variables are observable streams,
+ but also the operators.
+ Also the assignment is a method that creates an observation.
+\end_layout
+
+\begin_layout Standard
+For instance (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Evaluating-the-formula-2"
@@ -554,28 +579,22 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The concept that the assignment behaves as an observable, makes the new
- variant different from the traditional FRP (as described in 
+Unlike previous FRP variants, each variable can have multiple assignments,
+ because, as described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "subsec:Reactive-Variables"
+reference "chap:Motivation"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-).
- Because the variable stopped from being defined by its expression.
- Instead, the variable is an observable that pass notifications from its
- observations.
- The passed notifications produces a merged stream from the streams that
- the variable is subscribed to.
- 
-\end_layout
-
-\begin_layout Standard
-In addition, as illustrated in 
+, assignments are enabled from outside of the objects.
+ Each variable pass notifications from its various observations, producing
+ a merged stream from the inputs and streams that the variable is subscribed
+ to.
+ As illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:cycle-merge-produce-concurrent-events"
@@ -585,19 +604,7 @@ noprefix "false"
 
 \end_inset
 
-, the merge operation need to handle the unexpected feedback loop.
- The notifications contain the timestamps, and they are used to compare,
- as described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, each notification with its previous.
+, it is expected that unexpected feedbacks be handled in the merge operation.
 \end_layout
 
 \begin_layout Standard
@@ -760,6 +767,46 @@ name "fig:cycle-merge-produce-concurrent-events"
 
 \end_inset
 
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+\end_layout
+
+\end_inset
+
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+ The graph illustrates an example produced from a DFS traversal of a change
+ propogation (described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), initiated from an external input to the variable 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Illustrating the spanning graph in the case of a cycle in the dependencies,
  when node C receives an input, it propagates it to node D, then to node
  E, and so on, until node B forwards it back to node C through the merge
@@ -771,6 +818,502 @@ Illustrating the spanning graph in the case of a cycle in the dependencies,
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The merge operation becomes similar to other operators that produce a single
+ stream from many.
+ These operations do not pass any value unless it is greater than the previous
+ value.
+ In this way, both unexpected feedback and glitches are handled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+———
+\end_layout
+
+\begin_layout Plain Layout
+The operations, before they pass each value, they compare it against the
+ previous.
+ Only if the value is 
+\end_layout
+
+\begin_layout Plain Layout
+, that other operations that It produces a single stream from more than
+ one stream.
+ And the unexpected feedbacl loop becomes similar to the glitch issue.
+ As a condition to pass a notification, they compare it against the previous.
+\end_layout
+
+\begin_layout Plain Layout
+———-
+\end_layout
+
+\begin_layout Plain Layout
+We implement a synchronous model, similar to the description in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, by the model of observable streams described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, with values notifications that contain the timestamps sets.
+ This produces a new variant of FRP where formulas create subscriptions
+ to establish connections between the formulas' components for the change
+ propagation.
+ For instance (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ implies that the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+) observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ and finaly 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ observes the assignment operator.
+ The established connections are then used to the change propogation for
+ connected UI fields (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+The assignment operator is different than the traditional FRP.
+ In the functional paradigm, from which FRP is derived, the assignment defined
+ the unambiguously linkage between the name and the function body.
+\end_layout
+
+\begin_layout Plain Layout
+Unlike the traditional FRP (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Reactive-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), the variable is not defined by its expression.
+ The assignment operator subscribes
+\end_layout
+
+\begin_layout Plain Layout
+The assignment operator is different than the traditional FRP.
+ Unlike the traditional FRP (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Reactive-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), the variable is not defined by its expression.
+ Instead, an assignment is a subscription.
+ As a result, variables can have several assignments.
+ As described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the variables need that assignments are enabled from outside of the objects.
+ The formulas' components are observers and observable streams.
+ Each variable pass notifications from its observations, producing a merged
+ stream from the inputs and streams that the variable is subscribed to.
+ As illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-merge-produce-concurrent-events"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, it is expected that the issue of unexpected feedback loop be handled in
+ the merge operation.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——
+\end_layout
+
+\begin_layout Plain Layout
+We implement values as notifications containing the timestamps, and they
+ are used to compare, as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, each notification with its previous.
+\end_layout
+
+\begin_layout Plain Layout
+In order that the only newer values will propogate, we use notifications
+ with timestamps to be populated through observable streams, which 
+\end_layout
+
+\begin_layout Plain Layout
+The framework is implemented based on OOP, and the concept of observable
+ streams.
+ It consists of a new variant of FRP that handle the unexpected feedback
+ loop as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The new variant of FRP uses objects and are also hosted within objects,
+ as designed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+The Assignment Operator
+\end_layout
+
+\begin_layout Plain Layout
+An assignment statement means an observation.
+ The assignment is an operation that the left side variable subscribes to
+ the expression.
+ Unlike the traditional FRP (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Reactive-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), the variable is not defined by its expression.
+ As an assignment is subscription, variables can have several assignments,
+ as required in the framework.
+ As described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the variables need that assignments are enabled from outside of the objects.
+ The formulas' components are observers and observable streams.
+ Each variable pass notifications from its observations, producing a merged
+ stream from the streams that the variable is subscribed to.
+ As illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-merge-produce-concurrent-events"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in the merge operation, the unexpected feedback loop should be handled.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The notifications contain the timestamps, and they are used to compare,
+ as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, each notification with its previous.
+\end_layout
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+The formulas in the new variant create subscriptions to establish connections
+ between formulas' components for the change propagation.
+ For instance (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ implies that the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+) observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ and finaly 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ observes the assignment operator.
+ The established connections are then used to the change propogation for
+ connected UI fields (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+Each variable pass notifications from its observations, producing a merged
+ stream from the streams that the variable is subscribed to.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+——
+\end_layout
+
+\begin_layout Plain Layout
+In the new variant, variables and building blocks are treated as observers
+ and observable streams (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ As observables streams, the components involved in the formulas create
+ subscriptions to establish connections for change propagation.
+ For instance (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ implies that the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+) observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ and finaly 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ observes the assignment operator.
+ The established connections are then used to the change propogation for
+ connected UI fields (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+The concept that the assignment behaves as an observable, makes the new
+ variant different from the traditional FRP (as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Reactive-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Because the variable stopped from being defined by its expression.
+ Instead, the variable is an observable that pass notifications from its
+ observations.
+ The passed notifications produces a merged stream from the streams that
+ the variable is subscribed to.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In addition, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-merge-produce-concurrent-events"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the merge operation need to handle the unexpected feedback loop.
+ The notifications contain the timestamps, and they are used to compare,
+ as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, each notification with its previous.
 \end_layout
 
 \end_inset

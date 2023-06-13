@@ -633,7 +633,19 @@ unexpected feedback loop
 , where a change in one variable leads to a subsequent change that feeds
  back and affects the original variable itself.
  In the provided example, the graph exhibits a cycle involving the nodes
- duration, volume, and drug (
+ 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:cycleByComponents"

@@ -1141,7 +1141,7 @@ literal "false"
 
 .
  Saying 
-\begin_inset Formula $\LSTINLINE{A:B+C}$
+\begin_inset Formula $\LSTINLINE{A:=B+C}$
 \end_inset
 
  is like stating that 
@@ -2183,7 +2183,7 @@ lstinline{C}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In libraries like 

@@ -1575,7 +1575,8 @@ Contribution
 
 \begin_layout Standard
 We present a semantic framework for separating data dependency management
- within objects.
+ within objects, so that object is responsible for managing its own set
+ of data dependencies.
  At the core of this framework is the concept of a
 \series bold
  Reactive Instance Variable
@@ -1584,7 +1585,7 @@ We present a semantic framework for separating data dependency management
 \begin_inset Formula $\RIVar$
 \end_inset
 
-), which objects can expose in their interfaces.
+), which are the variables that the objects can expose in their interfaces.
  This separation encompasses both static code and runtime.
  In the static code, variables associated with objects can depend on other
  variables without considering hidden dependencies.

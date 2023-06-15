@@ -96,10 +96,463 @@ Problem
 \end_layout
 
 \begin_layout Standard
-This thesis focuses on the problem, of how to create field calculations
- easily in front ends applications.
- Specifically in adapting the recommended practices emphasizes the design
- of multiple objects with distinct responsibilities
+Maintaining consistency in field values are crucial in front ends applications.
+ When users fill in one field, it is essential to recalculate the values
+ of other related fields.
+ For example, in drug administration (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), there are several options to define the quantities: by drug and volume
+ or by concentration and volume.
+ In the first option, the concentration is calculated based on the drug
+ and volume, while in the second option, the drug is calculated based on
+ the concentration and volume.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & Volume 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){
+\backslash
+textit{100}} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{30}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-calculations-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+User interface component for drug administration.
+\end_layout
+
+\end_inset
+
+User interface component for drug administration.
+ The upper panel represents the bag component, and the lower panel represents
+ the pump component.
+ The fields are illustrated with example values, in case the user sets Volume,
+ Dose and Duration.
+ The fields Drug, Concentration, and Volume are displayed in italic typeface
+ to indicate that these values are calculated based on the set values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Spreadsheets is a popular application that provide a limited functionality
+ to fields calculations.
+ Each cell, representing a field, can contain either a formula or a value.
+ However, this leads to duplication, as in the drug administration, it leads
+ to implement several modes
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+available in https://github.com/RIVarX/Evaluation/blob/main/duplicate_solutions.xl
+sx
+\end_layout
+
+\end_inset
+
+.
+ In the first mode, users set the concentration, volume, and duration, and
+ the other fields are calculated.
+ In the second mode, users set the dose, rate, and duration, and once again,
+ the other fields are calculated.
+ This pattern can continue for additional modes, adding redundancy across
+ the different modes.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An efficient mechanism to develop fields calculations has a potenstial to
+ improve front ends usability.
+ Specificaly, in applications for healthcare, it is desirable to solve usability
+ problems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gawande2018doctors"
+literal "false"
+
+\end_inset
+
+.
+ An efficient mechanism will promote the use of redundancies in the user
+ interfaces.
+ Redundancies improves the usability, because the user is not enforced to
+ one strict representation.
+ In the drug administration, there are drugs, where it is easier to set
+ the drug and volume, while in others it is easier to set by the concentration
+ and volume.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the existing mechanisms, maintaining functionality becomes challenging
+ when there is a significant number of calculations involved, especially
+ that the codebase grows with repeated code segments.
+ For instance, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Centerlized-Calculation-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, if the dose, duration, and volume have changed, then the drug, concentration,
+ and rate are calculated.
+ If the drug, dose, and rate have changed, then the duration, volume, and
+ concentration are calculated, and so on.
+ However, this method also introduces redundancy, as seen in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume2}
+\end_layout
+
+\end_inset
+
+ where the same statement is repeated.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited triple is of Dose,  Duration, and VolumeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid |
+\backslash
+label{line:concentrationByDrugAndVolume1}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Drug, Dose, and Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  VolumeOfFluid = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/VolumeOfFluid |
+\backslash
+label{line:concentrationByDrugAndVolume2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Concentration,  Volume, and Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = VolumeOfFluid/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Centerlized-Calculation-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug administration calculation.
+\end_layout
+
+\end_inset
+
+Example calculation logic for interdependent fields in a drug administration
+ front-end application.
+ The code shows how to calculate the values of the fields Drug, Concentration,
+ VolumeOfFluid, Dose, Duration, and Rate based on different combinations
+ of three input fields.
+ When fields are interdependent like this, updating one field requires modifying
+ all the locations where the other fields are updated, creating a centralized
+ maintenance model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The inefficiency experienced by legacy applications in the market lies in
+ the time-consuming process of implementing changes.
+ Despite the availability of numerous resources such as books, courses,
+ and blogs on improving code and design through refactoring, challenges
+ persist, particularly in the realm of field calculations.
+\end_layout
+
+\begin_layout Standard
+One contributing factor is the limited cognitive capacity of developers
+ when it comes to analyzing the extensive details within the application
+ source code.
+ This limitation becomes evident when dealing with large code bases and
+ code repetition.
+ To address this, recommended practices emphasize the design of multiple
+ objects and components with well-defined responsibilities 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "martin2018clean"
@@ -107,7 +560,9 @@ literal "false"
 
 \end_inset
 
-, designed according to the domain 
+.
+ Furthermore, the allocation of responsibilities should align with the specific
+ business needs 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "evans2004domain"
@@ -116,11 +571,51 @@ literal "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
-As an example, we create 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The inefficiency faced by legacy applications in the market is the prolonged
+ time required to implement changes.
+ Numerous books, courses, and blogs have been published on the topic of
+ improving and refactoring code and design.
+ The limited cognitive in the developers brain in analysing a huge amount
+ of detailes existing the application source code, causing that the problem
+ is to handle large code base, and to handle code repetition.
+ In the recommended practices, multiple objects and components with distinct
+ responsibilities are designed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ In addition, the seperation to responsibilities should be alligned to the
+ business needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, even when adopting the recommended practices, field calculations
+ continue to pose challenges.
+ As an example, we create 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -128,8 +623,8 @@ As an example, we create
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- to compose a drug administration front end application, with the relationships
- ilustrated in 
+ to compose the drug administration front end application, with the relationship
+s ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration-UML-1"
@@ -196,7 +691,7 @@ calculations
 \end_layout
 
 \begin_layout Standard
-We define this by formulas, as illustrated in 
+We define the calculations by formulas, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:PumpCode"
@@ -1189,172 +1684,6 @@ Mutual recursion created in runtime from created dependency graphs within
 \end_inset
 
  instance.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{|c c c| }    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Drug & Concentration & VolumeOfFluid 
-\backslash
-
-\backslash
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-framebox(35,15){
-\backslash
-textit{100}} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{0.33}} & 
-\backslash
-framebox(35,15){300} 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
- Dose & Duration & Rate 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{30}} 
-\backslash
-
-\backslash
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-calculations-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-User interface component for drug administration.
-\end_layout
-
-\end_inset
-
-User interface component for drug administration.
- The upper panel represents the bag component, and the lower panel represents
- the pump component.
- The fields are illustrated with example values, in case the user sets Volume
- dose and duration.
- The fields Drug, Concentration, and Volume are displayed in italic typeface
- to indicate that these values are calculated based on the set values.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -3639,226 +3968,6 @@ in variables/calculations, it might be heavy executions
 
 \begin_layout Section
 Redandant Code
-\end_layout
-
-\begin_layout Plain Layout
-In implementing the example by reactive variables, each reactive variable
- is classified into either 
-\emph on
-input
-\emph default
- or 
-\emph on
-output
-\emph default
- categories, often resulting in duplications.
- For instance, in spreadsheets, a cell can contain either a formula or a
- value.
- This leads to implement several modes to the drug administration.
- In the first mode, users set the concentration, volume, and duration, and
- the other fields are calculated.
- In the second mode, users set the dose, rate, and duration, and once again,
- the other fields are calculated.
- This pattern can continue for additional modes, but has redundancy across
- the different modes.
-\end_layout
-
-\begin_layout Plain Layout
-In implementing the example without reactive variables, we can customize
- the updates by using visual field change events.
- For instance, as illustrated in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Centerlized-Calculation-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, if the dose, duration, and volume of fluid have changed, then the drug,
- concentration, and rate are calculated.
- If the drug, dose, and rate have changed, then the duration, volume, and
- concentration are calculated, and so on.
- However, this method also introduces redundancy, as seen in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:concentrationByDrugAndVolume1}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:concentrationByDrugAndVolume2}
-\end_layout
-
-\end_inset
-
- where the same statement is repeated.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited triple is of Dose,  Duration, and VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid |
-\backslash
-label{line:concentrationByDrugAndVolume1}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid |
-\backslash
-label{line:concentrationByDrugAndVolume2}|
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Centerlized-Calculation-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Drug administration calculation.
-\end_layout
-
-\end_inset
-
-Example calculation logic for interdependent fields in a drug administration
- front-end application.
- The code shows how to calculate the values of the fields Drug, Concentration,
- VolumeOfFluid, Dose, Duration, and Rate based on different combinations
- of three input fields.
- When fields are interdependent like this, updating one field requires modifying
- all the locations where the other fields are updated, creating a centralized
- maintenance model.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Plain Layout

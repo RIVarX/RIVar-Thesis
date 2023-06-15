@@ -1197,15 +1197,89 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-FRP shares with the paradigm of constraint systems the idea, that developers
- declare equations, and the runtime automates variable updates according
- to the equations and input.
- However, they are different: FRP is about defining variables as functions
- of other variables, while constraint systems are about to satisfy constraints.
+The paradigm of constraint systems shares a common idea with FRP: developers
+ declare equations, and the runtime automates variable updates based on
+ these equations and input.
+ There exist systems that support 
+\emph on
+one-way constraints
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, where the system updates only the left-hand variable in response to changes
+ in the right-hand expression.
+ On the other hand, there are systems that support two-way constraints
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "haveraaen2021semantics,foust2015generating,sannella1993multi"
+literal "false"
+
+\end_inset
+
+, such as 
+\begin_inset Formula $\myName{Hotdrink}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+http://hotdrink.github.io/hotdrink/
+\end_layout
+
+\end_inset
+
+, which are declared using methods to satisfy the constraints.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:two-way-constraint-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the equation 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ is attached with the constraints 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{B=A-C}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{C=A-B}$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
-There are constraint systems similar to FRP that handle one-way constraints
+The paradigm of constraints system shares with FRP the idea, that developers
+ declare equations, and the runtime automates variable updates according
+ to the equations and input.
+ There are systems that support 
+\emph on
+one-way constraints
+\emph default
+
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -1217,30 +1291,11 @@ literal "false"
 
 \end_inset
 
-.
- Other constraint systems like 
-\begin_inset Flex Name
-status open
+, and others that support 
+\emph on
+two-way constraints
+\emph default
 
-\begin_layout Plain Layout
-Hotdrink
-\end_layout
-
-\end_inset
-
-
-\begin_inset space \thinspace{}
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- handle two-way constraints
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -1253,23 +1308,24 @@ literal "false"
 \end_inset
 
 .
- Constraint systems that handle two-way constraints, by their nature, handle
- cycles, and allows defining multiple constraints that output to the same
- variable
-\begin_inset space \thinspace{}
+ One-way reminds the reactive variables, because the system only updates
+ the left hand variable in response to change in the right hand expression.
+ Two-way Constraints, as in 
+\begin_inset Formula $\myName{Hotdrink}$
 \end_inset
 
 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+http://hotdrink.github.io/hotdrink/
+\end_layout
 
 \end_inset
 
-.
- Actually, the developers declaring two-way constraints need to declare
- also the one-way constraints, e.g., in 
+, are declared by the methods to satisfy them.
+ For instance (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:two-way-constraint-1"
@@ -1279,7 +1335,7 @@ noprefix "false"
 
 \end_inset
 
-, 
+), the constraint, 
 \begin_inset ERT
 status open
 
@@ -1292,7 +1348,7 @@ lstinline{A=B+C}
 
 \end_inset
 
- is attached with 
+, is declared by the methods 
 \begin_inset ERT
 status open
 
@@ -1335,19 +1391,22 @@ lstinline{C:=A-B}
 \end_layout
 
 \begin_layout Standard
-The FRP runtime uses 
+The systems utilize 
 \emph on
 constraints solver
 \emph default
- to maintain the variables
+ to maintain consistency in variable values
 \emph on
 .
  
 \emph default
 The constraints solvers are algorithms developed for constraint systems
- to satisfy the constraints.
- In order to solve a set of two-way constraints, the constraints solver
- uses a model named 
+ to satisfy constraints.
+ As in 
+\begin_inset Formula $\myName{Hotdrink}$
+\end_inset
+
+, the constraints solver uses a model named 
 \emph on
 constraint hierarchies
 \emph default
@@ -1360,76 +1419,8 @@ literal "false"
 \end_inset
 
 .
- There are cases that the algorithm cannot satisfy all the constraints,
- then it satisfies only those that are specified to be in a higher hierarchy.
- For example, having the following constraints hierarchy in the descending
- order 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=1}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B=2}
-\end_layout
-
-\end_inset
-
-, the constraints solver will satisfy only the first two constraints, by
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=1}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B=1}
-\end_layout
-
-\end_inset
-
-.
+ In this model, the algorithm choose to ignore constraints depending on
+ an hierarchy.
  In order to maintain the variables according to the constraints, as in
  the example in 
 \begin_inset CommandInset ref
@@ -1594,7 +1585,12 @@ name "fig:two-way-constraint-1"
 
 \end_inset
 
-two-way constraint 
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Two-way constraint 
 \begin_inset ERT
 status open
 
@@ -1617,7 +1613,28 @@ Hotdrink
 
 \end_inset
 
+.
+\end_layout
 
+\end_inset
+
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{constraint}
+\end_layout
+
+\end_inset
+
+ method is used to create the constraint by specifying the variables as
+ arguments and chaining the necessary methods.
+ Each method has two parameters: the data flow direction and the function
+ to execute when that method is chosen to satisfy the constraint.
 \end_layout
 
 \end_inset
@@ -1634,7 +1651,7 @@ Hotdrink
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -1783,6 +1800,11 @@ name "tab:constraints-hirarchy"
 
 \end_inset
 
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
 Maintaining 
 \begin_inset ERT
 status open
@@ -1823,6 +1845,56 @@ lstinline{A=B}
 \end_inset
 
 , using constraint hierarchies.
+\end_layout
+
+\end_inset
+
+Maintaining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ according to the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B}
+\end_layout
+
+\end_inset
+
+, using constraint hierarchies.
+ Each row represents a step in the interaction.
+ The first column mention the input provided.
+ The second column mentions the exiting constraints following the input
+ provided.
+ The third column displays the values of the variables, as determined by
+ the constraint solver.
 \end_layout
 
 \end_inset

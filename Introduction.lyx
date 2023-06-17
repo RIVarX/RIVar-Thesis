@@ -733,11 +733,11 @@ literal "false"
 
 \end_inset
 
-.
- In order to manage code changes, it is desirable to enable the customization
- of responsibilities and data dependencies within objects and components,
- allowing organizations to tailor them according to their specific business
- needs and requirements.
+, in order to manage code changes.
+ According to business needs and requirements, applications are composed
+ from several components.
+ Changes in declared data dependencies in one component might cause effects
+ on other components, requiring them to be changed accordingly.
 \end_layout
 
 \begin_layout Standard

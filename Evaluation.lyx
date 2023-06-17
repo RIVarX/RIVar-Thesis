@@ -109,7 +109,261 @@ name "chap:Evaluation"
 
 \end_inset
 
-Evaluation
+Evaluation???
+\end_layout
+
+\begin_layout Standard
+As the assignments create observations, each variable can be assigned several
+ times, to get notifications from its various observations.
+ These notifications are not different from inputs, that can be produced
+ by the operator 
+\begin_inset Formula $\LSTINLINE =$
+\end_inset
+
+.
+ As a result, each variable consists of a 
+\emph on
+merged
+\emph default
+ stream from the inputs and streams to which the variable is subscribed.
+ As illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycle-merge-produce-concurrent-events"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+operation might have unexpected feedbacks.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$input$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-merge-produce-concurrent-events"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+\end_layout
+
+\end_inset
+
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+ The graph illustrates an example produced from a DFS traversal of a change
+ propogation (described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), initiated from an external input to the variable 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Illustrating the spanning graph in the case of a cycle in the dependencies,
+ when node C receives an input, it propagates it to node D, then to node
+ E, and so on, until node B forwards it back to node C through the merge
+ operator.
+ However, this update is stale and should not be propagated again to node
+ D.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

@@ -91,47 +91,55 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-As we have a solution for unexpected feedback loop (presented in 
+With the solution for addressing unexpected feedback loops (as presented
+ in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Method"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
-), we can introduce a new variant for FRP to the introduced framework in
- 
+), it becomes possible to introduce a new variant for FRP into the framework
+ outlined in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Motivation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
 .
- The introduced variant is based on the model of observable streams presented
+ This new variant builds upon the model of observable streams described
  in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Observable-Streams"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
 .
- Other than the described model, not only the variables are observable streams,
- but also the operators.
- Also the assignment is a method that creates an observation.
+ 
 \end_layout
 
 \begin_layout Standard
-For instance (
+Not only are the variables considered as observable streams, but also the
+ operators.
+ Furthermore, the assignment operation is implemented as a method that generates
+ observations to push to the target variable.
+ Therefore, the variables implemented as 
+\begin_inset Formula $\LSTINLINE{subject}$
+\end_inset
+
+ that is an observer, in addition to being an observable.
+ For instance (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Evaluating-the-formula-2"
@@ -157,7 +165,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
-, the assignment operator 
+, and the assignment operator 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
@@ -165,12 +173,12 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{+1}$
 \end_inset
 
- and finaly 
+ and the variable 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
- observes the assignment operator.
- The established connections are then used to the change propogation for
+.
+ The established connections are then used to the change propagation for
  connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -182,6 +190,7 @@ noprefix "false"
 \end_inset
 
 ).
+ 
 \end_layout
 
 \begin_layout Standard
@@ -428,35 +437,35 @@ newinst[2]{Exp}{B+1}{}
 
 
 \backslash
-begin{call}{E}{OnNext(2)}{B}{}     
+begin{call}{E}{next(2)}{B}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{B}{OnNext(2)}{Exp}{}     
+begin{call}{B}{next(2)}{Exp}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{Exp}{OnNext(3)}{eq}{}     
+begin{call}{Exp}{next(3)}{eq}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{eq}{OnNext(3)}{A}{}     
+begin{call}{eq}{next(3)}{A}{}     
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{call}{A}{OnNext(3)}{E}{}     
+begin{call}{A}{next(3)}{E}{}     
 \end_layout
 
 \begin_layout Plain Layout
@@ -544,17 +553,18 @@ A propogation change in established connections of the formula
 .
  The sequence diagram illustrates an interaction among the components involved
  in the formula, utilizing the 
-\begin_inset Formula $\LSTINLINE{OnNext}$
-\end_inset
-
- method used by observables in 
-\begin_inset Formula $\ReactiveX$
+\begin_inset Formula $\LSTINLINE{next}$
 \end_inset
 
 .
  The sequence starts with the UI field triggering an event, emitting the
  value 2.
- This change is propagated based on the established subscriptions, as shown
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This change is propagated based on the established subscriptions, as shown
  in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -578,251 +588,100 @@ noprefix "false"
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-Unlike previous FRP variants, each variable can have multiple assignments,
- because, as described in 
+This allows operations to handle unexpected feedback and glitches through
+ the filtering mechanism proposed in 
 \begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
+LatexCommand ref
+reference "chap:Method"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-, assignments are enabled from outside of the objects.
- Each variable pass notifications from its various observations, producing
- a merged stream from the inputs and streams that the variable is subscribed
- to.
- As illustrated in 
+.
+ For instance, an binary operators like 
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x,y)=x+y}$
+\end_inset
+
+) subscribes to the streams of the two operands, discarding values in each
+ stream that are not greater than the previous value.
+ The assignment operation subscribes to the streams of the left and right
+ hands, which consist of the formulas, and compares the values from the
+ two streams.
+ If the value in the right-hand stream is greater, it is pushed into the
+ variable in the left-hand stream.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The operations only allow values to pass through if they are greater than
+ the previous value.
+ This ensures that only meaningful updates propagate.
+ In the context of feedback loops, this prevents unintended feedback by
+ discarding values that are not greater than the previous value, thereby
+ breaking the loop.
+ Glitches are also managed, as the operation does not pass temporary inconsisten
+cies that depend on stale values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Handling unexpected feedback and glitches becomes possible through the filtering
+ mechanism proposed in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:cycle-merge-produce-concurrent-events"
+reference "chap:Method"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, it is expected that unexpected feedbacks be handled in the merge operation.
+.
+ The operations only allow values to pass through if they are greater than
+ the previous value.
+ This approach ensures that only meaningful updates propagate.
+ In the context of feedback loops, the merge operation prevents unintended
+ feedback by discarding values that are not greater than the previous value,
+ thereby breaking the loop.
+ Glitches are also managed, as the operation does not pass temporary inconsisten
+cies, because they depend on stale values.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] (X) at (-3,3) {$input$};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycle-merge-produce-concurrent-events"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation as the location to handle the unexpected feedback loop.
-\end_layout
-
-\end_inset
-
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation as the location to handle the unexpected feedback loop.
- The graph illustrates an example produced from a DFS traversal of a change
- propogation (described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), initiated from an external input to the variable 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- 
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-Illustrating the spanning graph in the case of a cycle in the dependencies,
- when node C receives an input, it propagates it to node D, then to node
- E, and so on, until node B forwards it back to node C through the merge
- operator.
- However, this update is stale and should not be propagated again to node
- D.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+we find a similarly to other operators in consolidating multiple streams
+ into a single stream.
 \end_layout
 
 \end_inset
@@ -831,11 +690,21 @@ Illustrating the spanning graph in the case of a cycle in the dependencies,
 \end_layout
 
 \begin_layout Standard
-The merge operation becomes similar to other operators that produce a single
- stream from many.
- These operations do not pass any value unless it is greater than the previous
- value.
- In this way, both unexpected feedback and glitches are handled.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation operates similarly to other operators that consolidate multiple
+ streams into a single stream.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

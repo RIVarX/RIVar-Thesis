@@ -543,14 +543,9 @@ The inefficiency experienced by legacy applications in the market lies in
  Despite the availability of numerous resources such as books, courses,
  and blogs on improving code and design through refactoring, challenges
  persist, particularly in the realm of field calculations.
-\end_layout
-
-\begin_layout Standard
-One contributing factor is the limited cognitive capacity of developers
+ One contributing factor is the limited cognitive capacity of developers
  when it comes to analyzing the extensive details within the application
- source code.
- This limitation becomes evident when dealing with large code bases and
- code repetition.
+ source code, dealing with large code bases and code repetition.
  To address this, recommended practices emphasize the design of multiple
  objects and components with well-defined responsibilities 
 \begin_inset CommandInset citation
@@ -595,7 +590,7 @@ literal "false"
 \end_inset
 
 .
- In addition, the seperation to responsibilities should be alligned to the
+ In addition, the separation to responsibilities should be alligned to the
  business needs 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -613,9 +608,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-However, even when adopting the recommended practices, field calculations
- continue to pose challenges.
- As an example, we create 
+This outlines a framework of objects, where each object contains calculations.
+ For instance, 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -623,8 +617,8 @@ However, even when adopting the recommended practices, field calculations
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- to compose the drug administration front end application, with the relationship
-s ilustrated in 
+ can compose drug administration front end application, with fields and
+ relationships ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration-UML-1"
@@ -635,12 +629,9 @@ noprefix "false"
 \end_inset
 
 .
- Each object contains 
-\emph on
-calculations
-\emph default
- that involve variables it directly holds, as well as variables from other
- objects it contains or variables from its parent object.
+ The calculations within an object involve variables it directly holds,
+ as well as variables from other objects it contains or variables from its
+ parent object.
  In the example, 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
@@ -686,12 +677,7 @@ calculations
 \end_inset
 
  instance.
- The variables need to recalculate according to changes in other variables.
- 
-\end_layout
-
-\begin_layout Standard
-We define the calculations by formulas, as illustrated in 
+ The calculations are defined by formulas as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:PumpCode"
@@ -701,11 +687,15 @@ noprefix "false"
 
 \end_inset
 
-.
- Therefore, the defined behavior of objects, creates data dependency graphs.
- The dependency graphs from the objects are then combined to form the overall
- dependency graph.
- The problem is how to satisfy the 
+, for the variables to recalculate according to changes in other variables.
+ As a result, the defined behavior of objects, creates data dependency graphs.
+ These dependency graphs from the objects are then combined to form the
+ overall dependency graph.
+ 
+\end_layout
+
+\begin_layout Standard
+The problem is how to satisfy the 
 \emph on
 superposition
 \emph default

@@ -423,24 +423,6 @@ Mapping between values and sets of timestamps.
 \end_layout
 
 \begin_layout Standard
-Subsequently, it is possible to compare each pair of values.
- As seen in the examples in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:Comparing-Timestamps-Set-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, values that are mapped to greater timetsamps can still be stale.
- Because it might be a superset, which resulted from a feedback.
- Instead, a newer value must be one, that overrides the effects of a variable's
- previous value.
-\end_layout
-
-\begin_layout Standard
 Subsequently, it is possible to compare each value tuple.
  As seen in the examples in 
 \begin_inset CommandInset ref
@@ -1219,7 +1201,7 @@ The Variables can subscribe to multiple assignments that are subscribed
 \begin_layout Plain Layout
 In addition, variables can be like an input variable, to get values by the
  operator 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
 , which is like subscribing to one more observables stream.
@@ -1255,7 +1237,7 @@ noprefix "false"
 \end_inset
 
 means that the operator 
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  observes 
@@ -1297,7 +1279,7 @@ noprefix "false"
 \end_inset
 
  implies that the operator 
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  observes the variable 

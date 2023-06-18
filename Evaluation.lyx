@@ -109,38 +109,44 @@ name "chap:Evaluation"
 
 \end_inset
 
-Evaluation???
+Evaluation
 \end_layout
 
 \begin_layout Standard
-As the assignments create observations, each variable can be assigned several
- times, to get notifications from its various observations.
- These notifications are not different from inputs, that can be produced
- by the operator 
+The assignment operator (
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+) plays the role of pushing values to the target variable, similar to producing
+ input by the operator (
 \begin_inset Formula $\LSTINLINE =$
 \end_inset
 
-.
+).
  As a result, each variable consists of a 
 \emph on
 merged
 \emph default
- stream from the inputs and streams to which the variable is subscribed.
- As illustrated in 
+ stream from the inputs and the stream to which the variable is assigned.
+ For this reason, the assignment operator is considered as a 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operator.
+ In the case of mutual recursion, it is necessary for at least one of the
+ variables to require the merge function.
+ This is because change propagation through a cycle must have a notification
+ that is produced from outside of this cycle (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:cycle-merge-produce-concurrent-events"
+reference "fig:cycle-merge-produce-concurrent-events-1"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, the 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
-operation might have unexpected feedbacks.
+).
 \end_layout
 
 \begin_layout Standard
@@ -299,21 +305,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:cycle-merge-produce-concurrent-events"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation as the location to handle the unexpected feedback loop.
-\end_layout
+name "fig:cycle-merge-produce-concurrent-events-1"
 
 \end_inset
 
@@ -321,9 +313,8 @@ The
 \begin_inset Formula $\LSTINLINE{merge}$
 \end_inset
 
- operation as the location to handle the unexpected feedback loop.
- The graph illustrates an example produced from a DFS traversal of a change
- propogation (described in 
+ operation to handle a mutual recursion The graph illustrates an example
+ produced from a DFS traversal of a change propogation (described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Observable-Streams"
@@ -366,296 +357,40 @@ Illustrating the spanning graph in the case of a cycle in the dependencies,
 
 \end_layout
 
-\begin_layout Section
-Feasibility 
-\end_layout
-
 \begin_layout Standard
-We have developed two lightweight libraries, RIVarX for C# developers and
- rivarjs for JavaScript (ES6) developers, with the aim of facilitating separated
- data dependencies management for user interfaces.
-\end_layout
-
-\begin_layout Paragraph
-RIVarX (C#)
-\end_layout
-
-\begin_layout Standard
-RIVarX is a .NET library designed specifically for C# developers.
- It provides the capability to expose RIVars in classes and interfaces and
- allows for the assignment of calculations to them.
- This enables the creation of loosely coupled components with separated
- data dependencies.
- The library is publicly available on GitHub at
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
- https://github.com/RivkaAltshuler/RIVar
-\end_layout
-
+The assignment operator is an accumulation 
+\begin_inset Formula $\LSTINLINE{merge}$
 \end_inset
 
- and can be easily downloaded through the NuGet package manager at
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
- https://www.nuget.org/packages/RIVar.RIVarX
-\end_layout
-
+ operator.
+ As an accumulation 
+\begin_inset Formula $\LSTINLINE{merge}$
 \end_inset
 
-.
-\end_layout
-
-\begin_layout Paragraph
-rivarjs (JavaScript)
-\end_layout
-
-\begin_layout Standard
-To ensure wider adoption and cater to the vast JavaScript community, we
- have implemented the same approach in JavaScript (ES6) and released it
- as the rivarjs library.
- JavaScript has a thriving open-source ecosystem, making it an ideal platform
- for publishing and evaluating libraries.
- Additionally, since front-end development predominantly utilizes JavaScript,
- this library is specifically designed for front-end applications.
- You can access the rivarjs library on npm at 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rivarjs
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-By implementing these two libraries, we have showcased the viability of
- our approach and demonstrated its seamless integration into different programmi
-ng languages.
- Leveraging the popularity of reactive extensions, which are widely embraced
- in modern programming paradigms, we have successfully developed RIVarX
- for C# developers and rivarjs for JavaScript developers.
- This highlights the versatility of our approach and paves the way for its
- adoption in other object-oriented languages that support reactive extensions.
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We have also implemented and made the drug administration example, discussed
- in 
+, the assignment operator push values to the target variable.
+ This is equivilent to merging the stream on the right-hand side of the
+ operator with the stream on the left-hand side of the operator, and stores
+ the merged result back in the left-hand side variable.
+ For example (
 \begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
+LatexCommand ref
+reference "fig:merge-several-sources-2"
 plural "false"
-caps "true"
+caps "false"
 noprefix "false"
 
 \end_inset
 
-, available at 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://rivarx.github.io/Evaluation/RIVar/DrugAdministration.html
-\end_layout
-
+), the statement 
+\begin_inset Formula $\LSTINLINE{A:=B}$
 \end_inset
 
-.
- You can view the source code of the example by using the "view source"
- option in your browser.
- The main components of this example are the 
-\begin_inset CommandInset href
-LatexCommand href
-name "Bag"
-target "https://rivarx.github.io/Evaluation/RIVar/Bag.js"
-literal "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset href
-LatexCommand href
-name "Pump"
-target "https://rivarx.github.io/Evaluation/RIVar/Pump.js"
-literal "false"
-
-\end_inset
-
- classes, which are loosely coupled.
- You can find the UML diagram illustrating this in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration-UML-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- The state is managed by initializing instances of the Bag and Pump classes
- and binding them to their corresponding fields.
-\end_layout
-
-\begin_layout Standard
-Additionally, we have provided a public implementation side by side at 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://rivarx.github.io/Evaluation/hotdrink/DrugAdministration_Hotdrink.html
-\end_layout
-
-\end_inset
-
-, where the drug administration is implemented using Hotdrink.
- Upon observation, both implementations exhibit similar behavior.
- When a field is updated, the fields that rely on the previous input, particular
-ly the oldest input, are overwritten.
-\end_layout
-
-\begin_layout Standard
-In the case of Hotdrink, the introduction of new input triggers the creation
- of an equation constraint at the highest level of the hierarchy, involving
- the variable and the input.
- Plans are then generated, with each plan recursively searching for equations
- where the left variables are determined by preceding equations.
- The plan that satisfies the most constraints in the hierarchy is selected
- and executed.
- This aligns with our propagation approach, as we continue propagating values
- derived from the highest priority values.
- Consequently, the update sequence for both methods—our framework and the
- constraint hierarchy model for GUI—is identical.
-\end_layout
-
-\begin_layout Section
-Superposition
-\end_layout
-
-\begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:VariantFRP"
-
-\end_inset
-
-Referential Transparency
-\end_layout
-
-\begin_layout Standard
-The assignment operator, 
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
-, links a variable to be continually updated based on an expression, similar
- to traditional FRP implementations.
- However, unlike FRP, this does not replace or override previous assignments.
-\end_layout
-
-\begin_layout Standard
-In order that subsequent assignment statements will only add expressions,
- the assignment operator is defined to be an accumulation operator.
- As an accumulation operator, it merges the stream on the right-hand side
- of the operator with the stream on the left-hand side of the operator,
- and stores the merged result back in the left-hand side variable.
- For example, the statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B}
-\end_layout
-
-\end_inset
-
- is interpreted as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=merge(A,B)}
-\end_layout
-
+ is executed as 
+\begin_inset Formula $\LSTINLINE{A=merge(A,B)}$
 \end_inset
 
 .
  
-\end_layout
-
-\begin_layout Standard
-In order to support multiple assignments, we employ a methodology that involves
- the variable inferring its value over time from various streams of samples.
- A variable with multiple assignments is interpreted as a merge operator
- over the variable and assigned expressions in the various statements.
- For instance, if we have two statements, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=D}
-\end_layout
-
-\end_inset
-
-, it is interepted as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{merge(A,B,D)}
-\end_layout
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -1077,64 +812,1436 @@ lstinline{A=merge(A,B)}.
 \end_layout
 
 \begin_layout Standard
-Therefore, the merge operation is also associative, meaning that it can
- be applied in any order without changing the final result.
- Therefore, merging multiple streams using assignment statements is equivalent
- to executing an n-array merge on the streams of the variable and assigned
- expressions.
- For example, if we have add the assignment statement 
-\begin_inset ERT
+In some cases of mutual recursion, it is possible that one of the variables
+ within the cycle has a second (or more) assignment, through which the propagati
+on is initiated.
+ Subsequent statements with assignments to the same variable accumulate
+ and merge more streams into it.
+ In the given example, a subsequent statements 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+ is executed as 
+\begin_inset Formula $\LSTINLINE{A=merge(A,D)}$
+\end_inset
+
+which means that the 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ consists of the streams 
+\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)}$
+\end_inset
+
+.
+ The behavior of pushing values ensures that the 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operator exhibits the properties of associativity, commutativity, and flattenin
+g.
+ These properties guarantee that the order of applying the statements does
+ not affect the final result.
+ In this particular example, executing 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+ first yields the same result as executing it later, as 
+\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(merge(A,D),B)=merge(A,B,D)}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+As a result, the new variant of FRP support multiple assignments.
+ A variable with multiple assignments is interpreted as a merge operator
+ over the variable and assigned expressions in the various statements.
+ This is like a methodology that involves the variable inferring its value
+ over time from various streams of samples.
+ 
+\end_layout
+
+\begin_layout Standard
+Furthermore, we guarantee that the same sequence of events consistently
+ produces the same results, achieving properties characterized by FRP.
+ FRP is originally described as functions over reactive variables, with
+ the property known as functional transparency, meaning that the input consisten
+tly produces the same output.
+ We have achieved functional transparency over streams of events.
+\end_layout
+
+\begin_layout Section
+Feasibility 
+\end_layout
+
+\begin_layout Standard
+We have developed two lightweight libraries, RIVarX for C# developers and
+ rivarjs for JavaScript (ES6) developers, with the aim of facilitating separated
+ data dependencies management for user interfaces.
+\end_layout
+
+\begin_layout Paragraph
+RIVarX (C#)
+\end_layout
+
+\begin_layout Standard
+RIVarX is a .NET library designed specifically for C# developers.
+ It provides the capability to expose RIVars in classes and interfaces and
+ allows for the assignment of calculations to them.
+ This enables the creation of loosely coupled components with separated
+ data dependencies.
+ The library is publicly available on GitHub at
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{A:=D}
+ https://github.com/RivkaAltshuler/RIVar
 \end_layout
 
 \end_inset
 
-, then 
-\begin_inset ERT
+ and can be easily downloaded through the NuGet package manager at
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- accumulates to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{merge(merge(A,B),D)}
-\end_layout
-
-\end_inset
-
-, which is equivalent to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{merge(A,B,D)}
+ https://www.nuget.org/packages/RIVar.RIVarX
 \end_layout
 
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Paragraph
+rivarjs (JavaScript)
+\end_layout
+
+\begin_layout Standard
+To ensure wider adoption and cater to the vast JavaScript community, we
+ have implemented the same approach in JavaScript (ES6) and released it
+ as the rivarjs library.
+ JavaScript has a thriving open-source ecosystem, making it an ideal platform
+ for publishing and evaluating libraries.
+ Additionally, since front-end development predominantly utilizes JavaScript,
+ this library is specifically designed for front-end applications.
+ You can access the rivarjs library on npm at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By implementing these two libraries, we have showcased the viability of
+ our approach and demonstrated its seamless integration into different programmi
+ng languages.
+ Leveraging the popularity of reactive extensions, which are widely embraced
+ in modern programming paradigms, we have successfully developed RIVarX
+ for C# developers and rivarjs for JavaScript developers.
+ This highlights the versatility of our approach and paves the way for its
+ adoption in other object-oriented languages that support reactive extensions.
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have also implemented and made the drug administration example, discussed
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, available at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rivarx.github.io/Evaluation/RIVar/DrugAdministration.html
+\end_layout
+
+\end_inset
+
+.
+ You can view the source code of the example by using the "view source"
+ option in your browser.
+ The main components of this example are the 
+\begin_inset CommandInset href
+LatexCommand href
+name "Bag"
+target "https://rivarx.github.io/Evaluation/RIVar/Bag.js"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset href
+LatexCommand href
+name "Pump"
+target "https://rivarx.github.io/Evaluation/RIVar/Pump.js"
+literal "false"
+
+\end_inset
+
+ classes, which are loosely coupled.
+ You can find the UML diagram illustrating this in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The state is managed by initializing instances of the Bag and Pump classes
+ and binding them to their corresponding fields.
+\end_layout
+
+\begin_layout Standard
+Additionally, we have provided a public implementation side by side at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rivarx.github.io/Evaluation/hotdrink/DrugAdministration_Hotdrink.html
+\end_layout
+
+\end_inset
+
+, where the drug administration is implemented using Hotdrink.
+ Upon observation, both implementations exhibit similar behavior.
+ When a field is updated, the fields that rely on the previous input, particular
+ly the oldest input, are overwritten.
+\end_layout
+
+\begin_layout Standard
+In the case of Hotdrink, the introduction of new input triggers the creation
+ of an equation constraint at the highest level of the hierarchy, involving
+ the variable and the input.
+ Plans are then generated, with each plan recursively searching for equations
+ where the left variables are determined by preceding equations.
+ The plan that satisfies the most constraints in the hierarchy is selected
+ and executed.
+ This aligns with our propagation approach, as we continue propagating values
+ derived from the highest priority values.
+ Consequently, the update sequence for both methods—our framework and the
+ constraint hierarchy model for GUI—is identical.
+\end_layout
+
+\begin_layout Section
+OOP
+\end_layout
+
+\begin_layout Standard
+The assignment operator, 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, links a variable to be continually updated based on an expression, similar
+ to traditional FRP implementations.
+ However, unlike FRP, this does not replace or override previous assignments.
+\end_layout
+
+\begin_layout Standard
+Thanks to the new variant of FRP, we can introduce 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+, which is the name for reactive instance variables.
+ Similar to reactive variables, they are automatically updated based on
+ their dependencies.
+ Similar to instance variables, they are part of the objects, and therefore
+ services can make these variables available in their interfaces for their
+ clients to use.
+ Subclasses can also use the variables belonging to their superclass via
+ the specialization interface 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+.
+ This concept leads us to a new framework that extends the traditional OOP.
+\end_layout
+
+\begin_layout Standard
+With this new framework, developers can model domain business concepts that
+ are connected to graphical user interfaces (GUIs).
+ As illustrated in the drug administration example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), real-world entities can be represented by objects, and their attributes
+ can be represented by 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:PumpCode"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, objects' classes can contain assignments in their definitions to continuously
+ calculate 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ The assignments are part of the objects' internal behavior, which connects
+ the public 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ The values of the attributes are stored within observable streams, which
+ serve as a lower-level representation off 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ The input streams can be connected to user interface change events, and
+ output streams can trigger field updates that display the calculated values
+ from the model.
+\end_layout
+
+\begin_layout Standard
+The framework empowers OOP framework with enhanced extensibility.
+ The unique concept of assignments adding the source to the variable, and
+ allowing assignments to be hidden, results in an "extend only" operator.
+ This is particularly evident in the inheritance mechanism, where subclasses
+ only extend their input stream by inheriting assignments assigned to their
+ superclass's reactive instance variables.
+ This approach avoids the "fragile base class" issue, where changes in the
+ implementation or behavior of a superclass inadvertently affect the behavior
+ of its subclasses, even if the subclasses were not intended to be modified.
+ Similarly, objects can expose reactive instance variables, and in a composition
+, the functionality of objects is only extended.
+ Overall, the introduction of this assignment operator has the potential
+ to develop software that is open to extensions and closed to modifications,
+ aligning with the principles of the Open-Closed Principle (OCP).
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be re-evaluated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to re-evaluate.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ extends 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ and adds the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug:=Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Specialization-Interface"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we illustrates 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ by composition.
+ In the example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ is assigned from outside of the object.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class DrugAdministration{
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Drug, Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Concentration:=Drug/VolumeOfFluid |
+\backslash
+label{line:formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+void Main(){
+\end_layout
+
+\begin_layout Plain Layout
+
+DrugAdministration administration=new DrugAdministration() |
+\backslash
+label{line:ctor}| 
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=50
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Volume=100 // administration.Concentration=0.5
+\end_layout
+
+\begin_layout Plain Layout
+
+administration.Drug=25  // administration.Concentration=0.25
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ class contains the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+.
+ The class contains a formula (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:formula}
+\end_layout
+
+\end_inset
+
+) defining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to be re-evaluated whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ is updated.
+ Then once an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ is created (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:ctor}
+\end_layout
+
+\end_inset
+
+), any change to its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ or its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ causes its 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ to re-evaluate.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  IDrugAdministration drugAdministration
+\end_layout
+
+\begin_layout Plain Layout
+
+  ExtendedDrugAdministration(DrugAdministration drugAdministration){ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.drugAdministration=drugAdministration
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  drugAdministration.Drug:= drugAdministration.Concentration*drugAdministration.Vol
+umeOfFluid
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Service-Interface"
+
+\end_inset
+
+ An example to a variable that is assigned externally by an expression.
+ The instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+ has a variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ which is assigned externaly to be updated according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class ExtendedDrugAdministration:DrugAdministration {
+\end_layout
+
+\begin_layout Plain Layout
+
+  RIVar<double> Dose, Rate, Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug:=Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Specialization-Interface"
+
+\end_inset
+
+An example of a subclass that assigns variables that belonged to the superclass.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{ExtendedDrugAdministration}
+\end_layout
+
+\end_inset
+
+ assigns variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ belonging to its superclass 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{DrugAdministration}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+..
+\end_layout
+
+\begin_layout Subsection
+Repeating Solutions
+\end_layout
+
+\begin_layout Standard
+If we need to create another unit of software based on an existing one without
+ modifying the original unit or impacting the existing clients, creating
+ a duplicate or a separate instance might be necessary.
+ This duplication can be achieved by cloning the existing codebase and then
+ making the necessary changes or customizations specific to the new software.
+ Therfore, our seperation causes our framework to be preffered over centeral
+ constraints systems.
+ 
+\end_layout
+
+\begin_layout Standard
+Specificaly, hotdrink's code and management is centerized, while our framework
+ is based on OOP.
+ Our case study presents how we can use the framewrk to develop loosly coupled
+ components that can be developed, built and deployed indepedently.
+ The bootsrap is introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bootstrap-of-the-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ is like the bag micro frontend, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ is like the pump micro frontend.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ implements the UI and are connected to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ respectively.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+var bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+var pump = new Pump(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var bagUserControl = new UserControl_Bag(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var pumpUserControl = new UserControl_Pump(pump);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bootstrap-of-the-1"
+
+\end_inset
+
+Bootstrap of the drug administration components
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When there is a need to create a new software unit based on an existing
+ one without modifying the original unit or impacting existing clients,
+ it may be necessary to duplicate or create a separate instance.
+ This duplication involves cloning the existing codebase and making specific
+ changes or customizations tailored to the new software.
+ Consequently, our framework, which embraces this separation approach, becomes
+ a preferred choice compared to centralized constraint systems.
+\end_layout
+
+\begin_layout Standard
+Specifically, while Hotdrink's code and management are centralized, our
+ framework is built on the principles of object-oriented programming (OOP).
+ In our case study, we demonstrate how our framework facilitates the development
+ of loosely coupled components that can be independently developed, built,
+ and deployed.
+ Figure 1 illustrates the introduced bootstrap process, providing a foundation
+ for our framework's functionality.
 \end_layout
 
 \begin_layout Section
@@ -1229,6 +2336,240 @@ literal "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] 
+\backslash
+node[draw, circle] (X) at (-3,3) {X};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-merge-produce-concurrent-events-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+\end_layout
+
+\end_inset
+
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+ The graph illustrates an example produced from a DFS traversal of a change
+ propogation (described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), initiated from an external input to the variable 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Illustrating the spanning graph in the case of a cycle in the dependencies,
+ when node C receives an input, it propagates it to node D, then to node
+ E, and so on, until node B forwards it back to node C through the merge
+ operator.
+ However, this update is stale and should not be propagated again to node
+ D.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4327,239 +5668,6 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-..
-\end_layout
-
-\begin_layout Subsection
-Repeating Solutions
-\end_layout
-
-\begin_layout Plain Layout
-If we need to create another unit of software based on an existing one without
- modifying the original unit or impacting the existing clients, creating
- a duplicate or a separate instance might be necessary.
- This duplication can be achieved by cloning the existing codebase and then
- making the necessary changes or customizations specific to the new software.
- Therfore, our seperation causes our framework to be preffered over centeral
- constraints systems.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Specificaly, hotdrink's code and management is centerized, while our framework
- is based on OOP.
- Our case study presents how we can use the framewrk to develop loosly coupled
- components that can be developed, built and deployed indepedently.
- The bootsrap is introduced in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Bootstrap-of-the-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Bag}
-\end_layout
-
-\end_inset
-
- is like the bag micro frontend, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Pump}
-\end_layout
-
-\end_inset
-
- is like the pump micro frontend.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Bag}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Pump}
-\end_layout
-
-\end_inset
-
- implements the UI and are connected to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- respectively.
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-var bag = new Bag();
-\end_layout
-
-\begin_layout Plain Layout
-
-var pump = new Pump(bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-var bagUserControl = new UserControl_Bag(bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-var pumpUserControl = new UserControl_Pump(pump);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Bootstrap-of-the-1"
-
-\end_inset
-
-Bootstrap of the drug administration components
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-When there is a need to create a new software unit based on an existing
- one without modifying the original unit or impacting existing clients,
- it may be necessary to duplicate or create a separate instance.
- This duplication involves cloning the existing codebase and making specific
- changes or customizations tailored to the new software.
- Consequently, our framework, which embraces this separation approach, becomes
- a preferred choice compared to centralized constraint systems.
-\end_layout
-
-\begin_layout Plain Layout
-Specifically, while Hotdrink's code and management are centralized, our
- framework is built on the principles of object-oriented programming (OOP).
- In our case study, we demonstrate how our framework facilitates the development
- of loosely coupled components that can be independently developed, built,
- and deployed.
- Figure 1 illustrates the introduced bootstrap process, providing a foundation
- for our framework's functionality.
 \end_layout
 
 \end_inset

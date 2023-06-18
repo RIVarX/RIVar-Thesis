@@ -1165,7 +1165,27 @@ literal "false"
 \end_inset
 
 .
- This implies that 
+ This produces a 
+\emph on
+predictability 
+\emph default
+property due to 
+\emph on
+functional transparency
+\emph default
+, meaning the input consistently produces the same output 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This implies that 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
@@ -1190,6 +1210,7 @@ literal "false"
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Subsection

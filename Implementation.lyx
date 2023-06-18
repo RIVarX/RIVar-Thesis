@@ -197,7 +197,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -326,7 +326,7 @@ status open
 
 \begin_layout Plain Layout
 Subscriptions created by components involved in the formula 
-\begin_inset Formula $\LSTINLINE{A:B+1}$
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
 .

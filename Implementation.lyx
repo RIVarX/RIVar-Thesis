@@ -133,7 +133,7 @@ noprefix "false"
 Not only are the variables considered as observable streams, but also the
  operators.
  Furthermore, the assignment operation is implemented as a method that generates
- observations to push to the target variable.
+ observations to push values to the target variable.
  Therefore, the variables implemented as 
 \begin_inset Formula $\LSTINLINE{subject}$
 \end_inset

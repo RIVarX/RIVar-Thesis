@@ -321,7 +321,7 @@ lstinline{B}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -463,17 +463,8 @@ Reactive variables example.
 \end_inset
 
 Reactive variables example.
- The provided code demonstrates the distinction from the imperative paradigm,
- where assignments have a lasting effect on variables.
- The accompanying graph illustrates the meaning that 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- depends on 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
-
+ The provided code demonstrates the distinction from the imperative paradigm.
+ The accompanying graph illustrates the established dependencies.
 \begin_inset Note Note
 status collapsed
 
@@ -623,7 +614,7 @@ lstinline{B}
 \begin_layout Standard
 Reactive variables reminds the functionality of fields calculations.
  Fields calculation is known from 
-\begin_inset Formula $\myName{Spreadsheets}$
+\begin_inset Formula $\NAME{Spreadsheets}$
 \end_inset
 
 , where cells, that represent the fields, can contain formulas to determine
@@ -631,7 +622,7 @@ Reactive variables reminds the functionality of fields calculations.
  Reactive variables can be used to fields calculations, by being connected
  to fields.
  For instance, 
-\begin_inset Formula $\myName{MobX}$
+\begin_inset Formula $\NAME{MobX}$
 \end_inset
 
 
@@ -661,20 +652,14 @@ state management solution
 
 \emph default
  to integrate with 
-\begin_inset Formula $\myName{React}$
+\begin_inset Formula $\NAME{React}$
 \end_inset
 
 .
- 
-\begin_inset Formula $\myName{React}$
-\end_inset
-
- provides a framework that does the connection, by updating the view with
- the fields, according to the reactive variables.
 \end_layout
 
 \begin_layout Standard
-In implementing fields calculations and reactive variables, we might face
+In implementing fields calculations or reactive variables, we might face
  an unpredictable behavior and even infinite loops 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -708,8 +693,7 @@ literal "false"
  The event handling logic determines what happens when an event is triggered,
  and in this case, it sets the values of variables and updates their dependencie
 s.
- This has the solution of reactive variables, in explicitly declaring the
- data dependencies 
+ This has the solution to explicitly declaring the data dependencies 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "maier2010deprecating"
@@ -721,7 +705,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The second complexity part is to manage the 
+The second complexity part is to manage code changes by managing 
 \emph on
 source code dependencies
 \emph default
@@ -733,7 +717,7 @@ literal "false"
 
 \end_inset
 
-, in order to manage code changes.
+.
  According to business needs and requirements, applications are composed
  from several components.
  Changes in declared data dependencies in one component might cause effects
@@ -1575,8 +1559,8 @@ Contribution
 
 \begin_layout Standard
 We present a semantic framework for separating data dependency management
- within objects, so that object is responsible for managing its own set
- of data dependencies.
+ within objects, so that each object is responsible for managing its own
+ set of data dependencies.
  At the core of this framework is the concept of a
 \series bold
  Reactive Instance Variable
@@ -1591,15 +1575,42 @@ We present a semantic framework for separating data dependency management
  variables without considering hidden dependencies.
  In runtime, there is no need for a mediator as each variable directly updates
  its dependencies.
- On top of it, we provide implementations of our framework in both 
-\begin_inset Formula $\myName{C\#}$
+ This framework is ready to use in 
+\begin_inset Formula $\NAME{C\#}$
 \end_inset
 
  and 
-\begin_inset Formula $\myName{JavaScript}$
+\begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
-, along with a small application example.
+ by extensions we provide
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "RIVarX"
+target "https://github.com/RivkaAltshuler/RIVar"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset href
+LatexCommand href
+name "rivarjs"
+target "https://github.com/RIVarX/rivarjs"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Paragraph

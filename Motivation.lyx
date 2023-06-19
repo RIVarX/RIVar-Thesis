@@ -99,7 +99,15 @@ Problem
 Maintaining consistency in field values are crucial in front ends applications.
  When users fill in one field, it is essential to recalculate the values
  of other related fields.
- For example, in drug administration (
+ For example, in 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Administration}$
+\end_inset
+
+ (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-calculations-1"
@@ -109,18 +117,55 @@ noprefix "false"
 
 \end_inset
 
-), there are several options to define the quantities: by drug and volume
- or by concentration and volume.
- In the first option, the concentration is calculated based on the drug
- and volume, while in the second option, the drug is calculated based on
- the concentration and volume.
+), there are several options to define the quantities: by 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ or by 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In the first option, 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is calculated based on 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in the second option, 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is calculated based on the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -324,9 +369,31 @@ literal "false"
  interfaces.
  Redundancies improves the usability, because the user is not enforced to
  one strict representation.
- In the drug administration, there are drugs, where it is easier to set
- the drug and volume, while in others it is easier to set by the concentration
- and volume.
+ For instance, in 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Administration}$
+\end_inset
+
+, there are drugs, where it is easier to set the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in others it is easier to set by the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -540,9 +607,6 @@ Example calculation logic for interdependent fields in a drug administration
 \begin_layout Standard
 The inefficiency experienced by legacy applications in the market lies in
  the time-consuming process of implementing changes.
- Despite the availability of numerous resources such as books, courses,
- and blogs on improving code and design through refactoring, challenges
- persist, particularly in the realm of field calculations.
  One contributing factor is the limited cognitive capacity of developers
  when it comes to analyzing the extensive details within the application
  source code, dealing with large code bases and code repetition.
@@ -556,7 +620,7 @@ literal "false"
 \end_inset
 
 .
- Furthermore, the allocation of responsibilities should align with the specific
+ Furthermore, the separation to responsibilities should be alligned to the
  business needs 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -609,7 +673,15 @@ literal "false"
 
 \begin_layout Standard
 This outlines a framework of objects, where each object contains calculations.
- For instance, 
+ For instance, the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Administration}$
+\end_inset
+
+ can be composed of 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -617,8 +689,7 @@ This outlines a framework of objects, where each object contains calculations.
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- can compose drug administration front end application, with fields and
- relationships ilustrated in 
+, with fields and relationships ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration-UML-1"
@@ -630,8 +701,8 @@ noprefix "false"
 
 .
  The calculations within an object involve variables it directly holds,
- as well as variables from other objects it contains or variables from its
- parent object.
+ as well as variables from other objects it contains, or variables from
+ its parent objects.
  In the example, 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
@@ -676,8 +747,12 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
- instance.
- The calculations are defined by formulas as illustrated in 
+ instance it contains.
+ 
+\end_layout
+
+\begin_layout Standard
+The calculations are defined by formulas as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:PumpCode"
@@ -723,7 +798,7 @@ superposition
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -755,14 +830,16 @@ class Bag
 
 \begin_layout Plain Layout
 
-  Variable Drug, Volume, Concentration
+  Variable Drug, Volume, Concentration |
+\backslash
+label{line:PumpCode_RIVars1}|
 \end_layout
 
 \begin_layout Plain Layout
 
   Volume:=Concentration*Drug |
 \backslash
-label{line:formula3}|
+label{line:PumpCode_formula3}|
 \end_layout
 
 \begin_layout Plain Layout
@@ -782,30 +859,30 @@ class Pump
 
 \begin_layout Plain Layout
 
-  IBag TheBag|
+  Variable TheBag|
 \backslash
-label{line:TheBag}|
+label{line:PumpCode_TheBag}|
 \end_layout
 
 \begin_layout Plain Layout
 
   Variable Duration, Dose, Rate|
 \backslash
-label{line:RIVars}|
+label{line:PumpCode_RIVars2}|
 \end_layout
 
 \begin_layout Plain Layout
 
   TheBag.Drug:=Dose*Duration  |
 \backslash
-label{line:formula}|
+label{line:PumpCode_formula}|
 \end_layout
 
 \begin_layout Plain Layout
 
   Duration:=Rate*Volume |
 \backslash
-label{line:formula2}|
+label{line:PumpCode_formula2}|
 \end_layout
 
 \begin_layout Plain Layout
@@ -847,13 +924,19 @@ name "fig:PumpCode"
 status open
 
 \begin_layout Plain Layout
-Drug Administration Pseudo Code.
+Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
 
-Drug Administration Pseudo Code.
- Illustrating the code of the classes to specify the behavior of objects.
  
 \begin_inset ERT
 status open
@@ -862,12 +945,48 @@ status open
 
 ~
 \backslash
-cref{line:formula,line:formula2,line:formula3}
+cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
 \end_layout
 
 \end_inset
 
  represent the needed calculations.
+ The calculations involves the instance variables declared in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, the calculations involve variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, that is declared in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_TheBag}
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -885,7 +1004,7 @@ cref{line:formula,line:formula2,line:formula3}
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1161,7 +1280,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1396,7 +1515,7 @@ lstinline{Drug}
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1651,7 +1770,17 @@ Mutual recursion created in runtime from created dependency graphs within
 \end_inset
 
 .
- The nodes 
+ The solid edges denote dependencies initiated within the 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instance, while dotted edges indicate dependencies initiated within the
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
+ In the graph created, the nodes 
 \begin_inset Formula $\LSTINLINE{Volume}$
 \end_inset
 
@@ -1663,17 +1792,8 @@ Mutual recursion created in runtime from created dependency graphs within
 \begin_inset Formula $\LSTINLINE{Duration}$
 \end_inset
 
- that are interconnected through the edges represent the mutual recursion.
- The solid edges denote dependencies initiated within the 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- instance, while dotted edges indicate dependencies initiated within the
+ are interconnected through the edges, representing the mutual recursion.
  
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- instance.
 \end_layout
 
 \end_inset

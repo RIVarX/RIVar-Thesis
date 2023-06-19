@@ -130,15 +130,15 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Not only are the variables considered as observable streams, but also the
- operators.
+Not only are variables observe each others, but also the operators are objects
+ that are treated similar to the variables.
  Furthermore, the assignment operation is implemented as a method that generates
  observations to push values to the target variable.
- Therefore, the variables implemented as 
+ To achive that, the variables are implemented as 
 \begin_inset Formula $\LSTINLINE{subject}$
 \end_inset
 
- that is an observer, in addition to being an observable.
+, that is an observer, in addition to being an observable stream.
  For instance (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -178,8 +178,8 @@ noprefix "false"
 \end_inset
 
 .
- The established connections are then used to the change propagation for
- connected UI fields (
+ The established connections are then used to the change propagation, with
+ the connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Propogation-on-the-2"
@@ -197,7 +197,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -597,16 +597,16 @@ noprefix "false"
 This allows operations to handle unexpected feedback and glitches through
  the filtering mechanism proposed in 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "chap:Method"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
 .
- For instance, an binary operators like 
+ Binary operators like 
 \begin_inset Formula $\LSTINLINE +$
 \end_inset
 
@@ -614,11 +614,10 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{f(x,y)=x+y}$
 \end_inset
 
-) subscribes to the streams of the two operands, discarding values in each
+) subscribe to the streams of the two operands, discarding values in each
  stream that are not greater than the previous value.
  The assignment operation subscribes to the streams of the left and right
- hands, which consist of the formulas, and compares the values from the
- two streams.
+ hands, and compares the values from the two streams.
  If the value in the right-hand stream is greater, it is pushed into the
  variable in the left-hand stream.
 \end_layout

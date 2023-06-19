@@ -107,7 +107,16 @@
 \begin_layout Standard
 \begin_inset FormulaMacro
 \newcommand{\LSTINLINE}[1]{\mbox{\lstinline{#1}}}
-{\color{blue}\texttt{#1}}
+{{\color{blue}\texttt{#1}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\NAME}[1]{\mbox{\myName{#1}}}
+{{\color{blue}\texttt{#1}}}
 \end_inset
 
 
@@ -745,8 +754,8 @@ index{logic programming}}
 \begin_layout Plain Layout
 \begin_inset FormulaMacro
 \newcommand{\rewriteSplit}[2]{\begin{array}{l}
-#1\rightsquigarrow\\
-\quad#2
+ #1\rightsquigarrow\\
+ \quad#2 
 \end{array}}
 \end_inset
 
@@ -764,8 +773,8 @@ index{logic programming}}
 \begin_layout Plain Layout
 \begin_inset FormulaMacro
 \newcommand{\typeSignatureSplit}[2]{\begin{array}{l}
-\declare\,#1\\
-\quad\where\,#2
+ \declare\,#1\\
+ \quad\where\,#2 
 \end{array}}
 \end_inset
 
@@ -775,8 +784,8 @@ index{logic programming}}
 \begin_layout Plain Layout
 \begin_inset FormulaMacro
 \newcommand{\typeSignatureSplitNoIndent}[2]{\begin{array}{l}
-\declare#1\\
-\where\,#2
+ \declare#1\\
+ \where\,#2 
 \end{array}}
 \end_inset
 
@@ -794,8 +803,8 @@ index{logic programming}}
 \begin_layout Plain Layout
 \begin_inset FormulaMacro
 \newcommand{\projDefinitionSplit}[2]{\begin{array}{l}
-\display\,#1\\
-\quad\as\,#2
+ \display\,#1\\
+ \quad\as\,#2 
 \end{array}}
 \end_inset
 

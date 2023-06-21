@@ -113,16 +113,16 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-The assignment operator (
+The assignment operator 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
-) plays the role of pushing values to the target variable, similar to producing
- input by the operator (
+ plays the role of pushing values to the target variable, similar to producing
+ input by the operator 
 \begin_inset Formula $\LSTINLINE =$
 \end_inset
 
-).
+.
  As a result, each variable consists of a 
 \emph on
 merged
@@ -373,16 +373,15 @@ Illustrating the spanning graph in the case of a cycle in the dependencies,
 \end_layout
 
 \begin_layout Standard
-The assignment operator is an accumulation 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operator.
- As an accumulation 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
-, the assignment operator push values to the target variable.
+The assignment operator is an 
+\emph on
+accumulation
+\emph default
+ 
+\emph on
+merge
+\emph default
+ operator, in its behavior to push values to the target variable.
  This is equivilent to merging the stream on the right-hand side of the
  operator with the stream on the left-hand side of the operator, and stores
  the merged result back in the left-hand side variable.
@@ -830,7 +829,7 @@ lstinline{A=merge(A,B)}.
 In some cases of mutual recursion, it is possible that one of the variables
  within the cycle has a second (or more) assignment, through which the propagati
 on is initiated.
- Subsequent statements with assignments to the same variable accumulate
+ Because subsequent statements with assignments to the same variable accumulate
  and merge more streams into it.
  In the given example, a subsequent statements 
 \begin_inset Formula $\LSTINLINE{A:=D}$
@@ -840,16 +839,16 @@ on is initiated.
 \begin_inset Formula $\LSTINLINE{A=merge(A,D)}$
 \end_inset
 
-which means that the 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- consists of the streams 
-\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)}$
+ which means that 
+\begin_inset Formula $\LSTINLINE{A=merge(merge(A,B),D)}$
 \end_inset
 
 .
- The behavior of pushing values ensures that the 
+ 
+\end_layout
+
+\begin_layout Standard
+The behavior of pushing values ensures that the 
 \begin_inset Formula $\LSTINLINE{merge}$
 \end_inset
 
@@ -882,16 +881,27 @@ As a result, the new variant of FRP support multiple assignments.
 Furthermore, we guarantee that the same sequence of events consistently
  produces the same results, achieving properties characterized by FRP.
  FRP is originally described as functions over reactive variables, with
- the property known as functional transparency, meaning that the input consisten
-tly produces the same output.
- We have achieved functional transparency over streams of events.
+ the property known as
+\emph on
+ functional transparency
+\emph default
+, meaning that the input consistently produces the same output.
+ We have achieved this property by functions over streams of events.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
 \end_layout
 
 \begin_layout Section
 Feasibility 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We have developed two lightweight libraries, RIVarX for C# developers and
  rivarjs for JavaScript (ES6) developers, with the aim of facilitating separated
  data dependencies management for user interfaces.
@@ -901,7 +911,7 @@ We have developed two lightweight libraries, RIVarX for C# developers and
 RIVarX (C#)
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 RIVarX is a .NET library designed specifically for C# developers.
  It provides the capability to expose RIVars in classes and interfaces and
  allows for the assignment of calculations to them.
@@ -936,7 +946,7 @@ status open
 rivarjs (JavaScript)
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 To ensure wider adoption and cater to the vast JavaScript community, we
  have implemented the same approach in JavaScript (ES6) and released it
  as the rivarjs library.
@@ -958,14 +968,14 @@ https://www.npmjs.com/package/rivarjs
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset VSpace defskip
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 By implementing these two libraries, we have showcased the viability of
  our approach and demonstrated its seamless integration into different programmi
 ng languages.
@@ -980,7 +990,7 @@ ng languages.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We have also implemented and made the drug administration example, discussed
  in 
 \begin_inset CommandInset ref
@@ -1040,7 +1050,7 @@ noprefix "false"
  and binding them to their corresponding fields.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Additionally, we have provided a public implementation side by side at 
 \begin_inset Flex URL
 status collapsed
@@ -1058,7 +1068,7 @@ https://rivarx.github.io/Evaluation/hotdrink/DrugAdministration_Hotdrink.html
 ly the oldest input, are overwritten.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the case of Hotdrink, the introduction of new input triggers the creation
  of an equation constraint at the highest level of the hierarchy, involving
  the variable and the input.
@@ -1076,7 +1086,7 @@ In the case of Hotdrink, the introduction of new input triggers the creation
 OOP
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The assignment operator, 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
@@ -1086,7 +1096,7 @@ The assignment operator,
  However, unlike FRP, this does not replace or override previous assignments.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 As a result, services can make these variables available in their interfaces
  for their clients to use.
  Subclasses can also use the variables belonging to their superclass via
@@ -1102,7 +1112,7 @@ literal "false"
  This concept leads us that the new framework extends the traditional OOP.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 With this new framework, developers can model domain business concepts that
  are connected to graphical user interfaces (GUIs).
  As illustrated in the drug administration example (
@@ -1154,7 +1164,7 @@ s.
  from the model.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The framework empowers OOP framework with enhanced extensibility.
  The unique concept of assignments adding the source to the variable, and
  allowing assignments to be hidden, results in an "extend only" operator.
@@ -1171,7 +1181,7 @@ The framework empowers OOP framework with enhanced extensibility.
  aligning with the principles of the Open-Closed Principle (OCP).
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1356,7 +1366,7 @@ lstinline{Concentration}
  to re-evaluate.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1447,7 +1457,7 @@ lstinline{Drug}
  is assigned from outside of the object.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1742,7 +1752,7 @@ lstinline{Concentration}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1897,7 +1907,7 @@ lstinline{VolumeOfFluid}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2027,7 +2037,7 @@ lstinline{DrugAdministration}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ..
 \end_layout
 
@@ -2035,7 +2045,7 @@ lstinline{DrugAdministration}
 Repeating Solutions
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 If we need to create another unit of software based on an existing one without
  modifying the original unit or impacting the existing clients, creating
  a duplicate or a separate instance might be necessary.
@@ -2046,7 +2056,7 @@ If we need to create another unit of software based on an existing one without
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Specificaly, hotdrink's code and management is centerized, while our framework
  is based on OOP.
  Our case study presents how we can use the framewrk to develop loosly coupled
@@ -2145,7 +2155,7 @@ lstinline{Pump}
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2231,7 +2241,7 @@ Bootstrap of the drug administration components
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 When there is a need to create a new software unit based on an existing
  one without modifying the original unit or impacting existing clients,
  it may be necessary to duplicate or create a separate instance.
@@ -2241,7 +2251,7 @@ When there is a need to create a new software unit based on an existing
  a preferred choice compared to centralized constraint systems.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Specifically, while Hotdrink's code and management are centralized, our
  framework is built on the principles of object-oriented programming (OOP).
  In our case study, we demonstrate how our framework facilitates the development
@@ -2251,7 +2261,7 @@ Specifically, while Hotdrink's code and management are centralized, our
  for our framework's functionality.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ...
 \end_layout
 
@@ -2259,7 +2269,7 @@ Specifically, while Hotdrink's code and management are centralized, our
 Repeating Code
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Through our research, we facilitate increased separation, which in turn
  enhances the possibilities for code reuse.
  The elimination of redundant code, commonly referred to as the DRY principle,
@@ -2280,7 +2290,7 @@ name "subsec:Repeating-Updates"
 Repeating Updates
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Derived from the FRP paradigm, we abstract the process of updating variables
  in response to changes in dependent variables.The FRP paradigm automatically
  maintains formulas, eliminating the need to repetitively register events
@@ -2393,7 +2403,7 @@ name "subsec:Repeating-Variables"
 Repeating Variables
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In traditional object-oriented programming (OOP), objects commonly store
  variables that mirror real-world attributes or variables.
  However, the functional reactive programming (FRP) paradigm takes a different
@@ -2418,7 +2428,7 @@ Evaluation
  the same real-world variable using different formulas.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our framework addresses this by enabling multiple assignments to the same
  variables.
  To evaluate our framework, we examine the evolution of the application
@@ -2534,7 +2544,7 @@ lstinline{Amount}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2581,7 +2591,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The code needs to be modified when the doctor administers the values of
  
 \begin_inset ERT
@@ -2612,7 +2622,7 @@ lstinline{Volume}
  in order to calculate the resulting amount.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2665,7 +2675,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 If the doctor administers the medication by setting the values of 
 \begin_inset ERT
 status open
@@ -2709,7 +2719,7 @@ lstinline{Dose*Duration}
  In this scenario, it is necessary to update the code accordingly.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2772,7 +2782,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 It is evident that whenever additional sources of values are required for
  the 
 \begin_inset ERT
@@ -2831,13 +2841,13 @@ lstinline{Alert}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 With our new framework, the process of extension becomes more achievable.
  We begin the process anew, again with the requirement of triggering an
  alert if the amount is abnormal.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2884,7 +2894,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 When the doctor administers the values of 
 \begin_inset ERT
 status open
@@ -2916,7 +2926,7 @@ lstinline{Volume}
  following code snippet.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2958,7 +2968,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 When the doctor administers the medication by setting the values of 
 \begin_inset ERT
 status open
@@ -3003,7 +3013,7 @@ lstinline{Dose*Duration}
  snippet.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -3045,7 +3055,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Since there are no updates required for the variable 
 \begin_inset ERT
 status open
@@ -3067,7 +3077,7 @@ lstinline{Alert}
 Repeating Applications
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 If we need to create another application based on an existing one without
  modifying the original application or impacting the existing clients, creating
  a duplicate or a separate instance might be necessary.
@@ -3113,7 +3123,7 @@ literal "false"
 Summary -??
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our approach presents a novel variant for FRP specifically designed for
  calculations performed within objects, that detailed in 
 \begin_inset CommandInset ref
@@ -3144,16 +3154,16 @@ noprefix "false"
  within the application.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We treat as observables, specificaly the assignment is an observable.
  As result, an assignme
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ——–
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our approach focuses on completely separating data dependencies into different
  concerns.
  We identified the problem as stemming from the integration between FRP
@@ -3201,6 +3211,11 @@ literal "false"
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

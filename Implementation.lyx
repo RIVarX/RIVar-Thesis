@@ -130,11 +130,11 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Not only are variables observe each others, but also the operators are objects
- that are treated similar to the variables.
+Not only do the variables observe each other, but also the operators are
+ objects that are treated similar to the variables.
  Furthermore, the assignment operation is implemented as a method that generates
  observations to push values to the target variable.
- To achive that, the variables are implemented as 
+ To achieve that, the variables are implemented as 
 \begin_inset Formula $\LSTINLINE{subject}$
 \end_inset
 
@@ -169,7 +169,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
- observes the operator 
+ observes both the operator 
 \begin_inset Formula $\LSTINLINE{+1}$
 \end_inset
 
@@ -178,7 +178,7 @@ noprefix "false"
 \end_inset
 
 .
- The established connections are then used to the change propagation, with
+ The established connections are then used for change propagation, with
  the connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -342,7 +342,7 @@ Subscriptions created by components involved in the formula
  The sequence diagram illustrates interaction between the components in
  creating the subscriptions.
  the 
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  observes 
@@ -618,7 +618,7 @@ noprefix "false"
  stream that are not greater than the previous value.
  The assignment operation subscribes to the streams of the left and right
  hands, and compares the values from the two streams.
- If the value in the right-hand stream is greater, it is pushed into the
+ If the value in the right-hand operand is greater, it is pushed into the
  variable in the left-hand stream.
 \end_layout
 

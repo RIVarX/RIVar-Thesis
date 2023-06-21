@@ -114,8 +114,38 @@ noprefix "false"
 \end_inset
 
 .
- This new variant builds upon the model of observable streams described
- in 
+ We provide it as extensions
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+available at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ to existing programming languages.
+ The extensions consists of a datatype 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+, to be used to declare the variables.
+\end_layout
+
+\begin_layout Standard
+This new variant builds upon the model of observable streams described in
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Observable-Streams"
@@ -126,11 +156,7 @@ noprefix "false"
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Standard
-Not only do the variables observe each other, but also the operators are
+ Not only do the variables observe each other, but also the operators are
  objects that are treated similar to the variables.
  Furthermore, the assignment operation is implemented as a method that generates
  observations to push values to the target variable.

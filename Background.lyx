@@ -312,7 +312,7 @@ observable streams
 LatexCommand formatted
 reference "fig:Streams-of-values-1-1-1"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -578,7 +578,7 @@ noprefix "false"
 
 \end_inset
 
- the tree, resulting from a change event, contains nodes with more than
+ the tree, resulting from the DFS traversal, contains nodes with more than
  one incoming edge.
  This implies that certain variables were updated multiple times in response
  to the change, but some of these updates relied on outdated values, which

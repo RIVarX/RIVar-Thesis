@@ -136,11 +136,16 @@ https://github.com/RIvarX
 \end_inset
 
  to existing programming languages.
- The extensions consists of a datatype 
+ The extensions consist of a datatype 
 \begin_inset Formula $\RIVar$
 \end_inset
 
-, to be used to declare the variables.
+ to implement variables, with an assignment operation implemented as the
+ method 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -158,7 +163,7 @@ noprefix "false"
 .
  Not only do the variables observe each other, but also the operators are
  objects that are treated similar to the variables.
- Furthermore, the assignment operation is implemented as a method that generates
+ Furthermore, the assignment operation, that implemented as a method, generates
  observations to push values to the target variable.
  To achieve that, the variables are implemented as 
 \begin_inset Formula $\LSTINLINE{subject}$
@@ -179,7 +184,11 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
- implies that the operator 
+ (by the extension, it is 
+\begin_inset Formula $\LSTINLINE{A.set(B+1)}$
+\end_inset
+
+) implies that the operator 
 \begin_inset Formula $\LSTINLINE{+1}$
 \end_inset
 
@@ -191,11 +200,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
-, and the assignment operator 
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
- observes both the operator 
+, and the assignment operator observes both the operator 
 \begin_inset Formula $\LSTINLINE{+1}$
 \end_inset
 

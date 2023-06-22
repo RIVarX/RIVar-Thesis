@@ -1575,71 +1575,13 @@ Previous Approaches
 \end_layout
 
 \begin_layout Standard
-TBD
+In case that there exists one centeral calculation procedure, that is called
+ whenever any of the fields are changed.
+ 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Section
-Alternatives
-\end_layout
-
-\begin_layout Plain Layout
-One common tool for implementing this functionality is a spreadsheet.
- In spreadsheets, a cell represents a field and can contain a formula that
- defines its dependency on other cells.
- Alternatively, the visual fields can be connected to reactive variables.
- In frameworks such as React, the view can be continuously updated by the
- framework.
-\end_layout
-
-\begin_layout Plain Layout
-The drug administration application contain fields, in such that a field
- is sometimes useful to fill it directly by the user, while the same field
- can be usefull to be computed according to ther fields that the user filled.
- However, reactive variables are classified into input and output categories.
- In spreadsheet, a cell can either contain a formula or a value.
- Similary in MobX, the property can have either an observable annotation
- or computed annotation.
- typicaly, there is a need to duplicate fields or sets of related fields.
- For example, making several drug administration forms.
- The user then should choose the needed form, before filling the form out.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In the existing mechanisms, maintaining functionality becomes challenging
- when there is a significant number of calculations involved, especially
- that the codebase grows with repeated code segments.
- For instance, as illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Centerlized-Calculation-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, if the dose, duration, and volume have changed, then the drug, concentration,
- and rate are calculated.
- If the drug, dose, and rate have changed, then the duration, volume, and
- concentration are calculated, and so on.
- However, this method also introduces redundancy, as seen in 
+However, this method also introduces redundancy, as seen in 
 \begin_inset ERT
 status open
 
@@ -1668,11 +1610,11 @@ ref{line:concentrationByDrugAndVolume2}
  where the same statement is repeated.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1820,6 +1762,74 @@ Example calculation logic for interdependent fields in a drug administration
 
 \end_layout
 
+\begin_layout Standard
+TBD
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Alternatives
+\end_layout
+
+\begin_layout Plain Layout
+One common tool for implementing this functionality is a spreadsheet.
+ In spreadsheets, a cell represents a field and can contain a formula that
+ defines its dependency on other cells.
+ Alternatively, the visual fields can be connected to reactive variables.
+ In frameworks such as React, the view can be continuously updated by the
+ framework.
+\end_layout
+
+\begin_layout Plain Layout
+The drug administration application contain fields, in such that a field
+ is sometimes useful to fill it directly by the user, while the same field
+ can be usefull to be computed according to ther fields that the user filled.
+ However, reactive variables are classified into input and output categories.
+ In spreadsheet, a cell can either contain a formula or a value.
+ Similary in MobX, the property can have either an observable annotation
+ or computed annotation.
+ typicaly, there is a need to duplicate fields or sets of related fields.
+ For example, making several drug administration forms.
+ The user then should choose the needed form, before filling the form out.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In the existing mechanisms, maintaining functionality becomes challenging
+ when there is a significant number of calculations involved, especially
+ that the codebase grows with repeated code segments.
+ For instance, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Centerlized-Calculation-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, if the dose, duration, and volume have changed, then the drug, concentration,
+ and rate are calculated.
+ If the drug, dose, and rate have changed, then the duration, volume, and
+ concentration are calculated, and so on.
+ 
+\end_layout
+
 \end_inset
 
 
@@ -1888,137 +1898,6 @@ noprefix "false"
  The procedure consists of branches according to the user-cases, in each
  branch there are three values being used to calculate the other values.
  
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited triple is of Dose,  Duration, and VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  VolumeOfFluid = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/VolumeOfFluid
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = VolumeOfFluid/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Centerlized-Calculation"
-
-\end_inset
-
-Part of a centralized calculation procedure
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section

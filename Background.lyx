@@ -224,10 +224,290 @@ This way, it aims to provide an alternatve to dealing with the mutate variables.
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Reactive-Variables"
+
+\end_inset
+
 Programming Models
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We call 
+\emph on
+reactive variables
+\emph default
+ (like in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+) to the variables in FRP.
+ FRP is inspired from the 
+\emph on
+functional paradigm
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Saying 
+\begin_inset Formula $\LSTINLINE{A:=B+C}$
+\end_inset
+
+ is like stating that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is a function with a body of 
+\begin_inset Formula $\LSTINLINE{B+C}$
+\end_inset
+
+, so that each value returned by 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is derived from the values returned by 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ This produces a 
+\emph on
+predictability 
+\emph default
+property due to 
+\emph on
+functional transparency
+\emph default
+, meaning the input consistently produces the same output 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+They are automaticaly recalculateed as reaction to the UI change events.
+ Input variables are those connected to the input fields.
+ Based on these variables, other variables can be created.
+\end_layout
+
+\begin_layout Plain Layout
+This implies that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ continuously contains the value derived from the values contained in 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+, by initiating a dependency that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+———
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We call 
+\emph on
+reactive variables
+\emph default
+ (like in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+) to variables like in FRP.
+ Reactive variables are automaticaly recalculateed as reaction to the UI
+ change events.
+ Input variables are those connected to the input fields.
+ Based on these variables, other variables can be created.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This implies that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ continuously contains the value derived from the values contained in 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+, by initiating a dependency that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The FRP paradigm is inspired from the functional paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Saying 
+\begin_inset Formula $\LSTINLINE{A:=B+C}$
+\end_inset
+
+ is like stating that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is a function with a body of 
+\begin_inset Formula $\LSTINLINE{B+C}$
+\end_inset
+
+, so that each value returned by 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is derived from the values returned by 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ This produces a 
+\emph on
+predictability 
+\emph default
+property due to 
+\emph on
+functional transparency
+\emph default
+, meaning the input consistently produces the same output 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In addition to using reactive variables, we find other useful programming
+ model: events (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Events"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), observable streams (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) and constraints (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Constraints"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ These paradigms provide alternative abstractions to the use of fields calculati
+ons.
+\end_layout
+
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Events"
+
+\end_inset
+
 Events
 \end_layout
 
@@ -1094,237 +1374,10 @@ literal "false"
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
-name "subsec:Reactive-Variables"
+name "subsec:Constraints"
 
 \end_inset
 
-Reactive Variables
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-We call 
-\emph on
-reactive variables
-\emph default
- (like in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-) to the variables in FRP.
- FRP is inspired from the 
-\emph on
-functional paradigm
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+C}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+C}$
-\end_inset
-
-, so that each value returned by 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the values returned by 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to 
-\emph on
-functional transparency
-\emph default
-, meaning the input consistently produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-They are automaticaly recalculateed as reaction to the UI change events.
- Input variables are those connected to the input fields.
- Based on these variables, other variables can be created.
- 
-\end_layout
-
-\begin_layout Plain Layout
-This implies that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- continuously contains the value derived from the values contained in 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-, by initiating a dependency that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- depends on 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Plain Layout
-———
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We call 
-\emph on
-reactive variables
-\emph default
- (like in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-) to the variables in FRP.
- They are automaticaly recalculateed as reaction to the UI change events.
- Input variables are those connected to the input fields.
- Based on these variables, other variables can be created.
- 
-\end_layout
-
-\begin_layout Standard
-This is inspired from the functional paradigm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+C}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+C}$
-\end_inset
-
-, so that each value returned by 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the values returned by 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to 
-\emph on
-functional transparency
-\emph default
-, meaning the input consistently produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-This implies that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- continuously contains the value derived from the values contained in 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-, by initiating a dependency that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- depends on 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Subsection
 Constraints
 \end_layout
 
@@ -1411,17 +1464,11 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The systems utilize 
+The systems utilize algorithms, named 
 \emph on
 constraints solvers
 \emph default
- to maintain consistency in variable values
-\emph on
-.
- 
-\emph default
-The constraints solvers are algorithms developed for constraint systems
- to satisfy constraints.
+, to maintain consistency in variable values.
  As in 
 \begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
@@ -1450,7 +1497,11 @@ noprefix "false"
 
 \end_inset
 
-, the runtime maintains additional constraints derived from the variables.
+, the runtime maintains 
+\emph on
+additional
+\emph default
+ constraints.
  For each variable 
 \begin_inset Formula $X$
 \end_inset
@@ -1464,8 +1515,10 @@ noprefix "false"
 \end_inset
 
 , with hierarchy according to the order of the input.
- If there is no solution that satisfy all the constraints, constraints created
- by new input are set to the top priority.
+ If there is no solution that satisfy all the constraints, the more prioritized
+ constraints , according to the hirarchy, are satsified.
+ As a result, once the user put new input for a field, the fields that relied
+ on previous input, specifically the oldest input, are overwritten.
 \end_layout
 
 \begin_layout Standard
@@ -1644,7 +1697,7 @@ lstinline{constraint}
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2320,6 +2373,35 @@ Multiple Components
 \end_layout
 
 \begin_layout Standard
+The micro-frontends architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Geers2020,Peltonen2021"
+literal "false"
+
+\end_inset
+
+ suggests loosely coupled microfrontends for composing the frontends, allowing
+ each to be published independently.
+ This concept is derived from the microservices architecture in the backend
+ and is closely related to the traditional OOP paradigm.
+ Beside the interface that objects provide, there is a 
+\emph on
+informal contract 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ , such as to not call object's method that update variables, while the
+ previous method has not completed.
+\end_layout
+
+\begin_layout Standard
 In systems like 
 \begin_inset Formula $\NAME{Microsoft}$
 \end_inset
@@ -2343,30 +2425,33 @@ literal "false"
 .
  The components can contain code to execute in response to field updates,
  that contains code that calculates and updates fields.
+ Due to lack of a formal contract, there might be an infinite loop, if the
+ first component recalculates a field 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ whenever 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is changed, and the second component reclculated field 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ whenever 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ is changed.
  
 \end_layout
 
 \begin_layout Standard
-Beside the interface provided to the clients, that consists of signature
- methods that the clients can call, there is an 
-\emph on
-informal contract 
-\emph default
+\begin_inset Note Note
+status collapsed
 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
-
-\emph on
-.
-
-\emph default
- This consists of instructions to help the developers to manage the plugins
- correctly.
+\begin_layout Plain Layout
+In the instructions to help the developers to manage the plugins correctly.
  For example, to take care of infinite loop, in case that one component
  recalculates a field 
 \begin_inset Formula $\LSTINLINE B$
@@ -2385,6 +2470,11 @@ literal "false"
 \end_inset
 
  is changed.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2463,6 +2553,24 @@ literal "false"
 \end_inset
 
 .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Components}$
+\end_inset
+
+ use a similar approach in rendering components.
+ Each component has a 
+\begin_inset Formula $\NAME{render}$
+\end_inset
+
+ function, that returns the component view.
+ The view can contain other components and so on.
 \end_layout
 
 \begin_layout Subsection
@@ -2787,7 +2895,17 @@ This statechart models the handling of events to calculate the value of
 
 \begin_layout Standard
 The centralization approach is used also in designing algorithms to satisfy
- applications variables according to constraints.
+ applications variables according to constraints (described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Constraints"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
  Also in the runtime of FRP, we find that usually the propagation change
  is central 
 \begin_inset CommandInset citation

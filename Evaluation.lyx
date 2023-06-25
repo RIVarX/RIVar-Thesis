@@ -251,7 +251,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -597,7 +597,8 @@ Design for the drug administration application.
 
 \end_inset
 
-
+Design for the drug administration application.
+ 
 \begin_inset ERT
 status open
 
@@ -645,7 +646,7 @@ subref{fig:code})
 
 \end_inset
 
- represent the UI components, as illustrated in 
+ represent the UI components that are illustrated in 
 \begin_inset ERT
 status open
 

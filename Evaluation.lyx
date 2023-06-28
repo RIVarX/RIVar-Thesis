@@ -165,15 +165,12 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-We also created 
+Additionally, we have implemented a micro-frontend approach by developing
+ 
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
- 
-\begin_inset Formula $\NAME{Components}$
-\end_inset
-
- (described in 
+ components (discussed in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Multiple-Components"

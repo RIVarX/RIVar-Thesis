@@ -113,8 +113,8 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-The framework is tested by using the extensions and creating the drug administra
-tion example as oulined in 
+The framework is used, creating the drug administration example as oulined
+ in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Motivation"
@@ -145,8 +145,27 @@ noprefix "false"
 \begin_inset Formula $\NAME{ES6}$
 \end_inset
 
-), tested them and bound them to UI.
- We also created 
+) with the implemented extensions 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We also created 
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
@@ -202,56 +221,13 @@ noprefix "false"
 \end_inset
 
 ), in that also that the UI components are loosely coupled.
- In addition, we created a compare page
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-available in 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://rivarx.github.io/Evaluation
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-, to consider the propogation algorithm, specificaly comparing it to the
- 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- library (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Constraints"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
- From our experience, the change propogation is like in 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-, that once the user put new input for a field, the fields that relied on
- previous input, specifically the oldest input, are overwritten.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -673,10 +649,294 @@ subref{fig:runtime})
 \end_layout
 
 \begin_layout Standard
-The assignment operator 
+
+\end_layout
+
+\begin_layout Section
+Referential Transparency
+\end_layout
+
+\begin_layout Standard
+The referential transparency property ensures predictability because the
+ behavior remains consistent based on the input.
+ This predictability is maintained in the observable streams model as the
+ output streams are calculated from pure functions, preserving referential
+ transparency.
+ Furthermore, the principles that hinder the achievement of referential
+ transparency in the observable streams model (discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) have been addressed.
+\end_layout
+
+\begin_layout Standard
+As mentioned earlier, the issues related to glitches, simultaneous events,
+ and recursions have already been tackled through the modeling of an order
+ and the implementation of a filter mechanism (detailed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Additionally, we address the need for a 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation and handle accidental recursion using a custom assignment operator.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The referential transparency property means predictability, because the
+ behavior is consistent depending on the input.
+ Because, according to the following, the output streams are calculated
+ from pure functions, thus maintaining referential transparency.
+ It can also be observed that the principles that block the observable streams
+ model from achieving referential transparency (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) have been addressed.
+ It has already been observed that the issues of glitches, simultaneous
+ events, and recursions are addressed through modeling an order and implementing
+ a filter mechanism (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ In the following, we adress also a needed merge operation and accidental
+ recursion.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The referential transparency property means predictability, because the
+ behavior is consistent depending on the input.
+\end_layout
+
+\begin_layout Plain Layout
+In addition to the glitch The implementation covers the merge and accidental
+ recursion by the introduced assignment operator 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
+,
+\end_layout
+
+\begin_layout Plain Layout
+As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Implementation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we implement a new variant for FRP based on the observable streams model,
+ as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We also handle the simultaneous events that caused the glitches and recursions
+ that leave the
+\end_layout
+
+\begin_layout Plain Layout
+The implementation covers the merge and accidental recursion by the introduced
+ assignment operator 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ , which gather the operations to handle the simultaneous events
+\end_layout
+
+\begin_layout Plain Layout
+as well as the other operations to complete the missing from being referential
+ transparency in the observable stream model.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The new FRP variant has the functional transparency
+\emph on
+ 
+\emph default
+property, because it is derived from the observable streams while handling
+ its issues.
+ The order introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ handles the simultaneous events in operations.
+ The implementation covers also the merge and accidental recursion by the
+ introduced assignment operator 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ .
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The assignment operator 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
  pushes values to the target variable, similar to producing input by the
  operator 
 \begin_inset Formula $\LSTINLINE =$
@@ -1428,6 +1688,41 @@ g.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This leads to the referential transparency property, which is a characteristic
+ of FRP.
+ It has been determined that the output streams are calculated from pure
+ functions, thus maintaining referential transparency.
+ It can also be observed that the principles that block the observable streams
+ model from achieving referential transparency (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) have been addressed.
+ The merge operator and accidental recursion are addressed through the assignmen
+t operator, while glitches, simultaneous events, and recursions are addressed
+ through modeling an order and implementing a filter mechanism.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 As a result, the new variant of FRP support multiple assignments.
  A variable with multiple assignments is interpreted as a merge operator
  over the variable and assigned expressions in the various statements.
@@ -1440,6 +1735,146 @@ As a result, the new variant of FRP support multiple assignments.
 property, characterized by FRP.
  Because it has been determined, that the output streams are calculated
  from pure functions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Constraints
+\end_layout
+
+\begin_layout Standard
+As the assignment is an operator like a method, multiple assignments are
+ supported.
+ A variable with multiple assignments is interpreted as an operator over
+ the variable and assigned expressions in the various statements.
+ This is like a methodology that involves the variable inferring its value
+ over time from various streams of samples.
+\end_layout
+
+\begin_layout Standard
+By our merge operator, Each new sample from any of the sources are passed
+ to the target variable, which recursively pass new values to targets variables.
+ Consequently, in fields calculations, once the user put new input for a
+ field, the fields that relied on previous input, specifically the oldest
+ input, are overwritten.
+ This description is exactly as in the 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ library mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Constraints"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The drug administration example is implemented side by side by 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ for empirical comparison
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+available in 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rivarx.github.io/Evaluation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+By the introduced assignment the implemented new variant 
+\end_layout
+
+\begin_layout Plain Layout
+In 
+\end_layout
+
+\begin_layout Plain Layout
+The superposition property is achived since any added formula does extend
+ the application.
+ In previous implementations, the assignmemt did replace to the calcu 
+\end_layout
+
+\begin_layout Plain Layout
+Since the implementation is based on observables extensions, unpredictability
+ might only coming from merges, glitches and recursions.
+\end_layout
+
+\begin_layout Plain Layout
+our issue blocking from having the desired predictability, is the merge
+ operations and recursions.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+derive some features predictability several operations.
+ However, we should complete our proof for predictability, because in using
+ streams, there is has the same general time problem we have in the events
+ driven 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+almost all operations produced the refern
+\end_layout
+
+\begin_layout Plain Layout
+we need only the inpreditabiity reursions and merges.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4284,7 +4719,7 @@ Bootstrap of the drug administration components
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In this thesis, we aimed to strike a balance between abstraction and control
@@ -6159,7 +6594,7 @@ lstinline{Constraint}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Our implementation includes a general propagation algorithm that enables

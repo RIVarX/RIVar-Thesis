@@ -516,13 +516,7 @@ In programming frameworks, such as in web development, code that update
  fields based on other fields, can be registered to be executed when a fields
  are changed.
  For example, in 
-\begin_inset Flex Name
-status open
-
-\begin_layout Plain Layout
-JavaScript
-\end_layout
-
+\begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
 , 
@@ -598,7 +592,20 @@ noprefix "false"
 \end_inset
 
 , field change events can be treated as observable streams.
- The operators 
+ This programming model has the referential transparency property like FRP
+ unless several issues 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The referential transparency property stems from operators like 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
 
@@ -606,8 +613,8 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
- create observables whose items are generated based on the values of other
- observables.
+, which are pure functions that create observables whose items are generated
+ based on the values of other observables.
  For example, if we have 
 \begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
 \end_inset
@@ -841,13 +848,34 @@ lstinline{2}
 \end_layout
 
 \begin_layout Standard
-The default change propogation, is that the observables syncrounsly respond
- to notifications by passing them forward.
+In the default change propogation, observables synchronously respond to
+ notifications by passing them forward.
  This traversal can be likened to a depth-first search (DFS) algorithm,
  where a change event initiates a sequence of computations in a depth-first
  order.
- By this traversal order, certain nodes may be visited multiple times, while
- some of these visits involving outdated values.
+ 
+\end_layout
+
+\begin_layout Standard
+However, this traversal order has the known issue named 
+\emph on
+glitch
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+
+\emph default
+ Certain nodes may be visited multiple times, while some of these visits
+ involving outdated values.
  For instance, in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -861,25 +889,171 @@ noprefix "false"
  the tree, resulting from the DFS traversal, contains nodes with more than
  one incoming edge.
  This implies that certain variables were updated multiple times in response
- to the change, but some of these updates relied on outdated values, which
- are referred to as 
-\emph on
-glitches
-\emph default
+ to the change, but some of these updates relied on outdated values.
  
+\end_layout
+
+\begin_layout Standard
+The root cause for the issue is the existing of 
+\emph on
+simultaneous events
+\emph default
+ .
+ The multiple incoming edges of a node represent events that are related
+ to the same time, that originaly caused by a single event.
+ 
+\end_layout
+
+\begin_layout Standard
+This issue is also known in an operation named 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+.
+ This creates an observable stream, that each item from any of the inputs
+ streams trigger such an item in the output stream.
+ Items from the same time can be originated from a single event.
+ 
+\end_layout
+
+\begin_layout Standard
+This blocks from being refernital transparent.
+ because we cannot say that there is a consistency, what the result is,
+ depending on the input.
+ This represents the time issue, that makes the model effective as the events
+ programming model 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "bainomugisha2013survey"
+key "abelson1996structure"
 literal "false"
 
 \end_inset
 
 .
- The multiple incoming edges of a node represent 
-\emph on
-simultaneous events
-\emph default
  
+\end_layout
+
+\begin_layout Standard
+The final issue is 
+\emph on
+accidental recursion
+\emph default
+s, where mistakenly mutual recursions are defined.
+ For example, if the code contains 
+\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\end_inset
+
+ and accidently it has been added 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+.
+ It is like saying 
+\begin_inset Formula $A=D+1$
+\end_inset
+
+ and also 
+\begin_inset Formula $D=A-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This programming model has also the problem, that it supports the events
+ model.
+ For example.
+ 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+which means that 
+\end_layout
+
+\begin_layout Plain Layout
+Because it allows mutual recusraion there might be an accidental recusrsn,
+ that causes an infinite loop.
+ For example, if we add to the example 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+, then D and A are mutual recusraion: 
+\begin_inset Formula $A=D+1$
+\end_inset
+
+ and also 
+\begin_inset Formula $D=A-1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+For example, in ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val+1))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -887,8 +1061,12 @@ literal "false"
 
 \end_inset
 
-, indicating that they are related to the same time as they are resulted
- from a single event.
+.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

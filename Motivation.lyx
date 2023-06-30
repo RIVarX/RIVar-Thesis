@@ -294,7 +294,7 @@ name "fig:Drug-calculations-1"
 status open
 
 \begin_layout Plain Layout
-User interface component for drug administration.
+User interface component for drug administration
 \end_layout
 
 \end_inset
@@ -690,12 +690,20 @@ Pseudo code of the calculations in the classes
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
-.
+
 \end_layout
 
 \end_inset
 
- 
+ Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+.
 \begin_inset ERT
 status open
 

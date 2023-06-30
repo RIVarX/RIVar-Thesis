@@ -640,7 +640,7 @@ The referential transparency property stems from operators like
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -762,76 +762,26 @@ name "fig:Streams-of-values-1-1-1"
 status open
 
 \begin_layout Plain Layout
-observable stream.
+Variable value changes as an observable stream
 \end_layout
 
 \end_inset
 
-Illustrating an event stream that represents the changes in the values of
- variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- over time.
- Based on the illustration, it can be observed that variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
+Variable value changes as an observable stream.
+ Variable 
+\begin_inset Formula $A$
 \end_inset
 
  changed to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{5}
-\end_layout
-
+\begin_inset Formula $5$
 \end_inset
 
  initially, then to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{3}
-\end_layout
-
+\begin_inset Formula $3$
 \end_inset
 
 , and after a longer period, it changed to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{2}
-\end_layout
-
+\begin_inset Formula $2$
 \end_inset
 
 .
@@ -1384,14 +1334,14 @@ name "fig:Glitch-1-1"
 status open
 
 \begin_layout Plain Layout
-Illustrating an example for the glitch issue with the default behavior with
- observable streams.
- 
+An example for the glitch issue with the default behavior with observable
+ streams
 \end_layout
 
 \end_inset
 
-
+An example for the glitch issue with the default behavior with observable
+ streams.
 \begin_inset ERT
 status open
 

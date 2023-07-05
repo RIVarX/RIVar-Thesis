@@ -3229,7 +3229,7 @@ s), which is implemented as a data type hosted within existing programming
 \end_inset
 
 s can be assigned from outside objects and associated with expressions,
- while keeping other related formulas concealed.
+ while keeping other related formulas encapsulated.
  Moreover, runtime isolation is maintained, eliminating the need for a mediator.
  Instead, each variable directly updates its dependencies.
 \end_layout

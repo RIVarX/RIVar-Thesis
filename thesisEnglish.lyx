@@ -442,7 +442,7 @@ filename "Conclusion.lyx"
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-btprint "btPrintAll"
+btprint "btPrintCited"
 bibfiles "Proposal"
 options "abbrv"
 

@@ -321,7 +321,7 @@ lstinline{B}
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -619,8 +619,8 @@ Reactive variables reminds the functionality of fields calculations.
 
 , where cells, that represent the fields, can contain formulas to determine
  the value based on other cells.
- Reactive variables can be used to fields calculations, by being connected
- to fields.
+ Reactive variables can be used to fields calculations, by connecting to
+ visual fields.
  For instance, 
 \begin_inset Formula $\NAME{MobX}$
 \end_inset
@@ -726,7 +726,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The data depedencies from the whole objects
@@ -903,7 +903,7 @@ s, (and instead of a centerlized madiator used in
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In front-end applications, 
@@ -1668,7 +1668,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In 

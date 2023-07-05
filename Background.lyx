@@ -1765,44 +1765,29 @@ status open
 
 \begin_layout Plain Layout
 Two-way constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B+C}
-\end_layout
-
+\begin_inset Formula $\LSTINLINE{A=B+C}$
 \end_inset
 
  implemented by 
-\begin_inset Flex Name
-status open
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
 
-\begin_layout Plain Layout
-Hotdrink
+
 \end_layout
 
+\end_inset
+
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
-The 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{constraint}
-\end_layout
-
+ The 
+\begin_inset Formula $\LSTINLINE{constraint}$
 \end_inset
 
  method is used to create the constraint by specifying the variables as
@@ -2501,6 +2486,88 @@ Multiple Components
 \end_layout
 
 \begin_layout Standard
+The micro-frontends architecture, as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Geers2020,Peltonen2021"
+literal "false"
+
+\end_inset
+
+, proposes that UI components should be developed and deployed independently.
+ This architectural concept draws inspiration from the microservices architectur
+e in the backend and also shares similarities with the traditional Object-Orient
+ed Programming (OOP) paradigm.
+\end_layout
+
+\begin_layout Standard
+In addition to the interface that objects provide, there exists an 
+\emph on
+informal contract
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+, which serves as a set of instructions or best practices on how to correctly
+ use objects.
+\end_layout
+
+\begin_layout Standard
+To illustrate this concept further, let's consider systems like 
+\begin_inset Formula $\NAME{Microsoft}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Dynamics}$
+\end_inset
+
+, where it is possible to register components known as plugins 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
+
+\end_inset
+
+.
+ These components can include code that executes in response to field updates,
+ performing calculations and updating fields accordingly.
+ However, in the absence of a formal contract, there is a risk of encountering
+ an infinite loop.
+ For example, if the first component recalculates field 
+\begin_inset Formula $A$
+\end_inset
+
+ whenever field 
+\begin_inset Formula $B$
+\end_inset
+
+ is changed, and the second component recalculates field 
+\begin_inset Formula $B$
+\end_inset
+
+ whenever field 
+\begin_inset Formula $A$
+\end_inset
+
+ is changed, this circular dependency can result in an infinite loop of
+ recalculations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+———
+\end_layout
+
+\begin_layout Plain Layout
 The micro-frontends architecture 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2509,11 +2576,10 @@ literal "false"
 
 \end_inset
 
- suggests loosely coupled microfrontends for composing the frontends, allowing
- each to be published independently.
- This concept is derived from the microservices architecture in the backend
- and is closely related to the traditional OOP paradigm.
- Beside the interface that objects provide, there is a 
+ suggests that UI components are developed and deployed indepedently.
+ This concept is derived from the micro-services architecture in the backend,
+ and is related also to the traditional OOP paradigm.
+ Beside the interface that objects provide, there is an 
 \emph on
 informal contract 
 \emph default
@@ -2525,12 +2591,12 @@ literal "false"
 
 \end_inset
 
- , such as to not call object's method that update variables, while the
- previous method has not completed.
+ , which is intructions or best practices to how to use objects correctly.
+ 
 \end_layout
 
-\begin_layout Standard
-In systems like 
+\begin_layout Plain Layout
+Specificaly, in systems like 
 \begin_inset Formula $\NAME{Microsoft}$
 \end_inset
 
@@ -2572,6 +2638,11 @@ literal "false"
 
  is changed.
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

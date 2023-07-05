@@ -113,536 +113,7 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-The framework is used, creating the drug administration example as oulined
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- We created 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- classes in 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
- (
-\begin_inset Formula $\NAME{ES6}$
-\end_inset
-
-) with the implemented extensions 
-\begin_inset Formula $\NAME{RIVarX}$
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{rivarjs}$
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Additionally, we have implemented a micro-frontend approach by developing
- 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- components (discussed in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Multiple-Components"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) that are connected to the aforementioned 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- instances (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:react_micro_frontends"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
- This reminds the micro-frontend archirecture 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "peltonen2021motivations"
-literal "false"
-
-\end_inset
-
- (mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Multiple-Components"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), in that also that the UI components are loosely coupled.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{subfigure}[b]{1
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class App extends Component {
-\end_layout
-
-\begin_layout Plain Layout
-
-  constructor(props) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    super(props);
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.bag = new Bag();
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.pump = new Pump(this.bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  render() {
-\end_layout
-
-\begin_layout Plain Layout
-
-    return (
-\end_layout
-
-\begin_layout Plain Layout
-
-      <div>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <BagComponent bag={this.bag} />
-\end_layout
-
-\begin_layout Plain Layout
-
-        <PumpComponent pump={this.pump}/>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </div>
-\end_layout
-
-\begin_layout Plain Layout
-
-    );
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:code}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-begin{subfigure}[b]{1
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
- {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- UI] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
- (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:runtime}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-phantomcaption % Invisible caption
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-label{fig:micro_front_ends}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:react_micro_frontends"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Design for the drug administration application.
-\end_layout
-
-\end_inset
-
-Design for the drug administration application.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:code})
-\end_layout
-
-\end_inset
-
- presents the static code that bootstraps the components, while 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:runtime})
-\end_layout
-
-\end_inset
-
- presents the runtime components with the interaction channels.
- 
-\begin_inset Formula $\LSTINLINE{BagComponent}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{PumpComponent}$
-\end_inset
-
- in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:code})
-\end_layout
-
-\end_inset
-
- represent the UI components that are illustrated in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:runtime})
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+The introduced framework is compared to the traditional programming models.
 \end_layout
 
 \begin_layout Standard
@@ -650,33 +121,22 @@ subref{fig:runtime})
 \end_layout
 
 \begin_layout Section
-Referential Transparency
+FRP
 \end_layout
 
 \begin_layout Standard
-The referential transparency property ensures predictability because the
- behavior remains consistent based on the input.
- This predictability is maintained in the observable streams model as the
- output streams are calculated from pure functions, preserving referential
- transparency.
- Furthermore, the principles that hinder the achievement of referential
- transparency in the observable streams model (discussed in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) have been addressed.
+The new variant of FRP possesses the characteristic of referential transparency,
+ which is a fundamental property of FRP.
+ This ensures predictability because the behavior remains consistent based
+ on the input.
+ Unless several issues, the referential transparency property is almost
+ achieved in the observable streams model, because the output streams are
+ calculated from pure functions.
+ 
 \end_layout
 
 \begin_layout Standard
-As mentioned earlier, the issues related to glitches, simultaneous events,
- and recursions have already been tackled through the modeling of an order
- and the implementation of a filter mechanism (detailed in 
+Furthermore, as mentioned in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Method"
@@ -686,7 +146,9 @@ noprefix "false"
 
 \end_inset
 
-).
+, the issues related to glitches, simultaneous events, and recursions have
+ already been tackled through the modeling of an order and the implementation
+ of a filter mechanism.
  Additionally, we address the need for a 
 \begin_inset Formula $\LSTINLINE{merge}$
 \end_inset
@@ -700,7 +162,7 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The referential transparency property means predictability, because the
@@ -743,7 +205,7 @@ noprefix "false"
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The referential transparency property means predictability, because the
@@ -970,7 +432,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1228,7 +690,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1607,29 +1069,29 @@ name "fig:merge-several-sources-2"
 \end_inset
 
  
-\begin_inset ERT
+\begin_inset Argument 1
 status open
 
 \begin_layout Plain Layout
-
-Illustrating the variables' low-level stream of values that are merged into
- one stream.
- 
-\backslash
-lstinline{A} and 
-\backslash
-lstinline{B} are two variables that have samples of the same real-world
- variable.
- Therefore, 
-\backslash
-lstinline{A:=B} is interpreted as 
-\backslash
-lstinline{A=merge(A,B)}.
+The assignment operator as an accumulation merge operator
 \end_layout
 
 \end_inset
 
+The streams represent the variables.
+ The statement 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
 
+ produces the illustrated 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+, such that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ will contain the elements from the two streams.
 \end_layout
 
 \end_inset
@@ -1900,7 +1362,7 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The introduced operators provide functions over streams achieving properties
@@ -1950,99 +1412,13 @@ Furthermore, we guarantee that the same sequence of events consistently
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...
 \end_layout
 
-\begin_layout Section
-Feasibility 
-\end_layout
-
 \begin_layout Plain Layout
-We have developed two lightweight libraries, RIVarX for C# developers and
- rivarjs for JavaScript (ES6) developers, with the aim of facilitating separated
- data dependencies management for user interfaces.
-\end_layout
-
-\begin_layout Paragraph
-RIVarX (C#)
-\end_layout
-
-\begin_layout Plain Layout
-RIVarX is a .NET library designed specifically for C# developers.
- It provides the capability to expose RIVars in classes and interfaces and
- allows for the assignment of calculations to them.
- This enables the creation of loosely coupled components with separated
- data dependencies.
- The library is publicly available on GitHub at
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
- https://github.com/RivkaAltshuler/RIVar
-\end_layout
-
-\end_inset
-
- and can be easily downloaded through the NuGet package manager at
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
- https://www.nuget.org/packages/RIVar.RIVarX
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Paragraph
-rivarjs (JavaScript)
-\end_layout
-
-\begin_layout Plain Layout
-To ensure wider adoption and cater to the vast JavaScript community, we
- have implemented the same approach in JavaScript (ES6) and released it
- as the rivarjs library.
- JavaScript has a thriving open-source ecosystem, making it an ideal platform
- for publishing and evaluating libraries.
- Additionally, since front-end development predominantly utilizes JavaScript,
- this library is specifically designed for front-end applications.
- You can access the rivarjs library on npm at 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rivarjs
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-By implementing these two libraries, we have showcased the viability of
- our approach and demonstrated its seamless integration into different programmi
-ng languages.
- Leveraging the popularity of reactive extensions, which are widely embraced
- in modern programming paradigms, we have successfully developed RIVarX
- for C# developers and rivarjs for JavaScript developers.
- This highlights the versatility of our approach and paves the way for its
- adoption in other object-oriented languages that support reactive extensions.
 \begin_inset VSpace defskip
 \end_inset
 

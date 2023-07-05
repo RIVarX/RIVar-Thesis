@@ -136,16 +136,20 @@ https://github.com/RIvarX
 \end_inset
 
  to existing programming languages.
- The extensions consist of a datatype 
+ The core is 
 \begin_inset Formula $\RIVar$
 \end_inset
 
- to implement variables, with an assignment operation implemented as the
- method 
+ datatype for implementing variables, with an assignment operation implemented
+ as the method 
 \begin_inset Formula $\LSTINLINE{set}$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+The FRP Variant
 \end_layout
 
 \begin_layout Standard
@@ -162,10 +166,18 @@ noprefix "false"
 
 .
  In addition to variables observing each other, operators are also treated
- as objects similar to variables.
- Moreover, the assignment operation, which is implemented as a method, generates
- observations to push values to the target variable.
- To achieve this functionality, the variables are implemented as 
+ as objects.
+ Moreover, the assignment operation 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, which is implemented as the method 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+, generates observations to push values to the target variable.
+ In order to achieve this functionality, the variables are implemented as
+ 
 \begin_inset Formula $\LSTINLINE{subjects}$
 \end_inset
 
@@ -298,7 +310,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -426,43 +438,21 @@ name "fig:Evaluating-the-formula-2"
 status open
 
 \begin_layout Plain Layout
-Subscriptions created by components involved in the formula 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
-.
+The sequence diagram in creating the subscriptions of the components of
+ a formula
 \end_layout
 
 \end_inset
 
-Subscriptions created by components involved in the formula 
-\begin_inset Formula $\LSTINLINE{A:B+1}$
+The sequence diagram in creating the subscriptions of the components of
+ a formula.
+ The diagram is for the formula illustrates 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
 .
- The sequence diagram illustrates interaction between the components in
- creating the subscriptions.
- the 
-\begin_inset Formula $\LSTINLINE+$
-\end_inset
-
- observes 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-, and the assignment operator 
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
- observes 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
- (representing the function 
-\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
-\end_inset
-
-)
+ Each of the components of the formula is an object, which subscribes and/or
+ being subscribed 
 \end_layout
 
 \end_inset
@@ -721,6 +711,979 @@ noprefix "false"
  hands, and compares the values from the two streams.
  If the value in the right-hand operand is greater, it is pushed into the
  variable in the left-hand stream.
+\end_layout
+
+\begin_layout Section
+The Framework
+\end_layout
+
+\begin_layout Standard
+The new FRP can be used to implement object behaviors as outlined in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Specifically, we have created the extensions 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+, through which we have implemented the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes mentioned in the outline.
+\end_layout
+
+\begin_layout Standard
+Since the variables serve as event streams, the created objects can establish
+ a binding with the UI.
+ When a UI change event occurs, it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+\end_layout
+
+\begin_layout Standard
+Specifically, one of our samples is a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application (a library discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The application consists of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ components.Similarly to the concept of micro-frontend architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+, the components are
+\emph on
+ loosly coupled
+\emph default
+: the UI components interact with their backend objects (the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+), which interact through the introduced 
+\begin_inset Formula $\NAME{RIVar}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class App extends Component {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor(props) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super(props);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.pump = new Pump(this.bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  render() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <div>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <BagComponent bag={this.bag} />
+\end_layout
+
+\begin_layout Plain Layout
+
+        <PumpComponent pump={this.pump}/>
+\end_layout
+
+\begin_layout Plain Layout
+
+      </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:code}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ UI] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
+ (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:runtime}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:micro_front_ends}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:react_micro_frontends"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Design for the drug administration application.
+\end_layout
+
+\end_inset
+
+Design for the drug administration application.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ presents the static code that bootstraps the components, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+ presents the runtime components with the interaction channels.
+ 
+\begin_inset Formula $\LSTINLINE{BagComponent}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{PumpComponent}$
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ represent the UI components that are illustrated in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+Since the variables serve as event streams, the created objects can be bound
+ to the UI.
+ A UI change event adds an event to the variable stream, while a new event
+ in the stream, trigger a change in the UI.
+\end_layout
+
+\begin_layout Plain Layout
+Since the variables serve as event streams, the created objects can be loosely
+ coupled to the UI.
+ Furthermore, the UI can consists of loosly coupled UI components 
+\end_layout
+
+\begin_layout Plain Layout
+Since the variables serve as events streams, the created objects can be
+ bound to the UI in a loosely coupled manner.
+ For instance, we have developed a sample drug administration 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application, which utilizes the technology discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ This application is illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ This concept resembles the micro-frontend architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+, where UI components are also loosely coupled.
+\end_layout
+
+\begin_layout Plain Layout
+The new FRP can be used to implement objects behaviors as oulined in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Specificaly, we created the extensions 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+, by which we created the outlined 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes.
+ Since the variables are observables and observers of events, the created
+ objects can be bound to UI, in such a way that they are loosly couple.
+ For example, we created a sample 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application (discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ This reminds the concept of the micro-frontend archirecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+, in that also that the UI components are loosely coupled.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+We created 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes, oulined in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ (
+\begin_inset Formula $\NAME{ES6}$
+\end_inset
+
+).
+ As the variables are 
+\begin_inset Formula $\LSTINLINE{subjects}$
+\end_inset
+
+, there can be loosly coupled UI.
+\end_layout
+
+\begin_layout Plain Layout
+We have implemented a micro-frontend approach by developing 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ components (discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) that are connected to the aforementioned 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instances (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ This reminds the micro-frontend archirecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+ (mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), in that also that the UI components are loosely coupled.
+\end_layout
+
+\begin_layout Plain Layout
+with the implemented extensions 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+As outlined in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, classes can contain the variables and fomulas
+\end_layout
+
+\begin_layout Plain Layout
+The 
+\end_layout
+
+\begin_layout Plain Layout
+We have developed two lightweight libraries, RIVarX for C# developers and
+ rivarjs for JavaScript (ES6) developers, with the aim of facilitating separated
+ data dependencies management for user interfaces.
+\end_layout
+
+\begin_layout Paragraph
+RIVarX (C#)
+\end_layout
+
+\begin_layout Plain Layout
+RIVarX is a .NET library designed specifically for C# developers.
+ It provides the capability to expose RIVars in classes and interfaces and
+ allows for the assignment of calculations to them.
+ This enables the creation of loosely coupled components with separated
+ data dependencies.
+ The library is publicly available on GitHub at
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+ https://github.com/RivkaAltshuler/RIVar
+\end_layout
+
+\end_inset
+
+ and can be easily downloaded through the NuGet package manager at
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+ https://www.nuget.org/packages/RIVar.RIVarX
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+rivarjs (JavaScript)
+\end_layout
+
+\begin_layout Plain Layout
+To ensure wider adoption and cater to the vast JavaScript community, we
+ have implemented the same approach in JavaScript (ES6) and released it
+ as the rivarjs library.
+ JavaScript has a thriving open-source ecosystem, making it an ideal platform
+ for publishing and evaluating libraries.
+ Additionally, since front-end development predominantly utilizes JavaScript,
+ this library is specifically designed for front-end applications.
+ You can access the rivarjs library on npm at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+By implementing these two libraries, we have showcased the viability of
+ our approach and demonstrated its seamless integration into different programmi
+ng languages.
+ Leveraging the popularity of reactive extensions, which are widely embraced
+ in modern programming paradigms, we have successfully developed RIVarX
+ for C# developers and rivarjs for JavaScript developers.
+ This highlights the versatility of our approach and paves the way for its
+ adoption in other object-oriented languages that support reactive extensions.
+\end_layout
+
+\begin_layout Section
+Examples
+\end_layout
+
+\begin_layout Plain Layout
+Additionally, we have implemented a micro-frontend approach by developing
+ 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ components (discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) that are connected to the aforementioned 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instances (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ This reminds the micro-frontend archirecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+ (mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), in that also that the UI components are loosely coupled.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

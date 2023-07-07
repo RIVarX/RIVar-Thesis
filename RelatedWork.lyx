@@ -812,15 +812,39 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Integration between FRP and OOP
+Integration of FRP with OOP
 \end_layout
 
 \begin_layout Standard
+This thesis builds upon previous efforts in integration of FRP with OOP.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This thesis consists of a method to use FRP statements in objects of OOP.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Our approach is differed from previous efforts in integration of FRP with
+ OOP.
+\end_layout
+
+\begin_layout Plain Layout
 Our primary objective was to separate the management of data dependencies,
  which we achieved by integrating FRP and OOP.
  Our approach differed from previous efforts in this integration, which
  focused on connecting these two worlds rather than separating the management
  of data dependencies.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -830,14 +854,47 @@ Events and Signals
 \begin_layout Standard
 In the first stage, previous attempts focused on converting or reconciling
  concepts between FRP and OOP.
- One example of this is REScala, which provides Signals that represent a
- continuous abstraction and can be converted to events to fit into the OOP
- paradigm.
- Another library, SignalJ, offers an API for functional reactive programming
- that includes the option of a change event as a side effect.
- The idea we used, found in ReactiveX or RxJS, involves implementing reactive
- variables as the observable and iterator design pattern, where values are
- pushed to subscribers by executing their method.
+ 
+\begin_inset Formula $\REScala$
+\end_inset
+
+, provides 
+\emph on
+signals
+\emph default
+ that can be converted to events to fit into the OOP paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ In another library, 
+\begin_inset Formula $\NAME{SignalJ}$
+\end_inset
+
+, with the pure FRP events are triggered as 
+\emph on
+side effects
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+.
+ The idea we used, found in 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+, involves implementing reactive variables as the observable and iterator
+ design pattern, where values are pushed to subscribers by executing their
+ method.
  This approach harmonizes previous ideas by treating observables as streams
  of events in the OOP world and streams of effects in the functional realm
  that FRP is originally based on.
@@ -848,12 +905,19 @@ Objects and Reactive Variables
 \end_layout
 
 \begin_layout Standard
-Our work harmonized two traditional methods seen in the context of reactive
- variables as objects' attributes.
- First, we adopted the approach of ReactiveX and REScala of having a data
- type to being reactive variables , and can be assigned from outside of
- the objects.
- However, the assignment replaces the calculation, stopping the old source
+Our work builds upon two traditional methods existing in the context of
+ reactive variables as objects' attributes.
+ First, we adopted the approach of 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ and 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ of having a data type to being reactive variables, and can be assigned
+ from outside of the objects.
+ This assignment operation replaces the calculation, stopping the old source
  in order to start responding to the new source.
  This is in contrast to the declarative and functional approach originating
  in FRP, where programs should "describe things that exist, rather than
@@ -918,53 +982,111 @@ literal "false"
 .
  Therefore, we developed a modified version of the assignment operation
  that only adds the source without removing previous assignments.
- 
 \end_layout
 
 \begin_layout Standard
-In order to add the sources, we use the second method.
- reactive variables can be updated externally by injecting event handlers.
- In events handlers, we can set inputs to reactive variables in response
- other reactive variables' updates.
- For example, in ReactiveX the statement 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A.Subscribe(val=>B.OnNext(val))}
-\end_layout
-
+Secondly, we use the events mechanism existing in libraries.
+ The events mechanism is an essential feature to the libraries to be portable
+ (not coupled to the UI).
+ However, this can be used also by statements like 
+\begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
 \end_inset
 
- produces the meaning of 
-\begin_inset ERT
-status open
+in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
 
-\begin_layout Plain Layout
+, to produce the meaning of 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
 
-
-\backslash
-lstinline{A:=B}
+.
+ By this method, the interaction between the objects are directed, without
+ the need of a madiator that access to objetct's encapsuated state or behavior.
+ Therefore, we base on this method in our custom assignment operation.
 \end_layout
+
+\begin_layout Standard
+Traditionaly, there might be infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
 
 \end_inset
 
 .
- This method means an integration between FRP and imperative programming,
- and is used cross compnents or systems, even when not saying explicitly
- OOP.
- We found this method useful for two reasons.
- First, that the interaction between the objects are directed, without the
- need of a madiator that acess to objetct's encapsuated state or behavior.
- Second, that the method adds, instead of replaces, the formula in addition
- to the existing formulas handled by the runtime of the FRP solution.
- 
+ For example, a change in a reactive variable might execute an event handler,
+ causing the reactive variable to change.
+ Therefore in the traditional implementations, that achieve predictability,
+ use a mediator that accesses the whole variable.
+ Even in 
+\begin_inset Formula $\REScala$
+\end_inset
+
+, that created to bridging between object-oriented and functional style,
+ the traditional events modules are replaced by a dedicated centerlized
+ algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This causes that the formulas are handled diffrently than the formulas defined
+ by the regular FRP langugae.
+\end_layout
+
+\begin_layout Plain Layout
+method might cause infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable might execute an event handler,
+ causing the reactive variable to change.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+On the other hand, traditional implementations that achieve predictability
+ need a mediator that accesses the whole variable.
+ Even in REScala, where this approach is implemented, the traditional events
+ modules could not be used, and another mechanism is built to maintain the
+ values hosted in the objects.
+ We succeeded in providing predictability, even though no mediator exists.
+\end_layout
+
+\begin_layout Plain Layout
+We found this method essential in OOP for two reasons.
+ First, that the interaction between the objects are directed, without the
+ need of a madiator that access to objetct's encapsuated state or behavior.
+ Second, that the method 
+\emph on
+adds
+\emph default
+ the formula, instead of 
+\emph on
+replacing
+\emph default
+ it.
+ 
+\end_layout
+
+\begin_layout Plain Layout
 We extended the method to achieve predictability.
  In the traditional integration between FRP and imperative programming,
  there might be infinite loops 
@@ -984,6 +1106,11 @@ literal "false"
  modules could not be used, and another mechanism is built to maintain the
  values hosted in the objects.
  We succeeded in providing predictability, even though no mediator exists.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1010,8 +1137,11 @@ literal "false"
 
 .
  When classes and their subclasses maintain their own variables, there is
- a risk of object re-entrance, where an object indirectly calls another
- object that then calls it back.
+ a risk of 
+\emph on
+object re-entrance
+\emph default
+, where an object indirectly calls another object that then calls it back.
  In subsequent calls, the variables may be inconsistent because the execution
  has not finished.
  To avoid such problems, developers need to carefully define contracts between

@@ -85,10 +85,6 @@
 
 \begin_body
 
-\begin_layout Chapter
-Related Work
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
@@ -812,7 +808,7 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Integration of FRP with OOP
+OOP
 \end_layout
 
 \begin_layout Standard
@@ -1002,7 +998,7 @@ in
 
 .
  By this method, the interaction between the objects are directed, without
- the need of a madiator that access to objetct's encapsuated state or behavior.
+ the need of a madiator that access to object's encapsuated state or behavior.
  Therefore, we base on this method in our custom assignment operation.
 \end_layout
 

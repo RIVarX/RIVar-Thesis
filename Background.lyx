@@ -113,114 +113,74 @@ Background
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
+Reactive variables are used to create a similar behavior to 
+\begin_inset Formula $\NAME{Spreadsheets}$
+\end_inset
 
-\begin_layout Plain Layout
-The functionality, that fields are recalculated based on other fields, is
- familiar from 
-\begin_inset Flex Name
-status open
-
-\begin_layout Plain Layout
-Spreadsheets
-\end_layout
+, in that the cells can contain formulas to determine the value based on
+ other cells.
+ Similary, the applications that contain fields or variables that are automatica
+lly calculated based on other fields of variables.
+ This high-level specification is regarded as a favorable approach for applicati
+on development 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming"
+literal "false"
 
 \end_inset
 
 .
- There, cells, representing the fields, can contain formulas to determine
- their values based on other cells.
- In application development, this functionality can typically handled using
- variables that are connected to the visual elements of the application.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-We find several existing approaches that harmonize components-based applications
- with the functionality to calculate fields based on other fields.
- The functionality to calculate fields based on other fields is familar
- from spreadsheets where cells, that represent the fields, can contain formulas
- to determine the value based on other cells.
- Before delving into haronizing with components, we will present the familiar
- models used for fields calculation.
-\end_layout
+In FRP, the concept is inspired from the functional paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
 
 \end_inset
 
+.
+ Saying 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
 
-\end_layout
+ is like stating that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
+ is a function with a body of 
+\begin_inset Formula $\LSTINLINE{B+C}$
+\end_inset
 
-\begin_layout Plain Layout
-The components-based applications 
-\end_layout
+, so that each value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
 
-\begin_layout Plain Layout
-The functionality to calculate fields based on other fields can be achived
- by various approaches.
-\end_layout
+ is derived from the value of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
 
-\begin_layout Plain Layout
-The most popular application is spreadsheets, where cells, that represent
- the fields, can contain formulas to determine the value based on other
- cells.
- Among developers, the functionality 
-\end_layout
-
-\begin_layout Plain Layout
-Alternatively, visual fields can be connected to reactive variables.
- For instance, MobX provides a framework to implement reactive variables
- as a state management solution to integrate with React.
- React provide a framework that continuously update the view, containing
- the visual fields.
-\end_layout
-
-\begin_layout Plain Layout
-???
-\end_layout
-
-\begin_layout Plain Layout
-provide it is hard to implement fields that are calculated according to
- other fields.
-\end_layout
-
-\begin_layout Plain Layout
-This section should present the exsiting solutions for reactive variables,
- provdiing the understaning about the drawbacks existing in them, in the
- context of components-based applications.
-\end_layout
+.
+ This produces a 
+\emph on
+predictability 
+\emph default
+property due to 
+\emph on
+referential transparency
+\emph default
+, meaning the input consistently produces the same output 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-This way, it aims to provide an alternatve to dealing with the mutate variables.
- The problem about the the variables is, that it is hard to reason about
- the values that variables contains.
- 
-\end_layout
-
-\end_inset
-
-
+.
 \end_layout
 
 \begin_layout Section
@@ -230,243 +190,12 @@ name "subsec:Reactive-Variables"
 
 \end_inset
 
-Programming Models
+Paradigms
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-We call 
-\emph on
-reactive variables
-\emph default
- (like in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-) to the variables in FRP.
- FRP is inspired from the 
-\emph on
-functional paradigm
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+C}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+C}$
-\end_inset
-
-, so that each value returned by 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the values returned by 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to 
-\emph on
-functional transparency
-\emph default
-, meaning the input consistently produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-They are automaticaly recalculateed as reaction to the UI change events.
- Input variables are those connected to the input fields.
- Based on these variables, other variables can be created.
-\end_layout
-
-\begin_layout Plain Layout
-This implies that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- continuously contains the value derived from the values contained in 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-, by initiating a dependency that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- depends on 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-———
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We call 
-\emph on
-reactive variables
-\emph default
- (like in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-) to variables like in FRP.
- Reactive variables are automaticaly recalculateed as reaction to the UI
- change events.
- Input variables are those connected to the input fields.
- Based on these variables, other variables can be created.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-This implies that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- continuously contains the value derived from the values contained in 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-, by initiating a dependency that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- depends on 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The FRP paradigm is inspired from the functional paradigm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+C}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+C}$
-\end_inset
-
-, so that each value returned by 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the values returned by 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to 
-\emph on
-functional transparency
-\emph default
-, meaning the input consistently produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In addition to using reactive variables, we find other useful programming
- model: events (
+To implement such functionality, there are three available paradigms: events
+ (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Events"
@@ -476,7 +205,7 @@ noprefix "false"
 
 \end_inset
 
-), observable streams (
+), streams (
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Observable-Streams"
@@ -497,8 +226,7 @@ noprefix "false"
 \end_inset
 
 ).
- These paradigms provide alternative abstractions to the use of fields calculati
-ons.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -556,7 +284,7 @@ name "subsec:Observable-Streams"
 
 \end_inset
 
-Observable Streams
+Streams
 \end_layout
 
 \begin_layout Standard
@@ -580,8 +308,8 @@ Observable Streams
 observable streams
 \emph default
 , which can be thought of as event streams or lists that generate events.
- This model can be used for field calculations.
- As illustrated in 
+ This abstraction can be used to represent change events as illustrated
+ in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Streams-of-values-1-1-1"
@@ -591,21 +319,11 @@ noprefix "false"
 
 \end_inset
 
-, field change events can be treated as observable streams.
- This programming model has the referential transparency property like FRP
- unless several issues 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
 .
 \end_layout
 
 \begin_layout Standard
-The referential transparency property stems from operators like 
+Functions like 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
 
@@ -613,8 +331,8 @@ The referential transparency property stems from operators like
 \begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
-, which are pure functions that create observables whose items are generated
- based on the values of other observables.
+ create observables whose items are generated based on the values of input
+ observables.
  For example, if we have 
 \begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
 \end_inset
@@ -632,15 +350,33 @@ The referential transparency property stems from operators like
 \end_inset
 
 .
- Finally, by subscribing to the resulting observables, visual fields can
+\end_layout
+
+\begin_layout Standard
+Finally, by subscribing to the resulting observables, visual fields can
  be updated.
+ This model can be used for field calculations.
+\end_layout
+
+\begin_layout Standard
+This programming model has the referential transparency property like FRP
+ unless several issues 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -907,116 +643,6 @@ s, where mistakenly mutual recursions are defined.
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-This programming model has also the problem, that it supports the events
- model.
- For example.
- 
-\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
-\end_inset
-
-which means that 
-\end_layout
-
-\begin_layout Plain Layout
-Because it allows mutual recusraion there might be an accidental recusrsn,
- that causes an infinite loop.
- For example, if we add to the example 
-\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
-\end_inset
-
-, then D and A are mutual recusraion: 
-\begin_inset Formula $A=D+1$
-\end_inset
-
- and also 
-\begin_inset Formula $D=A-1$
-\end_inset
-
-.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-For example, in ReactiveX 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A.Subscribe(val=>B.OnNext(val+1))}
-\end_layout
-
-\end_inset
-
- produces the meaning of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-In working with streams such like like ReactiveX.
- In reactiveX, the developer can choose between several scueduler, to indicate
- the order of the updates.
- Hwoever, in working with streams, there is has the same general time problem
- we have in the events driven.
- Here, it is called 
-\series bold
-merge
-\series default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- In the industry libraries, as can be seen in ReactiveX and Sodium, there
- is either an inpredictable merge function or that the developer need to
- specify the method to merge 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1401,6 +1027,116 @@ lstinline{D}).
 status collapsed
 
 \begin_layout Plain Layout
+This programming model has also the problem, that it supports the events
+ model.
+ For example.
+ 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+which means that 
+\end_layout
+
+\begin_layout Plain Layout
+Because it allows mutual recusraion there might be an accidental recusrsn,
+ that causes an infinite loop.
+ For example, if we add to the example 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+, then D and A are mutual recusraion: 
+\begin_inset Formula $A=D+1$
+\end_inset
+
+ and also 
+\begin_inset Formula $D=A-1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+For example, in ReactiveX 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A.Subscribe(val=>B.OnNext(val+1))}
+\end_layout
+
+\end_inset
+
+ produces the meaning of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 ReactiveX, available in languages like C# and JavaScript through frameworks
  like RxJS, provides observable streams.
  Observable streams are like a list, that produce the items.
@@ -1470,7 +1206,7 @@ The composition can be visualized as a tree or graph, where each variable
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This works nice for hirarchial data.
@@ -2495,9 +2231,7 @@ literal "false"
 \end_inset
 
 , proposes that UI components should be developed and deployed independently.
- This architectural concept draws inspiration from the microservices architectur
-e in the backend and also shares similarities with the traditional Object-Orient
-ed Programming (OOP) paradigm.
+ This architectural concept shares with the traditional OOP paradigm.
 \end_layout
 
 \begin_layout Standard
@@ -3594,7 +3328,7 @@ There are mechanism that make a graph data structure in the memory
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This is like previous works had to face the balancing between the abstraction
@@ -3850,7 +3584,7 @@ Frameworks based on the dataflow paradigm allow for the explicit specification
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The dataflow paradigm provide frameworks to explicity specify the data dependenc
@@ -4598,139 +4332,7 @@ A data dependency graph, that in push-based evaluation, might have glitches.
 status open
 
 \begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Cycles"
 
-\end_inset
-
-Cycles
-\end_layout
-
-\begin_layout Plain Layout
-In the FRP paradigm, where FRP runtimes are developed, There are two opposing
- methods about cycles.
- In one method, cycles are avoided, because the paradigm derived from the
- functional paradigm, with the referential transparency property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to the second method, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
- Following the approach that cycles are avoided, there is an approach that
- the needed dependency graph is dynamically changed 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-FRP runtimes that support cycles uses various techniques to stop arisen
- loops.
- Terminating when it closes a cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, adding to the language a special operator to inform the runtime when to
- break the cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-, stop after a number of iterations, stop if the value has not changed,
- or changed only less than a threshold (available in 
-\emph on
-Microsoft Excel
-\emph default
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-).
- The various methods caused from the unknown, that a repeating update is
- either needed because previous update was a glitch, or that it is unneeded
- because the repeating update is caused from a cycle.
-\end_layout
-
-\begin_layout Plain Layout
-Our model provides the semantics described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "par:Any-Formula"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-: cycles are resulted from variables with more than one source.
- Those variables are updated whenever there is a newer value from any of
- the sources.
- Technically, loops are terminated, because values caused from cycles are
- not newer.
- However, we are not the first to handle cycles, as said in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, constraints systems that handle two-way constraints handle cycles by their
- nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- Nevertheless, the model treats the meaning issue about cycles more explicity.
 \end_layout
 
 \end_inset

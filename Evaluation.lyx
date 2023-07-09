@@ -125,6 +125,10 @@ FRP
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The new variant of FRP possesses the characteristic of referential transparency,
  which is a fundamental property of FRP.
  This ensures predictability because the behavior remains consistent based
@@ -135,7 +139,7 @@ The new variant of FRP possesses the characteristic of referential transparency,
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Furthermore, as mentioned in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -154,6 +158,11 @@ noprefix "false"
 \end_inset
 
  operation and handle accidental recursion using a custom assignment operator.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -432,7 +441,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -690,7 +699,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1147,6 +1156,35 @@ g.
 \end_layout
 
 \begin_layout Standard
+The mentioned merge operation brings to mind the unacceptable merge operator
+ in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Consequently, we discovered that the order model and assignment operator
+ resolve the issues in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, which prevented it from being FRP.
+ In both traditional merge and recursion, there are redundant updates caused
+ by the inability to check each update for freshness.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -1362,7 +1400,7 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The introduced operators provide functions over streams achieving properties
@@ -1412,7 +1450,7 @@ Furthermore, we guarantee that the same sequence of events consistently
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...

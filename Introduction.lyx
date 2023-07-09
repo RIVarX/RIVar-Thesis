@@ -195,9 +195,17 @@ Reactive variables are variables that are recaluclated in response and according
 \end_inset
 
  operator) with an expression consisting of a set of other reactive variables.
- The assigment defines that the value of the variable is set to the value
- of the expression, and continuously re-evaluated in response to changes
- in the value of any of the variables appearing in the expression.
+ The assigment defines a 
+\emph on
+data
+\emph default
+ 
+\emph on
+dependenc
+\emph default
+y: the value of the variable is set to the value of the expression, and
+ continuously re-evaluated in response to changes in the value of any of
+ the variables appearing in the expression.
  For example (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -534,25 +542,9 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
-In implementing reactive variables, we might face an unpredictable behavior
- and even infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "hung2018architectural"
-literal "false"
-
-\end_inset
-
-, especially when applications grow and have long chains of updates.
- Specificaly, when adding a functionality to update one variable, where
- that update is part of a long chains of updates, so it might fall into
- an endless loop.
- 
-\end_layout
-
-\begin_layout Standard
-The complexity of this task has two parts.
- First, the difficulties to control the data dependencies implied implicity
+However, when dealing with a growing application that involves a long chain
+ of updates, the implementation becomes challenging.
+ First, it is difficult to control the data dependencies implied implicity
  by event handling logic 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -612,6 +604,26 @@ Object Oriented Programming
 \begin_inset Formula $\REScala$
 \end_inset
 
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.rescala-lang.com/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
  and 
 \begin_inset Formula $\ReactiveX$
 \end_inset
@@ -621,29 +633,36 @@ Object Oriented Programming
 status collapsed
 
 \begin_layout Plain Layout
-https://reactivex.io
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
 \end_layout
 
 \end_inset
 
- are programming frameworks that allow objects to contain reactive variables,
- although they have different focuses.
+
+\end_layout
+
+\end_inset
+
+ are two libraries that allow objects to contain reactive variables, although
+ they have different focuses.
  
 \begin_inset Formula $\REScala$
 \end_inset
 
- derives previous FRP implementations, which is designed to produce consistnt
+ derives previous FRP implementations, which is designed to produce consistent
  behavior, by an algorithm that carefuly determines the order in which to
  update the variables.
  
 \begin_inset Formula $\ReactiveX$
 \end_inset
 
- derives the observer pattern.
- The reactive variables are implemented as events streams or observables,
- subscribed to input and/or other reactive variables, to update their subscriber
-s, in a form of an iterator.
- 
+ provides an API based on some OOP design patterns, to treat variables by
+ streams of their changes.
 \end_layout
 
 \begin_layout Standard
@@ -680,7 +699,7 @@ compositionality
 \begin_inset Formula $\ReactiveX$
 \end_inset
 
- is good in seperation: It lets to decouple formulas from the used reactive
+ is good in seperation: it lets to decouple formulas from the used reactive
  variables, to associate expressions to reactive variables from outside
  of objects, and that variables are updated directly by their dependencies
  (without a central madiator).

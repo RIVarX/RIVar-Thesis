@@ -119,8 +119,8 @@ Reactive variables are used to create a similar behavior to
 
 , in that the cells can contain formulas to determine the value based on
  other cells.
- Similary, the applications that contain fields or variables that are automatica
-lly calculated based on other fields of variables.
+ Similary, are the applications that contain fields or variables that are
+ automatically calculated based on other fields of variables.
  This high-level specification is regarded as a favorable approach for applicati
 on development 
 \begin_inset CommandInset citation
@@ -308,8 +308,13 @@ Streams
 observable streams
 \emph default
 , which can be thought of as event streams or lists that generate events.
- This abstraction can be used to represent change events as illustrated
- in 
+\end_layout
+
+\begin_layout Standard
+This abstraction can be used to create fields calculations, with a similtary
+ to FRP.
+ The variables are presented as observable streams consists of the values
+ or changes over time, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Streams-of-values-1-1-1"
@@ -320,10 +325,8 @@ noprefix "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Functions like 
+ The values can be generated from events generated from UI elements.
+ Then Functions like 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
 
@@ -350,26 +353,9 @@ Functions like
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Finally, by subscribing to the resulting observables, visual fields can
- be updated.
+ Finally, by subscribing to the resulting observables, UI elements can be
+ updated.
  This model can be used for field calculations.
-\end_layout
-
-\begin_layout Standard
-This programming model has the referential transparency property like FRP
- unless several issues 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- 
 \end_layout
 
 \begin_layout Standard
@@ -534,16 +520,44 @@ Variable value changes as an observable stream.
 \end_layout
 
 \begin_layout Standard
+This abstraction has several issue.
+ First, in case of 
+\emph on
+accidental recursion
+\emph default
+s, the behavior does not behave properly.
+ For example, if the code contains 
+\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\end_inset
+
+ and accidently it is added 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+.
+ It is like saying 
+\begin_inset Formula $A=D+1$
+\end_inset
+
+ and also 
+\begin_inset Formula $D=A-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The other problems are related to a phenomenon named 
+\emph on
+simultaneous events.
+ 
+\emph default
 In the default change propogation, observables synchronously respond to
  notifications by passing them forward.
  This traversal can be likened to a depth-first search (DFS) algorithm,
  where a change event initiates a sequence of computations in a depth-first
  order.
- 
-\end_layout
-
-\begin_layout Standard
-However, this traversal order has the known issue named 
+ This traversal order has the known issue named 
 \emph on
 glitch
 \emph default
@@ -576,70 +590,39 @@ noprefix "false"
  one incoming edge.
  This implies that certain variables were updated multiple times in response
  to the change, but some of these updates relied on outdated values.
- 
+ The multiple incoming edges of a node represent simultaneous events, which
+ are related to the same time, that originaly caused by a single event.
 \end_layout
 
 \begin_layout Standard
-The root cause for the issue is the existing of 
-\emph on
-simultaneous events
-\emph default
- .
- The multiple incoming edges of a node represent events that are related
- to the same time, that originaly caused by a single event.
- 
-\end_layout
-
-\begin_layout Standard
-This issue is also known in an operation named 
+Similary in the 
 \begin_inset Formula $\LSTINLINE{merge}$
 \end_inset
 
-.
- This creates an observable stream, that each item from any of the inputs
- streams trigger such an item in the output stream.
- Items from the same time can be originated from a single event.
+ operator, the simultaneous events cause an incorrect behavior.
+ The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operator creates an observable stream, where each item from any of the
+ input streams triggers a corresponding item in the output stream.
+ If two streams have items from the same time, originating from a single
+ event, the resulting stream will contain it twice.
  
 \end_layout
 
 \begin_layout Standard
-This blocks from being refernital transparent.
- because we cannot say that there is a consistency, what the result is,
- depending on the input.
- This represents the time issue, that makes the model effective as the events
- programming model 
+The issues caused by accidental recursions, as well as simultaneous events,
+ prevent the abstraction from being referential transparent.
+ For recursions, this merely leads to infinite loops.
+ For simultaneous events, it is not explicitly defined in what order the
+ items should be generated, which reminds us of the old issue of merging
+ streams in computer science  
 \begin_inset CommandInset citation
 LatexCommand cite
 key "abelson1996structure"
 literal "false"
 
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The final issue is 
-\emph on
-accidental recursion
-\emph default
-s, where mistakenly mutual recursions are defined.
- For example, if the code contains 
-\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
-\end_inset
-
- and accidently it has been added 
-\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
-\end_inset
-
-.
- It is like saying 
-\begin_inset Formula $A=D+1$
-\end_inset
-
- and also 
-\begin_inset Formula $D=A-1$
 \end_inset
 
 .
@@ -1206,7 +1189,7 @@ The composition can be visualized as a tree or graph, where each variable
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 This works nice for hirarchial data.
@@ -2540,7 +2523,7 @@ https://docs.flutter.dev
 \end_inset
 
 , the layout on the screen is declared as function of the application's
- variables, named the application 
+ variables, named 
 \emph on
 state
 \emph default
@@ -2555,20 +2538,14 @@ https://docs.flutter.dev/data-and-backend/state-mgmt/declarative
 \end_inset
 
 .
- While the state should be handled seperatedly.
+ The state is handled seperatedly with a dedicated component.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex Name
-status collapsed
-
-\begin_layout Plain Layout
-Redux
-\end_layout
-
+\begin_inset Formula $\NAME{Redux}$
 \end_inset
 
- 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "caspers2017react"

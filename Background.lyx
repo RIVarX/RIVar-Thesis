@@ -617,7 +617,7 @@ The issues caused by accidental recursions, as well as simultaneous events,
  For recursions, this merely leads to infinite loops.
  For simultaneous events, it is not explicitly defined in what order the
  items should be generated, which reminds us of the old issue of merging
- streams in computer science  
+ streams in computer science 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "abelson1996structure"
@@ -2205,7 +2205,11 @@ Multiple Components
 \end_layout
 
 \begin_layout Standard
-The micro-frontends architecture, as described in 
+Recently, there has been a trend towards micro-frontends architecture, wherein
+ UI components are developed and deployed independently to enable scalable
+ and flexible application growth.
+ However, this architecture presents challenges in terms of how to handle
+ shared state and facilitate communication 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Geers2020,Peltonen2021"
@@ -2213,16 +2217,11 @@ literal "false"
 
 \end_inset
 
-, proposes that UI components should be developed and deployed independently.
- This architectural concept shares with the traditional OOP paradigm.
+.
 \end_layout
 
 \begin_layout Standard
-In addition to the interface that objects provide, there exists an 
-\emph on
-informal contract
-\emph default
- 
+This architecture is closely related to component-based applications 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "duncan2003component"
@@ -2230,12 +2229,36 @@ literal "false"
 
 \end_inset
 
-, which serves as a set of instructions or best practices on how to correctly
- use objects.
+, where the application is composed of reusable code components, that uses
+ concepts from OOP.
+ Components can call each other, with the caller and callee sharing an interface
+ that abstracts away implementation details.
+ This interface is commonly referred to as a contract and consists of named
+ operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications..
 \end_layout
 
 \begin_layout Standard
-To illustrate this concept further, let's consider systems like 
+However, frequently there is a knowledge that should be shared in addition
+ to the interface.
+ It is called sometimes an 
+\emph on
+informal contract.
+
+\emph default
+ This helps a frequent issue, named 
+\emph on
+object re-entrance
+\emph default
+, where an object indirectly calls another object that then calls it back.
+ In subsequent calls, the variables may be inconsistent because the execution
+ has not finished.
+ 
+\end_layout
+
+\begin_layout Standard
+For example, in 
 \begin_inset Formula $\NAME{Microsoft}$
 \end_inset
 
@@ -2243,7 +2266,11 @@ To illustrate this concept further, let's consider systems like
 \begin_inset Formula $\NAME{Dynamics}$
 \end_inset
 
-, where it is possible to register components known as plugins 
+, it is possible to register components known as 
+\emph on
+plugins
+\emph default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "somani2018dynamics"

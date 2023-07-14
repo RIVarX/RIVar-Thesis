@@ -126,7 +126,7 @@ FRP
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The new variant of FRP possesses the characteristic of referential transparency,
@@ -1240,6 +1240,12 @@ property, characterized by FRP.
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Constraints"
+
+\end_inset
+
 Constraints
 \end_layout
 
@@ -1307,7 +1313,7 @@ https://rivarx.github.io/Evaluation
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 By the introduced assignment the implemented new variant 
@@ -1376,7 +1382,7 @@ we need only the inpreditabiity reursions and merges.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 .
@@ -3396,7 +3402,7 @@ In order to customize the way in which to evaluate cycles, the abstracion
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Our approach can be implemented (as we already implemented) as internal
@@ -3762,7 +3768,7 @@ lstinline{Constraint}
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Our implementation includes a general propagation algorithm that enables

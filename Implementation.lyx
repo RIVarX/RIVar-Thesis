@@ -141,11 +141,11 @@ https://github.com/RIvarX
 \end_inset
 
  datatype for implementing variables, with an assignment operation implemented
- as the method 
+ as the 
 \begin_inset Formula $\LSTINLINE{set}$
 \end_inset
 
-.
+ method.
 \end_layout
 
 \begin_layout Section
@@ -802,7 +802,8 @@ noprefix "false"
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
- components.Similarly to the concept of micro-frontend architecture 
+ components.
+ Similarly to the concept of micro-frontend architecture 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "peltonen2021motivations"

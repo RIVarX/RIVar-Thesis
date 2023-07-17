@@ -195,7 +195,11 @@ Reactive variables are variables that are recaluclated in response and according
 \end_inset
 
  operator) with an expression consisting of a set of other reactive variables.
- The assigment defines a 
+ 
+\end_layout
+
+\begin_layout Standard
+The assigment defines a 
 \emph on
 data
 \emph default
@@ -666,8 +670,7 @@ https://reactivex.io/
 \end_layout
 
 \begin_layout Standard
-Both alternatives have their tradeoffs, which calls for an integration of
- their concepts.
+Both alternatives have their tradeoffs.
  
 \begin_inset Formula $\REScala$
 \end_inset
@@ -714,12 +717,7 @@ In this thesis, we use the approach from the second alternative and extend
 
 .
  But instead of the default behavior to pass immediately any value to subscriber
-s, (and instead of a centerlized madiator used in 
-\begin_inset Formula $\REScala$
-\end_inset
-
- to consider the order of the updates), the variables consider the coming
- updates, properly ordering the updates to the subscribers.
+s, outdated values are filtered out.
 \end_layout
 
 \begin_layout Standard

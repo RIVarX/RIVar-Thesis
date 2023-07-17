@@ -95,7 +95,7 @@
 
 
 \begin_inset FormulaMacro
-\newcommand{\RIVar}{\myName{RIVar}}
+\renewcommand{\RIVar}{\myName{RIVar}}
 {\mathbf{RIVar}}
 \end_inset
 
@@ -106,6 +106,80 @@
 \end_inset
 
 
+\end_layout
+
+\begin_layout Abstract
+This thesis introduces 
+\emph on
+reactive instance variables 
+\emph default
+as the datatype 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ is a combination of 
+\emph on
+reactive variable
+\emph default
+ from the 
+\emph on
+Functional Reactive Programming (FRP)
+\emph default
+ paradigm and the
+\emph on
+ instance variable
+\emph default
+ from the Object Oriented Programming (OOP) paradigm.
+ Like reactive variables, changes are automated according to the specified
+ data dependencies.
+ Like instance variables, other data dependencies can be hidden.
+ This means that the data dependencies can be specified without the need
+ to be aware of transitive dependencies and unintentional recursion.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Abstract
+This thesis introduces 
+\emph on
+reactive instance variables 
+\emph default
+as the datatype 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Abstract
+This thesis provides a new semantics for creating data dependencies without
+ the need to be aware of transitive dependencies.
+ This means that variables forming the data dependencies can be part of
+ OOP interfaces.
+ Consequently, we have achieved a framework that harmonizes the abstraction
+ mechanisms of both OOP and FRP, which is also considered a decentralized
+ constraints system, and also a state management solution for front-end
+ applications.
+\end_layout
+
+\begin_layout Abstract
+As 
+\emph on
+reactive variable
+\emph default
+ the variables are automaticaly changed according to input provided over
+ time FRP and the
+\emph on
+ instance variable
+\emph default
+ from OOP
 \end_layout
 
 \begin_layout Abstract
@@ -184,6 +258,11 @@ We expect this approach being implemented as a state management solution
  infer values from its sources.
  However, with the current method, the model is handled as a decentralized
  solution for Multiway Dataflow Constraint Systems suited for user interfaces.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

@@ -82,26 +82,14 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Our journey began by formalizing an approach that enables mutual recursion,
- reducing the need for maintaining acyclic data dependency graphs.
- Instead, we established a well-defined contract for reactive instance variables
-, allowing assignments more freely.
- This approach served as the foundation for our work in enabling FRP within
- the context of OOP, combining the strengths of both paradigms.
-\end_layout
-
-\begin_layout Standard
-To implement this approach, we utilized observable streams inspired by the
- dataflow paradigm.
- This allowed us to create a framework that aligns with constraint programming
- principles, further enhancing its capabilities.
-\end_layout
-
-\begin_layout Standard
-As a result, our new framework capitalizes on the advantages derived from
- the paradigms and frameworks it builds upon.
- It simplifies the derivation of variables and classes, ensuring predictable
- outcomes.
+We have developed a new semantics for creating data dependencies without
+ the need to be aware of transitive dependencies.
+ This means that variables forming the data dependencies can be part of
+ OOP interfaces.
+ Consequently, we have achieved a framework that harmonizes the abstraction
+ mechanisms of both OOP and FRP, which is also considered a decentralized
+ constraints system, and also a state management solution for front-end
+ applications.
 \end_layout
 
 \begin_layout Section
@@ -109,30 +97,10 @@ Future Work
 \end_layout
 
 \begin_layout Standard
-We anticipate that this approach can be utilized as a state management solution
- to simplify front-end application development.
- In front-end development, state management is often treated separately
- from other aspects of the development process.
- Numerous solutions exist to address this role (refer to 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://docs.flutter.dev/development/data-and-backend/state-mgmt/options
-\end_layout
-
-\end_inset
-
-), each with its own maintenance and behavior limitations.
- Our model aims to be easily maintainable, but its behavior is primarily
- focused on inferring values based on the latest received value from any
- source.
-\end_layout
-
-\begin_layout Standard
-Further research should explore additional options for inferring values
- using reactive variables.
+We expect to evaluate this work against real-life applications and expand
+ it into other research fields.
+ During this evaluation, we believe it is crucial to explore additional
+ options for inferring values in addition to the presented merge operation.
  One possible approach is employing 
 \emph on
 equality tests
@@ -148,13 +116,8 @@ literal "false"
 , where values that remain unchanged are disregarded.
  Additionally, dealing with conflicting values from different sources may
  require extending the abstraction to handle rejection.
- Furthermore, we should investigate the integration of multiple semantic
- options.
-\end_layout
-
-\begin_layout Standard
-By considering these avenues, we can continue to enhance our approach and
- expand its capabilities.
+ Furthermore, further investigation should be conducted on the integration
+ of multiple semantic options.
 \end_layout
 
 \begin_layout Standard

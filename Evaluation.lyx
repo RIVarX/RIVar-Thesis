@@ -113,7 +113,8 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-The introduced framework is compared to the traditional programming models.
+The created framework should be compared to the traditional programming
+ paradigms.
 \end_layout
 
 \begin_layout Standard
@@ -1250,8 +1251,7 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-As the assignment is an operator like a method, multiple assignments are
- supported.
+As the assignment is implemented as a method, multiple assignments are supported.
  A variable with multiple assignments is interpreted as an operator over
  the variable and assigned expressions in the various statements.
  This is like a methodology that involves the variable inferring its value
@@ -1259,7 +1259,7 @@ As the assignment is an operator like a method, multiple assignments are
 \end_layout
 
 \begin_layout Standard
-By our merge operator, Each new sample from any of the sources are passed
+By our merge operation, each new sample from any of the sources are passed
  to the target variable, which recursively pass new values to targets variables.
  Consequently, in fields calculations, once the user put new input for a
  field, the fields that relied on previous input, specifically the oldest

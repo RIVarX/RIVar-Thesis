@@ -1933,13 +1933,12 @@ literal "false"
 \end_layout
 
 \begin_layout Chapter
-Transitioning to the New Variant for FRP—An Example
+Transitioning to the New FRP Variant: An Example
 \end_layout
 
 \begin_layout Standard
 We present an example that uses the concept of FRP, with the evolution of
  the application.
- Changes in the code are indicated using bold font style.
  The evaluation revolves around the variables 
 \begin_inset ERT
 status open
@@ -2098,8 +2097,8 @@ end{center}
 \end_layout
 
 \begin_layout Standard
-The code needs to be modified when the doctor administers the values of
- 
+The code needs to be modified (indicated using bold font style) when the
+ doctor administers the values of 
 \begin_inset ERT
 status open
 

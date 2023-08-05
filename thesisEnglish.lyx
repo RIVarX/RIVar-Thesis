@@ -27,6 +27,7 @@
 \usepackage{cleveref}
 \usepackage{subcaption}
 \renewcommand\thesubfigure{\alph{subfigure}}
+\usepackage[font=small,textfont=it,labelfont=bf,width=.85\textwidth]{caption}
 \end_preamble
 \options usenames,dvipsnames
 \use_default_options false
@@ -101,7 +102,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\listings_params "language={[Sharp]C},backgroundcolor={\color{white}},basicstyle={\ttfamily},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\small\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},moredelim={[is][\textbf]{__}{__}},escapechar={|},numbers=left,numberfirstline=true,firstnumber=1,stepnumber=1"
+\listings_params "language={[Sharp]C},backgroundcolor={\color{white}},basicstyle={\ttfamily},breakatwhitespace=true,breaklines=true,captionpos=t,columns=fullflexible,extendedchars=true,keywordstyle={\bf\ttfamily\color{violet}},morecomment={[l][\color{blue}\sffamily]{//}},morecomment={[s][\it\color{violet}]{/*}{*/}},numberstyle={\tiny\color{gray}\bf},string={[b]{&quot;}},stringstyle={\color{blue}\sl},upquote=true,postbreak={\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow\space}}},moredelim={[is][\textbf]{__}{__}},escapechar={|},numbers=left,numberfirstline=true,firstnumber=1,stepnumber=1,frame=lrtb"
 \tracking_changes false
 \output_changes false
 \html_math_output 0

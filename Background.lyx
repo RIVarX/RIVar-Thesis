@@ -156,7 +156,7 @@ literal "false"
 \end_inset
 
  is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+C}$
+\begin_inset Formula $\LSTINLINE{B+1}$
 \end_inset
 
 , so that each value of 
@@ -244,8 +244,8 @@ Events
 \end_layout
 
 \begin_layout Standard
-In programming frameworks, such as in web development, code that update
- fields based on other fields, can be registered to be executed when a fields
+In programming frameworks, such as in web development, code that updates
+ fields based on other fields can be registered to be executed when fields
  are changed.
  For example, in 
 \begin_inset Formula $\NAME{JavaScript}$
@@ -332,28 +332,136 @@ Streams
 \end_layout
 
 \begin_layout Standard
+As an alternative to the fields or variables manipulation, there is the
+ strategy to model programs by 
+\emph on
+streams
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ This approach has recently become popular by 
+\emph on
+Reactive Extensions
+\emph default
+ (Rx) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ available for many programming languages
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ For example, 
 \begin_inset Formula $\ReactiveX$
 \end_inset
 
-, available in languages such as 
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/dotnet/reactive
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
 \begin_inset Formula $\NAME{C\#}$
 \end_inset
 
- and 
-\begin_inset Formula $\NAME{JavaScript}$
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "troelsen2012pro"
+literal "false"
+
 \end_inset
 
- through libraries like 
+ and also 
 \begin_inset Formula $\NAME{RxJS}$
 \end_inset
 
-, offers 
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikkonen2007using"
+literal "false"
+
+\end_inset
+
+.
+ Rx offers 
 \emph on
 observable streams
 \emph default
-.
- These observable streams are objects that abstract collections for interested
- observers, passing their items to them by calling their 
+, which are objects that abstract collections for interested observers,
+ passing their items to them by calling their 
 \begin_inset Formula $\LSTINLINE{next}$
 \end_inset
 
@@ -361,7 +469,7 @@ observable streams
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
 
-in 
+ in 
 \begin_inset Formula $\NAME{C\#}$
 \end_inset
 
@@ -384,7 +492,7 @@ noprefix "false"
 
 .
  The values can be generated from events generated from UI elements.
- Then Functions like 
+ Then functions like 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
 
@@ -674,16 +782,7 @@ The issues caused by accidental recursions, as well as simultaneous events,
  prevent the abstraction from being referential transparent.
  For recursions, this merely leads to infinite loops.
  For simultaneous events, it is not explicitly defined in what order the
- items should be generated, which reminds us of the old issue of merging
- streams in computer science 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
+ items should be generated.
 \end_layout
 
 \begin_layout Standard
@@ -1421,9 +1520,9 @@ additional
 
 , with hierarchy according to the order of the input.
  If there is no solution that satisfy all the constraints, the more prioritized
- constraints , according to the hirarchy, are satsified.
+ constraints, according to the hirarchy, are satsified.
  As a result, once the user put new input for a field, the fields that relied
- on previous input, specifically the oldest input, are overwritten.
+ on a previous input, specifically the oldest input, are overwritten.
 \end_layout
 
 \begin_layout Standard
@@ -2455,26 +2554,13 @@ node[round] (S3) at (5,0) {};
 
 \begin_layout Plain Layout
 
-   
+     
 \backslash
-node[rounded corners=1.5mm,minimum width=4cm,inner sep=1mm,above right,draw,align
-=center,text width=26mm] (S4) at (1.2,-3) {
-\backslash
+node[round] (S4) at (2.5, -3) {};
+\end_layout
 
-\backslash
+\begin_layout Plain Layout
 
-\backslash
-fontsize{5pt}{5pt}
-\backslash
-selectfont y changed/calculate x
-\backslash
-
-\backslash
-
-\backslash
-fontsize{5pt}{5pt}
-\backslash
-selectfont z changed/calculate x};
 \end_layout
 
 \begin_layout Plain Layout
@@ -2484,14 +2570,14 @@ selectfont z changed/calculate x};
 
 \begin_layout Plain Layout
 
-      
+    
 \backslash
-draw[-latex] (3.5, 3.5) coordinate (init) to[out=180,in=90] (S1);
+draw[-latex] (3.5, 3.5) coordinate (init) to[out=180, in=90] (S1);
 \end_layout
 
 \begin_layout Plain Layout
 
-      
+    
 \backslash
 fill (init) circle (0.05);
 \end_layout
@@ -2503,9 +2589,9 @@ fill (init) circle (0.05);
 
 \begin_layout Plain Layout
 
-     
+    
 \backslash
-path[-latex] (S1) edge[out=180, in=90]  node[scale=0.5] {y changed} (S2);
+path[-latex] (S1) edge[out=180, in=90]  node[scale=0.8] {y changed} (S2);
 \end_layout
 
 \begin_layout Plain Layout
@@ -2514,9 +2600,9 @@ path[-latex] (S1) edge[out=180, in=90]  node[scale=0.5] {y changed} (S2);
 
 \begin_layout Plain Layout
 
-      
+    
 \backslash
-path[-latex] (S1) edge[out=0, in=90]  node[scale=0.5] {z changed} (S3);
+path[-latex] (S1) edge[out=0, in=90]  node[scale=0.8] {z changed} (S3);
 \end_layout
 
 \begin_layout Plain Layout
@@ -2528,7 +2614,7 @@ path[-latex] (S1) edge[out=0, in=90]  node[scale=0.5] {z changed} (S3);
 
     
 \backslash
-path[-latex] (S2) edge[out=270, in=180]  node[scale=0.5] {z changed/calculate
+path[-latex] (S2) edge[out=270, in=180]  node[scale=0.8] {z changed/calculate
  x} (S4);
 \end_layout
 
@@ -2538,22 +2624,46 @@ path[-latex] (S2) edge[out=270, in=180]  node[scale=0.5] {z changed/calculate
 
 \begin_layout Plain Layout
 
-     
+    
 \backslash
-path[-latex] (S3) edge[out=270, in=0]  node[scale=0.5] {y changed/calculate
+path[-latex] (S3) edge[out=270, in=0]  node[scale=0.8] {y changed/calculate
  x} (S4);
 \end_layout
 
 \begin_layout Plain Layout
 
-  
-\backslash
-node[round,fit=(S1)(S2)(S3)(S4)(init)] (System) {};
+    
 \end_layout
 
 \begin_layout Plain Layout
 
      
+\backslash
+draw[-latex] (S4) to [loop below, looseness=8, out=-60, in=-120, min distance=10
+mm] node[scale=0.8]  { y changed/calculate x;
+\end_layout
+
+\begin_layout Plain Layout
+
+z changed/calculate x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+draw (3.5, -4) coordinate (empty);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[round,fit=(S1)(S2)(S3)(S4)(init)(empty)] (System) {};
 \end_layout
 
 \begin_layout Plain Layout
@@ -2611,9 +2721,9 @@ Modeling the statechart for the formula
 .
  The rectangular shapes represent different states or modes of the application.
  The arrows represent transitions between the states, triggered by specific
- events labeled on the arrows.
- After the '/' character, there may be an associated action denoting calculation
-s to be performed during the transition.
+ events.
+ The labels contain the events and also actions, if needed, to perform in
+ response to events.
 \end_layout
 
 \end_inset
@@ -2824,7 +2934,7 @@ literal "false"
 \emph on
 component-based applications
 \emph default
- , where the application is composed of reusable code components, that uses
+, where the application is composed of reusable code components, that uses
  concepts from OOP 
 \begin_inset CommandInset citation
 LatexCommand cite

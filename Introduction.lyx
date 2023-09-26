@@ -107,11 +107,301 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In the field of 
+Maintaining consistency in field values are crucial in front ends applications.
+ When users fill in one field, it is essential to recalculate the values
+ of other related fields.
+ For example, in Drug Administration (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), there are several options to define the quantities: either by 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ or by 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In the first option, 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is calculated based on 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in the second option, 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is calculated based on the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & Volume 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){
+\backslash
+textit{100}} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{30}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-calculations-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+User interface component for drug administration
+\end_layout
+
+\end_inset
+
+User interface component for drug administration.
+ The upper panel represents the bag component, and the lower panel represents
+ the pump component.
+ The fields are illustrated with example values, in case the user sets Volume,
+ Dose and Duration.
+ The fields Drug, Concentration, and Volume are displayed in italic typeface
+ to indicate that these values are calculated based on the set values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An efficient mechanism to develop fields calculations has a potenstial to
+ improve front ends usability.
+ Specificaly, in applications for healthcare, it is desirable to solve usability
+ problems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gawande2018doctors"
+literal "false"
+
+\end_inset
+
+.
+ An efficient mechanism promotes the use of redundancies in the user interfaces.
+ Redundancies improves the usability, because the user is not enforced to
+ one strict representation.
+ For instance, in 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Administration}$
+\end_inset
+
+, there are drugs, where it is easier to set the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in others it is easier to set by the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The inefficiency experienced by legacy applications in the market lies in
+ the time-consuming process of implementing changes, espeicaly with the
+ fields calculations that involve long chain of updates.
+ One contributing factor is the limited cognitive capacity of developers
+ when it comes to analyzing the extensive details within the application
+ source code.
+ Another factor is the need to keep on the rules consistency, in case that
+ the coded rules are repeated.
+ The two factors are highly depend on code repetition, which is affected
+ by the abstraction mechnisms used in the architectural design of applications.
+\end_layout
+
+\begin_layout Standard
+The frameworks that support fields calculations must strike a balance between
+ abstraction and generality.
+ Event-driven programming frameworks give developers complete control over
+ the propagation order, but this can be error-prone 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ provides a more abstract approach, allowing developers to choose between
+ several schedulers to indicate the order of updates.
+ 
 \emph on
 Functional Reactive Programming
 \emph default
- (FRP)
+ (FRP) frameworks go even further, abstracting away the propagation order
+ altogether and allowing developers to focus on specifying the data dependencies
 \begin_inset space ~
 \end_inset
 
@@ -123,7 +413,11 @@ literal "false"
 
 \end_inset
 
- effort has been invested in implementing 
+.
+\end_layout
+
+\begin_layout Standard
+In the field of FRP effort has been invested in implementing 
 \emph on
 reactive variables
 \emph default
@@ -203,9 +497,8 @@ literal "false"
 
 \end_inset
 
-) to automate updates.
- Reactive variables remind fields in front-end applications, that are calculated
- according to other fields.
+) to automate updates similar to the fields in front-end applications, that
+ are calculated according to other fields.
  In FRP, in order to create a variable that is automaticaly calculated according
  to other variables, it should be specified decleratively as a formula.
  For example (
@@ -544,6 +837,46 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
+However, some exceptions are found that break the abstraction.
+ 
+\begin_inset Formula $\NAME{sodium}$
+\end_inset
+
+, in addition to its high-level language, has the concept of transactions
+ to customize how to handle cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\NAME{FrTime}$
+\end_inset
+
+ has the reserved word 
+\begin_inset Formula $\NAME{\LSTINLINE{delay}}$
+\end_inset
+
+ to customize how to handle cycles.
+ Additionally, streams and/or events are still part of these frameworks
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming,blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 It might be challenging, to deal with the fields calculations that involve
  long chain of updates.
  The FRP paradigm makes this easier by allowing developers to explicitly
@@ -575,7 +908,7 @@ literal "false"
  the code of the other coomponents.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula $\REScala$
 \end_inset
 
@@ -681,9 +1014,14 @@ Functional Programming
 es (without a central madiator).
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ———–

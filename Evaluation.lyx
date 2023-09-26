@@ -109,70 +109,7 @@ name "chap:Evaluation"
 
 \end_inset
 
-Evaluation TBD
-\end_layout
-
-\begin_layout Standard
-All frameworks that support custom propagation must strike a balance between
- abstraction and generality.
- Event-driven programming frameworks give developers complete control over
- the propagation order, but this can be error-prone 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
- 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- provides a more abstract approach, allowing developers to choose between
- several schedulers to indicate the order of updates.
- FRP frameworks go even further, abstracting away the propagation order
- altogether and allowing developers to focus on specifying the data dependencies.
-\end_layout
-
-\begin_layout Standard
-However, we found some exceptions.
- 
-\begin_inset Formula $\NAME{sodium}$
-\end_inset
-
-, in addition to its high-level language, has the concept of transactions
- to customize how to handle cycles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- 
-\begin_inset Formula $\NAME{FrTime}$
-\end_inset
-
- has the reserved word 
-\begin_inset Formula $\NAME{\LSTINLINE{delay}}$
-\end_inset
-
- to customize how to handle cycles.
- Additionally, streams and/or events are still part of these frameworks
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014programming,blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Code Duplication
+Evaluation
 \end_layout
 
 \begin_layout Standard
@@ -696,414 +633,18 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The Drug Administration example is implemented side by side by the 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- library mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Constraints"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, and 
-\begin_inset Formula $\NAME{rivarjs}$
-\end_inset
-
-.
- This is available in 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://rivarx.github.io/Evaluation
-\end_layout
-
-\end_inset
-
-.
- By our merge operation, each new sample from any of the sources are passed
- to the target variable, which recursively pass new values to targets variables.
- Consequently, in fields calculations, once the user puts a new input for
- a field, the fields that rely on a previous input, specifically the oldest
- input, are overwritten.
- Similary in the 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-, the input adds constraints to be in the top priority, causing to override
- values derived from old inputs.
- As a result, it seems like that our change propogation is like in the 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- library.
-\end_layout
-
-\begin_layout Section
-Perfomance
-\end_layout
-
-\begin_layout Section
-Cycles
-\end_layout
-
-\begin_layout Standard
-In the FRP paradigm, there are two opposing methods about cycles.
- In one method, cycles are avoided, because the paradigm derived from the
- functional paradigm, with the referential transparency property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to the second method, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
- In such applications, in case that we cannot define cycles, we need to
- wrap the rea it with much more code 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-FRP runtimes that support cycles uses various techniques to stop arisen
- loops.
- Terminating when it closes a cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, adding to the language a special operator to inform the runtime when to
- break the cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-, stop after a number of iterations, stop if the value has not changed,
- or changed only less than a threshold (available in 
-\emph on
-Microsoft Excel
-\emph default
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-).
- The various methods caused from the unknown, that a repeating update is
- either needed because previous update was a glitch, or that it is unneeded
- because the repeating update is caused from a cycle.
-\end_layout
-
-\begin_layout Standard
-Our model provides the semantics described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "par:Any-Formula"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-: cycles are resulted from variables with more than one source.
- Those variables are updated whenever there is a newer value from any of
- the sources.
- Technically, loops are terminated, because values caused from cycles are
- not newer.
- However, we are not the first to handle cycles, as said in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, constraints systems that handle two-way constraints handle cycles by their
- nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- Nevertheless, the model treats the meaning issue about cycles more explicity.
-\end_layout
-
-\begin_layout Section
-Abstraction Level
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-In our framework, like previous works, we had to face the balancing between
- the abstraction and generality.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To evaluate the approach, we first implemented (https://rivarx.github.io/UsageExam
-ples/) the drug administration presented in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
- As ilustarted in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration-UML-2-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- we have splited the drug administration form into two distinct objects.
- Each object is responsible for managing only the variables and relationships
- that are directly relevant to it.
- For instance, the concentration of the bag is hidden from the pump because
- the pump object only interacts directly with the bag's drug and volume.
- Conversely, the concentration is only indirectly communicated with the
- pump since it is updated from changes in the amount or volume.
- According to this example, if the propogation algorithm is sufficient,
- we achived our goal.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[scale=0.8]%[show  background  grid]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{interface}{IBag}{0,-5}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Drug}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{VolumeOfFluid}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{interface}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}[text width=8 cm]{Pump}{0,0}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Dose}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Rate}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-composition{Pump}{TheBag}{}{IBag}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}{Bag}{0,-10}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-implement {IBag}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Concentration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-Administration-UML-2-1"
-
-\end_inset
-
-A UML diagram showing a composition relationship between a Pump class and
- an IBag interface.
- The Pump class has three attributes: Duration, Dose, and Rate.
- The Bag class implements the IBag interface and has two attributes: Drug
- and VolumeOfFluid, as well as an additional attribute called Concentration.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+...
 \end_layout
 
 \begin_layout Section
 The Case Study
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We implemented the motivating example by using RIVarX
 \begin_inset Foot
 status collapsed
@@ -1353,7 +894,7 @@ lstinline{IBag}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1561,11 +1102,11 @@ lstinline{Pump}
  without any effect.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1745,7 +1286,7 @@ lstinline{Pump}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -1861,7 +1402,7 @@ lstinline{Bag} in runtime
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1969,7 +1510,7 @@ lstinline{Pump}
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2055,7 +1596,7 @@ Bootstrap of the drug administration components
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The UI components are connected to the model objects (
 \begin_inset ERT
 status open
@@ -2121,7 +1662,7 @@ noprefix "false"
 , except the unexpected update.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -2240,7 +1781,7 @@ noprefix "false"
 Propogation Algorithm
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In our implementation, we provided a strict general propogation algorithm,
  to provide the developers to sepcify clear logic.
  In the drug administration example, the business logic is well specified:
@@ -2257,7 +1798,7 @@ In our implementation, we provided a strict general propogation algorithm,
 The state of the art
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This is like previous works had to face the balancing between the abstraction
  level and the generalism of the propogation algorithm.
  The technaogy that enables completely custom propogation, has a problematic
@@ -2270,7 +1811,7 @@ This is like previous works had to face the balancing between the abstraction
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In working with streams such like like ReactiveX.
  In reactiveX, the developer can choose between several scueduler, to indicate
  the order of the updates.
@@ -2302,7 +1843,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the FRP field reserach, the centeral high level concept is that the developer
 s need only to specify the data dependencies, and the runtime maintain the
  updates.
@@ -2317,7 +1858,7 @@ s need only to specify the data dependencies, and the runtime maintain the
 Glitches
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Glitch means an extra recomputation then expected.
  This is not only the extra work, that affect the perfomance, but also that
  the values that are based on stale values, until the last recomutation.
@@ -2331,14 +1872,14 @@ Glitch means an extra recomputation then expected.
 Cycles
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to customize the way in which to evaluate cycles, the abstracion
  is not totaly high.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Our approach can be implemented (as we already implemented) as internal
@@ -2363,11 +1904,11 @@ ion, it is still not the case, because we use the framework that implemented
 The Algorithm
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 first, front end need syncronization updates.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 second, our resulted libraries actualy produces a framework for decenterlized
  constraints systems.
  We provide the ability to declare one-way dataflow constraints targeting
@@ -2376,170 +1917,20 @@ second, our resulted libraries actualy produces a framework for decenterlized
  constraints systems.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In this section, we compare our method to Hotdrink mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "par:Constraints"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, FRP and so our method are similar to Hotdrink in that they share declare
- equations, providing runtime automates to automate variables' updates,
- they support cycles and several assignments, and that they handle the variables
-' values according to the order of the input.
- Our method is diffrent from Hotdrink in that it is a 
-\emph on
-decenterlized
-\emph default
- constraints system, and that it handles one-way constraints.
-\end_layout
-
-\begin_layout Paragraph*
-decenterlized constraints system
-\end_layout
-
-\begin_layout Plain Layout
-Hotdrink needs for each input, to run against the entire constraints and
- existing values, to generate a new dependancy graph according to the variables'
- existing values.
- This algorithm is executed by a madiator coupling the entire variables
- and dependencies.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Repeating-Solutions"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, this design causes applications to not being reused.
- In other words, Hotdrink can be used only to building monolith applications
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
- In contrast, our method provides a decentrelized constraints system, the
- variables observe their sources and update their values by regular objects'
- messages.
- Consequently, by nature, relations between variables can be specified,
- even when variables are located in diffrent components.
-\end_layout
-
-\begin_layout Paragraph*
-one-way constraints
-\end_layout
-
-\begin_layout Plain Layout
-Hotdrink handles two-way constraints while our method handle one-way constraints.
- As explained in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the two-way constraints need attached one-way constraints, that are the
- 
-\emph on
-methods 
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- to satisfy the two-way constraints.
- Consequently, with the two methods, the developer needs to specify one-way
- constraints.
- However, it has been augmented that it is more correct to specify two-way
- constraints, because several one-way constraints defined separately might
- define inconsistent requirements 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- We leave this for future work.
- For this stage we provide two arguments to the claim.
- First, according to the motivating example, we need the option to write
- the one-way constraints separately.
- Second, the method should be used in a programming language that supports
- OOP.
- Consequently, it should not be hard to implement a wrapper class 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Constraint}
-\end_layout
-
-\end_inset
-
- containing one-way constraints given as arguments.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Future Enhancments
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We provided a new abstraction with an elsticity.
  The fact that we provided an actual end to end solution, does not strict
  it.
  The merge function can be replaced depending on the feasibilty and requiremtns.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

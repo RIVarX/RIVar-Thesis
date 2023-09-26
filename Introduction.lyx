@@ -111,7 +111,11 @@ In the field of
 \emph on
 Functional Reactive Programming
 \emph default
- (FRP) 
+ (FRP)
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional,elliott2009push"
@@ -123,7 +127,11 @@ literal "false"
 \emph on
 reactive variables
 \emph default
- 
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -135,7 +143,11 @@ literal "false"
 \emph on
 behavior
 \emph default
- 
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "elliott2009push"
@@ -146,8 +158,12 @@ literal "false"
 , 
 \emph on
 signal
+\begin_inset space ~
+\end_inset
+
+
 \emph default
- 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "maier2010deprecating"
@@ -159,7 +175,11 @@ literal "false"
 \emph on
 cell
 \emph default
- 
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -171,7 +191,11 @@ literal "false"
 \emph on
  reactive value
 \emph default
- 
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "drechsler2014distributed"
@@ -180,36 +204,10 @@ literal "false"
 \end_inset
 
 ) to automate updates.
- 
-\end_layout
-
-\begin_layout Standard
-Reactive variables are variables that are recaluclated in response and according
- to to dependant variables' updates.
- The variables can get input (
-\begin_inset Formula $\LSTINLINE =$
-\end_inset
-
- operator) or be assigned (
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
- operator) with an expression consisting of a set of other reactive variables.
- 
-\end_layout
-
-\begin_layout Standard
-The assigment defines a 
-\emph on
-data
-\emph default
- 
-\emph on
-dependenc
-\emph default
-y: the value of the variable is set to the value of the expression, and
- continuously re-evaluated in response to changes in the value of any of
- the variables appearing in the expression.
+ Reactive variables remind fields in front-end applications, that are calculated
+ according to other fields.
+ In FRP, in order to create a variable that is automaticaly calculated according
+ to other variables, it should be specified decleratively as a formula.
  For example (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -228,11 +226,11 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
- , the formula 
+, the formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
- associates the variable 
+ associates 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
@@ -244,7 +242,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
- changes in response to any input provided to the value of 
+ changes in response to change to the value of 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
@@ -546,38 +544,19 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
-However, when dealing with a growing application that involves a long chain
- of updates, the implementation becomes challenging.
- First, it is difficult to control the data dependencies implied implicity
- by event handling logic 
+It might be challenging, to deal with the fields calculations that involve
+ long chain of updates.
+ The FRP paradigm makes this easier by allowing developers to explicitly
+ declare data dependencies 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "maier2010deprecating"
+key "maier2010deprecating,bainomugisha2013survey"
 literal "false"
 
 \end_inset
 
 .
- In the events paradigm, the data dependencies are not explicit because
- they are not directly expressed in the code, but are instead implied by
- the event handling logic.
- The event handling logic determines what happens when an event is triggered,
- and in this case, it sets the values of variables and updates their dependencie
-s.
- This has the solution like reactive variables, to explicitly declaring
- the data dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The second complexity part is to manage code changes by managing 
+ The left challenge is in managing the 
 \emph on
 source code dependencies
 \emph default
@@ -590,21 +569,514 @@ literal "false"
 \end_inset
 
 .
- According to business needs and requirements, applications are composed
- from several components.
- Changes in declared data dependencies in one component might cause effects
- on other components, requiring them to be changed accordingly.
- We relate this to the 
-\emph on
-Object Oriented Programming
-\emph default
- (OOP) paradigm.
- This paradigm enables that different parts of the software, in the form
- of objects, are loosely coupled and do not depend on one another.
- This makes it easier to change objects without affecting the others.
+ In applications that are composed of several components, changing the source
+ code of one component might lead to subsequent changes in the source code
+ of other components, meaning that the code of the component depends on
+ the code of the other coomponents.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula $\REScala$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.rescala-lang.com/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ are two libraries that allow objects to contain reactive variables, abstracting
+ components with fields.
+ 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ derives previous FRP implementations, which is designed to produce consistent
+ behavior, by an algorithm that carefully determines the order in which
+ to update the variables.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ provides an API based on some OOP design patterns, to treat variables as
+ streams of their changes.
+ Both alternatives have their tradeoffs.
+ 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ gives the 
+\emph on
+referential transparency
+\emph default
+ property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, meaning that the same input will produce consistently the same output.
+ This property gives 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ the property of 
+\emph on
+compositionality
+\emph default
+ like in 
+\emph on
+Functional Programming
+\emph default
+, where we can combine small, simple functions to create more complex ones,
+ by passing the output of one function as the input to the next.
+ However, the updates are taken by a central madiator.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ is good in seperation: it is enabled to decouple formulas from the used
+ reactive variables, to associate expressions to reactive variables from
+ outside of objects, and that variables are updated directly by their dependenci
+es (without a central madiator).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+———–
+\end_layout
+
+\begin_layout Plain Layout
+the tra of the declaring the data depedencies explicity, it should become
+ easier.
+\end_layout
+
+\begin_layout Plain Layout
+In the development of front-end and other reactive applications there are
+ two dependencies types: data dependencies and source code depedencies,
+ which should be organaized efficiently.
+\end_layout
+
+\begin_layout Plain Layout
+In the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+, there is an effort to make the data dependencies declared in the languages,
+ instead that the developers need to understad the depedencies from the
+ control of the programs.
+ Traditionaly, it is hard to understand the dependencies, because it is
+ spread over the event handlers.
+\end_layout
+
+\begin_layout Plain Layout
+In the paradigm of OOP, there are abstraction mechanism to manage the source
+ code dependencies.
+ according to business needs, then changes in the code that handle data
+ dependencies in one component might lead to require other components to
+ be changed accordingly.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+, lanigages has been deveoped that lift the assignment statements, to create
+ data dependencies, so that the variables will continoue to update according
+ to the depeodencies.
+\end_layout
+
+\begin_layout Plain Layout
+In the field of 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+ effort has been invested in implementing 
+\emph on
+reactive variables
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (with some variations also known as 
+\emph on
+behavior
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) to automate updates.
+\end_layout
+
+\begin_layout Plain Layout
+Reactive variables have a special assignment operation (
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ operator) that defines a 
+\emph on
+data
+\emph default
+ 
+\emph on
+dependenc
+\emph default
+y: the target reactive variable depends on the variables in the expression.
+ The expressions are 
+\emph on
+lifted 
+\emph default
+executed functions, so that the target reactive variable continuously contains
+ the value derived from the values of the reactive variables it depends
+ on.
+ A propogation of changes starts whenever any of the variables get user
+ input (
+\begin_inset Formula $\LSTINLINE =$
+\end_inset
+
+ operator).
+ This causes the dependencies to re-evaluate, which causes their dependencies
+ to re-evaluate, and so on.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), given two reactive variables 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ , the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ associates 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ with the expression 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, and the value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+When dealing with a growing application that involves a long chain of updates,
+ the implementation becomes challenging.
+ Applications are usually composed of several or many components that runs
+ in one or many hosts.
+ In such settings, changes in the code that handle data dependencies in
+ one component might lead to require other components to be changed accordingly.
+\end_layout
+
+\begin_layout Plain Layout
+In the Object Oriented Paradigm (OOP) difrent parts of the application in
+ the form of objects can be loosly coupled, even when they interacts in
+ such a way that variable in one object depends on variables of other objects.
+\end_layout
+
+\begin_layout Plain Layout
+applications are modeled as objects that the components can usesuggests
+ to form applications by objects to be used model running components or
+ that can extend and compose each other, that can react to 
+\end_layout
+
+\begin_layout Plain Layout
+In the events paradigm, it is hard to control what the data depedencies
+ are, because logic determines what happens when an event is triggered,
+ and in this case, it sets the values of variables and updates their dependencie
+s.
+ In addition, if an application is composed of several components, according
+ to business needs, then changes in the code that handle data dependencies
+ in one component might lead to require other components to be changed according
+ly.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The second difficulty is to manage code changes by managing 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+it might be hard as every large application, that contains too much details
+ to the developer think.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+the complex or huge logic, in the form of uge amount of data depedencies.
+\end_layout
+
+\begin_layout Plain Layout
+the huge amount of data depedecies might be hard to manage as it is complex
+ logic 
+\end_layout
+
+\begin_layout Plain Layout
+When dealing with a growing application that involves a long chain of updates,
+ the implementation becomes challenging.
+ The first difficulty is to control the data dependencies.
+ In the events paradigm, the data dependencies are not explicit because
+ they are not directly expressed in the code, but are instead implied by
+ the event handling logic.
+ The event handling logic determines what happens when an event is triggered,
+ and in this case, it sets the values of variables and updates their dependencie
+s 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ In FRP, the goal is that the developer has a langague to express the data
+ dependenies directly.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The second difficulty is to manage code changes
+\end_layout
+
+\begin_layout Plain Layout
+The second difficulty is to manage the dependencies between code components.
+ If the code that handles data dependencies handling involves several components
+, they might become 
+\emph on
+coupled
+\emph default
+.
+ If changes in one component lead to require other components to be changed
+ accordingly, the first component depends on the second component 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+code changes.
+ According to business needs and requirements, applications are composed
+ from several components.
+ Changes in the code that handle data dependencies in one component might
+ lead to require other components to be changed accordingly.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The second difficulty is to manage code changes by managing 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ In the Object Oriented Programming, the applications parts has the form
+ of objects.
+\end_layout
+
+\begin_layout Plain Layout
+, that consume and extend each other, which are used to manage the code
+ changes efficiently.
+ The objects are used to sompose applications
+\end_layout
+
+\begin_layout Plain Layout
+According to business needs and requirements, applications are composed
+ from several components.
+ Changes in the code that handle data dependencies in one component might
+ lead to require other components to be changed accordingly.
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Formula $\REScala$
 \end_inset
 
@@ -669,7 +1141,7 @@ https://reactivex.io/
  streams of their changes.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Both alternatives have their tradeoffs.
  
 \begin_inset Formula $\REScala$
@@ -692,9 +1164,13 @@ literal "false"
 \begin_inset Formula $\REScala$
 \end_inset
 
- the power from the functional paradigm, the property of 
+ the property of 
 \emph on
 compositionality
+\emph default
+ from the 
+\emph on
+Functional Paradigm
 \emph default
 , to build bigger functions out of smaller ones.
  However, the updates are taken by a central madiator.
@@ -702,10 +1178,19 @@ compositionality
 \begin_inset Formula $\ReactiveX$
 \end_inset
 
- is good in seperation: it lets to decouple formulas from the used reactive
- variables, to associate expressions to reactive variables from outside
- of objects, and that variables are updated directly by their dependencies
- (without a central madiator).
+ is good in seperation: it is enabled to decouple formulas from the used
+ reactive variables, to associate expressions to reactive variables from
+ outside of objects, and that variables are updated directly by their dependenci
+es (without a central madiator).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Contribution
 \end_layout
 
 \begin_layout Standard
@@ -1017,274 +1502,6 @@ lstinline{B}
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}{0.4
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-A:=B+1
-\end_layout
-
-\begin_layout Plain Layout
-
-B=1 // A=2
-\end_layout
-
-\begin_layout Plain Layout
-
-B=6 // A=7
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}{0.4
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (B) at (0,0) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (A) at (-2,0) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[->] (A) -- node[above] {} (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Reactive-variables-basics-1-1"
-
-\end_inset
-
-This is an example of using reactive variables, where the value of variable
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- depends on the value of variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-.
- (We choose to represent the dependancy from the derived variable to the
- variable it is derived from, to be consistent with derived class that in
- uml the dependencay is illustrated from the derived class to the subclass.
- The direction presents that change causes the dependancy to change, and
- not the direction of the data flow.) Whenever 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- is updated, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- is automatically updated accordingly.
- The formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A:=B+1}
-\end_layout
-
-\end_inset
-
- associates the variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- with the expression 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B+1}
-\end_layout
-
-\end_inset
-
-, which means that the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- changes in response to any changes in the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
@@ -3222,10 +3439,6 @@ Illustrating the relationship between cycles and variables with multiple
 
 \end_layout
 
-\begin_layout Section
-Contribution
-\end_layout
-
 \begin_layout Standard
 We present a framework along with implemented libraries for separating data
  dependency management within objects, in accordance with the information
@@ -3233,14 +3446,17 @@ We present a framework along with implemented libraries for separating data
  At the heart of this framework lies the concept of a 
 \emph on
 Reactive Instance Variable
+\begin_inset space ~
+\end_inset
+
+
 \emph default
- (
+(
 \begin_inset Formula $\RIVar$
 \end_inset
 
 s), which is implemented as a data type hosted within existing programming
  languages.
- .
  
 \begin_inset Formula $\RIVar$
 \end_inset
@@ -3268,40 +3484,29 @@ noprefix "false"
 
 , we explore traditional methods employed for handling field calculations
  and discuss the possibility of dividing them into components.
- 
+ In 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Motivation"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
- addresses the problem we aim to solve, outlines the required framework,
- and identifies the obstacles hindering its implementation.
+ we provide an exploration for one specific application example.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Method"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
-, we present our solution to overcome these obstacles.
- Finally, 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Implementation"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- offers a comprehensive implementation of our proposed semantic framework.
+ we point out our approach and implementation.
+ 
 \end_layout
 
 \begin_layout Standard

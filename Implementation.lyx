@@ -91,30 +91,7 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-With the solution for addressing unexpected feedback loops (as presented
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), it becomes possible to introduce a new variant for FRP into the framework
- outlined in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- We provide it as extensions
+We create the new variant of FRP as extensions
 \begin_inset Foot
 status collapsed
 
@@ -136,53 +113,124 @@ https://github.com/RIvarX
 \end_inset
 
  to existing programming languages.
- The core is 
-\begin_inset Formula $\RIVar$
+ Specifically, we have created the extensions 
+\begin_inset Formula $\NAME{RIVarX}$
 \end_inset
 
- datatype for implementing variables, with an assignment operation implemented
- as the 
-\begin_inset Formula $\LSTINLINE{set}$
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
 \end_inset
 
- method.
-\end_layout
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
 
-\begin_layout Section
-The FRP Variant
-\end_layout
-
-\begin_layout Standard
-This new variant expands on the model of observable streams described in
- 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "true"
-noprefix "false"
-
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
 .
- In addition to variables observing each other, operators are also treated
- as objects.
- Moreover, the assignment operation 
+ We depend on observable streams, specificaly given by 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+ Using observable streams facilitates binding with the UI, when a UI change
+ event occurs, it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+\end_layout
+
+\begin_layout Standard
+We implement a filtering mechanism, where the variables and the expressions
+ over them does not propogate values that are less updated that the existing
+ once.
+ Therefore we implement the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ datatype to wrap the variables, a shortcut of 
+\emph on
+reactive instance variable
+\emph default
+, and the 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ function (
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+) to the expressions.
+ Both pass values, but can filter out absolete values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ is derived from the 
+\begin_inset Formula $\LSTINLINE{subject}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+) of Rx, which implements an observable stream.
+ The 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+) method is the implementation of the operator 
+\begin_inset Formula $\LSTINLINE =$
+\end_inset
+
+, and for the operator 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
-, which is implemented as the method 
+, we implement a new custom method, we call it 
 \begin_inset Formula $\LSTINLINE{set}$
 \end_inset
 
-, generates observations to push values to the target variable.
- In order to achieve this functionality, the variables are implemented as
- 
-\begin_inset Formula $\LSTINLINE{subjects}$
+ (or 
+\begin_inset Formula $\LSTINLINE{Set}$
 \end_inset
 
-, which act as observers in addition to being observable streams.
- 
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -310,7 +358,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -686,17 +734,7 @@ noprefix "false"
 
 \begin_layout Standard
 This allows operations to handle unexpected feedback and glitches through
- the filtering mechanism proposed in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
+ a filtering mechanism.
  Binary operators like 
 \begin_inset Formula $\LSTINLINE +$
 \end_inset
@@ -713,551 +751,9 @@ noprefix "false"
  variable in the left-hand stream.
 \end_layout
 
-\begin_layout Section
-The Framework
-\end_layout
-
-\begin_layout Standard
-The new FRP can be used to implement object behaviors as outlined in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- Specifically, we have created the extensions 
-\begin_inset Formula $\NAME{RIVarX}$
-\end_inset
-
- for 
-\begin_inset Formula $\LSTINLINE{C\#}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{rivarjs}$
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
-, through which we have implemented the 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- classes mentioned in the outline.
-\end_layout
-
-\begin_layout Standard
-Since the variables serve as event streams, the created objects can establish
- a binding with the UI.
- When a UI change event occurs, it adds an event to the variable stream.
- Conversely, when a new event appears in the stream, it triggers a corresponding
- change in the UI.
-\end_layout
-
-\begin_layout Standard
-Specifically, one of our samples is a 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- application (a library discussed in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Multiple-Components"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:react_micro_frontends"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- The application consists of 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- components.
- Similarly to the concept of micro-frontend architecture 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "peltonen2021motivations"
-literal "false"
-
-\end_inset
-
-, the components are
-\emph on
- loosly coupled
-\emph default
-: the UI components interact with their backend objects (the 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
-), which interact through the introduced 
-\begin_inset Formula $\NAME{RIVar}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{subfigure}[b]{1
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class App extends Component {
-\end_layout
-
-\begin_layout Plain Layout
-
-  constructor(props) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    super(props);
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.bag = new Bag();
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.pump = new Pump(this.bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  render() {
-\end_layout
-
-\begin_layout Plain Layout
-
-    return (
-\end_layout
-
-\begin_layout Plain Layout
-
-      <div>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <BagComponent bag={this.bag} />
-\end_layout
-
-\begin_layout Plain Layout
-
-        <PumpComponent pump={this.pump}/>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </div>
-\end_layout
-
-\begin_layout Plain Layout
-
-    );
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:code}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-begin{subfigure}[b]{1
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
- {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- UI] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
- (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:runtime}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-phantomcaption % Invisible caption
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-label{fig:micro_front_ends}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:react_micro_frontends"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Design for the drug administration application.
-\end_layout
-
-\end_inset
-
-Design for the drug administration application.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:code})
-\end_layout
-
-\end_inset
-
- presents the static code that bootstraps the components, while 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:runtime})
-\end_layout
-
-\end_inset
-
- presents the runtime components with the interaction channels.
- 
-\begin_inset Formula $\LSTINLINE{BagComponent}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{PumpComponent}$
-\end_inset
-
- in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:code})
-\end_layout
-
-\end_inset
-
- represent the UI components that are illustrated in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:runtime})
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ——–
@@ -2949,7 +2445,7 @@ cref{line:checkResult}
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Section
 The Case Study
@@ -4308,7 +3804,7 @@ A UML diagram showing a composition relationship between a Pump class and
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...

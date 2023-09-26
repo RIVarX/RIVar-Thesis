@@ -350,7 +350,11 @@ literal "false"
 \emph on
 Reactive Extensions
 \emph default
- (Rx) 
+ (
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ or Rx) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "meijer2012your"
@@ -358,7 +362,7 @@ literal "false"
 
 \end_inset
 
- available for many programming languages
+ available for many programming languages,
 \begin_inset Foot
 status collapsed
 
@@ -378,44 +382,7 @@ https://reactivex.io/
 
 \end_inset
 
-.
- For example, 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://github.com/dotnet/reactive
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "troelsen2012pro"
-literal "false"
-
-\end_inset
-
- and also 
+ such as 
 \begin_inset Formula $\NAME{RxJS}$
 \end_inset
 
@@ -521,7 +488,6 @@ noprefix "false"
 .
  Finally, by subscribing to the resulting observables, UI elements can be
  updated.
- This model can be used for field calculations.
 \end_layout
 
 \begin_layout Standard
@@ -693,7 +659,7 @@ accidental recursion
 \emph default
 s, the behavior does not behave properly.
  For example, if the code contains 
-\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\begin_inset Formula $\LSTINLINE{A=D.Select(x=>x+1)}$
 \end_inset
 
  and accidently it is added 
@@ -723,6 +689,12 @@ In the default change propogation, observables synchronously respond to
  This traversal can be likened to a depth-first search (DFS) algorithm,
  where a change event initiates a sequence of computations in a depth-first
  order.
+ The DFS algorithm can be described in terms of its result.
+ This has the form of a
+\emph on
+ spanning tree
+\emph default
+ of the vertices reached during the traversal.
  This traversal order has the known issue named 
 \emph on
 glitch
@@ -752,8 +724,8 @@ noprefix "false"
 
 \end_inset
 
- the tree, resulting from the DFS traversal, contains nodes with more than
- one incoming edge.
+ the spanning tree, resulting from the DFS traversal, contains nodes with
+ more than one incoming edge.
  This implies that certain variables were updated multiple times in response
  to the change, but some of these updates relied on outdated values.
  The multiple incoming edges of a node represent simultaneous events, which
@@ -1131,8 +1103,8 @@ lstinline{C},
 \backslash
 lstinline{D}) (
 \backslash
-subref{fig:graph}) presentes the tree resulted from the  traversal order,
- leading that the expected order is (
+subref{fig:graph}) presentes the spanning tree resulted from the  traversal
+ order, leading that the expected order is (
 \backslash
 lstinline{A},
 \backslash
@@ -1426,7 +1398,7 @@ literal "false"
 \begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
-
+,
 \begin_inset Foot
 status collapsed
 
@@ -1436,7 +1408,7 @@ http://hotdrink.github.io/hotdrink/
 
 \end_inset
 
-, which are declared using methods to satisfy the constraints.
+ which are declared using methods to satisfy the constraints.
  For instance, in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1451,7 +1423,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{A=B+C}$
 \end_inset
 
- is attached with the constraints 
+ is attached with the methods 
 \begin_inset Formula $\LSTINLINE{A=B+C}$
 \end_inset
 
@@ -1501,11 +1473,7 @@ noprefix "false"
 
 \end_inset
 
-, the runtime maintains 
-\emph on
-additional
-\emph default
- constraints.
+, the runtime maintains additional constraints.
  For each variable 
 \begin_inset Formula $X$
 \end_inset
@@ -2427,7 +2395,7 @@ In modern frameworks like
 \begin_inset Formula $\NAME{Flutter}$
 \end_inset
 
-
+,
 \begin_inset Foot
 status collapsed
 
@@ -2437,7 +2405,7 @@ https://docs.flutter.dev
 
 \end_inset
 
-, applications utilize dedicated state management solutions to handle variables.
+ applications utilize dedicated state management solutions to handle variables.
  These solutions can take the form of FRP-like approaches such as 
 \begin_inset Formula $\NAME{MobX}$
 \end_inset
@@ -2957,26 +2925,7 @@ Components can call each other, with the caller and callee sharing an interface,
 \end_layout
 
 \begin_layout Standard
-However, frequently there is a knowledge that should be shared in addition
- to the interface.
- It is called sometimes an 
-\emph on
-informal contract.
- 
-\emph default
-Because there is the 
-\emph on
-object re-entrance
-\emph default
- issue, where an object indirectly calls another object that then calls
- it back.
- In subsequent calls, the variables may be inconsistent because the execution
- has not finished.
-\end_layout
-
-\begin_layout Standard
-As a result, in component-based technology or architecture, there might
- be challenges in coordinating behavior.
+In practice we find challenges in coordinating behavior between components.
  In the context of micro-frontends, this architecture presents challenges
  regarding handling shared state and facilitating communication
 \begin_inset space ~
@@ -3034,6 +2983,22 @@ literal "false"
 
  is changed, this circular dependency can result in an infinite loop of
  recalculations.
+\end_layout
+
+\begin_layout Standard
+In OOP, the issue is named 
+\emph on
+object re-entrance
+\emph default
+, where an object indirectly calls another object that then calls it back.
+ In subsequent calls, the variables may be inconsistent because the execution
+ has not finished.
+ This causes problems in objects compositions and inheritance.
+ Therefore, frequently there is a knowledge that should be shared in addition
+ to the interface.
+ It is called sometimes an 
+\emph on
+informal contract.
 \end_layout
 
 \begin_layout Standard
@@ -3343,7 +3308,7 @@ A third option depends on informal contracts between components.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Note Note
@@ -3531,7 +3496,7 @@ literal "false"
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The FRP paradigm is derived from the functional paradigm to ensure explicit

@@ -109,1060 +109,40 @@ name "chap:Evaluation"
 
 \end_inset
 
-Evaluation
+Evaluation TBD
 \end_layout
 
 \begin_layout Standard
-The created framework should be compared to the traditional programming
- paradigms.
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Section
-FRP
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The new variant of FRP possesses the characteristic of referential transparency,
- which is a fundamental property of FRP.
- This ensures predictability because the behavior remains consistent based
- on the input.
- Unless several issues, the referential transparency property is almost
- achieved in the observable streams model, because the output streams are
- calculated from pure functions.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Furthermore, as mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, the issues related to glitches, simultaneous events, and recursions have
- already been tackled through the modeling of an order and the implementation
- of a filter mechanism.
- Additionally, we address the need for a 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation and handle accidental recursion using a custom assignment operator.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The referential transparency property means predictability, because the
- behavior is consistent depending on the input.
- Because, according to the following, the output streams are calculated
- from pure functions, thus maintaining referential transparency.
- It can also be observed that the principles that block the observable streams
- model from achieving referential transparency (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) have been addressed.
- It has already been observed that the issues of glitches, simultaneous
- events, and recursions are addressed through modeling an order and implementing
- a filter mechanism (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
- In the following, we adress also a needed merge operation and accidental
- recursion.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The referential transparency property means predictability, because the
- behavior is consistent depending on the input.
-\end_layout
-
-\begin_layout Plain Layout
-In addition to the glitch The implementation covers the merge and accidental
- recursion by the introduced assignment operator 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
-,
-\end_layout
-
-\begin_layout Plain Layout
-As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Implementation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, we implement a new variant for FRP based on the observable streams model,
- as described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "false"
-noprefix "false"
+All frameworks that support custom propagation must strike a balance between
+ abstraction and generality.
+ Event-driven programming frameworks give developers complete control over
+ the propagation order, but this can be error-prone 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
 
 \end_inset
 
 .
- We also handle the simultaneous events that caused the glitches and recursions
- that leave the
-\end_layout
-
-\begin_layout Plain Layout
-The implementation covers the merge and accidental recursion by the introduced
- assignment operator 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- , which gather the operations to handle the simultaneous events
-\end_layout
-
-\begin_layout Plain Layout
-as well as the other operations to complete the missing from being referential
- transparency in the observable stream model.
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The new FRP variant has the functional transparency
-\emph on
  
-\emph default
-property, because it is derived from the observable streams while handling
- its issues.
- The order introduced in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- handles the simultaneous events in operations.
- The implementation covers also the merge and accidental recursion by the
- introduced assignment operator 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- .
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-The assignment operator 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- pushes values to the target variable, similar to producing input by the
- operator 
-\begin_inset Formula $\LSTINLINE =$
-\end_inset
-
-.
- As a result, each variable consists of a 
-\emph on
-merged
-\emph default
- stream from the inputs and the stream to which the variable is assigned.
- For this reason, the assignment operator is considered as a 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operator.
- In the case of mutual recursion, it is necessary for at least one of the
- variables to require the merge function.
- This is because change propagation through a cycle must have a notification
- that is produced from outside of this cycle (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:cycle-merge-produce-concurrent-events-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] (X) at (-3,3) {$input$};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycle-merge-produce-concurrent-events-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation to handle mutual recursions.
-\end_layout
-
-\end_inset
-
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation to handle mutual recursions.
- The graph illustrates a DFS traversal of a change propogation (described
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) through a cycle, initiated from an external input to the variable 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Illustrating the spanning graph in the case of a cycle in the dependencies,
- when node C receives an input, it propagates it to node D, then to node
- E, and so on, until node B forwards it back to node C through the merge
- operator.
- However, this update is stale and should not be propagated again to node
- D.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The assignment operator is an 
-\emph on
-accumulation
-\emph default
- 
-\emph on
-merge
-\emph default
- operator, in its behavior to push values to the target variable.
- This is equivilent to merging the stream on the right-hand side of the
- operator with the stream on the left-hand side of the operator, and stores
- the merged result back in the left-hand side variable.
- For example (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:merge-several-sources-2"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), the statement 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- is executed as 
-\begin_inset Formula $\LSTINLINE{A=merge(A,B)}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-matrix[row sep=0.5cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-node at (0.2,0.2) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (0x1) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x1) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x1) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[box,minimum width=6.5cm] (op) {Merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x3) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x3) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x3) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[marble,circle] (4x3) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (5x3) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (6x3) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (1x0) -- (1x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (2x0) -- (2x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (3x0) -- (3x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (0x1) -- (0x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (1x1) -- (1x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (2x1) -- (2x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (1x3) -- (1x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (2x3) -- (2x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (3x3) -- (3x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (4x3) -- (4x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (5x3) -- (5x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (6x3) -- (6x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:merge-several-sources-2"
-
-\end_inset
-
- 
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The assignment operator as an accumulation merge operator
-\end_layout
-
-\end_inset
-
-The streams represent the variables.
- The statement 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- produces the illustrated 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
-, such that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- will contain the elements from the two streams.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In some cases of mutual recursion, it is possible that one of the variables
- within the cycle has a second (or more) assignment, through which the propagati
-on is initiated.
- Because subsequent statements with assignments to the same variable accumulate
- and merge more streams into it.
- In the given example, a subsequent statements 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- is executed as 
-\begin_inset Formula $\LSTINLINE{A=merge(A,D)}$
-\end_inset
-
- which means that 
-\begin_inset Formula $\LSTINLINE{A=merge(merge(A,B),D)}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The behavior of pushing values ensures that the 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operator exhibits the properties of associativity, commutativity, and flattenin
-g.
- These properties guarantee that the order of applying the statements does
- not affect the final result.
- In this particular example, executing 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- first yields the same result as executing it later, as 
-\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(merge(A,D),B)=merge(A,B,D)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The mentioned merge operation brings to mind the unacceptable merge operator
- in 
 \begin_inset Formula $\ReactiveX$
 \end_inset
 
+ provides a more abstract approach, allowing developers to choose between
+ several schedulers to indicate the order of updates.
+ FRP frameworks go even further, abstracting away the propagation order
+ altogether and allowing developers to focus on specifying the data dependencies.
+\end_layout
+
+\begin_layout Standard
+However, we found some exceptions.
  
+\begin_inset Formula $\NAME{sodium}$
+\end_inset
+
+, in addition to its high-level language, has the concept of transactions
+ to customize how to handle cycles 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -1171,68 +151,415 @@ literal "false"
 \end_inset
 
 .
- Consequently, we discovered that the order model and assignment operator
- resolve the issues in 
-\begin_inset Formula $\ReactiveX$
+ 
+\begin_inset Formula $\NAME{FrTime}$
 \end_inset
 
-, which prevented it from being FRP.
- In both traditional merge and recursion, there are redundant updates caused
- by the inability to check each update for freshness.
+ has the reserved word 
+\begin_inset Formula $\NAME{\LSTINLINE{delay}}$
+\end_inset
+
+ to customize how to handle cycles.
+ Additionally, streams and/or events are still part of these frameworks
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming,blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Code Duplication
 \end_layout
 
 \begin_layout Standard
+We implemented the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
 
-\end_layout
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-This leads to the referential transparency property, which is a characteristic
- of FRP.
- It has been determined that the output streams are calculated from pure
- functions, thus maintaining referential transparency.
- It can also be observed that the principles that block the observable streams
- model from achieving referential transparency (
+ classes with the fields and calculations as described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "subsec:Observable-Streams"
+reference "chap:Method"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
 
-) have been addressed.
- The merge operator and accidental recursion are addressed through the assignmen
-t operator, while glitches, simultaneous events, and recursions are addressed
- through modeling an order and implementing a filter mechanism.
-\end_layout
+.
+ The 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ class extends the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ class by composition, adding field calculations to the existing fields
+ in the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ class.
+ We added also the UI as 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ components, creating a concept similar to micro-frontend architecture 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
 
 \end_inset
 
+.
+ The components are
+\emph on
+ loosly coupled
+\emph default
+: the UI components interact with their backend objects (instances of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
 
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes), which interacts in the calculations processes.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Float figure
+wide false
+sideways false
 status collapsed
 
 \begin_layout Plain Layout
-As a result, the new variant of FRP support multiple assignments.
- A variable with multiple assignments is interpreted as a merge operator
- over the variable and assigned expressions in the various statements.
- This is like a methodology that involves the variable inferring its value
- over time from various streams of samples.
- This leads also to the functional transparency
-\emph on
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class App extends Component {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor(props) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super(props);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.pump = new Pump(this.bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  render() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <div>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <BagComponent bag={this.bag} />
+\end_layout
+
+\begin_layout Plain Layout
+
+        <PumpComponent pump={this.pump}/>
+\end_layout
+
+\begin_layout Plain Layout
+
+      </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
  
-\emph default
-property, characterized by FRP.
- Because it has been determined, that the output streams are calculated
- from pure functions.
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:code}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ UI] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
+ (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:runtime}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:micro_front_ends}
 \end_layout
 
 \end_inset
@@ -1240,31 +567,136 @@ property, characterized by FRP.
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "sec:Constraints"
+name "fig:react_micro_frontends"
 
 \end_inset
 
-Constraints
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Design for the drug administration application.
+\end_layout
+
+\end_inset
+
+Design for the drug administration application.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ presents the static code in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ that bootstraps the components, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+ presents the runtime components with the interaction channels.
+ 
+\begin_inset Formula $\LSTINLINE{BagComponent}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{PumpComponent}$
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ represent the UI components of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that are illustrated in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-As the assignment is implemented as a method, multiple assignments are supported.
- A variable with multiple assignments is interpreted as an operator over
- the variable and assigned expressions in the various statements.
- This is like a methodology that involves the variable inferring its value
- over time from various streams of samples.
+This implementation is the best in terms of code duplication compared to
+ the architectural designs explored in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In the exploration, we identified three patterns of code duplication, that
+ we clear out in our new implementation.
+ First, the calls to update variables in various locations, such as in response
+ to events.
+ Second, multiple variables to represent a single real-world variable.
+ Finaly, cloning code to not affect existing clients.
 \end_layout
 
 \begin_layout Standard
-By our merge operation, each new sample from any of the sources are passed
- to the target variable, which recursively pass new values to targets variables.
- Consequently, in fields calculations, once the user put new input for a
- field, the fields that relied on previous input, specifically the oldest
- input, are overwritten.
- This description is exactly as in the 
+The Drug Administration example is implemented side by side by the 
 \begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
@@ -1278,21 +710,12 @@ noprefix "false"
 
 \end_inset
 
-.
- The drug administration example is implemented side by side by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- and 
+, and 
 \begin_inset Formula $\NAME{rivarjs}$
 \end_inset
 
- for empirical comparison
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-available in 
+.
+ This is available in 
 \begin_inset Flex URL
 status collapsed
 
@@ -1303,59 +726,37 @@ https://rivarx.github.io/Evaluation
 
 \end_inset
 
-
-\end_layout
-
+.
+ By our merge operation, each new sample from any of the sources are passed
+ to the target variable, which recursively pass new values to targets variables.
+ Consequently, in fields calculations, once the user puts a new input for
+ a field, the fields that rely on a previous input, specifically the oldest
+ input, are overwritten.
+ Similary in the 
+\begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
-.
+, the input adds constraints to be in the top priority, causing to override
+ values derived from old inputs.
+ As a result, it seems like that our change propogation is like in the 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ library.
+\end_layout
+
+\begin_layout Section
+Perfomance
+\end_layout
+
+\begin_layout Section
+Cycles
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-By the introduced assignment the implemented new variant 
-\end_layout
-
-\begin_layout Plain Layout
-In 
-\end_layout
-
-\begin_layout Plain Layout
-The superposition property is achived since any added formula does extend
- the application.
- In previous implementations, the assignmemt did replace to the calcu 
-\end_layout
-
-\begin_layout Plain Layout
-Since the implementation is based on observables extensions, unpredictability
- might only coming from merges, glitches and recursions.
-\end_layout
-
-\begin_layout Plain Layout
-our issue blocking from having the desired predictability, is the merge
- operations and recursions.
- 
-\end_layout
-
-\begin_layout Plain Layout
-derive some features predictability several operations.
- However, we should complete our proof for predictability, because in using
- streams, there is has the same general time problem we have in the events
- driven 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- In the industry libraries, as can be seen in ReactiveX and Sodium, there
- is either an inpredictable merge function or that the developer need to
- specify the method to merge 
+In the FRP paradigm, there are two opposing methods about cycles.
+ In one method, cycles are avoided, because the paradigm derived from the
+ functional paradigm, with the referential transparency property 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -1364,591 +765,130 @@ literal "false"
 \end_inset
 
 .
- 
-\end_layout
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
 
-\begin_layout Plain Layout
-almost all operations produced the refern
-\end_layout
-
-\begin_layout Plain Layout
-we need only the inpreditabiity reursions and merges.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-.
- In the case of Hotdrink, the addition of new input triggers the creation
- of an equation constraint at the highest level of the hierarchy, involving
- the variable and the input.
- Plans are then generated, with each plan recursively searching for equations
- where the left variables are determined by preceding equations.
- The plan that satisfies the most constraints in the hierarchy is selected
- and executed.
- This aligns with our propagation approach, as we continue propagating values
- derived from the highest priority values.
- Consequently, the update sequence for both methods—our framework and the
- constraint hierarchy model for GUI—is identical.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The introduced operators provide functions over streams achieving properties
- characterized by FRP.
- FRP is originally described as functions over reactive variables, with
- the property known as
-\emph on
- functional transparency
-\emph default
-, meaning that the input consistently produces the same output.
- We have achieved this property by functions over streams of events.
-\end_layout
-
-\begin_layout Plain Layout
-The merge property known as
-\emph on
- functional transparency
-\emph default
-, meaning that the input consistently produces the same output.
-\end_layout
-
-\begin_layout Plain Layout
-We introduced the merge operator as a function over streams, with the property
- known as
-\emph on
- functional transparency
-\emph default
-, meaning that the input consistently produces the same output.
-\end_layout
-
-\begin_layout Plain Layout
-Furthermore, we guarantee that the same sequence of events consistently
- produces the same results, achieving properties characterized by FRP.
- FRP is originally described as functions over reactive variables, with
- the property known as
-\emph on
- functional transparency
-\emph default
-, meaning that the input consistently produces the same output.
- We have achieved this property by functions over streams of events.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] 
-\backslash
-node[draw, circle] (X) at (-3,3) {X};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycle-merge-produce-concurrent-events-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation as the location to handle the unexpected feedback loop.
-\end_layout
-
-\end_inset
-
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation as the location to handle the unexpected feedback loop.
- The graph illustrates an example produced from a DFS traversal of a change
- propogation (described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), initiated from an external input to the variable 
-\begin_inset Formula $\LSTINLINE C$
 \end_inset
 
 .
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Illustrating the spanning graph in the case of a cycle in the dependencies,
- when node C receives an input, it propagates it to node D, then to node
- E, and so on, until node B forwards it back to node C through the merge
- operator.
- However, this update is stale and should not be propagated again to node
- D.
-\end_layout
+ According to the second method, forbidding cycles makes FRP unacceptably
+ weak, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
+.
+ In such applications, in case that we cannot define cycles, we need to
+ wrap the rea it with much more code 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
+FRP runtimes that support cycles uses various techniques to stop arisen
+ loops.
+ Terminating when it closes a cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, adding to the language a special operator to inform the runtime when to
+ break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+, stop after a number of iterations, stop if the value has not changed,
+ or changed only less than a threshold (available in 
+\emph on
+Microsoft Excel
+\emph default
+ 
+\begin_inset Foot
+status collapsed
 
 \begin_layout Plain Layout
-In 
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+).
+ The various methods caused from the unknown, that a repeating update is
+ either needed because previous update was a glitch, or that it is unneeded
+ because the repeating update is caused from a cycle.
+\end_layout
+
+\begin_layout Standard
+Our model provides the semantics described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:The-design-of"
+reference "par:Any-Formula"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
- we introduced a micro-frontend design.
- Accordingly, we developed loosly coupled components that can be developed,
- built and deployed indepedently.
- The bootsrap is introduced in 
+: cycles are resulted from variables with more than one source.
+ Those variables are updated whenever there is a newer value from any of
+ the sources.
+ Technically, loops are terminated, because values caused from cycles are
+ not newer.
+ However, we are not the first to handle cycles, as said in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Bootstrap-of-the-2-1"
+reference "sec:ConstraintsInBackground"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
+, constraints systems that handle two-way constraints handle cycles by their
+ nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
 .
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Bag}
-\end_layout
-
-\end_inset
-
- is like the bag micro frontend, 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Pump}
-\end_layout
-
-\end_inset
-
- is like the pump micro frontend.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Bag}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{UserControl_Pump}
-\end_layout
-
-\end_inset
-
- implements the UI and are connected to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Bag}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
- respectively.
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-var bag = new Bag();
-\end_layout
-
-\begin_layout Plain Layout
-
-var pump = new Pump(bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-var bagUserControl = new UserControl_Bag(bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-var pumpUserControl = new UserControl_Pump(pump);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Bootstrap-of-the-2-1"
-
-\end_inset
-
-Bootstrap of the drug administration components
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In this thesis, we aimed to strike a balance between abstraction and control
- in value propagation.
- Our framework provides a high-level language based on FRP, accompanied
- by a general propagation algorithm that ensures a defined update sequence.
- While the drug administration example demonstrates clear business logic,
- encompassing defined objects, variables, and calculations, the propagation
- algorithms may not fulfill business requirements for other applications.
- Moreover, performance considerations (non-functional requirements) may
- necessitate modifying the update order, such as lowering consistency levels
- for resource-intensive computations.
+ Nevertheless, the model treats the meaning issue about cycles more explicity.
 \end_layout
 
 \begin_layout Section
-The Propogation Algorithm
+Abstraction Level
 \end_layout
 
-\begin_layout Plain Layout
-We have implemented and made publicly available
-\begin_inset Foot
-status open
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://rivarx.github.io/Evaluation
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- two drug administration examples: one using rivarjs and the other using
- hotdrink.
- Upon observation, both implementations exhibit similar behavior.
- Once a field is updated, the fields that relied on the previous input,
- specifically the oldest input, are overwritten.
- In the case of Hotdrink, the addition of new input triggers the creation
- of an equation constraint at the highest level of the hierarchy, involving
- the variable and the input.
- Plans are then generated, with each plan recursively searching for equations
- where the left variables are determined by preceding equations.
- The plan that satisfies the most constraints in the hierarchy is selected
- and executed.
- This aligns with our propagation approach, as we continue propagating values
- derived from the highest priority values.
- Consequently, the update sequence for both methods—our framework and the
- constraint hierarchy model for GUI—is identical.
+In our framework, like previous works, we had to face the balancing between
+ the abstraction and generality.
 \end_layout
 
 \end_inset
@@ -1957,10 +897,6 @@ https://rivarx.github.io/Evaluation
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 To evaluate the approach, we first implemented (https://rivarx.github.io/UsageExam
 ples/) the drug administration presented in 
 \begin_inset CommandInset ref
@@ -1976,7 +912,7 @@ noprefix "false"
  As ilustarted in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Drug-Administration-UML-2"
+reference "fig:Drug-Administration-UML-2-1"
 plural "false"
 caps "true"
 noprefix "false"
@@ -1994,7 +930,7 @@ noprefix "false"
  we achived our goal.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
@@ -2142,7 +1078,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Drug-Administration-UML-2"
+name "fig:Drug-Administration-UML-2-1"
 
 \end_inset
 
@@ -2167,7 +1103,7 @@ A UML diagram showing a composition relationship between a Pump class and
 The Case Study
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 We implemented the motivating example by using RIVarX
 \begin_inset Foot
 status collapsed
@@ -2182,7 +1118,7 @@ https://github.com/RivkaAltshuler/RIVar/tree/main/CaseStudies/DrugAdministration
  As in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Class-Pump-1"
+reference "fig:Class-Pump-1-1"
 plural "false"
 caps "true"
 noprefix "false"
@@ -2417,7 +1353,7 @@ lstinline{IBag}
 .
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -2535,7 +1471,7 @@ lstinline{Bag}
  This is simulated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Bag-In-Runtime-1"
+reference "fig:Bag-In-Runtime-1-1"
 plural "false"
 caps "true"
 noprefix "false"
@@ -2625,11 +1561,11 @@ lstinline{Pump}
  without any effect.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2779,7 +1715,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Class-Pump-1"
+name "fig:Class-Pump-1-1"
 
 \end_inset
 
@@ -2809,11 +1745,11 @@ lstinline{Pump}
 
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2895,7 +1831,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Bag-In-Runtime-1"
+name "fig:Bag-In-Runtime-1-1"
 
 \end_inset
 
@@ -2925,6 +1861,2204 @@ lstinline{Bag} in runtime
 
 \end_layout
 
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:The-design-of"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ we introduced a micro-frontend design.
+ Accordingly, we developed loosly coupled components that can be developed,
+ built and deployed indepedently.
+ The bootsrap is introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bootstrap-of-the-2-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ is like the bag micro frontend, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ is like the pump micro frontend.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ implements the UI and are connected to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ respectively.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+var bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+var pump = new Pump(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var bagUserControl = new UserControl_Bag(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var pumpUserControl = new UserControl_Pump(pump);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bootstrap-of-the-2-2"
+
+\end_inset
+
+Bootstrap of the drug administration components
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The UI components are connected to the model objects (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+) in such that whenever a user changes a field's value, it produces an input
+ to the related variable, causing other variables to be calculated, producing
+ updates in their related fields.
+ The UI components also provide the functionality to indicate calculated
+ values, just like in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In addition, The UI components append to a log file any value change.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Log-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we introduce the log output of the cenario introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, except the unexpected update.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+Dose_Control:10
+\end_layout
+
+\begin_layout Plain Layout
+Dose_Control: 10 <1>
+\end_layout
+
+\begin_layout Plain Layout
+Duration_Control:10
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100 <2,1>
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control:100
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100 <2,3>
+\end_layout
+
+\begin_layout Plain Layout
+Dose_Control: 10 <3,2>
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100 <3>
+\end_layout
+
+\begin_layout Plain Layout
+Duration_Control: 10 <2>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control:300
+\end_layout
+
+\begin_layout Plain Layout
+Drug_Control: 100.00 <3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300.00 <2,3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Rate_Control: 30.00 <3,4,2>
+\end_layout
+
+\begin_layout Plain Layout
+Rate_Control:30.00
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300.00 <2,5>
+\end_layout
+
+\begin_layout Plain Layout
+Rate_Control: 30.00 <5>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300.00 <3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Concentration_Control: 0.33 <3,4>
+\end_layout
+
+\begin_layout Plain Layout
+Volume_Control: 300 <4>
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Log-1-1"
+
+\end_inset
+
+Log for the cenario of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Propogation Algorithm
+\end_layout
+
+\begin_layout Standard
+In our implementation, we provided a strict general propogation algorithm,
+ to provide the developers to sepcify clear logic.
+ In the drug administration example, the business logic is well specified:
+ the objects, the variables, and how they are calculated from each other.
+ However, the order of the updates are strict to our implementation.
+ there may be domain-specific requirements for other orders for the updates.
+ In addition, performance considerations (non functional requirements) may
+ require changing the order of the updates, such as reducing consistency
+ levels for heavy calculations.
+ now we will weaken this argument.
+\end_layout
+
+\begin_layout Subsection
+The state of the art
+\end_layout
+
+\begin_layout Standard
+This is like previous works had to face the balancing between the abstraction
+ level and the generalism of the propogation algorithm.
+ The technaogy that enables completely custom propogation, has a problematic
+ abstraction.
+ Event-driven programming theortecaly provide customizable propagation.
+ Hoever, the paradigm is error prone, so that it hard to realy customize
+ according to the needs.
+ Therfore, it is not new that the customizability, is by only choose a general
+ propogation strategy.
+ 
+\end_layout
+
+\begin_layout Standard
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the FRP field reserach, the centeral high level concept is that the developer
+s need only to specify the data dependencies, and the runtime maintain the
+ updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+ Suprisngly, the general algorithm handles also some functional requirements,
+ and also some non functional requirements break the neat abstraction.
+ The root causes are glitches and cycles.
+\end_layout
+
+\begin_layout Paragraph
+Glitches
+\end_layout
+
+\begin_layout Standard
+Glitch means an extra recomputation then expected.
+ This is not only the extra work, that affect the perfomance, but also that
+ the values that are based on stale values, until the last recomutation.
+ There are several glicthes types,that arerelated to the required level
+ of the consistency.
+ So, this is a functional requirement, depending on the applicaton business.
+ Hwever, it is handled strictly by the runtime.
+\end_layout
+
+\begin_layout Paragraph
+Cycles
+\end_layout
+
+\begin_layout Standard
+In order to customize the way in which to evaluate cycles, the abstracion
+ is not totaly high.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Our approach can be implemented (as we already implemented) as internal
+ dsl, based on the existing popular frameworks.
+ the comunication between the nodes is based on a simpler observer chanel.
+ theoreticaly, the developers can debug the updates (however, in our implementat
+ion, it is still not the case, because we use the framework that implemented
+ the streams with schduler, and not completly directly method calls.
+ theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
+ because the protocal (propogation algorthm) is peer to peer (means no madiator).
+ The only limitation, is that the external input will be atached with an
+ order, such that each input is atached with the incerenetal number.
+ In large network, it might be a bottleneck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The Algorithm
+\end_layout
+
+\begin_layout Standard
+first, front end need syncronization updates.
+\end_layout
+
+\begin_layout Standard
+second, our resulted libraries actualy produces a framework for decenterlized
+ constraints systems.
+ We provide the ability to declare one-way dataflow constraints targeting
+ to variables that we do not own.
+ While the entire system maintain the whole constraints as in hirarchial
+ constraints systems.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In this section, we compare our method to Hotdrink mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "par:Constraints"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, FRP and so our method are similar to Hotdrink in that they share declare
+ equations, providing runtime automates to automate variables' updates,
+ they support cycles and several assignments, and that they handle the variables
+' values according to the order of the input.
+ Our method is diffrent from Hotdrink in that it is a 
+\emph on
+decenterlized
+\emph default
+ constraints system, and that it handles one-way constraints.
+\end_layout
+
+\begin_layout Paragraph*
+decenterlized constraints system
+\end_layout
+
+\begin_layout Plain Layout
+Hotdrink needs for each input, to run against the entire constraints and
+ existing values, to generate a new dependancy graph according to the variables'
+ existing values.
+ This algorithm is executed by a madiator coupling the entire variables
+ and dependencies.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Repeating-Solutions"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, this design causes applications to not being reused.
+ In other words, Hotdrink can be used only to building monolith applications
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "marheim2017domain"
+literal "false"
+
+\end_inset
+
+.
+ In contrast, our method provides a decentrelized constraints system, the
+ variables observe their sources and update their values by regular objects'
+ messages.
+ Consequently, by nature, relations between variables can be specified,
+ even when variables are located in diffrent components.
+\end_layout
+
+\begin_layout Paragraph*
+one-way constraints
+\end_layout
+
+\begin_layout Plain Layout
+Hotdrink handles two-way constraints while our method handle one-way constraints.
+ As explained in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:ConstraintsInBackground"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the two-way constraints need attached one-way constraints, that are the
+ 
+\emph on
+methods 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ to satisfy the two-way constraints.
+ Consequently, with the two methods, the developer needs to specify one-way
+ constraints.
+ However, it has been augmented that it is more correct to specify two-way
+ constraints, because several one-way constraints defined separately might
+ define inconsistent requirements 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ We leave this for future work.
+ For this stage we provide two arguments to the claim.
+ First, according to the motivating example, we need the option to write
+ the one-way constraints separately.
+ Second, the method should be used in a programming language that supports
+ OOP.
+ Consequently, it should not be hard to implement a wrapper class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Constraint}
+\end_layout
+
+\end_inset
+
+ containing one-way constraints given as arguments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Future Enhancments
+\end_layout
+
+\begin_layout Standard
+We provided a new abstraction with an elsticity.
+ The fact that we provided an actual end to end solution, does not strict
+ it.
+ The merge function can be replaced depending on the feasibilty and requiremtns.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, the languages provide also the stream abstraction ( 
+\begin_inset Formula $\NAME{sodium}$
+\end_inset
+
+, 
+\begin_inset Formula $\NAME{REScala}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+have the ability to declare the data dependencies, but also have stream
+ abstraction.
+\end_layout
+
+\begin_layout Plain Layout
+However, we find various exceptions.
+ In 
+\begin_inset Formula $\NAME{sodium}$
+\end_inset
+
+, in addition to the high level langauge.
+ there is the concept of transaction to customize the way of how to handle
+ cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In 
+\begin_inset Formula $\NAME{FrTime}$
+\end_inset
+
+, there is the reserved word 
+\begin_inset Formula $\NAME{\LSTINLINE{delay}}$
+\end_inset
+
+ to customize the way to how to handle cycles.
+ Generaly, the languges does not only have the ability to declare the data
+ dependencies, but also have stream abstraction.
+\end_layout
+
+\begin_layout Plain Layout
+because it is not in addition to the lifted variables.
+\end_layout
+
+\begin_layout Plain Layout
+The FRP paradigm promotes the concept that the developers need only to specify
+ the data dependencies, and the runtime maintains the updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+\end_layout
+
+\begin_layout Plain Layout
+However, as the data dependencies might contain cycles, the 
+\end_layout
+
+\begin_layout Plain Layout
+the langagues in order to handle cycles, the langiges are force to break
+ the neat abstraction
+\end_layout
+
+\begin_layout Plain Layout
+In our framework, like previous works, we had to face the balancing between
+ the abstraction level and the generalism of the propogation algorithm.
+ In the events driven programming, the framework completely enables completely
+ custom propogation.
+ In 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, the developers can choose between several scueduler, to indicate the order
+ of the updates.
+ In contrast, the FRP paradigm promotes the concept that the developers
+ need only to specify the data dependencies, and the runtime maintains the
+ updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+ 
+\end_layout
+
+\begin_layout Section
+Propogation Algorithm
+\end_layout
+
+\begin_layout Plain Layout
+In our implementation, we provided a strict general propogation algorithm,
+ to provide the developers to sepcify the logic clearly clear logic.
+ In the drug administration example, the business logic is well specified:
+ the objects, the variables, and how they are calculated from each other.
+ However, the order of the updates are strict to our implementation.
+ there may be domain-specific requirements for other orders for the updates.
+ In addition, performance considerations (non functional requirements) may
+ require changing the order of the updates, such as reducing consistency
+ levels for heavy calculations.
+ now we will weaken this argument.
+\end_layout
+
+\begin_layout Subsection
+The state of the art
+\end_layout
+
+\begin_layout Plain Layout
+In the events driven programming, that the framework that completely enables
+ completely custom propogation, it is error prone 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, so that it hard to realy customize the propogation according to the needs.
+ In frameworks that use streams it used to be also the case, because it
+ has the difficulty similar to the evemts paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In working with streams such like like ReactiveX.
+ In reactiveX, the developer can choose between several scueduler, to indicate
+ the order of the updates.
+ Hwoever, in working with streams, there is has the same general time problem
+ we have in the events driven.
+ Here, it is called 
+\series bold
+merge
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP field reserach, the centeral high level concept is that the developer
+s need only to specify the data dependencies, and the runtime maintain the
+ updates.
+ saying that the the runtime handles the non functional requirements, and
+ the developer is free to handle only the functional equirements.
+ Suprisngly, the general algorithm handles also some functional requirements,
+ and also some non functional requirements break the neat abstraction.
+ The root causes are glitches and cycles.
+\end_layout
+
+\begin_layout Paragraph
+Glitches
+\end_layout
+
+\begin_layout Plain Layout
+Glitch means an extra recomputation then expected.
+ This is not only the extra work, that affect the perfomance, but also that
+ the values that are based on stale values, until the last recomutation.
+ There are several glicthes types,that arerelated to the required level
+ of the consistency.
+ So, this is a functional requirement, depending on the applicaton business.
+ Hwever, it is handled strictly by the runtime.
+\end_layout
+
+\begin_layout Paragraph
+Cycles
+\end_layout
+
+\begin_layout Plain Layout
+In order to customize the way in which to evaluate cycles, the abstracion
+ is not totaly high.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Our approach can be implemented (as we already implemented) as internal
+ dsl, based on the existing popular frameworks.
+ the comunication between the nodes is based on a simpler observer chanel.
+ theoreticaly, the developers can debug the updates (however, in our implementat
+ion, it is still not the case, because we use the framework that implemented
+ the streams with schduler, and not completly directly method calls.
+ theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
+ because the protocal (propogation algorthm) is peer to peer (means no madiator).
+ The only limitation, is that the external input will be atached with an
+ order, such that each input is atached with the incerenetal number.
+ In large network, it might be a bottleneck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+————
+\end_layout
+
+\begin_layout Plain Layout
+This consists of the use of inheritance and composition abstraction mechanisms
+ used in OOP to not clone components.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+It is recommeneded to design them with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, and that the separation to responsibilities will be aligned with the business
+ needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+This 
+\end_layout
+
+\begin_layout Plain Layout
+We implemented the Bag and Pump classes as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The Pump class extends the Bag class and adds field calculations to the
+ existing fields in the Bag class.
+ We added also the UI as React components, so that Bag is a ready to use
+ component, and Pump is an extension over it.
+\end_layout
+
+\begin_layout Plain Layout
+We also created Bag React component and a Pump React component, that are
+ components that include the UI with the interaction with the user.
+ This means that if Bag component is used, and there is a need to extend
+ it with the Pump, it is done.
+\end_layout
+
+\begin_layout Plain Layout
+, each 
+\end_layout
+
+\begin_layout Plain Layout
+This represents the novelity of our approach to add field calculations without
+ disrupting existing clients.
+\end_layout
+
+\begin_layout Plain Layout
+We also created a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application, keeping on the indepedance, such that a Bag UI component and
+ a Pump UI component are indepedant from each other.
+ The Bag UI component depends on the Bag class, and the Pump UI component
+ depends on the Pump class.
+ This present the new ability, that each class can contain fields calculation
+ s independantly 
+\end_layout
+
+\begin_layout Plain Layout
+We implemented 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes as described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ extends 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ while adding fields calculations to existing fields that are in 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+.
+ This represent the advantage of our approach, to enable adding fields calculati
+on withiut to disturb existing clients.
+ We created also Bag UI component and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ UI component with reserved chrachstic.
+\end_layout
+
+\begin_layout Plain Layout
+This charechstic in classes is reserved also in UI components.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ is a composition class, that contain 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and adds fields and calculations to calculate fields from 
+\end_layout
+
+\begin_layout Plain Layout
+, the differences are mostly in the binding to the UI.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Basicly, as 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ consists of an observable stream, when a UI change event occurs, it adds
+ an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+ However in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+, we used other strategy.
+ In 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+, the developer should define the visual view as function of changeable
+ state or props.
+ Therefore, we created a base element, a react component, that defines the
+ visual view as function of 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ that is passed to it by props.
+\end_layout
+
+\begin_layout Plain Layout
+One of the samples is a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application (a library discussed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Multiple-Components"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ We created class 
+\begin_inset Formula $\LSTINLINE{RIVarComponent}$
+\end_inset
+
+ that can be 
+\end_layout
+
+\begin_layout Plain Layout
+The advantage of our approach is to enable adding fields calculation withiut
+ to disturb existing clients.
+ This enables to create classes with fields and calculations, and then 
+\end_layout
+
+\begin_layout Plain Layout
+The advantage of our approach is to enable adding fields calculation withiut
+ to disturb existing clients.
+ This helps to reduce code repetition, becuse without this ability, the
+ need to not disturb exisintg clients leads to clone the code to the new
+ clients with the added fields calcualtions.
+ Another alternative is to not add calculations to existing fields, but
+ to add new fields to the new needs, causes repetition in the fields.
+\end_layout
+
+\begin_layout Plain Layout
+The traditional alternative to register code to update fields might lead
+ to cycles.
+ Consequently, we need to take care of the any location taht have access
+ to the field, which make the code locations coupled, in contrast to the
+ strategy of independent components to increase code reuse, to decrease
+ code repetition.
+ This is addition to the code repetition in mutiple calls fro the various
+ events as explained in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+without being able to reuse existing 
+\end_layout
+
+\begin_layout Plain Layout
+The traditional alternative to register code to update fields might dsiturb
+ existing clients, if this closes a cycle in the dependencies.
+ If code locations from other components update that field,
+\end_layout
+
+\begin_layout Plain Layout
+has problems that it requires to consider 
+\end_layout
+
+\begin_layout Plain Layout
+all the code that might update the field, 
+\end_layout
+
+\begin_layout Plain Layout
+we can be inaware if a cycle been created, or that 
+\end_layout
+
+\begin_layout Plain Layout
+, the developers need to handle cases of infinite loops
+\end_layout
+
+\begin_layout Plain Layout
+with caring about the potentisal of infinite loops
+\end_layout
+
+\begin_layout Plain Layout
+We evaluate the suggested framework by the Drug Administration example as
+ an emparical evaluation.
+ Our approach consists of adding fields calculation withiut to disturb existing
+ clients and without to repeate code.
+ The principal is that enabling to add fields calculations 
+\end_layout
+
+\begin_layout Plain Layout
+Inheritance and composition is the abstraction mechanisms used in OOP to
+ not clone components.
+ It is recommeneded to design them with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, and that the separation to responsibilities will be aligned with the business
+ needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ The impact of a good seperation is, that if the business needs to provide
+ a component that is based on an existing one, it is an addition, not a
+ change.
+ The reason is that changes might disturb existing clients.
+ Consequently, if there is a need to change, it leads to clone the codebase.
+ Cloning or code repretiion is expensnise.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+We compare the Drug Administration implementation by our approach to the
+ explored architectural designs in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ It has been recognized that code duplication is present in all designs.
+ We have identified several patterns.
+ First, code repetition is used to call to update variables in various locations
+, such as in response to events.
+ Second, several variables are defined to represent one real-world variable.
+ The third and most well-known pattern is cloning code to not affect existing
+ clients.
+\end_layout
+
+\begin_layout Plain Layout
+In the designing the classes for the Drug Administration in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, our approach does the most in the three aspects.
+ The novality in our approach, in that fields calculation can be added without
+ to disturb existing clients and without to repeate code.
+ Previously, we could either add another variables to not disturb the clients,
+ or add the functionality to update the exiting fields with the risk of
+ an accidetal recursion, that will harm exisitng clients.
+ In order to ot harm the clients, we could duplicate the component, and
+ adjust the new component to the need.
+\end_layout
+
+\begin_layout Plain Layout
+As in the Spreadsheet example, in FRP
+\end_layout
+
+\begin_layout Plain Layout
+Consequently, we reduce code repetition.
+ Comparing the Drug Administration implementation by our approach to the
+ explored architectural designs in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ It has been recognized that code duplication is present in all designs.
+\end_layout
+
+\begin_layout Plain Layout
+Inheritance and composition is the abstraction mechanisms used in OOP to
+ not clone components.
+ It is recommeneded to design them with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, and that the separation to responsibilities will be aligned with the business
+ needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ The impact of a good seperation is, that if the business needs to provide
+ a component that is based on an existing one, it is an addition, not a
+ change.
+\end_layout
+
+\begin_layout Plain Layout
+In our approach, fields calculation can be added withiut to disturb existing
+ clients and without to repeate code.
+ Previously, we could add another variables to not disturb the clients,
+ or to add the functionality to update the exiting fields with the risk
+ that in runtime
+\end_layout
+
+\begin_layout Plain Layout
+————
+\end_layout
+
+\begin_layout Plain Layout
+We compare the Drug Administration implementation by our approach to the
+ explored architectural designs in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ It has been recognized that code duplication is present in all designs.
+ We have identified several patterns.
+ First, code repetition is used to call to update variables in various locations
+, such as in response to events.
+ Second, several variables are defined to represent one real-world variable.
+ The third and most well-known pattern is cloning code to not affect existing
+ clients.
+\end_layout
+
+\begin_layout Plain Layout
+Inheritance and composition is the abstraction mechanisms used in OOP to
+ not clone components.
+ It is recommeneded to design them with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, and that the separation to responsibilities will be aligned with the business
+ needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ The impact of a good seperation is, that if the business needs to provide
+ a component that is based on an existing one, it is an addition, not a
+ change.
+\end_layout
+
+\begin_layout Plain Layout
+However, if there is a component and a field that it contains, if we need
+ to add a calculation, to update this field according to some other fields,
+ there might be an accidental recursion.
+\end_layout
+
+\begin_layout Plain Layout
+Our approach allows adding 
+\end_layout
+
+\begin_layout Plain Layout
+In using the approach for Drug Administration, fields calculations are added
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Our framework allow, a good seperation where it is allowed to add fields
+ calculations, without to distrub the existing ones.
+ The events paradigm inherently supports to add an event handler to calculate
+ field in response to changes in other fields.
+ Similary, by the use of observable streams, code can be subscribed.
+ However, this such additions might distrub existing calculations, because
+ it might lead to an infinite loop.
+\end_layout
+
+\begin_layout Plain Layout
+in runtime, the recalcuated field might be originated from its own recalculation.
+ We metioned this in the background for streams with the name accidetal
+ recursion.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+It has been recognized that in each design there is code duplication.
+ We recognize several patterns.
+ First code reptition to call to update variables in various locations,
+ such as in response to events.
+ Second, defining several variables to one real world variable.
+ and the third and most known cloning code to not affect existing clients.
+\end_layout
+
+\begin_layout Plain Layout
+In the events paradigm, the repeating calls to update variables in the various
+ events.
+ In the Spreadsheet, there were variables repetitions.
+ In the Hotdrink example, we explained the need to clone components.
+\end_layout
+
+\begin_layout Plain Layout
+In the events paradigm, the repeating calls to update variables in the various
+ events.
+ This repetion type is resolved in our framework, like FRP and constraints.
+ In using our approach, there is no need to register code to update variables.
+\end_layout
+
+\begin_layout Plain Layout
+In spreadsheets, that represent the high level abstraction of FRP, there
+ is no need to repeat calling to the updates, however, it causes to repeat
+ var
+\end_layout
+
+\begin_layout Plain Layout
+Our discussion is in terms of code repition.
+\end_layout
+
+\begin_layout Plain Layout
+We focus on the code repretition element.
+\end_layout
+
+\begin_layout Subsection
+Repeating Variables
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP languages, that lifts the variables and the expressions (without
+ streams), each variable is either an 
+\emph on
+input
+\emph default
+ variable or 
+\emph on
+calculated
+\emph default
+ variable.
+ The input variable is like 
+\end_layout
+
+\begin_layout Plain Layout
+basicly where each variable is either an input variable or calculated variable
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In the presented spreadsheet for implementing the Drug Administration in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, there were duplications in the variables.
+ Similary, in using the FRP paradign, with creating DAG, such that each
+ variable is either an input variable or calculated variable
+\end_layout
+
+\begin_layout Plain Layout
+We find that the FRP paradigm that created DAG, causes to create variables
+ duplication.
+\end_layout
+
+\begin_layout Plain Layout
+The FRP paradigm is basicly like spreadsheets, which require each variable
+ to be either an input 
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP paradigm, like in spreadsheets, each variable is either connected
+ to the environment or consistently calculated from other variables.
+ Therefore, as in spreadsheets, if there are two or more options of a certain
+ variable to get the values from, redadnant variables need to be created.
+ In order that a variable will contain values from more than a single source,
+ the 
+\emph on
+stream
+\emph default
+ abstraction can be used (described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+We recognize several code repretition types.
+ First, the reptition calls to execute code in the various events.
+ This has been 
+\end_layout
+
+\begin_layout Plain Layout
+Second, the 
+\end_layout
+
+\begin_layout Plain Layout
+We have explored several architutal designs to implement the Drug Administration
+ application, and presented a new approach to design such applications.
+ In this section we docu
+\end_layout
+
+\begin_layout Plain Layout
+We compare the code duplications based on our exploration in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ to our approach
+\end_layout
+
+\begin_layout Plain Layout
+We evaluate the approach empirically: we compare the code duplications based
+ on our exploration in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ in the Drug Administration by our approach, as presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, to other approaches based on our exploration in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Repeating Calls
+\end_layout
+
+\begin_layout Plain Layout
+In the imperative paradigm, the developer need to call to functions to calculate
+ variables in case that their dependant variables changed.
+ This might be several locations, in case that there are several variables
+ that variable depends on.
+\end_layout
+
+\begin_layout Plain Layout
+Declerative paradigm has the meaning that the developer need only to decalre,
+ and there is runtime that will do it.
+ both Spreadsheet and contraints are categorized to this declerative paradigm.
+ In addition, the FRP paradigm aims also to helps the developers from the
+ need to reminds to call to update the variables.
+ it is said that this leads to a hges anount of bugs.
+\end_layout
+
+\begin_layout Plain Layout
+The repeating calls are usualy related to mutating variables.
+ This drawback is known, that in mutithreading applications, there might
+ be deadlok.
+ and even when it is a single thread, it is hard to determine the logic
+ of mutiple events handlers and callbacks that are called by the events
+ and update the variables.
+ or it is hard to understand haw the data flows from the flow of the control.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+It should be noted, that also when using imutable stream.
+ there might be the same problem.
+ pushing a value notification to a centeral stream, seems similar ro updating
+ a centeral variable.
+\end_layout
+
+\begin_layout Subsection
+Repeating Variables
+\end_layout
+
+\begin_layout Plain Layout
+In the FRP paradigm, like in spreadsheets, each variable is either connected
+ to the environment or consistently calculated from other variables.
+ Therefore, as in spreadsheets, if there are two or more options of a certain
+ variable to get the values from, redadnant variables need to be created.
+ In order that a variable will contain values from more than a single source,
+ the 
+\emph on
+stream
+\emph default
+ abstraction can be used (described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Subsection
+Repeating Components
+\end_layout
+
+\begin_layout Plain Layout
+In the constraint model, there exist neither redundant function calls nor
+ duplicated variables.
+ The absence of redundancy persists until the point of necessitating the
+ complete replication of the entire application.
+ This absence of redundancy is upheld until the point at which the requirement
+ arises to replicate the entire application.
+ When we encounter scenarios where we must offer a component that builds
+ upon an existing one without altering or affecting current clients, we
+ resort to component cloning.
+ Within the cloned component, we implement the necessary modifications and
+ subsequently deploy this tailored component to the new client.
+\end_layout
+
+\begin_layout Plain Layout
+Inheritance and composition is the abstraction mechanisms used in OOP to
+ not clone components.
+ It is recommeneded to design them with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, and that the separation to responsibilities will be aligned with the business
+ needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ The impact of a good seperation is, that if the business needs to provide
+ a component that is based on an existing one, it is an addition, not a
+ change.
+\end_layout
+
+\begin_layout Plain Layout
+In our context, a good seperation should support adding fields calculations,
+ without to distrub the existing ones.
+ The events paradigm inherently supports to add an event handler to calculate
+ field in response to changes in other fields.
+ Similary, by the use of observable streams, code can be subscribed.
+ However, this such additions might distrub existing calculations, because
+ it might lead to an infinite loop.
+\end_layout
+
+\begin_layout Plain Layout
+in runtime, the recalcuated field might be originated from its own recalculation.
+ We metioned this in the background for streams with the name accidetal
+ recursion.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the constraint model, there exist neither redundant function calls nor
+ duplicated variables.
+ The absence of redundancy persists until the point of necessitating the
+ complete replication of the entire application.
+ We clone components, if we need to provide a component that is based on
+ existing component without modifying or impacting the existing clients.
+ In the cloned component, we make the required changes and deploy this component
+ to the new client.
+ When we encounter scenarios where we must offer a component that builds
+ upon an existing one without altering or affecting current clients, we
+ resort to component cloning.
+ Within the cloned component, we implement the necessary modifications and
+ subsequently deploy this tailored component to the new client.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The model of constraints, there is neither repeating calls nor repeating
+ variables.
+ The zero repeating is until reaching the need to clone the entire application.
+ We clone components, if we need to provide a component that is based on
+ existing component without modifying or impacting the existing clients.
+ In the cloned component, we make the required changes and deploy this component
+ to the new client.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This leads to the referential transparency property, which is a characteristic
+ of FRP.
+ It has been determined that the output streams are calculated from pure
+ functions, thus maintaining referential transparency.
+ It can also be observed that the principles that block the observable streams
+ model from achieving referential transparency (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) have been addressed.
+ The merge operator and accidental recursion are addressed through the assignmen
+t operator, while glitches, simultaneous events, and recursions are addressed
+ through modeling an order and implementing a filter mechanism.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+As a result, the new variant of FRP support multiple assignments.
+ A variable with multiple assignments is interpreted as a merge operator
+ over the variable and assigned expressions in the various statements.
+ This is like a methodology that involves the variable inferring its value
+ over time from various streams of samples.
+ This leads also to the functional transparency
+\emph on
+ 
+\emph default
+property, characterized by FRP.
+ Because it has been determined, that the output streams are calculated
+ from pure functions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+By the introduced assignment the implemented new variant 
+\end_layout
+
+\begin_layout Plain Layout
+In 
+\end_layout
+
+\begin_layout Plain Layout
+The superposition property is achived since any added formula does extend
+ the application.
+ In previous implementations, the assignmemt did replace to the calcu 
+\end_layout
+
+\begin_layout Plain Layout
+Since the implementation is based on observables extensions, unpredictability
+ might only coming from merges, glitches and recursions.
+\end_layout
+
+\begin_layout Plain Layout
+our issue blocking from having the desired predictability, is the merge
+ operations and recursions.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+derive some features predictability several operations.
+ However, we should complete our proof for predictability, because in using
+ streams, there is has the same general time problem we have in the events
+ driven 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the industry libraries, as can be seen in ReactiveX and Sodium, there
+ is either an inpredictable merge function or that the developer need to
+ specify the method to merge 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+almost all operations produced the refern
+\end_layout
+
+\begin_layout Plain Layout
+we need only the inpreditabiity reursions and merges.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+.
+ In the case of Hotdrink, the addition of new input triggers the creation
+ of an equation constraint at the highest level of the hierarchy, involving
+ the variable and the input.
+ Plans are then generated, with each plan recursively searching for equations
+ where the left variables are determined by preceding equations.
+ The plan that satisfies the most constraints in the hierarchy is selected
+ and executed.
+ This aligns with our propagation approach, as we continue propagating values
+ derived from the highest priority values.
+ Consequently, the update sequence for both methods—our framework and the
+ constraint hierarchy model for GUI—is identical.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The introduced operators provide functions over streams achieving properties
+ characterized by FRP.
+ FRP is originally described as functions over reactive variables, with
+ the property known as
+\emph on
+ functional transparency
+\emph default
+, meaning that the input consistently produces the same output.
+ We have achieved this property by functions over streams of events.
+\end_layout
+
+\begin_layout Plain Layout
+The merge property known as
+\emph on
+ functional transparency
+\emph default
+, meaning that the input consistently produces the same output.
+\end_layout
+
+\begin_layout Plain Layout
+We introduced the merge operator as a function over streams, with the property
+ known as
+\emph on
+ functional transparency
+\emph default
+, meaning that the input consistently produces the same output.
+\end_layout
+
+\begin_layout Plain Layout
+Furthermore, we guarantee that the same sequence of events consistently
+ produces the same results, achieving properties characterized by FRP.
+ FRP is originally described as functions over reactive variables, with
+ the property known as
+\emph on
+ functional transparency
+\emph default
+, meaning that the input consistently produces the same output.
+ We have achieved this property by functions over streams of events.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] 
+\backslash
+node[draw, circle] (X) at (-3,3) {X};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycle-merge-produce-concurrent-events-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+\end_layout
+
+\end_inset
+
+The 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation as the location to handle the unexpected feedback loop.
+ The graph illustrates an example produced from a DFS traversal of a change
+ propogation (described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Observable-Streams"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), initiated from an external input to the variable 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Illustrating the spanning graph in the case of a cycle in the dependencies,
+ when node C receives an input, it propagates it to node D, then to node
+ E, and so on, until node B forwards it back to node C through the merge
+ operator.
+ However, this update is stale and should not be propagated again to node
+ D.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
 \begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
@@ -2942,7 +4076,7 @@ noprefix "false"
  The bootsrap is introduced in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Bootstrap-of-the-2"
+reference "fig:Bootstrap-of-the-2-1"
 plural "false"
 caps "true"
 noprefix "false"
@@ -3102,7 +4236,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Bootstrap-of-the-2"
+name "fig:Bootstrap-of-the-2-1"
 
 \end_inset
 
@@ -3119,475 +4253,44 @@ Bootstrap of the drug administration components
 
 \end_layout
 
-\begin_layout Plain Layout
-The UI components are connected to the model objects (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-lstinline{Bag}
 \end_layout
 
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Pump}
-\end_layout
-
-\end_inset
-
-) in such that whenever a user changes a field's value, it produces an input
- to the related variable, causing other variables to be calculated, producing
- updates in their related fields.
- The UI components also provide the functionality to indicate calculated
- values, just like in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- In addition, The UI components append to a log file any value change.
- In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Log-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, we introduce the log output of the cenario introduced in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, except the unexpected update.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
+\begin_layout Standard
+\begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-Dose_Control:10
-\end_layout
-
-\begin_layout Plain Layout
-Dose_Control: 10 <1>
-\end_layout
-
-\begin_layout Plain Layout
-Duration_Control:10
-\end_layout
-
-\begin_layout Plain Layout
-Drug_Control: 100 <2,1>
-\end_layout
-
-\begin_layout Plain Layout
-Drug_Control:100
-\end_layout
-
-\begin_layout Plain Layout
-Drug_Control: 100 <2,3>
-\end_layout
-
-\begin_layout Plain Layout
-Dose_Control: 10 <3,2>
-\end_layout
-
-\begin_layout Plain Layout
-Drug_Control: 100 <3>
-\end_layout
-
-\begin_layout Plain Layout
-Duration_Control: 10 <2>
-\end_layout
-
-\begin_layout Plain Layout
-Volume_Control:300
-\end_layout
-
-\begin_layout Plain Layout
-Drug_Control: 100.00 <3,4>
-\end_layout
-
-\begin_layout Plain Layout
-Volume_Control: 300.00 <2,3,4>
-\end_layout
-
-\begin_layout Plain Layout
-Rate_Control: 30.00 <3,4,2>
-\end_layout
-
-\begin_layout Plain Layout
-Rate_Control:30.00
-\end_layout
-
-\begin_layout Plain Layout
-Volume_Control: 300.00 <2,5>
-\end_layout
-
-\begin_layout Plain Layout
-Rate_Control: 30.00 <5>
-\end_layout
-
-\begin_layout Plain Layout
-Volume_Control: 300.00 <3,4>
-\end_layout
-
-\begin_layout Plain Layout
-Concentration_Control: 0.33 <3,4>
-\end_layout
-
-\begin_layout Plain Layout
-Volume_Control: 300 <4>
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Log-1"
-
-\end_inset
-
-Log for the cenario of 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+In this thesis, we aimed to strike a balance between abstraction and control
+ in value propagation.
+ Our framework provides a high-level language based on FRP, accompanied
+ by a general propagation algorithm that ensures a defined update sequence.
+ While the drug administration example demonstrates clear business logic,
+ encompassing defined objects, variables, and calculations, the propagation
+ algorithms may not fulfill business requirements for other applications.
+ Moreover, performance considerations (non-functional requirements) may
+ necessitate modifying the update order, such as lowering consistency levels
+ for resource-intensive computations.
 \end_layout
 
 \begin_layout Section
-Propogation Algorithm
+The Propogation Algorithm
 \end_layout
 
 \begin_layout Plain Layout
-In our implementation, we provided a strict general propogation algorithm,
- to provide the developers to sepcify clear logic.
- In the drug administration example, the business logic is well specified:
- the objects, the variables, and how they are calculated from each other.
- However, the order of the updates are strict to our implementation.
- there may be domain-specific requirements for other orders for the updates.
- In addition, performance considerations (non functional requirements) may
- require changing the order of the updates, such as reducing consistency
- levels for heavy calculations.
- now we will weaken this argument.
-\end_layout
-
-\begin_layout Subsection
-The state of the art
-\end_layout
-
-\begin_layout Plain Layout
-This is like previous works had to face the balancing between the abstraction
- level and the generalism of the propogation algorithm.
- The technaogy that enables completely custom propogation, has a problematic
- abstraction.
- Event-driven programming theortecaly provide customizable propagation.
- Hoever, the paradigm is error prone, so that it hard to realy customize
- according to the needs.
- Therfore, it is not new that the customizability, is by only choose a general
- propogation strategy.
- 
-\end_layout
-
-\begin_layout Plain Layout
-In working with streams such like like ReactiveX.
- In reactiveX, the developer can choose between several scueduler, to indicate
- the order of the updates.
- Hwoever, in working with streams, there is has the same general time problem
- we have in the events driven.
- Here, it is called 
-\series bold
-merge
-\series default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- In the industry libraries, as can be seen in ReactiveX and Sodium, there
- is either an inpredictable merge function or that the developer need to
- specify the method to merge 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-In the FRP field reserach, the centeral high level concept is that the developer
-s need only to specify the data dependencies, and the runtime maintain the
- updates.
- saying that the the runtime handles the non functional requirements, and
- the developer is free to handle only the functional equirements.
- Suprisngly, the general algorithm handles also some functional requirements,
- and also some non functional requirements break the neat abstraction.
- The root causes are glitches and cycles.
-\end_layout
-
-\begin_layout Paragraph
-Glitches
-\end_layout
-
-\begin_layout Plain Layout
-Glitch means an extra recomputation then expected.
- This is not only the extra work, that affect the perfomance, but also that
- the values that are based on stale values, until the last recomutation.
- There are several glicthes types,that arerelated to the required level
- of the consistency.
- So, this is a functional requirement, depending on the applicaton business.
- Hwever, it is handled strictly by the runtime.
-\end_layout
-
-\begin_layout Paragraph
-Cycles
-\end_layout
-
-\begin_layout Plain Layout
-In order to customize the way in which to evaluate cycles, the abstracion
- is not totaly high.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Note Note
+We have implemented and made publicly available
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-Our approach can be implemented (as we already implemented) as internal
- dsl, based on the existing popular frameworks.
- the comunication between the nodes is based on a simpler observer chanel.
- theoreticaly, the developers can debug the updates (however, in our implementat
-ion, it is still not the case, because we use the framework that implemented
- the streams with schduler, and not completly directly method calls.
- theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
- because the protocal (propogation algorthm) is peer to peer (means no madiator).
- The only limitation, is that the external input will be atached with an
- order, such that each input is atached with the incerenetal number.
- In large network, it might be a bottleneck.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-The Algorithm
-\end_layout
-
-\begin_layout Plain Layout
-first, front end need syncronization updates.
-\end_layout
-
-\begin_layout Plain Layout
-second, our resulted libraries actualy produces a framework for decenterlized
- constraints systems.
- We provide the ability to declare one-way dataflow constraints targeting
- to variables that we do not own.
- While the entire system maintain the whole constraints as in hirarchial
- constraints systems.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-In this section, we compare our method to Hotdrink mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "par:Constraints"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, FRP and so our method are similar to Hotdrink in that they share declare
- equations, providing runtime automates to automate variables' updates,
- they support cycles and several assignments, and that they handle the variables
-' values according to the order of the input.
- Our method is diffrent from Hotdrink in that it is a 
-\emph on
-decenterlized
-\emph default
- constraints system, and that it handles one-way constraints.
-\end_layout
-
-\begin_layout Paragraph*
-decenterlized constraints system
-\end_layout
-
-\begin_layout Plain Layout
-Hotdrink needs for each input, to run against the entire constraints and
- existing values, to generate a new dependancy graph according to the variables'
- existing values.
- This algorithm is executed by a madiator coupling the entire variables
- and dependencies.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Repeating-Solutions"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, this design causes applications to not being reused.
- In other words, Hotdrink can be used only to building monolith applications
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
- In contrast, our method provides a decentrelized constraints system, the
- variables observe their sources and update their values by regular objects'
- messages.
- Consequently, by nature, relations between variables can be specified,
- even when variables are located in diffrent components.
-\end_layout
-
-\begin_layout Paragraph*
-one-way constraints
-\end_layout
-
-\begin_layout Plain Layout
-Hotdrink handles two-way constraints while our method handle one-way constraints.
- As explained in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:ConstraintsInBackground"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the two-way constraints need attached one-way constraints, that are the
- 
-\emph on
-methods 
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
- to satisfy the two-way constraints.
- Consequently, with the two methods, the developer needs to specify one-way
- constraints.
- However, it has been augmented that it is more correct to specify two-way
- constraints, because several one-way constraints defined separately might
- define inconsistent requirements 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
- We leave this for future work.
- For this stage we provide two arguments to the claim.
- First, according to the motivating example, we need the option to write
- the one-way constraints separately.
- Second, the method should be used in a programming language that supports
- OOP.
- Consequently, it should not be hard to implement a wrapper class 
-\begin_inset ERT
+\begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-lstinline{Constraint}
-\end_layout
-
-\end_inset
-
- containing one-way constraints given as arguments.
+https://rivarx.github.io/Evaluation
 \end_layout
 
 \end_inset
@@ -3595,15 +4298,24 @@ lstinline{Constraint}
 
 \end_layout
 
-\begin_layout Subsection
-Future Enhancments
-\end_layout
+\end_inset
 
-\begin_layout Plain Layout
-We provided a new abstraction with an elsticity.
- The fact that we provided an actual end to end solution, does not strict
- it.
- The merge function can be replaced depending on the feasibilty and requiremtns.
+ two drug administration examples: one using rivarjs and the other using
+ hotdrink.
+ Upon observation, both implementations exhibit similar behavior.
+ Once a field is updated, the fields that relied on the previous input,
+ specifically the oldest input, are overwritten.
+ In the case of Hotdrink, the addition of new input triggers the creation
+ of an equation constraint at the highest level of the hierarchy, involving
+ the variable and the input.
+ Plans are then generated, with each plan recursively searching for equations
+ where the left variables are determined by preceding equations.
+ The plan that satisfies the most constraints in the hierarchy is selected
+ and executed.
+ This aligns with our propagation approach, as we continue propagating values
+ derived from the highest priority values.
+ Consequently, the update sequence for both methods—our framework and the
+ constraint hierarchy model for GUI—is identical.
 \end_layout
 
 \end_inset
@@ -3613,7 +4325,7 @@ We provided a new abstraction with an elsticity.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In this section, we compare our method to Hotdrink mentioned in 

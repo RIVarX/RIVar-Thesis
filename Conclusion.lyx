@@ -125,6 +125,22 @@ literal "false"
 status collapsed
 
 \begin_layout Plain Layout
+performance considerations (non functional requirements) may require changing
+ the order of the updates, such as reducing consistency levels for heavy
+ calculations.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 We expect this approach to be implemented as a state management solution
  to ease the development of front-end applications.
  In front-end development, state management is separated from other parts

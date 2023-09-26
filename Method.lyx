@@ -109,30 +109,2791 @@ name "chap:Method"
 
 \end_inset
 
-Approach
+Approach and Implementation
 \end_layout
 
 \begin_layout Standard
-The value that is fed back is derived from the same original event that
- triggered the previous value.
- This reminds the simultaneous events, detailed in 
+A software application might be considered a 
+\emph on
+complex system
+\emph default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://uwaterloo.ca/complexity-innovation/about/what-are-complex-systems
+\end_layout
+
+\end_inset
+
+ if the behavior of the application as a whole might not be fully predictable
+ by looking at each of its individual component separately.
+ The core reason for this inpredictability is the existense of 
+\emph on
+feedback loops
+\emph default
+, where during the components interaction, a change in one variable leads
+ to a subsequent change that feeds back and affects the original variable
+ itself.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+A software application might be considered a 
+\emph on
+complex system
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://uwaterloo.ca/complexity-innovation/about/what-are-complex-systems
+\end_layout
+
+\end_inset
+
+, when the behavior of the application as a whole might not be fully predictable
+ by looking at each of its individual component separately.
+ Instead, it's the interactions and dependencies between these components
+ that give rise to the overall behavior and emergent properties of the applicati
+on.
+ The core reason for this inpredictability is the existense of 
+\emph on
+feedback loops
+\emph default
+, where the output or result of a process influences the initial input of
+ that same process.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We focus on specific applications that the interactions are of variables
+ values.
+\end_layout
+
+\begin_layout Plain Layout
+/components consists of interacted objects.
+ Each object contains calculations, that a change in one variable leads
+ to a subsequent changes in other variables
+\end_layout
+
+\begin_layout Plain Layout
+We focus on applications that consists of where each object contains 
+\emph on
+fields
+\emph default
+ and 
+\emph on
+calculations
+\emph default
+, with the relationships enabled in the OOP paradigm.
+ Fields are similar to the objects attributes, but have chrachtisics similar
+ to reactive variables.
+ Accordignly, the calculations are formed like in FRP, in declaring pure
+ functions over the fields, with the meaning of data dependencies.
+\end_layout
+
+\begin_layout Plain Layout
+In handling applications' variables, the complexity and feedback loops are
+ unexpected, where a change in one variable leads to a subsequent change
+ that feeds back and affects the original variable itself.
+ Therefore, we create a framework and semantics, to enable
+\end_layout
+
+\begin_layout Plain Layout
+However, if we suppose an order for the value changes, then the values to
+ feed back is not new, so it shuld not feedback.
+ In addition, in the representation of variables as streams, can be used
+ to provide predictability.
+\end_layout
+
+\begin_layout Plain Layout
+each variable cosists of values over time, as a stream.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Our approach contains two parts to 
+\end_layout
+
+\begin_layout Plain Layout
+However, we find that variables can be considered as streams that are predictabl
+e according to 
+\end_layout
+
+\begin_layout Plain Layout
+we find that the change to feed back can be 
+\end_layout
+
+\begin_layout Plain Layout
+think that it should be predictable, so that each variable has a stream
+ of its values over time, that is calculated by 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We creates a framework to use the recommended practices: designing of multiple
+ objects and components with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, such that the separation to responsibilities are alligned to the changeable
+ business needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ With the various seperation options, the 
+\emph on
+superposition
+\emph default
+ property ensures that the behaviors produced by smaller objects are preserved
+ when constructing larger composite objects.
+ Formally, the behavior of a class is denoted as 
+\begin_inset Formula $F(x)$
+\end_inset
+
+, where 
+\begin_inset Formula $x$
+\end_inset
+
+ represents an instance of the class.
+ For any given pair of classes 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, this property ensures that 
+\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
+\end_inset
+
+.
+ We specificaly focus on the challenge named 
+\emph on
+unexpected feedback loop
+\emph default
+,
+\emph on
+ 
+\emph default
+where objects that have an effect from the environment causes a chain of
+ effects which causes again an effect as the original one.
+\end_layout
+
+\begin_layout Plain Layout
+We specificaly focus on the problem of unexpected feedback loops or redundant
+ updates
+\end_layout
+
+\begin_layout Plain Layout
+We do not have yet the mechanism to how to sum the behavior of a classes,
+ however we do recognize unexpected feedback loops of redundant updates
+ pose a challenge to achieving this property.
+\end_layout
+
+\begin_layout Plain Layout
+However, in the context of calculations, redundant updates pose a challenge
+ to achieving this property.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The inefficiency in the implemenations fields calculations experienced by
+ legacy applications in the market lies in the time-consuming process of
+ implementing changes.
+ One contributing factor is the limited cognitive capacity of developers
+ when it comes to analyzing the extensive details within the application
+ source code, dealing with large code bases and code repetition.
+ To address this, recommended practices emphasize the design of multiple
+ objects and components with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ Furthermore, the separation to responsibilities should be alligned to the
+ business needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Morever, The calculations within an object involve variables it directly
+ holds, as well as variables from other objects it contains, or variables
+ from its parent objects.
+ This might create cycles in the data dependencies that leads to unexpected
+ feedback loops that a change in one variable leads to a subsequent change
+ that feeds back and affects the original variable itself.
+\end_layout
+
+\begin_layout Plain Layout
+As a result, the defined behavior of objects, creates data dependency graphs
+ being combined into the overall dependency graph.
+ In this settings, feedback loops are unexpected: a change in one variable
+ leads to a subsequent change that feeds back and affects the original variable
+ itself.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Specificaly, we consider objects with the relationships enabled in OOP,
+ where each object contains 
+\emph on
+fields
+\emph default
+ and 
+\emph on
+calculations
+\emph default
+.
+ Fields are similar to the objects attributes, but have chrachtisics similar
+ to reactive variables.
+ Accordignly, the calculations are formed like in FRP, in declaring pure
+ functions over the fields, with the meaning of data dependencies.
+ For instance, the Drug Administration can be composed of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, with fields and relationships ilustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "subsec:Observable-Streams"
+reference "fig:Drug-Administration-UML-1"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, that causes glitches.
- Therefore we demonstrate an order over the values, so that stale values
- will be ignored.
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The calculations within an object involve variables it directly holds, as
+ well as variables from other objects it contains, or variables from its
+ parent objects.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-The order over the values depends on a sequential change events, that are
- the external inputs.
+Specificaly we consider a framework of objects, where each object contains
+ 
+\emph on
+fields
+\emph default
+ and 
+\emph on
+calculations
+\emph default
+ that declare data dependencies over the fields.
+ The objects can have the relationships enabled in OOP, with the consequence
+ that the calculations within each object involve variables it directly
+ holds, as well as variables from other objects it contains, or it derived
+ from (by the inheritance mechanism).
+ For instance, the Drug Administration can be composed of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, with fields and relationships ilustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ contains calculations involving 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ contains calculations involving its variables: 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, as well as the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance it contains.
+ The calculations are defined by formulas as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:PumpCode"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, for the variables to recalculate according to changes in other variables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Drug, Volume, Concentration |
+\backslash
+label{line:PumpCode_RIVars1}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Volume:=Concentration*Drug |
+\backslash
+label{line:PumpCode_formula3}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable TheBag|
+\backslash
+label{line:PumpCode_TheBag}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Duration, Dose, Rate|
+\backslash
+label{line:PumpCode_RIVars2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug:=Dose*Duration  |
+\backslash
+label{line:PumpCode_formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration:=Rate*Volume |
+\backslash
+label{line:PumpCode_formula2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PumpCode"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+Cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
+\end_layout
+
+\end_inset
+
+ represent the needed calculations.
+ The calculations involves the instance variables declared in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, the calculations involve variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, that is declared in
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_TheBag}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{interface}{IBag}{0,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{VolumeOfFluid}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}[text width=8 cm]{Pump}{0,0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Pump}{TheBag}{}{IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Bag}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+implement {IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration-UML-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug Administration Class Diagram.
+\end_layout
+
+\end_inset
+
+Drug Administration Class Diagram.
+ Illustrating the access relationships between the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ can perform calculations involving 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+ variables.
+ 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ can perform calculations involving its variables: 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, as well as the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Such applications are complex, since during the interaction, there might
+ be unexpected feedback loops.
+ The calcuations defined in the objects create data dependancy graphs.
+ These dependancy graphs from the objects are then combined to form the
+ overall dependancy graph.
+ The graph might contains cycles which leads to the unexpected feedback
+ loops.
+ For instance, in the Drug Administration, the graph exhibits a cycle involving
+ the nodes 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycleByComponents"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ This can potentially result an unexpected infinite loop, however even a
+ single redundant update can be undesirable.
+ If the feedback loop causes a variable to be updated, it can potentially
+ override previous valid values, as the example illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In contrast, the 
+\emph on
+superposition
+\emph default
+ property ensures that the behaviors produced by smaller objects are preserved
+ when constructing larger composite objects.
+ Formally, the behavior of a class is denoted as 
+\begin_inset Formula $B(x)$
+\end_inset
+
+, where 
+\begin_inset Formula $x$
+\end_inset
+
+ represents an instance of the class.
+ For any given pair of classes 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, this property ensures that 
+\begin_inset Formula $B(x_{1}+x_{2})=B(x_{1})+B(x_{2})$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{UI}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{Pump}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Bag}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Duration=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Drug=100}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Dose=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Concentration=0.33}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Drug=99}{Bag}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Rate=30}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}        
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Unpredictable-Calculation"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Unexpected Feedback Loop: Unintended Override of User Input
+\end_layout
+
+\end_inset
+
+Sequence diagram illustrating the interactions between the User Interface
+\begin_inset space ~
+\end_inset
+
+(UI), 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ objects.
+ Initially, the UI sets the value of 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ to 100.
+ However, due to the complex interactions and dependencies between the objects,
+ the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ value undergoes modifications and eventually gets updated to 99.
+ This unintended alteration exemplifies the challenge posed by feedback
+ loops, which can result unintended override of user input.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}[node distance=3cm, 
+\end_layout
+
+\begin_layout Plain Layout
+
+                      ByPumpEdge/.style={draw=black,<-},
+\end_layout
+
+\begin_layout Plain Layout
+
+                      ByBagEdge/.style={draw=black,<-, dashed},
+\end_layout
+
+\begin_layout Plain Layout
+
+                      >=latex]
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (concentration) [circle, draw] at (0,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (concentration.south) {concentration};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (volume) [circle, draw, below left of=concentration] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (volume.south) {volume};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (drug) [circle, draw, below right of=concentration] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (drug.south) {drug};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (dose) [circle, draw, below of=drug] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (dose.south) {dose};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (rate) [circle, draw, below of=volume] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (rate.south) {rate};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (duration) [circle, draw, below right of=rate] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (duration.south) {duration};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Edges
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (rate) -- (duration);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (volume) -- (duration);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (duration) -- (drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (dose) -- (drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByBagEdge] (concentration) -- (volume);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByBagEdge] (drug) -- (volume);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycleByComponents"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Mutual recursion in runtime from combined dependency graphs of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instances.
+\end_layout
+
+\end_inset
+
+Mutual recursion in runtime from combined dependency graphs of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instances.
+ The solid edges denote dependencies initiated within the 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instance, while dotted edges indicate dependencies initiated within the
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
+ In the graph created, the nodes 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ are interconnected through the edges, representing the mutual recursion.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In our approach, cycles are essential for software development.
+ Like in the Drug Administration application, there are many other applications
+ that inherently support cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ However, the significant reason is to advance the flexibility in programming
+ to design objects and components with well-defined responsibilities that
+ align with changeable business needs.
+ We focus on adding data dependencies to existing fields, unawaring of other
+ data dependencies, because they are part of other components and related
+ to other responsibilities.
+ For example, a subclass that can access to fields 
+\begin_inset Formula $\LSTINLINE X$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE Y$
+\end_inset
+
+ of its parent, adding there the calculation 
+\begin_inset Formula $\LSTINLINE{X:=Y}$
+\end_inset
+
+.
+ This might create a cycle in the data dependencies, because in the parent
+ class, there might be a hidden calculation 
+\begin_inset Formula $\LSTINLINE{Y:=X}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We borrow the 
+\emph on
+superposition
+\emph default
+ property from the field of complex systems.
+ This property ensures that the behaviors produced by smaller objects are
+ preserved when constructing larger composite objects.
+ It is used to sum the behaviors.
+ If the behavior of a class is denoted as 
+\begin_inset Formula $F(x)$
+\end_inset
+
+, where 
+\begin_inset Formula $x$
+\end_inset
+
+ represents an instance of the class, then for any given pair of classes
+ 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, this property ensures that 
+\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
+\end_inset
+
+.
+ We consider the behavior by counting the number of updates to the objects'
+ variables as the phenomena, according to the sampling of variables from
+ the environment.
+ For instance, in the Drug Administration, an instance of 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that contains an instance of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ produce an exact amount of updates to the variables, the sum of the amounts
+ from the individuals.
+ We can illustrate examples by marble diagrams.
+ The user set the Dose, Drug and Volume, the bag produce an update to the
+ concentration...
+\end_layout
+
+\begin_layout Plain Layout
+If an update is an effect from the objects interaction
+\end_layout
+
+\begin_layout Plain Layout
+Even when updates are affected by the iteraction, we consider the update
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Even though an update in one causes to update 
+\end_layout
+
+\begin_layout Plain Layout
+according to from them both.
+ The fact that they affect each other, does not break the principal, because
+ if 
+\end_layout
+
+\begin_layout Plain Layout
+For instance, in the Drug Administration, an instance of 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that contains an instance of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ produce an exact amount of updates to the variables, the sum of the amounts
+ from the individuals.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We need that the adding of data dependencies should be enabled in the subclasses
+ and composites.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The abstraction mechanisms that can be suggested to not clone components
+ are the inheritance and composition from the OOP paradigm.
+\end_layout
+
+\begin_layout Plain Layout
+Enabling the framework with a 
+\end_layout
+
+\begin_layout Plain Layout
+This framework with the enabled 
+\emph on
+superposition
+\emph default
+ property provides a new platform to use the recommended practices: designing
+ of multiple objects and components with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, such that the separation to responsibilities are alligned to the changeable
+ business needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+We need that 
+\end_layout
+
+\begin_layout Plain Layout
+The above cause a paradox, in the one hand, the framework gives the option
+ to clean code, but in the other hand, it cause infinite loops.
+\end_layout
+
+\begin_layout Plain Layout
+In contrast to the inpredictable, we can handle the cycles to achive the
+ superpositio property
+\end_layout
+
+\begin_layout Plain Layout
+This framework aims to use the recommended practices: designing of multiple
+ objects and components with well-defined responsibilities 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, such that the separation to responsibilities are alligned to the changeable
+ business needs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "evans2004domain"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+With the various seperation options, the 
+\emph on
+superposition
+\emph default
+ property ensures that the behaviors produced by smaller objects are preserved
+ when constructing larger composite objects.
+ Formally, the behavior of a class is denoted as 
+\begin_inset Formula $F(x)$
+\end_inset
+
+, where 
+\begin_inset Formula $x$
+\end_inset
+
+ represents an instance of the class.
+ For any given pair of classes 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, this property ensures that 
+\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
+\end_inset
+
+.
+ We specificaly focus on the challenge named 
+\emph on
+unexpected feedback loop
+\emph default
+,
+\emph on
+ 
+\emph default
+where objects that have an effect from the environment causes a chain of
+ effects which causes again an effect as the original one.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:A-New-Variant"
+
+\end_inset
+
+A New Variant for FRP
+\end_layout
+
+\begin_layout Standard
+We introduce a new variant of FRP that inherentenly supports cycles in the
+ data dependencies.
+ This is the ability to facilitate mutual recursion, wherein variables are
+ defined in terms of one another.
+ For instance, if 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and also 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+, both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are present in the application, which means that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is defined in the term of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and vice versa.
+\end_layout
+
+\begin_layout Standard
+The assignmemt operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ is a lifted version over the traditional 
+\begin_inset Formula $\LSTINLINE =$
+\end_inset
+
+ operator.
+ We calls 
+\begin_inset Formula $\LSTINLINE =$
+\end_inset
+
+ the traditional operator, because it has the tradition meaning to contain
+ the value temporarily, as getting an input until the next one.
+ Diffrently is the assigment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, which has the meaning of a data dependency similar to the association
+ found in FRP, that the target variable need to contiously re-evaluated
+ according to the assigned expression.
+\end_layout
+
+\begin_layout Standard
+The employed strategy involves propagating each input through its data dependenc
+ies until reaching the points where the value is no longer more up-to-date
+ than the existing one.
+ For instance, when 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ receives an input, it propagates it to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ However, it does not subsequently propagate it back to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This propogation strategy affects the syntax to be different than in traditional
+ FRP specifications: in order that values will be propagated through the
+ data dependencies of a cycle, one of the nodes of the cycle, must have
+ two incoming edges: first, from being connected to the cycle, and the second,
+ by which there are values propagated into the cycle.
+ Such an example is illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:dataflow_to_cycle"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Hence, the syntax should support this settings, that each node can have
+ more than one incomung edges.
+\end_layout
+
+\begin_layout Standard
+For this reason, the syntax permits a variable that has already been assigned
+ using 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ to also be assigned using 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+, and also to be assigned again using 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+.
+ The use of 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+ is for providing input, so it is traditionaly enabled to assign multiple
+ times.
+ The novelty is about 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ that the variable is associated to the expression without being able to
+ remove this association.
+ For instance, in a scenario where both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are present, it is valid to present also 
+\begin_inset Formula $\LSTINLINE{A:=1}$
+\end_inset
+
+.
+ This will propagate the value 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+ through 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ Similarly, the addition of 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+ is valid.
+ In this case, including 
+\begin_inset Formula $\LSTINLINE{C:=1}$
+\end_inset
+
+ will result in the propagation of the value 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+ through 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+, and finally to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The node that has two incoming edges represents a variable with two assignments.
+ As a result, variables can be assigned multiple times, and continously
+ re-evaluated according to the most recent value.
+\end_layout
+
+\begin_layout Plain Layout
+In order for values to be propagated through the data dependencies of a
+ cycle, one of the variables within the cycle must be assigned twice: first,
+ the assignment that connects the variable to the cycle, and the second,
+ by which there are values propagated into the cycle.
+ This is illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:dataflow_to_cycle"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In the illustration, the nodes represent the variables, and the edges illustrat
+es the flow of the data.
+ Values caused by inputs are propogated through the nodes of the cycle.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The first node has two incoming edges that represent the two assignments.
+ As a result, variables can be assigned multiple times, and continously
+ re-evaluated according to the most recent value.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$input$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:dataflow_to_cycle"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Dataflow into and through a cycle.
+\end_layout
+
+\end_inset
+
+Dataflow into and through a cycle.
+ The nodes represent the variables, and the edges illustrate the flow of
+ the data.
+ Values caused by inputs are propagated through the nodes of the cycle.
+ Node 
+\begin_inset Formula $C$
+\end_inset
+
+ has two incoming edges: the first connects it to the cycle, and the second
+ is from where values are propagated into the cycle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The meaning given for the phnomenon of a variable are assigned multiple
+ times, that it is sampled by various options from the environment.
+ The variables are continously re-evaluated according to the most recent
+ value, from any of the assigned expressions or input.
+ For example, if the application contains 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+, executing 
+\begin_inset Formula $\LSTINLINE{C:=1}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{A=2}$
+\end_inset
+
+ and then 
+\begin_inset Formula $\LSTINLINE{B:=3}$
+\end_inset
+
+, causes 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ to contain 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+,
+\begin_inset Formula $\LSTINLINE2$
+\end_inset
+
+ and then 
+\begin_inset Formula $\LSTINLINE3$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In addition to the operational semantics we started with, we propose the
+ incorporation of a denotational semantics.
+ The assigned expression and the target variable are streams, such that
+ the items from the stream of the assigned expression, are merged into the
+ stream of the variable.
+ Hence, the operator 
+\begin_inset Formula $:=$
+\end_inset
+
+ means an 
+\emph on
+accumulation
+\emph default
+ 
+\emph on
+merge
+\emph default
+ operator over streams.
+ For instance (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:merge-several-sources-2-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), the statement 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ means 
+\begin_inset Formula $\LSTINLINE{A=merge(A,B)}$
+\end_inset
+
+.
+ Subsequent statements, such as 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+, which means 
+\begin_inset Formula $\LSTINLINE{A=merge(A,D)}$
+\end_inset
+
+ extends the concept to being 
+\begin_inset Formula $\LSTINLINE{A=merge(merge(A,B),D)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In another point of view, finally the outcome of each variable consists
+ of a stream that is the result of a 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ function across the assigned expressions, in addition to its original initial
+ stream.
+ As in the example, in the application that contains 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+, with executed 
+\begin_inset Formula $\LSTINLINE{D=1}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{A=2}$
+\end_inset
+
+ and then 
+\begin_inset Formula $\LSTINLINE{B=3}$
+\end_inset
+
+, means three streams that are merged into the stream of 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+,
+\begin_inset Formula $\LSTINLINE2$
+\end_inset
+
+ and then 
+\begin_inset Formula $\LSTINLINE3$
+\end_inset
+
+.
+ Accordingly, observing the stream of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ actualy observes the stream of 
+\begin_inset Formula $\LSTINLINE{merge(A,B,D)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This point of view leads that there are no order over the exeutions of the
+ statements of 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+.
+ In executing these statements, the right-hand side of the operator is merged
+ with the stream on the left-hand side of the operator, and stores the merged
+ result back in the left-hand side variable.
+ While in runtime, each value from any of the streams are propogated into
+ the variable.
+ We formulate it that in an application that contains 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=(merge(A,B,D)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+node at (0.2,0.2) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (0x1) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x1) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x1) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[box,minimum width=6.5cm] (op) {Merge};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x3) at (2,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x3) at (3,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x3) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[marble,circle] (4x3) at (1.25,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (5x3) at (3.75,0) {1};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (6x3) at (5.5,0) {6};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x0) -- (1x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (0x1) -- (0x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (1x1) -- (1x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x1) -- (2x1|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (1x3) -- (1x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x3) -- (2x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x3) -- (3x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (4x3) -- (4x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x3) -- (5x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x3) -- (6x3|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:merge-several-sources-2-2"
+
+\end_inset
+
+ 
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The assignment operator as an accumulation merge operator
+\end_layout
+
+\end_inset
+
+The streams represent the variables.
+ The statement 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ produces the illustrated 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+, such that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ will contain the elements from the two streams.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:The-Order-Model"
+
+\end_inset
+
+The Order Model
+\end_layout
+
+\begin_layout Standard
+In order to compare the values, wether a value is more current than the
+ previous one, we introduce the following order model.
+ We start from the sequential change events, that causes the order over
+ these first values.
  Each value is derived from a set of events, so also from their time, or
  their locations in the order.
  As in the examples in 
@@ -159,7 +2920,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -227,7 +2988,7 @@ X (external input)
 \begin_inset Text
 
 \begin_layout Plain Layout
-1
+{1}
 \end_layout
 
 \end_inset
@@ -256,7 +3017,7 @@ Y (external input)
 \begin_inset Text
 
 \begin_layout Plain Layout
-2
+{2}
 \end_layout
 
 \end_inset
@@ -285,7 +3046,7 @@ D (external input)
 \begin_inset Text
 
 \begin_layout Plain Layout
-3
+{3}
 \end_layout
 
 \end_inset
@@ -314,7 +3075,7 @@ Z1 = X*Y
 \begin_inset Text
 
 \begin_layout Plain Layout
-1,2
+{1,2}
 \end_layout
 
 \end_inset
@@ -435,7 +3196,7 @@ noprefix "false"
 \end_inset
 
 , if the value is derived from newer events, it still can be a stale value.
- A newer value must be one, that overrides the effects of a variable's previous
+ A newer value must be one that overrides the effects of a variable's previous
  value.
 \end_layout
 
@@ -624,6 +3385,1761 @@ according to their timetsamps.
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Programming Language Extensions
+\end_layout
+
+\begin_layout Standard
+We create the new variant of FRP as extensions to existing programming languages.
+ Specifically, we have already created the extensions 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+ We depend on observable streams, specificaly given by 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+ (Using observable streams facilitates binding with the UI, when a UI change
+ event occurs, it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.)
+\end_layout
+
+\begin_layout Standard
+We implement a filtering mechanism, where the variables and the expressions
+ over them does not propogate values that are less updated that the existing
+ once.
+ To do this, we create a wrapper to variables: the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ datatype, which is a shortcut for reactive instance variable.
+ We also create a wrapper to the expresions: the 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ function (
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+) .
+ Both pass values while filtering out absolete values.
+ The values are wrapped by objects of the 
+\begin_inset Formula $\LSTINLINE{signal}$
+\end_inset
+
+ type (or 
+\begin_inset Formula $\LSTINLINE{Signal}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+) implementing the classic comparable interface (according to 
+\begin_inset Formula $\LSTINLINE{IComperable}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+) by timestamps as mentioned in in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:The-Order-Model"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ function is similar to 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\end_inset
+
+ that it creates an observable stream from input observable streams.
+ Whenever any of the input stream has a new item, a new item is created
+ to the output stream.
+ However, in contrast to the 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\end_inset
+
+, the 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ function creates an observable streams that is 
+\emph on
+strictly increasing sequence
+\emph default
+, It only passes an item to the output stream if it is greater (i.e., newer)
+ than the item that previously passed.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ type is derived from the 
+\begin_inset Formula $\LSTINLINE{subject}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+), which implements an observable stream.
+ The 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+) method is the implementation of the operator 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+, and for the operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, we implement a new custom method, we call it 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{Set}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+).
+ In the 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+ method, there are subscribtions to the two sides, and each item in the
+ right side, is compared to the last item in the stream of the variable
+ in the left side.
+ If it is new, it will publish it by calling on its 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+.
+ This is like applying the 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ function mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sec:A-New-Variant"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ that the right-hand side of the operator is merged with the stream on the
+ left-hand side of the operator, and stores the merged result back in the
+ left-hand side variable.
+\end_layout
+
+\begin_layout Standard
+By using the extension, 
+\begin_inset Formula $\LSTINLINE{A.set(Lift(Inc,B))}$
+\end_inset
+
+ means 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+, while 
+\begin_inset Formula $\LSTINLINE{Inc}$
+\end_inset
+
+ represent the function 
+\begin_inset Formula $\LSTINLINE{Inc(x)=x+1}$
+\end_inset
+
+.
+ As illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing 
+\begin_inset Formula $\LSTINLINE{Inc}$
+\end_inset
+
+) observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator observes both the 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ operator and the variable 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+ These established connections are then utilized for change propagation,
+ interacting with the connected user interface (UI) fields.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evaluating-the-formula-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The sequence diagram in creating the subscriptions of the components of
+ a formula
+\end_layout
+
+\end_inset
+
+The sequence diagram in creating the subscriptions of the components of
+ a formula.
+ The diagram is for the formula illustrates 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ Each of the components of the formula is an object, which subscribes and/or
+ being subscribed
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{next(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{next(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{next(3)}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{next(3)}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{next(3)}{E}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Propogation-on-the-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ The sequence diagram illustrates an interaction among the components involved
+ in the formula, utilizing the 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+.
+ The sequence starts with the UI field triggering an event, emitting the
+ value 2.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This change is propagated based on the established subscriptions, as shown
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+By using the extension, 
+\begin_inset Formula $\LSTINLINE{A.set(Lift(Inc,B))}$
+\end_inset
+
+ means 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+, while 
+\begin_inset Formula $\LSTINLINE{Inc}$
+\end_inset
+
+ represent the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+.
+ As illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+) observes the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator observes both the 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ operator and the variable 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+ These established connections are then utilized for change propagation,
+ interacting with the connected user interface (UI) fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—————————-
+\end_layout
+
+\begin_layout Plain Layout
+The core is 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ datatype for implementing variables.
+ Building upon this, functions can be lifted to being over the variables
+ that will be assigned to other variables.
+ For example, in the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ (equivalently, 
+\begin_inset Formula $\LSTINLINE{A.set(B+1)}$
+\end_inset
+
+) 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ are of type 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+ the expression 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+ represents executing a lifted varation of the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+.
+ The expression is accoiated to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The assignmemt operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ is an additional operator over the traditional 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+ operator, by whom we use to provide input.
+ We calls 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+ the traditional operator, because it has the tradition meaning to contain
+ the value temporarily untill the next input.
+ Diffrently is the assigment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, which is the lifted version.
+ The assigment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ has a meaning of data dependencies similar to the association found in
+ FRP, that the target variable need to contiously re-evaluated according
+ to the assigned expression.
+\end_layout
+
+\begin_layout Plain Layout
+The novelty of this variant lies in its inherent ability to facilitate mutual
+ recursion, wherein variables are defined in terms of one another.
+ For instance, within the application, if both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are present, 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is defined in the term of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+and vice versa.
+ This creates a cycle in the data depedencies graph, because 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and also 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The strategy employed is that, when an input is introduced, it propagates
+ through the data dependencies until it reaches a stage where the value
+ is no longer more current than the existing one.
+ For example, if 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ receives an input, it is propagated to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+; however, it does not subsequently propagate it back to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+This will affect the syntax to be diffrent than in tradiional FRP specifications.
+ In order for values to propagate through the data dependencies of a cycle,
+ one of the variables within the cycle must be assigned twice: first, the
+ assignment that connects the variable to the cycle, and second, the one
+ that causes the values to propagate through the cycle.
+ This is illustrated in figure XXX.
+ In the illustration, the nodes represent the variables, and the edges illustrat
+es the flow of the data.
+ Values caused by inputs are propogated through the nodes of the cycle.
+ The first node has two incoming edges that represent the two assignments.
+ As a result, variables can be assigned multiple times, and continously
+ re-evaluated according to the most recent value.
+\end_layout
+
+\begin_layout Plain Layout
+Therefore the syntax allow that variable that is already assigned by :=
+ can also being assigned with =, and also being assigned again with :=.
+ The use of = is for provding input, so it is traditionaly enabled to assign
+ mutiple times.
+ The novality is in the use of :=, that the variable is associated to the
+ expression without being able to remove this association.
+ For instance, if both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are present, it is allowed to add 
+\begin_inset Formula $\LSTINLINE{A:=1}$
+\end_inset
+
+, that will propogate the value 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+ through 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ Similary, if the application contains 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ it is allowed to add 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+.
+ Then in adding 
+\begin_inset Formula $\LSTINLINE{C:=1}$
+\end_inset
+
+, the value 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+ is also propogated to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, this time through 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+Therefore the subsequent assignments (= and :=) adds more associations (:=)
+ or add input (=).
+ The variable will then be re-evaluated, the most recent value, according
+ to more options.
+\end_layout
+
+\begin_layout Plain Layout
+For example, the application contains 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+.
+ In such a case, if 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ has an input, it is propogated to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ similary to as 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ has the value as an input.
+ Consequently, whenever there is a new value from any of the expression,
+ as well as from an input, the variable will contain the new value.
+\end_layout
+
+\begin_layout Plain Layout
+———–
+\end_layout
+
+\begin_layout Plain Layout
+The assigned variables can get inputs, we formulate by 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+.
+ And the application need to propogate the value according to the defind
+ data dependencies.
+ In the example, if the application executes 
+\begin_inset Formula $\LSTINLINE{A=1}$
+\end_inset
+
+, this causes also 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ to contain 
+\begin_inset Formula $\LSTINLINE1$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+that get inputs from the environment can also ne 
+\end_layout
+
+\begin_layout Plain Layout
+However, this assignmet does not declare the target variable with the relation
+ 
+\emph on
+is
+\emph default
+ to the expression.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Other than the tradiiotnsl FRP, it is supported to create several assigment
+ statements to the same variable.
+ For example, it is allowed to specify 
+\begin_inset Formula $\LSTINLINE{X:=Y}$
+\end_inset
+
+and also 
+\end_layout
+
+\begin_layout Section
+A New FRP Variant
+\end_layout
+
+\begin_layout Plain Layout
+The core is 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ datatype for implementing variables.
+ Building upon this, we need the ability to lift function so that the developers
+ can define functions over 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s to being assigned to other 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ For this purpose, we define the assignment operation 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ implemented as a 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+ method.
+ For example, in the expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ (equivalently, 
+\begin_inset Formula $\LSTINLINE{A.set(B+1)}$
+\end_inset
+
+) 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ are of type 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+ the expression 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ represents the lifted varation of the function 
+\begin_inset Formula $\LSTINLINE{f(x)=x+1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The assignmemt operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ is an additional operator over the traditional 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+ operator, by whom we use to provide input.
+ We calls 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+ 
+\emph on
+the traditional operator
+\emph default
+, because it has the tradition meaning to contain the value temporarily
+ untill the next input.
+ Diffrently is the assigment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, which has the functionality to push values to the target variable, similar
+ to producing input by the operator 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+.
+ Anyway, both are methods associated to the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ datatype.
+\end_layout
+
+\begin_layout Plain Layout
+This specification is achievable by any programming language with reactive
+ extensions.
+ The variables are implemented as 
+\begin_inset Formula $\LSTINLINE{subjects}$
+\end_inset
+
+, which act as observers in addition to being observable streams.
+ the operator 
+\begin_inset Formula $\LSTINLINE=$
+\end_inset
+
+ is equivalent to the 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+ method.
+ The 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ is a more complex method that needs to push notifications to the target
+ variable.
+ The lifting mechnism consists of a 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ function that creates an observable stream that push a notification whenever
+ any of the input observable streams has a push notification.
+ The 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ then need to handle those push notifications to push the values to the
+ target variable.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+This is illustrated by diagrams in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Propogation-on-the-2-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The expression 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{A.set(B+1)}$
+\end_inset
+
+) causes the operator 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ to observe the variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, and the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ observes both the 
+\begin_inset Formula $\LSTINLINE{+1}$
+\end_inset
+
+ operator and the variable 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+ These established connections are then utilized for change propagation,
+ interacting with the connected user interface (UI) fields.
+ In response to an input to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, there is a push notification to 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, which causes another push notification that is handled by the method of
+ 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+, which causes another push notification to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ which causes another push notification to the UI (to update the related
+ field).
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{Subscribe}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Evaluating-the-formula-2-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+The sequence diagram in creating the subscriptions of the components of
+ a formula
+\end_layout
+
+\end_inset
+
+The sequence diagram in creating the subscriptions of the components of
+ a formula.
+ The diagram is for the formula illustrates 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ Each of the components of the formula is an object, which subscribes and/or
+ being subscribed
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{E}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{A}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{eq}{:=}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{B}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Exp}{B+1}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{E}{next(2)}{B}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{B}{next(2)}{Exp}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Exp}{next(3)}{eq}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{eq}{next(3)}{A}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{A}{next(3)}{E}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Propogation-on-the-2-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+A propogation change in established connections of the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ The sequence diagram illustrates an interaction among the components involved
+ in the formula, utilizing the 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+.
+ The sequence starts with the UI field triggering an event, emitting the
+ value 2.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This change is propagated based on the established subscriptions, as shown
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Evaluating-the-formula-2-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Merging/The Filtering Mechanism
+\end_layout
+
+\begin_layout Plain Layout
+Inside the method of the assignment operator 
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ and also inside the 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ method, we implement some logic we call a 
+\emph on
+filtering mechanism
+\emph default
+.
+ The push notification can be passed or not to be passed depending on some
+ internal logic.
+ The decision is taken according to the need to not create feedback loops.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+This allows operations to handle unexpected feedback and glitches through
+ the filtering mechanism.
+ Binary operators like 
+\begin_inset Formula $\LSTINLINE+$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x,y)=x+y}$
+\end_inset
+
+) subscribe to the streams of the two operands, discarding values in each
+ stream that are not greater than the previous value.
+ The assignment operation subscribes to the streams of the left and right
+ hands, and compares the values from the two streams.
+ If the value in the right-hand operand is greater, it is pushed into the
+ variable in the left-hand stream.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This allows operations to handle unexpected feedback and glitches through
+ the filtering mechanism proposed in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Binary operators like 
+\begin_inset Formula $\LSTINLINE+$
+\end_inset
+
+ (representing the function 
+\begin_inset Formula $\LSTINLINE{f(x,y)=x+y}$
+\end_inset
+
+) subscribe to the streams of the two operands, discarding values in each
+ stream that are not greater than the previous value.
+ The assignment operation subscribes to the streams of the left and right
+ hands, and compares the values from the two streams.
+ If the value in the right-hand operand is greater, it is pushed into the
+ variable in the left-hand stream.
 \end_layout
 
 \end_inset

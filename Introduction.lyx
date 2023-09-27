@@ -496,11 +496,7 @@ The the two have different approaches, which lead to different results.
 \begin_inset Formula $\REScala$
 \end_inset
 
- gives the 
-\emph on
-referential transparency
-\emph default
- property 
+ gives the referential transparency property 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -508,12 +504,7 @@ literal "false"
 
 \end_inset
 
-, meaning that the same input will produce consistently the same output.
- This property gives 
-\begin_inset Formula $\REScala$
-\end_inset
-
- the property of 
+ leading to 
 \emph on
 compositionality
 \emph default
@@ -657,7 +648,7 @@ es (without a central madiator).
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ———–

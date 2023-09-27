@@ -3493,9 +3493,9 @@ https://rxjs.dev/guide/scheduler
 \end_layout
 
 \begin_layout Standard
-There are challenges in coordinating field calculation behaviors, particularly
- when establishing dependencies to update fields based on changes in other
- fields.
+Over the frameworks, it is challenged to coordinate the field calculation
+ behaviors, particularly when establishing dependencies to update fields
+ based on changes in other fields.
  This process requires careful consideration of transitive dependencies.
  Otherwise, unintentional recursion can lead to unexpected updates.
 \end_layout

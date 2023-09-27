@@ -337,7 +337,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-It might be challenging, to deal with the fields calculations that involve
+(It might be challenging, to deal with the fields calculations that involve
  long chain of updates.
  The FRP paradigm makes this easier by allowing developers to explicitly
  declare data dependencies 
@@ -365,7 +365,7 @@ literal "false"
  In applications that are composed of several components, changing the source
  code of one component might lead to subsequent changes in the source code
  of other components, meaning that the code of the component depends on
- the code of the other coomponents.
+ the code of the other coomponents.)
 \end_layout
 
 \begin_layout Standard
@@ -843,7 +843,7 @@ executed functions, so that the target reactive variable continuously contains
  on.
  A propogation of changes starts whenever any of the variables get user
  input (
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operator).

@@ -82,6 +82,235 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
+Classes with 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+s form like objects with writable fields, such that the fields are continuously
+ consistent.
+ Previously, in the various models, adding calculations required that they
+ be in the same class or component to ensure that the calculations are correct,
+ that there are no cycles, or that cycles are handled correctly.
+\end_layout
+
+\begin_layout Standard
+With the new option to separate into components, there are more options
+ to place the boundaries in the applications code.
+ One criterion to seperate code to components, is whether it is required
+ that changing the code of one component will not affect the other.
+ This depends on the organization needs, where each field or calculation
+ is best located.
+\end_layout
+
+\begin_layout Standard
+This may be an efficient mechanism to develop fields calculations with a
+ potenstial to improve front ends usability.
+ Against redandancy there are two mechanisms.
+ For redundancy in fields or variables, the runtime automatically updates
+ the values to make them consistent.
+ This improve the usability because it promotes the use of redundancies
+ in the user interfaces.
+ For redundancy in code, the new model provides a new option to reuse code.
+ Previously, instead of reusing code, we had to duplicate it and make the
+ required changes to avoid harming existing usages.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+.
+\end_layout
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+the 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+ can be managed
+\end_layout
+
+\begin_layout Plain Layout
+This addresses the challenge of managing the 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+ of the code that manages the data dependencies.
+ In applications that are composed of several components, changing the source
+ code of one component might lead to subsequent changes in the source code
+ of other components, meaning that the code of the component depends on
+ the code of the other coomponents.
+ By the OOP features,
+\end_layout
+
+\begin_layout Plain Layout
+This model provides more boundery options 
+\end_layout
+
+\begin_layout Plain Layout
+By the use of 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ or other similar extensions for others programming languages, we provide
+ a new model of extensibility.
+ Classes with RIVars form like objects with writable fields, such that the
+ fields are continously consistent.
+ Previously in any model, adding calculations required to being in the same
+ class or component.
+ to make sure that the calculations are correct, that there is no cycles
+ or that the cycles are handled correctly.
+\end_layout
+
+\begin_layout Plain Layout
+By the use of 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ or other similar extensions for others programming languages, we achive
+ predictability while enabling to decouple formulas from the used reactive
+ variables, so that expressions can be associated to reactive variables
+ from outside of objects, and that variables are updated directly by their
+ dependencies, without a central madiator.
+\end_layout
+
+\begin_layout Plain Layout
+This lets a new model of extensibility.
+ Classes with RIVars form like objects with writable fields, such that the
+ fields are continously consistent.
+ Previously in any model, adding calculations required to being in the same
+ class or component.
+ to make sure that the calculations are correct, that there is no cycles
+ or that the cycles are handled correctly.
+ This model forms a new type of contract, that 
+\end_layout
+
+\begin_layout Plain Layout
+This not only helps in managing the data dependencies on runtime but also
+ the 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ Source code dependencies are the dependencies derived from the direction
+ of changes in the source code of the applications.
+ In applications that are composed of several components, changing the source
+ code of one component might lead to subsequent changes in the source code
+ of other components, meaning that the code of the component depends on
+ the code of the other components.
+\end_layout
+
+\begin_layout Plain Layout
+———-
+\end_layout
+
+\begin_layout Plain Layout
+The FRP paradigm makes this easier by allowing developers to explicitly
+ declare data dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, leaving the challenge of managing the 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, this consists of the changes required in the application code.
+ In applications that are composed of several components, changing the source
+ code of one component might lead to subsequent changes in the source code
+ of other components, meaning that the code of the component depends on
+ the code of the other coomponents.
+\end_layout
+
+\begin_layout Plain Layout
 We have developed a new semantics for creating data dependencies without
  the need to be aware of transitive dependencies.
  This means that variables forming the data dependencies can be part of
@@ -89,7 +318,12 @@ We have developed a new semantics for creating data dependencies without
  Consequently, we have achieved a framework that harmonizes the abstraction
  mechanisms of both OOP and FRP, which is also considered a decentralized
  constraints system, and also a state management solution for front-end
- applications.
+ applications
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -97,11 +331,79 @@ Future Work
 \end_layout
 
 \begin_layout Standard
-We expect to evaluate this work against real-life applications and expand
- it into other research fields.
- During this evaluation, we believe it is crucial to explore additional
- options for inferring values in addition to the presented merge operation.
- One possible approach is employing 
+As 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ we hope to create more extensions for the other programming languages.
+ They should be checked against real-life applications.
+ We believe also that it is crucial to explore additional options for inferring
+ values in addition to the presented 
+\begin_inset Formula $\NAME{merge}$
+\end_inset
+
+ operation.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+One possible approach is employing 
 \emph on
 equality tests
 \emph default
@@ -115,9 +417,13 @@ literal "false"
 
 , where values that remain unchanged are disregarded.
  Additionally, dealing with conflicting values from different sources may
- require extending the abstraction to handle rejection.
- Furthermore, further investigation should be conducted on the integration
- of multiple semantic options.
+ require extending the abstraction Furthermore, further investigation should
+ be conducted on the integration of multiple semantic options.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

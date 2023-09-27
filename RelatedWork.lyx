@@ -408,13 +408,22 @@ literal "false"
 
  provides a more abstract approach, allowing developers to choose between
  several schedulers to indicate the order of updates.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://rxjs.dev/guide/scheduler
+\end_layout
+
+\end_inset
+
  FRP frameworks go even further, abstracting away the propagation order
  altogether and allowing developers to focus on specifying the data dependencies.
 \end_layout
 
 \begin_layout Standard
-However, due to the potential for cycles, previous implementations have
- exceptions that break this abstraction level.
+However, due to the cycles issue, the previous implementations have exceptions
+ that break this abstraction level.
  
 \begin_inset Formula $\NAME{sodium}$
 \end_inset
@@ -537,7 +546,7 @@ literal "false"
 \emph on
 Microsoft Excel
 \emph default
- 
+)
 \begin_inset Foot
 status collapsed
 
@@ -548,7 +557,7 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
 
 \end_inset
 
-).
+.
  The various methods are needed due to the inability to identify wether
  a repeating update is caused by previous update was a glitch, or that it
  is unneeded because the repeating update is caused from a cycle.
@@ -2085,7 +2094,7 @@ https://rivarx.github.io/Evaluation
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The introduced propogation algorithm behaves similar to 
@@ -2134,7 +2143,7 @@ https://rivarx.github.io/Evaluation
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Similar to how we handle cycles, constraints systems do by handling two-way
@@ -2166,7 +2175,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...
@@ -2418,7 +2427,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In this section, we compare our method to Hotdrink mentioned in 

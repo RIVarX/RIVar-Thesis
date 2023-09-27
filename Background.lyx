@@ -113,78 +113,348 @@ Background
 \end_layout
 
 \begin_layout Standard
-Reactive variables are used to create a similar behavior to 
-\begin_inset Formula $\NAME{Spreadsheets}$
+FRP is about lifting the abstraction level.
+ The operations are lifted, so that once a variable is assigned, it is accosiate
+d to the assigned expression, to continuously re-evaluated according to
+ relevant changes.
+ This might be simple.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics-1"
+plural "false"
+caps "true"
+noprefix "false"
+
 \end_inset
 
-, in that the cells can contain formulas to determine values based on other
- cells.
- Similary, are 
-\emph on
-fields calculations
-\emph default
- or applications that contain fields or variables that are automatically
- calculated based on other fields or variables.
- This high-level specification is regarded as a favorable approach for applicati
-on development 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014programming"
-literal "false"
+), given two reactive variables 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ , the formula 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ associates 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ with the expression 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, and the value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ changes in response to any input provided to the value of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ The accosiation establishes a data dependencies, so that the left side
+ variable depends on the variables in the right side.
+ Naivly the left side should be recalculated in response to any change in
+ any of the variables it depends on.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+A:=B+1
+\end_layout
+
+\begin_layout Plain Layout
+
+B=1 // A=2
+\end_layout
+
+\begin_layout Plain Layout
+
+B=6 // A=7
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (B) at (0,0) {B};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (A) at (-2,0) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[<-] (A) -- node[above] {} (B);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Reactive-variables-basics-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Reactive variables example.
+\end_layout
+
+\end_inset
+
+Reactive variables example.
+ The provided code demonstrates the distinction from the imperative paradigm.
+ The accompanying graph illustrates the established dependencies.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This is an example of using reactive variables, where the value of variable
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ depends on the value of variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+.
+ (We choose to represent the dependancy from the derived variable to the
+ variable it is derived from, to be consistent with derived class that in
+ uml the dependencay is illustrated from the derived class to the subclass.
+ The direction presents that change causes the dependancy to change, and
+ not the direction of the data flow.) Whenever 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ is updated, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ is automatically updated accordingly.
+ The formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A:=B+1}
+\end_layout
+
+\end_inset
+
+ associates the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ with the expression 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B+1}
+\end_layout
+
+\end_inset
+
+, which means that the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ changes in response to any changes in the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
 
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Standard
-In FRP, the concept is inspired from the functional paradigm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
-.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
 
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
-, so that each value of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the value of 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to 
-\emph on
-referential transparency
-\emph default
-, meaning the input consistently produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
+\end_layout
 
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Section
@@ -198,6 +468,11 @@ Paradigms
 \end_layout
 
 \begin_layout Standard
+Beside FRP there are other related paradigms.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In implementing fields calculations, there are three available paradigms:
  events (
 \begin_inset CommandInset ref
@@ -231,6 +506,11 @@ noprefix "false"
 
 ).
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -444,9 +724,7 @@ observable streams
 \end_layout
 
 \begin_layout Standard
-This abstraction can be used to create fields calculations, with a similtary
- to FRP.
- The variables are presented as observable streams consists of the values
+The variables are presented as observable streams consists of the values
  or changes over time, as illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -3180,6 +3458,38 @@ informal contract
 
 \begin_layout Section
 Summary
+\end_layout
+
+\begin_layout Standard
+The frameworks strike a balance between abstraction and generality.
+ Event-driven programming frameworks give developers complete control over
+ the propagation order, but this can be error-prone 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ provides a more abstract approach, allowing developers to choose between
+ several schedulers to indicate the order of updates.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://rxjs.dev/guide/scheduler
+\end_layout
+
+\end_inset
+
+ Constraints systems like FRP frameworks go even further, abstracting away
+ the propagation order altogether and allowing developers to focus on specifying
+ the data dependencies.
 \end_layout
 
 \begin_layout Standard

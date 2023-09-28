@@ -100,7 +100,7 @@ s form like objects with writable fields, such that the fields are continuously
 \end_layout
 
 \begin_layout Standard
-With the new option to separate into components, there are more options
+With this new option to separate into components, there are more options
  to place the boundaries in the applications code.
  One criterion to seperate code to components, is whether it is required
  that changing the code of one component will not affect the other.
@@ -109,16 +109,27 @@ With the new option to separate into components, there are more options
 \end_layout
 
 \begin_layout Standard
-This may be an efficient mechanism to develop fields calculations with a
- potenstial to improve front ends usability.
- Against redandancy there are two mechanisms.
+This may be used to scale up the creation of fields calculations, to improve
+ front-end usability.
+ It can be said that we provide a new mechanism to handle the redundancy.
  For redundancy in fields or variables, the runtime automatically updates
  the values to make them consistent.
- This improve the usability because it promotes the use of redundancies
- in the user interfaces.
- For redundancy in code, the new model provides a new option to reuse code.
- Previously, instead of reusing code, we had to duplicate it and make the
- required changes to avoid harming existing usages.
+ For redundancy in code, the new model provides a new option to reuse code,
+ instead of to duplicate components (to avoid harming existing usages).
+ Similary, it can be said also that the provided mechanism addresses the
+ challenge of managing both the data dependencies and the 
+\emph on
+source code dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -394,14 +405,41 @@ https://www.npmjs.com/package/rivarjs
 \end_inset
 
  we hope to create more extensions for the other programming languages.
- They should be checked against real-life applications.
- We believe also that it is crucial to explore additional options for inferring
- values in addition to the presented 
-\begin_inset Formula $\NAME{merge}$
+ In addition we should expand the integration to UI components, mainly as
+ a state management solution for frameworks like 
+\begin_inset Formula $\NAME{React}$
 \end_inset
 
- operation.
- 
+ and 
+\begin_inset Formula $\NAME{Flutter}$
+\end_inset
+
+, another alternative to 
+\begin_inset Formula $\NAME{Redux}$
+\end_inset
+
+.
+ They should be checked against real-life applications, or general patterns,
+ such as cascading combo boxes, where selecting a value in one combo box
+ filters the options available in another combo box.
+\end_layout
+
+\begin_layout Standard
+The approach can be expanded.
+ The consistency of front-end variable values is similar to the consistency
+ needed in the backend or data store.
+ For example, systems that handle different aspects might hold records for
+ the same entities, with the need to synchronize the data.
+\end_layout
+
+\begin_layout Standard
+We believe that more options for inferring values, in addition to the presented
+ merge operation, will be discovered, while maintaining the consistency
+ of the values of the variables.
+ We chose the direction to update the variable in response to each change
+ in any of the sources.
+ However, it might be the case that changes to the value under certain condition
+s should be rejected.
 \end_layout
 
 \begin_layout Standard

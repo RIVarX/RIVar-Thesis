@@ -1816,8 +1816,23 @@ literal "false"
 \end_inset
 
 , involves implementing reactive variables as the Observer and Iterator
- design pattern, where values are pushed to subscribers by executing their
- method.
+ design patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+, where values are pushed to subscribers by executing their method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+.
  This approach harmonizes previous ideas by treating observables as streams
  of events in the OOP world and streams of effects in the functional realm
  that FRP is originally based on.
@@ -1828,6 +1843,66 @@ Objects and Reactive Variables
 \end_layout
 
 \begin_layout Standard
+Our new assignment operation answers a traditional issue of assigning reactive
+ variables from outside objects 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ The traditional assignment replaces the calculation, stopping the old source
+ in order to start responding to the new source.
+ This is in contrast to the declarative and functional approach originating
+ in FRP, where programs should "describe things that exist, rather than
+ actions that have happened or are to happen (i.e., what is, not what does)"
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The new assignment operation also answers a second traditional mechanism.
+ By the use of an integration with the events mechanism, a meaning similar
+ to assignment can be produced.
+ For example, in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
+\end_inset
+
+ produces meaning similar to 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+.
+ This mechanism might lead to infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+, that a change in a reactive variable executes an event handler, causing
+ the reactive variable to change again.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Our work builds upon of 
 \begin_inset Formula $\ReactiveX$
 \end_inset
@@ -1842,7 +1917,7 @@ Our work builds upon of
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Traditionaly, there is an issue in reactive variables assigned from outside
  of the objects 
 \begin_inset CommandInset citation
@@ -1870,7 +1945,7 @@ literal "false"
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In addition, by the integration with the events mechanism, a meaning similar
  to assignment can be produced, such as 
 \begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
@@ -1899,11 +1974,210 @@ literal "false"
  causing the reactive variable to change again.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-OOP Features
+Reactive Objects
 \end_layout
 
 \begin_layout Standard
+Our work builds upon 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ that reactive variables are part of the object interface similar to operations
+ or fields accessed by getters and setters 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ In the same time, we provide like 
+\emph on
+reactive objects 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boix2013object"
+literal "false"
+
+\end_inset
+
+, in using objects with reactive variables as the objects' attributes.
+ This alters the traditional semantics of OOP, that entire objects become
+ the unit of reactivity.
+ We implemented the example.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs/blob/VisualRIVar_Works_In_Example/test/Reactive
+Objects.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ In a class called 
+\begin_inset Formula $\LSTINLINE{Coordinate}$
+\end_inset
+
+, there are attributes 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE y$
+\end_inset
+
+, along with a method called 
+\begin_inset Formula $\LSTINLINE{Move}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $\LSTINLINE{Move}$
+\end_inset
+
+ method takes another 
+\begin_inset Formula $\LSTINLINE{Coordinate}$
+\end_inset
+
+ object as an argument and creates a third 
+\begin_inset Formula $\LSTINLINE{Coordinate}$
+\end_inset
+
+ object that will be automatically updated according to the changes, describing
+ the target moved coordinate.
+\end_layout
+
+\begin_layout Standard
+We used the event processing mechanism because it allows direct interaction
+ between objects, without the need for a mediator that needs access to objects'
+ encapsulated state or behavior.
+ Traditional implementations that achieve predictability use a mediator
+ to access all variables.
+ Even 
+\begin_inset Formula $\REScala$
+\end_inset
+
+, which was created to bridge object-oriented and functional programming
+ styles, replaces the traditional events modules with a dedicated centralized
+ algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Inheritance and Polymorphism
+\end_layout
+
+\begin_layout Standard
+For programmers, it has been pointed out the Liskov Substitution Principle
+ (LSP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, such that a sub class will not change the behavior of its parent.
+ For this reason, the reassignments will never override previous assignments.
+ Instead, the data dependency graph will expand.
+ Previously it has been mentioned: 
+\begin_inset Quotes eld
+\end_inset
+
+Should it be possible to override a reactive value with a new dependency
+ expression or refer to the overridden one via super?
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Inheritance has also being long been recognized as a challenge in managing
+ data dependencies between parent and child classes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ with the 
+\emph on
+object re-entrance 
+\emph default
+issue 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ mentioned in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Also, the polymorphism has been mentioned, that it is desirable that the
+ dynamic type will capture the dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In the previous research about how to harmonize reactive variables into
  objects, it has mentioned the issue about inheritance: 
 \begin_inset Quotes eld
@@ -1971,7 +2245,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We give the answer mentioned through this thesis by that an assignment should
  be enabled everywhere with the meaning of adding the dependencies.
  This answer is provided following the consideration whether a subclass
@@ -1994,37 +2268,9 @@ literal "false"
 , as it is actualy done.
 \end_layout
 
-\begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Coupling"
-
 \end_inset
 
-Decoupling
-\end_layout
 
-\begin_layout Standard
-We used the event processing mechanism because it allows direct interaction
- between objects, without the need for a mediator that needs access to objects'
- encapsulated state or behavior.
- Traditional implementations that achieve predictability use a mediator
- to access all variables.
- Even 
-\begin_inset Formula $\REScala$
-\end_inset
-
-, which was created to bridge object-oriented and functional programming
- styles, replaces the traditional events modules with a dedicated centralized
- algorithm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Salvaneschi2014"
-literal "false"
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Section

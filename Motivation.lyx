@@ -157,7 +157,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -266,6 +266,128 @@ end{tabular}
 end{center}
 \end_layout
 
+\begin_layout Plain Layout
+
+
+\backslash
+begin{description}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Drug
+\begin_inset Quotes erd
+\end_inset
+
+] relates to amount of medication/drug administered to a patient, (e.g.
+ 20 mg).
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Volume
+\begin_inset Quotes erd
+\end_inset
+
+] relates to Infusion fluid volume.
+ An Infusion injects the medication into the patients body, by mixing the
+ Drug with fluids (e.g., 20 ml).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Concentration
+\begin_inset Quotes erd
+\end_inset
+
+] amount of the 
+\backslash
+textbf{Drug} per 
+\backslash
+textbf{Volume} (e.g.
+ 0.5 mg/ml).
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Rate
+\begin_inset Quotes erd
+\end_inset
+
+] relates to 
+\backslash
+textbf{Volume} flow administered into the patients body per time unit (e.g.,
+ 20 ml per hour).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Dose
+\begin_inset Quotes erd
+\end_inset
+
+ (or Dosage)] 
+\backslash
+textbf{Drug} administered into the patients body per time unit (e.g., 20 mg
+ per hour).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Duration
+\begin_inset Quotes erd
+\end_inset
+
+] relates to the duration from starting the injection until stopping it.
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{description}
+\end_layout
+
 \end_inset
 
 
@@ -311,61 +433,6 @@ User interface component for drug administration.
 \end_layout
 
 \begin_layout Standard
-An efficient mechanism to develop fields calculations has a potenstial to
- improve front ends usability.
- Specificaly, in applications for healthcare, it is desirable to solve usability
- problems 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gawande2018doctors"
-literal "false"
-
-\end_inset
-
-.
- An efficient mechanism promotes the use of redundancies in the user interfaces.
- Redundancies improves the usability, because the user is not enforced to
- one strict representation.
- For instance, in 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- 
-\begin_inset Formula $\NAME{Administration}$
-\end_inset
-
-, there are drugs, where it is easier to set the 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-, while in others it is easier to set by the 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The inefficiency experienced by legacy applications in the market lies in
- the time-consuming process of implementing changes.
- One contributing factor is the limited cognitive capacity of developers
- when it comes to analyzing the extensive details within the application
- source code.
- Another factor is the need to keep on the rules consistency, in case that
- the coded rules are repeated.
- The two factors are highly depend on code repetition, which is affected
- by the abstraction mechnisms used in the architectural design of applications.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -389,6 +456,12 @@ The inefficiency experienced by legacy applications in the market lies in
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Exploring-Architectural-Designs"
+
+\end_inset
+
 Exploring Architectural Designs for the Drug Administration Application
 \end_layout
 
@@ -782,11 +855,19 @@ literal "false"
  existing codebase and then making the necessary changes to the new application.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
 \begin_layout Section
 Conclusion
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We recognize in the exploration three patterns of code duplication.
  First, calling to update variables in various locations, such as in response
  to events.
@@ -799,9 +880,475 @@ We recognize in the exploration three patterns of code duplication.
  for the organization's business logic.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Exploring the Useability
+\end_layout
+
+\begin_layout Standard
+An efficient mechanism to develop fields calculations has a potenstial to
+ improve front ends usability.
+ Specificaly, in applications for healthcare, it is desirable to solve usability
+ problems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gawande2018doctors"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Delivery Speed
+\end_layout
+
+\begin_layout Standard
+To ensure a positive user experience, UX researchers must gather continuous
+ feedback from the application's users.
+ They should conduct A/B testing by creating multiple variants for a single
+ feature and analyze the best one based on the statistical results collected
+ from the users.
+\end_layout
+
+\begin_layout Standard
+However, in traditional applications, it is difficult to make UX processes.
+ This is because that over time, the applications code become hard to change,
+ or that it takes more time to do the changes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ We face procedural programming with long chain of updates, where changing
+ the source code of one component might lead to subsequent changes in the
+ source code of other components, producing long chain of code updates.
+\end_layout
+
+\begin_layout Standard
+The code duplications leads those changes.
+ They are actualy the maintaining of the consistency of the organization's
+ business logic.
+ we recognize in the exploration three patterns of code duplication.
+ First, calling to update variables in various locations, such as in response
+ to events.
+ Second, multiple variables to represent a single real-world variable.
+ Finaly, cloning code to not affect existing clients.
+ Since we could not prevent code repretition, we cannot provide a
+\emph on
+ single source of truth
+\emph default
+ for the organization's business logic.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Cognitive-load"
+
+\end_inset
+
+Cognitive load
+\end_layout
+
+\begin_layout Subsubsection
+Elements Amount
+\end_layout
+
+\begin_layout Standard
+In the CPOE in 
+\begin_inset Formula $\NAME{MetaVision}$
+\end_inset
+
+,
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://www.imd-soft.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ there is a field selection named 
+\emph on
+ordering style
+\emph default
+ that contains options like 
+\begin_inset Quotes eld
+\end_inset
+
+set concentraion and volume
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+set dose and rate
+\begin_inset Quotes erd
+\end_inset
+
+.
+ According to the selection option, fields become editable or readonly,
+ controling the calculations directions.
+ If the user select 
+\begin_inset Quotes eld
+\end_inset
+
+set concentraion and volume
+\begin_inset Quotes erd
+\end_inset
+
+, those fields become editable, and the other fields will be calculated
+ accordingly.
+ There are also elements named 
+\emph on
+locker
+\emph default
+ to control other fields.
+ The user can choose to lock or unlock fields.
+ locking a field means that the field's value would be calculated according
+ to other fields' values.
+\end_layout
+
+\begin_layout Standard
+Those elements added to the screen to control the calculations flow have
+ a cost of adding complexity to the users.
+ The CPOE is a very large and complex component.
+ The users need long training in order to effictivy use it.
+ The application should be carefuly used because there might be errors in
+ using it, which has a high cost.
+ In order to improve useability, we sometimes need the screen to contain
+ less information.
+ The infomration desplyed, should be pnly the relevant infromation to the
+ users.
+\end_layout
+
+\begin_layout Subsubsection
+Navigations
+\end_layout
+
+\begin_layout Standard
+It tends to create small precize components or applications, each solves
+ a specific use case.
+ Another existing directions: to use 
+\emph on
+templates
+\emph default
+.
+ The templates contain pre filled values, 
+\begin_inset Quotes eld
+\end_inset
+
+a setup
+\begin_inset Quotes erd
+\end_inset
+
+ to specific cenarios.
+ In such a case, the users should search and find the appropiate setup or
+ the specific cenario covered by the individual application.
+ This is named 
+\emph on
+navigations
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roman2017navigation"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+
+\emph default
+ The users might be overwhelmed by the available options.
+\end_layout
+
+\begin_layout Subsection
+Redundancies
+\end_layout
+
+\begin_layout Standard
+Humans need redundancies, but computers do not.
+ This is because holding data in one representation is more efficient for
+ computers, and it takes time and resources to handle calculations and avoid
+ inconsistencies.
+ Programmers may think like computers and ignore the need of users for redundanc
+ies.
+ This is also supported by the argument that the front end should be minimalisti
+c to avoid overwhelming users with too many elements on the screen (discussed
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Cognitive-load"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+)..
+\end_layout
+
+\begin_layout Standard
+In contrast, humans possess multiple channels of information, and we tend
+ to choose the one that is most convenient for a specific task.
+ Consider the Drug Administration front end, which includes fields such
+ as 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ Sometimes, it is easier to administer by specifying the volume and concentratio
+n.
+ In such cases, the user needs to calculate the necessary drug values to
+ achieve the desired concentration.
+ A partial solution is to use an external calculator.
+ Additionally, derived data labels can be easily developed to display the
+ calculated values in the form, offering some assistance.
+ However, as humans, we prefer having various input options and expect the
+ computer to understand us in our way, not the other way around.
+\end_layout
+
+\begin_layout Standard
+Generally, different brains require different options.
+ Some individuals have stronger channels of perception compared to others,
+ making it easier for them to use one channel over another.
+ We, as humans, often validate our understanding by utilizing multiple channels
+ and cross-checking information.
+ Sometimes, certain information holds more weight, and our brains naturally
+ consider this weighted input.
+\end_layout
+
+\begin_layout Standard
+Unlike computers, which analyze information in binary terms, humans perceive
+ nuances.
+ For us, saying 'no' is different from saying 'no no.' Expanding technological
+ options in this direction could lead us to a more user-friendly UX, the
+ full potential of which we are yet to fully comprehend.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+An efficient mechanism promotes the use of redundancies in the user interfaces.
+ However this causes the time-consuming process of implementing changes.
+ One contributing factor is the limited cognitive capacity of developers
+ when it comes to analyzing the extensive details within the application
+ source code.
+ Another factor is the need to keep on the rules consistency, in case that
+ the coded rules are repeated.
+ The two factors depend on code repetition which might always exist.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
+
+\begin_layout Plain Layout
+There are some reasons to list in favor of redundancies.
+ Generaly, human brain consider wgited information.
+ sats 
+\begin_inset Quotes eld
+\end_inset
+
+no
+\begin_inset Quotes erd
+\end_inset
+
+ is diffrent that sayg 
+\begin_inset Quotes eld
+\end_inset
+
+no no
+\begin_inset Quotes erd
+\end_inset
+
+.
+ In addition, we have mutiple channels of information, and we use the one
+ that is easier for us in the specific case.
+ For instance, in Drug Administration with the fields 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ Sometimes it is easier to administaer the drug by the volume and concentration.
+ Then he or she need to calculate the values for the drug to get the desired
+ concentration.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In addition, the people are difffrent.
+ There are people taht some chanels are waeker than the other chanel.
+ That people find it easier to use one channel more the other.
+ We used to validate ouself by the use of the diffrent chanels with cross
+ checking.
+\end_layout
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+For instance, in Drug Administration, there are drugs, where it is easier
+ to set the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in others it is easier to set by the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In case that there are only the fields for 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, for a desired 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ the user need to calculate what values to fill.
+\end_layout
+
+\begin_layout Plain Layout
+Actualy we recognize the technalogy SSOT
+\end_layout
+
+\begin_layout Plain Layout
+Humans have much more complex brain, that takes decision based on weights
+ data.
+ Says 
+\begin_inset Quotes eld
+\end_inset
+
+no
+\begin_inset Quotes erd
+\end_inset
+
+ in human is not the same as saying 
+\begin_inset Quotes eld
+\end_inset
+
+no no
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+which works resulary against need Redundancies by nature.
+\end_layout
+
+\begin_layout Plain Layout
+We need sometimes to repeat messages
+\end_layout
+
+\begin_layout Plain Layout
+In front ends the two sides should interact
+\end_layout
+
+\begin_layout Plain Layout
+For computers, Redundancies in data might lead to inconsistency, because
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Redundancies in front ends applications might lead to Cognitive loads, 
+\end_layout
+
+\begin_layout Plain Layout
+Redundancies in front ends applications improves the usability, because
+ the user is not enforced to one strict representation.
+ For instance, in Drug Administration, there are drugs, where it is easier
+ to set the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in others it is easier to set by the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In case that there are only the fields for 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, for a desired 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ the user need to calculate what values to fill.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Plain Layout
 As from this exploration, we could not provide one single source of truth
@@ -934,7 +1481,7 @@ In the explored architectural designs, we could not prevent the repetition
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Reusable components reduce code redandcy in case of creating applications

@@ -1161,6 +1161,23 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
+Adding redundancies in the user interfaces have the cost of the need to
+ keep on the consistency of the values according to the user input.
+ However, according to the exploration, this might require redundancies
+ in the code, with the cost of the need to keep on its consistency.
+ This problem leads us to reduce redundancies in the user interfaces, although
+ it may improve their usability.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, that the developers need to keep on its consistency
+\end_layout
+
+\begin_layout Plain Layout
 An efficient mechanism promotes the use of redundancies in the user interfaces.
  However this causes the time-consuming process of implementing changes.
  One contributing factor is the limited cognitive capacity of developers
@@ -1169,6 +1186,11 @@ An efficient mechanism promotes the use of redundancies in the user interfaces.
  Another factor is the need to keep on the rules consistency, in case that
  the coded rules are repeated.
  The two factors depend on code repetition which might always exist.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

@@ -1859,12 +1859,15 @@ name "sec:A-New-Variant"
 
 \end_inset
 
-A New Variant for FRP
+Non-Hierarchical FRP
 \end_layout
 
 \begin_layout Standard
-We introduce a new variant of FRP that inherentenly supports cycles in the
- data dependencies.
+We introduce a new variant of FRP named 
+\emph on
+non-hierarchical FRP
+\emph default
+ (NH-FRP) that inherentenly supports cycles in the data dependencies.
  This is the ability to facilitate mutual recursion, wherein variables are
  defined in terms of one another.
  For instance, if 
@@ -1975,7 +1978,7 @@ For this reason, the syntax permits a variable that has already been assigned
 \end_inset
 
  to also be assigned using 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
 , and also to be assigned again using 
@@ -1984,7 +1987,7 @@ For this reason, the syntax permits a variable that has already been assigned
 
 .
  The use of 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
  is for providing input, so it is traditionaly enabled to assign multiple
@@ -2009,7 +2012,7 @@ For this reason, the syntax permits a variable that has already been assigned
 
 .
  This will propagate the value 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
  through 
@@ -2031,7 +2034,7 @@ For this reason, the syntax permits a variable that has already been assigned
 \end_inset
 
  will result in the propagation of the value 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
  through 
@@ -2315,15 +2318,15 @@ The meaning given for the phnomenon of a variable are assigned multiple
 \end_inset
 
  to contain 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
 ,
-\begin_inset Formula $\LSTINLINE2$
+\begin_inset Formula $\LSTINLINE 2$
 \end_inset
 
  and then 
-\begin_inset Formula $\LSTINLINE3$
+\begin_inset Formula $\LSTINLINE 3$
 \end_inset
 
 .
@@ -2411,15 +2414,15 @@ In another point of view, finally the outcome of each variable consists
 \end_inset
 
 , means three streams that are merged into the stream of 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
 ,
-\begin_inset Formula $\LSTINLINE2$
+\begin_inset Formula $\LSTINLINE 2$
 \end_inset
 
  and then 
-\begin_inset Formula $\LSTINLINE3$
+\begin_inset Formula $\LSTINLINE 3$
 \end_inset
 
 .
@@ -3397,8 +3400,12 @@ Programming Language Extensions
 \end_layout
 
 \begin_layout Standard
-We create the new variant of FRP as extensions to existing programming languages.
- Specifically, we have already created the extensions 
+We implemented NH-FRP as extensions to existing programming languages.
+ Specifically, we implemented the 
+\begin_inset Formula $\NAME{nuget}$
+\end_inset
+
+ package 
 \begin_inset Formula $\NAME{RIVarX}$
 \end_inset
 
@@ -3423,10 +3430,14 @@ https://www.nuget.org/packages/RIvar.RIvarX
 \end_inset
 
  for 
-\begin_inset Formula $\LSTINLINE{C\#}$
+\begin_inset Formula $\NAME{C\#}$
 \end_inset
 
- and 
+ and an 
+\begin_inset Formula $\NAME{npm}$
+\end_inset
+
+ package 
 \begin_inset Formula $\NAME{rivarjs}$
 \end_inset
 
@@ -3594,7 +3605,7 @@ The
 \end_inset
 
 ) method is the implementation of the operator 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
 , and for the operator 

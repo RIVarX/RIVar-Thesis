@@ -137,7 +137,7 @@ noprefix "false"
 
 \end_inset
 
-, in FRP, the concept is inspired from the functional paradigm 
+, FRP is inspired from the functional paradigm 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -253,17 +253,7 @@ literal "false"
 
 \end_inset
 
- (discussed later in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Coupling"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
+.
  We find exceptions
 \begin_inset space ~
 \end_inset
@@ -1775,7 +1765,7 @@ Events and Signals
 \end_layout
 
 \begin_layout Standard
-In the first stage, previous attempts focused on converting or reconciling
+In the first stage, the previous attempts focused on converting or reconciling
  concepts between FRP and OOP.
  
 \begin_inset Formula $\REScala$
@@ -2068,9 +2058,8 @@ Objects.js
 \end_layout
 
 \begin_layout Standard
-We used the event processing mechanism because it allows direct interaction
- between objects, without the need for a mediator that needs access to objects'
- encapsulated state or behavior.
+The new semantics consist of interacted objects without the need for a mediator
+ that have access to objects' encapsulated state or behavior.
  Traditional implementations that achieve predictability use a mediator
  to access all variables.
  Even 
@@ -2340,7 +2329,7 @@ https://rivarx.github.io/Evaluation
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The introduced propogation algorithm behaves similar to 

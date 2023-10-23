@@ -222,8 +222,7 @@ noprefix "false"
 
 .
  Each real wolrd variable exists only once, there is no need to repeat the
- code of events registerations and the classes can be reused (TBD two versions
- in hotdrink and rivarjs)
+ code of events registerations and the classes can be reused.
 \end_layout
 
 \begin_layout Standard
@@ -1127,6 +1126,278 @@ s to the corresponding input element, such that when a UI change event occurs,
  it adds an event to the variable stream.
  Conversely, when a new event appears in the stream, it triggers a corresponding
  change in the UI.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+import { useState } from 'react';
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+export function VisualRIVar({ rivar, render }) {
+\end_layout
+
+\begin_layout Plain Layout
+
+  const [value, setValue] = useState(0);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  rivar.subscribe((signal) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (signal.value && value !== signal.value.toString()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      setValue(signal.value.toString());
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  });
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  const change = (value) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+    rivar.next(new Signal(value));
+\end_layout
+
+\begin_layout Plain Layout
+
+  };
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  return render({ value, change });
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+const App = () => {
+\end_layout
+
+\begin_layout Plain Layout
+
+  const rivar = new Rivar();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  return (
+\end_layout
+
+\begin_layout Plain Layout
+
+    <RIVarView rivar={rivar} render={({ value, change }) => (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <input
+\end_layout
+
+\begin_layout Plain Layout
+
+        type="number"
+\end_layout
+
+\begin_layout Plain Layout
+
+        value={value}
+\end_layout
+
+\begin_layout Plain Layout
+
+        onChange={(event) => change(event.target.value)}
+\end_layout
+
+\begin_layout Plain Layout
+
+      />
+\end_layout
+
+\begin_layout Plain Layout
+
+    )}>
+\end_layout
+
+\begin_layout Plain Layout
+
+    </VisualRIVar>
+\end_layout
+
+\begin_layout Plain Layout
+
+  );
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:VisualRIVar"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+The code snippest generates 
+\begin_inset Formula $\LSTINLINE{VisualRIVar}$
+\end_inset
+
+, a react component that takes two props: 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ and a render prop function.
+ The render prop function is used to render the child component.
+ The render prop function is passed an object with two properties: value
+ and change.
+ The value property is the current value of the Rivar variable.
+ The change function can be used to update the 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ variable.
+ In the sample app, the code will render an input field that is connected
+ to the rivar variable.
+ When the user changes the value of the input field, the rivar variable
+ will be updated.
+ The rivar variable will then update the value prop of the input field.
+ This will cause the input field to be re-rendered with the updated value.
+ This pattern can be used to render any type of component inline and nested
+ in the 
+\begin_inset Formula $\LSTINLINE{VisualRIVar}$
+\end_inset
+
+ component.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

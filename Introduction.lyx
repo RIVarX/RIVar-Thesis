@@ -103,6 +103,12 @@
 \begin_body
 
 \begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Introduction"
+
+\end_inset
+
 Introduction
 \end_layout
 
@@ -204,7 +210,11 @@ literal "false"
 \end_inset
 
 ) to automate updates.
- Reactive variables have similar behavior to 
+ 
+\end_layout
+
+\begin_layout Standard
+Reactive variables are used to create a similar behavior to 
 \begin_inset Formula $\NAME{Spreadsheets}$
 \end_inset
 
@@ -216,21 +226,11 @@ fields calculations
 \emph default
  or applications that contain fields or variables that are automatically
  calculated based on other fields or variables.
- Actualy, as in the state management solution 
-\begin_inset Formula $\NAME{MobX}$
-\end_inset
-
- with the 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- framework, fields calculations can consist of reactive variables implemented
- by a state management solution connected to the visual fields.
 \end_layout
 
 \begin_layout Standard
-The general statement is that developers need to customize calculations
- hierarchically
+In the development, the general statement is that developers need to customize
+ calculations hierarchically
 \begin_inset space ~
 \end_inset
 
@@ -251,9 +251,9 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-To manage the updates correctly, the graph is generally managed in a centralized
+Another typical principal suggests to manage the calculations in a centralized
  manner.
- We first consider 
+ This has a popluation with the exitence of 
 \begin_inset Formula $\NAME{redux}$
 \end_inset
 
@@ -267,8 +267,8 @@ literal "false"
 
 , a popular centralized state management solution for real-world front-end
  applications.
- For the runtime aspect, we find that most works in the FRP field contain
- a centralized manager that has knowledge of the entire graph
+ Similary, we find that most works in the FRP field contain a centralized
+ manager that has knowledge of the entire graph
 \begin_inset space ~
 \end_inset
 
@@ -281,6 +281,7 @@ literal "false"
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Standard

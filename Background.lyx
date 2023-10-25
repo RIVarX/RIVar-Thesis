@@ -113,12 +113,26 @@ Background
 \end_layout
 
 \begin_layout Standard
-FRP is about lifting the abstraction level.
- The operations are lifted, so that once a variable is assigned, it is accosiate
-d to the assigned expression, to continuously re-evaluated according to
- relevant changes.
- This might be simple.
- For example
+As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Introduction"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the fields calculations have similarities with reactive variables and
+ FRP.
+ In FRP the operations are lifted, so that once a variable or a field is
+ assigned, it is accosiated to the assigned expression, to continuously
+ re-evaluated according to relevant changes.
+ 
+\end_layout
+
+\begin_layout Standard
+For example
 \begin_inset space ~
 \end_inset
 
@@ -132,7 +146,7 @@ noprefix "false"
 
 \end_inset
 
-), given two reactive variables 
+), given two reactive variables or fields 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
@@ -171,7 +185,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -233,6 +247,13 @@ end{minipage}
 
 
 \backslash
+hspace{3cm}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 begin{minipage}{0.4
 \backslash
 textwidth}
@@ -263,7 +284,7 @@ node[draw, circle] (A) at (-2,0) {A};
 
 
 \backslash
-draw[<-] (A) -- node[above] {} (B);
+draw[->] (A) -- node[above] {} (B);
 \end_layout
 
 \begin_layout Plain Layout
@@ -313,8 +334,17 @@ Reactive variables example.
 \end_inset
 
 Reactive variables example.
- The provided code demonstrates the distinction from the imperative paradigm.
- The accompanying graph illustrates the established dependencies.
+ 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ represent reactive variables or fields.
+ The code and the graph illustrate the established dependencies.
+ 
 \begin_inset Note Note
 status collapsed
 
@@ -461,6 +491,78 @@ lstinline{B}
 
 \end_layout
 
+\begin_layout Standard
+The noval approach of FRP is inspired from the functional paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ Saying 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ is like stating that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is a function with a body of 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, so that each value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is derived from the value of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ This produces a 
+\emph on
+predictability 
+\emph default
+property due to 
+\emph on
+referential transparency
+\emph default
+, meaning the input consistently produces the same output 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Actualy, as in the state management solution 
+\begin_inset Formula $\NAME{MobX}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ framework, fields calculations can consist of reactive variables implemented
+ by a state management solution connected to the visual fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -472,11 +574,6 @@ Paradigms
 \end_layout
 
 \begin_layout Standard
-Beside FRP there are other related paradigms.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
 In implementing fields calculations, there are three available paradigms:
  events (
 \begin_inset CommandInset ref
@@ -510,11 +607,6 @@ noprefix "false"
 
 ).
  
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -1598,7 +1690,7 @@ lstinline{D}).
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This programming model has also the problem, that it supports the events
@@ -1637,7 +1729,7 @@ Because it allows mutual recusraion there might be an accidental recusrsn,
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 For example, in ReactiveX 
@@ -1708,7 +1800,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ReactiveX, available in languages like C# and JavaScript through frameworks
@@ -1731,7 +1823,7 @@ ReactiveX, available in languages like C# and JavaScript through frameworks
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Formula $\ReactiveX$
@@ -1758,7 +1850,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 FRP adopts this concept, so A:=B+C signifies that the reactive variable
@@ -1780,7 +1872,7 @@ The composition can be visualized as a tree or graph, where each variable
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This works nice for hirarchial data.
@@ -3465,7 +3557,7 @@ informal contract.
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ———

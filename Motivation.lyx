@@ -109,11 +109,7 @@ literal "false"
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Standard
-Fields calculations means maintaining consistency in field values.
+ Fields calculations means maintaining consistency in field values.
  When users fill in one field, it is sometimes essential to recalculate
  the values of other related fields.
  For example, in Drug Administration (
@@ -762,7 +758,7 @@ Elements Amount
 \end_layout
 
 \begin_layout Standard
-In the CPOE in 
+In the computerized provider order entry (CPOE) in 
 \begin_inset Formula $\NAME{MetaVision}$
 \end_inset
 
@@ -826,7 +822,8 @@ locker
  to control other fields.
  The user can choose to lock or unlock fields.
  locking a field means that the field's value would be calculated according
- to other fields' values.
+ to other fields' values, while unlocking means that the field becomes editable
+ makeing other fields to be calculated.
 \end_layout
 
 \begin_layout Standard
@@ -847,6 +844,46 @@ Navigations
 \end_layout
 
 \begin_layout Standard
+In order to help the users, hospitals own 
+\emph on
+templates
+\emph default
+ which are the order with pre filled values, 
+\begin_inset Quotes eld
+\end_inset
+
+a setup
+\begin_inset Quotes erd
+\end_inset
+
+ to specific cenarios.
+ In such a case, the users should search and find the appropiate setup or
+ the specific cenario covered by the individual application.
+ This is named 
+\emph on
+navigations
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roman2017navigation"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+
+\emph default
+ The users might be overwhelmed by the available options.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 It tends to create small precize components or applications, each solves
  a specific use case.
  Another existing directions: to use 
@@ -883,6 +920,11 @@ literal "false"
 
 \emph default
  The users might be overwhelmed by the available options.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

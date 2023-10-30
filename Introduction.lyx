@@ -285,15 +285,15 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-We focus on enabling FRP in OOP settings so that it can be used across component
-s.
- In this setting, hierarchical and centralized statements cannot be used
- due to two reasons.
- First, objects can contain calculations without ever knowing about other
- related calculations.
- Second, each update triggers the next one through a simple (cross-component)
- function call.
- 
+We focus on enabling FRP in OOP settings where the two statements cannot
+ be used.
+ Objects can contain calculations without ever knowing about other related
+ calculations, while the updates are executed as simple (cross-component)
+ function calls.
+ According to the mentioned statements, the whole calculations need to be
+ specified or handled in a single class or component respectively, either
+ to ensure that the calculations are correct, to prevent cycles, or that
+ cycles are handled correctly.
 \end_layout
 
 \begin_layout Standard

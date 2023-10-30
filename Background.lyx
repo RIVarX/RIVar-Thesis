@@ -3783,6 +3783,9 @@ Over the frameworks, it is challenged to coordinate the field calculation
  based on changes in other fields.
  This process requires careful consideration of transitive dependencies.
  Otherwise, unintentional recursion can lead to unexpected updates.
+ For predictable addition of calculations, it is required that they be in
+ the same class or component to ensure that the calculations are correct,
+ that there are no cycles, or that cycles are handled correctly.
 \end_layout
 
 \begin_layout Standard

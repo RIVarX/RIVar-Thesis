@@ -285,19 +285,20 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-We focus on enabling FRP in OOP settings, so that it can be used across
- components.
- In this settings the hierarchical and centerlized statements cannot be
- used.
- Objects can contain calculations without ever knowing about other related
- calculations.
- In addition, each update trigger the next one as a simple function call,
- as it can simply used by components.
+We focus on enabling FRP in OOP settings so that it can be used across component
+s.
+ In this setting, hierarchical and centralized statements cannot be used
+ due to two reasons.
+ First, objects can contain calculations without ever knowing about other
+ related calculations.
+ Second, each update triggers the next one through a simple (cross-component)
+ function call.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Generaly, the graph is managed in a centerlized mannar.
@@ -376,7 +377,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Beside this approach, there is the event-driven approach that fit Object
@@ -430,7 +431,7 @@ https://rxjs.dev/guide/scheduler
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Formula $\REScala$
@@ -608,7 +609,7 @@ s, outdated values are filtered out.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 For example, when saying Saying 
@@ -651,7 +652,7 @@ s), as they can be assciated to objects.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Reactive variables remind fields in front-end applications, that are calculated
@@ -706,7 +707,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 (It might be challenging, to deal with the fields calculations that involve
@@ -747,7 +748,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 an API based on some OOP design patterns, to treat variables as streams
@@ -1063,7 +1064,7 @@ executed functions, so that the target reactive variable continuously contains
  on.
  A propogation of changes starts whenever any of the variables get user
  input (
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operator).
@@ -3649,8 +3650,64 @@ s), as they are reactive variables that can be assciated to objects.
 \end_layout
 
 \begin_layout Standard
-We present a framework and provide such libraries for separating data dependency
- management within objects, in accordance with the information hiding principle.
+We present a framework and provide such libraries (
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+) for separating data dependency management within objects, in accordance
+ with the information hiding principle.
  At the heart of this framework lies the concept of a 
 \emph on
 Reactive Instance Variable

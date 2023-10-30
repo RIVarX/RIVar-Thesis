@@ -718,7 +718,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Improving Delivery Speed
 \end_layout
 
@@ -747,7 +747,7 @@ literal "false"
  source code of other components, producing long chain of code updates.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Cognitive-load"
@@ -757,7 +757,7 @@ name "subsec:Cognitive-load"
 Reducing Cognitive load
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Elements Amount
 \end_layout
 
@@ -842,7 +842,7 @@ Those elements added to the screen to control the calculations flow have
  users.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Navigations
 \end_layout
 
@@ -885,7 +885,7 @@ literal "false"
  The users might be overwhelmed by the available options.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Adding Redundancies
 \end_layout
 

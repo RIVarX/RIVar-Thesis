@@ -88,6 +88,10 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Classes with 
 \begin_inset Formula $\LSTINLINE{RIVar}$
 \end_inset
@@ -99,18 +103,85 @@ s form like objects with writable fields, such that the fields are continuously
  that there are no cycles, or that cycles are handled correctly.
 \end_layout
 
-\begin_layout Standard
-With this new option to separate into components, there are more options
- to place the boundaries in the applications code.
- One criterion to seperate code to components, is whether it is required
- that changing the code of one component will not affect the other.
- This depends on the organization needs, where each field or calculation
- is best located.
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-This may be used to scale up the creation of fields calculations, to improve
- front-end usability.
+We did not achieve our goal of providing a proven mechanism that enhances
+ healthcare applications.
+ However, we have provided a framework that improves upon the aspects discovered
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ for the enhancement process.
+\end_layout
+
+\begin_layout Section
+Improving Delivery Speed
+\end_layout
+
+\begin_layout Standard
+With the new option to separate components, there are more opportunities
+ to define boundaries in the application's code.
+ This depends on the organization's needs, determining the optimal location
+ for each field or calculation.
+ One criterion for separating code into components is whether it is necessary
+ to ensure that changing the code of one component will not affect the others
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ With these new options, we introduce more flexibility in bounding code,
+ enabling faster code modifications.
+\end_layout
+
+\begin_layout Section
+Reducing Cognitive load
+\end_layout
+
+\begin_layout Standard
+We reduced the duplications in the user interfaces caused from the various
+ calculation options.
+ The approach abstracts out from the user the choose what fields are 
+\emph on
+input
+\emph default
+ and what fields are 
+\emph on
+computed
+\emph default
+.
+ We continuously calculate based on the latest input, assuming that old
+ values can be overridden by the new ones.
+ These assumptions should be further tested in real applications or replaced
+ with an alternative 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ function.
+\end_layout
+
+\begin_layout Section
+Adding Redundancies
+\end_layout
+
+\begin_layout Standard
+The new framework may help to scale up the creation of fields calculations
+ and improve front-end usability.
  It can be said that we provide a new mechanism to handle the redundancy.
  For redundancy in fields or variables, the runtime automatically updates
  the values to make them consistent.

@@ -96,7 +96,90 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-Maintaining consistency in field values are crucial in front ends applications.
+This thesis is driven by the need to enhance fields calculations mechanism,
+ in order to improve the user experiences in UI (User Interface) and front-end
+ applications.
+ Specificaly, we think about healthcare applications, where it is desirable
+ to solve usability problems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gawande2018doctors"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Fields calculations means maintaining consistency in field values.
+ When users fill in one field, it is sometimes essential to recalculate
+ the values of other related fields.
+ For example, in Drug Administration (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), there are several options to define the quantities: either by 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ or by 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In the first option, 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is calculated based on 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in the second option, 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is calculated based on the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This thesis is driven by the need to enhance user experiences in UI (User
+ Interface) and front-end applications.
+ A fundamental aspect of this enhancement lies in the realm of field calculation
+s.
+ Fields calculations means maintaining consistency in field values.
  When users fill in one field, it is essential to recalculate the values
  of other related fields.
  For example, in Drug Administration (
@@ -153,11 +236,158 @@ noprefix "false"
 .
 \end_layout
 
+\begin_layout Plain Layout
+——
+\end_layout
+
+\begin_layout Plain Layout
+This thesis aims to establish an effective mechanism for field calculations,
+ enhancing user experience in User Interfaces and frond-end applications.
+ Field calculations refer to the process of maintaining consistency in field
+ values.
+ When users input data into one field, it is essential to recalculate the
+ values of other related fields.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+This thesis is focused on creating an effective mechanism in fields calculations
+ to achive a better user experience in UI or drone ends applications.
+ Fields calculations means Maintaining consistency in field values.
+ When users fill in one field, it is essential to recalculate the values
+ of other related fields.
+ For example, in Drug Administration (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), there are several options to define the quantities: either by 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ or by 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In the first option, 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is calculated based on 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in the second option, 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is calculated based on the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Maintaining consistency in field values might be crucial in front ends applicati
+ons.
+ When users fill in one field, it is essential to recalculate the values
+ of other related fields.
+ For example, in Drug Administration (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), there are several options to define the quantities: either by 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ or by 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In the first option, 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is calculated based on 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in the second option, 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is calculated based on the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -455,406 +685,6 @@ The inefficiency experienced by legacy applications in the market lies in
 
 \end_layout
 
-\begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Exploring-Architectural-Designs"
-
-\end_inset
-
-Exploring Architectural Designs for the Drug Administration Application
-\end_layout
-
-\begin_layout Standard
-We explore design options for the Drug Administration Application:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-To address this, recommended practices emphasize the design of multiple
- objects and components with well-defined responsibilities 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "martin2018clean"
-literal "false"
-
-\end_inset
-
-.
- Furthermore, the separation to responsibilities should be alligned to the
- business needs 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "evans2004domain"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Procedural Programming
-\end_layout
-
-\begin_layout Standard
-In creating Drug Administration application, and keep values of the fields
- consistent, the 
-\begin_inset Formula $\LSTINLINE{calculate}$
-\end_inset
-
- procedure is created.
- This procedure is called whenever the user updates the value of any of
- the fields.
- Depending on the fields that the user edits, the other fields are calculated,
- as in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Centerlized-Calculation-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In this method there is redundancy.
- Values are calculated, even when their fields are unchanged.
- In addition, statements are repeated, as seen in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:concentrationByDrugAndVolume1}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:concentrationByDrugAndVolume2}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited triple is of Dose,  Duration, and Volume
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/Volume |
-\backslash
-label{line:concentrationByDrugAndVolume1}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = Volume/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Volume = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/Volume |
-\backslash
-label{line:concentrationByDrugAndVolume2}|
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = Volume/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Centerlized-Calculation-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Drug administration calculation.
-\end_layout
-
-\end_inset
-
-Drug administration calculation.
- The code shows how to calculate the values of the fields based on different
- combinations of three input fields.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Events
-\end_layout
-
-\begin_layout Standard
-In order to eliminate redundancy, a dedicated change event can be created
- for each field.
- Small functions containing the relevant calculations are registered to
- handle these events.
- In this way not all the values are calculated in response to an update
- by the user.
- Instead, it's possible for each field change event to trigger the recalculation
- of only those fields whose values are derived from the updated values.
-\end_layout
-
-\begin_layout Standard
-However, this method causes another form of redundancy.
- Taking the example in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- of implementing 
-\begin_inset Formula $\LSTINLINE{x:=y+z}$
-\end_inset
-
-, the recalculation of 
-\begin_inset Formula $\LSTINLINE x$
-\end_inset
-
- needs to be triggered both when 
-\begin_inset Formula $\LSTINLINE y$
-\end_inset
-
- is updated and when 
-\begin_inset Formula $\LSTINLINE z$
-\end_inset
-
- is updated.
- The calls to recalculate 
-\begin_inset Formula $\LSTINLINE x$
-\end_inset
-
- are repeated within the two handlers of the change events for 
-\begin_inset Formula $\LSTINLINE y$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE z$
-\end_inset
-
-.
- Similarly, in cases where a field relies on multiple fields, the registrations
- to recalculate it must be duplicated across the various change events of
- the fields it depends on.
- This places the responsibility on developers to meticulously ensure that
- no registration is overlooked.
-\end_layout
-
-\begin_layout Subsection
-Spreadsheet
-\end_layout
-
-\begin_layout Standard
-We implemented the Drug Administration example in a 
-\begin_inset Formula $\NAME{Spreadsheet}$
-\end_inset
-
-, available in 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://github.com/RIVarX/Evaluation/DrugAdministration.xlsx 
-\end_layout
-
-\end_inset
-
-.
- Each cell can contain either a formula or a value.
- This leads to implement several modes to the drug administration.
- In the first mode, users set the 
-\begin_inset Formula $\LSTINLINE{Concentration}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{Volume}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Duration}$
-\end_inset
-
-, and the other fields are calculated.
- In the second mode, users set the 
-\begin_inset Formula $\LSTINLINE{Dose}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{Rate}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Duration}$
-\end_inset
-
-, and once again, the other fields are calculated.
- This pattern can continue for additional modes.
- 
-\end_layout
-
-\begin_layout Standard
-This implementation has redundancy across the different modes, as several
- cells calculate the values of the same real-world variable.
- This is in contrast to the traditional OOP, where objects commonly store
- variables that mirror real-world attributes or variables.
-\end_layout
-
-\begin_layout Subsection
-Constraints
-\end_layout
-
-\begin_layout Standard
-We developed the Drug Administration application using the 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- library.
- However, the library currently lacks support for reusable components 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "marheim2017domain"
-literal "false"
-
-\end_inset
-
-.
- Therefore, if we need to create another application based on an this one
- without modifying impacting the existing clients, we need to clone the
- existing codebase and then making the necessary changes to the new application.
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
@@ -864,32 +694,10 @@ status collapsed
 \end_layout
 
 \begin_layout Section
-Conclusion
-\end_layout
-
-\begin_layout Plain Layout
-We recognize in the exploration three patterns of code duplication.
- First, calling to update variables in various locations, such as in response
- to events.
- Second, multiple variables to represent a single real-world variable.
- Finaly, cloning code to not affect existing clients.
- Since we could not prevent code repretition, we cannot provide a
-\emph on
- single source of truth
-\emph default
- for the organization's business logic.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
 Exploring the Useability
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 An efficient mechanism to develop fields calculations has a potenstial to
  improve front ends usability.
  Specificaly, in applications for healthcare, it is desirable to solve usability
@@ -905,8 +713,13 @@ literal "false"
  
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-Delivery Speed
+Improving Delivery Speed
 \end_layout
 
 \begin_layout Standard
@@ -934,22 +747,6 @@ literal "false"
  source code of other components, producing long chain of code updates.
 \end_layout
 
-\begin_layout Standard
-The code duplications leads those changes.
- They are actualy the maintaining of the consistency of the organization's
- business logic.
- we recognize in the exploration three patterns of code duplication.
- First, calling to update variables in various locations, such as in response
- to events.
- Second, multiple variables to represent a single real-world variable.
- Finaly, cloning code to not affect existing clients.
- Since we could not prevent code repretition, we cannot provide a
-\emph on
- single source of truth
-\emph default
- for the organization's business logic.
-\end_layout
-
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -957,7 +754,7 @@ name "subsec:Cognitive-load"
 
 \end_inset
 
-Cognitive load
+Reducing Cognitive load
 \end_layout
 
 \begin_layout Subsubsection
@@ -1089,14 +886,15 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
-Redundancies
+Adding Redundancies
 \end_layout
 
 \begin_layout Standard
-Humans need redundancies, but computers do not.
- This is because holding data in one representation is more efficient for
- computers, and it takes time and resources to handle calculations and avoid
- inconsistencies.
+By far we discovered the technical complexity in creating fields calculations.
+ This might lead some to develop applications without (or to reduce) fields
+ redandencies, so that we need not to handle the consistency in field values.
+ Holding data once is more efficient for computers, and it takes time and
+ resources to handle calculations and avoid inconsistencies.
  Programmers may think like computers and ignore the need of users for redundanc
 ies.
  This is also supported by the argument that the front end should be minimalisti
@@ -1111,12 +909,13 @@ noprefix "false"
 
 \end_inset
 
-)..
+).
 \end_layout
 
 \begin_layout Standard
-In contrast, humans possess multiple channels of information, and we tend
- to choose the one that is most convenient for a specific task.
+However, in contrast to the computers humans need redundancies by nature.
+ Humans possess multiple channels of information, and we tend to choose
+ the one that is most convenient for a specific task.
  Consider the Drug Administration front end, which includes fields such
  as 
 \begin_inset Formula $\NAME{Drug}$
@@ -1127,40 +926,76 @@ In contrast, humans possess multiple channels of information, and we tend
 \end_inset
 
 .
- Sometimes, it is easier to administer by specifying the volume and concentratio
-n.
+ Sometimes, it is easier to administer by specifying the 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ .
  In such cases, the user needs to calculate the necessary drug values to
  achieve the desired concentration.
- A partial solution is to use an external calculator.
- Additionally, derived data labels can be easily developed to display the
- calculated values in the form, offering some assistance.
- However, as humans, we prefer having various input options and expect the
- computer to understand us in our way, not the other way around.
+ In addition, generally different brains require different options.
+ Some individuals have stronger channels of perception compared to others,
+ making it easier for them to use one channel over another.
+ The different options also help to validate our understanding by utilizing
+ multiple channels and cross-checking information.
 \end_layout
 
 \begin_layout Standard
-Generally, different brains require different options.
- Some individuals have stronger channels of perception compared to others,
- making it easier for them to use one channel over another.
- We, as humans, often validate our understanding by utilizing multiple channels
- and cross-checking information.
- Sometimes, certain information holds more weight, and our brains naturally
+Yet popular technalogies have already populated features for efficiently
+ creating derived data labels.
+ In the case mentioned above (regarding Drug Administration), this functionality
+ can assist users who need to calculate the necessary drug values to achieve
+ the desired concentration.
+ However, humans expect computers to understand them in their own way, according
+ to their current channel of perception.
+ Therefore, it is desirable for users to have various input options.
+ Depending on the fields the user fills, the values of other fields are
+ derived.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Sometimes, certain information holds more weight, and our brains naturally
  consider this weighted input.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Unlike computers, which analyze information in binary terms, humans perceive
- nuances.
+ nuances derived from.
  For us, saying 'no' is different from saying 'no no.' Expanding technological
  options in this direction could lead us to a more user-friendly UX, the
  full potential of which we are yet to fully comprehend.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
-Conclusion
+Summary
 \end_layout
 
 \begin_layout Standard
+This thesis is driven by the need to enhance the fields calculations mechanism
+ in three aspects: (1) to improve delivery speed, (2) to reduce cognitive
+ loads caused by extra fields and navigations resulting from poor designs,
+ and finally, (3) to make it straightforward to add field redundancies,
+ allowing users to have various options for filling in the information.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Adding redundancies in the user interfaces have the cost of the need to
  keep on the consistency of the values according to the user input.
  However, according to the exploration, this might require redundancies
@@ -1169,9 +1004,14 @@ Adding redundancies in the user interfaces have the cost of the need to
  it may improve their usability.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 , that the developers need to keep on its consistency

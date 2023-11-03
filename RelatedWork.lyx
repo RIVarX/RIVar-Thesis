@@ -116,10 +116,10 @@ FRP
 \end_layout
 
 \begin_layout Standard
-We introduced a new variant for FRP, that its main difference is in the
- approach to support cycles, by enabling multiple assignments.
- In this section we accosiate several concepts in the field to the the new
- variant.
+We introduced Non-Hierarchical FRP, that its main difference is in the approach
+ to support cycles, by enabling multiple assignments.
+ In this section we accosiate several concepts in the field to the this
+ new FRP variant.
 \end_layout
 
 \begin_layout Paragraph

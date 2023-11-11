@@ -2318,15 +2318,15 @@ The meaning given for the phnomenon of a variable are assigned multiple
 \end_inset
 
  to contain 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
 ,
-\begin_inset Formula $\LSTINLINE 2$
+\begin_inset Formula $\LSTINLINE2$
 \end_inset
 
  and then 
-\begin_inset Formula $\LSTINLINE 3$
+\begin_inset Formula $\LSTINLINE3$
 \end_inset
 
 .
@@ -2414,15 +2414,15 @@ In another point of view, finally the outcome of each variable consists
 \end_inset
 
 , means three streams that are merged into the stream of 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
 ,
-\begin_inset Formula $\LSTINLINE 2$
+\begin_inset Formula $\LSTINLINE2$
 \end_inset
 
  and then 
-\begin_inset Formula $\LSTINLINE 3$
+\begin_inset Formula $\LSTINLINE3$
 \end_inset
 
 .
@@ -4102,28 +4102,80 @@ Integration
 \end_layout
 
 \begin_layout Standard
-As RIVars consist of observable streams we facilitate binding with the UI.
- Once a UI change event occurs, it adds an event to the variable stream.
+As 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s consist of observable streams we facilitate binding with the UI.
+ Once a UI change event occurs, it adds an event to the stream.
  Conversely, when a new event appears in the stream, it triggers a corresponding
  change in the UI.
  In this way, we created a .NET Windows Forms application, a web application,
- and an HTML page.
+ and an HTML page (available in 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX
+\end_layout
+
+\end_inset
+
+).
  Similary, it should be easy to to integrate with various development environmen
 ts.
 \end_layout
 
 \begin_layout Standard
-In addition, we have developed the RIVarView React component, designed for
- visualizing RIVar.
+In addition, we have developed 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ component, designed for visualizing a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
  Similar to a reactive variable that recalculates based on changes in its
- dependencies, the RIVarView component re-renders the view in response to
- changes in the associated RIVar.
+ dependencies, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ component re-renders the view in response to changes in the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-To utilize RIVarView, developers need to specify the prop named 'rivar'
- with the RIVar and a nested element to define the view.
- The nested element is specified as a function of 'value' and a 'change'
+To utilize 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, developers need to specify the prop named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ and a nested element to define the view.
+ The nested element is specified as a function of 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
  method, allowing it to collect user input values and display calculated
  values.
  For example as visualized in 
@@ -4136,9 +4188,20 @@ noprefix "false"
 
 \end_inset
 
-, in the case of a visual element representing drug administration amount,
- the 'value' property is set to the input value, and the 'change' method
- is called within the event handler of the 'onChange' event.
+, in the case of a visual element representing Drug Administration Amount,
+ the 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ property is set to the input value, and the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method is called within the event handler of the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
+
+ event.
  
 \end_layout
 
@@ -4255,8 +4318,12 @@ Code example for using
 \end_layout
 
 \begin_layout Standard
-Using the added RIVarView, it becomes easier to create the Drug Administration
- example as illustrated in n 
+Using the added 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, it becomes easier to create the Drug Administration example as illustrated
+ in n 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:react_micro_frontends"

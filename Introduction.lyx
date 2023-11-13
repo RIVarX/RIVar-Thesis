@@ -210,9 +210,9 @@ literal "false"
 \end_inset
 
 ) to automate updates.
- In FRP the operations are lifted, so that once a variable or a field is
- assigned, it is accosiated to the assigned expression, to continuously
- re-evaluated according to relevant changes.
+ In FRP the operations are lifted, so that once a reactive variable is assigned,
+ it is accosiated to the assigned expression, to continuously re-evaluated
+ according to relevant changes.
  For example
 \begin_inset space ~
 \end_inset
@@ -415,19 +415,29 @@ Reactive variables example.
 \end_inset
 
 Reactive variables example.
- 
-\begin_inset Formula $\LSTINLINE A$
+ The 
+\begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
- and 
+ operation establishes a data dependency, so that the subsequent 
+\begin_inset Formula $\LSTINLINE =$
+\end_inset
+
+ operations to 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
- represent reactive variables or fields.
- The code and the graph illustrate the established dependencies.
- 
+ cause corresponding changes to
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This is an example of using reactive variables, where the value of variable
@@ -579,15 +589,15 @@ Reactive variables can be used to create a similar behavior to
 
 , in that the cells can contain formulas to determine values based on other
  cells.
- Similary, are 
+ Similary are 
 \emph on
 fields calculations
 \emph default
  or applications that contain fields or variables that are automatically
  calculated based on other fields or variables.
  Fields calculations means maintaining consistency in field values.
- When users fill in one field, it is sometimes essential to recalculate
- the values of other related fields.
+ There can be multiple options for filling in fields.
+ Based on the filled-in fields, other related fields are recalculated.
  For example, in Drug Administration (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -922,8 +932,8 @@ User interface component for drug administration.
 \end_layout
 
 \begin_layout Standard
-In the development, the general statement is that developers need to customize
- calculations hierarchically
+The general guideline is that developers need to customize calculations
+ hierarchically
 \begin_inset space ~
 \end_inset
 
@@ -978,15 +988,17 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-We focus on enabling FRP in OOP settings where the two statements cannot
- be used.
+We focus on enabling fields calculation in a setting that the two guidelines
+ cannot be used.
  Objects can contain calculations without ever knowing about other related
  calculations, while the updates are executed as simple (cross-component)
  function calls.
- According to the mentioned statements, the whole calculations need to be
- specified or handled in a single class or component respectively, either
- to ensure that the calculations are correct, to prevent cycles, or that
- cycles are handled correctly.
+ This is contrasted with the centralization guideline and also with the
+ guideline to avoid cycles.
+ Avoiding cycles requires that, whenever fields calculations are added,
+ to check that the data dependancy graph remains acyclic.
+ However, the check against transitive dependencies means sometimes to check
+ against other classes or objects.
 \end_layout
 
 \begin_layout Standard
@@ -4440,8 +4452,7 @@ noprefix "false"
 
 \end_inset
 
-, we explore traditional methods employed for handling field calculations
- and discuss the possibility of dividing them into components.
+ we list the strategies for fields calculations in the state of the art.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -4452,7 +4463,7 @@ noprefix "false"
 
 \end_inset
 
- we explain our motivation.
+ we explain the motivation, what is the missing point in the provided mechanisms.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -4463,7 +4474,7 @@ noprefix "false"
 
 \end_inset
 
- we point out our approach and implementation.
+ we explain our approach and implementation.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -4474,7 +4485,20 @@ noprefix "false"
 
 \end_inset
 
- we provide an evaluation and in 
+ we explore architectural design options to the Drug Administration application
+ and compare it to the one achived by our approach.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Related-Work"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ we associate concepts in our approach to the previous paradigms.
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Conclusion"
@@ -4484,8 +4508,7 @@ noprefix "false"
 
 \end_inset
 
- we provide the conclusion.
- 
+ contains the conclusion and the future work.
 \end_layout
 
 \begin_layout Standard

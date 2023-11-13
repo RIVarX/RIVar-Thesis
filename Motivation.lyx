@@ -394,7 +394,15 @@ To ensure a positive user experience, UX researchers must gather continuous
  feedback from the application's users.
  They should conduct A/B testing by creating multiple variants for a single
  feature and analyze the best one based on the statistical results collected
- from the users.
+ from the users 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hartson2012ux"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -412,6 +420,56 @@ literal "false"
  We face procedural programming with long chain of updates, where changing
  the source code of one component might lead to subsequent changes in the
  source code of other components, producing long chain of code updates.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In one of the approaches, the delivery speed is improved by seperating the
+ applications for small size components.
+ However, as in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, new calculations for existing fields (establishing dependencies to update
+ fields based on changes in other fields) are required to be in the same
+ component to ensure that the calculations are correct, that there are no
+ cycles, or that cycles are handled correctly.
+ (in order to establish transitive dependencies, if we should ensure that
+ there is no cycle, we should stay in the same component)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Over the frameworks, it is challenged to coordinate the field calculation
+ behaviors, particularly when establishing dependencies to update fields
+ based on changes in other fields.
+ This process requires careful consideration of transitive dependencies.
+ Otherwise, unintentional recursion can lead to unexpected updates.
+ For predictable addition of calculations, it is required that they be in
+ the same class or component to ensure that the calculations are correct,
+ that there are no cycles, or that cycles are handled correctly.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -490,8 +548,15 @@ set concentraion and volume
 \emph on
 locker
 \emph default
- to control other fields.
- The user can choose to lock or unlock fields.
+ to 
+\emph on
+lock
+\emph default
+ or 
+\emph on
+unlock
+\emph default
+ fields.
  locking a field means that the field's value would be calculated according
  to other fields' values, while unlocking means that the field becomes editable
  makeing other fields to be calculated.
@@ -501,13 +566,11 @@ locker
 Those elements added to the screen to control the calculations flow have
  a cost of adding complexity to the users.
  The CPOE is a very large and complex component.
- The users need long training in order to effictivy use it.
+ The users need long training in order to effectively use it.
  The application should be carefuly used because there might be errors in
- using it, which has a high cost.
- In order to improve useability, we sometimes need the screen to contain
- less information.
- The infomration desplyed, should be pnly the relevant infromation to the
- users.
+ using it.
+ In order to improve useability, we need the screen to contain less information.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -519,7 +582,7 @@ In order to help the users, hospitals own
 \emph on
 templates
 \emph default
- which are the order with pre filled values, 
+ that contain pre filled values, 
 \begin_inset Quotes eld
 \end_inset
 
@@ -612,7 +675,7 @@ By far we discovered the technical complexity in creating fields calculations.
 ies.
  This is also supported by the argument that front-end applications should
  be minimalistic to avoid overwhelming users with too many elements on the
- screen (discussed in 
+ screen (as mentioned in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Cognitive-load"
@@ -626,9 +689,9 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-However, in contrast to the computers humans need redundancies by nature.
- Humans possess multiple channels of information, and we tend to choose
- the one that is most convenient for a specific task.
+However, in contrast to the computers, humans need redundancies by nature.
+ Humans possess multiple channels of information, and tend to choose the
+ one that is most convenient for the specific task.
  Consider the Drug Administration UI.
  For some drugs, it is easier to define the quantities by setting 
 \begin_inset Formula $\NAME{Drug}$

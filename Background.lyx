@@ -174,9 +174,7 @@ The design principle is that the components can call each other, with the
 \emph on
 contract
 \emph default
- and consists of named operations with corresponding arguments.
- The interface allows parties to be changed without requiring others to
- make modifications 
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "duncan2003component"
@@ -184,7 +182,9 @@ literal "false"
 
 \end_inset
 
-.
+ consisting of named operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications.
  This reminds 
 \emph on
 micro-frontends architecture
@@ -1879,10 +1879,27 @@ Similary in the
 \end_layout
 
 \begin_layout Standard
-The two issues prevent the abstraction from being referential transparent.
- For recursions, this merely leads to infinite loops.
- For simultaneous events, it is not explicitly defined in what order the
- items should be generated.
+Reactive streams are closely related to FRP.
+ As mentioned, reactive variables can be presented as observable streams
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ However, these two issues hinder the abstraction from achieving referential
+ transparency, which is a critical requirement for FRP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

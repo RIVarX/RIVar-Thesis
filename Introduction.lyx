@@ -211,7 +211,7 @@ literal "false"
 
 ) to automate updates.
  In FRP the operations are lifted, so that once a reactive variable is assigned,
- it is accosiated to the assigned expression, to continuously re-evaluated
+ it is associated to the assigned expression, to continuously re-evaluated
  according to relevant changes.
  For example
 \begin_inset space ~
@@ -235,7 +235,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
- , the formula 
+, the formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -256,10 +256,10 @@ noprefix "false"
 \end_inset
 
 .
- The accosiation establishes data dependencies, so that the left side variable
+ The association establishes data dependencies, so that the left side variable
  depends on the variables in the right side.
- Naivly the left side should be recalculated in response to any change in
- any of the variables it depends on.
+ Naively the left side should be recalculated in response to any change
+ in any of the variables it depends on.
 \end_layout
 
 \begin_layout Standard
@@ -420,7 +420,7 @@ Reactive variables example.
 \end_inset
 
  operation establishes a data dependency, so that the subsequent 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operations to 
@@ -589,7 +589,7 @@ Reactive variables can be used to create a similar behavior to
 
 , in that the cells can contain formulas to determine values based on other
  cells.
- Similary are 
+ Similarly are 
 \emph on
 fields calculations
 \emph default
@@ -932,8 +932,7 @@ User interface component for drug administration.
 \end_layout
 
 \begin_layout Standard
-The general guideline is that developers need to customize calculations
- hierarchically
+Generaly, the calculations are hierarchically
 \begin_inset space ~
 \end_inset
 
@@ -949,12 +948,14 @@ literal "false"
  There are the source variables that are connected to the input elements,
  and the subsequent variables are updated in response to updates in the
  variables that they depend on.
- This is abstracted and also implemented by an acyclic graph.
- 
+ This process continues iteratively, forming a hierarchy of interconnected
+ dependencies.
+ The resulting data dependencies create an acyclic graph, illustrating the
+ flow and evolution of information.
 \end_layout
 
 \begin_layout Standard
-Another typical principal suggests to manage the calculations in a centralized
+In another typical approach, the calculations are handled in a centralized
  manner.
  This has a popluation with the exitence of 
 \begin_inset Formula $\NAME{redux}$
@@ -988,17 +989,12 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-We focus on enabling fields calculation in a setting that the two guidelines
- cannot be used.
- Objects can contain calculations without ever knowing about other related
- calculations, while the updates are executed as simple (cross-component)
- function calls.
- This is contrasted with the centralization guideline and also with the
- guideline to avoid cycles.
- Avoiding cycles requires that, whenever fields calculations are added,
- to check that the data dependancy graph remains acyclic.
- However, the check against transitive dependencies means sometimes to check
- against other classes or objects.
+We focus on enabling fields’ calculation in a setting without those to condition
+s.
+ We adapt OOP, such that objects handle their calculation separately, while
+ affecting each other.
+ This means that we do not guarantee the form of the data dependency graph,
+ while there is not centralized engine that handle it.
 \end_layout
 
 \begin_layout Standard

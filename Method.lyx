@@ -129,7 +129,7 @@ https://uwaterloo.ca/complexity-innovation/about/what-are-complex-systems
 
  if the behavior of the application as a whole might not be fully predictable
  by looking at each of its individual component separately.
- The core reason for this inpredictability is the existense of 
+ The core reason for this unpredictability is the existence of 
 \emph on
 feedback loops
 \emph default
@@ -450,7 +450,7 @@ The calculations within an object involve variables it directly holds, as
 \end_layout
 
 \begin_layout Standard
-Specificaly we consider a framework of objects, where each object contains
+specifically we consider a framework of objects, where each object contains
  
 \emph on
 fields
@@ -987,7 +987,7 @@ Drug Administration Class Diagram.
 \begin_layout Standard
 Such applications are complex, since during the interaction, there might
  be unexpected feedback loops.
- The calcuations defined in the objects create data dependancy graphs.
+ The calculations defined in the objects create data dependency graphs.
  These dependancy graphs from the objects are then combined to form the
  overall dependancy graph.
  The graph might contains cycles which leads to the unexpected feedback
@@ -1906,27 +1906,27 @@ non-hierarchical FRP
 \end_layout
 
 \begin_layout Standard
-The assignmemt operator 
+The assignment operator 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
  is a lifted version over the traditional 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
  operator.
  We calls 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
  the traditional operator, because it has the tradition meaning to contain
  the value temporarily, as getting an input until the next one.
- Diffrently is the assigment operator 
+ Differently is the assignment operator 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
 , which has the meaning of a data dependency similar to the association
- found in FRP, that the target variable need to contiously re-evaluated
+ found in FRP, that the target variable need to continuously re-evaluated
  according to the assigned expression.
 \end_layout
 
@@ -1951,7 +1951,7 @@ ies until reaching the points where the value is no longer more up-to-date
 \end_layout
 
 \begin_layout Standard
-This propogation strategy affects the syntax to be different than in traditional
+This propagation strategy affects the syntax to be different than in traditional
  FRP specifications: in order that values will be propagated through the
  data dependencies of a cycle, one of the nodes of the cycle, must have
  two incoming edges: first, from being connected to the cycle, and the second,
@@ -1968,7 +1968,7 @@ noprefix "false"
 
 .
  Hence, the syntax should support this settings, that each node can have
- more than one incomung edges.
+ more than one incoming edges.
 \end_layout
 
 \begin_layout Standard
@@ -1978,7 +1978,7 @@ For this reason, the syntax permits a variable that has already been assigned
 \end_inset
 
  to also be assigned using 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
 , and also to be assigned again using 
@@ -1987,10 +1987,10 @@ For this reason, the syntax permits a variable that has already been assigned
 
 .
  The use of 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
- is for providing input, so it is traditionaly enabled to assign multiple
+ is for providing input, so it is traditionally enabled to assign multiple
  times.
  The novelty is about 
 \begin_inset Formula $\LSTINLINE{:=}$
@@ -2012,7 +2012,7 @@ For this reason, the syntax permits a variable that has already been assigned
 
 .
  This will propagate the value 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
  through 
@@ -2034,7 +2034,7 @@ For this reason, the syntax permits a variable that has already been assigned
 \end_inset
 
  will result in the propagation of the value 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
  through 
@@ -2081,7 +2081,7 @@ noprefix "false"
 .
  In the illustration, the nodes represent the variables, and the edges illustrat
 es the flow of the data.
- Values caused by inputs are propogated through the nodes of the cycle.
+ Values caused by inputs are propagated through the nodes of the cycle.
  
 \end_layout
 
@@ -2289,9 +2289,9 @@ Dataflow into and through a cycle.
 \end_layout
 
 \begin_layout Standard
-The meaning given for the phnomenon of a variable are assigned multiple
+The meaning given for the phenomenon of a variable are assigned multiple
  times, that it is sampled by various options from the environment.
- The variables are continously re-evaluated according to the most recent
+ The variables are continuously re-evaluated according to the most recent
  value, from any of the assigned expressions or input.
  For example, if the application contains 
 \begin_inset Formula $\LSTINLINE{A:=B}$
@@ -2318,15 +2318,15 @@ The meaning given for the phnomenon of a variable are assigned multiple
 \end_inset
 
  to contain 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
 ,
-\begin_inset Formula $\LSTINLINE2$
+\begin_inset Formula $\LSTINLINE 2$
 \end_inset
 
  and then 
-\begin_inset Formula $\LSTINLINE3$
+\begin_inset Formula $\LSTINLINE 3$
 \end_inset
 
 .
@@ -2414,15 +2414,15 @@ In another point of view, finally the outcome of each variable consists
 \end_inset
 
 , means three streams that are merged into the stream of 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
 ,
-\begin_inset Formula $\LSTINLINE2$
+\begin_inset Formula $\LSTINLINE 2$
 \end_inset
 
  and then 
-\begin_inset Formula $\LSTINLINE3$
+\begin_inset Formula $\LSTINLINE 3$
 \end_inset
 
 .
@@ -2430,7 +2430,7 @@ In another point of view, finally the outcome of each variable consists
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
- actualy observes the stream of 
+ actually observes the stream of 
 \begin_inset Formula $\LSTINLINE{merge(A,B,D)}$
 \end_inset
 
@@ -2438,8 +2438,8 @@ In another point of view, finally the outcome of each variable consists
 \end_layout
 
 \begin_layout Standard
-This point of view leads that there are no order over the exeutions of the
- statements of 
+This point of view leads that there are no order over the executions of
+ the statements of 
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
@@ -2447,7 +2447,7 @@ This point of view leads that there are no order over the exeutions of the
  In executing these statements, the right-hand side of the operator is merged
  with the stream on the left-hand side of the operator, and stores the merged
  result back in the left-hand side variable.
- While in runtime, each value from any of the streams are propogated into
+ While in runtime, each value from any of the streams are propagated into
  the variable.
  We formulate it that in an application that contains 
 \begin_inset Formula $\LSTINLINE{A:=B}$
@@ -2893,7 +2893,7 @@ The Order Model
 \end_layout
 
 \begin_layout Standard
-In order to compare the values, wether a value is more current than the
+In order to compare the values, whether a value is more current than the
  previous one, we introduce the following order model.
  We start from the sequential change events, that causes the order over
  these first values.
@@ -3491,14 +3491,14 @@ https://www.npmjs.com/package/rivarjs
 
 \begin_layout Standard
 We implement a filtering mechanism, where the variables and the expressions
- over them does not propogate values that are less updated that the existing
+ over them does not propagate values that are less updated that the existing
  once.
  To do this, we create a wrapper to variables: the 
 \begin_inset Formula $\RIVar$
 \end_inset
 
  datatype, which is a shortcut for reactive instance variable.
- We also create a wrapper to the expresions: the 
+ We also create a wrapper to the expressions: the 
 \begin_inset Formula $\LSTINLINE{lift}$
 \end_inset
 
@@ -3511,7 +3511,7 @@ We implement a filtering mechanism, where the variables and the expressions
 \end_inset
 
 ) .
- Both pass values while filtering out absolete values.
+ Both pass values while filtering out obsolete values.
  The values are wrapped by objects of the 
 \begin_inset Formula $\LSTINLINE{signal}$
 \end_inset
@@ -3629,7 +3629,7 @@ The
 \begin_inset Formula $\LSTINLINE{set}$
 \end_inset
 
- method, there are subscribtions to the two sides, and each item in the
+ method, there are subscriptions to the two sides, and each item in the
  right side, is compared to the last item in the stream of the variable
  in the left side.
  If it is new, it will publish it by calling on its 
@@ -4041,7 +4041,7 @@ name "fig:Propogation-on-the-2"
 status collapsed
 
 \begin_layout Plain Layout
-A propogation change in established connections of the formula 
+A propagation change in established connections of the formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -4050,7 +4050,7 @@ A propogation change in established connections of the formula
 
 \end_inset
 
-A propogation change in established connections of the formula 
+A propagation change in established connections of the formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 

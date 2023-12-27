@@ -113,7 +113,19 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In the field of 
+
+\emph on
+Reactive variable
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ is a core concept in the field of 
 \emph on
 Functional Reactive Programming
 \emph default
@@ -129,23 +141,7 @@ literal "false"
 
 \end_inset
 
- effort has been invested in implementing 
-\emph on
-reactive variables
-\emph default
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- (with some variations also known as 
+, with some variations also known as 
 \emph on
 behavior
 \emph default
@@ -209,12 +205,16 @@ literal "false"
 
 \end_inset
 
-) to automate updates.
- For example
-\begin_inset space ~
+.
+ Consider an example of reactive variables 
+\begin_inset Formula $\LSTINLINE A$
 \end_inset
 
-(
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ depicted in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Reactive-variables-basics-1"
@@ -224,15 +224,8 @@ noprefix "false"
 
 \end_inset
 
-), given two reactive variables 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-, the formula 
+ .
+ In the example, a formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -244,35 +237,43 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{B+1}$
 \end_inset
 
-, so that the value of 
+, such that the value of 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
- is changed in response to any input provided to the value of 
+ is updated in response to any input provided to the value of 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
 .
- In essence, the operations (like the 
+ In essence, operations (like the 
 \begin_inset Formula $\LSTINLINE +$
 \end_inset
 
 ) over values are 
 \emph on
-lifted
+lifted 
 \emph default
- to operate over reactive variables to compose expressions (like 
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+ to operate over reactive variables and to compose expressions (like 
 \begin_inset Formula $\LSTINLINE{B+1}$
 \end_inset
 
 ).
- The association (by 
+ An association (
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
-) establishes data dependencies, so that the left side variable depends
- on the variables in the right side, and is continuously re-evaluated according
- to changes in the dependencies.
+ in the example) establishes data dependencies, so that the left-hand variable
+ depends on the variables in the right-hand side, and it is continuously
+ re-evaluated according to changes in the dependencies.
 \end_layout
 
 \begin_layout Standard
@@ -315,12 +316,12 @@ A:=B+1
 
 \begin_layout Plain Layout
 
-B=1 // A=2
+B=1 // causes A=2
 \end_layout
 
 \begin_layout Plain Layout
 
-B=6 // A=7
+B=6 // causes A=7
 \end_layout
 
 \begin_layout Plain Layout
@@ -432,11 +433,20 @@ Reactive variables example.
 \begin_inset Formula $\LSTINLINE{:=}$
 \end_inset
 
- operation establishes a data dependency, so that the subsequent 
+ operation establishes a data dependency, depicted by the graph from 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ Consequently, the subsequent 
 \begin_inset Formula $\LSTINLINE=$
 \end_inset
 
- operations to 
+ operations of assigning values to 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
@@ -596,383 +606,82 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
-Reactive variables can be used to create a similar behavior to 
+This can be applied to input fields in GUI applications.
+ 
 \begin_inset Formula $\NAME{Spreadsheets}$
 \end_inset
 
-, in that the cells can contain formulas to determine values based on other
- cells.
- Similarly are 
+ are one of such GUIs.
+ The behavior of reactive variables is similar to the behavior of cells
+ in 
+\begin_inset Formula $\NAME{Spreadsheets}$
+\end_inset
+
+.
+ The cells can contain formulas to determine values based on other cells.
+ This is similar to reactive variables that are associated with expressions
+ composed of other reactive variables.
+ Also in other applications, GUI developers need often to develop behaviors
+ similar to reactive variables.
+ Fields in GUI often involved in 
 \emph on
-fields calculations
+calculations
 \emph default
- or applications that contain fields or variables that are automatically
- calculated based on other fields or variables.
- Fields calculations means maintaining consistency in field values.
- There can be multiple options for filling in fields.
- Based on the filled-in fields, other related fields are recalculated.
- For example, in Drug Administration (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-calculations-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), there are several options to define the quantities: either by 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- or by 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In the first option, 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- is calculated based on 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-, while in the second option, 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- is calculated based on the 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{|c c c| }    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-Drug & Concentration & Volume 
-\backslash
-
-\backslash
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-framebox(35,15){
-\backslash
-textit{100}} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{0.33}} & 
-\backslash
-framebox(35,15){300} 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
- Dose & Duration & Rate 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){10} & 
-\backslash
-framebox(35,15){
-\backslash
-textit{30}} 
-\backslash
-
-\backslash
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tabular}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{description}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Drug
-\begin_inset Quotes erd
-\end_inset
-
-] relates to amount of medication/drug administered to a patient, (e.g.
- 20 mg).
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Volume
-\begin_inset Quotes erd
-\end_inset
-
-] relates to Infusion fluid volume.
- An Infusion injects the medication into the patients body, by mixing the
- Drug with fluids (e.g., 20 ml).
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Concentration
-\begin_inset Quotes erd
-\end_inset
-
-] amount of the 
-\backslash
-textbf{Drug} per 
-\backslash
-textbf{Volume} (e.g.
- 0.5 mg/ml).
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Rate
-\begin_inset Quotes erd
-\end_inset
-
-] relates to 
-\backslash
-textbf{Volume} flow administered into the patients body per time unit (e.g.,
- 20 ml per hour).
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Dose
-\begin_inset Quotes erd
-\end_inset
-
- (or Dosage)] 
-\backslash
-textbf{Drug} administered into the patients body per time unit (e.g., 20 mg
- per hour).
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-item[
-\begin_inset Quotes eld
-\end_inset
-
-Duration
-\begin_inset Quotes erd
-\end_inset
-
-] relates to the duration from starting the injection until stopping it.
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{description}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-calculations-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-User interface component for drug administration
-\end_layout
-
-\end_inset
-
-User interface component for drug administration.
- The upper panel represents the bag component, and the lower panel represents
- the pump component.
- The fields are illustrated with example values, in case the user sets Volume,
- Dose and Duration.
- The fields Drug, Concentration, and Volume are displayed in italic typeface
- to indicate that these values are calculated based on the set values.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The error-prone process of managing the calculations is usually managed
- in a centralized manner.
- This may have been acknowledged since the population of 
-\begin_inset Formula $\NAME{redux}$
-\end_inset
-
+, i.e., update fields values based on other values filled in the other fields.
+ In developing front-end applications, the calculations are usually defined,
+ independently of the GUI, using a dedicated 
+\emph on
+state management solution
+\emph default
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "caspers2017react"
+key "youframeworkless"
 literal "false"
 
 \end_inset
 
 .
+ Consequently, we refine calculations as updating variables values based
+ on other values in the other variables.
+\end_layout
+
+\begin_layout Standard
+Unfortunately, the way in which calculations are managed, do not stand with
+ the standard to breaking down code into modules or objects.
+ An example is a widespread adoption of a state management solution named
  
 \begin_inset Formula $\NAME{redux}$
 \end_inset
 
- stands out as a popular state management solution for developing front-end
- applications, primarily due to its commitment to predictability, achieved
- through its centralized architecture.
- Similary, we find that most works in the FRP field contain a centralized
- manager that has knowledge of the entire graph
-\begin_inset space ~
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redux.js.org/
+\end_layout
+
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+ stands for its commitment to predictability, achieved through its centralized
+ architecture.
+ Also in FRP, most implementations uses a centralized mechanism 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "drechsler2014distributed"
@@ -981,41 +690,530 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Typicaly, the calculations are usually specified hierarchically
+ Also in harmonizing FRP with OOP, there is coupling to a centralized component
+ which handles the calculations
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "foust2015generating,schuster2016reactive,perez2015bridging"
+key "Salvaneschi2014"
 literal "false"
 
 \end_inset
 
 .
- There are the source variables that are connected to the input elements,
- and the subsequent variables are updated in response to updates in the
- variables that they depend on.
- This process continues iteratively, forming a hierarchy of interconnected
- dependencies.
- The resulting data dependencies create an acyclic graph, illustrating the
- flow and evolution of information.
 \end_layout
 
 \begin_layout Standard
-We focus on enabling fields’ calculation without those conditions.
+A possible reason is the need to avoid unacceptable feedback loops, i.e.,
+ a change in one field leads to a subsequent change that feeds back and
+ affects the original field itself.
+ When declaring new data dependencies, it is essential to ensure that transitive
+ dependencies do not depend on the fields from which the new dependencies
+ originate.
+ Therefore, transitive dependencies should be reachable.
+\end_layout
+
+\begin_layout Standard
+Besides the need to handle cycles, The cycles are currently treated only
+ as an edge case.
+ Typically, calculations are hierarchical, i.e., variables are connected to
+ the input elements, and subsequently variables depend on other variables,
+ forming an acyclic dependency graph (DAG).
+ For example, Christopher at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ suggests an approach to avoid unintentional cycles.
+ Gabriel at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ suggests an approach involving creating acyclic dependency graphs dynamically.
+ Gregory at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+ and Stephen at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ provides a special handling to arbitrary break existing cycles.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In this thesis, we introduce a new variant of FRP, named Non-Hierarchical
+ FRP (NH-FRP), that indeed supports cycles.
+ By using NH-FRP, reactive variables can be associated with objects as instance
+ variables, which we name 
+\emph on
+reactive instance variables
+\emph default
+ (a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ in singular), while calculations over 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s are managed as objects' internal behavior.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+In the new variant, we use a propagation strategy, in which the propagated
+ values are accompanied by timestamp data.
+ According to the timestamp data, obsolete values from feedback loops are
+ identified and blocked from passing forward.
+ By using NH-FRP, reactive variables can be associated to objects, with
+ the name 
+\emph on
+reactive instance variables
+\emph default
+ (a RIVar in singular), while also the calculations over them are managed
+ as objects' internal behavior.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+————
+\end_layout
+
+\begin_layout Plain Layout
+To solve the problem we introduce Non Hirarchial FRP, a new varian;t of
+ FRP that support cycles.
+ This new variant consists of a propogation strategy, so that the propogated
+ values are attached with data about their time, by whom absolete value
+ from feedback loops are not passed forward.
+\end_layout
+
+\begin_layout Plain Layout
+This new varaint enables cycles by embedding an algorithm, that each variable
+ ignores absolete values.
+\end_layout
+
+\begin_layout Plain Layout
+This new variant enables cycles by an approach, that each variable can depend
+ on multiple sources, where each of the sources can update the variable
+ on its updated value.
+\end_layout
+
+\begin_layout Plain Layout
+For example, given two reactive variables 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+, the formulas 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A-1}$
+\end_inset
+
+ create associations, so that A
+\end_layout
+
+\begin_layout Plain Layout
+associates 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ with the expression 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, so that the value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is changed in response to any input provided to the value of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+In the context of FRP, Dresler at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+ suggests an alternative mechanism the centerlized mechanism that have access
+ to the entire dependancy graph.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+this includes two stages.
+ First, a centerlized mechanism that have access to the entire dependancy
+ graph.
+ Second, 
+\end_layout
+
+\begin_layout Plain Layout
+FRP still does not provide a better solution in this aspect.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In FRP, according to Dresler at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+, most of the implementations depends on a centerlized mechanism that have
+ access to the entire dependancy graph.
+ This is the state also in works that harmonizes FRP with OOP.
+\end_layout
+
+\begin_layout Plain Layout
+Two stages do exist in the task: declaring the calculations and the runtime.
+ For the two stages, the centerlization is unaccepted.
+ In DFRP, there are decenterlized algorithms to decenterlzed in runtime
+\end_layout
+
+\begin_layout Plain Layout
+.
+ First to depedencies.
+ The decenterlized implemention need 
+\end_layout
+
+\begin_layout Plain Layout
+A possible reason is that adding 
+\end_layout
+
+\begin_layout Plain Layout
+——-
+\end_layout
+
+\begin_layout Plain Layout
+Unfortunaly, the way the state is managed, does not stand with the standard
+ to breaking down code into modules or objects.
+ An example is a widespread adoption of 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redux.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+ stands for its commitment to predictability, achieved through its centralized
+ architecture.
+ Similarly in FRP
+\end_layout
+
+\begin_layout Plain Layout
+The centerlization includes the runtime and the code.
+\end_layout
+
+\begin_layout Plain Layout
+The centerliation is applied in runtime, by a centerlized mechanism that
+ have access to the entire dependancy graph.
+ This has solution in the field of Distributed FRP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ For the centerliation in code, there is a problem 
+\end_layout
+
+\begin_layout Plain Layout
+In addition, when maintaining the code, adding a dependancy requires the
+ check against transitive dependencies to not create cycles.
+ means sometimes to check against unreachable classes or objects
+\end_layout
+
+\begin_layout Plain Layout
+This problem is applied also in FRP: according to Dresler at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+, most of the implementations depends on a centerlized mechanism that have
+ access to the entire dependancy graph.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The centerlization consists of two parts.
+ First, in runtime, one centerlzed mechanism that access the ..
+\end_layout
+
+\begin_layout Plain Layout
+second, in the code itself, 
+\end_layout
+
+\begin_layout Plain Layout
+The check against transitive dependencies means sometimes to check against
+ unreachable classes or objects
+\end_layout
+
+\begin_layout Plain Layout
+FRP aims to solve the difficulties in controlling the calculations.
+ In the events driven paradigm updating a field might trigger a change event
+ which trigger other updates and so on.
+ In the worst case, the chain of updates can being an infinite loop of updates.
+\end_layout
+
+\begin_layout Plain Layout
+Traditionaly, two strategies handle the problem.
+ First, specifying calculations hierarchically, i.e., variables are connected
+ to the input elements, and subsequently variables depend on other variables,
+ forming an acyclic dependency graph (DAG).
+ This fact is often mentioned in FRP.
+ For example, Christopher at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ suggests an approach to keep from unintentional cycles.
+ Gabriel at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ suggests an approach involving creating acyclic dependency graphs dynamicaly.
+ Gregory at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+ and Stephen at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ provides a special handling to arbitary break existing cycles.
+ Overall, cycles are considered as an 
+\emph on
+edge-case
+\emph default
+, i.e., a special situation without a common sense solutions.
+\end_layout
+
+\begin_layout Plain Layout
+The second strategy is centerlization.
+ in front ends development there is widespread adoption of 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redux.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+ stands for its commitment to predictability, achieved through its centralized
+ architecture.
+ Also in FRP, according to Dresler at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+, most of the implementations depends on a centerlized mechanism that have
+ access to the entire dependancy graph.
+\end_layout
+
+\begin_layout Plain Layout
+This work is motivated 
+\end_layout
+
+\begin_layout Plain Layout
+Furtheremore, while keeping from undesirable cycles, dependencies must be
+ reachable, leading again to centerlization.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The second strategy is centerlization.
+ according to Dresler at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+, most of the implementations of FRP depends on a centerlized mechanism
+ that have access to the entire dependancy graph.
+ Also in front ends development there is a common sence to manage the caculation
+s in a centerlized mannar since the widespread adoption of 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://redux.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\NAME{redux}$
+\end_inset
+
+ stands for its commitment to predictability, achieved through its centralized
+ architecture.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+We focus on enabling calculation without those conditions.
  We adapt OOP, such that objects handle their calculation separately, and
  also that the objects contain calculations without ever knowing about other
  related calculations.
- In the new settings, we does not avoid cycles.
+ In this new settings, we does not avoid cycles.
  The check against cycles requires that, whenever fields calculations are
  added, to check that the data dependency graph remains acyclic.
  The check against transitive dependencies means sometimes to check against
- other classes or objects that need to be unreachable.
+ unreachable classes or objects
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4371,8 +4569,27 @@ s), as they are reactive variables that can be assciated to objects.
 
 \end_layout
 
-\begin_layout Standard
-We present a framework and provide such libraries (
+\begin_layout Itemize
+We introduce 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+, i.e., reactive instance variables.
+ This concept harmonizes the concept of reactive variable with the concept
+ of instance variable.
+\end_layout
+
+\begin_layout Itemize
+We introduce Non-Hierarchical FRP (NH-FRP), a new variant of FRP which can
+ be applied upon 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+\end_layout
+
+\begin_layout Itemize
+We provide 
 \begin_inset Formula $\NAME{RIVarX}$
 \end_inset
 
@@ -4396,11 +4613,11 @@ https://www.nuget.org/packages/RIvar.RIvarX
 
 \end_inset
 
- for 
+, a package with extensions for 
 \begin_inset Formula $\LSTINLINE{C\#}$
 \end_inset
 
- and 
+ programming language, and also 
 \begin_inset Formula $\NAME{rivarjs}$
 \end_inset
 
@@ -4424,34 +4641,16 @@ https://www.npmjs.com/package/rivarjs
 
 \end_inset
 
- for 
+ a package with extensions for 
 \begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
-) for separating data dependency management within objects, in accordance
- with the information hiding principle.
- At the heart of this framework lies the concept of a 
-\emph on
-Reactive Instance Variable
-\begin_inset space ~
-\end_inset
+ programming language.
+ This provides also a state management solution.
+\end_layout
 
-
-\emph default
-(
-\begin_inset Formula $\RIVar$
-\end_inset
-
-s), which is implemented as a data type hosted within existing programming
- languages.
- 
-\begin_inset Formula $\RIVar$
-\end_inset
-
-s can be assigned from outside objects and associated with expressions,
- while keeping other related formulas encapsulated.
- Moreover, runtime isolation is maintained, eliminating the need for a mediator.
- Instead, each variable directly updates its dependencies.
+\begin_layout Itemize
+We introduce a small application example that uses the above.
 \end_layout
 
 \begin_layout Paragraph
@@ -4469,7 +4668,8 @@ noprefix "false"
 
 \end_inset
 
- we list the strategies for fields calculations in the state of the art.
+ we list state of the art strategies for calculations input fields in GUI
+ applications.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -4480,7 +4680,7 @@ noprefix "false"
 
 \end_inset
 
- we explain the motivation, what is the missing point in the provided mechanisms.
+ we present aspects for enhancements in fields calculations.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -4502,7 +4702,8 @@ noprefix "false"
 
 \end_inset
 
- we explore architectural design options to the Drug Administration application
+ we evaluate the approach.
+ We explore architectural design options to the Drug Administration application
  and compare it to the one achived by our approach.
  In 
 \begin_inset CommandInset ref

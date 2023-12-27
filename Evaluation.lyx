@@ -113,8 +113,22 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
+In this chapter, we compare the add of new data dependencies over several
+ desion options.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In order to empirically evaluate our approach, we explore alternative design
  options for the mentioned Drug Administration Application.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

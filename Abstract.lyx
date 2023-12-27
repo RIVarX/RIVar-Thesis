@@ -109,42 +109,52 @@
 \end_layout
 
 \begin_layout Abstract
-This thesis introduces 
+This thesis introduces the 
 \emph on
-reactive instance variables 
+reactive instance variable
 \emph default
-as the datatype 
+, 
 \begin_inset Formula $\RIVar$
 \end_inset
 
-.
+, as a novel concept which merges the principles of 
+\emph on
+reactive variables
+\emph default
+ from Functional Reactive Programming (FRP) with 
+\emph on
+instance variables
+\emph default
+ from Object-Oriented Programming (OOP).
+  Similar to FRP, the data dependencies are established between 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s.
+ Additionally, Similar to OOP we enable private encapsulation of data dependenci
+es within objects, while referring 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s from other objects.
  
+\end_layout
+
+\begin_layout Abstract
 \begin_inset Formula $\RIVar$
 \end_inset
 
- is a combination of 
-\emph on
-reactive variable
-\emph default
- from the 
-\emph on
-Functional Reactive Programming (FRP)
-\emph default
- paradigm and the
-\emph on
- instance variable
-\emph default
- from the Object Oriented Programming (OOP) paradigm.
- Like reactive variables, changes are automated according to the specified
- data dependencies.
- Like instance variables, other data dependencies can be hidden.
- This means that the data dependencies can be specified without the need
- to be aware of transitive dependencies and unintentional recursion.
+s are implemented as observable streams that propagate values while preserving
+ the separation refined by the objects.
+ During propagation, the loops caused by recursions are terminated by identifyin
+g and discarding older values.
+ The order of the values is determined by timestamps attached to the values,
+ which are derived from the input values.
 \end_layout
 
 \begin_layout Abstract
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Abstract
 This thesis introduces 

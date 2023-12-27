@@ -96,11 +96,468 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-This thesis is driven by the need to enhance fields calculations, in order
- to improve the user experiences in UI (User Interface) and front-end applicatio
-ns.
- Specificaly, we think about healthcare applications, where it is desirable
- to solve usability problems
+This thesis is motivated by the need to enhance the 
+\family typewriter
+Order Entry
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+known as Computerized Provider Order Entry (CPOE).
+\end_layout
+
+\end_inset
+
+ one of the main windows in MetaVision, an healthcare system provided by
+ iMDsoft.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.imd-soft.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ The 
+\family typewriter
+Order Entry
+\family default
+ is a window where drugs prescriptions and administrations are documented.
+ The 
+\family typewriter
+Order Entry
+\family default
+ is represented in this thesis by a small application example depicted in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The application is named Drug Administration and contains the following
+ fields:
+\end_layout
+
+\begin_layout Description
+Drug relates to amount of medication/drug administered to a patient, (e.g.
+ 20 mg).
+\end_layout
+
+\begin_layout Description
+Volume relates to Infusion fluid volume.
+ An Infusion injects the medication into the patients body, by mixing the
+ Drug with fluids (e.g., 20 ml).
+\end_layout
+
+\begin_layout Description
+Concentration amount of the 
+\series bold
+Drug
+\series default
+ per 
+\series bold
+Volume
+\series default
+ (e.g.
+ 0.5 mg/ml).
+\end_layout
+
+\begin_layout Description
+Rate relates to 
+\series bold
+Volume
+\series default
+ flow administered into the patients body per time unit (e.g., 20 ml per hour).
+\end_layout
+
+\begin_layout Description
+Dose (or Dosage) 
+\series bold
+Drug
+\series default
+ administered into the patients body per time unit (e.g., 20 mg per hour).
+\end_layout
+
+\begin_layout Description
+Duration relates to the duration from starting the injection until stopping
+ it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & Volume 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){
+\backslash
+textit{100}} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{0.33}} & 
+\backslash
+framebox(35,15){300} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){10} & 
+\backslash
+framebox(35,15){
+\backslash
+textit{30}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+Drug Administration, contains the following fields:
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{description}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Drug
+\begin_inset Quotes erd
+\end_inset
+
+] relates to amount of medication/drug administered to a patient, (e.g.
+ 20 mg).
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Volume
+\begin_inset Quotes erd
+\end_inset
+
+] relates to Infusion fluid volume.
+ An Infusion injects the medication into the patients body, by mixing the
+ Drug with fluids (e.g., 20 ml).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Concentration
+\begin_inset Quotes erd
+\end_inset
+
+] amount of the 
+\backslash
+textbf{Drug} per 
+\backslash
+textbf{Volume} (e.g.
+ 0.5 mg/ml).
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Rate
+\begin_inset Quotes erd
+\end_inset
+
+] relates to 
+\backslash
+textbf{Volume} flow administered into the patients body per time unit (e.g.,
+ 20 ml per hour).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Dose
+\begin_inset Quotes erd
+\end_inset
+
+ (or Dosage)] 
+\backslash
+textbf{Drug} administered into the patients body per time unit (e.g., 20 mg
+ per hour).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item[
+\begin_inset Quotes eld
+\end_inset
+
+Duration
+\begin_inset Quotes erd
+\end_inset
+
+] relates to the duration from starting the injection until stopping it.
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{description}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-calculations-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Drug Administration.
+\end_layout
+
+\end_inset
+
+ Drug Administration.
+ The fields are illustrated with example values, in case the user sets Volume,
+ Dose and Duration.
+ The fields Drug, Concentration, and Volume are displayed in italic typeface
+ to indicate that these values are calculated based on the set values.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+User interface component for drug administration.
+ The upper panel represents the bag component, and the lower panel represents
+ the pump component.
+ The fields are illustrated with example values, in case the user sets Volume,
+ Dose and Duration.
+ The fields Drug, Concentration, and Volume are displayed in italic typeface
+ to indicate that these values are calculated based on the set values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+.
+ The application is depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+with 6 fields, depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, named Drug Administration.
+\end_layout
+
+\begin_layout Plain Layout
+This thesis is driven by the need to enhance calculations in GUI, in order
+ to improve the user experiences.
+ Specifically in healthcare, it is desirable to solve usability problems
 \begin_inset space ~
 \end_inset
 
@@ -113,7 +570,66 @@ literal "false"
 \end_inset
 
 .
- 
+ Some concepts will be simplified by the following Drug Administration applicati
+on (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-calculations-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), used along this thesis.
+ In the Drug Administration, there are several options to define the quantities:
+ either by 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ or by 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In the first option, 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is calculated based on 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while in the second option, 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is calculated based on the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -386,10 +902,1897 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Improving Delivery Speed
+Adding Redundant Filling Options
 \end_layout
 
 \begin_layout Standard
+Among the fields 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+, only two of them are required for documenting drugs' amount.
+ Users can, for example, define quantities by setting only the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In such a case, the value of 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is computed.
+ Additionaly, users can define quantities by setting only the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In such a case, the value of 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is computed.
+\end_layout
+
+\begin_layout Standard
+Adding such redundancy can have a positive impact on the user experience.
+ If only one option is available, users are stricted: users must define
+ amounts in the terms used in the Order Entry.
+ There are drugs for whom it is easier to define quantities by setting 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while for other drugs, by setting 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+.
+ Consequently, for some drugs users are forced to
+\emph on
+ convert the numbers
+\emph default
+, i.e., to compute it according to an appropiate formula.
+ For example, in case that the available fields are 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, and an amount is 
+\begin_inset Formula $0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $100$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, a formula 
+\begin_inset Formula $Concentration\times Volume$
+\end_inset
+
+ is used to compute the value of 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ to set.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the Order Entry, setting 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ triggers calculation in 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+.
+ Similary, setting 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ triggers calculation in 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+.
+ One might think that the Order Entry should contain only two of the triple.
+ The third field is redundant, as it can be calculated from the other fields
+ when needed.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+However, there are drugs for whom it is easier to define quantities by setting
+ 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while for other drugs, by setting 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+.
+ In case that only one option is available, there are cases when the user
+ need to
+\emph on
+ convert the numbers
+\emph default
+, i.e., take the tuple in mind and compute it according to an appropiate formula.
+ For example, in case that the available fields are 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and the user has in mind 
+\begin_inset Formula $0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $100$
+\end_inset
+
+ for the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, then the user need to compute 
+\begin_inset Formula $Concentration\times Volume$
+\end_inset
+
+ for the 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ to fill.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+———-
+\end_layout
+
+\begin_layout Plain Layout
+By far we discovered the technical complexity in creating fields calculations.
+ This might lead some to develop applications without (or to reduce) fields
+ redandencies, so that we need not to handle the consistency in field values.
+ Holding data once is more efficient for computers, and it takes time and
+ resources to handle calculations and avoid inconsistencies.
+ Programmers may think like computers and ignore the need of users for redundanc
+ies.
+ This is also supported by the argument that front-end applications should
+ be minimalistic to avoid overwhelming users with too many elements on the
+ screen (as mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Cognitive-load"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+However, in contrast to the computers, humans need redundancies by nature.
+ Humans possess multiple channels of information, and tend to choose the
+ one that is most convenient for the specific task.
+ Consider the Drug Administration UI.
+ For some drugs, it is easier to define the quantities by setting 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, while for other drugs, it is easier to administer by specifying the 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+.
+ If only the first option is available, the user must calculate the necessary
+ drug values to achieve the desired concentration.
+\end_layout
+
+\begin_layout Plain Layout
+The need for redundancies is even broader.
+ Generally, we think differently.
+ Some individuals find it easier to use different channels of perception
+ than others.
+ Therefore, different people require different options for a single task.
+ Different options also help validate our understanding by utilizing multiple
+ channels and cross-checking information.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Yet popular technologies have already populated features for efficiently
+ creating derived data labels like in FRP.
+ In the case mentioned above (regarding Drug Administration), this functionality
+ can assist users who need to calculate the necessary drug values to achieve
+ the desired concentration.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The missing feature is the ability to easily add various input options,
+ allowing the values of other fields to be calculated based on the user's
+ input.
+ Otherwise, applications become complex and not user-friendly, forcing users
+ to adopt a different way of thinking.
+ Instead of struggling to understand the application's logic, users expect
+ the computer to understand their intentions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The missing function is to easily add various input options, so that depending
+ on the fields the user fills, the values of other fields will be calculated.
+ Otherwize, the Applications become complex and not user-friendly, because
+ they force the user to think differently.
+ instead of that the users need to learn the use cases implemented in the
+ application (they work hard to understand the computers), they expect that
+ the computers understand them.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Sometimes, certain information holds more weight, and our brains naturally
+ consider this weighted input.
+\end_layout
+
+\begin_layout Plain Layout
+Unlike computers, which analyze information in binary terms, humans perceive
+ nuances derived from.
+ For us, saying 'no' is different from saying 'no no.' Expanding technological
+ options in this direction could lead us to a more user-friendly UX, the
+ full potential of which we are yet to fully comprehend.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Cognitive-load"
+
+\end_inset
+
+Reducing Cognitive load
+\end_layout
+
+\begin_layout Standard
+Another form of redundancy causes negative impact.
+ As depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Order-Entry"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ there are more fields.
+ From clinical prespective, the additional elements do not contain a meaningful
+ information.
+ The first element, a field named 
+\family typewriter
+ordering style
+\family default
+, users can select an option 
+\family typewriter
+set concentraion and volume
+\family default
+, and another option, 
+\family typewriter
+set dose and rate
+\family default
+.
+ According to the selected option, fields become editable or readonly, controlin
+g the calculations directions.
+ If the user selects 
+\family typewriter
+set concentraion and volume
+\family default
+, those fields become editable, and the other fields will be calculated
+ accordingly.
+ If the user selects 
+\family typewriter
+set dose and rate
+\family default
+, those fields become editable, and the other fields will be calculated
+ accordingly.
+ 
+\end_layout
+
+\begin_layout Standard
+Additionaly, there are elements named 
+\family typewriter
+locker
+\family default
+ use to 
+\emph on
+lock
+\emph default
+ or 
+\emph on
+unlock
+\emph default
+ fields.
+ Locking means that the field's value would be calculated according to other
+ fields' values, whereas unlocking means that the field becomes editable.
+ The lockers are similar to toggle buttons, each click changes from the
+ previous state locked from being unlocked and vice versa.
+ Among the six fields, three of the fields should be set by the user and
+ the others should be calculated.
+ Therefore, unlocking one field causes another field to be locked instead.
+ Selecting 
+\family typewriter
+ordering style
+\family default
+ initiates the state of the lockers, what is locked and what is unlocked.
+ Lockers of fields that are unlocked according to the ordering style, cannot
+ be locked.
+ For example, if the selected ordering style is 
+\family typewriter
+set concentration and volume
+\family default
+, concentration and volume are unlocked and cannot be locked.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand{
+\backslash
+locker}[1]{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Draw the body of the lock
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (0,0) rectangle (#1,#1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Draw the shackle (the curved part of the lock)
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (#1, #1) arc (0:180:#1/2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand{
+\backslash
+openedlocker}[1]{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Draw the body of the lock
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (0,0) rectangle (#1,#1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Draw the shackle (the curved part of the lock)
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw (#1, #1) arc (0:130:#1/2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|c c c| }  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+multicolumn{3}{ |l|}{ordering style }  
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+multicolumn{3}{ |l|}{
+\backslash
+framebox(130,15){set Dose and Rate {$
+\backslash
+nabla$}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+Drug & Concentration & Volume 
+\backslash
+
+\backslash
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+framebox(35,15){} 
+\backslash
+framebox(10,15){
+\backslash
+locker{0.25}} & 
+\backslash
+framebox(35,15){} 
+\backslash
+framebox(10,15){
+\backslash
+locker{0.25}} & 
+\backslash
+framebox(35,15){} 
+\backslash
+framebox(10,15){
+\backslash
+locker{0.25}} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ Dose & Duration & Rate 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+framebox(35,15){ } 
+\backslash
+framebox(10,15){
+\backslash
+locker{0.25}}& 
+\backslash
+framebox(35,15){} 
+\backslash
+framebox(10,15){
+\backslash
+locker{0.25}}& 
+\backslash
+framebox(35,15){} 
+\backslash
+framebox(10,15){
+\backslash
+openedlocker{0.25}} 
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Order-Entry"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug Administration - Full Version.
+\end_layout
+
+\end_inset
+
+ At the top, there is the Ordering Style field, represented by a combobox,
+ where users can select from the available options.
+ Below this, each field consists of a label above its name, an area to display
+ its value, and a lock icon on its right.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The additional elements are needed for controling the calculations, however
+ they increase the amount of mental effort and processing capacity needed
+ to understand and use the window.
+ In order to help the users, hospitals (MetaVision's customers) own 
+\emph on
+templates
+\emph default
+ that contain pre filled values, 
+\begin_inset Quotes eld
+\end_inset
+
+a setup
+\begin_inset Quotes erd
+\end_inset
+
+ to specific cenarios.
+ In such a case, the users should search and find the appropiate setup or
+ the specific cenario covered by the individual application.
+ This is named 
+\emph on
+navigations.
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roman2017navigation"
+literal "false"
+
+\end_inset
+
+ The users might be overwhelmed by the available options 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roman2017navigation"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Subsection
+Elements Amount
+\end_layout
+
+\begin_layout Plain Layout
+In the Order Entry in MetaVision, there is a field selection named 
+\emph on
+ordering style
+\emph default
+ that contains options like 
+\begin_inset Quotes eld
+\end_inset
+
+set concentraion and volume
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+set dose and rate
+\begin_inset Quotes erd
+\end_inset
+
+.
+ According to the selection option, fields become editable or readonly,
+ controling the calculations directions.
+ If the user select 
+\begin_inset Quotes eld
+\end_inset
+
+set concentraion and volume
+\begin_inset Quotes erd
+\end_inset
+
+, those fields become editable, and the other fields will be calculated
+ accordingly.
+ There are also elements named 
+\emph on
+locker
+\emph default
+ to 
+\emph on
+lock
+\emph default
+ or 
+\emph on
+unlock
+\emph default
+ fields.
+ locking a field means that the field's value would be calculated according
+ to other fields' values, while unlocking means that the field becomes editable
+ makeing other fields to be calculated.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Those elements, added to the screen to control the calculations flow, have
+ a cost of adding complexity to the users.
+ The Order Entry is a very large and complex window.
+ The users need long training in order to effectively use it.
+ The application should be carefuly used because there might be errors in
+ using it.
+ In order to improve useability, we need the screen to contain less information.
+ 
+\end_layout
+
+\begin_layout Subsection
+Navigations
+\end_layout
+
+\begin_layout Plain Layout
+In order to help the users, hospitals own 
+\emph on
+templates
+\emph default
+ that contain pre filled values, 
+\begin_inset Quotes eld
+\end_inset
+
+a setup
+\begin_inset Quotes erd
+\end_inset
+
+ to specific cenarios.
+ In such a case, the users should search and find the appropiate setup or
+ the specific cenario covered by the individual application.
+ This is named 
+\emph on
+navigations
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roman2017navigation"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+
+\emph default
+ The users might be overwhelmed by the available options.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+It tends to create small precize components or applications, each solves
+ a specific use case.
+ Another existing directions: to use 
+\emph on
+templates
+\emph default
+.
+ The templates contain pre filled values, 
+\begin_inset Quotes eld
+\end_inset
+
+a setup
+\begin_inset Quotes erd
+\end_inset
+
+ to specific cenarios.
+ In such a case, the users should search and find the appropiate setup or
+ the specific cenario covered by the individual application.
+ This is named 
+\emph on
+navigations
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "roman2017navigation"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+
+\emph default
+ The users might be overwhelmed by the available options.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Fast Feedback Loop
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The diffrent combinations to set the fields causes diffrent ways to calculate
+ the fields.
+ For example, if Dose are Duration is set, Drug's value are calcuated by
+ div the value of Dose by the value of Duration.
+ if Dose, Volume an Rare are set, then Drug's value is calcualted by 
+\end_layout
+
+\begin_layout Plain Layout
+Focusing on Drug, there are the following ways:
+\end_layout
+
+\begin_layout Itemize
+Dose/Duration
+\end_layout
+
+\begin_layout Itemize
+Dose/(Volume*Rate)
+\end_layout
+
+\begin_layout Plain Layout
+For example, 
+\end_layout
+
+\begin_layout Plain Layout
+There are several ways by which Drug's value are calculated.
+ The way in which it will be calculated depends on which fields 
+\end_layout
+
+\begin_layout Plain Layout
+Depending on which fields the user set, the way in which field Drug are
+ calculated, are changed.
+\end_layout
+
+\begin_layout Description
+hh if 
+\end_layout
+
+\begin_layout Plain Layout
+———
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to enhance the Order Entry, it should be easy to make changes according
+ to feedback from users.
+ We present an example around the field Drug and another field named Alert.
+ The field 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ indicates whether the application should trigger an alert for abnormal
+ medication amounts.
+ Using FRP style, a relationship is to established between 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+, enabling the automatic determination of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ based on the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=IsAbnormal(Amount)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The code needs to be modified (indicated using bold font style) when the
+ doctor administers the values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ in order to calculate the resulting amount.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByInput=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+__AmountByConcentrationAndVolume=Concentration*Volume__ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),__IsAbnormal(AmountByConcentration AndVolume)
+__)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the doctor administers the medication by setting the values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, the medication amount can be calculated using the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ In this scenario, it is necessary to update the code accordingly.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none] 
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByInput=FromInput() 
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByConcentrationAndVolume=Concentration*Volume __AmountByDoseAndDuration=Do
+se*Duration__ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),
+\end_layout
+
+\begin_layout Plain Layout
+
+IsAbnormal(AmountByConcentrationAndVolume),
+\end_layout
+
+\begin_layout Plain Layout
+
+__IsAbnormal(AmountByDoseAndDuration)__) 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is evident that whenever additional sources of values are required for
+ the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ variable, it becomes necessary to update the assignment of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ variable.
+ For large applications, there might be many updates, which makes it un-easy
+ to make such a change.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+It is evident that whenever additional sources of values are required for
+ the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ variable, it becomes necessary to update the assignment of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ variable.
+ Overlooking such updates leads to inconsistencies between the values of
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+In order to enhance the Order Entry, it should be easy to make changes according
+ to feedback from users.
+ However, even in the small size Drug Administration, adding a single field
+ requires adding it 5 times.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The Drug Administration support several use-cases.
+ For example, the user selects 
+\begin_inset Quotes eld
+\end_inset
+
+set concentration and volume
+\begin_inset Quotes erd
+\end_inset
+
+ and lock the Dose.
+ In this case, Drug is computed from concentration and volume.
+ The user can also lock volume, so that the volume will be computed according
+ to the rate, and then the drug is computed from the concentration and volume.
+ The are 5 diffrent options to how Drug is computed.
+\end_layout
+
+\begin_layout Plain Layout
+In the Order Entry, there is a concept, we named 
+\emph on
+alter
+\emph default
+, that the user should be protected from documenting abnormal medication
+ amount.
+ If we add field Alert, to be calculated according to Drug, the code should
+ be specified 5 times, according to the amount of options.
+\end_layout
+
+\begin_layout Plain Layout
+If we add a field named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ indicates whether the application should trigger an alert for abnormal
+ medication amounts.
+ A formula is employed to establish a relationship between 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+, enabling the automatic determination of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ based on the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+Adding a field that its value depend on the value of Drug, requires 
+\end_layout
+
+\begin_layout Plain Layout
+In order to enhance the Order Entry, it should be easy to make changes according
+ to feedback from users.
+ However, even in The Drug Administration 
+\end_layout
+
+\begin_layout Plain Layout
+However, even in the small example of the Drug Administration, changes seems
+ hard.
+\end_layout
+
+\begin_layout Plain Layout
+In implementing the Drug Administration, there are multiple use cases to
+ handle.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Regarding the 
+\begin_inset Quotes eld
+\end_inset
+
+good
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+bad
+\begin_inset Quotes erd
+\end_inset
+
+ redandancy, the developers need to provide the application fast.
+ In order to enhance the Order Entry, it should be easy to make changes
+ according to feedback from users.
+ However, even in the small example of the Drug Administration, changes
+ seems hard.
+\end_layout
+
+\begin_layout Plain Layout
+Considering a procedural solution, a procedure 
+\begin_inset Formula $\LSTINLINE{calculate}$
+\end_inset
+
+, depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Centerlized-Calculation-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, keeps values of the fields consistent, .
+ This procedure is called whenever the user updates the value of any of
+ the fields.
+ Depending on the fields that the user edits, the other fields are calculated.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume2}
+\end_layout
+
+\end_inset
+
+ are the same.
+\end_layout
+
+\begin_layout Plain Layout
+Beside the issue that values are calculated, even when their fields are
+ unchanged, statements are repeated.
+ as seen in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume1}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:concentrationByDrugAndVolume2}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The code repetition reduces the user experience.
+ In order to enhance the Order Entry, it should be easy to make changes
+ according to feedback from users.
+ However, code repetition makes the changes be difficult, because code repetitio
+n leads to continue the repetition also in the changes.
+ This expands the change be repaeted accoding to the existing repetition.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+If edited triple is of Dose,  Duration, and Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/Volume |
+\backslash
+label{line:concentrationByDrugAndVolume1}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = Volume/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Drug, Dose, and Rate
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration = Drug/Dose
+\end_layout
+
+\begin_layout Plain Layout
+
+  Volume = Duration*Rate 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Concentration = Drug/Volume |
+\backslash
+label{line:concentrationByDrugAndVolume2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+Else If edited triple is of Concentration,  Volume, and Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Drug = Volume*Concentration
+\end_layout
+
+\begin_layout Plain Layout
+
+  Rate = Volume/Duration 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Dose = Drug/Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+End If
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Centerlized-Calculation-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug administration calculation.
+\end_layout
+
+\end_inset
+
+Drug administration calculation.
+ The code shows how to calculate the values of the fields based on different
+ combinations of three input fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The add of the elements increaes the Cognitive load not only for the users
+ but also for the developers.
+ ForAny Redandant element 
+\end_layout
+
+\begin_layout Plain Layout
 To ensure a positive user experience, UX researchers must gather continuous
  feedback from the application's users.
  They should conduct A/B testing by creating multiple variants for a single
@@ -405,7 +2808,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 However, in traditional applications, it is difficult to make UX processes.
  This is because that over time, the applications code become hard to change,
  or that it takes more time to do the changes 
@@ -420,6 +2823,11 @@ literal "false"
  We face procedural programming with long chain of updates, where changing
  the source code of one component might lead to subsequent changes in the
  source code of other components, producing long chain of code updates.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -473,328 +2881,14 @@ Over the frameworks, it is challenged to coordinate the field calculation
 \end_layout
 
 \begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Cognitive-load"
-
-\end_inset
-
-Reducing Cognitive load
-\end_layout
-
-\begin_layout Subsection
-Elements Amount
-\end_layout
-
-\begin_layout Standard
-In the computerized provider order entry (CPOE) in 
-\begin_inset Formula $\NAME{MetaVision}$
-\end_inset
-
-,
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://www.imd-soft.com
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- there is a field selection named 
-\emph on
-ordering style
-\emph default
- that contains options like 
-\begin_inset Quotes eld
-\end_inset
-
-set concentraion and volume
-\begin_inset Quotes erd
-\end_inset
-
- and 
-\begin_inset Quotes eld
-\end_inset
-
-set dose and rate
-\begin_inset Quotes erd
-\end_inset
-
-.
- According to the selection option, fields become editable or readonly,
- controling the calculations directions.
- If the user select 
-\begin_inset Quotes eld
-\end_inset
-
-set concentraion and volume
-\begin_inset Quotes erd
-\end_inset
-
-, those fields become editable, and the other fields will be calculated
- accordingly.
- There are also elements named 
-\emph on
-locker
-\emph default
- to 
-\emph on
-lock
-\emph default
- or 
-\emph on
-unlock
-\emph default
- fields.
- locking a field means that the field's value would be calculated according
- to other fields' values, while unlocking means that the field becomes editable
- makeing other fields to be calculated.
-\end_layout
-
-\begin_layout Standard
-Those elements added to the screen to control the calculations flow have
- a cost of adding complexity to the users.
- The CPOE is a very large and complex component.
- The users need long training in order to effectively use it.
- The application should be carefuly used because there might be errors in
- using it.
- In order to improve useability, we need the screen to contain less information.
- 
-\end_layout
-
-\begin_layout Subsection
-Navigations
-\end_layout
-
-\begin_layout Standard
-In order to help the users, hospitals own 
-\emph on
-templates
-\emph default
- that contain pre filled values, 
-\begin_inset Quotes eld
-\end_inset
-
-a setup
-\begin_inset Quotes erd
-\end_inset
-
- to specific cenarios.
- In such a case, the users should search and find the appropiate setup or
- the specific cenario covered by the individual application.
- This is named 
-\emph on
-navigations
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "roman2017navigation"
-literal "false"
-
-\end_inset
-
-
-\emph on
-.
-
-\emph default
- The users might be overwhelmed by the available options.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-It tends to create small precize components or applications, each solves
- a specific use case.
- Another existing directions: to use 
-\emph on
-templates
-\emph default
-.
- The templates contain pre filled values, 
-\begin_inset Quotes eld
-\end_inset
-
-a setup
-\begin_inset Quotes erd
-\end_inset
-
- to specific cenarios.
- In such a case, the users should search and find the appropiate setup or
- the specific cenario covered by the individual application.
- This is named 
-\emph on
-navigations
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "roman2017navigation"
-literal "false"
-
-\end_inset
-
-
-\emph on
-.
-
-\emph default
- The users might be overwhelmed by the available options.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Redundant Filling Options
-\end_layout
-
-\begin_layout Standard
-By far we discovered the technical complexity in creating fields calculations.
- This might lead some to develop applications without (or to reduce) fields
- redandencies, so that we need not to handle the consistency in field values.
- Holding data once is more efficient for computers, and it takes time and
- resources to handle calculations and avoid inconsistencies.
- Programmers may think like computers and ignore the need of users for redundanc
-ies.
- This is also supported by the argument that front-end applications should
- be minimalistic to avoid overwhelming users with too many elements on the
- screen (as mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Cognitive-load"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-However, in contrast to the computers, humans need redundancies by nature.
- Humans possess multiple channels of information, and tend to choose the
- one that is most convenient for the specific task.
- Consider the Drug Administration UI.
- For some drugs, it is easier to define the quantities by setting 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-, while for other drugs, it is easier to administer by specifying the 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-.
- If only the first option is available, the user must calculate the necessary
- drug values to achieve the desired concentration.
-\end_layout
-
-\begin_layout Standard
-The need for redundancies is even broader.
- Generally, we think differently.
- Some individuals find it easier to use different channels of perception
- than others.
- Therefore, different people require different options for a single task.
- Different options also help validate our understanding by utilizing multiple
- channels and cross-checking information.
- 
-\end_layout
-
-\begin_layout Standard
-Yet popular technologies have already populated features for efficiently
- creating derived data labels like in FRP.
- In the case mentioned above (regarding Drug Administration), this functionality
- can assist users who need to calculate the necessary drug values to achieve
- the desired concentration.
- 
-\end_layout
-
-\begin_layout Standard
-The missing feature is the ability to easily add various input options,
- allowing the values of other fields to be calculated based on the user's
- input.
- Otherwise, applications become complex and not user-friendly, forcing users
- to adopt a different way of thinking.
- Instead of struggling to understand the application's logic, users expect
- the computer to understand their intentions.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The missing function is to easily add various input options, so that depending
- on the fields the user fills, the values of other fields will be calculated.
- Otherwize, the Applications become complex and not user-friendly, because
- they force the user to think differently.
- instead of that the users need to learn the use cases implemented in the
- application (they work hard to understand the computers), they expect that
- the computers understand them.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Sometimes, certain information holds more weight, and our brains naturally
- consider this weighted input.
-\end_layout
-
-\begin_layout Plain Layout
-Unlike computers, which analyze information in binary terms, humans perceive
- nuances derived from.
- For us, saying 'no' is different from saying 'no no.' Expanding technological
- options in this direction could lead us to a more user-friendly UX, the
- full potential of which we are yet to fully comprehend.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
 Summary
 \end_layout
 
 \begin_layout Standard
-This thesis is driven by the need to enhance the fields calculations mechanism
- in three aspects: (1) to improve delivery speed, (2) to reduce cognitive
- loads caused by extra fields and navigations resulting from poor designs,
- and finally, (3) to make it straightforward to add field redundancies,
- allowing users to have various options for filling in the information.
+This thesis is motivated by the necessity to enhance the calculation mechanism
+ in the field in three aspects: (1) adding redundant filling options, (2)
+ reducing cognitive loads caused by extra fields and navigations resulting
+ from poor designs, and finally, (3) improving delivery speed.
 \end_layout
 
 \begin_layout Standard
@@ -817,7 +2911,7 @@ Adding redundancies in the user interfaces have the cost of the need to
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 , that the developers need to keep on its consistency

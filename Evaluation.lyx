@@ -113,8 +113,691 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-In this chapter, we compare the add of new data dependencies over several
- desion options.
+This thesis approach, frame
+\end_layout
+
+\begin_layout Standard
+This chapter focuses on evaluating our de-centralization approach for improving
+ user experience.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, user experience may be affected by code size, because it enhances fast
+ customer feedback loops.
+ Therefore, we compare code size along with application behavior (user experienc
+e = the application behavior from users point of view).
+ We use the Order Entry application mentioned throughout this thesis, over
+ several implementation approaches.
+\end_layout
+
+\begin_layout Standard
+—-
+\end_layout
+
+\begin_layout Standard
+This chapter focuses on evaluating our de-centralization approach for improving
+ user experience.
+ We use the Order Entry application mentioned throughout this thesis
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, calling it Drug Administration
+\end_layout
+
+\end_inset
+
+.
+ We compare behavior and code size over several approaches for creating
+ the application.
+ User experience may be affected by code size, since (as mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) it enhances fast customer feedback loops.
+\end_layout
+
+\begin_layout Section
+Approaches
+\end_layout
+
+\begin_layout Standard
+We created it according to this thesis' approach, as an excel file (spreadsheet)
+ to ilustrate code similar reactive variables and also a constraints system
+ using 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Section
+Behavior
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+We created several variants for the Drug Administration application with
+ diffrences in the code and the behavior.
+\end_layout
+
+\begin_layout Standard
+We created it according to this thesis' approach, as an excel file (spreadsheet)
+ to ilustrate code similar reactive variables and also a constraints system
+ using 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We compare code size, because, as mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, large code resists against code changes, that is needed for enhance user
+ experience with a fast customer feedback loops.
+ Beside the code, we compare resulted behavior 
+\end_layout
+
+\begin_layout Standard
+We compare code repettion over the implementations and approaches for creating
+ the Drug Administration.
+ We also mention the amount of elements in the screen and compare the applicatio
+ns behavior as the cost.
+\end_layout
+
+\begin_layout Section
+Co
+\end_layout
+
+\begin_layout Standard
+—————–
+\end_layout
+
+\begin_layout Standard
+This chapter focuses on evaluating our de-centralization approach for improving
+ user experience.
+ We use the Order Entry application mentioned throughout this thesis, calling
+ it Drug Administration.
+ We compare the code size because, as mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, it affects user experience, because it enhances fast customer feedback
+ loops.
+ Beside the code size, we present its cost or outcome regrading the behavior
+ experienced in the application.
+\end_layout
+
+\begin_layout Standard
+———
+\end_layout
+
+\begin_layout Standard
+This chapter focuses on evaluating our de-centralization approach for improving
+ user experience.
+ We use the Order Entry application mentioned throughout this thesis.
+ We created it with the name Drug Administration according to this thesis'
+ approach.
+ We also created a similar application as an excel file (spreadsheet) to
+ ilustrate the application code as reactive variables.
+ In addition, we created the Drug Administration as a constraints system
+ using 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Our focus is on reducing the code size to enhance fast customer feedback
+ loops.
+\end_layout
+
+\begin_layout Standard
+because as the reason for poor user experience lies in the inability of
+ a fast customer feedback loops.
+\end_layout
+
+\begin_layout Standard
+This chapter focuses on evaluating our de-centralization approach for improving
+ user experience.
+ We use the Order Entry application mentioned throughout this thesis, calling
+ it Drug Administration.
+ Our focus is in reducing code size.
+ As mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, code size affects the user experience, because it affect the ability of
+ a fast customer feedback loops.
+ As mentioned, code size is affected from GUI elements amount and code repetitio
+ns.
+ Before delving into it, let's present several implementation/approaches
+ fo implementing of the Drug Adminstration.
+\end_layout
+
+\begin_layout Paragraph
+Excel
+\end_layout
+
+\begin_layout Standard
+The implementation in excel is similar to reactive variables, that reactive
+ variables are categorized into source and computed reactive variables.
+ features of computed fields are provided in ....
+\end_layout
+
+\begin_layout Standard
+This provides similar to calculations.
+\end_layout
+
+\begin_layout Standard
+However, since field should depend on a single formula, and there are several
+ filling options, we created two
+\end_layout
+
+\begin_layout Paragraph
+Hotdrink
+\end_layout
+
+\begin_layout Paragraph
+Events
+\end_layout
+
+\begin_layout Section
+GUI Elements Amount
+\end_layout
+
+\begin_layout Standard
+The Drug Administration contains the six numeric fields presented in the
+ beginning of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and does not contain 
+\family typewriter
+ordering style
+\family default
+ and 
+\family typewriter
+locker
+\family default
+ elements.
+ This reduces the code size as there are less elements.
+ 
+\end_layout
+
+\begin_layout Standard
+In the Drug Administration, users can edit any of the fields, while in the
+ same time, any of them can be updated with computed values by the system.
+ This provides a cleaner interface with shortand processes.
+ In the original application, users need to begin by selecting an 
+\family typewriter
+ordering style
+\family default
+ and, at times, clicking on 
+\family typewriter
+locker
+\family default
+ elements, making the processes longer.
+\end_layout
+
+\begin_layout Standard
+While I have highlighted the enhanced user-friendliness of the new Drug
+ Administration, it worth mentioning that the original behavior has the
+ advantage of being more referential transparent upon calculations flows.
+ In the original application, by the 
+\family typewriter
+ordering style
+\family default
+ selection and the clicks upon the 
+\family typewriter
+locker
+\family default
+ elements, users manage what fields will the user fill, and what fields
+ will be computed.
+ In contrast, in the 
+\family typewriter
+Drug Administration
+\family default
+, the system takes decisions when and what fields to compute.
+ This aspect need a further research.
+ Nevertheless, the decisions are predictable and fit use cases that (described
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) new input should override effects (input and computed values) of oldest
+ input at the time of the input.
+ We created the Drug Administration in Hotdrink (we will later further explain
+ our appraoch improvness), and the behavior of the updates (decisions when
+ and what fields to compute) are the same.
+ Beside evaluating the decisions, it should be mentioned that the fields
+ in the 
+\family typewriter
+Drug Administration
+\family default
+ uses two distinct styles to distinguish between input values and computed
+ values (which does not ex).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+———
+\end_layout
+
+\begin_layout Plain Layout
+We implemented an application named Drug Administration inspired from the
+ Order Entry mentioned throughout this thesis.
+ The Drug Adminstration contains the six numeric fields presented in the
+ beginning of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In the Drug Administration, users can edit any of the fields, while in
+ the same time, any of them can be updated with computed values by the system.
+ This provides a cleaner interface with shortand processes.
+ In the original application, users need to begin by selecting an 
+\family typewriter
+ordering style
+\family default
+ and, at times, clicking on 
+\family typewriter
+locker
+\family default
+ elements, making the processes longer.
+\end_layout
+
+\begin_layout Plain Layout
+While I have highlighted the enhanced user-friendliness of the new Drug
+ Administration, it worth mentioning that the original behavior has the
+ advantage of being more referential transparent upon calculations flows.
+ In the original application, by the 
+\family typewriter
+ordering style
+\family default
+ selection and the clicks upon the 
+\family typewriter
+locker
+\family default
+ elements, users manage what fields will the user fill, and what fields
+ will be computed.
+ In contrast, in the 
+\family typewriter
+Drug Administration
+\family default
+, the system takes decisions when and what fields to compute.
+ This aspect need a further research.
+ Nevertheless, the decisions are predictable and fit use cases that (described
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) new input should override effects (input and computed values) of oldest
+ input at the time of the input.
+ We created the Drug Administration in Hotdrink (we will later further explain
+ our appraoch improvness), and the behavior of the updates (decisions when
+ and what fields to compute) are the same.
+ Beside evaluating the decisions, it should be mentioned that the fields
+ in the 
+\family typewriter
+Drug Administration
+\family default
+ uses two distinct styles to distinguish between input values and computed
+ values (which does not ex).
+\end_layout
+
+\begin_layout Plain Layout
+———
+\end_layout
+
+\begin_layout Plain Layout
+This chapter focuses on evaluating our de-centralization approach for improving
+ user experience.
+ We implemented an application named Drug Administration inspired from the
+ Order Entry mentioned throughout this thesis.
+ The Drug Adminstration contains the six numeric fields presented in the
+ beginning of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In the Drug Administration, users can edit any of the fields, while in
+ the same time, any of them can be updated with computed values by the system.
+ This provides a cleaner interface with shortand processes.
+ In the original application, users need to begin by selecting an 
+\family typewriter
+ordering style
+\family default
+ and, at times, clicking on 
+\family typewriter
+locker
+\family default
+ elements, making the processes longer.
+\end_layout
+
+\begin_layout Plain Layout
+While I have highlighted the enhanced user-friendliness of the new Drug
+ Administration, it worth mentioning that the original behavior has the
+ advantage of being more referential transparent upon calculations flows.
+ In the original application, by the 
+\family typewriter
+ordering style
+\family default
+ selection and the clicks upon the 
+\family typewriter
+locker
+\family default
+ elements, users manage what fields will the user fill, and what fields
+ will be computed.
+ In contrast, in the 
+\family typewriter
+Drug Administration
+\family default
+, the system takes decisions when and what fields to compute.
+ This aspect need a further research.
+ Nevertheless, the decisions are predictable and fit use cases that (described
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) new input should override effects (input and computed values) of oldest
+ input at the time of the input.
+ We created the Drug Administration in Hotdrink (we will later further explain
+ our appraoch improvness), and the behavior of the updates (decisions when
+ and what fields to compute) are the same.
+ Beside evaluating the decisions, it should be mentioned that the fields
+ in the 
+\family typewriter
+Drug Administration
+\family default
+ uses two distinct styles to distinguish between input values and computed
+ values (which does not ex).
+\end_layout
+
+\begin_layout Plain Layout
+The effective of our approach lyes in reducing code size and reducing code
+ repetitions.
+ Beside the original application and the Drug Administration, there are
+ various implementations enabled.
+ For example, we implemented in Hotdrink an application just like the Drug
+ Administration (except the indicator between input values and computed
+ values).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The effective of our approach lyes in reducing code size and reducing code
+ repetitions.
+\end_layout
+
+\begin_layout Plain Layout
+However, we asume that the centeral outcome of this thesis is in reducing
+ code repetitions.
+ We identify several architetual deisgns, and find common patterns of code
+ repetions that is reduced in the Drug Administration.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+There are three types of repetition elements.
+ First, when multiple events handlers need to call the same executation
+ call consists of computations and updates.
+ Second, when variables reflect the same real world variable.
+ Third, components that are unable to reuse, causing to create similar other
+ components.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This chapter focuses on evaluating effectiveness of our de-centralization
+ approach for improving user experience.
+ We evaluate by the Order Entry example.
+ We created several implementations of Order Entry of our approach consisting
+ the six numeric fields presented in the beginning of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In those applications, users can in any stage edit any of the fields, while
+ in the same time, any of them can be updated with computed values by the
+ system.
+ This is applied based on the rule described in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, that new input overrides effects (input and computed values) of oldest
+ input at the time of the input.
+\end_layout
+
+\begin_layout Plain Layout
+This is diffrent than in the original application.
+ There, users need to start with choosing an orderyng style and sometimes
+ to toggle lockers buttons to manage what fields will the user fill.
+ At this point the new implementations are more simple and easy to use.
+ This is the one hand.
+ But in the other hand, the beavior in the original application is might
+ be better because behavior is refertial trsnaparent to the user, because
+ the user can manage what fields are input and what are computed.
+ Therefore, the new implemnetations are imroved with graphical indiator
+ of what values are input and what are computed.
+ The compyted values have diffrent style than the input values, so it is
+ clear to ther user.
+\end_layout
+
+\begin_layout Plain Layout
+In order to imIn the new implementations, we 
+\end_layout
+
+\begin_layout Plain Layout
+but in the other hand, it contains 
+\end_layout
+
+\begin_layout Plain Layout
+Comparing such an implementation to the original presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the new one has reduced conginite loads.
+ In the original impleentation, there are locker elements an ordering style
+ to choose.
+ In the current implementations there is no more than the six numeric fields.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In order that it will be clear what values are input and what are computed,
+ there is a graphicaly indicator, when the value is computed, and when the
+ values is the one that the use fill.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Code Repetitions
+\end_layout
+
+\begin_layout Standard
+The Order Entry 
+\end_layout
+
+\begin_layout Standard
+Based on the example prisented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "true"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we developed the Order Entry in .net and in javascript
+\end_layout
+
+\begin_layout Section
+Functional Behavior
+\end_layout
+
+\begin_layout Section
+Repetition Calls
+\end_layout
+
+\begin_layout Standard
+——–
+\end_layout
+
+\begin_layout Standard
+The efficacy of the thesis is demonstrated through a comparative analysis
+ of code repetition elements across various implementations of the Order
+ Entry.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -164,212 +847,10 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Procedural Programming
+implementations
 \end_layout
 
-\begin_layout Standard
-In creating Drug Administration application, and keep values of the fields
- consistent, the 
-\begin_inset Formula $\LSTINLINE{calculate}$
-\end_inset
-
- procedure is created.
- This procedure is called whenever the user updates the value of any of
- the fields.
- Depending on the fields that the user edits, the other fields are calculated,
- as in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Centerlized-Calculation-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In this method there is redundancy.
- Values are calculated, even when their fields are unchanged.
- In addition, statements are repeated, as seen in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:concentrationByDrugAndVolume1}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-line~
-\backslash
-ref{line:concentrationByDrugAndVolume2}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-If edited triple is of Dose,  Duration, and Volume
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/Volume |
-\backslash
-label{line:concentrationByDrugAndVolume1}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = Volume/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Drug, Dose, and Rate
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration = Drug/Dose
-\end_layout
-
-\begin_layout Plain Layout
-
-  Volume = Duration*Rate 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Concentration = Drug/Volume |
-\backslash
-label{line:concentrationByDrugAndVolume2}|
-\end_layout
-
-\begin_layout Plain Layout
-
-Else If edited triple is of Concentration,  Volume, and Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Drug = Volume*Concentration
-\end_layout
-
-\begin_layout Plain Layout
-
-  Rate = Volume/Duration 
-\end_layout
-
-\begin_layout Plain Layout
-
-  Dose = Drug/Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-End If
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Centerlized-Calculation-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Drug administration calculation.
-\end_layout
-
-\end_inset
-
-Drug administration calculation.
- The code shows how to calculate the values of the fields based on different
- combinations of three input fields.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 Events
 \end_layout
 
@@ -433,7 +914,7 @@ noprefix "false"
  no registration is overlooked.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Spreadsheet
 \end_layout
 
@@ -493,7 +974,7 @@ This implementation has redundancy across the different modes, as several
  variables that mirror real-world attributes or variables.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Constraints
 \end_layout
 
@@ -518,6 +999,239 @@ literal "false"
 \end_layout
 
 \begin_layout Section
+Analysis
+\end_layout
+
+\begin_layout Standard
+There are three types of repetitions.
+ First, when multiple events handlers need to call the same executation
+ call consists of computations and updates.
+ Second, when variables reflect the same real world variable.
+ Third, components that are unable to reuse, causing to create similar other
+ components.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<row interlinespace="default">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+repetitions element
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+react/redux (State)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+cycle.js (Unidirectional Dataflow)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+hotdrink (Constraints) 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+calls
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+variables
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+components
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:analysis"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code Repetition Analysis.
+\end_layout
+
+\end_inset
+
+Code Repetition Analysis.
+ The rows represent repetitions types and the columns represent an architutal
+ appraoch.
+ X represents that the repetitions type of the current row might apear in
+ using the a architutal appraoch of the column.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Conclusion
 \end_layout
 
@@ -538,7 +1252,7 @@ single source of truth
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...
@@ -568,7 +1282,7 @@ We recognize in the exploration three patterns of code duplication.
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Float figure
@@ -2141,7 +2855,7 @@ We provided a new abstraction with an elsticity.
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 , the languages provide also the stream abstraction ( 
@@ -2347,7 +3061,7 @@ In order to customize the way in which to evaluate cycles, the abstracion
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Our approach can be implemented (as we already implemented) as internal
@@ -2370,7 +3084,7 @@ ion, it is still not the case, because we use the framework that implemented
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ————
@@ -3174,7 +3888,7 @@ in runtime, the recalcuated field might be originated from its own recalculation
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In the constraint model, there exist neither redundant function calls nor
@@ -3199,7 +3913,7 @@ In the constraint model, there exist neither redundant function calls nor
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The model of constraints, there is neither repeating calls nor repeating
@@ -3222,7 +3936,7 @@ The model of constraints, there is neither repeating calls nor repeating
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This leads to the referential transparency property, which is a characteristic
@@ -3253,7 +3967,7 @@ t operator, while glitches, simultaneous events, and recursions are addressed
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 As a result, the new variant of FRP support multiple assignments.
@@ -3346,7 +4060,7 @@ we need only the inpreditabiity reursions and merges.
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 .
@@ -3370,7 +4084,7 @@ status collapsed
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The introduced operators provide functions over streams achieving properties
@@ -3420,7 +4134,7 @@ Furthermore, we guarantee that the same sequence of events consistently
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Float figure
@@ -3857,7 +4571,7 @@ Bootstrap of the drug administration components
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In this thesis, we aimed to strike a balance between abstraction and control
@@ -3922,7 +4636,7 @@ https://rivarx.github.io/Evaluation
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In this section, we compare our method to Hotdrink mentioned in 
@@ -4077,7 +4791,7 @@ lstinline{Constraint}
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Our implementation includes a general propagation algorithm that enables

@@ -109,35 +109,89 @@
 \end_layout
 
 \begin_layout Abstract
-This thesis introduces the 
-\emph on
-reactive instance variable
-\emph default
-, 
+This thesis is focused on a concept named 
 \begin_inset Formula $\RIVar$
 \end_inset
 
-, as a novel concept which merges the principles of 
+.
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ stands for 
 \emph on
-reactive variables
+Reactive Instance Variable
 \emph default
- from Functional Reactive Programming (FRP) with 
+, harmonizing a concept named 
 \emph on
-instance variables
+reactive variable
 \emph default
- from Object-Oriented Programming (OOP).
-  Similar to FRP, the data dependencies are established between 
+ found in 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP) with a concept named 
+\emph on
+instance variable
+\emph default
+ found in Object Oriented Programming (OOP).
+ Similar to reactive variable, each 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ can be associated with an expression composed of other 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s, forming the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ to depend on the other 
 \begin_inset Formula $\RIVar$
 \end_inset
 
 s.
- Additionally, Similar to OOP we enable private encapsulation of data dependenci
-es within objects, while referring 
+ In runtime, the 
 \begin_inset Formula $\RIVar$
 \end_inset
 
-s from other objects.
+ is automatically recalculated depending on the dependencies.
+ Beside deriving the concept from reactive variable, the concept is derived
+ also from instance variable, enabling the specification and runtime of
+ data dependencies, as objects' internal behavior.
+\end_layout
+
+\begin_layout Abstract
+The concept is motivated by an healthcare application, where fields calculations
+ caused user experiance questions on the implementations.
  
+\end_layout
+
+\begin_layout Abstract
+We introduce 
+\emph on
+Non-Hierarchical FRP
+\emph default
+ (NH-FRP), a new variant of FRP that supports that speical settings.
+ The variables (
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s) are formed of observable streams, with the approach that the association
+ between variable and an expression is in the form of subscirptions, i.e.,
+ it is like that the variable subscribe to the stream of values of the expressio
+n.
+\end_layout
+
+\begin_layout Abstract
+This forms a tool that enable data dependencies even when the data dependencies
+ are not hirarchial.
+\end_layout
+
+\begin_layout Abstract
+This forms an architeture that contrasted with the traditional FRP, in that
+ the data dependenicies are not hirarchial
 \end_layout
 
 \begin_layout Abstract

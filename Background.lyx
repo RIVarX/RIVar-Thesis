@@ -121,9 +121,24 @@ Events
 \end_layout
 
 \begin_layout Standard
-In programming frameworks, such as in web development, code that updates
- fields based on other fields can be registered to be executed when fields
- are changed.
+Event is an abstraction used in programming that enables 
+\emph on
+components-based architecture
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ For fields calculations, events facilitate registering code that update
+ fields to be executed by a component, when its internal code update other
+ fields.
+ For example, in web development, code that updates fields based on other
+ fields can be registered to be executed when fields are changed.
  For example, in 
 \begin_inset Formula $\NAME{JavaScript}$
 \end_inset
@@ -168,6 +183,174 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
+In components-based architecture, the components call each other, with the
+ caller and callee sharing an interface, hiding implementation details.
+ This interface is commonly referred to as a 
+\emph on
+contract
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ consisting of named operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications.
+ 
+\end_layout
+
+\begin_layout Standard
+However, in fields calculations, there is a risk of encountering an infinite
+ loop.
+ For example, if one plugin in 
+\begin_inset Formula $\NAME{Microsoft}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Dynamics}$
+\end_inset
+
+ recalculates field 
+\begin_inset Formula $A$
+\end_inset
+
+ whenever field 
+\begin_inset Formula $B$
+\end_inset
+
+ is changed, and the second one recalculates field 
+\begin_inset Formula $B$
+\end_inset
+
+ whenever field 
+\begin_inset Formula $A$
+\end_inset
+
+ is changed, this circular dependency can result in an infinite loop of
+ recalculations.
+ In OOP, the issue is named 
+\emph on
+object re-entrance
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ that causes problems in objects compositions and inheritance.
+ Object re-entrance means that an object indirectly calls another object
+ that then calls it back.
+ In subsequent calls, the variables may be inconsistent because the execution
+ has not finished.
+ Therefore, frequently there is a knowledge that should be shared in addition
+ to the interface.
+ It is called sometimes an 
+\emph on
+informal contract
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+In components-based architecture, the components call each other, with the
+ caller and callee sharing an interface, hiding implementation details.
+ This interface is commonly referred to as a 
+\emph on
+contract
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ consisting of named operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications.
+\end_layout
+
+\begin_layout Plain Layout
+This enables to register code that update fields to be executed by a component,
+ when its internal code update other fields.
+ For example, in web development, code that updates fields based on other
+ fields can be registered to be executed when fields are changed.
+ For example, in 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{input.addEventListener('input',calculate)}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+means to execute 
+\begin_inset Formula $\LSTINLINE{calculate}$
+\end_inset
+
+, when the user interacts with the input element by changing its value.
+ Another example is in extending systems, such as in 
+\begin_inset Formula $\NAME{Microsoft}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Dynamics}$
+\end_inset
+
+, where it is possible to register components known as 
+\emph on
+plugins
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
+
+\end_inset
+
+.
+ These components can include code that executes in response to field updates,
+ performing calculations and updating fields accordingly.
+ 
+\end_layout
+
+\begin_layout Plain Layout
 The design principle is that the components can call each other, with the
  caller and callee sharing an interface, hiding implementation details.
  This interface is commonly referred to as a 
@@ -218,7 +401,6 @@ literal "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \end_inset
@@ -226,7 +408,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 However, there is a risk of encountering an infinite loop.
  For example, if one plugin in 
 \begin_inset Formula $\NAME{Microsoft}$
@@ -289,6 +471,11 @@ literal "false"
 .
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Centerlized Providers
 \end_layout
@@ -312,8 +499,7 @@ https://docs.flutter.dev
 
 \end_inset
 
- applications utilize dedicated state management solutions to handle the
- variables.
+ applications utilize dedicated state management solutions to handle variables.
  Among these state management solutions, 
 \begin_inset Formula $\NAME{Redux}$
 \end_inset
@@ -1167,7 +1353,11 @@ Another strategy to ensure predictability in field calculations is the design
  destination.
  In FRP, this principle is enforced by classifying reactive variables into
  input variables and calculated variables.
- This is the default behavior in spreadsheets like Microsoft Excel.
+ This is the default behavior in spreadsheets like 
+\family typewriter
+Microsoft Excel
+\family default
+.
  The input variables have values from the users, while the calculated variables
  cannot be set by the user as it contains the derived values.
 \end_layout

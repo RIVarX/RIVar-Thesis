@@ -117,6 +117,366 @@ Introduction
 \emph on
 Reactive variable
 \emph default
+ is a concept of a 
+\emph on
+push
+\emph default
+ model consisting of a 
+\emph on
+change propagation
+\emph default
+ process, in which changes to reactive variables trigger changes recursively
+ to other reactive variables.
+ In graphical user interfaces (GUI), this concept is often observed, where
+ settings fields trigger changes in other fields.
+ For example, cells in spreadsheets containing formulas are triggered by
+ changes in the cells referenced by those formulas.
+ In a mixed framework consisting of reactive variables and GUI, inputs into
+ GUI controls trigger changes in reactive variables, initiating a change
+ propagation process until reaching output to the GUI.
+\end_layout
+
+\begin_layout Standard
+In Functional Reactive Programming (FRP)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional,elliott2009push"
+literal "false"
+
+\end_inset
+
+, reactive variable (in some variations, known also as 
+\emph on
+behavior
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) can be specified with more declerative mannar, sometimes 
+\emph on
+lifting
+\emph default
+ a call-by-value programming language
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+.
+ Consider 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ (depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) of reactive variables 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ (using syntax specified by Guido Salvaneschi at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming"
+literal "false"
+
+\end_inset
+
+).
+ The expression associates 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ with the expression 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, such that a value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is changed in response to any input provided to (or changes in a value)
+ 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ Further, experssing 
+\begin_inset Formula $\LSTINLINE{B=1}$
+\end_inset
+
+ means an input of 
+\begin_inset Formula $\LSTINLINE 1$
+\end_inset
+
+ to 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ , which triggers to change a value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ to being 
+\begin_inset Formula $\LSTINLINE 2$
+\end_inset
+
+.
+ In essence, operations (
+\begin_inset Formula $\LSTINLINE +$
+\end_inset
+
+ in the example) are converted (or lifted) from operating over values to
+ operate over reactive variables.
+ Together, they compose expressions (
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+ in the example), associated (
+\begin_inset Formula $\LSTINLINE{:=}$
+\end_inset
+
+ in the example) with the left-hand reactive variable.
+ Generaly, such associations establish 
+\emph on
+data dependencies
+\emph default
+, in which a left-hand variable depends on variables in a right-hand side.
+ According to dependencies, variables are continuously re-evaluated, by
+ change propogation processes.
+\end_layout
+
+\begin_layout Standard
+We define 
+\emph on
+reactive instance variables
+\emph default
+ to being reactive variables that can be associated externaly like setters
+ in Object Oriented Programming (OOP).
+ For example
+\begin_inset space ~
+\end_inset
+
+(using class-based OOP), class 
+\begin_inset Formula $\LSTINLINE X$
+\end_inset
+
+ contains reactive variable 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+, and class 
+\begin_inset Formula $\LSTINLINE Z$
+\end_inset
+
+ contains 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ that is an instance of 
+\begin_inset Formula $\LSTINLINE X$
+\end_inset
+
+.
+ In addition, class 
+\begin_inset Formula $\LSTINLINE Z$
+\end_inset
+
+ contains a reactive variable 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and a behavior of a formula 
+\begin_inset Formula $\LSTINLINE{x.A:=B+1}$
+\end_inset
+
+ that a value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ of 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ is changed in response to any change in 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ The use of reactive instance variables emphasizes 
+\emph on
+de-centralization
+\emph default
+.
+ Analogous to OOP that used to model applications with classes and objects,
+ many modern applications consist of components 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ Similarly, systems are often interconnected, functioning as a single cohesive
+ unit with multiple subsystems (e.g., a Customer Relationship Management (CRM)
+ system combined with an order processing system).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In FRP, we say that, a variable depends on other variables, if changes in
+ those variable propogate to the first.
+ In FRP, various algorithm has been developed to automate the propogations.
+ This automation
+\end_layout
+
+\begin_layout Plain Layout
+FRP is a programming paradigm where specification of fields contents are
+ decoupled from the way of how to apply it in runtime.
+ The developers use a library that manage graphs,
+\end_layout
+
+\begin_layout Plain Layout
+—–
+\end_layout
+
+\begin_layout Plain Layout
+State management is an aspect in front end development, responsible on updating
+ fields according to other fields.
+ The specifications of how to manage the updates are of various forms and
+ patterns.
+ One of the forms suggests high level specifications by lifting
+\end_layout
+
+\begin_layout Plain Layout
+uses a concept that functions can be lifted
+\end_layout
+
+\begin_layout Plain Layout
+One of the forms uses a concept, that similar to function over values (and
+ variables that contain values) to function over fields.
+ Then establish continous relationship instead of the traditional temporal
+ assignment.
+\end_layout
+
+\begin_layout Plain Layout
+between the function and the target variable.
+\end_layout
+
+\begin_layout Plain Layout
+values and operations are lifted
+\end_layout
+
+\begin_layout Plain Layout
+, rules and input over time.
+ In response to an input, code is executed and update fields.
+\end_layout
+
+\begin_layout Plain Layout
+There are several common abstractions (with variants) used for this task.
+ events, streams, one-way constraints and two way constraints.
+\end_layout
+
+\begin_layout Plain Layout
+————–
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+Reactive variable
+\emph default
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -250,19 +610,8 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE +$
 \end_inset
 
- in the example) over values are 
-\emph on
-lifted
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-, i.e., converted to operate over reactive variables.
+ in the example) are converted from operating over values to operate over
+ reactive variables.
  Together, they compose expressions (
 \begin_inset Formula $\LSTINLINE{B+1}$
 \end_inset
@@ -285,6 +634,11 @@ y re-evaluated according to updates in the dependencies.
 \end_inset
 
  in the example) to be reactive variables.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -617,6 +971,10 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 This can be applied to input fields in GUI applications.
  
 \begin_inset Formula $\NAME{Spreadsheets}$
@@ -651,17 +1009,16 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
-Unlike the standards to breaking down code into modules or objects 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "martin2018clean"
-literal "false"
-
 \end_inset
 
-, reactive variables are usually managed in a centralized manner.
- In FRP, most implementations uses a centralized mechanism 
+
+\end_layout
+
+\begin_layout Standard
+While explicit languages for reactive variables have gained prominence,
+ decentralization appears to be less explored within the current body of
+ research.
+ In FRP, most implementations use a centralized mechanism 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "drechsler2014distributed"
@@ -670,12 +1027,7 @@ literal "false"
 \end_inset
 
 .
- Also in harmonizing FRP with OOP, there is coupling to a centralized component
- which handles the calculations
-\begin_inset space ~
-\end_inset
-
-
+ Even in harmonizing FRP with OOP 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Salvaneschi2014"
@@ -683,9 +1035,9 @@ literal "false"
 
 \end_inset
 
-.
- Similarly, for GUI applications, there is a widespread adoption of a state
- management solution named 
+, there is coupling to a centralized component which handles calculations.
+ Similarly, in GUI applications, there is widespread adoption of solutions
+ like 
 \begin_inset Formula $\NAME{Redux}$
 \end_inset
 
@@ -709,25 +1061,43 @@ https://redux.js.org/
 
 \end_inset
 
-.
- 
-\begin_inset Formula $\NAME{Redux}$
+ which provide centerlized state management
+\begin_inset space ~
 \end_inset
 
- stands for its commitment to predictability, achieved by a centralized
- architecture.
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "youframeworkless"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-A possible reason is the need to avoid unacceptable feedback loops, i.e.,
- a change in one field leads to a subsequent change that feeds back and
- affects the original field itself.
+A possible reason for not being de-centralized, is because of unintended
+ unacceptable feedback loops, i.e., a change in one field leads to a subsequent
+ change that feeds back and affects the original field itself.
  When declaring new data dependencies, it is essential to ensure that transitive
  dependencies do not depend on the fields from which the new dependencies
  originate.
  Therefore, transitive dependencies should be reachable.
  For this reason, data dependencies are of a high cohesion for being managed
  in a centralized mannar.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+(composing many pieces of small functionality togather, might leads to huge
+ complexety.)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -774,13 +1144,17 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 This thesis focuses on enabling de-centralization by introducing an embedded
  support for cycles.
  We introduce a framework that classes of OOP contain reactive variables
  and also contain associations that establish data dependencies.
  Objects instantiated from these classes then manage updates privately based
  on the (private) data dependencies within their class.
- We introduce this framework implicty, by defining a new concept named 
+ We introduce this framework, by defining a new concept named 
 \family typewriter
 Reactive Instance Variable
 \family default
@@ -801,6 +1175,11 @@ reactive variable
 instance variable
 \family default
  of OOP.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4755,7 +5134,15 @@ https://www.npmjs.com/package/rivarjs
 \end_layout
 
 \begin_layout Itemize
-We introduce a small application example that uses the above.
+We introduce an abstraction mecainsm of 
+\begin_inset Quotes eld
+\end_inset
+
+add filling options
+\begin_inset Quotes erd
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph

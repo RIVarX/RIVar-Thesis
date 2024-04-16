@@ -1,0 +1,205 @@
+
+
+
+
+
+
+
+
+Procedural Programming
+
+In the procedural programming paradigm, we model processes., each 
+composed of parameters or fields to be filled and a sequence of 
+computations. However, this paradigm has several drawbacks. 
+Firstly, overlaps between processes lead to code repetitions, 
+making it hard to extend or modify. Secondly, managing a large 
+number of processes becomes difficult; finding the appropriate 
+one for each use case is cumbersome. Finally, users are promted 
+to specify input for fields they are not familiar. Finally, users 
+are prompted to specify input for fields they are unfamiliar 
+with. Default values do not address this issue adequately, as 
+they are typically based on the general case rather than the 
+specific input provided.
+
+The First Story
+
+This thesis is motivated by the need to enhance GUI applications. 
+From analyzing the market of healthcare applications, there is 
+gap between ideal applications to actual [gawande2018doctors]. We 
+use as an example \NAME{OrderEntry},[footnote:
+known as Computerized Provider Order Entry (CPOE).
+] one of the main windows in MetaVision, an healthcare system 
+provided by iMDsoft.[footnote:
+https://www.imd-soft.com
+] The Order Entry contains (among others) six numeric fields:
+
+  Drug relates to amount of medication/drug administered to a 
+  patient, (e.g. 20 mg).
+
+  Volume relates to Infusion fluid volume. An Infusion injects 
+  the medication into the patients body, by mixing the Drug with 
+  fluids (e.g., 20 ml).
+
+  Concentration amount of the Drug per Volume (e.g. 0.5 mg/ml).
+
+  Rate relates to Volume flow administered into the patients body 
+  per time unit (e.g., 20 ml per hour).
+
+  Dose (or Dosage) Drug administered into the patients body per 
+  time unit (e.g., 20 mg per hour).
+
+  Duration relates to the duration from starting the injection 
+  until stopping it.
+
+2.1 Procedural Programming
+
+The traditional programming models processes. according to the 
+fields that the uset fill, there is an appropiate process of 
+computations. For example, [fig:Centerlized-Calculation-1-3] 
+depicted a prototype for a \LSTINLINE{calculate} procedure. This 
+procedure is called whenever any if the fields is edited, for 
+recomputing fields' values according to the edited fields' 
+values. In the code, there are branches identified by sets of 
+fields that had been edited. In each branch, the code consist of 
+a process of computations according to the fields that were 
+edited. For example,  is related to a use-case that Dose, 
+Duration and Volume are edited. In such a case the values for 
+Drug, Concentration and then Rate are computed. Over the branches 
+there are overlaps in the computations. For example,  and  
+compute Concentration based on Drug and Volume. However, the 
+order of the computations are diffrent, causing the need to make 
+the code repetitions.
+
+[float Figure:
+
+
+[Figure 2.1: 
+<fig:Centerlized-Calculation-1-3>Drug administration calculation. 
+The code shows how to calculate the values of the fields based on 
+different combinations of three input fields.
+]
+]
+
+This issue becomes more pronounced as the application expands in 
+response to customer requests for new features. For example, 
+field  is added to the Order Entry example.  indicates whether 
+the application should trigger an alert for abnormal medication 
+amounts. Accordingly, whenever Drug is updated,  should be 
+updated as well. This require adding the update five times 
+according to five ways to how the value of Drug is determine.
+
+• The Drug's value can be fill directly, 
+
+• If a user fill Volume and Concentration, the value of Drug 
+  should be computed from the values of Volume and Concentration.
+
+• The value of volume might be computed in case that a user fill 
+  Duration and Dose. In such a case, the values of Duration and 
+  Rate are sed to determine the value of Volume, then this value 
+  with the value filled in Concentration are used to compute 
+  Drug.
+
+• If a user fill Dose and Duration, The drug values si computed 
+  by them
+
+• if Volume, Rate and Dose are filled, then Volume and Rate is 
+  used to determine value for Duarion, which then is used with 
+  Dose to determine a value for Drug.
+
+If, in a small application, a single addition is replicated 
+fivefold, managing such additions becomes daunting in larger 
+applications. The process of locating and updating various 
+sections of the code demands time and effort. Furthermore, after 
+dealing with such an addition, the code becomes multiplied, 
+resulting in future additions and updates becoming more 
+challenging. The repetition causes difficulties in changing 
+functionality, leading to resistance against modifications. This 
+resistance means there is no room for enhancement in the 
+application.
+
+2.1.1 User Experience
+
+The design by procsses sometimes leaks into GUI experience, in 
+explicity define use-cases mapped to each process.
+
+
+
+[float Figure:
+
+
+
+
+[Figure 2.2: 
+<fig:Drug-calculations-1-2> Drug Administration. The fields are 
+illustrated with example values, in case the user sets Volume, 
+Dose and Duration. The fields Drug, Concentration, and Volume are 
+displayed in italic typeface to indicate that these values are 
+calculated based on the set values.
+]
+]
+
+[float Figure:
+
+
+[Figure 2.3: 
+<fig:Order-Entry-1-1> At the top, there is the Ordering Style 
+field, represented by a combobox, where users can select from the 
+available options. Below this, each field consists of a label 
+above its name, an area to display its value, and a lock icon on 
+its right.
+]
+]
+
+  Ordering Style
+
+Before editing the numeric fields, it is required to select an 
+option from a select element named ordering style. One option is 
+set concentraion and volume, another option is set dose and rate. 
+According to the selected option, fields become editable or 
+readonly, controling the calculations directions. If the user 
+selects set concentraion and volume, those fields become 
+editable, and the other fields will be calculated accordingly. If 
+the user selects set dose and rate, those fields become editable, 
+and the other fields will be calculated accordingly. 
+
+  Lockers
+
+Additionaly, there are elements named locker used to lock or 
+unlock fields. Locking means that the field's value would be 
+calculated according to other fields' values, whereas unlocking 
+means that the field becomes editable. The lockers are similar to 
+toggle buttons, each click changes from the previous state locked 
+from being unlocked and vice versa. Among the six fields, three 
+of the fields should be set by the user and the others should be 
+calculated. Therefore, unlocking one field causes another field 
+to be locked instead. Selecting ordering style initiates the 
+state of the lockers, for each field whether it is locked or 
+unlocked. Fields that are editable according to the selected 
+ordering style, cannot be locked. For example, if the selected 
+ordering style is set concentration and volume, concentration and 
+volume are unlocked, and it is unabled to lock them.
+
+  Templates
+
+In MetaVision, customers often does not directly uses the Order 
+Entry. Instead they use templates, that contain pre filled 
+values, a setup to specific cenarios. In this way, users should 
+search and find for each specific use-case, for the the specific 
+needed setup.
+
+
+
+
+
+The ordering style and the lockers are needed for controling the 
+calculations, however they increase mental effort and processing 
+capacity needed for using the Order Entry. Templates aims to help 
+the customer against these issues. However, in using templates, 
+users might be overwhelmed in navigations [roman2017navigation] 
+in the search of the specifc setup for the specific use-case.
+
+\NAME{rivarjs}: User Guide 
+
+
+[PDFPages: 22C__Users_R_source_repos_Thesis_rivarjs_guide.pdf]
+

@@ -1,0 +1,1244 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Conceptual Framework
+\end_layout
+
+\begin_layout Section
+Applications as Complex Systems
+\end_layout
+
+\begin_layout Standard
+Outside of software development, 
+\emph on
+complex systems
+\emph default
+ refer to specific systems that composed of many components.(, where 
+\begin_inset Quotes eld
+\end_inset
+
+wholes that are more than the sum of their parts
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This is similar to component-based applications, in cases when behavior
+ is not predictable by looking at each of its individual component separately.)
+\end_layout
+
+\begin_layout Subsection
+Superposition Property
+\end_layout
+
+\begin_layout Standard
+The superposition property means lineraity, i.e., for a set of components
+ the sum of behaviors from each of the components seperatedly are equal
+ to the sum produced from the behavior produced tegather.
+ The behavior of component 
+\begin_inset Formula $x$
+\end_inset
+
+ is denoted as 
+\begin_inset Formula $F(x)$
+\end_inset
+
+, where its behavior represent the updates in its variables according phenomena.
+ For example, any given pair of components 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, superposition property ensures that 
+\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Feedback Loops
+\end_layout
+
+\begin_layout Standard
+In complex systems, the behavior is not linear because components affects
+ each other producing sometimes 
+\emph on
+feedback loops
+\emph default
+.
+ Feedback loop means that an effect in one component, produces a chain of
+ effects through several components, which again produce affect on the first
+ component (therefore the name, feed back), which sometimes lead to continue
+ the chain, sometimes leading the chain to not finish endlessly.
+ From prespective of data or variables, a change in one variable causes
+ transitively (through chain of changes) this same variable to again change
+ its value causing again waves of changes.
+\end_layout
+
+\begin_layout Subsection
+Complexity in programming
+\end_layout
+
+\begin_layout Standard
+Complexity in software development sometimes refers to 
+\begin_inset Quotes eld
+\end_inset
+
+too many details for a human brain to manage without help.
+ Overlooking just one small detail results in programs that may seem to
+ work, but fail in surprising ways
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ In essence, as specified in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Introduction"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, adding a single formula, might lead to a cycle in the dependencies which
+ causes unexpected feedback loop, which means that the application becomes
+ like complex systems.
+\end_layout
+
+\begin_layout Section
+Zooming with Graphs
+\end_layout
+
+\begin_layout Standard
+In FRP, reactive variables are used to create a data depedancy graph.
+ In large scale applications, it might be with any nodes (variables) and
+ edges (depedencies).
+ We name, 
+\begin_inset Quotes eld
+\end_inset
+
+zooming in
+\begin_inset Quotes erd
+\end_inset
+
+ when a subgraph is observed.
+ A subgraph is a set of nodes with a set of edges.
+ When observing a sugraph, other subgraphs does exist, with common nodes
+ (meaning that a node can be observed in diffrent subgraphs).
+ When observing a sugraph, the other graphs are not observed.
+ This is closly related to seperation of concerns, such that each concern
+ is handled indepedently.
+\end_layout
+
+\begin_layout Standard
+In software development, the ability to zoom in and out on the problem that
+ software solves is a concept often discussed in software development and
+ design.
+ This concept is closely related to the idea of abstraction and granularity.
+ In diffrent prespectivs diffrent details are observed, ignoring other details.
+ It is related to the seperation of concern principle, that the diffrent
+ concern are handled independenctly, without to observe other concrens
+\end_layout
+
+\begin_layout Standard
+In Functional Reactive Programming (FRP), reactive variables are utilized
+ to construct a data dependency graph, which forms the backbone of reactive
+ systems.
+ As applications scale in complexity, this graph can grow significantly,
+ comprising numerous nodes (representing variables) interconnected by edges
+ (depicting dependencies).
+ The concept of "zooming in" comes into play when we focus our attention
+ on a specific subset of this graph, forming what we term a subgraph.
+ A subgraph consists of a distinct set of nodes and the corresponding edges
+ that link them.
+ Notably, while we observe a subgraph, other subgraphs coexist within the
+ larger graph, sharing common nodes.
+ It's crucial to emphasize that when we zoom in on a particular subgraph,
+ we do so at the exclusion of others; thus, we overlook the broader context
+ of the entire graph.
+ This practice resonates closely with the principle of Separation of Concerns,
+ wherein each subgraph represents an independent concern, allowing for focused
+ and modular handling of specific aspects of the system's behavior or functional
+ity.
+\end_layout
+
+\begin_layout Section
+Reactive Instance (or Interface) Variables
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Reactive Instance
+\emph default
+ (or 
+\emph on
+Interface
+\emph default
+)
+\emph on
+ Variables, 
+\emph default
+named 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ for short, is a concept that harmonizes 
+\emph on
+reactive
+\emph default
+ variables with 
+\emph on
+instance
+\emph default
+ variables (i.e., fields associated with objects).
+ The name 
+\family typewriter
+reactive
+\family default
+ identify the nature from FRP to automate changes, while the name 
+\family typewriter
+instance
+\family default
+ identify nature from OOP including:
+\end_layout
+
+\begin_layout Itemize
+Variables are associated with objects.
+\end_layout
+
+\begin_layout Itemize
+Data dependencies (expressed by the variables) are associated with the objects
+ as well.
+\end_layout
+
+\begin_layout Itemize
+The change propagation is handled through sending and receiving messages.
+\end_layout
+
+\begin_layout Standard
+Beside the first presentation in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Introduction"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we present the concept by an example application named Drug Administration.
+\end_layout
+
+\begin_layout Standard
+Consider an example named Drug Administration.
+ In the example, class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ represents a bag with fields Drug, Volume and Concentration.
+ Class 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ represents a pump that is connected to a patient to infuse a bag over time.
+ Therefore it contains a reference to an instance of a 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and also contains fields Dose, Rate and Duration.
+\end_layout
+
+\begin_layout Standard
+It should be noted, that 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ has a relation to only Drug and Volume of its 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, to make them consistent with the values of Dose and Rate.
+ Therefore, 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ has a fields type as 
+\begin_inset Formula $\LSTINLINE{IBag}$
+\end_inset
+
+ that contains only Drug and Volume.
+ This example ilustrates a composition, but in inheritance it is very similar,
+ and can be applied as well.
+\end_layout
+
+\begin_layout Standard
+The point is the full decoupling.
+ The data dependencies are managed as internal behavior.
+\end_layout
+
+\begin_layout Standard
+formulas are specified in classes, and behave as calling to methods.
+ the operators, including the := calls a method similar to subscribe, which
+ then later produce function calls to update about new values.
+ Togather, this conform comunication channel to conform updates.
+ For example, Pump contains TheBag.Drug:=Dose*Duration, which makes updates
+ from Dose and Duration towards Drug.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class App extends Component {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor(props) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super(props);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.pump = new Pump(this.bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  render() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <div>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <BagComponent bag={this.bag} />
+\end_layout
+
+\begin_layout Plain Layout
+
+        <PumpComponent pump={this.pump}/>
+\end_layout
+
+\begin_layout Plain Layout
+
+      </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:code}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ UI] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
+ (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:runtime}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:micro_front_ends}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:react_micro_frontends-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Design for the drug administration application.
+\end_layout
+
+\end_inset
+
+Design for the drug administration application.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ presents the static code in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ that bootstraps the components, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+ presents the runtime components with the interaction channels.
+ 
+\begin_inset Formula $\LSTINLINE{BagComponent}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{PumpComponent}$
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ represent the UI components of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that are illustrated in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+.
+ In the interaction channel between 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s update each other according to the calculations.
+ In the interaction channel between each of them to the corresponding UI
+ component, there is a binding between each of the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s to the corresponding input element, such that when a UI change event occurs,
+ it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+In terms of OOP, the problem is that objects update their instance variables
+ in response
+\end_layout
+
+\begin_layout Standard
+With the OOP abstraction, each object is a responsibility to update its
+ internal fields according to other fields, by registering their code in
+ the coresponding objects.
+\end_layout
+
+\begin_layout Standard
+Real world systems can be abstracted using OOP.
+ Each variable of an object in the real-world is mapped to an instance variable
+ of a coresponding object.
+ Each object has a responsibility that is bounded within the object.
+ 
+\end_layout
+
+\begin_layout Standard
+OOP is another platform by which the problem will be abstracted.
+\end_layout
+
+\begin_layout Standard
+Each component can be represented by an object of OOP.
+ Using class-based OOP, each class defines behavior of a group of objects.
+ In the class, there are variables that will be in runtime the instance
+ variables, that represent variables of objects from the real world.
+\end_layout
+
+\begin_layout Standard
+OOP provides a platform to abstract the problem, as tool OOP is helpful
+ for cencepetual modeling, to abstract objects of the real world.
+\end_layout
+
+\begin_layout Standard
+is a paradigm that ease some aspects of concetual modeling.
+\end_layout
+
+\begin_layout Standard
+An abstraction to the problem
+\end_layout
+
+\begin_layout Standard
+OOP, as a paradigm of cencepetual modeling helps in provding an abstraction
+ to the problem.
+\end_layout
+
+\begin_layout Standard
+Consider a framework, that objects (specicifed by classes) simulate real
+ world objects, and their fields simulate the real variable of the real
+ world objects.
+ For example, consider the 
+\family typewriter
+Order Entry
+\family default
+ presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ (visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ represents a bag with fields Drug, Volume and Concentration.
+ Class 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ represents a Pump that is connected to a patient to infuse a bag over time.
+ Therefore it contains a reference to an instance of a 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and also contains fields Dose, Rate and Duration.
+ It should be noted, that 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ has a relation to only Drug and Volume of its 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, to make them consistent with the values of Dose and Rate.
+ Therefore, 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ has a fields type as 
+\begin_inset Formula $\LSTINLINE{IBag}$
+\end_inset
+
+ that contains only Drug and Volume.
+ This example ilustrates a composition, but in inheritance it is very similar,
+ and can be applied as well.
+\end_layout
+
+\begin_layout Standard
+Such applications are complex, since during the interaction, there might
+ be unexpected feedback loops.
+ The calculations defined in the objects create data dependency graphs.
+ These dependancy graphs from the objects are then combined to form the
+ overall dependancy graph.
+ The graph might contains cycles which leads to the unexpected feedback
+ loops.
+ For instance, in the Drug Administration, the graph exhibits a cycle involving
+ the nodes 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycleByComponents"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ This can potentially result an unexpected infinite loop, however even a
+ single redundant update can be undesirable.
+ If the feedback loop causes a variable to be updated, it can potentially
+ override previous valid values, as the example illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Drug, Volume, Concentration |
+\backslash
+label{line:PumpCode_RIVars1}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Volume:=Concentration*Drug |
+\backslash
+label{line:PumpCode_formula3}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable TheBag|
+\backslash
+label{line:PumpCode_TheBag}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Duration, Dose, Rate|
+\backslash
+label{line:PumpCode_RIVars2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug:=Dose*Duration  |
+\backslash
+label{line:PumpCode_formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration:=Rate*Volume |
+\backslash
+label{line:PumpCode_formula2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PumpCode-2-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+Cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
+\end_layout
+
+\end_inset
+
+ represent the needed calculations.
+ The calculations involves the instance variables declared in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, the calculations involve variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, which is declared in
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_TheBag}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

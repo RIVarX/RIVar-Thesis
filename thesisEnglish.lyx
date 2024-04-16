@@ -232,7 +232,7 @@ thechapter}#1}}
 \end_layout
 
 \begin_layout Title
-RIvar: Reactive Instance Variable
+RIVar: Reactive Instance Variable
 \end_layout
 
 \begin_layout Author
@@ -384,6 +384,26 @@ filename "Background.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "Motivation.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "ConcetualFramework.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Approach.lyx"
 
 \end_inset
 

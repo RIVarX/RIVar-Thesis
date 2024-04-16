@@ -564,96 +564,6 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
 status collapsed
 
 \begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Section
-Adding Dependencies
-\end_layout
-
-\begin_layout Plain Layout
-In order to not clone components, it is recommeneded to design them with
- well-defined responsibilities 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "martin2018clean"
-literal "false"
-
-\end_inset
-
-, and that the separation to responsibilities will be aligned with the business
- needs 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "evans2004domain"
-literal "false"
-
-\end_inset
-
-.
- The impact of a good seperation is, that if the business needs to provide
- a component that is based on an existing one, it is an addition, not a
- change.
-\end_layout
-
-\begin_layout Plain Layout
-In our context, a good seperation should support adding fields calculations,
- without to distrub the existing ones.
- By associating FRP to the fields calculations, can we describe the existing
- fields calculations by a data dependenciy graph.
- Consequently, adding fields is determind as adding vertexes, and adding
- dependencies is determind as adding edges between the vertexes.
-\end_layout
-
-\begin_layout Plain Layout
-discusse with representing FRP as Given a data dependency graph, it is expected
- to be able to add fields and dependencies between fields.
-\end_layout
-
-\begin_layout Plain Layout
-a dependancy.
- However, which might be recursive, closing a cycle in the depedancy graph.
-\end_layout
-
-\begin_layout Subsection
-No Cycles
-\end_layout
-
-\begin_layout Subsection
-Unpredictable
-\end_layout
-
-\begin_layout Subsection
-Predictable
-\end_layout
-
-\begin_layout Subsection
-One Component
-\end_layout
-
-\begin_layout Section
-Summary
-\end_layout
-
-\begin_layout Plain Layout
-In order to improve front ends usability, we suggests to improve the ability
- to inject business logic of variables and fields calculations.
- We use the FRP paradigm as the framework to create the fields calculations.
- However, the semantics in FRP does not cover required cases.
- First, to extend an existing application by adding dependencies.
- Second, to enable variables to get values from more than one source.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
 The new variant of FRP possesses the characteristic of referential transparency,
  which is a fundamental property of FRP.
  This ensures predictability because the behavior remains consistent based
@@ -735,7 +645,7 @@ noprefix "false"
 
 \begin_layout Plain Layout
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The referential transparency property means predictability, because the
@@ -835,7 +745,7 @@ as well as the other operations to complete the missing from being referential
 
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The new FRP variant has the functional transparency
@@ -933,7 +843,7 @@ The assignment operator
 \color inherit
  pushes values to the target variable, similar to producing input by the
  operator 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
 .
@@ -967,7 +877,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT

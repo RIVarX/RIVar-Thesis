@@ -135,7 +135,35 @@ Functional Reactive Programming
 instance variable
 \emph default
  found in Object Oriented Programming (OOP).
- Similar to reactive variable, each 
+ Focusing on 
+\emph on
+reactive instance variables
+\emph default
+ means emphasizes 
+\emph on
+de-centralization
+\emph default
+ in reactive variables.
+ This achieved by introducing 
+\emph on
+Non-Hierarchical FRP
+\emph default
+ (NH-FRP), in contrast to a conventional method in FRP of constructing hierarchi
+cal graphs.
+ (i.e., acyclic dependency graph, variables are connected to the input elements,
+ and subsequently variables depend on other variables) 
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Abstract
+————
+\end_layout
+
+\begin_layout Abstract
+Similar to reactive variable, each 
 \begin_inset Formula $\RIVar$
 \end_inset
 
@@ -160,6 +188,22 @@ s.
  Beside deriving the concept from reactive variable, the concept is derived
  also from instance variable, enabling the specification and runtime of
  data dependencies, as objects' internal behavior.
+\end_layout
+
+\begin_layout Abstract
+The thesis introuces 
+\emph on
+Non-Hierarchical FRP
+\emph default
+ (NH-FRP) that stands for changing from a conventional method of constructing
+ hierarchical graphs, where variables are connected to the input elements,
+ and subsequently variables depend on other variables, forming an acyclic
+ dependency graph (DAG).
+ 
+\end_layout
+
+\begin_layout Abstract
+—————
 \end_layout
 
 \begin_layout Abstract
@@ -204,6 +248,11 @@ s are implemented as observable streams that propagate values while preserving
 g and discarding older values.
  The order of the values is determined by timestamps attached to the values,
  which are derived from the input values.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract

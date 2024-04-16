@@ -87,6 +87,22 @@ name "chap:Conclusion"
 Conclusion
 \end_layout
 
+\begin_layout Standard
+This thesis enables to add filling options by just adding an assignment.
+ For example, specifying A:=b+1, A can be filled by filling B, while previous
+ filling options are still available.
+ The cost is the specific algorithm in the change propagation that takes
+ into considereation several filling options.
+\end_layout
+
+\begin_layout Section
+Add Filling Option
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Section
 Improving Directions
 \end_layout
@@ -100,7 +116,7 @@ Add Filling Options
 \end_layout
 
 \begin_layout Standard
-Among the fields 
+Among fields 
 \begin_inset Formula $\NAME{Drug}$
 \end_inset
 
@@ -113,7 +129,7 @@ Among the fields
 \end_inset
 
 , only two of them are required for documenting drugs' amount.
- Users can, for example, define quantities by setting only the 
+ Users can, for example, define quantities by setting only 
 \begin_inset Formula $\NAME{Drug}$
 \end_inset
 
@@ -193,15 +209,15 @@ Adding such redundancy can have a positive impact on the user experience.
 \begin_inset Formula $\NAME{Volume}$
 \end_inset
 
-, a formula 
+, users calculate 
 \begin_inset Formula $Concentration\times Volume$
 \end_inset
 
- is used to compute the value of 
+ out of the application for setting 
 \begin_inset Formula $\NAME{Drug}$
 \end_inset
 
- to set.
+.
 \end_layout
 
 \begin_layout Standard

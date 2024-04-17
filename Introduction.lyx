@@ -129,7 +129,11 @@ literal "false"
 \emph on
 dependencies
 \emph default
- (mentioned also as circular dependencies 
+ (mentioned also as 
+\emph on
+circular dependencies
+\emph default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "perez2015bridging"
@@ -137,7 +141,11 @@ literal "false"
 
 \end_inset
 
- and recursions 
+ and 
+\emph on
+recursions
+\emph default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -145,13 +153,19 @@ literal "false"
 
 \end_inset
 
+, can be calles also 
+\emph on
+loops
+\emph default
 ).
  While software dependencies can arise in many contexts, we focus specifically
  on cycles that occur when implementing dependencies between (mutable) variables.
  Therefore, in this thesis' scope, cycles means that a change in one variable
  causes transitively, through chain of changes, this same variable to again
  change its value.
- 
+ Sometimes, the flow continue, such that the second change produces a third
+ change, etc.
+ In the worst case, this chain continue endlessly.
 \end_layout
 
 \begin_layout Standard
@@ -183,14 +197,13 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-In Functional Reactive Programming (FRP), potentially cycles can be more
- explicity represented.
- In FRP, variables are specified in terms of each other, initiating dependencies
- to automatically update each other.
+In Functional Reactive Programming (FRP), potentially, cycles can be more
+ explicitly represented, since variables there are specified in terms of
+ each other, thus initiating dependencies to automatically update each other.
  For instance, A := f(B) indicates that A depends on B, meaning that when
- B's value changes, A's value is adjusted accordingly.
+ B’s value changes, A’s value is adjusted accordingly.
  Using this abstraction, B := g(A) establishes a dependency in a reversed
- direction, resulting in a cycle.
+ direction, resulting in a cycle
 \end_layout
 
 \begin_layout Standard
@@ -748,34 +761,34 @@ Semantic Investigations
 \end_layout
 
 \begin_layout Standard
-Methods of how to handle cycles can be learnt from Microsoft Excel.
+We herein explain conventional methods of handling cycles from Microsoft
+ Excel spreadsheet.
  In Excel, formulas are created in cells, referencing other cells.
  Any cell that contains a formula will contain values according to that
  formula.
- Therefore when a user update a cell, any cell that refer to it in its formula,
- is updated in response.
- In Excel, cycles are not allowed, but this change be changed by configuration.
+ Therefore when a user updates a cell, any cell that refers to it in its
+ formula, is updated in response.
+ Excel prohibits cycles.
+ However, this can be changed by configuration.
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
+https://support.microsoft.com/en-gb/office/change-formula-recalculation-iteration-
+or-precision-in-excel-73fc7dac-91cf-4d36-86e8-67124f6bcce4
 \end_layout
 
 \end_inset
 
  If cycles are enabled, it should be customized how to break cycles.
  Two methods do exist to break cycles.
- First, stopping after a customized number of iterations.
- Second, checking changes.
- If a value has not changed, or changed only less than a threshold, then
- it will continue to propagate.
+ The first one is stopping after a customized number of iterations.
+ The second method is checking changes; if a value has not changed, or changed
+ only less than a threshold, then it will continue to propagate.
 \end_layout
 
 \begin_layout Standard
-This style has been used by many.
- For example, in an SDK provided for developing plugins for Microsoft Dynamics,
+Likewise, in an SDK provided for developing plugins for Microsoft Dynamics,
  a property named Depth
 \begin_inset Foot
 status collapsed
@@ -824,6 +837,14 @@ operational semantics
 \emph on
 denotational semantics
 \emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
  would provide a more abstract interpretation, which ia more closed to problem
  domain than to solution domain.
  Likewise, cycles are sometimes considered as 
@@ -1196,7 +1217,7 @@ literal "false"
 
 \begin_layout Standard
 We also provide a concrete framework based on existing programming languages.
- An extension is created to the langage that includes RIVar as a datatype,
+ An extension is created to the language that includes RIVar as a datatype,
  implemented internaly as a class.
  The assignment operation for RIVar objects is defined as a method.
  Finaly for enabling expressions of RIVars, a Lift function is added.

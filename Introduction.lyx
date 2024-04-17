@@ -236,7 +236,7 @@ Redux
 \family default
 .
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 As described in 
@@ -276,7 +276,7 @@ Redux
 \end_layout
 
 \begin_layout Standard
-This design choice of acyclicity has its cost.
+The design choice of avoiding cycles has its cost.
  For example, the lack of a feature named 
 \family typewriter
 binding
@@ -295,7 +295,7 @@ literal "false"
 
 \end_inset
 
- (eqwivilent to Multi-way constraints 
+ (equivalent to multi-way constraints 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sannella1993multi"
@@ -365,24 +365,6 @@ literal "false"
  which in turn might create another update.
  This update could then feed back into the original FRP variable, creating
  a cycle.
-\end_layout
-
-\begin_layout Standard
-This challenge requires another new fresh perspective.
- We can achieve this by abstracting variables and dependencies as a 
-\emph on
-composite graph
-\emph default
-.
- A composite graph is a graph composed of simpler graphs or sub-graphs.
- This implies the separation of concerns principle, referring each sub-graph
- to represent a distinct concern.
- Accordingly, at a time, a single sub-graph can be observed without to observe
- any more nodes or vertices from other sub-graphs in the composite graph.
- In this setting, enforcing acyclicity (no cycles) can introduce strictness
- or bugs into the design.
- This is because subgraphs would ideally be free to add edges without worrying
- about accidentally creating a cycle.
 \end_layout
 
 \begin_layout Standard
@@ -866,8 +848,71 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-This hypothesis will be changed by a new investigation on cycles.
- We absract variables and dependencies as a directed graph, where each node
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Normaly, depedancies causes 
+\end_layout
+
+\begin_layout Plain Layout
+We use FRP, data dependencies initate data flow.
+ For example A:=B makes B to depends on A, and this makes a data flow from
+ B to A.
+ Consequently, representing data dependencies as edges have a direction
+ reversed from edges representd the resulted dataflow.
+ For example, the data deoendencies of A:=B seems A->B and the dataflow
+ seems B<-A.
+ Therefore, an incoming edge in dataflow inform a variable that depends
+ on an expression, or that it is an input variable (updated by a user or
+ any external input).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Returning back to cycle's starting point, which is a node with two incoming
+ edges.
+ This inform one of two cases.
+ First, a variable that is an input variable that also depends on an expression.
+ Second, a variable that depends on two expressions simultaneously.
+ For instance, a scenario where both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are present and 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is an input variable, from where values are propagated.
+ Similarly, an addition of 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+ while 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ is the input variable.
+ From this investigation, we find a new semantic to cycles as belonged to
+ a broader concept, that any variable can depend on several expressions
+ simultaneously.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Methodology
+\end_layout
+
+\begin_layout Standard
+We absract variables and dependencies as a directed graph, where each node
  represent a variable, and the edges are constructed according to flow of
  updates.
  In a cycle, we start from an incoming edge into a node, that is a cycle's
@@ -1113,161 +1158,29 @@ Dataflow into and through a cycle.
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Normaly, depedancies causes 
-\end_layout
-
-\begin_layout Plain Layout
-We use FRP, data dependencies initate data flow.
- For example A:=B makes B to depends on A, and this makes a data flow from
- B to A.
- Consequently, representing data dependencies as edges have a direction
- reversed from edges representd the resulted dataflow.
- For example, the data deoendencies of A:=B seems A->B and the dataflow
- seems B<-A.
- Therefore, an incoming edge in dataflow inform a variable that depends
- on an expression, or that it is an input variable (updated by a user or
- any external input).
- 
-\end_layout
-
-\begin_layout Plain Layout
-Returning back to cycle's starting point, which is a node with two incoming
- edges.
- This inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- Second, a variable that depends on two expressions simultaneously.
- For instance, a scenario where both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable, from where values are propagated.
- Similarly, an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
- From this investigation, we find a new semantic to cycles as belonged to
- a broader concept, that any variable can depend on several expressions
- simultaneously.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Contribution
 \end_layout
 
-\begin_layout Paragraph*
-Approach
-\end_layout
-
 \begin_layout Standard
-This challenge requires another new fresh perspective.
- We can achieve this by abstracting variables and dependencies as a 
+We introduce a paradigm that variables and dependencies form a 
 \emph on
 composite graph
 \emph default
 .
  A composite graph is a graph composed of simpler graphs or sub-graphs.
+ Subgraphs are free to add edges without worrying about accidentally creating
+ a cycle.
  This implies the separation of concerns principle, referring each sub-graph
  to represent a distinct concern.
  Accordingly, at a time, a single sub-graph can be observed without to observe
  any more nodes or vertices from other sub-graphs in the composite graph.
- In this setting, enforcing acyclicity (no cycles) can introduce strictness
- or bugs into the design.
- This is because subgraphs would ideally be free to add edges without worrying
- about accidentally creating a cycle.
-\end_layout
-
-\begin_layout Paragraph
-Semantics 
 \end_layout
 
 \begin_layout Standard
-We absract variables and dependencies as a directed graph, where each node
- represent a variable, and the edges are constructed according to flow of
- updates.
- In a cycle, we start from an incoming edge into a node, that is a cycle's
- starting point, then through several nodes untill reaching again the first
- node from another edge.
- Yet, it is discovered, that a cycle's starting point has two incoming edges.
- 
-\end_layout
-
-\begin_layout Standard
-We make like reverse-engineering: according to such a graph, we name as
- 
-\emph on
-dataflow graph
-\emph default
-, we find the variables' dependencies from which this dataflow was constructed.
- For example, an edge from B towards A indicates that A depends on B by
- a formula like A:=f(B).
- Consequently, a cycle's starting point, which is a node with two incoming
- edges, inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- For instance, a scenario where both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable.
- Second, a variable that depends on two expressions simultaneously.
- An example for this case, is an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- to the previous example, while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
- 
-\end_layout
-
-\begin_layout Standard
-From this investigation, we find a new semantic to cycles as belonged to
- a broader concept, that any variable can depend on several expressions
- simultaneously.
-\end_layout
-
-\begin_layout Paragraph*
-Framework
-\end_layout
-
-\begin_layout Standard
-We introduce a framework such that objects of OOP can contain subgraphs
- explicity declared.
- The framework can also provide as introducing RIVar, that is Reactive Instance
- (or Interface) Variable.
- Reactive Instance Variables harmonizes the concepts reactive variable
+As a conceptual framework, we introduce Reactive Instance Variable, RIVar
+ for short, that extends OOP framework.
+ RIVar harmonizes the concept of reactive variable
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -1275,43 +1188,36 @@ literal "false"
 
 \end_inset
 
- from FRP with instance variable from OOP.
-\end_layout
-
-\begin_layout Paragraph*
-Impementation
+, from the reactive programming paradigm, with instance variable from the
+ Object Oriented paradigm.
+ Its main feature is an assignment operator, by which a composite graph
+ is constructed, such that each object contains a subgraph.
 \end_layout
 
 \begin_layout Standard
-We provide 
-\begin_inset Formula $\NAME{RIVarX}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.nuget.org/packages/RIvar.RIvarX
+We also provide a concrete framework based on existing programming languages.
+ An extension is created to the langage that includes RIVar as a datatype,
+ implemented internaly as a class.
+ The assignment operation for RIVar objects is defined as a method.
+ Finaly for enabling expressions of RIVars, a Lift function is added.
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-, a package with extensions for 
+\begin_layout Standard
+Such extensions have been created as a proof of concept.
+ For the 
 \begin_inset Formula $\LSTINLINE{C\#}$
 \end_inset
 
- programming language, and also 
+ programming language, we offer a package called 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+, we provide an npm package named 
 \begin_inset Formula $\NAME{rivarjs}$
 \end_inset
 
@@ -1335,13 +1241,13 @@ https://www.npmjs.com/package/rivarjs
 
 \end_inset
 
- a package with extensions for 
-\begin_inset Formula $\NAME{JavaScript}$
+.
+ 
+\begin_inset Formula $\NAME{rivarjs}$
 \end_inset
 
- programming language.
- The later is provided as a state management solution, that has integration
- with 
+ functions as a state management solution that integrates seamlessly with
+ 
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
@@ -1369,44 +1275,44 @@ https://react.dev/
 \end_layout
 
 \begin_layout Paragraph*
-Case study
-\end_layout
+\begin_inset Note Note
+status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ————-
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We suggest this frameowrk
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 OOP and FRP are harmonized such that each object contain a subgraph declared
  as in FRP.
  Object composition and inheritance
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The subgraphs are connected and form
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Composite graphs are created from referncing variables of other
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Objects compositions and inheritance 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The subgraphs are composed in a composite graph, because variables are 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 variables are part of the object interface
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We introduce RIVar, that is Reactive Instance (or Interface) Variable, which
  harmonizes reactive variable
 \begin_inset CommandInset citation
@@ -1420,7 +1326,7 @@ literal "false"
  Each object represent a subgraph, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our main contribution is a new concept named RIVar, that is Reactive Instance
  (or Interface) Variable.
  This will harmonize nicely the concepts reactive variable
@@ -1437,12 +1343,12 @@ literal "false"
  of depedancies.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our goal is, that it will enable a framework that each object can contain
  variables and assignments.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 According to the new concept, the assignment operator
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1460,16 +1366,16 @@ literal "false"
  correct.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 RIVar is designed to be an observer of the expressions bound to it, which
  are observables.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The bound expressions are managed localy, as the variable
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Our main contribution is a new concept named RIVar, that is Reactive Instance
  (or Interface) Variable.
  RIVar is a variable of a new generation, because it harmonizes features
@@ -1482,47 +1388,47 @@ Our main contribution is a new concept named RIVar, that is Reactive Instance
  This enables a framework that each object can contain variables and assignments.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 decoupling, such that each object can have responsibility that consists
  of variables and assignments.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This enable to assign from outside of objects or interfaces, so that their
  consumers can assign as their internal behavior.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This enable to assign without being aware of other assignments.
  Therefore, assigning variables from outside of objects or interfaces is
  correct.
  This enable to design 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We design and implement this as extensions.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 without to aware of other assignments.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 As its name, it is both reactive and associated to object, which means an
  automation in updates and decoupling.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 As its name, it is reactive variable, because its 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 For example, the assignment of RIVar bind the expression to it rather than
  change it.
  similar to the functional 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The main contribution in this thesis, is in introducing a new method for
  applying separation of concerns.
  This is provided as a new framework that harmonizes concepts from FRP and
@@ -1538,43 +1444,43 @@ The main contribution in this thesis, is in introducing a new method for
  to the new method, and compare its effectiveness with alternative designs.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We evaluate this method by designing 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The evaluation of this method 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The new method is evaluated using a case study.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 in objects.
  like reactive variables, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 such a variable is continously re-evaluated to its assigned expression
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 One interseted concept 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Harmonized from the two worlds, we form a new concept named reactive instance
  variables.
  reactive variable determine the explicit data flow in the code, and instance
  variable determinzes
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We provide a noval approach to cycles in software developments, and put
  it into practice.
  We introduce a framework, where each class of OOP contain a variables and
@@ -1587,26 +1493,26 @@ We provide a noval approach to cycles in software developments, and put
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 First, we provide a motivation problem, an poored design application due
  acycliclicity in depedancies.
  Then we explain NH-FRP and the framework...
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ——–
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 and out of a problem that software solves, a concept that is often discussed
  in software development and design, an idea of abstraction and granularity.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We name, 
 \begin_inset Quotes eld
 \end_inset
@@ -1624,7 +1530,7 @@ zooming in
  is handled indepedently.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In software development, the ability to zoom in and out on the problem that
  software solves is a concept often discussed in software development and
  design.
@@ -1634,11 +1540,11 @@ In software development, the ability to zoom in and out on the problem that
  concern are handled independenctly, without to observe other concrens 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —–
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 One concept named one way unindirectional dataflow, with its contrary, multi
  directional dataflow.
  This concept refer to directions of data flow among components.
@@ -1651,11 +1557,11 @@ One concept named one way unindirectional dataflow, with its contrary, multi
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 One-way unindirectional dataflow strict that data flows 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In FRP, two opposing methods do exist about cycles.
  In one method, cycles are avoided, because the paradigm derived from the
  functional paradigm, with the referential transparency property 
@@ -1727,7 +1633,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Sometimes, it is claimed that cycles should be avoided to achive predictability.
  For example, FRP is inspired from the functional paradigm 
 \begin_inset CommandInset citation
@@ -1788,48 +1694,48 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —-
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 FRP is a research field used to provide predictable algorithms to propogate
  changes.
  The explicitness of the data dependencies and the namangement 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to manage this inpredctable, the data dependencies graph are used
  to by acylic.
  The acylicy helps to provide efficient and predictable algorithm to propogate
  changes.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 For example
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Another approach used to avoid cycles.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Executing an arbitary number of iterations might In FRP, various algorithms
  have been introduced, even 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 An example of preventing cilular references is in React that uses unindirectlion
 al data flow to prevents cycles.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Functional Reactive Programming is a new paradigm based on the functional
  paradigm, where variables are defined in terms of other variables like
  functions are defined in terms of each other.
@@ -1843,7 +1749,7 @@ Functional Reactive Programming is a new paradigm based on the functional
  the direction of the data flow in runtime.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In large scale applications, we name, 
 \begin_inset Quotes eld
 \end_inset
@@ -1861,24 +1767,24 @@ zooming in
  is handled indepedently.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 that aims to solve complexity in programming, by explict data dependencies
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 , where data dependencies are identified explicity to make the langiage
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 It might be even limitations in provided tools to prevent 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 (available in 
 \emph on
 Microsoft Excel
@@ -1897,38 +1803,38 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In frameworks like react, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Frameworks in which variables are expressed in terms of other variables
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Frameworks, data dependencies are expor
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 There are two approaches: to break the cycles to not to create infinite
  loops or to not create cycles at all.
  We can learn from Angular, how to break cycles.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Generaly, the approach is to avoid cycles or to break them to not create
  infinite loops.
  One example is redux
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 break cycles and to avoid infinite loops.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Many frameworks allow to declare 
 \emph on
 data dependencies
@@ -1936,7 +1842,7 @@ data dependencies
  explicity, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to organazie the code to avoid such cycles, it is suggested to
  declare 
 \emph on
@@ -1946,22 +1852,22 @@ data dependencies
  Other than in event paradigm, that 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 and and again re-updated in another execution of this event handler, as
  a result from 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Such a cycle in events leads to cycles in the vatiables
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Various paradigms, frameworks and libraries aims to provide high level abstracti
 ons for managing state.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \emph on
 Cycles
@@ -1975,11 +1881,11 @@ Cycles
  an event from which it was originaly triggered.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In a more higher level, variables depend on each othern
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the Functional Reactive Programming, the graph by which the variables
  are affected each other is explicity declared.
  In FRP, there is no room that code inform changes in variables, so that
@@ -1988,52 +1894,52 @@ In the Functional Reactive Programming, the graph by which the variables
  update the variables.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Declaring A:=B+C means that A depends on B and C, because its value 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to avoid inpredictable executions or updates
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 But we need to be more precize in our meaning for cycles.
  The first
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to completely understand cycles, we have to 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Consequently, an event handler might be triggered indirectly from itself.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This causes sometimes to cycles because an event handler might be triggered
  indirectly from itself.
  But we need to be careful when we are talking about
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In such executions, an event handler can be triggered indirectly by itself.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This causes sometimes to cycles, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 as the same event handler can be trigerred therefore might trigger them
  again.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 FRP is a paradigm to express the flow directly.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —-
 \end_layout
 
@@ -2041,16 +1947,16 @@ FRP is a paradigm to express the flow directly.
 Variables and Reactivity
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 variables are like data store , holding values.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 the memory locations refered by names.
  Typicaly the variable
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ————–
 \end_layout
 
@@ -2058,7 +1964,7 @@ the memory locations refered by names.
 Variables and Reactivity
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In software programming, mutable variables refer to variables as memory
  locations that can be updated by the assignment operator, and can be read
  in order to update other variables accordingly.
@@ -2090,12 +1996,12 @@ In software programming, mutable variables refer to variables as memory
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The framework is extended to provide a mechanism to that variables will
  be updated according to other variables, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Next, additional code is introduced to notify potential readers about changes.
  For example, 
 \begin_inset Formula $\LSTINLINE{A=1;OnChangeA(A)}$
@@ -2117,16 +2023,16 @@ Next, additional code is introduced to notify potential readers about changes.
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to keep on consistency, variables should be updated whenever the
  other related variables changed.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In case that the code is inaccesible, while 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 For achiving data syncroization, no mechanism inform potential readers of
  changes.
  For example, creating a varable 
@@ -2144,7 +2050,7 @@ For achiving data syncroization, no mechanism inform potential readers of
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Consequently, readers must periodically read the values, leading to high
  resource consumption costs.
  Additionally, the first approach tends to involve making changes directly
@@ -2155,12 +2061,12 @@ Consequently, readers must periodically read the values, leading to high
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 two options are avilable.
  First, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We gradually identify abstractions for managing variables:
 \end_layout
 
@@ -2231,7 +2137,7 @@ Finally, these components are intertwined, enabling writing into a variable
  is updated automatically to reflect this new value.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Through those abstractions there exists 
 \emph on
 accidental
@@ -2257,7 +2163,7 @@ accidental
  into variables triggers potential readers to read the changes.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This thesis's contribution is providing even a more clean abstraction by
  abstracting out accidental 
 \emph on
@@ -2297,7 +2203,7 @@ cycles
  as they are supported and considered meaningful.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We introduce this paradigm by adapting it to Object-Oriented Programming
  (OOP)
 \begin_inset Foot
@@ -2375,15 +2281,15 @@ Data Dependencies and Dataflow
 Circular Dependencies
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 that the left hand variable 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 where 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
@@ -2421,7 +2327,7 @@ where
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula $\RIVar$
 \end_inset
 
@@ -2449,11 +2355,11 @@ instance
  The name reactive refer to the contino 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This enables creating formulas as 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 so that they can be associated externally like using 
 \emph on
 setters
@@ -2482,7 +2388,7 @@ cts/using-properties
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This paradigm is based on Object Oriented Programming (OOP) with encapsulation.
  We name 
 \emph on
@@ -2572,11 +2478,11 @@ cts/using-properties
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We are advancing towards a new paradigm of 
 \emph on
 reactive instance
@@ -2668,16 +2574,16 @@ cts/using-properties
  is an instance variable of the current class.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —-
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 that the software solves.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Through those abstractions there exists a complexity that a variable change
  might indirectly result from itself.
  Simply depicted, if 
@@ -2712,7 +2618,7 @@ Through those abstractions there exists a complexity that a variable change
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Depending on how users see the software, complexity is considered as 
 \emph on
 accidental
@@ -2721,12 +2627,12 @@ accidental
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We aims to adds required abstractions for abstracting out complexity related
  to cycles or loops.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Depending on the problem, this complexity can inherent in the problem that
  the software solves as seen by the users, or accidental as it arises only
  through the implementation.
@@ -2734,15 +2640,15 @@ Depending on the problem, this complexity can inherent in the problem that
  accidental, because 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 —
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Functional Reactive Programming (FRP)
 \begin_inset space ~
 \end_inset
@@ -2903,7 +2809,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -3043,7 +2949,7 @@ literal "false"
 \end_inset
 
  means an input of 
-\begin_inset Formula $\LSTINLINE1$
+\begin_inset Formula $\LSTINLINE 1$
 \end_inset
 
  to 
@@ -3055,12 +2961,12 @@ literal "false"
 \end_inset
 
  to 
-\begin_inset Formula $\LSTINLINE2$
+\begin_inset Formula $\LSTINLINE 2$
 \end_inset
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE+$
+\begin_inset Formula $\LSTINLINE +$
 \end_inset
 
  in the example) are converted (or lifted) from operating over values to
@@ -3247,7 +3153,7 @@ Reactive variables example.
 
 .
  Consequently, the subsequent 
-\begin_inset Formula $\LSTINLINE=$
+\begin_inset Formula $\LSTINLINE =$
 \end_inset
 
  operations of assigning values to 
@@ -3414,7 +3320,7 @@ lstinline{B}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We are advancing towards a new paradigm of 
 \emph on
 reactive instance
@@ -3506,7 +3412,7 @@ cts/using-properties
  is an instance variable of the current class.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Focusing on 
 \begin_inset Formula $\RIVar$
 \end_inset
@@ -3587,7 +3493,7 @@ literal "false"
 .)
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The research direction focuses on de-centralization by enabling cycles in
  data dependencies.
  This approach stands in contrast to a conventional method of constructing
@@ -3614,7 +3520,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -3854,7 +3760,7 @@ y re-evaluated according to updates in the dependencies.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -3898,7 +3804,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -3956,7 +3862,7 @@ The research direction stems from an analysis of the impact of preventing
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -3985,7 +3891,7 @@ status collapsed
 \end_layout
 
 \begin_layout Plain Layout
-Accordingly, 
+Accordingly,
 \end_layout
 
 \begin_layout Plain Layout
@@ -4036,7 +3942,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4075,7 +3981,7 @@ instance variable
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4105,7 +4011,6 @@ Reactive Instance Variable,
 
 s), this thesis introuduces a new variant for FRP named Non-Hierarchical
  FRP (NH-FRP) with an embedded support for cycles.
- 
 \end_layout
 
 \end_inset
@@ -4113,14 +4018,13 @@ s), this thesis introuduces a new variant for FRP named Non-Hierarchical
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
 because objects can contain formulas as internal behavior and the updates
  in runtime are also managed privatly.
- 
 \end_layout
 
 \end_inset
@@ -4128,7 +4032,7 @@ because objects can contain formulas as internal behavior and the updates
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4156,7 +4060,7 @@ s are managed as objects' internal behavior.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4183,7 +4087,7 @@ reactive instance variables
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4265,19 +4169,17 @@ literal "false"
 
  suggests an alternative mechanism the centerlized mechanism that have access
  to the entire dependancy graph.
- 
 \end_layout
 
 \begin_layout Plain Layout
 this includes two stages.
  First, a centerlized mechanism that have access to the entire dependancy
  graph.
- Second, 
+ Second,
 \end_layout
 
 \begin_layout Plain Layout
 FRP still does not provide a better solution in this aspect.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -4303,11 +4205,11 @@ Two stages do exist in the task: declaring the calculations and the runtime.
 \begin_layout Plain Layout
 .
  First to depedencies.
- The decenterlized implemention need 
+ The decenterlized implemention need
 \end_layout
 
 \begin_layout Plain Layout
-A possible reason is that adding 
+A possible reason is that adding
 \end_layout
 
 \begin_layout Plain Layout
@@ -4367,7 +4269,7 @@ literal "false"
 \end_inset
 
 .
- For the centerliation in code, there is a problem 
+ For the centerliation in code, there is a problem
 \end_layout
 
 \begin_layout Plain Layout
@@ -4387,7 +4289,6 @@ literal "false"
 
 , most of the implementations depends on a centerlized mechanism that have
  access to the entire dependancy graph.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -4396,7 +4297,7 @@ The centerlization consists of two parts.
 \end_layout
 
 \begin_layout Plain Layout
-second, in the code itself, 
+second, in the code itself,
 \end_layout
 
 \begin_layout Plain Layout
@@ -4505,7 +4406,7 @@ literal "false"
 \end_layout
 
 \begin_layout Plain Layout
-This work is motivated 
+This work is motivated
 \end_layout
 
 \begin_layout Plain Layout
@@ -4585,7 +4486,7 @@ We focus on enabling calculation without those conditions.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4596,17 +4497,16 @@ Generally, the graph is managed in a centerlized mannar.
 \begin_layout Plain Layout
 In order to implemented the reactive variables correctly, the graph is managed
  in a centerlized mannar, otherwize there might be inpredictable behavior.
- 
 \end_layout
 
 \begin_layout Plain Layout
 In order to improve the error-prone development of reactive variables or
- fields calculations, 
+ fields calculations,
 \end_layout
 
 \begin_layout Plain Layout
 The development of fields calculations is error prone.
- Therefore 
+ Therefore
 \end_layout
 
 \begin_layout Plain Layout
@@ -4664,7 +4564,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4710,7 +4610,7 @@ https://rxjs.dev/guide/scheduler
 
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
@@ -4718,7 +4618,7 @@ https://rxjs.dev/guide/scheduler
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4896,7 +4796,7 @@ s, outdated values are filtered out.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4939,7 +4839,7 @@ s), as they can be assciated to objects.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -4994,7 +4894,7 @@ noprefix "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -5035,14 +4935,13 @@ literal "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
 an API based on some OOP design patterns, to treat variables as streams
  of their changes.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5156,7 +5055,7 @@ es (without a central madiator).
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -5205,7 +5104,6 @@ In the paradigm of OOP, there are abstraction mechanism to manage the source
  according to business needs, then changes in the code that handle data
  dependencies in one component might lead to require other components to
  be changed accordingly.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5418,7 +5316,7 @@ In the Object Oriented Paradigm (OOP) difrent parts of the application in
 \begin_layout Plain Layout
 applications are modeled as objects that the components can usesuggests
  to form applications by objects to be used model running components or
- that can extend and compose each other, that can react to 
+ that can extend and compose each other, that can react to
 \end_layout
 
 \begin_layout Plain Layout
@@ -5430,7 +5328,6 @@ s.
  to business needs, then changes in the code that handle data dependencies
  in one component might lead to require other components to be changed according
 ly.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5452,7 +5349,6 @@ literal "false"
 \begin_layout Plain Layout
 it might be hard as every large application, that contains too much details
  to the developer think.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5461,7 +5357,7 @@ the complex or huge logic, in the form of uge amount of data depedencies.
 
 \begin_layout Plain Layout
 the huge amount of data depedecies might be hard to manage as it is complex
- logic 
+ logic
 \end_layout
 
 \begin_layout Plain Layout
@@ -5484,7 +5380,6 @@ literal "false"
 .
  In FRP, the goal is that the developer has a langague to express the data
  dependenies directly.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5517,7 +5412,6 @@ code changes.
  from several components.
  Changes in the code that handle data dependencies in one component might
  lead to require other components to be changed accordingly.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5716,7 +5610,7 @@ add computed field
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -8184,6 +8078,11 @@ status open
 \begin_layout Plain Layout
 
 https://react.dev/
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

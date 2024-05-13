@@ -113,7 +113,7 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-In software programming, developers sometimes encounter 
+In software programming, developers are sometimes encounter 
 \emph on
 cycles 
 \emph default
@@ -125,11 +125,7 @@ literal "false"
 
 \end_inset
 
- in 
-\emph on
-dependencies
-\emph default
- (mentioned also as 
+, 
 \emph on
 circular dependencies
 \emph default
@@ -141,104 +137,19 @@ literal "false"
 
 \end_inset
 
- and 
-\emph on
-recursions
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, can be calles also 
-\emph on
-loops
-\emph default
-).
- While software dependencies can arise in many contexts, we focus specifically
- on cycles that occur when implementing dependencies between (mutable) variables.
- Therefore, in this thesis' scope, cycles means that a change in one variable
- causes transitively, through chain of changes, this same variable to again
- change its value.
- Sometimes, the flow continue, such that the second change produces a third
+ or similar.
+ For variables, it means that a change in one variable (of its contained
+ value) causes transitively, through a chain of changes, this same variable
+ to change again.
+ Typically, the flow continues, such that the second change produces a third
  change, etc.
- In the worst case, this chain continue endlessly.
+ In the worst case, this chain continues endlessly, breaking programs unexpected
+ly.
 \end_layout
 
 \begin_layout Standard
-For example,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Our presentation is based on Tetsuo Kaminaa at al
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kamina2018"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
- in using event-based programming, each event handler can trigger more events,
- in-awaring of the events from which they have been triggered.
- Therefore it is likely that an event handler transitively triggers an event
- from which it was originally triggered.
- If a variable is updated by an event handler, and this event handler triggers
- more events which lead to execute again this event handler, the variable
- is re-updated.
-\end_layout
-
-\begin_layout Standard
-In Functional Reactive Programming (FRP), potentially, cycles can be more
- explicitly represented, since variables there are specified in terms of
- each other, thus initiating dependencies to automatically update each other.
- For instance, A := f(B) indicates that A depends on B, meaning that when
- B’s value changes, A’s value is adjusted accordingly.
- Using this abstraction, B := g(A) establishes a dependency in a reversed
- direction, resulting in a cycle
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-This thesis discusse against an argument, that hirarchial data is a nececray
- condition for achiving predictability.
- This argument is inspired from several 
-\end_layout
-
-\begin_layout Plain Layout
-This argument are inferred 
-\end_layout
-
-\begin_layout Plain Layout
-Many couple predictability with the acylciity for graphs that abstract the
- depedancies.
- This represent an argument that hirarchial data is a nececray condition
- for achiving predictability.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Why Cycles Matters
-\end_layout
-
-\begin_layout Standard
-Cycles are often challenged applications' developers and library designers.
+Consequently, software developers are often forced to break the cycles by
+ creating hierarchical data models.
  A remarkable example is a birth of 
 \family typewriter
 React
@@ -285,489 +196,48 @@ Redux
  provides an alternative approach that proposes a design that data flow
  in one direction, such that data flows from each component to its child
  components.
- 
+ This way protects developers from encounter cycles.
 \end_layout
 
 \begin_layout Standard
-The design choice of avoiding cycles has its cost.
- For example, the lack of a feature named 
-\family typewriter
-binding
-\family default
-, by which variables are decleratively bound, so that a change in one variable
- update the other variable and vise verca.
- A similar feature is named multidirectionality
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
- (equivalent to multi-way constraints 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-) that means that when neccesary, changes in derived values are propagated
- back to the values from which they were derived.
- 
-\end_layout
-
-\begin_layout Standard
-Another example for the challenging is in FrTime 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-.
- In the design of FrTime, a special 
-\family typewriter
-delay
-\family default
- operator is implemented in order to handle cycles.
- Similarly, Sodium 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- provides a special constructs named 
-\family typewriter
-CellLoops
-\family default
- and 
-\family typewriter
-StreamLoops
-\family default
- for handling cycles.
- Another example is in a feature called 
-\family typewriter
-reactive variables
-\family default
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- to imperative languages.
- The feature limits the dependents to the lexical scope of its declaration
- for being acyclic.
- Sodium also hold a concept transaction for handling cycles created from
- integrating FRP with event handling code.
- A change propagated through an FRP variable can trigger an event handler,
- which in turn might create another update.
- This update could then feed back into the original FRP variable, creating
- a cycle.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Cycles are traditionaly considered has causing negative effects.
- They are sometimes considered as 
+By far, the semantics given for cycles is 
 \emph on
-accidental
-\begin_inset space ~
-\end_inset
-
-
+operational semantics
 \emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, i.e., complexity that is not inherent in the problem that the software solves
- (as seen by the users) but arises only from the implementation.
- For example, the birth of React is to solve cycles created in MVC.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Also in declerative frameworks like Angular, cycles has a mining as something
- to handle, rather than a more absrract meaning.
- Indeed, cycles are sometimes considered as 
-\emph on
-accidental
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, i.e., complexity that is not inherent in the problem that the software solves
- (as seen by the users) but arises only from the implementation.
-\end_layout
-
-\begin_layout Plain Layout
-An effort 
-\end_layout
-
-\begin_layout Plain Layout
-This opposed appraoches exist in frameworks provided for fornt end programming.
- Frameworks like Angular support a feature named binding.
- This feature enables view and model to interacts, so that models are updated
- according to the view and vice versa.
- This is mentioned sometimes as multidirectional dataflow, as data flows
- among components in mutipal directions.
- An alternative approach propsed a design data flow in one direction.
- This approach is used in React, when data flows from each component to
- its child components.
- This aims to provide predictability.
- It should be noted, that user events are produced from the view into a
- state managemnt manager, that is consumed by the components, and this integrati
-on might create accidental cycles.
-\end_layout
-
-\begin_layout Plain Layout
-The oppsed approaches affects also a feature named multidirectionality 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
 .
- This feature means that when neccesary changes in derived values are propagated
- back to the values from which they were derived.
- For example, 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
-implies that whenever a new value of either A or B is available the other
- value is updated.
- In the constraints programming paradigm, there are local propagation solvers,
- that are similar to FRP with and without multidirectionality.
- Solvers with multidirectionality are sometimes mentioned as more challenged
- to implement than solvers without multidirectionality, while solvers with
- multidirectionality may provide a more frienly framework 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-—
-\end_layout
-
-\begin_layout Plain Layout
-Opinions among researchers are divided regarding whether to support cycles.
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to a second approach, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-Cycles are matter.
- This is obvious as it is frequesntly discussed explicity and implcity in
- resraches and tools documentations.
- In FRP
-\end_layout
-
-\begin_layout Plain Layout
-For example, FrTime 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
- has special 
+ Operational semantics describes the behavior of a program in terms of the
+ steps taken to execute it.
+ To illustrate this concept, we will examine conventional methods for handling
+ cycles within 
 \family typewriter
-delay
+Microsoft Excel
 \family default
- operator to handle cycles.
-\end_layout
-
-\begin_layout Plain Layout
-Another example, Sodium 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
+.
+ There, cells can contain formulas that determine their values based on
+ the values of other cells.
+ These formulas reference other cells.
+ For example, cell 
+\begin_inset Formula $\LSTINLINE{A1}$
 \end_inset
 
- provides a special constructs named 
-\family typewriter
-CellLoops
-\family default
- and 
-\family typewriter
-StreamLoops
-\family default
- to allow cycles, that should be declared under an explicit transaction.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Actualy, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
+ can contain the formula 
+\begin_inset Formula $\LSTINLINE{=B1+C1}$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Plain Layout
-Sodium has special constructs to handle cycles.
-\end_layout
-
-\begin_layout Plain Layout
-Stephen Blackheath at al 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
+ When a user updates the value in cell 
+\begin_inset Formula $\LSTINLINE{B1}$
 \end_inset
 
- adds to 
-\end_layout
-
-\begin_layout Plain Layout
-In many frameworks and resraches, there is considerstion of cycles.
- Forbidding cycles makes FRP unacceptably weak, because many applications
- have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
+ or 
+\begin_inset Formula $\LSTINLINE{C1}$
 \end_inset
 
-.
- However, 
-\end_layout
-
-\begin_layout Plain Layout
-Opinions among researchers are divided regarding whether to support cycles.
- In FRP, One approach is to avoid 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
+, the value in cell 
+\begin_inset Formula $\LSTINLINE{A1}$
 \end_inset
 
-.
- FRP is derived from Functional Programming (FP).
- For example, Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
-, so that each value of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the value of 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- In FP we achive
-\emph on
- referential transparency
-\emph default
-, which means that input consistently produces the same output.
- If cycles do exist, it produces
-\end_layout
-
-\begin_layout Plain Layout
-The paradigm is derived from the functional paradigm, with the referential
- transparency property.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
-, so that each value of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the value of 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to referential transparency, meaning the input consistently
- produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to a second approach, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-This opposed appraoches exist in frameworks provided for fornt end programming.
- Frameworks like Angular support a feature named binding.
- This feature enables view and model to interacts, so that models are updated
- according to the view and vice versa.
- This is mentioned sometimes as multidirectional dataflow, as data flows
- among components in mutipal directions.
- An alternative approach propsed a design data flow in one direction.
- This approach is used in React, when data flows from each component to
- its child components.
- This aims to provide predictability.
- It should be noted, that user events are produced from the view into a
- state managemnt manager, that is consumed by the components, and this integrati
-on might create accidental cycles.
-\end_layout
-
-\begin_layout Plain Layout
-The oppsed approaches affects also a feature named multidirectionality 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- This feature means that when neccesary changes in derived values are propagated
- back to the values from which they were derived.
- For example, 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
-implies that whenever a new value of either A or B is available the other
- value is updated.
- In the constraints programming paradigm, there are local propagation solvers,
- that are similar to FRP with and without multidirectionality.
- Solvers with multidirectionality are sometimes mentioned as more challenged
- to implement than solvers without multidirectionality, while solvers with
- multidirectionality may provide a more frienly framework 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Semantic Investigations
-\end_layout
-
-\begin_layout Standard
-We herein explain conventional methods of handling cycles from Microsoft
- Excel spreadsheet.
- In Excel, formulas are created in cells, referencing other cells.
- Any cell that contains a formula will contain values according to that
- formula.
- Therefore when a user updates a cell, any cell that refers to it in its
- formula, is updated in response.
+ will automatically recalculate to reflect the changes.
  Excel prohibits cycles.
  However, this can be changed by configuration.
 \begin_inset Foot
@@ -788,52 +258,7 @@ or-precision-in-excel-73fc7dac-91cf-4d36-86e8-67124f6bcce4
 \end_layout
 
 \begin_layout Standard
-Likewise, in an SDK provided for developing plugins for Microsoft Dynamics,
- a property named Depth
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://learn.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.iexecutioncontext.depth
-?view=dataverse-sdk-latest
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- is provided.
- This property are provided for plugins registered in an update message,
- containing a number that is increased when a plugin is re-executed as a
- result of its own execution.
- A developer can compare the value of Depth, and customizing a logic for
- updates according to the iterations.
- This helps to avoid an infinite loop, that each update message cause a
- plugin to exeute which in turn, call update, that cause again an update
- message and so on.
- The method to stop propagation according to changes detection, is typicaly
- provided as well.
- In most SDK, code have have access during the execution the old and new
- values, to be compared and detect changes.
-\end_layout
-
-\begin_layout Standard
-By far, the semantics given for cycles is 
-\emph on
-operational semantics
-\emph default
-.
- Operational semantics describes the behavior of a program in terms of the
- steps taken to execute it.
- Another semantic type, 
+In this thesis, we focus on introducing 
 \emph on
 denotational semantics
 \emph default
@@ -845,9 +270,175 @@ literal "false"
 
 \end_inset
 
- would provide a more abstract interpretation, which ia more closed to problem
+, which would provide a more abstract interpretation, more closed to problem
  domain than to solution domain.
- Likewise, cycles are sometimes considered as 
+ This concept is equivalent to extract out 
+\emph on
+accidental
+\emph default
+ complexity.
+ This concept refers to complexity that arises from the applications development
+, rather than from the complexity of the business domain 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "moseley2006out"
+literal "false"
+
+\end_inset
+
+.
+ Since cycles will not be a concern of the implementation, it is expected
+ that creation of at least some tools or real-life applications will be
+ improved.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+In this thesis, we focus on introducing 
+\emph on
+denotational semantics
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, which would provide a more abstract interpretation, more closed to problem
+ domain than to solution domain.
+ This concept is equivalent to extract out 
+\emph on
+accidental
+\emph default
+ complexity.
+ This concept refers to complexity that arises from the applications development
+ (rather than from the complexity of the business domain) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "moseley2006out"
+literal "false"
+
+\end_inset
+
+.
+ Cycles have been considered as 
+\emph on
+accidental
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, while cycles are stopped from being a concern of the implementation.
+ Since cycles will have an interpretation closed to users perspective, we
+ would be more planned open to encounters with them in real life applications.
+\end_layout
+
+\begin_layout Plain Layout
+Accidental complexity is complexity that is not of essential difficulty
+ from the problem domain.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+We extract out cycles have been presented as 
+\emph on
+accidental recursion
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+that is not of essential difficulty from the problem domain.
+\end_layout
+
+\begin_layout Plain Layout
+Since we extract out the need to handle cycles as 
+\emph on
+accidental complexity.
+\end_layout
+
+\begin_layout Plain Layout
+This concept is equivalent to extract out complexity that is not of essential
+ difficulty from the problem domain.
+ Cycles have been presented as 
+\emph on
+accidental recursion
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+This difficulty is named 
+\emph on
+accidental.
+
+\emph default
+ because cycles have been presented as 
+\emph on
+accidental recursion
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+named as
+\emph on
+ accidental
+\emph default
+, while essential
+\end_layout
+
+\begin_layout Plain Layout
+distinguishing accidental from essential diculty
+\end_layout
+
+\begin_layout Plain Layout
+In this way, cycles need not be 
 \emph on
 accidental
 \begin_inset space ~
@@ -863,315 +454,19 @@ literal "false"
 
 \end_inset
 
-, i.e., complexity that is not inherent in the problem that the software solves
- (as seen by the users) but arises only from the implementation, of how
- that problem is solved.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Normaly, depedancies causes 
-\end_layout
-
-\begin_layout Plain Layout
-We use FRP, data dependencies initate data flow.
- For example A:=B makes B to depends on A, and this makes a data flow from
- B to A.
- Consequently, representing data dependencies as edges have a direction
- reversed from edges representd the resulted dataflow.
- For example, the data deoendencies of A:=B seems A->B and the dataflow
- seems B<-A.
- Therefore, an incoming edge in dataflow inform a variable that depends
- on an expression, or that it is an input variable (updated by a user or
- any external input).
- 
-\end_layout
-
-\begin_layout Plain Layout
-Returning back to cycle's starting point, which is a node with two incoming
- edges.
- This inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- Second, a variable that depends on two expressions simultaneously.
- For instance, a scenario where both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable, from where values are propagated.
- Similarly, an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
- From this investigation, we find a new semantic to cycles as belonged to
- a broader concept, that any variable can depend on several expressions
- simultaneously.
-\end_layout
+.
+ This concept refers to complexity that arises from the applications development
+ (rather than from the complexity of the business domain) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "moseley2006out"
+literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Section
-Methodology
-\end_layout
-
-\begin_layout Standard
-We absract variables and dependencies as a directed graph, where each node
- represent a variable, and the edges are constructed according to flow of
- updates.
- In a cycle, we start from an incoming edge into a node, that is a cycle's
- starting point, then through several nodes untill reaching again the first
- node from another edge.
- Yet, it is discovered, that a cycle's starting point has two incoming edges.
- 
-\end_layout
-
-\begin_layout Standard
-We make like reverse-engineering: according to such a graph, we name as
- 
-\emph on
-dataflow graph
-\emph default
-, we find the variables' dependencies from which this dataflow was constructed.
- For example, an edge from B towards A indicates that A depends on B by
- a formula like A:=f(B).
- Consequently, a cycle's starting point, which is a node with two incoming
- edges, inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- For instance, a scenario where both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable.
- Second, a variable that depends on two expressions simultaneously.
- An example for this case, is an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- to the previous example, while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
- 
-\end_layout
-
-\begin_layout Standard
-From this investigation, we find a new semantic to cycles as belonged to
- a broader concept, that any variable can depend on several expressions
- simultaneously.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] (X) at (-3,3) {$input$};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:dataflow_to_cycle-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Dataflow into and through a cycle.
-\end_layout
-
-\end_inset
-
-Dataflow into and through a cycle.
- The nodes represent the variables, and the edges illustrate the flow of
- the data.
- Values caused by inputs are propagated through the nodes of the cycle.
- Node 
-\begin_inset Formula $C$
-\end_inset
-
- has two incoming edges: the first connects it to the cycle, and the second
- is from where values are propagated into the cycle.
-\end_layout
-
-\end_inset
-
-
+.
+ Since cycles will have an interpretation closed to users perspective, we
+ would be more open to encounters with them in real life applications.
 \end_layout
 
 \end_inset
@@ -1184,24 +479,44 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-We introduce a paradigm that variables and dependencies form a 
+We introduce a new paradigm named Non-Hierarchical FRP (NH-FRP), a dedicated
+ concept named 
+\series bold
+Reactive Instance Variable
+\series default
+ ( 
+\family typewriter
+RIVar)
+\end_layout
+
+\begin_layout Itemize
+We introduce a new variant of FRP named Non-Hierarchical FRP (NH-FRP), in
+ which variables and dependencies form a 
 \emph on
 composite graph
 \emph default
 .
  A composite graph is a graph composed of simpler graphs or sub-graphs.
- Subgraphs are free to add edges without worrying about accidentally creating
- a cycle.
+ In each of the sub-graphs, it is free to add edges without worrying about
+ accidentally creating a cycle.
  This implies the separation of concerns principle, referring each sub-graph
  to represent a distinct concern.
  Accordingly, at a time, a single sub-graph can be observed without to observe
  any more nodes or vertices from other sub-graphs in the composite graph.
 \end_layout
 
-\begin_layout Standard
-As a conceptual framework, we introduce Reactive Instance Variable, RIVar
- for short, that extends OOP framework.
- RIVar harmonizes the concept of reactive variable
+\begin_layout Itemize
+We implement NH-FRP as a framework by harmonizing Object Oriented Programming
+ (OOP) with Functional Reactive Programming
+\begin_inset space ~
+\end_inset
+
+(FRP).
+ We borrow 
+\series bold
+reactive variables
+\series default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -1209,13 +524,457 @@ literal "false"
 
 \end_inset
 
-, from the reactive programming paradigm, with instance variable from the
- Object Oriented paradigm.
- Its main feature is an assignment operator, by which a composite graph
- is constructed, such that each object contains a subgraph.
+ from FRP embedding them as 
+\series bold
+instance variables
+\series default
+ of OOP.
+ This introduces a new concept named as 
+\series bold
+Reactive Instance Variable
+\series default
+, 
+\family typewriter
+RIVar
+\family default
+ for short.
+ This new form of variables are used to create sub-graphs in the various
+ objects composing the composite graphs.
+\end_layout
+
+\begin_layout Itemize
+We provide a new programming language extension, by which applications would
+ use the new framework.
+ For 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ programming language, we create a 
+\family typewriter
+nuget
+\family default
+ package called 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language, we create a 
+\family typewriter
+npm
+\family default
+ package called 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ We created for 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+, an integration to 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ hoping that it would be helpfull for real-life applications.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+and also a 
+\family typewriter
+npm
+\family default
+ package named 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language.
+ The extension exposes a few elements.
+ First, RIVar as a type implemented as a class.
+ Secondly, Lift 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+ function for composing expressions.
+ Finaly, an assignment operation implemented as a class method, for binding
+ expressions to RIVars' instances.
+ 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ functions also as a state management solution that is integrated seamlessly
+ with 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+exploses a method named Set that implements the assignment operation.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ functions also as a state management solution that is integrated seamlessly
+ with 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In the extension, RIVar is provided as a type implemented internaly as a
+ class, RIVar exploses a method named Set that implements the assignment
+ operation.
+\end_layout
+
+\begin_layout Plain Layout
+we introduce a package called 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ programming language, and also an npm package named 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language.
+ 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ functions also as a state management solution that is integrated seamlessly
+ with 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+As a as a proof of concept, we introduce a small lightwight package called
+ 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+ for 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ programming language, and a similar also an npm package named 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language.
+ 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ functions also as a state management solution that is integrated seamlessly
+ with 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+We present also that the conceptual framework is feasible as a programming
+ language extension.
+ As a as a proof of concept.
+ For the 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ programming language, we introduce a package called 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+, we introduce an npm package named 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+ functions as a state management solution that is integrated seamlessly
+ with 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ In the two, RIVar is provided as 
+\end_layout
+
+\begin_layout Plain Layout
 We also provide a concrete framework based on existing programming languages.
  An extension is created to the language that includes RIVar as a datatype,
  implemented internaly as a class.
@@ -1223,7 +982,7 @@ We also provide a concrete framework based on existing programming languages.
  Finaly for enabling expressions of RIVars, a Lift function is added.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Such extensions have been created as a proof of concept.
  For the 
 \begin_inset Formula $\LSTINLINE{C\#}$
@@ -1267,8 +1026,8 @@ https://www.npmjs.com/package/rivarjs
 \begin_inset Formula $\NAME{rivarjs}$
 \end_inset
 
- functions as a state management solution that integrates seamlessly with
- 
+ functions as a state management solution that is integrated seamlessly
+ with 
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
@@ -1295,9 +1054,18 @@ https://react.dev/
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph*
 \begin_inset Note Note
 status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
 
 \begin_layout Plain Layout
 ————-
@@ -8131,8 +7899,24 @@ noprefix "false"
 
 \end_inset
 
- we list state of the art strategies for calculations input fields in GUI
- applications.
+ we present cycles as encountered in the field of reactive programming (includin
+g events, dataflow and constraints).
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we introduce our methodology leading to the new semantics.
+\end_layout
+
+\begin_layout Standard
+list state of the art strategies for calculations input fields in GUI applicatio
+ns.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted

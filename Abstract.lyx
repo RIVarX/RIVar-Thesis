@@ -109,6 +109,119 @@
 \end_layout
 
 \begin_layout Abstract
+This thesis address an issue named 
+\emph on
+cycles
+\emph default
+, that a change in one variable (or any data store) causes transitively,
+ through a chain of changes, this same variable to again change its value.
+ Changes caused by cycles might be unpredictable and unexpected.
+ Changes might lead for further iterations, In the worst case, they will
+ continue endlessly, breaking programs unexpectedly.
+ We address cycles by a new conceptual framework where data dependencies
+ form a composite dependency graph, that composed of sub-graphs, in order
+ that each sub-graph will handle a separate application domain or concern.
+ We implement the framework as a programming language extension, using a
+ new concept: 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+, that stands for 
+\emph on
+Reactive Instance Variable
+\emph default
+.
+ As its name, 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ harmonizes a concept named 
+\emph on
+reactive variable
+\emph default
+ found in Functional Reactive Programming (FRP) with a concept named 
+\emph on
+instance variable
+\emph default
+ found in Object Oriented Programming (OOP).
+\end_layout
+
+\begin_layout Abstract
+—-
+\end_layout
+
+\begin_layout Abstract
+This thesis address an issue named 
+\emph on
+cycles
+\emph default
+, that a change in one variable (or any data store) causes transitively,
+ through a chain of changes, this same variable to again change its value.
+ Changes caused by cycles might be unpredictable and unexpected.
+ Changes might lead for further iterations, In the worst case, they will
+ continue endlessly, breaking programs unexpectedly.
+ 
+\end_layout
+
+\begin_layout Abstract
+Upon addressing cycles, we introduce a model that variables and dependencies
+ form a 
+\emph on
+composite graph
+\emph default
+.
+ A composite graph is a graph composed of simpler graphs or sub-graphs.
+ In each of the sub-graphs, it is free to add edges without worrying about
+ accidentally creating a cycle.
+ This implies the separation of concerns principle, referring each sub-graph
+ to represent a distinct concern.
+\end_layout
+
+\begin_layout Abstract
+We implement the model by a noval framework that combines Object Oriented
+ Programming (OOP) with Functional Reactive Programming (FRP), such that
+ objects from OOP will contain variables and dependencies of FRP.
+ This forms a new concept: 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+, that stands for 
+\emph on
+Reactive Instance Variable
+\emph default
+.
+ Similar to 
+\emph on
+Reactive Variable
+\emph default
+ of FRP, it is initiated with dependencies.
+ Similar to 
+\emph on
+Instance Variable
+\emph default
+ of OOP, it is assoicated to objects, such that each object represents a
+ sub-graph.
+\end_layout
+
+\begin_layout Abstract
+As a proof of concept, we introduce programming language extensions.
+ in the extensions, 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ is provided as a data type, by which objects can contain variables of FRP.
+ Additionaly, the extensions expose 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+ function for creating functions that establish dependencies of FRP.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 This thesis is focused on a concept named 
 \begin_inset Formula $\RIVar$
 \end_inset
@@ -152,6 +265,11 @@ Non-Hierarchical FRP
 cal graphs.
  (i.e., acyclic dependency graph, variables are connected to the input elements,
  and subsequently variables depend on other variables) 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract

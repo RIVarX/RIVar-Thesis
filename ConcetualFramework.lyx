@@ -220,60 +220,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Section
-Zooming with Graphs
-\end_layout
 
-\begin_layout Standard
-In FRP, reactive variables are used to create a data depedancy graph.
- In large scale applications, it might be with any nodes (variables) and
- edges (depedencies).
- We name, 
-\begin_inset Quotes eld
-\end_inset
-
-zooming in
-\begin_inset Quotes erd
-\end_inset
-
- when a subgraph is observed.
- A subgraph is a set of nodes with a set of edges.
- When observing a sugraph, other subgraphs does exist, with common nodes
- (meaning that a node can be observed in diffrent subgraphs).
- When observing a sugraph, the other graphs are not observed.
- This is closly related to seperation of concerns, such that each concern
- is handled indepedently.
-\end_layout
-
-\begin_layout Standard
-In software development, the ability to zoom in and out on the problem that
- software solves is a concept often discussed in software development and
- design.
- This concept is closely related to the idea of abstraction and granularity.
- In diffrent prespectivs diffrent details are observed, ignoring other details.
- It is related to the seperation of concern principle, that the diffrent
- concern are handled independenctly, without to observe other concrens
-\end_layout
-
-\begin_layout Standard
-In Functional Reactive Programming (FRP), reactive variables are utilized
- to construct a data dependency graph, which forms the backbone of reactive
- systems.
- As applications scale in complexity, this graph can grow significantly,
- comprising numerous nodes (representing variables) interconnected by edges
- (depicting dependencies).
- The concept of "zooming in" comes into play when we focus our attention
- on a specific subset of this graph, forming what we term a subgraph.
- A subgraph consists of a distinct set of nodes and the corresponding edges
- that link them.
- Notably, while we observe a subgraph, other subgraphs coexist within the
- larger graph, sharing common nodes.
- It's crucial to emphasize that when we zoom in on a particular subgraph,
- we do so at the exclusion of others; thus, we overlook the broader context
- of the entire graph.
- This practice resonates closely with the principle of Separation of Concerns,
- wherein each subgraph represents an independent concern, allowing for focused
- and modular handling of specific aspects of the system's behavior or functional
-ity.
 \end_layout
 
 \begin_layout Section

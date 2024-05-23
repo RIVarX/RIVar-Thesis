@@ -122,7 +122,7 @@ A reactive variable is a new approach to variables where a single assignment
 
 \begin_layout Abstract
 An older concept for code reuse is object-oriented programming (OOP).
- Here, the mechanisms of inheritance and polymorphism are provided so that
+ Here, the mechanisms of inheritance with polymorphism are provided so that
  developers can define logic once, even if it's used for various types.
  For example, given objects A, B, and C, in performing A := B + C, the operation
  + upon the B and C is without determining the type or details on how is
@@ -136,8 +136,9 @@ For improving code-reuse, we introduce an harmonized concept named reactive
  and also be called similar to an operation, without to determine type or
  details.
  For example, Given RIVars B and C and also an object X that contains a
- RIVar A, performing X.A:=B+C perfom like a method call to the assignment
- that establish a continuous association.
+ RIVar A, performing X.A:=B+C are performed for various types of X, such
+ that assignment is a method that establish the continuous association.
+ 
 \end_layout
 
 \begin_layout Abstract

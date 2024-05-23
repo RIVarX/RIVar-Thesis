@@ -86,7 +86,75 @@
 \begin_body
 
 \begin_layout Chapter
-Motivating Example
+Problem
+\end_layout
+
+\begin_layout Standard
+Many abstractions have been invented over the years to abstract out complexity
+ involves in handling variables.
+ Its main issue, is that it is hard to reason about the containing value,
+ how and why a variable contains the value it contains.
+ 
+\end_layout
+
+\begin_layout Itemize
+Do not make code duplication.
+ This will reduce the chances that logic will be inconsistent.
+\end_layout
+
+\begin_layout Itemize
+Make bounderies (class, module etc.).
+ This makes predictability to who made the updates.
+\end_layout
+
+\begin_layout Itemize
+Make dependencies explicit.
+ This will make it easier to find what code did update variables.
+\end_layout
+
+\begin_layout Itemize
+Control.
+ Following the code with a debugger line by line, provide a positive effect.
+\end_layout
+
+\begin_layout Itemize
+Reproducable or predictability, such that the results is consistent over
+ the executions.
+ This helps to learn from re-executing, with debugging, or with some changes
+ to evaluate the diffrence and analyse the behavior.
+\end_layout
+
+\begin_layout Standard
+Beside the complexity in development, it is challenged to perform good results
+ in the perfomance (speed, running time).
+ 
+\end_layout
+
+\begin_layout Itemize
+calculations.
+ make a procedure that find the value/data according to other data (that
+ change)
+\end_layout
+
+\begin_layout Itemize
+updates.
+ inform others that data has changed.
+ For example, visual elements.
+\end_layout
+
+\begin_layout Itemize
+comparations.
+ for reducing the other elements, compare the value agant the revious, to
+ perform action only if realy changed.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Drug Administration
 \end_layout
 
 \begin_layout Standard
@@ -576,7 +644,7 @@ Returning to procedural programming, let's delve into the experience of
  a concrete implementation.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Developer Experience
 \end_layout
 
@@ -992,7 +1060,7 @@ If, in a small application, a single addition is replicated fivefold, managing
  This resistance means there is no room for enhancement in the application.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 User Experience
 \end_layout
 
@@ -1623,7 +1691,7 @@ literal "false"
  in the search of the specifc setup for the specific use-case.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Conclusion
 \end_layout
 
@@ -1647,6 +1715,1382 @@ Finally, users are promted to specify input for fields they are not familiar.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Reusable Dependency Graphs
+\end_layout
+
+\begin_layout Standard
+We replace the acyclicity model, focusing on creating reusable dependency
+ graphs.
+ Each dependency graph model calculations to be done accross a set of fields.
+ In the same time, fields are referred by a set of dependency graphs.
+ We will perform this model further, inspiring from OOP with the encapsulation,
+ inheritance and composition mechanisms.
+ 
+\end_layout
+
+\begin_layout Standard
+We will present this by reconstructing the 
+\family typewriter
+Drug Administration
+\family default
+ with 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ classes, as depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ represents a bag with fields Drug, Volume and Concentration.
+ 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ represents a Pump that is connected to a patient to infuse a bag over time.
+ Therefore it contains a reference to an instance of a 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and also contains fields Dose, Rate and Duration.
+ The reference is typed as 
+\begin_inset Formula $\LSTINLINE{IBag}$
+\end_inset
+
+ that do not have the field Concentration, making it clear that .
+ 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ need access to only Drug, Volume.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.8]%[show  background  grid]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{interface}{IBag}{0,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Drug}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Volume}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{interface}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Pump}{-10,-5}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Duration}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Dose}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Rate}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+composition{Pump}{TheBag}{}{IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{class}{Bag}{0,-10}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+implement {IBag}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+attribute{Concentration }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{class}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Drug-Administration-UML-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Drug Administration Class Diagram.
+\end_layout
+
+\end_inset
+
+Drug Administration Class Diagram.
+ Illustrating the access relationships between the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ classes.
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ can perform calculations involving 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+ variables.
+ 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ can perform calculations involving its variables: 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, as well as the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Encapsulation and Composition
+\end_layout
+
+\begin_layout Standard
+We bundle as 
+\emph on
+object
+\emph default
+ a set of vertices and directed edges that inherently a smallest dependency
+ graph.
+ The vertices of a dependency graph represent the object's fields or variables.
+ The edges represent the object's behavior with syntax and meaning similar
+ to some traditional RP conceptual frameworks.
+ 
+\end_layout
+
+\begin_layout Standard
+For example, 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ contains Drug, Volume and Concentration and an edge Concentration := Drug/Volum
+e, signifies that Concentration depends on Drug and Volume.
+ This means that the Concentration value needs to be recalculated whenever
+ either the Drug or Volume value changes.
+\end_layout
+
+\begin_layout Standard
+In order to perform further dependency graphs, it is enabled to perform
+ compositions.
+ As objects composition, an object can contain references of other objects.
+ In such objects, the edges in the object can connect between the vertixes
+ of this object with vertxes of the referenced objects.
+ A full example is depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:PumpCode-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Beside the presented Bag, Pump contains a reference to an instance of Bag,
+ named as TheBag.
+ It contains vertxes Duration, Dose, Rate and have the declararion of TheBag.Drug
+:=Dose*Duration.
+ In this way, a dependency graph can be composed of sub-graphs, such that
+ each sub-graph is independently implemented.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Drug, Volume, Concentration |
+\backslash
+label{line:PumpCode_RIVars1}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Volume:=Concentration*Drug |
+\backslash
+label{line:PumpCode_formula3}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable TheBag|
+\backslash
+label{line:PumpCode_TheBag}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Variable Duration, Dose, Rate|
+\backslash
+label{line:PumpCode_RIVars2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  TheBag.Drug:=Dose*Duration  |
+\backslash
+label{line:PumpCode_formula}|
+\end_layout
+
+\begin_layout Plain Layout
+
+  Duration:=Rate*Volume |
+\backslash
+label{line:PumpCode_formula2}|
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PumpCode-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Pseudo code of the calculations in the classes 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+Cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
+\end_layout
+
+\end_inset
+
+ represent the needed calculations.
+ The calculations involves the instance variables declared in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
+\end_layout
+
+\end_inset
+
+.
+ In 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, the calculations involve variables of the 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, which is declared in
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+~
+\backslash
+cref{line:PumpCode_TheBag}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Cycles/Undesirable Behavior
+\end_layout
+
+\begin_layout Standard
+In this setting, it is disallowed to keep the graphs to be acylcity.
+ For example, as depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycleByComponents-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ the graphs of Pump and Bag are composed into graph that exhibits a cycle
+ involving the nodes 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+.
+ The inability to keep graphs to be acylcic is due our form of encapsulation.
+ According to it, declaring an object's dependency graph can involve other
+ objects' vertxeses, without to be aware of their dependency graphs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}[node distance=3cm, 
+\end_layout
+
+\begin_layout Plain Layout
+
+                      ByPumpEdge/.style={draw=black,<-},
+\end_layout
+
+\begin_layout Plain Layout
+
+                      ByBagEdge/.style={draw=black,<-, dashed},
+\end_layout
+
+\begin_layout Plain Layout
+
+                      >=latex]
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (concentration) [circle, draw] at (0,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (concentration.south) {concentration};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (volume) [circle, draw, below left of=concentration] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (volume.south) {volume};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (drug) [circle, draw, below right of=concentration] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (drug.south) {drug};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (dose) [circle, draw, below of=drug] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (dose.south) {dose};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (rate) [circle, draw, below of=volume] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (rate.south) {rate};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node (duration) [circle, draw, below right of=rate] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[below] at (duration.south) {duration};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Edges
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (rate) -- (duration);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (volume) -- (duration);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (duration) -- (drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByPumpEdge] (dose) -- (drug);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByBagEdge] (concentration) -- (volume);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[ByBagEdge] (drug) -- (volume);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:cycleByComponents-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Mutual recursion in runtime from combined dependency graphs of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instances.
+\end_layout
+
+\end_inset
+
+Mutual recursion in runtime from combined dependency graphs of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instances.
+ The solid edges denote dependencies initiated within the 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ instance, while dotted edges indicate dependencies initiated within the
+ 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance.
+ In the graph created, the nodes 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ are interconnected through the edges, representing the mutual recursion.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this framework, phenomena from the real world, causes updates to fields
+ that represent them.
+ The phenomena is produced by user interactions that fill values into input
+ controls of a GUI.
+ Once a field is updated, other fields are updated accordingly causing a
+ chain of updates to make the whole values be consistent and simluate the
+ variables they represent.
+ The behavior of an object 
+\begin_inset Formula $x$
+\end_inset
+
+ is denoted as 
+\begin_inset Formula $F(x)$
+\end_inset
+
+, where its behavior represent the updates in its variables according phenomena.
+ For any given pair of objects 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, superposition property ensures that 
+\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
+\end_inset
+
+.
+ This means that the updates of 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ are free of updates fron unexpected feedback loop.
+\end_layout
+
+\begin_layout Standard
+However, sometimes the behavior become complex because interactions between
+ objects cause unintended feedback loops, or at least unintended updates.
+ Consider that an update of Drug of a Bag (instances, but we skip saying
+ that for fast reading), that causes Pump to update Dose, then Rate, then
+ Volume, then Concentration, and then it comes back to 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+.
+ This is an unitended feedback loop.
+ even in case that the interaction did not started with 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+, there might be an unidented update of 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ though an update of another field that causes 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ to re-compute even when it did not need to.
+ This update might override by mistake a previous value.
+ Consider (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) that 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+ it updated with a rounded value 0.33 that is computed from 100/300.
+ This causes that a recomputation for Drug is of 0.33*300 which produces
+ 99, while this value has been created from 100, but only lost accuracy
+ through the chain of computations.
+ (The information lost through proagation chage appears also in the following
+ example of an auto-complete textbox.
+ In the auto-complete textbox, selected text relies on the available options
+ because the default selection is determined when the available options
+ are established (utilizing the default text feature).
+ Simultaneously, the available options depend on the selected text, as it
+ serves as a query to search for options starting with this text.
+ The flow of data has information lost by defintion, as the first selected
+ text which leads to a set of options did change the selected text.
+ )
+\end_layout
+
+\begin_layout Standard
+Consider that each class' behavior is modeled by initating data dependencies
+ as in FRP.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:PumpCode-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), class 
+\begin_inset Formula $\NAME{Bag}$
+\end_inset
+
+ contains 
+\begin_inset Formula $\LSTINLINE{Volume:=Concentration*Drug}$
+\end_inset
+
+.
+ The associations defined in the classes create data dependency graphs.
+ These dependancy graphs from the objects initiated from the classes are
+ then combined to form the overall dependancy graph.
+ The graph might contains cycles.
+ For instance, in the Order Entry, the graph exhibits a cycle involving
+ the nodes 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:cycleByComponents-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ In case that cycles in data dependencies causes unintended feedback loops,
+ this is like complex systems.
+ As metioned, in complex systems the behavior as a whole is not predictable
+ by looking at each of its individual component separatedly.
+ This means that the behavior is not predictable by looking at a class individua
+lly, causing the framework to be unsuccessful in the de-centralization.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sequencediagram}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newthread{UI}{User Interface}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[1]{Pump}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newinst[2]{Bag}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Duration=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{Drug=100}{Bag}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Dose=10}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Concentration=0.33}{Bag}{}    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Drug=99}{Bag}{}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{call}{Bag}{Rate=30}{Pump}{}     
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}        
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{call}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sequencediagram}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Unpredictable-Calculation-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Unexpected Feedback Loop: Unintended Override of User Input
+\end_layout
+
+\end_inset
+
+Sequence diagram illustrating the interactions between the User Interface
+\begin_inset space ~
+\end_inset
+
+(UI), 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+, and 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ objects.
+ Initially, the UI sets the value of 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ to 100.
+ However, due to the complex interactions and dependencies between the objects,
+ the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ value undergoes modifications and eventually gets updated to 99.
+ This unintended alteration exemplifies the challenge posed by feedback
+ loops, which can result unintended override of user input.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+——
+\end_layout
+
+\begin_layout Standard
+In this section, we present a case study
+\end_layout
+
+\begin_layout Standard
+In this section, we present the acylicity problem within a case study and
+ the leverage to our noval framework.
+\end_layout
+
+\begin_layout Standard
+we present a case study, in which cycles prevents from scaling application
+\end_layout
+
+\begin_layout Standard
+Our motivation is a new technalogy of dependency graphs reuse.
+ We introduce depedancy graph as objects that their fields are vertexes,
+ and that they contain edges that form depedencies.
+ As in objects composition, that the nested oject can access fields from
+ the object that contained it, can nested depedancy graph be connected to
+ vertexes of the object contains it.
+ 
+\end_layout
+
+\begin_layout Standard
+, that adopt the popular best practieing of components reuse.
+ The idea is to reuse dependency graphs, similar to the way that objects
+ are reused in OOP.
+ We declare a dependancy graph as a set of vertex and a set of edges bounded
+ together in one unit.
+ This unit, beside the vertes and edges, can contain a reference to other
+ such units.
+\end_layout
+
+\begin_layout Standard
+We declare the dependency graph as a new form of objects, that contain vertexes
+ and edges, such that vertexes represent the object's fields.
+\end_layout
+
+\begin_layout Standard
+a set of vertexes and edges, that we bound under an object, while vertexes
+ represent the object's fields.
+\end_layout
+
+\begin_layout Standard
+A dependency graph is a set of vertexes and edges, that we bound under an
+ object, while vertexes represent the object's fields.
+ The new technalogy will enable to reuse dependency graph similar to objects
+ composition and of an inheritance.
+ As in objects composition, that objects can contain refernces of other
+ objects, can 
+\end_layout
+
+\begin_layout Standard
+As in objects composition, that the nested oject can access fields from
+ the object that contained it, is a nested depedancy graph 
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+Code reuse of dependency graphs has a meaning like of creating further dependanc
+y graphs relying on previous like objects inheritance or objects compositions.
+\end_layout
+
+\begin_layout Standard
+Code reuse of dependency graphs means creation further dependancy graphs
+ based on the previous.
+\end_layout
+
+\begin_layout Standard
+The resue is like objects composition, that the nested oject can access
+ fields from the object that contained it.
+\end_layout
+
+\begin_layout Standard
+, of high amount data and dependencies (we do not focus on the volume amount
+ that actualy flow through).
+ Usualy the answer for high volume of details is code reuse.
+ Reuse for 
+\end_layout
+
+\begin_layout Standard
+We focus on reuse for dependency graphs.
+ A dependency graph is a set of vertexes and edges, that we bound under
+ an object, while vertexes represent the object's fields.
+ Can it be useful, to 
+\emph on
+reuse a dependdancy graph
+\emph default
+ for creation further dependancy graphs? The resue is like objects composition,
+ that the nested oject can access fields from the object that contained
+ it.
+\end_layout
+
+\begin_layout Standard
+–
 \end_layout
 
 \begin_layout Standard
@@ -3075,1190 +4519,6 @@ In order to find a resolution to cycles in data depedancies we consider
  them complex.
  Complex system is defined as a system that its behavior as a whole is not
  predictable by looking at each of its individual component separatedly.
-\end_layout
-
-\begin_layout Standard
-Consider a framework, that objects (specicifed by classes) simulate real
- world objects, and their fields simulate the real variable of the real
- world objects.
- For example, consider the 
-\family typewriter
-Order Entry
-\family default
- presented in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- (visualized in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Drug-Administration-UML-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
- Class 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- represents a bag with fields Drug, Volume and Concentration.
- Class 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- represents a Pump that is connected to a patient to infuse a bag over time.
- Therefore it contains a reference to an instance of a 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and also contains fields Dose, Rate and Duration.
- It should be noted, that 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- has a relation to only Drug and Volume of its 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- instance, to make them consistent with the values of Dose and Rate.
- Therefore, 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- has a fields type as 
-\begin_inset Formula $\LSTINLINE{IBag}$
-\end_inset
-
- that contains only Drug and Volume.
- This example ilustrates a composition, but in inheritance it is very similar,
- and can be applied as well.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}[scale=0.8]%[show  background  grid]
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{interface}{IBag}{0,-5}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Drug}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Volume}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{interface}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}{Pump}{-10,-5}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Duration}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Dose}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Rate}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-composition{Pump}{TheBag}{}{IBag}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{class}{Bag}{0,-10}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-implement {IBag}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-attribute{Concentration }
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{class}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Drug-Administration-UML-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Drug Administration Class Diagram.
-\end_layout
-
-\end_inset
-
-Drug Administration Class Diagram.
- Illustrating the access relationships between the 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- classes.
- 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- can perform calculations involving 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{Volume}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Concentration}$
-\end_inset
-
- variables.
- 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- can perform calculations involving its variables: 
-\begin_inset Formula $\LSTINLINE{Dose}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{Rate}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Duration}$
-\end_inset
-
-, as well as the 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Volume}$
-\end_inset
-
- variables of the 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- instance.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In our framework, phenomena from the real world, causes updates to fields
- that represent them.
- In our context, phenomena is produced by user interactions that fill values
- into input controls of a GUI.
- Once a field is updated, other fields are updated accordingly causing a
- chain of updates to make the whole values be consistent and simluate the
- variables they represent.
- The behavior of an object 
-\begin_inset Formula $x$
-\end_inset
-
- is denoted as 
-\begin_inset Formula $F(x)$
-\end_inset
-
-, where its behavior represent the updates in its variables according phenomena.
- For any given pair of objects 
-\begin_inset Formula $x_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $x_{2}$
-\end_inset
-
-, superposition property ensures that 
-\begin_inset Formula $F(x_{1}+x_{2})=F(x_{1})+F(x_{2})$
-\end_inset
-
-.
- This means that the updates of 
-\begin_inset Formula $x_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $x_{2}$
-\end_inset
-
- are free of updates fron unexpected feedback loop.
-\end_layout
-
-\begin_layout Standard
-However, sometimes the behavior become complex because interactions between
- objects cause unintended feedback loops, or at least unintended updates.
- Consider that an update of Drug of a Bag (instances, but we skip saying
- that for fast reading), that causes Pump to update Dose, then Rate, then
- Volume, then Concentration, and then it comes back to 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
-.
- This is an unitended feedback loop.
- even in case that the interaction did not started with 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
-, there might be an unidented update of 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- though an update of another field that causes 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- to re-compute even when it did not need to.
- This update might override by mistake a previous value.
- Consider (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation-2"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) that 
-\begin_inset Formula $\LSTINLINE{Concentration}$
-\end_inset
-
- it updated with a rounded value 0.33 that is computed from 100/300.
- This causes that a recomputation for Drug is of 0.33*300 which produces
- 99, while this value has been created from 100, but only lost accuracy
- through the chain of computations.
- (The information lost through proagation chage appears also in the following
- example of an auto-complete textbox.
- In the auto-complete textbox, selected text relies on the available options
- because the default selection is determined when the available options
- are established (utilizing the default text feature).
- Simultaneously, the available options depend on the selected text, as it
- serves as a query to search for options starting with this text.
- The flow of data has information lost by defintion, as the first selected
- text which leads to a set of options did change the selected text.
- )
-\end_layout
-
-\begin_layout Standard
-Consider that each class' behavior is modeled by initating data dependencies
- as in FRP.
- For example (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:PumpCode-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), class 
-\begin_inset Formula $\NAME{Bag}$
-\end_inset
-
- contains 
-\begin_inset Formula $\LSTINLINE{Volume:=Concentration*Drug}$
-\end_inset
-
-.
- The associations defined in the classes create data dependency graphs.
- These dependancy graphs from the objects initiated from the classes are
- then combined to form the overall dependancy graph.
- The graph might contains cycles.
- For instance, in the Order Entry, the graph exhibits a cycle involving
- the nodes 
-\begin_inset Formula $\LSTINLINE{Duration}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:cycleByComponents-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
- In case that cycles in data dependencies causes unintended feedback loops,
- this is like complex systems.
- As metioned, in complex systems the behavior as a whole is not predictable
- by looking at each of its individual component separatedly.
- This means that the behavior is not predictable by looking at a class individua
-lly, causing the framework to be unsuccessful in the de-centralization.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class Bag
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Variable Drug, Volume, Concentration |
-\backslash
-label{line:PumpCode_RIVars1}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  Volume:=Concentration*Drug |
-\backslash
-label{line:PumpCode_formula3}|
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-class Pump
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  Variable TheBag|
-\backslash
-label{line:PumpCode_TheBag}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  Variable Duration, Dose, Rate|
-\backslash
-label{line:PumpCode_RIVars2}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  TheBag.Drug:=Dose*Duration  |
-\backslash
-label{line:PumpCode_formula}|
-\end_layout
-
-\begin_layout Plain Layout
-
-  Duration:=Rate*Volume |
-\backslash
-label{line:PumpCode_formula2}|
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:PumpCode-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-Pseudo code of the calculations in the classes 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-Pseudo code of the calculations in the classes 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
-.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-~
-\backslash
-Cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
-\end_layout
-
-\end_inset
-
- represent the needed calculations.
- The calculations involves the instance variables declared in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-~
-\backslash
-cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
-\end_layout
-
-\end_inset
-
-.
- In 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
-, the calculations involve variables of the 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- instance, which is declared in
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-~
-\backslash
-cref{line:PumpCode_TheBag}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{UI}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{Pump}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{Bag}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Duration=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Drug=100}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Dose=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Concentration=0.33}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Drug=99}{Bag}{}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Rate=30}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}        
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Unpredictable-Calculation-2"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Unexpected Feedback Loop: Unintended Override of User Input
-\end_layout
-
-\end_inset
-
-Sequence diagram illustrating the interactions between the User Interface
-\begin_inset space ~
-\end_inset
-
-(UI), 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- objects.
- Initially, the UI sets the value of 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- to 100.
- However, due to the complex interactions and dependencies between the objects,
- the 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- value undergoes modifications and eventually gets updated to 99.
- This unintended alteration exemplifies the challenge posed by feedback
- loops, which can result unintended override of user input.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-begin{tikzpicture}[node distance=3cm, 
-\end_layout
-
-\begin_layout Plain Layout
-
-                      ByPumpEdge/.style={draw=black,<-},
-\end_layout
-
-\begin_layout Plain Layout
-
-                      ByBagEdge/.style={draw=black,<-, dashed},
-\end_layout
-
-\begin_layout Plain Layout
-
-                      >=latex]
-\end_layout
-
-\begin_layout Plain Layout
-
-    % Nodes
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node (concentration) [circle, draw] at (0,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[below] at (concentration.south) {concentration};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node (volume) [circle, draw, below left of=concentration] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[below] at (volume.south) {volume};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node (drug) [circle, draw, below right of=concentration] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[below] at (drug.south) {drug};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node (dose) [circle, draw, below of=drug] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[below] at (dose.south) {dose};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node (rate) [circle, draw, below of=volume] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[below] at (rate.south) {rate};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node (duration) [circle, draw, below right of=rate] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[below] at (duration.south) {duration};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    % Edges
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[ByPumpEdge] (rate) -- (duration);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[ByPumpEdge] (volume) -- (duration);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[ByPumpEdge] (duration) -- (drug);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[ByPumpEdge] (dose) -- (drug);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[ByBagEdge] (concentration) -- (volume);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[ByBagEdge] (drug) -- (volume);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycleByComponents-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Mutual recursion in runtime from combined dependency graphs of 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- instances.
-\end_layout
-
-\end_inset
-
-Mutual recursion in runtime from combined dependency graphs of 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- instances.
- The solid edges denote dependencies initiated within the 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- instance, while dotted edges indicate dependencies initiated within the
- 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- instance.
- In the graph created, the nodes 
-\begin_inset Formula $\LSTINLINE{Volume}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Duration}$
-\end_inset
-
- are interconnected through the edges, representing the mutual recursion.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -7402,7 +7662,7 @@ This thesis is motivated by the necessity to enhance the calculation mechanism
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Adding redundancies in the user interfaces have the cost of the need to
@@ -7420,7 +7680,7 @@ Adding redundancies in the user interfaces have the cost of the need to
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 , that the developers need to keep on its consistency
@@ -7444,7 +7704,7 @@ An efficient mechanism promotes the use of redundancies in the user interfaces.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 There are some reasons to list in favor of redundancies.
@@ -7619,7 +7879,7 @@ Redundancies in front ends applications improves the usability, because
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 As from this exploration, we could not provide one single source of truth
@@ -7752,7 +8012,7 @@ In the explored architectural designs, we could not prevent the repetition
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Reusable components reduce code redandcy in case of creating applications
@@ -7803,7 +8063,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 An efficient mechanism need to inherently support for developing business
@@ -7821,7 +8081,7 @@ single source of truth
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The programming paradigms inherently lack robust support for developing
@@ -7837,7 +8097,7 @@ The programming paradigms inherently lack robust support for developing
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The programming paradigms do not inherently offer robust support for developing
@@ -7856,7 +8116,7 @@ single source of truth
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The programming paradigms inherently lack robust support for developing
@@ -7880,7 +8140,7 @@ single source of truth
 
 \emph on
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 According to our exploration, by the modeling tools offered by programming
@@ -7910,7 +8170,7 @@ single source of truth.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In the various modeling options, we could not prevented from repeating business
@@ -7929,7 +8189,7 @@ single source of truth
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 might lead to an infinite loop.
@@ -8037,7 +8297,7 @@ In case that there exists a component with ex, with a variable or a field
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 —–
@@ -8236,7 +8496,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In the explored designs, we tried to not repeating on the business logic.
@@ -8326,7 +8586,7 @@ n spreadsheets, it save from repeating to call functions to update variables
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 To address this, recommended practices emphasize the design of multiple
@@ -8358,7 +8618,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...
@@ -10049,7 +10309,7 @@ The example need to be seperated into two UI components: the pump and the
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The fields in the example need to be similar to reactive variables.
@@ -10074,7 +10334,7 @@ The fields in the example need to be similar to reactive variables.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In implementing the example by reactive variables, each reactive variable

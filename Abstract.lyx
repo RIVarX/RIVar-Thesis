@@ -109,6 +109,264 @@
 \end_layout
 
 \begin_layout Abstract
+A reactive variable is a new approach to variables where a single assignment
+ establishes a continuous association.
+ For example, given reactive variables A, B, and C, performing A := B +
+ C means that whenever B and C are updated the operation + is executed on
+ the values that B and C contain and update A with the result.
+ The advantage of this declarative style can be described as providing a
+ code reuse mechanism or reducing code repetition.
+ This style promotes a single source of truth, rather than the repetition
+ of calling to update variables in many code locations.
+\end_layout
+
+\begin_layout Abstract
+An older concept for code reuse is object-oriented programming (OOP).
+ Here, the mechanisms of inheritance and polymorphism are provided so that
+ developers can define logic once, even if it's used for various types.
+ For example, given objects A, B, and C, in performing A := B + C, the operation
+ + upon the B and C is without determining the type or details on how is
+ it implemented.
+\end_layout
+
+\begin_layout Abstract
+For improving code-reuse, we introduce an harmonized concept named reactive
+ instance (or interface) variable (RIVar).
+ In the new concept, the assignment establishes a continuous association,
+ and also be called similar to an operation, without to determine type or
+ details.
+ For example, Given RIVars B and C and also an object X that contains a
+ RIVar A, performing X.A:=B+C perfom like a method call to the assignment
+ that establish a continuous association.
+\end_layout
+
+\begin_layout Abstract
+—
+\end_layout
+
+\begin_layout Abstract
+Also the repeatindg on calling to update variables in various code locations
+ have 
+\end_layout
+
+\begin_layout Abstract
+Recently, a paradigm named Reactive Programming provides mechanisms that
+ can be suited as another form for code reuse.
+\end_layout
+
+\begin_layout Abstract
+Functional Reactive Programming can be reffered as another toold for cod-reuse.
+ It provides an asbtraction mechanism, such that developers do not need
+ to update variables.
+ Code that call to caculate and 
+\end_layout
+
+\begin_layout Abstract
+Functional Reactive Programming providing lifted operations that automaticaly
+ perform updates when required, rather than calling to update the various
+ code locations (in response to events).
+\end_layout
+
+\begin_layout Abstract
+—
+\end_layout
+
+\begin_layout Abstract
+This thesis focus on increasing code reuse.
+ Code reuse is an obvious programming principal.
+ It is contrasted with code duplications or code redandancy.
+ If code is repeated, changes in code should be repeated, otherwize bugs
+ are accured, that behavior is incosnsitent.
+\end_layout
+
+\begin_layout Abstract
+that lead code changes to perform several times to keep on consistncy.
+ can lead to bugs, of some locations were not changed.
+\end_layout
+
+\begin_layout Abstract
+Code reuse is a fundamental principle in software development.
+ Inheritance and composition are famous mechanism to perform code reuse.
+\end_layout
+
+\begin_layout Abstract
+For example, OOP suggests inheritance and composition.
+ Recently FRP contributes another code reuse mechanism, by providing lifted
+ operations that automaticaly perform updates when required, rather than
+ calling to update the various code locations (in response to events).
+\end_layout
+
+\begin_layout Abstract
+Reducing code duplication is obvious programming principal.
+ OOP is a famous paradigm that provides an abstraction mechanism to 
+\end_layout
+
+\begin_layout Abstract
+—-
+\end_layout
+
+\begin_layout Abstract
+Dependency graph is a programming model used in Reactive Programming to
+ ease software development.
+ Despite its benefits, still most applications are still developed using
+ lower sbtractions.
+ Here, we address the specific limitation named 
+\emph on
+acyclicity
+\emph default
+, a common requirement that prevents circular dependencies (cycles).
+ These cycles, while needed in some scenarios, can lead to undesirable behavior.
+ Our focus is on how this limitation hinders application scalability.
+ We propose a solution by introducing semantics for mutual recursion, to
+ be a specialized form of feeding data from multiple sources simultaneously.
+ The effectiveness of this approach is validated through a case study with
+ a real-world implementation.
+\end_layout
+
+\begin_layout Abstract
+—–
+\end_layout
+
+\begin_layout Abstract
+Many technologies today offer tools for explicitly declaring dependencies,
+ with features named binding reactivety and so on.
+ Such technologies have limitations, unless them, we could fire many developers,
+ as many of them continue to implement dependencies with the classic programming.
+ One limitation, is acyclicity required in most tools, as cycles naturaly
+ leads to undesirable loops.
+ We focus on this limiations' problem, with presenting that it resists against
+ enlarging (get them bigger) the applications.
+ We overcome this, by introducing semantics to mutual recursion, as a sub
+ case of feeding values from mutiple sources.
+ We evaluate the effectiveness of this approach through a case study with
+ an actual implementation.
+\end_layout
+
+\begin_layout Abstract
+a new approach for cycles, and present a case study to evaluate it.
+\end_layout
+
+\begin_layout Abstract
+Therefore, to overcome that harful limitation, we develop a framework 
+\end_layout
+
+\begin_layout Abstract
+Many technalogies today, have toolling of explcity declare dependencies.
+ Such tecnalogies have limitations, unless them, we could fire many developers.
+ A very important question about such models is about using it for large
+ and complex domains, in high amount data and dependencies (we do not focus
+ on the volume amount that actualy flow through).
+ Usualy the answer for high volume of details is code reuse.
+ We focus on reuse for dependency graphs.
+ A dependency graph is a set of vertexes and edges, that we bound under
+ an object, while vertexes represent the object's fields.
+ Can it be useful, to 
+\emph on
+reuse a dependdancy graph
+\emph default
+ for creation further dependancy graphs? The resue is like objects composition,
+ that the nested oject can access fields from the object that contained
+ it.
+\end_layout
+
+\begin_layout Abstract
+Can such model hold for growing applications? 
+\end_layout
+
+\begin_layout Abstract
+applications that contain a huge amount details in the forms of data and
+ dependencies? (we do not focus on data in high volume, but on amount of
+ logic lying in applications.
+\end_layout
+
+\begin_layout Abstract
+, that untill writing this lines, still not resolved.
+ For this reason, we still need to 
+\end_layout
+
+\begin_layout Abstract
+Paradimgs like of FRP, of explcity declaring dependencies seems a promised
+ direction.
+ This logic expersivene seems much more better that the traditional programming,
+ where deveopers need to debug the application and reason about values.
+\end_layout
+
+\begin_layout Abstract
+Paradimgs like of FRP, of explcity declaring dependencies seems a promised
+ direction, compared to the traditional way of programming, that developers
+ need to debug the application detemining reasons about values.
+ However, in using this paradigm, two 
+\end_layout
+
+\begin_layout Abstract
+–
+\end_layout
+
+\begin_layout Abstract
+Functional Reactive Programming (FRP) is a paradigm of an abstractions to
+ declare data dependencies excplicitly and directly.
+ In this thesis
+\end_layout
+
+\begin_layout Abstract
+—-
+\end_layout
+
+\begin_layout Abstract
+According to many, excplicitly and directly declaring dependencies, improves
+ compernhasive and maintanability of programs, compared to the imperative
+ programming experience, in analyzing reactive behavior in terms of exeuted
+ lines of code.
+ This thesis' goal is to imrpove the ability of devide and qonqer approach
+ against large graphs of dependencies that will be probbaly created in implement
+ing large and complex applications.
+ The research focus is to provide smeantics to loops in the dependencies
+ that accidently created in using the devide and qonqer approach.
+\end_layout
+
+\begin_layout Abstract
+The goal is to improve software deisng, according to 
+\end_layout
+
+\begin_layout Abstract
+Using such paradigms, developers sometimes wonder, on how to handle loops
+ in dependencies, and how to devide and queqer
+\end_layout
+
+\begin_layout Abstract
+face a challenge, that some applications need to support loops in their
+ dependencies
+\end_layout
+
+\begin_layout Abstract
+—
+\end_layout
+
+\begin_layout Abstract
+Functional Reactive Programming (FRP) is a paradigm suggested to replace
+ Events Driven Programming (EDP).
+ While EDP uses the imperative paradigm, FRP uses a programming model of
+ a dependency graph or a dataflow graph.
+ This thesis adress an improved model of a composite graph, by associate
+\end_layout
+
+\begin_layout Abstract
+where a graph can be composed of smaller subgraphs
+\end_layout
+
+\begin_layout Itemize
+separation of concerns principle
+\end_layout
+
+\begin_layout Abstract
+that is a graph composed of simpler graphs or sub-graphs
+\end_layout
+
+\begin_layout Abstract
+—
+\end_layout
+
+\begin_layout Abstract
 This thesis address an issue named 
 \emph on
 cycles

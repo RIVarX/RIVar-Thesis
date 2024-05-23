@@ -113,6 +113,151 @@ Introduction
 \end_layout
 
 \begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+—-
+\end_layout
+
+\begin_layout Standard
+An assignment establishes a continuous association, while the left hand
+ variable is accessed similar to while it is like an operation the left
+ hand variable is like a dynamic type.
+\end_layout
+
+\begin_layout Standard
+and also can be perfomed without to determine the left-hand 
+\end_layout
+
+\begin_layout Standard
+We introduce a concept name reactive interface variables that harmonizes
+ the two concepts.
+ For example, A := B + C are performed as continuous association, and without
+ to determine the type of A.
+\end_layout
+
+\begin_layout Standard
+We introduce a concept name reactive interface variables that harmonizes
+ the two concepts.
+ We introduce an assignment operator that establishes a continuous association
+ with the inheritance and polymorphism mechanisms
+\end_layout
+
+\begin_layout Standard
+, and that are performed with the 
+\end_layout
+
+\begin_layout Standard
+by introducing an assignment operator.
+ Given reactive instance variables A,B and C, in performing A := B + C,
+ we establish the continuous association
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+a sorting algorithm depends on a comparison function that is implemented
+ differently according to the type.
+\end_layout
+
+\begin_layout Standard
+An older concept for code reuse is the mechanisms of object-oriented programming
+ (OOP), inheritance and polymorphism are such that developers can define
+ logic once, even if it's used for various types.
+ For example, a sorting algorithm depends on a comparison function that
+ is implemented differently according to the type.
+\end_layout
+
+\begin_layout Standard
+means that we can program code depending on operations without to learn
+ about the implemetation.
+ For example, A+B means to sum A and B as fit to their type.
+\end_layout
+
+\begin_layout Standard
+, so that objects can be replaced.
+ In this way, the code is written once, without to repeat the same logic
+ for each conceret type.
+ For example, 
+\end_layout
+
+\begin_layout Standard
+, that code can depends on other code from its outer form, such that 
+\end_layout
+
+\begin_layout Standard
+whenevr B or C is updates, A is updated according to the values they contain
+ and according to the operator +.
+\end_layout
+
+\begin_layout Standard
+In Object Oriented Programming (OOP), calling an operation is like sending
+ a message, as the actual called method should be hidden from the callee.
+ 
+\end_layout
+
+\begin_layout Standard
+Code reuse is a core principle in programming.
+ For example, a execution call in Object Oriented Programming (OOP) is decoupled
+ from the choose of the actual method been called, so that the logic will
+ holds to diffrent methods implementations.
+\end_layout
+
+\begin_layout Standard
+A good examples for code reuse is the inheritance and composition abstraction
+ mechanisms.
+ It is based on an 
+\emph on
+object
+\emph default
+ concept, that is a unit of variables bundled with set of operations, that
+ can represent real world objects.
+ Inheritance means to make an object that 
+\emph on
+is
+\emph default
+ another object with more variables and operations.
+ Composition means to make object that 
+\emph on
+has
+\emph default
+ other objects, so that in its operation, it can call internaly to objects
+ it has internaly.
+ Code reuse stands in contrast to code duplication or redundancy, where
+ the same functionality is implemented repeatedly.
+ When code is duplicated, any changes or bug fixes need to be applied to
+ each instance.
+ This can lead to inconsistencies and maintenance headaches.
+ By reusing code, modifications only need to be made in one place, ensuring
+ consistency and reducing effort.
+\end_layout
+
+\begin_layout Standard
+A concept named 
+\emph on
+reactive variable
+\emph default
+ provides also code reuse, in that it automaticaly update variables when
+ needed.
+ For example, given reactive variables A,B and C, performing A:=B+C makes
+ that when either B or C is updated, A is updated to contain a value that
+ is the sum of the values that B and C contain.
+ 
+\end_layout
+
+\begin_layout Abstract
+In this thesis we perform code reuse, such that reactive variables are associate
+dto the object
+\end_layout
+
+\begin_layout Abstract
+—
+\end_layout
+
+\begin_layout Standard
 In software programming, developers are sometimes encounter 
 \emph on
 cycles 
@@ -272,7 +417,11 @@ literal "false"
 
 , which would provide a more abstract interpretation, more closed to problem
  domain than to solution domain.
- This concept is equivalent to extract out 
+ 
+\end_layout
+
+\begin_layout Standard
+This concept is equivalent to extract out 
 \emph on
 accidental
 \emph default
@@ -476,6 +625,54 @@ literal "false"
 
 \begin_layout Section
 Contribution
+\end_layout
+
+\begin_layout Standard
+We introduce a framework where variables and dependencies from FRP are embedded
+ into objects of OOP, constructing a 
+\emph on
+composite
+\emph default
+ 
+\emph on
+graph
+\emph default
+.
+ A composite graph is a graph composed of simpler graphs or sub-graphs.
+ Each object represent one sub-graph of the composite.
+ Our main contribution are in particular:
+\end_layout
+
+\begin_layout Itemize
+Change propagation algorithm that support cycles.
+\end_layout
+
+\begin_layout Itemize
+Change propagation algorithm
+\end_layout
+
+\begin_layout Standard
+, such that each object refer to one of the sub-graphs where the that its
+ composed sub-graphs are the objects that contain
+\end_layout
+
+\begin_layout Standard
+We introduce a framework of a 
+\emph on
+composite graph
+\emph default
+ from constructing objects of OOP with variables and dependencies of FRP.
+ Each object constructs a sub-graph, 
+\end_layout
+
+\begin_layout Standard
+A composite graph is a graph composed of simpler graphs or sub-graphs.
+ 
+\end_layout
+
+\begin_layout Standard
+harmonizing OOP with that is a graph composed of simpler graphs or sub-graphs,
+ that contains the following 
 \end_layout
 
 \begin_layout Standard
@@ -1762,7 +1959,7 @@ In software programming, mutable variables refer to variables as memory
 \end_inset
 
  assigns a value 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
  to variable 
@@ -2738,7 +2935,7 @@ literal "false"
 \end_inset
 
  means an input of 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
  to 
@@ -2750,12 +2947,12 @@ literal "false"
 \end_inset
 
  to 
-\begin_inset Formula $\LSTINLINE 2$
+\begin_inset Formula $\LSTINLINE2$
 \end_inset
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  in the example) are converted (or lifted) from operating over values to
@@ -2942,7 +3139,7 @@ Reactive variables example.
 
 .
  Consequently, the subsequent 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operations of assigning values to 
@@ -3515,7 +3712,7 @@ noprefix "false"
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  in the example) are converted from operating over values to operate over
@@ -5040,7 +5237,7 @@ executed functions, so that the target reactive variable continuously contains
  on.
  A propagation of changes starts whenever any of the variables get user
  input (
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operator).

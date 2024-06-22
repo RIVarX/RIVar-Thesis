@@ -109,11 +109,187 @@
 \end_layout
 
 \begin_layout Abstract
-A reactive variable is a new approach to variables where a single assignment
- establishes a continuous association.
+
+\emph on
+RIVar
+\emph default
+ is a new concept that harmonizes two traditional concepts: 
+\emph on
+reactive variable
+\emph default
+ and 
+\emph on
+instance variable
+\emph default
+.
+ 
+\emph on
+Reactive variable
+\emph default
+ is a variable abstraction in which the assignment operator establishes
+ dependencies, such that an assigned variable becomes dependent on the variables
+ within the assigned expression, therefore updated in response to their
+ updates.
+ For example, given variables A, B, and C, the formula A := B + C means
+ that whenever B or C are updated the operation + is executed on the values
+ that B and C contain, and update A with the result.
+ Instance variable 
+\end_layout
+
+\begin_layout Abstract
+—
+\end_layout
+
+\begin_layout Abstract
+
+\emph on
+Reactive variable
+\emph default
+ is a variable abstraction in which the assignment operator establishes
+ dependencies, such that an assigned variable becomes dependent on the variables
+ within the assigned expression, therefore updated in response to their
+ updates.
+ For example, given variables A, B, and C, the formula A := B + C means
+ that whenever B or C are updated the operation + is executed on the values
+ that B and C contain, and update A with the result.
+ This declarative style produces a 
+\emph on
+single source of truth
+\emph default
+, rather than repetition calls to update variables in many code locations.
+\end_layout
+
+\begin_layout Abstract
+In this thesis, we present that there is still room for improving code reusabili
+ty.
+ For improving code reuse, we harmonize the reactive variable concept with
+ the concept 
+\emph on
+instance variable
+\emph default
+ from Object Oriented Programming (OOP), resulting a new concept named 
+\emph on
+reactive instance variable
+\emph default
+, 
+\emph on
+RIVar
+\emph default
+ for short.
+ For example, given an object X that contain A, with the given B and C,
+ we declare X.A := B + C.
+ 
+\end_layout
+
+\begin_layout Abstract
+————————
+\end_layout
+
+\begin_layout Abstract
+Instance variables are variables associated with objects, typically accessed
+ indirectly through the object's methods, often named 
+\emph on
+setters
+\emph default
+ and 
+\emph on
+getters
+\emph default
+, therefore indirectly exposed in objects' interface.
+ Like
+\end_layout
+
+\begin_layout Abstract
+The new concept are accessed through object's interface.
+\end_layout
+
+\begin_layout Abstract
+Similary are the RIVars been accessed through object's interface.
+ For example, given an object X that contain A, with the given B and C,
+ the formula X.A := B + C establish a dependency such that A 
+\end_layout
+
+\begin_layout Standard
+——-
+\end_layout
+
+\begin_layout Abstract
+In this thesis, we show that there is still room for code reuse.
+ We harmonize the reactive variable concept with the concept 
+\emph on
+instance variable
+\emph default
+ from Object Oriented Programming (OOP), resulting a new concept named 
+\emph on
+reactive instance variable
+\emph default
+, 
+\emph on
+RIVar
+\emph default
+ for short.
+ Instance variables are variables associated with objects, typically accessed
+ indirectly through the object's methods, often named 
+\emph on
+setters
+\emph default
+ and 
+\emph on
+getters
+\emph default
+.
+ The syntax for the harmonized concept seems quite simple.
+ Such like A := B + C, if A is associated to an object X, a formula like
+ X.A := B + C would work.
+\end_layout
+
+\begin_layout Abstract
+—–
+\end_layout
+
+\begin_layout Abstract
+and we can express X.A:=B+C 
+\end_layout
+
+\begin_layout Abstract
+given reactive variables A,B and C, where object X contains the A, it is
+ correct to express X.A:=B+C, with the mean of continuous association.
+\end_layout
+
+\begin_layout Abstract
+This thesis explores RIVar for addressing the challenge of code-reuse, providing
+ a working implementation and advocating for further research to drive real-worl
+d change within the industry.
+\end_layout
+
+\begin_layout Abstract
+—-
+\end_layout
+
+\begin_layout Abstract
+We name the new concept RIVar or Reactive Instance Variables.
+ The new concept uses concepts from OOP to enable 
+\end_layout
+
+\begin_layout Abstract
+Other than the traditionals, the assignment 
+\end_layout
+
+\begin_layout Abstract
+assignment is establishes a continuous association, and also be called similar
+ to an operation, without to determine type or internal details.
+ For example, given RIVars B and C and also an object X that contains a
+ RIVar A, performing X.A:=B+C are performed for various types of X, such
+ that assignment is a method that establish the continuous association.
+ 
+\end_layout
+
+\begin_layout Abstract
+Reactive variable points on a new approach where variables by a single assignmen
+t establishes a continuous association.
  For example, given reactive variables A, B, and C, performing A := B +
  C means that whenever B and C are updated the operation + is executed on
- the values that B and C contain and update A with the result.
+ the values that B and C contain, and update A with the result.
  The advantage of this declarative style can be described as providing a
  code reuse mechanism or reducing code repetition.
  This style promotes a single source of truth, rather than the repetition
@@ -132,10 +308,10 @@ An older concept for code reuse is object-oriented programming (OOP).
 \begin_layout Abstract
 For improving code-reuse, we introduce an harmonized concept named reactive
  instance (or interface) variable (RIVar).
- In the new concept, the assignment establishes a continuous association,
+ In the new concept, the assignment is establishes a continuous association,
  and also be called similar to an operation, without to determine type or
- details.
- For example, Given RIVars B and C and also an object X that contains a
+ internal details.
+ For example, given RIVars B and C and also an object X that contains a
  RIVar A, performing X.A:=B+C are performed for various types of X, such
  that assignment is a method that establish the continuous association.
  

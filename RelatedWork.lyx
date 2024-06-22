@@ -117,6 +117,19 @@ In this section we compare the created framework to the traditional programming
  paradigms.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+what about distributed FRP, that we have decntralized algorithm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 FRP
 \end_layout
@@ -843,7 +856,7 @@ The assignment operator
 \color inherit
  pushes values to the target variable, similar to producing input by the
  operator 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
 .

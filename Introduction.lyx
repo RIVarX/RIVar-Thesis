@@ -193,7 +193,11 @@ literal "false"
 \family typewriter
 Reactive Programming
 \family default
- 
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -218,7 +222,11 @@ While event-driven programming encompasses various mechanisms, this discussion
 
 \end_inset
 
- The origin of reactive variables is from the 
+ 
+\end_layout
+
+\begin_layout Standard
+The origin of reactive variables is from the 
 \family typewriter
 Functional Reactive Programming
 \family default
@@ -230,10 +238,10 @@ Functional Reactive Programming
 \family typewriter
 Fucntional Programming
 \family default
- paradigm.
- Reactive variables have a representation similar to pure functions in FRP,
+ (FP) paradigm.
+ Reactive variables have a representation similar to pure functions in FP,
  in expressing code that calculate needed output based on arguments.
- For example, 
+ For example, in 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -256,7 +264,11 @@ literal "false"
 
 \end_inset
 
- is similar to function A(B){return B+1}.
+ is equivilent to in Javascript
+\color blue
+ function A(B){return B+1}
+\color inherit
+.
  The meaning is similar to functions in mathematics
 \begin_inset Foot
 status collapsed
@@ -277,8 +289,7 @@ https://en.wikipedia.org/wiki/Function_(mathematics)
 
 \end_inset
 
- as a model of how a varying value (real-world variables) depends on another.
- 
+ as a model of how varying values (real-world variables) depend one on another.
 \end_layout
 
 \begin_layout Standard
@@ -471,7 +482,7 @@ Reactive variables example.
 
 .
  Consequently, the subsequent 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operations of assigning values to 
@@ -634,6 +645,482 @@ lstinline{B}
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In a similar setting, we name the reactive variables as reactive instance
+ (interface) variables, or simply RIVar.
+ In using RIVars, the assignment operator, rather than initiating a variable
+ according to the right-hand expression, will only register the left-hand
+ variable to be updated to changes of the right-hand expression.
+ For example, an expression A:=B will produce A.changed += { (e) -> B.Change(e.valu
+e) }.
+ This concept is similar to one-way data binding.
+ For example, in 
+\family typewriter
+Angular
+\family default
+ <h2 innerHTML="{{ text }}"></h2> innerHTML is updated in reponse to changes
+ in text.
+ This concept exists also in constraints programming with the name one-way
+ dataflow constraint 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+.
+ However, on top of events programming (or the Observer pattern), this setting
+ is applicable for components and objects.
+ For example, an expression like X.A:=B is applicable for an object or component
+ X that exposes a variable A.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, EDP still has an advantage in its ability to promote loose coupling
+ between components.
+ This is based on the 
+\family typewriter
+Observer
+\family default
+ pattern 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+.
+ In this pattern one component, the 
+\emph on
+observable,
+\emph default
+ triggers other components, the observers, about new content.
+ An observable is decoupled from its observers, since its knowledge about
+ them is limited to only hold their references (of type Observer) upon their
+ registration for updates.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+However, in this paradigm dependencies between variables are determined
+ from executing the programs line by line.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In using the Observer pattern, an approach that still not researched is,
+ what if an assignment means to directly update the left-hand variable according
+ to changes from the right-hand expression.
+ This makes the framework to fit component-based applications.
+ In the other hand, this change requires to rethink about the propagation
+ change algorithm.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+This enables to assign variable that exposed from a component
+\end_layout
+
+\begin_layout Plain Layout
+rather than initiating a variable according to the right-hand expression,
+ will register the left-hand variable to be directly updated to changes
+ of the right-hand expression.
+\end_layout
+
+\begin_layout Plain Layout
+In this thesis, we introduce a concept named RIVar as a short name to Reactive
+ Instance Variable.
+\end_layout
+
+\begin_layout Plain Layout
+As Object Oriented Programming (OOP) formalizes and emphasizes components,
+ RIVar 
+\end_layout
+
+\begin_layout Plain Layout
+This concept harmonizes 
+\end_layout
+
+\begin_layout Plain Layout
+In this thesis, we introduces a concept that an assignment, rather than
+ initiating a variable according to the right-hand expression, will only
+ register the left-hand variable to be directly updated to changes of the
+ right-hand expression.
+\end_layout
+
+\begin_layout Plain Layout
+However, EDP has also an advantage that it is used to decouple components
+ from each other.
+ This is based on the observer pattern, such that an observable trigger
+ interested parties about new content.
+\end_layout
+
+\begin_layout Plain Layout
+In a similar setting, an assignment operator, rather than initiating a variable
+ according to the right-hand expression, will only register the left-hand
+ variable to be updated to changes of the right-hand expression.
+ For example, an expression A:=B will produce A.changed += { (e) -> B.Change(e.valu
+e) }.
+ This has in common with one-way data binding.
+ For example, in 
+\family typewriter
+Angular
+\family default
+ <h2 innerHTML="{{ text }}"></h2> innerHTML is updated in reponse to changes
+ in text.
+ This also has in common with constraints programming with the name one-way
+ dataflow constraint
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+.
+ However, on top of events programming (or the Observer pattern), this setting
+ is applicable for components and objects.
+ For example, an expression like X.A:=B is applicable for an object or component
+ X that exposes a variable A.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+A significant problem in this setting is 
+\emph on
+cycles
+\emph default
+ or 
+\emph on
+loops
+\emph default
+ that might be produced from creating 
+\emph on
+mutual recursions
+\emph default
+.
+ In EDP, events raise more events inawaring by which they originaly raises.
+ This might lead to loops, such that an event is raised indirectly by itself,
+ and need to make an algorithm that stops the loop.
+ For reactive variables, mutual recursions can be created causing such loops
+ that lead to redundant updates for the variables.
+ For example, A:=B and B:=A that produces A.changed += { (e) -> B.Change(e.value)
+ } and B.changed += { (e) -> A.Change(e.value) }.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Contribution
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Paragraph
+Outline.
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Problem"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we present a problem 
+\end_layout
+
+\begin_layout Standard
+we present cycles as encountered in the field of reactive programming (including
+ events, dataflow and constraints).
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we 
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+We introduce a new propagation algorithm with the following properties.
+\end_layout
+
+\begin_layout Description
+Decentralized
+\end_layout
+
+\begin_layout Description
+Predictable
+\end_layout
+
+\begin_layout Description
+Cycles
+\end_layout
+
+\begin_layout Standard
+We introduce a framework with the following properties.
+\end_layout
+
+\begin_layout Description
+OOP Variables exposed from objects, Assignments initiate dependencies
+\end_layout
+
+\begin_layout Description
+FRP
+\end_layout
+
+\begin_layout Description
+Constraints
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+———–
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Reactive variable
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (in some variations, known also as 
+\emph on
+behavior
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+signal
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maier2010deprecating"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+cell
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ and also
+\emph on
+ reactive value
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+) is a concept from the 
+\family typewriter
+Reactive Programming
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+ paradigm that aims to solve problems in 
+\family typewriter
+Events Driven Programming
+\family default
+ (EDP) paradigm.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+While event-driven programming encompasses various mechanisms, this discussion
+ is limited to its implementation using the Observer pattern.
+ This pattern allows objects to register interest in events and be notified
+ when they occur, fostering loose coupling and flexibility.
+\end_layout
+
+\end_inset
+
+ The origin of reactive variables is from the 
+\family typewriter
+Functional Reactive Programming
+\family default
+
+\begin_inset space ~
+\end_inset
+
+(FRP) paradigm, that aims to use principles from the 
+\family typewriter
+Fucntional Programming
+\family default
+ (FP) paradigm.
+ Reactive variables have a representation similar to pure functions in FP,
+ in expressing code that calculate needed output based on arguments.
+ For example, 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Or other similar syntax options.
+ This specific syntax is used by Guido Salvaneschi at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ is similar to function A(B){return B+1}.
+ The meaning is similar to functions in mathematics
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://en.wikipedia.org/wiki/Function_(mathematics)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ as a model of how varying values (real-world variables) depend one on another.
+\end_layout
+
+\begin_layout Standard
+Frameworks that implement reactive variables enable to model varying values
+ by re-evaluating values automaticaly.
+ Typically, these frameworks initiate dependencies, track them, and re-evaluate
+ values in response to changes in the dependencies.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Reactive-variables-basics-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), in expressing 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+, a dependency is initiated, such that A depends on B, such that whenever
+ B has a change, A will be updated accordingly.
+\end_layout
+
+\begin_layout Standard
 The reactive variable abstraction makes the dependency between variables
  explicit, rather than in the traditional EDP 
 \begin_inset CommandInset citation
@@ -695,10 +1182,37 @@ In this thesis, we focus on a setting that an assignment operator, rather
  expression.
  For example, an expression A:=B will produce A.changed += { (e) -> B.Change(e.valu
 e) }.
- By this settings, an expression like X.A:=B is applicable for an object
- or component X that exposes a variable A.
- This opens a challenge that FRP still does not have a good answer for:
- how to deal with cycles.
+ 
+\end_layout
+
+\begin_layout Standard
+This setting has advantages and disadvantages.
+ The advantage is that it is applicable for components and objects.
+ For example, an expression like X.A:=B is applicable for an object or component
+ X that exposes a variable A.
+ The disadvantage is that cycles can be created in the dependencies, which
+ leads to loops in the updates.
+\end_layout
+
+\begin_layout Standard
+–
+\end_layout
+
+\begin_layout Standard
+A setting used in one-way databinidng (for example <h2 innerHTML="{{ text
+ }}"></h2>) and also in one-way dataflow constraint 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "demetrescu2011reactive"
+literal "false"
+
+\end_inset
+
+, that 
+\end_layout
+
+\begin_layout Section
+The Concept
 \end_layout
 
 \begin_layout Section
@@ -867,7 +1381,7 @@ In components technalogy, Current components technalogy includes: micro-services
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Even though they are popular, they does not provide a scalable solution
@@ -1403,7 +1917,7 @@ literal "false"
 \end_inset
 
  means an input of 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
  to 
@@ -1415,12 +1929,12 @@ literal "false"
 \end_inset
 
  to 
-\begin_inset Formula $\LSTINLINE 2$
+\begin_inset Formula $\LSTINLINE2$
 \end_inset
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  in the example) are converted (or lifted) from operating over values to

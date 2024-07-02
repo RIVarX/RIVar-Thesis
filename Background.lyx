@@ -113,6 +113,150 @@ Background
 \end_layout
 
 \begin_layout Standard
+Variable that is re-assigned over time can be modelled as stream, that in
+ each update there is a new item, of the new value representing the updated
+ value at that instant.
+ reactive variable means that update of that variable raises indirectly
+ a continuation action based on the new value.
+ Such an update may be called as
+\emph on
+ update with a push notification
+\emph default
+.
+ In other words, 
+\emph on
+update with a push notification
+\emph default
+ means that not only the variable contained the new value instead of the
+ previous value, but also that it raises interested parties about the change.
+ We refer to variables as an object in the world, that exposes operation
+ 
+\emph on
+assign
+\emph default
+ (with :=) for an update, and 
+\emph on
+subscribe 
+\emph default
+for registration for push notifications.
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+We provide a brief, comprehensive overview of state management, gradually
+ covering its various aspects:
+\end_layout
+
+\begin_layout Itemize
+Initially, code assigns values to variables, allowing other code to read
+ them.
+ For instance, A = 1 assigns a value to variable A, and another code segment
+ B = A reads from variable A.
+\end_layout
+
+\begin_layout Itemize
+Next, additional code is introduced to notify potential readers about changes.
+ For example, A = 1; OnChangeA(A) notifies other parts of the system about
+ changes to variable A.
+ Subsequently, another piece of code, RegisterToChangeA(value => ...) registers
+ to receive notifications about changes to variable A.
+\end_layout
+
+\begin_layout Itemize
+Finally, these components are intertwined, enabling writing into a variable
+ to automatically trigger other code to read the new values.
+ For instance, declaring B := A establishes a continuous relationship between
+ variables, so that when the code A = 1 is executed, variable B is updated
+ automatically to reflect this new value.
+\end_layout
+
+\begin_layout Standard
+Each step in the above represent a valid approach.
+ In the first approach, there is no mechanism to inform potential readers
+ of changes.
+ Consequently, readers must periodically read the values, leading to high
+ resource consumption costs.
+ Additionally, the first approach tends to involve making changes directly
+ within the code rather than extending it.
+ When updating variables based on changes to other variables, all code locations
+ where the latter variables are updated must also be updated to reflect
+ the changes in the variables.
+ 
+\end_layout
+
+\begin_layout Standard
+The second approach provide reactivity, by informing potential readers of
+ changes.
+ However, it requires to control when to inform readers, and for readers
+ to inform to what changes to subscribe.
+ This approach is difficult in high scale applications.
+ Because, it is not only clear when to inform readers about changes, or
+ for the readers when to subscribe or unsubscribe.
+ 
+\end_layout
+
+\begin_layout Standard
+The last approach unifies reading and writing such that writing into variables
+ triggers potential readers to read the changes.
+ This provides a cleaner specification, except for the problem of cycles,
+ where a variable change might indirectly result from itself.
+ In such a case, the itended understanding is not clear.
+\end_layout
+
+\begin_layout Standard
+As a result, the previous approach has a better tools to express requirement
+\end_layout
+
+\begin_layout Standard
+The previous approach is better 
+\end_layout
+
+\begin_layout Standard
+In this context, in the previous approach requirements can be expressed
+ directly, while here the itended understanding is not clear.
+\end_layout
+
+\begin_layout Standard
+The strategy, how cycles are controled are not explicit in the code.
+\end_layout
+
+\begin_layout Standard
+In such cycles,the way how changes are handled loops are stopped without
+ to express the explicit strategy in the code.
+\end_layout
+
+\begin_layout Standard
+It is required to decide how to stop the loop.
+ 
+\end_layout
+
+\begin_layout Standard
+The decision how to stop such a loop is not explicit in the code
+\end_layout
+
+\begin_layout Standard
+In such a case, the second approach, in its full control over the changes
+ might convey better in desgning how to stop the loop 
+\end_layout
+
+\begin_layout Standard
+the decision how to stop the loop is not explicit in the code.
+ Therefore, the second approach, in its full control over the changes, 
+\end_layout
+
+\begin_layout Standard
+the second approach provides a cleaner specification in its full control
+ over the changes.
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
 Handling 
 \emph on
 state
@@ -780,113 +924,6 @@ literal "false"
 
 \begin_layout Standard
 ——–
-\end_layout
-
-\begin_layout Standard
-We provide a brief, comprehensive overview of state management, gradually
- covering its various aspects:
-\end_layout
-
-\begin_layout Itemize
-Initially, code assigns values to variables, allowing other code to read
- them.
- For instance, A = 1 assigns a value to variable A, and another code segment
- B = A reads from variable A.
-\end_layout
-
-\begin_layout Itemize
-Next, additional code is introduced to notify potential readers about changes.
- For example, A = 1; OnChangeA(A) notifies other parts of the system about
- changes to variable A.
- Subsequently, another piece of code, RegisterToChangeA(value => ...) registers
- to receive notifications about changes to variable A.
-\end_layout
-
-\begin_layout Itemize
-Finally, these components are intertwined, enabling writing into a variable
- to automatically trigger other code to read the new values.
- For instance, declaring B := A establishes a continuous relationship between
- variables, so that when the code A = 1 is executed, variable B is updated
- automatically to reflect this new value.
-\end_layout
-
-\begin_layout Standard
-Each step in the above represent a valid approach.
- In the first approach, there is no mechanism to inform potential readers
- of changes.
- Consequently, readers must periodically read the values, leading to high
- resource consumption costs.
- Additionally, the first approach tends to involve making changes directly
- within the code rather than extending it.
- When updating variables based on changes to other variables, all code locations
- where the latter variables are updated must also be updated to reflect
- the changes in the variables.
- 
-\end_layout
-
-\begin_layout Standard
-The second approach provide reactivity, by informing potential readers of
- changes.
- However, it requires to control when to inform readers, and for readers
- to inform to what changes to subscribe.
- This approach is difficult in high scale applications.
- Because, it is not only clear when to inform readers about changes, or
- for the readers when to subscribe or unsubscribe.
- 
-\end_layout
-
-\begin_layout Standard
-The last approach unifies reading and writing such that writing into variables
- triggers potential readers to read the changes.
- This provides a cleaner specification, except for the problem of cycles,
- where a variable change might indirectly result from itself.
- In such a case, the itended understanding is not clear.
-\end_layout
-
-\begin_layout Standard
-As a result, the previous approach has a better tools to express requirement
-\end_layout
-
-\begin_layout Standard
-The previous approach is better 
-\end_layout
-
-\begin_layout Standard
-In this context, in the previous approach requirements can be expressed
- directly, while here the itended understanding is not clear.
-\end_layout
-
-\begin_layout Standard
-The strategy, how cycles are controled are not explicit in the code.
-\end_layout
-
-\begin_layout Standard
-In such cycles,the way how changes are handled loops are stopped without
- to express the explicit strategy in the code.
-\end_layout
-
-\begin_layout Standard
-It is required to decide how to stop the loop.
- 
-\end_layout
-
-\begin_layout Standard
-The decision how to stop such a loop is not explicit in the code
-\end_layout
-
-\begin_layout Standard
-In such a case, the second approach, in its full control over the changes
- might convey better in desgning how to stop the loop 
-\end_layout
-
-\begin_layout Standard
-the decision how to stop the loop is not explicit in the code.
- Therefore, the second approach, in its full control over the changes, 
-\end_layout
-
-\begin_layout Standard
-the second approach provides a cleaner specification in its full control
- over the changes.
 \end_layout
 
 \begin_layout Standard

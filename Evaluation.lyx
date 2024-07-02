@@ -112,6 +112,161 @@ name "chap:Evaluation"
 Evaluation
 \end_layout
 
+\begin_layout Section
+Predictability / Denotational Semantics
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+(We take the concept of reactive variables as observable streams.
+ An observable stream is like a list, that it contains ordered items.
+ It does not mean that the list is stored, it is only an abstraction like
+ a list.
+ The list consists of the history of values that a variable have been contained.
+ In order to get those values, consumers should perior to subscribe to the
+ observable stream.
+\end_layout
+
+\begin_layout Plain Layout
+This concept comes with operators for tranforming those observable streams.
+ One operator map maps each item according to a function given as an argument.
+ Another operator CombineLatest works for two observable streams, mapping
+ based on items from the two.
+ These operators has s meaning like lifting, because they convert a function
+ to be an 
+\emph on
+higher order function
+\emph default
+.
+ Higher order functions executed upon reactive variables forms expressions
+ that are observable streams.)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Multiple assignments informs a 
+\family typewriter
+merge
+\family default
+ operation, that is a stream of values from the whole updates, either directed
+ updates from being an input variable or from any of the assigned expressions.
+ For example, if the code includes 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+, the stream of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ actualy refers to a stream produced by 
+\begin_inset Formula $\LSTINLINE{merge(A,B,D)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This outcome is created incrementaly by introducing the assignment as an
+ 
+\emph on
+accumulation
+\emph default
+ 
+\emph on
+merge.
+ 
+\emph default
+For instance
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:merge-several-sources-2-2-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), the statement 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ means 
+\begin_inset Formula $\LSTINLINE{A=merge(A,B)}$
+\end_inset
+
+.
+ With including also a subsequent statement 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+ means 
+\begin_inset Formula $\LSTINLINE{A=merge(merge(A,B),D)}$
+\end_inset
+
+.
+ From these statements, it should be garantee that 
+\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(A,B,D)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For the equation 
+\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(A,B,D)}$
+\end_inset
+
+ to be true, the 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ function should have two mathematics properties: commutativity and associativit
+y.
+ Commutativity means no order over the executions of the assignments statements
+ ( 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and then 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+ behaves the same as 
+\begin_inset Formula $\LSTINLINE{A:=D}$
+\end_inset
+
+ and then 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+).
+ Associativity means no strictness regarding order of the evaluations, because
+ rearranging the parentheses in an expression will not change the result.
+ For example, 
+\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(A,merge(B,D))}$
+\end_inset
+
+.
+ Regarding to mathematics, with both associativity and commutativity, we
+ can be confident that the final result will always be the same, regardless
+ of both the order of executions and the assignments statements.
+\end_layout
+
 \begin_layout Standard
 —–
 \end_layout
@@ -120,175 +275,75 @@ Evaluation
 Cycles
 \end_layout
 
-\begin_layout Subsection
-Semantics
+\begin_layout Standard
+—–
 \end_layout
 
 \begin_layout Standard
-We herein explain conventional methods of handling cycles from Microsoft
- Excel spreadsheet.
- In Excel, formulas are created in cells, referencing other cells.
- Any cell that contains a formula will contain values according to that
- formula.
- Therefore when a user updates a cell, any cell that refers to it in its
- formula, is updated in response.
- Excel prohibits cycles.
- However, this can be changed by configuration.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-gb/office/change-formula-recalculation-iteration-
-or-precision-in-excel-73fc7dac-91cf-4d36-86e8-67124f6bcce4
-\end_layout
-
-\end_inset
-
- If cycles are enabled, it should be customized how to break cycles.
- Two methods do exist to break cycles.
- The first one is stopping after a customized number of iterations.
- The second method is checking changes; if a value has not changed, or changed
- only less than a threshold, then it will continue to propagate.
-\end_layout
-
-\begin_layout Standard
-Likewise, in an SDK provided for developing plugins for Microsoft Dynamics,
- a property named Depth
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://learn.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.iexecutioncontext.depth
-?view=dataverse-sdk-latest
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- is provided.
- This property are provided for plugins registered in an update message,
- containing a number that is increased when a plugin is re-executed as a
- result of its own execution.
- A developer can compare the value of Depth, and customizing a logic for
- updates according to the iterations.
- This helps to avoid an infinite loop, that each update message cause a
- plugin to exeute which in turn, call update, that cause again an update
- message and so on.
- The method to stop propagation according to changes detection, is typicaly
- provided as well.
- In most SDK, code have have access during the execution the old and new
- values, to be compared and detect changes.
-\end_layout
-
-\begin_layout Standard
-By far, the semantics given for cycles is 
-\emph on
-operational semantics
-\emph default
-.
- Operational semantics describes the behavior of a program in terms of the
- steps taken to execute it.
- Another semantic type, 
-\emph on
-denotational semantics
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- would provide a more abstract interpretation, which ia more closed to problem
- domain than to solution domain.
- Likewise, cycles are sometimes considered as 
-\emph on
-accidental
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, i.e., complexity that is not inherent in the problem that the software solves
- (as seen by the users) but arises only from the implementation, of how
- that problem is solved.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Normaly, depedancies causes
-\end_layout
-
-\begin_layout Plain Layout
-We use FRP, data dependencies initate data flow.
- For example A:=B makes B to depends on A, and this makes a data flow from
- B to A.
- Consequently, representing data dependencies as edges have a direction
- reversed from edges representd the resulted dataflow.
- For example, the data deoendencies of A:=B seems A->B and the dataflow
- seems B<-A.
- Therefore, an incoming edge in dataflow inform a variable that depends
- on an expression, or that it is an input variable (updated by a user or
- any external input).
-\end_layout
-
-\begin_layout Plain Layout
-Returning back to cycle's starting point, which is a node with two incoming
- edges.
- This inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- Second, a variable that depends on two expressions simultaneously.
- For instance, a scenario where both 
+Any method to keep from cycles or from lost accuracy through the chain of
+ computations makes higher coupling than the method of this thesis.
+ In a simpler example, if 
 \begin_inset Formula $\LSTINLINE{A:=B}$
 \end_inset
 
  and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
+\begin_inset Formula $\LSTINLINE{B:=C}$
 \end_inset
 
- are present and 
-\begin_inset Formula $\LSTINLINE A$
+ are presents, C is a transitive dependency of A, therefore a formula like
+ 
+\begin_inset Formula $\LSTINLINE{C:=A}$
 \end_inset
 
- is an input variable, from where values are propagated.
- Similarly, an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
+ makes a cycle.
+ In order to avoid cycles creation, before adding any piece of functionality
+ like C:=A, it is essential to ensure that the left hand variable is not
+ a transitive dependency (that can be located in another class) of any of
+ the variables that the right hand expressions composed of.
+ A similar check should be applied to ensure zero accuracy lost.
+\end_layout
 
- while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
+\begin_layout Standard
+Methods similar to this thesis' do allow cycles and stop the propagation
+ change in runtime.
+ (The first two options are available in 
+\family typewriter
+Microsoft Excel
+\family default
 
- is the input variable.
- From this investigation, we find a new semantic to cycles as belonged to
- a broader concept, that any variable can depend on several expressions
- simultaneously.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
 \end_layout
 
 \end_inset
 
+)
+\end_layout
 
+\begin_layout Itemize
+When a value has not changed from the update, or changed only less than
+ a threshold.
+ This has been presented in the example.
+\end_layout
+
+\begin_layout Itemize
+Letting to update several times, stopping after an arbitrary number of times.
+ The number depends on the specific graph, which depends again on dependancies
+ that can be specified in other classes.
+\end_layout
+
+\begin_layout Itemize
+Checking the original triggering source.
+ This again makes again coupling on parts that are not directly located
+ in a current class.
+\end_layout
+
+\begin_layout Itemize
+Centralized mechanism
 \end_layout
 
 \begin_layout Standard
@@ -1770,375 +1825,6 @@ If only one filling option is available, users are stricted: users must
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Coupling
-\end_layout
-
-\begin_layout Standard
-Consider a feedback loop example depicted in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, that an update of Drug of a Bag instance causes Pump (instance) to update
- Dose, then Rate, then Volume, then Concentration, and then it comes back
- to 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
-.
- Even in case that the interaction did not started with 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
-, a feedback loop might leads an unintended update of 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- though an update of another field that causes 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- to re-compute even when it did not need to.
- This update might override by mistake a previous value.
- Consider (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Unpredictable-Calculation-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-) that 
-\begin_inset Formula $\LSTINLINE{Concentration}$
-\end_inset
-
- it updated with a rounded value 0.33 that is computed from 100/300.
- This causes that a computation for Drug is of 0.33*300 which produces 99,
- while this value has been created from 100, but only lost accuracy through
- the chain of computations.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-An information lost through proagation change appears explicity in the logic
- of an auto-complete text box (sush an auto-complete text box is presented
- by Gabriel Foust at al 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-).
- In the auto-complete text box, selected text relies on the available options
- because the default selection is determined when the available options
- are established (utilizing the default text feature).
- Simultaneously, the available options depend on the selected text, as it
- serves as a query to search for options starting with this text.
- The two functions are not inverse of one another.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{sequencediagram}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newthread{UI}{User Interface}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[1]{Pump}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-newinst[2]{Bag}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Duration=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{Drug=100}{Bag}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Dose=10}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{UI}{VolumeOfFluid=300}{Bag}{} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Concentration=0.33}{Bag}{}    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Drug=99}{Bag}{}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{call}{Bag}{Rate=30}{Pump}{}     
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}        
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{call}   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Unpredictable-Calculation-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Unexpected Feedback Loop: Unintended Override of User Input
-\end_layout
-
-\end_inset
-
-Sequence diagram illustrating the interactions between the User Interface
-\begin_inset space ~
-\end_inset
-
-(UI), 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
-, and 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- objects.
- Initially, the UI sets the value of 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- to 100.
- However, due to the complex interactions and dependencies between the objects,
- the 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- value undergoes modifications and eventually gets updated to 99.
- This unintended alteration exemplifies the challenge posed by feedback
- loops, which can result unintended override of user input.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Any method to keep from cycles or from lost accuracy through the chain of
- computations makes higher coupling than the method of this thesis.
- In a simpler example, if 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=C}$
-\end_inset
-
- are presents, C is a transitive dependency of A, therefore a formula like
- 
-\begin_inset Formula $\LSTINLINE{C:=A}$
-\end_inset
-
- makes a cycle.
- In order to avoid cycles creation, before adding any piece of functionality
- like C:=A, it is essential to ensure that the left hand variable is not
- a transitive dependency (that can be located in another class) of any of
- the variables that the right hand expressions composed of.
- A similar check should be applied to ensure zero accuracy lost.
-\end_layout
-
-\begin_layout Standard
-Methods similar to this thesis' do allow cycles and stop the propagation
- change in runtime.
- (The first two options are available in 
-\family typewriter
-Microsoft Excel
-\family default
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-)
-\end_layout
-
-\begin_layout Itemize
-When a value has not changed from the update, or changed only less than
- a threshold.
- This has been presented in the example.
-\end_layout
-
-\begin_layout Itemize
-Letting to update several times, stopping after an arbitrary number of times.
- The number depends on the specific graph, which depends again on dependancies
- that can be specified in other classes.
-\end_layout
-
-\begin_layout Itemize
-Checking the original triggering source.
- This again makes again coupling on parts that are not directly located
- in a current class.
-\end_layout
-
-\begin_layout Itemize
-Centralized mechanism
 \end_layout
 
 \begin_layout Section

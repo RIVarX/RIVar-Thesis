@@ -924,8 +924,98 @@ mutual recursion
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
- approach, with a meaning similar to the inheritance mechanism 
+ approach, with an additional meaning similar to the inheritance mechanism
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+.
+ We introduce a custom assignment operation for 
+\family typewriter
+RIVar
+\family default
+ based on the 
+\family typewriter
+Observer
+\family default
+ pattern.
+ The left-hand variable subscribes to the right-hand expression.
+ The right-hand expression calls to the left-hand variable to propogate
+ changes.
+ This performs
+\emph on
+ adding a dependency
+\emph default
+ or 
+\emph on
+extending
+\emph default
+ (like inheritance), rather than the reassignment, which is like
+\emph on
+ update
+\emph default
+ or 
+\emph on
+override
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The two questions, of reassignment and cycles are connected by a novel third
+ approach, with an additional similar to the inheritance mechanism 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "taivalsaari1996notion"
+literal "false"
+
+\end_inset
+
+.
+ We introduce a custom assignment operation for 
+\family typewriter
+RIVar
+\family default
+ based on the 
+\family typewriter
+Observer
+\family default
+ pattern.
+ The left-hand variable subscribes to the right-hand expression.
+ The right-hand expression calls to the left-hand variable to propogate
+ changes.
+\end_layout
+
+\begin_layout Plain Layout
+———————–
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The two questions, of reassignment and cycles are connected by a novel third
+ approach, with an additional similar to the inheritance mechanism 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "taivalsaari1996notion"
@@ -953,12 +1043,7 @@ Observer
 \end_layout
 
 \begin_layout Itemize
-In propogating changes, raises changes according to an algorithm that deals
- with cycles correctly.
-\end_layout
-
-\begin_layout Itemize
-Perform
+Performs
 \emph on
  adding a dependency
 \emph default
@@ -977,9 +1062,14 @@ override
 .
 \end_layout
 
+\begin_layout Itemize
+In propogating changes, raises changes according to an algorithm that deals
+ with cycles correctly.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 An assignment operation, based on the 
@@ -1018,7 +1108,7 @@ override
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
@@ -1067,7 +1157,7 @@ override
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
@@ -1162,7 +1252,7 @@ extending with a new dependency
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
@@ -1214,7 +1304,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 However, EDP still has an advantage in its ability to promote loose coupling
@@ -1256,7 +1346,7 @@ Observer
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 However, EDP still has an advantage in its ability to promote loose coupling

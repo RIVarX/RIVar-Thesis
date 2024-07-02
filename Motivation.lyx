@@ -92,12 +92,7 @@ name "chap:Problem"
 
 \end_inset
 
-Motivation
-\end_layout
-
-\begin_layout Standard
-In this section, we present our motivation, to provide a better treatment
- to cycles emerges during software development.
+Problem
 \end_layout
 
 \begin_layout Section
@@ -1376,7 +1371,7 @@ Drug Administration Class Diagram.
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Complexity
 \end_layout
 
@@ -1443,7 +1438,7 @@ lineraity
 .
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Feedback Loops
 \end_layout
 
@@ -2049,6 +2044,178 @@ Sequence diagram illustrating the interactions between the User Interface
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Cycles
+\end_layout
+
+\begin_layout Standard
+We herein explain conventional methods of handling cycles from Microsoft
+ Excel spreadsheet.
+ In Excel, formulas are created in cells, referencing other cells.
+ Any cell that contains a formula will contain values according to that
+ formula.
+ Therefore when a user updates a cell, any cell that refers to it in its
+ formula, is updated in response.
+ Excel prohibits cycles.
+ However, this can be changed by configuration.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-gb/office/change-formula-recalculation-iteration-
+or-precision-in-excel-73fc7dac-91cf-4d36-86e8-67124f6bcce4
+\end_layout
+
+\end_inset
+
+ If cycles are enabled, it should be customized how to break cycles.
+ Two methods do exist to break cycles.
+ The first one is stopping after a customized number of iterations.
+ The second method is checking changes; if a value has not changed, or changed
+ only less than a threshold, then it will continue to propagate.
+\end_layout
+
+\begin_layout Standard
+Likewise, in an SDK provided for developing plugins for Microsoft Dynamics,
+ a property named Depth
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.iexecutioncontext.depth
+?view=dataverse-sdk-latest
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ is provided.
+ This property are provided for plugins registered in an update message,
+ containing a number that is increased when a plugin is re-executed as a
+ result of its own execution.
+ A developer can compare the value of Depth, and customizing a logic for
+ updates according to the iterations.
+ This helps to avoid an infinite loop, that each update message cause a
+ plugin to exeute which in turn, call update, that cause again an update
+ message and so on.
+ The method to stop propagation according to changes detection, is typicaly
+ provided as well.
+ In most SDK, code have have access during the execution the old and new
+ values, to be compared and detect changes.
+ TBD
+\end_layout
+
+\begin_layout Standard
+By far, the semantics given for cycles is 
+\emph on
+operational semantics
+\emph default
+.
+ Operational semantics describes the behavior of a program in terms of the
+ steps taken to execute it.
+ Another semantic type, 
+\emph on
+denotational semantics
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ would provide a more abstract interpretation, which ia more closed to problem
+ domain than to solution domain.
+ Likewise, cycles are sometimes considered as 
+\emph on
+accidental
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, i.e., complexity that is not inherent in the problem that the software solves
+ (as seen by the users) but arises only from the implementation, of how
+ that problem is solved.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Normaly, depedancies causes
+\end_layout
+
+\begin_layout Plain Layout
+We use FRP, data dependencies initate data flow.
+ For example A:=B makes B to depends on A, and this makes a data flow from
+ B to A.
+ Consequently, representing data dependencies as edges have a direction
+ reversed from edges representd the resulted dataflow.
+ For example, the data deoendencies of A:=B seems A->B and the dataflow
+ seems B<-A.
+ Therefore, an incoming edge in dataflow inform a variable that depends
+ on an expression, or that it is an input variable (updated by a user or
+ any external input).
+\end_layout
+
+\begin_layout Plain Layout
+Returning back to cycle's starting point, which is a node with two incoming
+ edges.
+ This inform one of two cases.
+ First, a variable that is an input variable that also depends on an expression.
+ Second, a variable that depends on two expressions simultaneously.
+ For instance, a scenario where both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are present and 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is an input variable, from where values are propagated.
+ Similarly, an addition of 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+ while 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ is the input variable.
+ From this investigation, we find a new semantic to cycles as belonged to
+ a broader concept, that any variable can depend on several expressions
+ simultaneously.
 \end_layout
 
 \end_inset
@@ -3459,21 +3626,294 @@ The nonfunctional requirement of avoiding cycles negatively impacts software
 \end_layout
 
 \begin_layout Section
+Multiple Assignment
+\end_layout
+
+\begin_layout Standard
+Cycles may be a sub-problem of wider semantics option.
+ We investigate this from a process like reverse engineering.
+ Usually, we first declare a data dependancy, and then we determine a dataflow.
+ For example, declaring a dependancy 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ means that A depends on B, therefore the propogation from 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+ This time, we take a reversed process for investigating cycles.
+ 
+\end_layout
+
+\begin_layout Standard
+A cycle's starting point has two incoming edges.
+ This is clearly derived from the way we illustrate a cycle (depicted in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:dataflow_to_cycle-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ We start from an incoming edge into a node, that is the cycle's first node.
+ Then, we continue through several nodes until reaching again the first
+ node from another edge.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$input$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:dataflow_to_cycle-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Dataflow into and through a cycle.
+\end_layout
+
+\end_inset
+
+Dataflow into and through a cycle.
+ The nodes represent the variables, and the edges illustrate the flow of
+ the data.
+ Values caused by inputs are propagated through the nodes of the cycle.
+ Node 
+\begin_inset Formula $C$
+\end_inset
+
+ has two incoming edges: the first connects it to the cycle, and the second
+ is from where values are propagated into the cycle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From determining the two incoming edges of the data flow, it becomes clear
+ that this node is one of two options.
+ First, that the node represents an input variable which also depends on
+ an expression.
+ In this case, an incoming value into the variable propagates through several
+ nodes untill reaching again the variable through the expression it depends
+ on.
+ For example, 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is an input variable and it is declared that 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and also that 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+.
+ In the second options, the node represents a variable that depends on two
+ expressions simultaneously.
+ An example for this case, is an addition of 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+ to the previous example, while 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ is the input variable.
+\end_layout
+
+\begin_layout Standard
+This investigation leads to a semantics of multiple assignments.
+ Like sampling a real world variable by several sensors, can a variable
+ being updated from several expressions while also from being an input variable
+ by itself.
+\end_layout
+
+\begin_layout Section
 Conclusion
 \end_layout
 
 \begin_layout Standard
-The assignment operator as suscribing left-hand variable to get changes
- from the right-hand expression, raises an existing problem named 
+We presented a motivated problem, the cycles problem and our reason for
+ introducing 
 \emph on
-cycles
-\emph default
- or 
-\emph on
-feedback loops
+multiple assignments
 \emph default
 .
- 
 \end_layout
 
 \begin_layout Standard

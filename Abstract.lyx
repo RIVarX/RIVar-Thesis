@@ -87,27 +87,6 @@
 
 \begin_body
 
-\begin_layout Standard
-\begin_inset FormulaMacro
-\newcommand{\myName}[1]{\textcolor{blue}{\textsf{#1}}\index{#1}}
-{\mathbf{myName}\{#1\}}
-\end_inset
-
-
-\begin_inset FormulaMacro
-\renewcommand{\RIVar}{\myName{RIVar}}
-{\mathbf{RIVar}}
-\end_inset
-
-
-\begin_inset FormulaMacro
-\newcommand{\RIVarX}{\myName{RIVarX}}
-{\mathbf{RIVarX}}
-\end_inset
-
-
-\end_layout
-
 \begin_layout Abstract
 
 \emph on

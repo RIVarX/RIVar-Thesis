@@ -113,6 +113,10 @@ Background
 \end_layout
 
 \begin_layout Standard
+plugins??
+\end_layout
+
+\begin_layout Standard
 Variable that is re-assigned over time can be modelled as stream, that in
  each update there is a new item, of the new value representing the updated
  value at that instant.

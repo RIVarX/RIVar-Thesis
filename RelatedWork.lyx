@@ -137,7 +137,7 @@ FRP
 \begin_layout Standard
 We introduced Non-Hierarchical FRP, that its main difference is in the approach
  to support cycles, by enabling multiple assignments.
- In this section we accosiate several concepts in the field to the this
+ In this section, we accosiate several concepts in the field to the this
  new FRP variant.
 \end_layout
 
@@ -320,6 +320,37 @@ literal "false"
 .
  In the current approach, that the variables manage their values as streams,
  we are more open to customize the consistency level.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+For feedback, we refer as redundant updates similar to 
+\emph on
+glitches
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ Glitches has been considered as two updates that refers to a single time,
+ but accured in distinct times.
+ Consequently, all updates caused from a single event means as of its time.
+ Accordingly, feedback is of stimuouls events.
+ For this reason, it is clear that a feedback refers again to updates that
+ refers to a single time.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph

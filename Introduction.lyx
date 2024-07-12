@@ -115,7 +115,102 @@ Introduction
 \begin_layout Standard
 
 \emph on
-Reactive variable
+Dependency management
+\emph default
+ occurs in various aspects of software development.
+ For instance, dependencies between projects, dependencies between fields
+ and so on.
+ Generally, one element depends on other elements, such that if one of the
+ latter elements is updated, the first element should be updated too (according
+ to the latter elements).
+ We use a uniform approach of graphs, such that projects or fields serve
+ as the nodes, with directed edges that represents the dependencies between
+ them.
+\end_layout
+
+\begin_layout Standard
+Sometimes, sets of nodes and edges are grouped as distinct components.
+ This has the advantage of 
+\emph on
+separation of concerns
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "parnas1972criteria"
+literal "false"
+
+\end_inset
+
+.
+ For example, GUI components that handle their logic internally.
+ Additionally, with 
+\emph on
+mono repository
+\emph default
+ (i.e., that multiple projects are on the same location, but should keep on
+ an isolation), each project manages locally its dependencies.
+\end_layout
+
+\begin_layout Standard
+The challenge we aim to address is, that this partitioning is often imperfect.
+ This stems from a component that manages these dependencies, that is convention
+ally central.
+ This component uses an algorithm that 
+\emph on
+propagates changes
+\emph default
+.
+ It recognizes changes started from input, and recursively propagates the
+ changes to dependencies.
+ An example of such a component is 
+\family typewriter
+Redux
+\family default
+, which manages the variables as a central state in 
+\family typewriter
+React
+\family default
+ applications
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+.
+ This central component might also be human.
+ For example, software architects ensure that there are no cycles in dependencie
+s
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ From this point, we focus on providing an abstraction model to the problem.
+\end_layout
+
+\begin_layout Section
+Reactive Variables
+\end_layout
+
+\begin_layout Standard
+To achieve the representation of nodes, dependencies, and change propagation,
+ the abstraction model utilizes 
+\emph on
+reactive variables
 \emph default
  
 \begin_inset CommandInset citation
@@ -189,7 +284,7 @@ literal "false"
 
 \end_inset
 
-) is a concept from the 
+) from the 
 \family typewriter
 Reactive Programming
 \family default
@@ -205,28 +300,28 @@ literal "false"
 
 \end_inset
 
- paradigm that aims to solve problems in 
-\family typewriter
-Events Driven Programming
-\family default
- (EDP) paradigm.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-While event-driven programming encompasses various mechanisms, this discussion
- is limited to its implementation using the Observer pattern.
- This pattern allows objects to register interest in events and be notified
- when they occur, fostering loose coupling and flexibility.
-\end_layout
-
-\end_inset
-
- 
+ .
 \end_layout
 
 \begin_layout Standard
-The origin of reactive variables is from the 
+Reactive variable is a concept that used in 
+\family typewriter
+Reactive Programming
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ The origin of reactive variables is from the 
 \family typewriter
 Functional Reactive Programming
 \family default
@@ -248,7 +343,7 @@ literal "false"
 
 , that aims to use principles from the 
 \family typewriter
-Fucntional Programming
+Functional Programming
 \family default
  (FP) paradigm.
 \begin_inset Foot
@@ -272,7 +367,7 @@ https://en.wikipedia.org/wiki/Functional_programming
 
  Reactive variables have a representation similar to pure functions in FP,
  in expressing code that calculate needed output based on arguments.
- For example, in 
+ For example, 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -295,11 +390,15 @@ literal "false"
 
 \end_inset
 
- is equivilent to in Javascript
+ is equivalent to 
 \color blue
- function A(B){return B+1}
+function A(B){return B+1}
 \color inherit
-.
+ in the 
+\family typewriter
+JavaScript
+\family default
+ programming language.
  
 \end_layout
 
@@ -696,6 +795,147 @@ lstinline{B}
 
 \end_layout
 
+\begin_layout Section
+Objects
+\end_layout
+
+\begin_layout Standard
+For presenting the partitioning, the abstraction model utilizes 
+\emph on
+classes
+\emph default
+ or 
+\emph on
+objects
+\emph default
+ within 
+\family typewriter
+Object Oriented Programming
+\family default
+
+\begin_inset space ~
+\end_inset
+
+(OOP).
+ Objects group fields and operations.
+ Classes are the templates for objects.
+ Interface is the outer form from the prespective of a client.
+\end_layout
+
+\begin_layout Standard
+OOP has an advantage in enabling 
+\emph on
+indirect interface
+\emph default
+, by which providers and clients do not depend on each other directly.
+ A useful example is the 
+\family typewriter
+Observer
+\family default
+ pattern
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+, by which one object named 
+\emph on
+observable
+\emph default
+ triggers other objects named 
+\emph on
+observers
+\emph default
+ about new content.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The concept of objects enables code-reuse in two forms.
+ First, 
+\emph on
+inheritance
+\emph default
+, that class derived from another class.
+ Second, 
+\emph on
+composition
+\emph default
+, that a class contains a reference to another class.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Problem
+\end_layout
+
+\begin_layout Standard
+At this point, our question is regarding an integration.
+ Several research directions have been presented in order to connect between
+ reactive variables and objects 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018,Salvaneschi2014,boix2013object,salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ One of them 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, suggested that reactive variables would be part of the interface of an
+ object.
+ The interface consists of operations that can be invoked by clients, but
+ it also consists of fields by 
+\family typewriter
+getter
+\family default
+ and 
+\family typewriter
+setter
+\family default
+ methods.
+ Therefore, adding to the interface also reactive variables seems a valid
+ research direction.
+ We call such a reactive variable 
+\family typewriter
+RIVar
+\family default
+, a short name to 
+\family typewriter
+Reactive Instance Variable
+\family default
+ or also 
+\family typewriter
+Reactive Interface Variable
+\family default
+.
+ 
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
@@ -737,106 +977,6 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-However, EDP still has an advantage that is fits 
-\family typewriter
-Object Oriented Programming
-\family default
-
-\begin_inset space ~
-\end_inset
-
-(OOP) for the use of components-based applications 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
-.
- The advantage is in enabling 
-\emph on
-indirect interface
-\emph default
-, by which providers and clients do not depend on each other directly.
- EDP is based on the 
-\family typewriter
-Observer
-\family default
- pattern 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-.
- This pattern consists of interfaces, by which one component named 
-\emph on
-observable
-\emph default
- triggers other components named 
-\emph on
-observers
-\emph default
- about new content.
- 
-\end_layout
-
-\begin_layout Standard
-Several research directions have been presented in order to connect between
- reactive variables and objects 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kamina2018,Salvaneschi2014,boix2013object,salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
- One of them 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, suggested that reactive variables would be part of the interface of an
- object.
- Interface consists of operations that can be invoked by clients, but it
- also consists of fields by 
-\family typewriter
-getter
-\family default
- and 
-\family typewriter
-setter
-\family default
- methods.
- Therefore, adding to the interface also reactive variables seems a valid
- research direction.
- We call such a reactive variable 
-\family typewriter
-RIVar
-\family default
-, a short name to 
-\family typewriter
-Reactive Instance Variable
-\family default
- or also 
-\family typewriter
-Reactive 
-\emph on
-Interface
-\emph default
- Variable
-\family default
-.
-\end_layout
-
-\begin_layout Standard
 One question upon this suggestion is whether 
 \family typewriter
 RIVar
@@ -854,8 +994,15 @@ literal "false"
 \family typewriter
 RIVar
 \family default
- is? Is it more similar to a method, or that it is more like a field? If
- 
+ is? Is 
+\family typewriter
+RIVar
+\family default
+ more similar to a method, or is 
+\family typewriter
+RIVar
+\family default
+ more like a field? If 
 \family typewriter
 RIVar
 \family default
@@ -870,6 +1017,10 @@ RIVar
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Another question that is more general, is whether (and how) to support 
 \emph on
 cycles
@@ -921,6 +1072,850 @@ mutual recursion
 \end_inset
 
  and vice versa.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, the main point is our initial discussion of the centralized mechanism,
+ of how to manage the dependencies or propogate the changes.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Background"
+
+\end_inset
+
+Background
+\end_layout
+
+\begin_layout Standard
+Our approach is based on the concept of 
+\emph on
+observable streams
+\emph default
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A complete knowledge and references are available in
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ https://introtorx.com/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+C#
+\family default
+ programming language) and 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rxjs.dev/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+JavaScript
+\family default
+ programming language)
+\end_layout
+
+\end_inset
+
+ An observable stream is similar to a list in that it delivers ordered items.
+ However, unlike a traditional list, the entire history of values isn't
+ necessarily stored.
+ Rather, observable streams represent an abstraction that provides access
+ to a sequence of values.
+ To access these values, consumers must first subscribe to the observable
+ stream.
+\end_layout
+
+\begin_layout Standard
+Upon observable streams, 
+\emph on
+operators 
+\emph default
+are used for transforming those observable streams.
+ The operators act similarly to the concept of 
+\emph on
+lifting
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, because they convert a function to be a 
+\emph on
+higher order function.
+ 
+\emph default
+A unary operator can be lifted by an operator 
+\family typewriter
+map
+\family default
+ that maps each item according to an argumented function.
+ A binary operator can be lifted by an operator 
+\family typewriter
+CombineLatest
+\family default
+ works for two observable streams, mapping based on items from the two.
+ The operators create an observable stream, subscribe to the argumented
+ observable stream, and deliver items through the created observable stream.
+ 
+\end_layout
+
+\begin_layout Standard
+By using these concepts, the propagation change 
+\emph on
+may
+\emph default
+ be managed by the individual nodes.
+ To support this, delivered items can contain meta-data in addition to the
+ values 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "proencca2017quality"
+literal "false"
+
+\end_inset
+
+.
+ In addition, the dependencies 
+\emph on
+may
+\emph default
+ be managed by individual objects.
+ However, if coordination is required between nodes or objects, then the
+ problem of our initial discussion remains.
+ Nevertheless, the presented concepts form the cornerstone of our approach.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Higher order functions upon reactive variables forms expressions that themselves
+ become observable streams.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Our approach is based on existing concepts borrowed from ReactiveX.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Approach
+\end_layout
+
+\begin_layout Standard
+Our approach to the problem requires investigating 
+\emph on
+cycles
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
+Investigating Cycles
+\end_layout
+
+\begin_layout Standard
+Cycles are created in case that variables define each other (
+\family typewriter
+mutual recursion
+\family default
+).
+ For instance, if 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and also 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+, both 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+ are included in code, which means that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is defined in term of 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ and vice versa.
+ 
+\end_layout
+
+\begin_layout Standard
+We would focus on a consequence dataflow.
+ In the dataflow of a cycle, it must be, that one of the nodes has two incoming
+ edges.
+ This is clearly derived from the way we illustrate a cycle (depicted in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:dataflow_to_cycle-1-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ We start from an incoming edge (the dotted edge in the figure) into a node
+ (
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ in the figure), that is the cycle's first node.
+ Then, we continue through several nodes until reaching again the first
+ node (
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ in the figure) from another edge (in the figure, the edge from 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ towards 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$value$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:dataflow_to_cycle-1-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Dataflow into and through a cycle.
+\end_layout
+
+\end_inset
+
+Dataflow into and through a cycle.
+ The nodes represent the variables, and the edges illustrate the flow of
+ the data.
+ Values caused by inputs are propagated through the nodes of the cycle.
+ Node 
+\begin_inset Formula $C$
+\end_inset
+
+ has two incoming edges: the first connects it to the cycle, and the second
+ is from where values are propagated into the cycle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the node with the two incoming edges, we make a process like reverse
+ engineering: from the dataflow we find the dependencies.
+ It must be one of two options.
+ In the first option, the node represents an input variable which also depends
+ on an expression.
+ In the second option, the node represents a variable that depends on two
+ expressions simultaneously.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We investigate 
+\emph on
+cycles
+\emph default
+ by a process similar to reverse engineering.
+ Typicaly, the process is that dependencies are declared first and the dataflow
+ (propagation change) is determined according to the dependencies.
+ By an example, the flow starts with declaring 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+.
+ This means that A depends on B and illustrated (similar to UML notation)
+ as 
+\begin_inset Formula $A\longrightarrow B$
+\end_inset
+
+.
+ The consequence runtime is a dataflow or a propogation change from B to
+ A, illustrated as 
+\begin_inset Formula $B\longrightarrow A$
+\end_inset
+
+.
+ In our investigation process, we starts from a dataflow, and then analyse
+ the consequence dependencies.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Typically, dependencies are declared first, and the dataflow is then determined
+ based on those dependencies.
+ For example, declaring a dependency like 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ indicates that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ depends on 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ (A->B).
+ From this dependency, the dataflow is determined from 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
+ In our invetigation process, by analyzing the dataflow we determine dependencie
+s.
+\end_layout
+
+\begin_layout Plain Layout
+For investigating cycles, we take a reversed approach.
+ We begin by investigating a dataflow, and from that dataflow, we determine
+ dependencies.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the dataflow of a cycle, it must be that one of the nodes has two incoming
+ edges.
+ This is clearly derived from the way we illustrate a cycle (depicted in
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:dataflow_to_cycle-1-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ We start from an incoming edge (the dotted edge in the figure) into a node
+ (
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ in the figure), that is the cycle's first node.
+ Then, we continue through several nodes until reaching again the first
+ node (
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ in the figure) from another edge (in the figure, the edge from 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ towards 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Following the dataflow invetigation, we determine dependencies.
+ For the node that has two incoming edges, it must be one of two options.
+ First, the node represents an input variable which also depends on an expressio
+n.
+ In the second options, the node represents a variable that depends on two
+ expressions simultaneously.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In this case, an incoming value into the variable propagates through several
+ nodes until reaching again the variable through the expression it depends
+ on.
+ For example, 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ is an input variable and it is declared
+\end_layout
+
+\begin_layout Plain Layout
+For example, 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is an input variable and it is declared that 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+ and also that 
+\begin_inset Formula $\LSTINLINE{B:=A}$
+\end_inset
+
+.
+ In the second options, the node represents a variable that depends on two
+ expressions simultaneously.
+ An example for this case, is the previous example, while that 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ is an input variable, and it is declared that 
+\begin_inset Formula $\LSTINLINE{A:=C}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+New Semantics
+\end_layout
+
+\begin_layout Standard
+From this investigation of cycles, we change from the reassignment question
+ to 
+\emph on
+multiple assignments.
+ 
+\emph default
+Our assignment will perform
+\emph on
+ adding a dependency
+\emph default
+.
+ A variable (
+\family typewriter
+RIVar
+\family default
+) can be assigned multiple times, and in each time the variable depends
+ on a new expression in addition to existing dependencies.
+ This leads that a single variable can be updated from several expressions.
+ Additionally, all the variables are input variables that can be updated
+ directly.
+\end_layout
+
+\begin_layout Standard
+Practically, our assignment operation performs that
+\emph on
+ the left-hand variable subscribes to the right-hand expression, such that
+ the right-hand expression calls to the left-hand variable to update it
+\emph default
+.
+ This concept is inspired from the observable streams abstraction.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Like that a high level function subscribes to observable streams, the assignment
+ operation subscribes to the observable stream of the right-hand expression.
+ However, the high level functions creates new observable streams, while
+ the assignment operation deliver items to the existing observable stream
+ of the left-hand variable.
+\end_layout
+
+\end_inset
+
+ The assignment operation is like a 
+\family typewriter
+merge
+\family default
+ function.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+like 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://reactivex.io/documentation/operators/merge.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ For each variable, it combines an observable stream that represents the
+ variable with observable streams that represent the expressions assigned
+ to the variable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+From this investigation upon cycles, we introduce semantics of 
+\emph on
+multiple assignments
+\emph default
+, a novel approach against the questioned reassignment.
+\end_layout
+
+\begin_layout Itemize
+An assignment performs
+\emph on
+ adding a dependency
+\emph default
+ or 
+\emph on
+extending
+\emph default
+, rather than the reassignment, which is like
+\emph on
+ update
+\emph default
+ or 
+\emph on
+override
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+The assignment is an operation based on the 
+\family typewriter
+Observer
+\family default
+ pattern.
+ The left-hand variable subscribes to the right-hand expression.
+ The right-hand expression calls to the left-hand variable to propogate
+ changes.
+\end_layout
+
+\begin_layout Plain Layout
+By using observable streams, we refer to 
+\emph on
+multiple assignments
+\emph default
+ similar to sampling a real world variable by a 
+\emph on
+multiple
+\emph default
+ sensors, with the need to merge the observable streams.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the delivery, we employee a 
+\emph on
+decentralized propogation change algorithm, that will achive predictability.
+\end_layout
+
+\begin_layout Plain Layout
+we employee a 
+\emph on
+decentralized propogation change algorithm.
+ 
+\emph default
+We consider the specific delivery in the invetigation, in which the node
+ was reached again.
+ It had nothing to update, because it was not newer than the latest updated
+ value.
+ Accordingly, we employee a 
+\emph on
+decentralized propogation change algorithm
+\emph default
+ by which
+\end_layout
+
+\begin_layout Plain Layout
+, the was nothing values was not newer.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In the cycles investigation, in the delivery in which a node is reached
+ again, the delivered item is not newer, therefore we would discard.
+\end_layout
+
+\begin_layout Plain Layout
+From invetigating a change propogation through a cycles, it is desirable
+ that 
+\end_layout
+
+\begin_layout Plain Layout
+In the delivery we employee a 
+\emph on
+decentralized propogation change algorithm, by which we order the values,
+ and discard absolete values 
+\emph default
+that is basicly, to discard absolete values.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1014,6 +2009,10 @@ Observer
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
  approach, with an additional similar to the inheritance mechanism 
 \begin_inset CommandInset citation
@@ -1067,9 +2066,14 @@ In propogating changes, raises changes according to an algorithm that deals
  with cycles correctly.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 An assignment operation, based on the 
@@ -1108,7 +2112,7 @@ override
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
@@ -1157,7 +2161,7 @@ override
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
@@ -1192,7 +2196,7 @@ adding
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 We introduce an assignment operation in which, the left-hand variable 
@@ -1252,7 +2256,7 @@ extending with a new dependency
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The two questions, of reassignment and cycles are connected by a novel third
@@ -1268,7 +2272,7 @@ The two questions, of reassignment and cycles are connected by a novel third
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 For facilitating FRP into component-based applications, an approach that
@@ -1304,7 +2308,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 However, EDP still has an advantage in its ability to promote loose coupling
@@ -1346,7 +2350,7 @@ Observer
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 However, EDP still has an advantage in its ability to promote loose coupling
@@ -1653,32 +2657,60 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-We introduce an abstraction 
-\emph on
-reactive instance
-\emph default
- (or 
-\emph on
-interface
-\emph default
-)
-\emph on
- variables, 
-\emph default
-named 
+Our contribution is in introducing the concept 
 \begin_inset Formula $\RIVar$
 \end_inset
 
- for short.
- This harmonizes the concepts reactive variable with instance variable (i.e.,
- field associated with an object).
- Based on this concept, we form a conceptual framework that we implement
- in both 
-\begin_inset Formula $\LSTINLINE{C\#}$
+.
+ 
+\begin_inset Formula $\RIVar$
 \end_inset
 
- and 
-\begin_inset Formula $\NAME{JavaScript}$
+ is a short name to 
+\family typewriter
+Reactive Instance
+\family default
+ (or 
+\family typewriter
+Interface
+\family default
+)
+\family typewriter
+ Variable
+\emph on
+.
+
+\family default
+\emph default
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ harmonizes the concepts 
+\family typewriter
+reactive variable
+\family default
+ with 
+\family typewriter
+instance variable
+\family default
+ (i.e., field associated with an object).
+\end_layout
+
+\begin_layout Standard
+Upon 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ we implement frameworks available in 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX
+\end_layout
+
 \end_inset
 
 .
@@ -1695,6 +2727,25 @@ nuget
 \end_inset
 
 .
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
  For 
 \begin_inset Formula $\NAME{JavaScript}$
 \end_inset
@@ -1727,35 +2778,49 @@ https://www.npmjs.com/package/rivarjs
 
 \end_inset
 
- We create for 
-\begin_inset Formula $\NAME{rivarjs}$
+ In both, we created a class named 
+\begin_inset Formula $\RIVar$
 \end_inset
 
-, an integration to 
+ with a method named 
+\family typewriter
+Set
+\family default
+, that represents the new assignment operation.
+ We also created an extension method named 
+\family typewriter
+Lift
+\family default
+, for creating the expressions.
+\end_layout
+
+\begin_layout Standard
+The frameworks have been integrated with UI frameworks.
+ Conceptually, 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ consists of observable streams facilitating binding with the UI.
+ When a UI change event occurs, it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+ Additionaly, for an integration with 
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://react.dev/
-\end_layout
-
+, we created a component, 
+\family typewriter
+RIVarView,
+\family default
+ that seamlessly integrates 
+\begin_inset Formula $\RIVar$
 \end_inset
 
-
-\end_layout
-
+ with 
+\begin_inset Formula $\NAME{React}$
 \end_inset
 
- hoping that it would be helpful for real-life applications.
+.
 \end_layout
 
 \begin_layout Standard
@@ -4585,7 +5650,7 @@ https://react.dev/
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 and also a 
@@ -4673,7 +5738,7 @@ https://react.dev/
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 —
@@ -5023,7 +6088,7 @@ https://react.dev/
 
 \begin_layout Paragraph*
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...
@@ -5724,7 +6789,7 @@ In software programming, mutable variables refer to variables as memory
 \end_inset
 
  assigns a value 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
  to variable 
@@ -6970,7 +8035,7 @@ noprefix "false"
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  in the example) are converted from operating over values to operate over
@@ -8495,7 +9560,7 @@ executed functions, so that the target reactive variable continuously contains
  on.
  A propagation of changes starts whenever any of the variables get user
  input (
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operator).
@@ -11340,10 +12405,14 @@ https://react.dev/
 \end_layout
 
 \begin_layout Paragraph
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Paragraph
 Outline.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -11357,7 +12426,7 @@ noprefix "false"
  we present a problem of our motivation for handling cycles.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -11393,7 +12462,7 @@ noprefix "false"
 , we introduce our methodology leading to the new semantics.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 list state of the art strategies for calculations input fields in GUI applicatio
 ns.
  In 
@@ -11453,6 +12522,11 @@ noprefix "false"
 \end_inset
 
  contains the conclusion and the future work.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

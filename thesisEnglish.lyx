@@ -277,9 +277,45 @@ filename "Acknowledgments.lyx"
 \end_layout
 
 \begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\myName}[1]{\textcolor{blue}{\textsf{#1}}\index{#1}}
+{\mathbf{myName}\{#1\}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\renewcommand{\RIVar}{\myName{RIVar}}
+{\mathbf{RIVar}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\RIVarX}{\myName{RIVarX}}
+{\mathbf{RIVarX}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand include
 filename "Abstract.lyx"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -424,6 +460,25 @@ filename "RelatedWork.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "Conclusion.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "Approach.lyx"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 

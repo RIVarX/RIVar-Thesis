@@ -109,511 +109,20 @@ name "chap:Evaluation"
 
 \end_inset
 
-Evaluation
+Validation
 \end_layout
 
 \begin_layout Section
-Predictability / Denotational Semantics
+Abstraction Validation
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-(We take the concept of reactive variables as observable streams.
- An observable stream is like a list, that it contains ordered items.
- It does not mean that the list is stored, it is only an abstraction like
- a list.
- The list consists of the history of values that a variable have been contained.
- In order to get those values, consumers should perior to subscribe to the
- observable stream.
-\end_layout
-
-\begin_layout Plain Layout
-This concept comes with operators for tranforming those observable streams.
- One operator map maps each item according to a function given as an argument.
- Another operator CombineLatest works for two observable streams, mapping
- based on items from the two.
- These operators has s meaning like lifting, because they convert a function
- to be an 
-\emph on
-higher order function
-\emph default
-.
- Higher order functions executed upon reactive variables forms expressions
- that are observable streams.)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Multiple assignments informs a 
-\family typewriter
-merge
-\family default
- operation, that is a stream of values from the whole updates, either directed
- updates from being an input variable or from any of the assigned expressions.
- For example, if the code includes 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
-, the stream of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- actualy refers to a stream produced by 
-\begin_inset Formula $\LSTINLINE{merge(A,B,D)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-This outcome is created incrementaly by introducing the assignment as an
- 
-\emph on
-accumulation
-\emph default
- 
-\emph on
-merge.
- 
-\emph default
-For instance
-\begin_inset space ~
-\end_inset
-
-(
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:merge-several-sources-2-2-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), the statement 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- means 
-\begin_inset Formula $\LSTINLINE{A=merge(A,B)}$
-\end_inset
-
-.
- With including also a subsequent statement 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- means 
-\begin_inset Formula $\LSTINLINE{A=merge(merge(A,B),D)}$
-\end_inset
-
-.
- From these statements, it should be garantee that 
-\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(A,B,D)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-For the equation 
-\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(A,B,D)}$
-\end_inset
-
- to be true, the 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- function should have two mathematics properties: commutativity and associativit
-y.
- Commutativity means no order over the executions of the assignments statements
- ( 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and then 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- behaves the same as 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- and then 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
-).
- Associativity means no strictness regarding order of the evaluations, because
- rearranging the parentheses in an expression will not change the result.
- For example, 
-\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(A,merge(B,D))}$
-\end_inset
-
-.
- Regarding to mathematics, with both associativity and commutativity, we
- can be confident that the final result will always be the same, regardless
- of both the order of executions and the assignments statements.
-\end_layout
-
-\begin_layout Standard
-—–
-\end_layout
-
-\begin_layout Section
-Cycles
-\end_layout
-
-\begin_layout Standard
-—–
-\end_layout
-
-\begin_layout Standard
-Any method to keep from cycles or from lost accuracy through the chain of
- computations makes higher coupling than the method of this thesis.
- In a simpler example, if 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=C}$
-\end_inset
-
- are presents, C is a transitive dependency of A, therefore a formula like
- 
-\begin_inset Formula $\LSTINLINE{C:=A}$
-\end_inset
-
- makes a cycle.
- In order to avoid cycles creation, before adding any piece of functionality
- like C:=A, it is essential to ensure that the left hand variable is not
- a transitive dependency (that can be located in another class) of any of
- the variables that the right hand expressions composed of.
- A similar check should be applied to ensure zero accuracy lost.
-\end_layout
-
-\begin_layout Standard
-Methods similar to this thesis' do allow cycles and stop the propagation
- change in runtime.
- (The first two options are available in 
-\family typewriter
-Microsoft Excel
-\family default
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-)
-\end_layout
-
-\begin_layout Itemize
-When a value has not changed from the update, or changed only less than
- a threshold.
- This has been presented in the example.
-\end_layout
-
-\begin_layout Itemize
-Letting to update several times, stopping after an arbitrary number of times.
- The number depends on the specific graph, which depends again on dependancies
- that can be specified in other classes.
-\end_layout
-
-\begin_layout Itemize
-Checking the original triggering source.
- This again makes again coupling on parts that are not directly located
- in a current class.
-\end_layout
-
-\begin_layout Itemize
-Centralized mechanism
-\end_layout
-
-\begin_layout Standard
-———
-\end_layout
-
-\begin_layout Standard
-—-
-\end_layout
-
-\begin_layout Standard
-we find that this node represent a variable that has been declared with
- a dependancy more that once.
- Specificaly, this informs one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- For instance, both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable.
- Second, a variable that depends on two expressions simultaneously.
- An example for this case, is an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- to the previous example, while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
-\end_layout
-
-\begin_layout Standard
-From investigating data flow from two distinct nodes, we determine a variable
- with 
-\emph on
-multiple assignment
-\emph default
-.
-\end_layout
-
-\begin_layout Standard
-We distingwish between two assignment types.
- 
-\end_layout
-
-\begin_layout Standard
-Since a cycle's starting point has two incoming edges, it must be that one
- variable two dependancies have been declared or that 
-\end_layout
-
-\begin_layout Standard
-, or that an input variable 
-\end_layout
-
-\begin_layout Standard
-A cycle starts from the first incoming edge into the cycle starting point,
- then through several nodes untill reaching again the first node from another
- edge.
-\end_layout
-
-\begin_layout Standard
-Since a cycle's starting point has two incoming edges, it must be that two
- dependancies have been declared (
-\end_layout
-
-\begin_layout Standard
-it depends on 
-\end_layout
-
-\begin_layout Standard
-using a process similar to reverse-engineering.
- Usually, we first declare a data dependancy, and then we determine a dataflow.
- For example, declaring a dependancy A:=B means that A depends on B (A->B),
- therefore the data flows from B to A.
- Here we take a reveresed process, a process similar to reverse-engineering:
- we find the variables' dependencies from which this dataflow was constructed.
- For example, an edge from B towards A indicates that A depends on B by
- a formula like A:=B.
- Consequently, a cycle's starting point, which is a node with two incoming
- edges, inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- For instance, both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable.
- Second, a variable that depends on two expressions simultaneously.
- An example for this case, is an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- to the previous example, while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
-\end_layout
-
-\begin_layout Standard
-In this chapter we figure out that cycles are belonged to a broader concept.
- In ilustrating a cycle, such as depicted in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:dataflow_to_cycle-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, we start from an incoming edge into a node, that is a cycle's first node,
- then through several nodes untill reaching again the first node from another
- edge.
- The node that we started from, has two incoming edges.
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
-From this investigation, we determine that an existence of cycles means
- that variables depend on several expressions simultaneously.
- We present this using a process similar to reverse-engineering.
- Usualy, we first declare a data dependancy, and then we determine a dataflow.
- For example, declaring a dependancy A:=B means that A depends on B (A->B),
- therefore the data flows from B to A.
- Here we take a reveresed process, a process similar to reverse-engineering:
- we find the variables' dependencies from which this dataflow was constructed.
- For example, an edge from B towards A indicates that A depends on B by
- a formula like A:=B.
- Consequently, a cycle's starting point, which is a node with two incoming
- edges, inform one of two cases.
- First, a variable that is an input variable that also depends on an expression.
- For instance, both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present and 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is an input variable.
- Second, a variable that depends on two expressions simultaneously.
- An example for this case, is an addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- to the previous example, while 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
- is the input variable.
-\end_layout
-
-\begin_layout Standard
-The employed strategy involves propagating each input through its data dependenc
-ies until reaching points where the value from the propagation is no longer
- more up-to-date than the values of the reached variables at that time.
- For instance, when 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- receives an input, it propagates it to 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- However, it does not subsequently propagate it back to 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The use of 
-\begin_inset Formula $\LSTINLINE =$
-\end_inset
-
- is traditionally enabled to assign multiple times.
- The novelty is about 
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
- that the variable is associated to the expression without being able to
- remove this association.
- For instance, in a scenario where both 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{B:=A}$
-\end_inset
-
- are present, it is valid to present also 
-\begin_inset Formula $\LSTINLINE{A:=1}$
-\end_inset
-
-.
- This will propagate the value 
-\begin_inset Formula $\LSTINLINE 1$
-\end_inset
-
- through 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- to 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- Similarly, the addition of 
-\begin_inset Formula $\LSTINLINE{A:=C}$
-\end_inset
-
- is valid.
- In this case, including 
-\begin_inset Formula $\LSTINLINE{C:=1}$
-\end_inset
-
- will result in the propagation of the value 
-\begin_inset Formula $\LSTINLINE 1$
-\end_inset
-
- through 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
-, and finally to 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 Example
 \end_layout
 
 \begin_layout Standard
-Consider an example, where FRP style is used with the evolution of an applicatio
-n.
+Consider an example, where reactive variables are used with the evolution
+ of an application.
  The evaluation revolves around the variables 
 \begin_inset ERT
 status open
@@ -975,8 +484,12 @@ A variable Alert that should be updated.
 \end_layout
 
 \begin_layout Standard
-At this stage, we begin the process again with the use of NH-FRP.
- Again, an initial step, alert if the amount is abnormal.
+At this stage, we begin the process again with the new semantics of multiple
+ assignments.
+\end_layout
+
+\begin_layout Standard
+Again, an initial step, alert if the amount is abnormal.
 \end_layout
 
 \begin_layout Standard
@@ -1188,7 +701,7 @@ end{center}
 \end_layout
 
 \begin_layout Standard
-The example with NH-FRP presents:
+The example with the new semantics presents:
 \end_layout
 
 \begin_layout Standard
@@ -1200,11 +713,1228 @@ The example with NH-FRP presents:
 • No need to update code for Alert.
 \end_layout
 
-\begin_layout Section
-Code Reuse
+\begin_layout Subsection
+User Experience
 \end_layout
 
 \begin_layout Standard
+The new semantics of multiple assignments represents a feature 
+\emph on
+add filling option
+\emph default
+ in addition to an ordinary feature 
+\emph on
+add computed field
+\emph default
+.
+ For example, in a formula 
+\begin_inset Formula $\LSTINLINE{Amount=Dose*Duration}$
+\end_inset
+
+, in case that 
+\family typewriter
+Amount
+\family default
+ is firstly declared, it is the ordinary computed field, otherwise it adds
+ a new filling option.
+ The idea is that filling 
+\family typewriter
+Dose
+\family default
+ and 
+\family typewriter
+Duration 
+\family default
+is one option to fill Amount, an alternative to other such filling options.
+ 
+\end_layout
+
+\begin_layout Standard
+The new feature can be presented also as adding a filling option as a set
+ of fields, as in the followng example.
+ Among fields 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+, only two of them are required for documenting drugs' amount.
+ Users can, for example, define quantities by setting only 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In such a case, the value of 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is computed.
+ Additionaly, users can define quantities by setting only the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In such a case, the value of 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is computed.
+\end_layout
+
+\begin_layout Standard
+If only one filling option is available, users are stricted: users must
+ define values in the terms used in the application.
+ For example, in Drug Administration define quantities by setting 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ for drugs that it is easier to set by 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+.
+ In the strict mode, users are forced to convert the values.
+ For example, a case that available fields are 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, and an amount is 
+\begin_inset Formula $0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $100$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ For filling 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ it is required to calculate 
+\begin_inset Formula $\LSTINLINE{Concentration*Volume}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Empirical Validation
+\end_layout
+
+\begin_layout Subsection
+First Validation
+\end_layout
+
+\begin_layout Standard
+We implemented 
+\family typewriter
+RIVar
+\family default
+ as an extension 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+ programming language, on top of Rx.
+ Based on this, we created the 
+\family typewriter
+Drug Administration 
+\family default
+a desktop application (
+\family typewriter
+Windows Forms)
+\family default
+.
+ We added the option to log the changes, and check the performed change
+ propagation against various cenarios.
+ One of them is presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Log-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the example, there are three steps: setting Drug to 10, then Volume to
+ 100, and finally Rate to 5.
+ Each step includes a timestamp for the events and a propagation to update
+ other fields with the attached timestamp.
+ In the first step, line 1 presents the setting, and then in line 2, Drug
+ has an event with the value 10 and timestamp 1.
+ The second step, line 3, presents the input, but only line 6 presents the
+ event that Volume has the value 100 with timestamp 2.
+ In between, there is line 5, which presents the event for concentration
+ with value 0.1 and timestamps 1 and 2, as it is computed from the values
+ of Drug and Volume, whose timestamps are now 1 and 2.
+ This causes a redundant change event (that is ignored) presented in line
+ 4, where Volume's timestamp is also 1 and 2, because there is a dependency
+ - Volume on Drug and Concentration.
+ The order of the log is not entirely logical.
+ The logging action is an event handler triggered according to the order
+ of registrations.
+ Therefore, the event in line 4 is caused by (and therefore occurs after)
+ line 5.
+ 
+\end_layout
+
+\begin_layout Standard
+The order of the log might not seem entirely reasonable at first glance.
+ The event in line 4 is logged before the event in line 5, even though it
+ is caused by (and therefore occurs after) line 5.
+ This discrepancy occurs because the log action is an event handler triggered
+ according to the order of registrations.
+ The order of the log follows a post-order traversal on top of a traversal
+ similar to Depth-First Search (DFS).
+ In the second step, the traversal sequence is Volume (first visit) -> Concentra
+tion -> Volume (second visit), while the log sequence is Volume (second
+ visit) -> Concentration -> Volume (first visit).
+\end_layout
+
+\begin_layout Standard
+The final step confirms the previous principles.
+ In the next step, Rate has a timestamp of 3 with a value of 5.
+ However, the log presents the post-order traversal caused by this.
+ The change propagation is as follows: Rate (value 5, timestamp 3), Duration
+ (value 20, timestamps 2 and 3 computed from Rate * Volume, 100 * 5), Dose
+ (0.5 timestamp 1, 2, and 3 computed based on Duration (from it, there are
+ timestamps 2 and 3) and Drug (from it, timestamp 1)), Duration (second
+ visit, caused by Dose, ignored).
+ The order of the log in post-order: Duration (value 20, timestamps 1, 2,
+ and 3, second visit), Dose (value 0.5, timestamps 1, 2, and 3), Duration
+ (value 20, timestamps 2 and 3, first visit), Rate (value 5, timestamp 3).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+1.
+ Drug_Control:10
+\end_layout
+
+\begin_layout Plain Layout
+2.
+ Drug_Control: 10 <1>
+\end_layout
+
+\begin_layout Plain Layout
+3.
+ Volume_Control:100
+\end_layout
+
+\begin_layout Plain Layout
+4.
+ Volume_Control: 100 <1,2>
+\end_layout
+
+\begin_layout Plain Layout
+5.
+ Concentration_Control: 0.1 <1,2>
+\end_layout
+
+\begin_layout Plain Layout
+6.
+ Volume_Control: 100 <2>
+\end_layout
+
+\begin_layout Plain Layout
+7.
+ Rate_Control:5
+\end_layout
+
+\begin_layout Plain Layout
+8.
+ Duration_Control: 20 <1,2,3>
+\end_layout
+
+\begin_layout Plain Layout
+9.
+ Dose_Control: 0.5 <1,2,3>
+\end_layout
+
+\begin_layout Plain Layout
+10.
+ Duration_Control: 20 <2,3>
+\end_layout
+
+\begin_layout Plain Layout
+11.
+ Rate_Control: 5 <3>
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Log-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Log result for an execution of the Drug Administration application.
+\end_layout
+
+\end_inset
+
+ The lines that does not end with angle brackets, inform change events directly
+ set by the user.
+ The angle bracket contains the timestamps, that are the order of the events
+ that the value depends on.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Second Validation
+\end_layout
+
+\begin_layout Standard
+We implemented 
+\family typewriter
+RIVar
+\family default
+ as an extension, 
+\begin_inset Formula $\NAME{npm}$
+\end_inset
+
+ package 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language.
+ We depend on observable streams, specificaly given by 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+ Based on this, we created the 
+\family typewriter
+Drug Administration
+\family default
+ as a static web page.
+\end_layout
+
+\begin_layout Standard
+We created the 
+\family typewriter
+Drug Administration
+\family default
+ also with 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ (mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) to compare with the implementation with 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+.
+ The compare page is available online in 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs/tree/main/samples/drug-administration/compare/h
+otdrink
+\end_layout
+
+\end_inset
+
+.
+ The two algorithms provide identical results in the propagation change.
+ Both of the algorithms makes new input to override effects (input and computed
+ values) of oldest input at the time of the input.
+\end_layout
+
+\begin_layout Subsubsection
+Integration with React
+\end_layout
+
+\begin_layout Standard
+In addition, we have developed 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ component, designed for visualizing a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+ Similar to a reactive variable that recalculates based on changes in its
+ dependencies, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ component re-renders the view in response to changes in the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To utilize 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, developers need to specify the 
+\begin_inset Formula $\LSTINLINE{prop}$
+\end_inset
+
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ and a nested element to define the view.
+ The nested element is specified as a function of 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method, allowing it to collect user input values and display calculated
+ values.
+ For example as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:rivarview"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in the case of a visual element representing Drug Administration Amount,
+ the 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ property is set to the input value, and the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method is called within the event handler of the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
+
+ event.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+  <RIVarView rivar={bag.Amount}>
+\end_layout
+
+\begin_layout Plain Layout
+
+        {({ value, change }) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return <input
+\end_layout
+
+\begin_layout Plain Layout
+
+            type="number"
+\end_layout
+
+\begin_layout Plain Layout
+
+            value={value}
+\end_layout
+
+\begin_layout Plain Layout
+
+            onChange={(event) => change(event.target.value)}
+\end_layout
+
+\begin_layout Plain Layout
+
+          />;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rivarview"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code example for using 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application
+\end_layout
+
+\end_inset
+
+Code example for using 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application.
+ The specified element is part of a larger BagComponent to the bag's amount.
+ The prop rivar is given with the RIVar or the bags amount.
+ The netsetd slement is a function with the arguments value and cahnge,
+ the function returns a react component view as a function of the value
+ and cahnge arguments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the added 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, it becomes easier to create the Drug Administration example as illustrated
+ in n 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ According to the example, the resulting framework allows the declaration
+ of backend logic and frontend components without needing to be aware of
+ interactions, neither between the backend objects nor between the backend
+ objects and the frontend components.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class App extends Component {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor(props) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super(props);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.pump = new Pump(this.bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  render() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <div>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <BagComponent bag={this.bag} />
+\end_layout
+
+\begin_layout Plain Layout
+
+        <PumpComponent pump={this.pump}/>
+\end_layout
+
+\begin_layout Plain Layout
+
+      </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:code}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ UI] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
+ (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:runtime}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:micro_front_ends}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:react_micro_frontends"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Design for the drug administration application.
+\end_layout
+
+\end_inset
+
+Design for the drug administration application.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ presents the static code in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ that bootstraps the components, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+ presents the runtime components with the interaction channels.
+ 
+\begin_inset Formula $\LSTINLINE{BagComponent}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{PumpComponent}$
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ represent the UI components of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that are illustrated in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+.
+ In the interaction channel between 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s update each other according to the calculations.
+ In the interaction channel between each of them to the corresponding UI
+ component, there is a binding between each of the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s to the corresponding input element, such that when a UI change event occurs,
+ it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+We introduced a new framework that provides a new development experience.
+ We presented the framework's benefits and feasiblity in a small scale applicati
+on.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+To demonstrate the correctness of the change propagation algorithm, we compare
+ its output to that of 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+, showing that they yield identical results.
+ Indeed, 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ is a constraints system of two-way constraints.
+ However, each two-way constraint can be decomposed into several one-way
+ constraints as mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ We created the 
+\family typewriter
+Drug Administration
+\family default
+ with 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ to compare with the implementation with 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+.
+ The two algorithms provide identical results in the propagation change.
+ Both of the algorithms makes new input to override effects (input and computed
+ values) of oldest input at the time of the input.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
 The example illustrates a variable reuse mechanism introduced from this
  thesis.
  As in the example, lack of a well defined variable reuse mechanism might
@@ -1224,7 +1954,7 @@ ly.
  reflect real-world variables, facilitating a one-to-one correspondence.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Additionally, two mechanisms are derived from OOP and FRP.
  The OOP paradigm consists of inheritance and composition.
  Without inheritance and composition, code is duplicated, leading to potential
@@ -1243,7 +1973,7 @@ Additionally, two mechanisms are derived from OOP and FRP.
  calling to compute and update fields.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 It turns out that this thesis introduces three code reuse mechanisms to
  be used together.
  An analysis is illustrated in 
@@ -1285,7 +2015,7 @@ literal "false"
 , rather than object oriented.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -1502,143 +2232,9 @@ Code Reuse Analysis.
 
 \end_layout
 
-\begin_layout Section
-User Experience
-\end_layout
-
-\begin_layout Standard
-The new mechanism of variables reuse is actualy a feature we name as 
-\emph on
-add filling option
-\emph default
- in addition to an ordinary feature 
-\emph on
-add computed field
-\emph default
-.
- In a formula 
-\begin_inset Formula $\LSTINLINE{Amount=Dose*Duration}$
 \end_inset
 
-, in case that 
-\family typewriter
-Amount
-\family default
- is firsly declared, it is the ordinary computed field, otherwise it adds
- a new filling option.
- The idea is that filling 
-\family typewriter
-Dose
-\family default
- and 
-\family typewriter
-Duration 
-\family default
-is one option to fill Amount, an alternative to other such filling options.
- 
-\end_layout
 
-\begin_layout Standard
-The new feature can be presented also as adding a filling option as a set
- of fields, as in the followng example.
- Among fields 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
-, 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-, only two of them are required for documenting drugs' amount.
- Users can, for example, define quantities by setting only 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In such a case, the value of 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- is computed.
- Additionaly, users can define quantities by setting only the 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In such a case, the value of 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- is computed.
-\end_layout
-
-\begin_layout Standard
-If only one filling option is available, users are stricted: users must
- define values in the terms used in the application.
- For example, in Drug Administration define quantities by setting 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- for drugs that it is easier to set by 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-.
- In the strict mode, users are forced to convert the values.
- For example, a case that available fields are 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-, and an amount is 
-\begin_inset Formula $0.5$
-\end_inset
-
- and 
-\begin_inset Formula $100$
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- For filling 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- it is required to calculate 
-\begin_inset Formula $\LSTINLINE{Concentration*Volume}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -1649,7 +2245,6 @@ status collapsed
 An improveness in code reuse may affect delivery speed to be faster.
  This is because code duplication leads to duplicate also needed changes,
  which is slower than doing changes without duplication.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1664,7 +2259,7 @@ Replacing the strict mode by a fast adding filling option may improve usability.
 The new feature present another prespective of the improveness code reuse.
  In lack of a mechanism for adding filling options, this has been done manually
  with code duplications.
- The user experience is affected 
+ The user experience is affected
 \end_layout
 
 \begin_layout Plain Layout
@@ -1677,7 +2272,7 @@ This thesis should produce a positive impact on the user experience according
 \end_layout
 
 \begin_layout Plain Layout
-The new feature as well as the 
+The new feature as well as the
 \end_layout
 
 \begin_layout Plain Layout
@@ -1716,7 +2311,6 @@ Dose
 Duration 
 \family default
 is one option to fill Amount, an alternative to other such filling options.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1827,11 +2421,19 @@ If only one filling option is available, users are stricted: users must
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
 \begin_layout Section
 Harmonized Paradigm
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The provided framework comperhasive traditional paradigms nicely.
  The framework harmonizes features from FRP and OOP.
  FRP gives predictability from the functional nature and the declerative
@@ -1839,10 +2441,9 @@ The provided framework comperhasive traditional paradigms nicely.
  OOP gives encapsulation, inheritance and polymorphism.
  Our custom assignment suite the inheritance mehcanism, that it adds dependencie
 s rather than change them.
- 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Additionaly, the framework accompass the abstractions of events streams
  and events.
  The events streams represent the lower level of a variable, represeting
@@ -1852,243 +2453,9 @@ Additionaly, the framework accompass the abstractions of events streams
  Consequently, any future demands can be adressed on its level.
 \end_layout
 
-\begin_layout Section
-Change Propagation Algorithm
-\end_layout
-
-\begin_layout Standard
-We checked the change propagation algorithm by empirically creating and
- running our applications, making some analysis and comparing to other libraries.
-\end_layout
-
-\begin_layout Subsection
-Validation
-\end_layout
-
-\begin_layout Standard
-Using 
-\family typewriter
-C# .NET
-\family default
- and 
-\begin_inset Formula $\NAME{RIVarX}$
-\end_inset
-
- package, we created the 
-\family typewriter
-Drug Administration
-\family default
- with the introduced framework as a 
-\family typewriter
-Windows Forms .NET
-\family default
- application.
- We added the option to log the changes, and check the performed change
- propagation against various cenarios.
- One of them is presented in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Log-1-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In the example, there are three steps: setting Drug to 10, then Volume to
- 100, and finally Rate to 5.
- Each step includes a timestamp for the events and a propagation to update
- other fields with the attached timestamp.
- In the first step, line 1 presents the setting, and then in line 2, Drug
- has an event with the value 10 and timestamp 1.
- The second step, line 3, presents the input, but only line 6 presents the
- event that Volume has the value 100 with timestamp 2.
- In between, there is line 5, which presents the event for concentration
- with value 0.1 and timestamps 1 and 2, as it is computed from the values
- of Drug and Volume, whose timestamps are now 1 and 2.
- This causes a redundant change event (that is ignored) presented in line
- 4, where Volume's timestamp is also 1 and 2, because there is a dependency
- - Volume on Drug and Concentration.
- The order of the log is not entirely logical.
- The logging action is an event handler triggered according to the order
- of registrations.
- Therefore, the event in line 4 is caused by (and therefore occurs after)
- line 5.
- 
-\end_layout
-
-\begin_layout Standard
-The order of the log might not seem entirely reasonable at first glance.
- The event in line 4 is logged before the event in line 5, even though it
- is caused by (and therefore occurs after) line 5.
- This discrepancy occurs because the log action is an event handler triggered
- according to the order of registrations.
- The order of the log follows a post-order traversal on top of a traversal
- similar to Depth-First Search (DFS).
- In the second step, the traversal sequence is Volume (first visit) -> Concentra
-tion -> Volume (second visit), while the log sequence is Volume (second
- visit) -> Concentration -> Volume (first visit).
-\end_layout
-
-\begin_layout Standard
-The final step confirms the previous principles.
- In the next step, Rate has a timestamp of 3 with a value of 5.
- However, the log presents the post-order traversal caused by this.
- The change propagation is as follows: Rate (value 5, timestamp 3), Duration
- (value 20, timestamps 2 and 3 computed from Rate * Volume, 100 * 5), Dose
- (0.5 timestamp 1, 2, and 3 computed based on Duration (from it, there are
- timestamps 2 and 3) and Drug (from it, timestamp 1)), Duration (second
- visit, caused by Dose, ignored).
- The order of the log in post-order: Duration (value 20, timestamps 1, 2,
- and 3, second visit), Dose (value 0.5, timestamps 1, 2, and 3), Duration
- (value 20, timestamps 2 and 3, first visit), Rate (value 5, timestamp 3).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-1.
- Drug_Control:10
-\end_layout
-
-\begin_layout Plain Layout
-2.
- Drug_Control: 10 <1>
-\end_layout
-
-\begin_layout Plain Layout
-3.
- Volume_Control:100
-\end_layout
-
-\begin_layout Plain Layout
-4.
- Volume_Control: 100 <1,2>
-\end_layout
-
-\begin_layout Plain Layout
-5.
- Concentration_Control: 0.1 <1,2>
-\end_layout
-
-\begin_layout Plain Layout
-6.
- Volume_Control: 100 <2>
-\end_layout
-
-\begin_layout Plain Layout
-7.
- Rate_Control:5
-\end_layout
-
-\begin_layout Plain Layout
-8.
- Duration_Control: 20 <1,2,3>
-\end_layout
-
-\begin_layout Plain Layout
-9.
- Dose_Control: 0.5 <1,2,3>
-\end_layout
-
-\begin_layout Plain Layout
-10.
- Duration_Control: 20 <2,3>
-\end_layout
-
-\begin_layout Plain Layout
-11.
- Rate_Control: 5 <3>
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Log-1-1-1"
-
 \end_inset
 
 
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Log result for an execution of the Drug Administration application.
-\end_layout
-
-\end_inset
-
- The lines that does not end with angle brackets, inform change events directly
- set by the user.
- The angle bracket contains the timestamps, that are the order of the events
- that the value depends on.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Correctness
-\end_layout
-
-\begin_layout Standard
-To demonstrate the correctness of the change propagation algorithm, we compare
- its output to that of 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-, showing that they yield identical results.
- Indeed, 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- is a constraints system of two-way constraints.
- However, each two-way constraint can be decomposed into several one-way
- constraints as mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- We created the 
-\family typewriter
-Drug Administration
-\family default
- with 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
- to compare with the implementation with 
-\begin_inset Formula $\NAME{rivarjs}$
-\end_inset
-
-.
- The two algorithms provide identical results in the propagation change.
- Both of the algorithms makes new input to override effects (input and computed
- values) of oldest input at the time of the input.
 \end_layout
 
 \begin_layout Standard
@@ -2247,68 +2614,19 @@ noprefix "false"
 
 \end_layout
 
-\begin_layout Section
-Encapsulation
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-From our prespective, the unexpected feedback loops are one forms that 
-\begin_inset Quotes eld
-\end_inset
-
-programs fails
-\begin_inset Quotes erd
-\end_inset
-
-, by 
-\begin_inset Quotes eld
-\end_inset
-
-surprising ways
-\begin_inset Quotes erd
-\end_inset
-
-, and it is highly related to a second form that 
-\begin_inset Quotes eld
-\end_inset
-
-programs fails
-\begin_inset Quotes erd
-\end_inset
-
-.
- The first form arises when adding functionality to update a field, as it
- might lead to an unexpected feedback loop.
- This is because the values set to the field might be resulted transitively
- by this field.
- The second form is by avoiding updates.
- By choosing to repeat code, any addition of functionality should be repeated
- according to the code repetition.
- Therefore, adding further functionality might lead to unexpected inconsistency.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Framework
-\end_layout
-
-\begin_layout Subsection
-Example
+...
 \end_layout
 
 \begin_layout Subsection
 Abstraction
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 reactive instance variable is similar to reactive variable, that it is more
  declerative than events and streams.
  Furthermore, reactive instance variable outperforms previous implementation
@@ -2322,33 +2640,33 @@ Sodium
  to the runtime, when to stop propagation because of cycles.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Beside, reactive instance variables is based on events and streams has their
  role, to abstract environmental phnomenon.
  reactive instance variables satisfy this need as well, as it is consists
  of stream of events.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Comparing to constraints, 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the highest level, we provide farmework
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Reactive Instance Variables harmonizes previous concepts seamlessly, sometimes
  ease the abstraction.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 in the Highest level, it is similar to reactive variables and one-way dataflow
  constraints
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Comparing to reactive variables implemented in Sodium, 
 \end_layout
 
@@ -2356,7 +2674,7 @@ Comparing to reactive variables implemented in Sodium,
 events
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 events produce repeat in calling to methods in the events.
 \end_layout
 
@@ -2364,7 +2682,7 @@ events produce repeat in calling to methods in the events.
 streams
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 streams that exists in an application, it cannot be reused, by adding more
  values fron another source.
 \end_layout
@@ -2373,19 +2691,19 @@ streams that exists in an application, it cannot be reused, by adding more
 constraints
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 constraints are managed as external DSL or ceneralizaed mechanism
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ———–
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 in contrsints there is a centerlized mechanism to read the 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 This thesis harmomizes FRP with OOP, in a way that the abstraction mechainsm
  is harmonzed as well.
  
@@ -2395,43 +2713,22 @@ This thesis harmomizes FRP with OOP, in a way that the abstraction mechainsm
 Stream
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In the example, we created new Amount variables.
  There is an alternative to represent Amount as a stream
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ——–
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ——-
 \end_layout
 
-\begin_layout Section
-Conclusion
-\end_layout
-
-\begin_layout Standard
-The evaluations starts with the presented reactive instance variales in
- 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
-plural "false"
-caps "true"
-noprefix "false"
-
 \end_inset
 
-.
- As presented, it is better than previous approached in code ruse options,
- less code, fast delivery, and easy way to adds coputed fieds and fill options.
- 
-\end_layout
 
-\begin_layout Standard
-—–
 \end_layout
 
 \begin_layout Standard
@@ -2891,7 +3188,7 @@ Code Repetition Analysis.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 .
@@ -3002,7 +3299,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 This thesis is driven by the need to enhance user experiences in UI (User
@@ -3146,7 +3443,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Maintaining consistency in field values might be crucial in front ends applicati
@@ -3214,7 +3511,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Repeating on code resists against the code changes for two reasons: First,

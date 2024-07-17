@@ -304,10 +304,6 @@ filename "Acknowledgments.lyx"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand include
 filename "Abstract.lyx"
@@ -317,9 +313,7 @@ filename "Abstract.lyx"
 
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
 
@@ -409,7 +403,7 @@ filename "Introduction.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Background.lyx"
+filename "Motivation.lyx"
 
 \end_inset
 
@@ -419,7 +413,7 @@ filename "Background.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Motivation.lyx"
+filename "Background.lyx"
 
 \end_inset
 

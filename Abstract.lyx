@@ -88,6 +88,242 @@
 \begin_body
 
 \begin_layout Abstract
+In this thesis, we introduce a model that combines an existing approach
+ of declarative data dependency with Object-Oriented Programming (OOP) approach.
+ In this model, a variable is named 
+\family typewriter
+RIVar
+\family default
+, a short name for 
+\emph on
+reactive instance variable
+\emph default
+, as it is both 
+\emph on
+reactive variable
+\emph default
+ and an 
+\emph on
+instance variable
+\emph default
+.
+ Reactive variables refer to the declarative data dependency approach, in
+ which a single assignment establishes a continuous association.
+ For example, performing 
+\family typewriter
+A:=B+C
+\family default
+ means that whenever 
+\family typewriter
+B
+\family default
+ and 
+\family typewriter
+C
+\family default
+ are updated an operation 
+\family typewriter
++
+\family default
+ is executed on the values that 
+\family typewriter
+B
+\family default
+ and 
+\family typewriter
+C
+\family default
+ contain and updates 
+\family typewriter
+A
+\family default
+ with the result.
+ Instance variables refer to variables associated with objects of OOP.
+ However, it is not only the variables that are associated with objects,
+ but also data dependencies and their correspondence updates.
+ 
+\end_layout
+
+\begin_layout Abstract
+We address the model's challenges.
+ The first challenge is that complex dependencies might be created, e.g.,
+ cycles, because objects' dependencies would be declared independence of
+ each other.
+ This challenge is addressed by introducing a novel semantics to cycles,
+ and introducing a suitable change propagation algorithm.
+ The second challenge is in how to manage updates unlike traditional algorithms,
+ that rely on a central algorithm or central data structures.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+to use the conventional conceptual approach in OOP (to promote indepedence).
+ This is diffrent than traditional algorithms that used to rely on a central
+ algorithm or central data structures.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Abstract
+As part of our contribution, we introduce a novel semantics for cycles,
+ an change algorithm that fits the new settings, and a small working application
+ example 
+\end_layout
+
+\begin_layout Abstract
+————
+\end_layout
+
+\begin_layout Abstract
+In this thesis, we harmonize two paradigms for improving code-reuse.
+ Reactive variable is a concept from Functional Reactive Programming (FRP),
+ in which a single assignment establishes a continuous association.
+ For example, given reactive variables 
+\family typewriter
+A
+\family default
+, 
+\family typewriter
+B
+\family default
+, and 
+\family typewriter
+C
+\family default
+, performing 
+\family typewriter
+A := B + C
+\family default
+ means that whenever 
+\family typewriter
+B
+\family default
+ and 
+\family typewriter
+C
+\family default
+ are updated an operation 
+\family typewriter
++
+\family default
+ is executed on the values that 
+\family typewriter
+B
+\family default
+ and 
+\family typewriter
+C
+\family default
+ contain and updates 
+\family typewriter
+A
+\family default
+ with the result.
+ The advantage of this declarative style can be described as providing a
+ code reuse mechanism or reducing code repetition.
+ This style promotes a single source of truth, rather than the repetition
+ of calling to update variables in many code locations.
+\end_layout
+
+\begin_layout Abstract
+Instance variable is an 
+\emph on
+object
+\emph default
+'s variable.
+ This is related to an older paradigm for code-reuse named Object-Oriented
+ Programming (OOP).
+ Here, 
+\emph on
+inheritance
+\emph default
+ and 
+\emph on
+polymorphism
+\emph default
+ mechanisms are provided so that developers can define logic once, even
+ if it's used for various types.
+ In runtime, there is a 
+\emph on
+dynamic dispatch
+\emph default
+ process, in which actual functions would be selected.
+ For example, code like 
+\family typewriter
+A.f()
+\family default
+ executes a function determines in runtime according to the actual type
+ of 
+\family typewriter
+A
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Abstract
+We harmonize 
+\emph on
+reactive variable
+\emph default
+ with 
+\emph on
+instance variable
+\emph default
+ (i.e., object's variable) into 
+\family typewriter
+RIVar
+\family default
+, a short name to 
+\emph on
+reactive instance variable
+\emph default
+.
+ 
+\family typewriter
+RIVar 
+\family default
+can be exposed by objects.
+ Additionaly, it exposes a novel assignment operation for establishing continuou
+s associations, to be used with inheritance and polymorphism.
+ Part of our contribution is in introducing semantics to cycles, for establishin
+g continuous associations unconditionally (without to keep on acyclicity).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Abstract
+For improving code-reuse, we introduce an harmonized concept named reactive
+ instance (or interface) variable (RIVar).
+ For example, we would establish a continuous association like X.A := B +
+ C for a given object X which contains other establishments internaly.
+ Our main contribution is in introducing semantics to cycles, for establishing
+ continuous associations unconditionaly (without to keep on acyclicity).
+\end_layout
+
+\begin_layout Abstract
+—————–
+\end_layout
+
+\begin_layout Abstract
 
 \emph on
 RIVar
@@ -188,7 +424,7 @@ Similary are the RIVars been accessed through object's interface.
  the formula X.A := B + C establish a dependency such that A 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ——-
 \end_layout
 
@@ -629,6 +865,11 @@ As a proof of concept, we introduce programming language extensions.
 \end_inset
 
  function for creating functions that establish dependencies of FRP.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract

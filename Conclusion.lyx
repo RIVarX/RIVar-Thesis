@@ -87,7 +87,30 @@ name "chap:Conclusion"
 Conclusion
 \end_layout
 
+\begin_layout Section
+Results
+\end_layout
+
 \begin_layout Standard
+We introduced an model in which fields are declared to be calculated according
+ to each other.
+ It is abstracted out details like seperating between input and computed
+ fields.
+ We continuously calculate based on the latest input, assuming that old
+ values can be overridden by the new ones.
+ These assumptions should be further tested in real-life applications or
+ replaced with an advanced 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 This thesis enables to add filling options by just adding an assignment.
  For example, specifying A:=b+1, A can be filled by filling B, while previous
  filling options are still available.
@@ -111,7 +134,7 @@ Add Computed Fields
 Add Filling Options
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Among fields 
 \begin_inset Formula $\NAME{Drug}$
 \end_inset
@@ -155,7 +178,7 @@ Among fields
  is computed.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Adding such redundancy can have a positive impact on the user experience.
  If only one option is available, users are stricted: users must define
  amounts in the terms used in the Order Entry.
@@ -216,7 +239,7 @@ Adding such redundancy can have a positive impact on the user experience.
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -317,7 +340,7 @@ However, there are drugs for whom it is easier to define quantities by setting
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -407,7 +430,7 @@ The missing feature is the ability to easily add various input options,
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -426,7 +449,7 @@ The missing function is to easily add various input options, so that depending
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -448,7 +471,7 @@ Unlike computers, which analyze information in binary terms, humans perceive
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -619,7 +642,7 @@ literal "false"
 Fast Feedback Loop
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -670,7 +693,7 @@ hh if
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In order to enhance the Order Entry, it should be easy to make changes according
  to feedback from users.
  We present an example around the field Drug and another field named Alert.
@@ -744,7 +767,7 @@ lstinline{Amount}
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -791,7 +814,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The code needs to be modified (indicated using bold font style) when the
  doctor administers the values of 
 \begin_inset ERT
@@ -822,7 +845,7 @@ lstinline{Volume}
  in order to calculate the resulting amount.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -875,7 +898,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 If the doctor administers the medication by setting the values of 
 \begin_inset ERT
 status open
@@ -919,7 +942,7 @@ lstinline{Dose*Duration}
  In this scenario, it is necessary to update the code accordingly.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -982,7 +1005,7 @@ end{center}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 It is evident that whenever additional sources of values are required for
  the 
 \begin_inset ERT
@@ -1015,11 +1038,11 @@ lstinline{Alert}
  to make such a change.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ————-
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -1040,7 +1063,7 @@ s form like objects with writable fields, such that the fields are continuously
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We did not achieve our goal of providing a proven mechanism that enhances
  healthcare applications.
  However, we have provided a framework that improves upon the aspects discovered
@@ -1057,13 +1080,76 @@ noprefix "false"
  for the enhancement process.
 \end_layout
 
-\begin_layout Section
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Reducing Cognitive load
+\end_layout
+
+\begin_layout Standard
+The model reduces the number of details that users and developers need to
+ be aware of.
+ First, regarding handling mutltiple fieds or variables according to exact
+ use-cases.
+ Second, regrading to managing multiple use-cases.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+A field in GUI can be related to their corespondence meaning, 
+\end_layout
+
+\begin_layout Plain Layout
+The approach abstracts out from the user the choose what fields are 
+\emph on
+input
+\emph default
+ and what fields are 
+\emph on
+computed
+\emph default
+, Or to choose an exact wizard according to the cenario
+\end_layout
+
+\begin_layout Plain Layout
+We reduced the duplications in the user interfaces caused from the various
+ calculation options.
+ The approach abstracts out from the user the choose what fields are 
+\emph on
+input
+\emph default
+ and what fields are 
+\emph on
+computed
+\emph default
+.
+ We continuously calculate based on the latest input, assuming that old
+ values can be overridden by the new ones.
+ These assumptions should be further tested in real applications or replaced
+ with an advanced 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ function.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Improving Delivery Speed
 \end_layout
 
 \begin_layout Standard
-With the new option to separate components, there are more opportunities
- to define boundaries in the application's code.
+The model offers flexibility in defining boundaries.
  This depends on the organization's needs, determining the optimal location
  for each field or calculation.
  One criterion for separating code into components is whether it is necessary
@@ -1081,39 +1167,13 @@ literal "false"
  enabling faster code modifications.
 \end_layout
 
-\begin_layout Section
-Reducing Cognitive load
+\begin_layout Paragraph
+Improving Front-End Usability
 \end_layout
 
 \begin_layout Standard
-We reduced the duplications in the user interfaces caused from the various
- calculation options.
- The approach abstracts out from the user the choose what fields are 
-\emph on
-input
-\emph default
- and what fields are 
-\emph on
-computed
-\emph default
-.
- We continuously calculate based on the latest input, assuming that old
- values can be overridden by the new ones.
- These assumptions should be further tested in real applications or replaced
- with an alternative 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- function.
-\end_layout
-
-\begin_layout Section
-Adding Redundancies
-\end_layout
-
-\begin_layout Standard
-The new framework may help to scale up the creation of fields calculations
- and improve front-end usability.
+The model may help to scale up the creation of fields calculations and improve
+ front-end usability.
  It can be said that we provide a new mechanism to handle the redundancy.
  For redundancy in fields or variables, the runtime automatically updates
  the values to make them consistent.
@@ -1372,8 +1432,12 @@ We have developed a new semantics for creating data dependencies without
 Future Work
 \end_layout
 
+\begin_layout Paragraph
+Evaluation
+\end_layout
+
 \begin_layout Standard
-We hope to evaluate the approach of this thesis in improving front-end usability.
+We hope to evaluate the model in improving front-end usability.
  We have considered several options for moving forward.
  One option is to refactor parts of an existing complex healthcare system
  and analyze the time that it takes to fix bugs or to develop new features
@@ -1384,8 +1448,8 @@ n that owns the system, as we would need to publish internal information.
 \end_layout
 
 \begin_layout Standard
-We will provide a state management solution to development communities.
- As 
+We provide an extension library, as a state management solution to development
+ communities, 
 \begin_inset Formula $\NAME{RIVarX}$
 \end_inset
 
@@ -1441,29 +1505,28 @@ https://www.npmjs.com/package/rivarjs
 \begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
- we hope to create more extensions for the other programming languages.
- In addition we will expand the integration to UI components, as a state
- management solution for frameworks like 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Flutter}$
-\end_inset
-
-, another alternative to 
-\begin_inset Formula $\NAME{Redux}$
-\end_inset
-
 .
- They should be checked against real-life applications, or general patterns,
- such as cascading combo boxes, where selecting a value in one combo box
- filters the options available in another combo box.
+ They should be checked against real-life components and applications.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+(One idea, or general patterns, such as cascading combo boxes, where selecting
+ a value in one combo box filters the options available in another combo
+ box.
 \end_layout
 
-\begin_layout Standard
-Another interesting direction is to develop CLIs or IDEs for programming
- languages such as 
+\begin_layout Plain Layout
+Another interesting direction is to develop 
+\family typewriter
+CLIs
+\family default
+ or 
+\family typewriter
+IDEs
+\family default
+ for programming languages such as 
 \begin_inset Formula $\NAME{pop-pl}$
 \end_inset
 
@@ -1489,18 +1552,8 @@ literal "false"
 \end_inset
 
 , the UX can be improved in the form of simple writing.
- As mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Motivation"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, creating front-ends with a large number of fields can cause cognitive
- overload, while redundancy improves usability.
+ Creating front-ends with a large number of fields can cause cognitive overload,
+ while redundancy improves usability.
  Therefore, to enable redundancy without overwhelming users, front-ends
  might switch to IDEs or smart CLIs.
  In the future model, fields will appear on the screen as if information
@@ -1508,7 +1561,7 @@ noprefix "false"
  the language.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 We can also research this direction in domains other than healthcare, specifical
 ly 
 \begin_inset Formula $\NAME{DevOps}$
@@ -1551,14 +1604,61 @@ lines?view=azure-devops
 \end_inset
 
 .
- We also think about tasks done by CLIs that we can improve for a user-friendly
- front-end, specifically conflict resolution.
+ We also think about tasks done by 
+\family typewriter
+CLIs
+\family default
+ that we can improve for a user-friendly front-end, specifically conflict
+ resolution.
  As an alternative to the 
 \begin_inset Formula $\NAME{npm}$
 \end_inset
 
- CLI, we think about drop-down lists that the user can select the package
- version from, while other lists are filtered accordingly.
+ 
+\family typewriter
+CLI
+\family default
+, we think about drop-down lists that the user can select the package version
+ from, while other lists are filtered accordingly.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Expanding the Model
+\end_layout
+
+\begin_layout Standard
+Our model should be advanced for cases where a function to calculate data
+ based on other data is computationally expensive.
+ One approach to consider is adopting a pull model (rather than the currently
+ used push model)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+ The pull model retrieves updated data on demand, saving resources by avoiding
+ unnecessary continuous updates.
+\end_layout
+
+\begin_layout Standard
+Another direction for expansion is to improve the model's handling of scenarios
+ where exact dependencies are difficult to pinpoint.
+ This is a common issue when dealing with large chunks of data, and it can
+ lead to redundant and expensive updates.
+ For example, a minor change in code repository that triggers a full CI/CD
+ from scratch.
 \end_layout
 
 \begin_layout Standard

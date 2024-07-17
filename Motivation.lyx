@@ -1998,14 +1998,11 @@ The Design
 \end_layout
 
 \begin_layout Standard
-Using 
+We use OOP and create a conceptual model.
+ Class 
 \family typewriter
-Class-Based Object Oriented Programming
+Bag
 \family default
- (OOP), we firstly declare class 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
  represents a bag with fields 
 \family typewriter
 Drug
@@ -2019,32 +2016,32 @@ Volume
 Concentration
 \family default
 .
- We declare also class 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
+ Class 
+\family typewriter
+Pump
+\family default
  that represents a 
 \family typewriter
 Pump
 \family default
  that is connected to a patient's body to infuse a bag.
  
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
+\family typewriter
+Pump
+\family default
  contains a field 
-\begin_inset Formula $\LSTINLINE{TheBag}$
-\end_inset
-
+\family typewriter
+TheBag
+\family default
  referencing to an instance of a 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
+\family typewriter
+Bag
+\family default
 .
  In addition, 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
+\family typewriter
+Pump
+\family default
  contains fields 
 \family typewriter
 Dose
@@ -2078,18 +2075,26 @@ noprefix "false"
 
 , that the left-hand variable subscribes to the right-hand expression.
  Class 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
+\family typewriter
+Bag
+\family default
  contains 
 \begin_inset Formula $\LSTINLINE{Volume:=Concentration*Drug}$
 \end_inset
 
- such that Volume will be recalculated depending on Concentration and Drug.
+ such that Volume will be recalculated depending on 
+\family typewriter
+Concentration
+\family default
+ and 
+\family typewriter
+Drug
+\family default
+.
  Likewise, class 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
+\family typewriter
+Pump
+\family default
  contains 
 \begin_inset Formula $\LSTINLINE{Duration:=Rate*Volume}$
 \end_inset
@@ -2763,17 +2768,17 @@ Unintended Cycles
 
 \begin_layout Standard
 The example unintentionally creates a cycle involving the nodes 
-\begin_inset Formula $\LSTINLINE{Duration}$
-\end_inset
-
+\family typewriter
+Duration
+\family default
 , 
-\begin_inset Formula $\LSTINLINE{Volume}$
-\end_inset
-
+\family typewriter
+Volume
+\family default
  and 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
+\family typewriter
+Drug
+\family default
  (
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -2797,12 +2802,38 @@ noprefix "false"
 
 \end_inset
 
-), an update of Drug of a Bag (instances, but we skip saying that for fast
- reading), that causes Pump to update Dose, then Rate, then Volume, then
- Concentration, and then it comes back to 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
+), an update of 
+\family typewriter
+Drug
+\family default
+ of a 
+\family typewriter
+Bag
+\family default
+ (instances, but we skip saying that for fast reading), that causes 
+\family typewriter
+Pump
+\family default
+ to update 
+\family typewriter
+Dose
+\family default
+, then 
+\family typewriter
+Rate
+\family default
+, then 
+\family typewriter
+Volume
+\family default
+, then 
+\family typewriter
+Concentration
+\family default
+, and then it comes back to 
+\family typewriter
+Drug
+\family default
 .
  This is an unitended 
 \emph on
@@ -2810,17 +2841,17 @@ feedback loop
 \emph default
 .
  even in case that the interaction did not started with 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
+\family typewriter
+Drug
+\family default
 , there might be an unidented update of 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
- though an update of another field that causes 
-\begin_inset Formula $\LSTINLINE{Drug}$
-\end_inset
-
+\family typewriter
+Drug
+\family default
+ though an update of another field that causes
+\family typewriter
+ Drug
+\family default
  to re-compute even when it did not need to.
  This update might override by mistake a previous value.
  Consider (
@@ -2834,13 +2865,16 @@ noprefix "false"
 \end_inset
 
 ) that 
-\begin_inset Formula $\LSTINLINE{Concentration}$
-\end_inset
-
+\family typewriter
+Concentration
+\family default
  it updated with a rounded value 0.33 that is computed from 100/300.
- This causes that a recomputation for Drug is of 0.33*300 which produces
- 99, while this value has been created from 100, but only lost accuracy
- through the chain of computations.
+ This causes that a recomputation for 
+\family typewriter
+Drug
+\family default
+ is of 0.33*300 which produces 99, while this value has been created from
+ 100, but only lost accuracy through the chain of computations.
 \end_layout
 
 \begin_layout Standard

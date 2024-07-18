@@ -122,7 +122,7 @@ This thesis addresses challenges upon a resulted model, where data (variables),
  data dependencies and their corresponding updates are associated with objects.
  The first challenge is that complex dependencies might be created, because
  objects' dependencies would be declared independence of each other.
- Specificaly, 
+ Specifically, 
 \emph on
 cycles
 \emph default

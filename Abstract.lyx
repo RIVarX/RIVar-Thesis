@@ -110,7 +110,7 @@ data
 \emph default
  in two distinct approaches.
  The first approach, represented by reactive variable, is about data dependencie
-s abstractions by which data is automaticaly updated according to mathematical
+s abstractions by which data is automatically updated according to mathematical
  functions declared between data pieces.
  The second approach, represented by instance variable, is about Object-Oriented
  Programming (OOP) aimed to manage objects with data, such that each object's

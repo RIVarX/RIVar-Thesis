@@ -88,71 +88,52 @@
 \begin_body
 
 \begin_layout Abstract
-In this thesis, we introduce a model that combines an existing approach
- of declarative data dependency with Object-Oriented Programming (OOP) approach.
- In this model, a variable is named 
+The name 
 \family typewriter
 RIVar
 \family default
-, a short name for 
+ presents a short name for 
 \emph on
 reactive instance variable
 \emph default
-, as it is both 
+, that it an abstraction that should harmonize 
 \emph on
 reactive variable
 \emph default
  and an 
 \emph on
-instance variable
+instance variable,
 \emph default
-.
- Reactive variables refer to the declarative data dependency approach, in
- which a single assignment establishes a continuous association.
- For example, performing 
-\family typewriter
-A:=B+C
-\family default
- means that whenever 
-\family typewriter
-B
-\family default
- and 
-\family typewriter
-C
-\family default
- are updated an operation 
-\family typewriter
-+
-\family default
- is executed on the values that 
-\family typewriter
-B
-\family default
- and 
-\family typewriter
-C
-\family default
- contain and updates 
-\family typewriter
-A
-\family default
- with the result.
- Instance variables refer to variables associated with objects of OOP.
- However, it is not only the variables that are associated with objects,
- but also data dependencies and their correspondence updates.
- 
+ both representing 
+\emph on
+data
+\emph default
+ in two distinct approaches.
+ The first approach, represented by reactive variable, is about data dependencie
+s abstractions by which data is automaticaly updated according to mathematical
+ functions declared between data pieces.
+ The second approach, represented by instance variable, is about Object-Oriented
+ Programming (OOP) aimed to manage objects with data, such that each object's
+ data remains private and inaccessible to other objects.
 \end_layout
 
 \begin_layout Abstract
-We address the model's challenges.
- The first challenge is that complex dependencies might be created, e.g.,
- cycles, because objects' dependencies would be declared independence of
- each other.
- This challenge is addressed by introducing a novel semantics to cycles,
- and introducing a suitable change propagation algorithm.
- The second challenge is in how to manage updates unlike traditional algorithms,
- that rely on a central algorithm or central data structures.
+This thesis addresses challenges upon a resulted model, where data (variables),
+ data dependencies and their corresponding updates are associated with objects.
+ The first challenge is that complex dependencies might be created, because
+ objects' dependencies would be declared independence of each other.
+ Specificaly, 
+\emph on
+cycles
+\emph default
+ might be created, from declaring mutual recursions.
+ Therefore, we introduce a novel semantics to cycles, with a suitable change
+ propagation algorithm.
+ The second challenge is in how to manage updates, such that each object
+ would handle its updates independently from each other.
+ Consequently, whereas traditional methods manage updates correctly by relying
+ on a central algorithm or central data structures, the novel algorithm
+ should produce similar results through a decentralized approach.
 \end_layout
 
 \begin_layout Abstract

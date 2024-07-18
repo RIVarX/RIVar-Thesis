@@ -134,9 +134,10 @@ Cycles
 \end_layout
 
 \begin_layout Standard
-There are two opposing methods about cycles.
- In one method, cycles are avoided, because the paradigm derived from the
- functional paradigm, with the referential transparency property 
+It should be mention (in addition to all other mentions over this thesis)
+ that two opposing methods have been previously presented regarding cycles.
+ In the first method, cycles are avoided, because the paradigm derived from
+ the functional paradigm, with the referential transparency property 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blackheath2016functional"
@@ -155,8 +156,8 @@ literal "false"
 \end_inset
 
 .
- According to the second method, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
+ In the second method, forbidding cycles makes FRP unacceptably weak, because
+ many applications have cycles by their nature 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "cooper2006embedding,perez2015bridging"
@@ -165,7 +166,16 @@ literal "false"
 \end_inset
 
 .
- In such applications, we can plan the dependencies following each input
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We mentioned traditional method used to address cycles.
+\end_layout
+
+\begin_layout Plain Layout
+In such applications, we can plan the dependencies following each input
 \begin_inset space ~
 \end_inset
 
@@ -180,7 +190,7 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 FRP runtimes that support cycles uses various techniques to stop arisen
  loops.
  Terminating when it closes a cycle 
@@ -222,7 +232,7 @@ https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-
  is unneeded because the repeating update is caused from a cycle.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Another example for the challenging is in 
 \family typewriter
 FrTime
@@ -295,6 +305,11 @@ Sodium
  which in turn might create another update.
  This update could then feed back into the original FRP variable, creating
  a cycle.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -433,7 +448,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1482,44 +1497,6 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Paragraph
-Abstraction Layer
-\end_layout
-
-\begin_layout Standard
-All frameworks that support custom propagation must strike a balance between
- abstraction and generality.
- Event-driven programming frameworks give developers complete control over
- the propagation order, but this can be error-prone 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-.
- 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- provides a more abstract approach, allowing developers to choose between
- several schedulers to indicate the order of updates.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://rxjs.dev/guide/scheduler
-\end_layout
-
-\end_inset
-
- FRP frameworks go even further, abstracting away the propagation order
- altogether and allowing developers to focus on specifying the data dependencies.
- However, due to the cycles issue, the previous implementations have exceptions
- that break this abstraction level.
 \end_layout
 
 \begin_layout Standard

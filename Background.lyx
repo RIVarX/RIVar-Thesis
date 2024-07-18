@@ -112,6 +112,18 @@ name "chap:Background"
 Background
 \end_layout
 
+\begin_layout Section
+States and Events
+\end_layout
+
+\begin_layout Section
+Streams
+\end_layout
+
+\begin_layout Section
+Constraints
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed

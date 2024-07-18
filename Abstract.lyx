@@ -96,7 +96,7 @@ RIVar
 \emph on
 reactive instance variable
 \emph default
-, that it an abstraction that should harmonize 
+, an abstraction that should harmonize 
 \emph on
 reactive variable
 \emph default
@@ -109,12 +109,19 @@ instance variable,
 data
 \emph default
  in two distinct approaches.
- The first approach, represented by reactive variable, is about data dependencie
-s abstractions by which data is automatically updated according to mathematical
+ The first approach, represented by reactive variable, is about 
+\emph on
+data dependencies
+\emph default
+ abstractions by which data is automatically updated according to mathematical
  functions declared between data pieces.
  The second approach, represented by instance variable, is about Object-Oriented
- Programming (OOP) aimed to manage objects with data, such that each object's
- data remains private and inaccessible to other objects.
+ Programming
+\begin_inset space ~
+\end_inset
+
+(OOP) aimed to manage objects with data, such that each object's data remains
+ private and inaccessible to other objects.
 \end_layout
 
 \begin_layout Abstract

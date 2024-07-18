@@ -134,8 +134,8 @@ Cycles
 \end_layout
 
 \begin_layout Standard
-It should be mention (in addition to all other mentions over this thesis)
- that two opposing methods have been previously presented regarding cycles.
+It should be mentioned (in addition to all other mentions) that two opposing
+ methods have been previously presented regarding cycles.
  In the first method, cycles are avoided, because the paradigm derived from
  the functional paradigm, with the referential transparency property 
 \begin_inset CommandInset citation
@@ -3426,11 +3426,16 @@ Constraints
 \end_layout
 
 \begin_layout Standard
-The concept of
+As mentioned, 
 \family typewriter
- multiple assignment
+Hotdrink
 \family default
- has a meaning of 
+ is a library, used to compare our implementation.
+ The concept of
+\family typewriter
+ 
+\family default
+multiple assignment has a meaning of 
 \emph on
 conflicts
 \emph default
@@ -3453,11 +3458,9 @@ literal "false"
 
 .
  Although that we handle one-way constraints rather than multi-way, the
- algorithm is similar to one used for multi-way (in 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-).
+ algorithm is similar to one used for multi-way in 
+\family typewriter
+Hotdrink.
 \end_layout
 
 \begin_layout Standard

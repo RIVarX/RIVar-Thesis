@@ -112,18 +112,6 @@ name "chap:Background"
 Background
 \end_layout
 
-\begin_layout Section
-States and Events
-\end_layout
-
-\begin_layout Section
-Streams
-\end_layout
-
-\begin_layout Section
-Constraints
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
@@ -631,10 +619,10 @@ literal "false"
  For example, in web development, code that updates fields based on other
  fields can be registered to be executed when fields are changed.
  For example, in 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
-, 
+\family typewriter
+JavaScript
+\family default
+ programming language, 
 \begin_inset Formula $\LSTINLINE{input.addEventListener('input',calculate)}$
 \end_inset
 
@@ -648,13 +636,9 @@ means to execute
 
 , when the user interacts with the input element by changing its value.
  Another example is in extending systems, such as in 
-\begin_inset Formula $\NAME{Microsoft}$
-\end_inset
-
- 
-\begin_inset Formula $\NAME{Dynamics}$
-\end_inset
-
+\family typewriter
+Microsoft Dynamics
+\family default
 , where it is possible to register components known as 
 \emph on
 plugins
@@ -698,30 +682,26 @@ literal "false"
 However, in fields calculations, there is a risk of encountering an infinite
  loop.
  For example, if one plugin in 
-\begin_inset Formula $\NAME{Microsoft}$
-\end_inset
-
- 
-\begin_inset Formula $\NAME{Dynamics}$
-\end_inset
-
+\family typewriter
+Microsoft Dynamics
+\family default
  recalculates field 
-\begin_inset Formula $A$
-\end_inset
-
+\family typewriter
+A
+\family default
  whenever field 
-\begin_inset Formula $B$
-\end_inset
-
- is changed, and the second one recalculates field 
-\begin_inset Formula $B$
-\end_inset
-
+\family typewriter
+B
+\family default
+ is updated, and the second one recalculates field 
+\family typewriter
+B
+\family default
  whenever field 
-\begin_inset Formula $A$
-\end_inset
-
- is changed, this circular dependency can result in an infinite loop of
+\family typewriter
+A
+\family default
+ is updated, this circular dependency can result in an infinite loop of
  recalculations.
  In OOP, the issue is named 
 \emph on
@@ -973,13 +953,35 @@ Centerlized Providers
 
 \begin_layout Standard
 In modern frameworks like 
-\begin_inset Formula $\NAME{React}$
+\family typewriter
+React
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\family default
  and also 
-\begin_inset Formula $\NAME{Flutter}$
-\end_inset
-
+\family typewriter
+Flutter
+\family default
 ,
 \begin_inset Foot
 status collapsed
@@ -992,9 +994,9 @@ https://docs.flutter.dev
 
  applications utilize dedicated state management solutions to handle variables.
  Among these state management solutions, 
-\begin_inset Formula $\NAME{Redux}$
-\end_inset
-
+\family typewriter
+Redux
+\family default
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1328,9 +1330,9 @@ literal "false"
 \end_inset
 
 , such as 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
+\family typewriter
+Hotdrink
+\family default
 ,
 \begin_inset Foot
 status collapsed
@@ -1375,9 +1377,9 @@ constraints solvers
 \emph default
 , to maintain consistency in variable values.
  As in 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
+\family typewriter
+Hotdrink
+\family default
 , the constraints solver uses a model named 
 \emph on
 constraint hierarchies
@@ -1404,15 +1406,15 @@ noprefix "false"
 
 , the runtime maintains additional constraints.
  For each variable 
-\begin_inset Formula $X$
-\end_inset
-
+\family typewriter
+X
+\family default
  containing a value 
-\begin_inset Formula $x$
-\end_inset
-
- , the runtime maintains a constraint 
-\begin_inset Formula $X=x$
+\family typewriter
+x
+\family default
+, the runtime maintains a constraint 
+\begin_inset Formula $\LSTINLINE{X=x}$
 \end_inset
 
 , with hierarchy according to the order of the input.
@@ -1849,7 +1851,11 @@ React
 \family typewriter
 Redux
 \family default
-.
+ to replace traditional 
+\family typewriter
+Model-View-Controller
+\family default
+ (MVC) libraries.
 \begin_inset Foot
 status collapsed
 
@@ -1870,16 +1876,17 @@ https://www.clariontech.com/blog/mvc-vs-flux-vs-redux-the-real-differences
 
 \end_inset
 
- In previous libraries that use MVC, models are updated according to the
- view and vice versa, sometimes mentioned as 
+ In MVC, models are updated according to the view and vice versa, sometimes
+ mentioned as 
 \emph on
 multidirectional
 \emph default
- dataflow, which means that data flows among components in multiple directions.
+ dataflow.
+ Multidirectional means data flows among components in multiple directions.
  In 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
+\family typewriter
+React
+\family default
 , each component possesses a 
 \begin_inset Formula $\LSTINLINE{render}$
 \end_inset
@@ -1894,15 +1901,15 @@ multidirectional
 \begin_layout Standard
 The design choice of avoiding cycles has its cost.
  For example, the lack of a feature named 
-\family typewriter
+\emph on
 binding
-\family default
+\emph default
 , by which variables are declaratively bound, so that a change in one variable
  update the other variable and vise versa.
  A similar feature is named 
-\family typewriter
+\emph on
 multidirectionality
-\family default
+\emph default
 
 \begin_inset space ~
 \end_inset

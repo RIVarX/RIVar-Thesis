@@ -109,7 +109,7 @@ name "chap:Method"
 
 \end_inset
 
-Methodology
+Approach and Implementation
 \end_layout
 
 \begin_layout Standard
@@ -152,6 +152,256 @@ e stream.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Syntax
+\end_layout
+
+\begin_layout Standard
+We investigate a graph of the change propagation in case of 
+\emph on
+cyclical
+\emph default
+ propagation.
+ As depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:dataflow_to_cycle-1-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the change propagation starts from an incoming edge (the dotted edge in
+ the figure) into a node (
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ in the figure), that is the cycle's first node.
+ Then, it continues through several edges and nodes until reaching again
+ the first node (
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ in the figure) from another edge (in the figure, the edge from 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ towards 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+n {5} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+radius {3cm} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+def 
+\backslash
+margin {8} % margin in angles, depends on the radius
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+foreach [count=
+\backslash
+s] 
+\backslash
+j in {A,B,...,E} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, circle] (
+\backslash
+j) at ({360/
+\backslash
+n * (
+\backslash
+s - 1)}:
+\backslash
+radius) {
+\backslash
+j};   
+\backslash
+draw[->, >=latex] ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:
+\backslash
+radius)      arc ({360/
+\backslash
+n * (
+\backslash
+s - 1)+
+\backslash
+margin}:{360/
+\backslash
+n * (
+\backslash
+s)-
+\backslash
+margin}:
+\backslash
+radius);          
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[above] (X) at (-3,3) {$value$};    
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:dataflow_to_cycle-1-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Dataflow into and through a cycle.
+\end_layout
+
+\end_inset
+
+Dataflow into and through a cycle.
+ The nodes represent the variables, and the edges illustrate the flow of
+ the data.
+ Values caused by inputs are propagated through the nodes of the cycle.
+ Node 
+\begin_inset Formula $C$
+\end_inset
+
+ has two incoming edges: the first connects it to the cycle, and the second
+ is from where values are propagated into the cycle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We make a process similar to reverse engineering, i.e., we consider change
+ propagation and inffer data dependencies that constructed it.
+ As one of the nodes has two incoming edges, it must be one of two options.
+ First, that the node represents an input variable which also connected
+ to an expression.
+ Second, that the node represents a variable that are connected to two expressio
+ns simultaneously.
+\end_layout
+
+\begin_layout Standard
+From this process, we introduce a new syntax for reactive variables, that
+ multiple assignments are allowed, and also that an input variable can be
+ assigned as well.
 \end_layout
 
 \begin_layout Section

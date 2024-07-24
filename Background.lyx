@@ -595,7 +595,7 @@ In this section, we discuss the state of the art of field calculation features.
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Events
 \end_layout
 
@@ -947,7 +947,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Centerlized Providers
 \end_layout
 
@@ -1836,7 +1836,7 @@ Actualy, as in the state management solution
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Unidirectional Data Flow
 \end_layout
 
@@ -4094,7 +4094,7 @@ informal contract
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Conclusion
 \end_layout
 
@@ -4116,6 +4116,287 @@ Centralized cycle management: This perspective emphasizes managing cycles
 \begin_layout Itemize
 Hierarchical models for acyclicity: This approach prioritizes avoiding cycles
  altogether by using strictly hierarchical data models.
+\end_layout
+
+\begin_layout Section
+Observable Streams
+\end_layout
+
+\begin_layout Standard
+An observable stream is similar to a list in that it delivers ordered items.
+ However, unlike a traditional list, the entire history of values isn't
+ necessarily stored.
+ Rather, observable streams represent an abstraction that provides access
+ to a sequence of values.
+ To access these values, consumers must first subscribe to the observable
+ stream.
+ We take the concept of observable streams for presenting variables.
+ An example is illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Streams-of-values-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Each item in an observable stream represents a change in the value that
+ the variable contain.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We take the concept of observable streams for presenting variables.
+ An observable stream consists of values or changes over time, as illustrated
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Streams-of-values-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, generated from events of UI elements.
+ Furthermore, Each node in a dependancy graph can be represented as an observabl
+e stream.
+ Each Item represents a visit in that node.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (1,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (2,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Streams-of-values-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Variable value changes as an observable stream
+\end_layout
+
+\end_inset
+
+Variable value changes as an observable stream.
+ Variable 
+\begin_inset Formula $A$
+\end_inset
+
+ changed to 
+\begin_inset Formula $5$
+\end_inset
+
+ initially, then to 
+\begin_inset Formula $3$
+\end_inset
+
+, and after a longer period, it changed to 
+\begin_inset Formula $2$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Upon observable streams, 
+\emph on
+operators 
+\emph default
+are used for transforming those observable streams.
+ The operators act similarly to the concept of 
+\emph on
+lifting
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, because they convert a function to be a 
+\emph on
+higher order function.
+ 
+\emph default
+A unary operator can be lifted by an operator 
+\family typewriter
+map
+\family default
+ that maps each item according to an argumented function.
+ A binary operator can be lifted by an operator 
+\family typewriter
+CombineLatest
+\family default
+ works for two observable streams, mapping based on items from the two.
+ The operators create an observable stream, subscribe to the argumented
+ observable stream, and deliver items through the created observable stream.
+ 
+\end_layout
+
+\begin_layout Standard
+By using these concepts, the propagation change 
+\emph on
+may
+\emph default
+ be managed by the individual nodes.
+ To support this, delivered items can contain meta-data in addition to the
+ values 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "proencca2017quality"
+literal "false"
+
+\end_inset
+
+.
+ In addition, the dependencies 
+\emph on
+may
+\emph default
+ be managed by individual objects.
+ However, if coordination is required between nodes or objects, then the
+ problem of our initial discussion remains.
+ Nevertheless, the presented concepts form the cornerstone of our approach.
 \end_layout
 
 \begin_layout Standard

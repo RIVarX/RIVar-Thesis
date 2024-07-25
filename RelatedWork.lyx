@@ -2029,7 +2029,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The new variant of FRP possesses the characteristic of referential transparency,
@@ -2066,7 +2066,7 @@ noprefix "false"
 
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The assignment operator 
@@ -2876,7 +2876,7 @@ literal "false"
 
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 As a result, the new variant of FRP support multiple assignments.
@@ -2980,7 +2980,11 @@ Objects and Reactive Variables
 
 \begin_layout Standard
 Our new assignment operation answers a traditional issue of assigning reactive
- variables from outside objects 
+ variables from outside objects
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Salvaneschi2014"

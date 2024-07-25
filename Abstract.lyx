@@ -89,8 +89,11 @@
 
 \begin_layout Abstract
 We introduce 
-\family typewriter
+\emph on
 Reactive Instance Variable
+\family typewriter
+\emph default
+
 \begin_inset space ~
 \end_inset
 
@@ -102,18 +105,18 @@ RIVar).
 reactive variable
 \emph default
  from 
-\family typewriter
-Reactive Programming
-\family default
- (RP) and 
+\emph on
+Functional Reactive Programming 
+\emph default
+(RP) and 
 \emph on
 instance variable
 \emph default
  from 
-\family typewriter
-Object-Oriented Programming
-\family default
- (OOP).
+\emph on
+Object-Oriented Programming 
+\emph default
+(OOP).
  Reactive variable means a variable that is automatically updated according
  to declared pure functions (similar to cells in 
 \family typewriter
@@ -121,16 +124,25 @@ Spreadsheet
 \family default
  that contain formulas).
  Instance variable refers to an object's field, that can be normally accessed
- through getter and setter methods.
+ through 
+\emph on
+getter
+\emph default
+ and 
+\emph on
+setter
+\emph default
+ methods.
 \end_layout
 
 \begin_layout Abstract
-By this new concept, we introduce a new approach that combines RP with OOP.
+With this new concept, we introduce a new approach, along with its implementatio
+n, that combines RP with OOP.
  In this approach, implementation details are not exposed to outside, according
  to the the encapsulation principle of OOP.
  Here, implementation details refer to declaration or implementation of
  variables' updates.
- In addition, the updates should be automatic according to the principal
+ In addition, the automatic updates should work according to principals
  of RP.
 \end_layout
 
@@ -261,7 +273,7 @@ cycles
 
 \begin_layout Abstract
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 to use the conventional conceptual approach in OOP (to promote indepedence).

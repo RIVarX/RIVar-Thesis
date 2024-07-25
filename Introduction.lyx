@@ -115,12 +115,16 @@ Introduction
 \begin_layout Standard
 
 \emph on
-change propagate
+Change propagate
 \emph default
- is a common process, in which data updates recursively requires other data
+ is a common process, in which data updates recursively require other data
  updates.
- In this thesis, we focus mainly on change propogation in fields of graphical-us
-er interface (GUI) in response to user input.
+ In this thesis, we focus mainly on change propogation of fields in graphical-us
+er interface
+\begin_inset space ~
+\end_inset
+
+(GUI) in response to user input.
  But as mentioned, change propogation is a common process.
  For example, 
 \family typewriter
@@ -152,10 +156,10 @@ literal "false"
 
 \end_inset
 
- changes are propogated across systems.
+, changes are propagated across systems.
  In addition, upgrade processes, which means updating software packages.
- upgrading software packages may lead to further upgrades of other related
- packages, such like change propogation.
+ Upgrading software packages may lead to further upgrades of other related
+ packages, such like change propagation.
 \end_layout
 
 \begin_layout Standard
@@ -170,12 +174,11 @@ dependent
 \emph default
  on other elements when a change in their values triggers an automatic update
  in its own value.
- We model data dependencies as a graph model, where nodes represent data
- entities, and directed edges represent dependencies between them.
- Propagation change process are modeled also by a graph with nodes that
- represent the elements.
- However, the edges in this model are in the direction of the propagation
- (in an opposite direction).
+ Data dependencies are modeled as a graph, where nodes represent data entities,
+ and directed edges represent dependencies between them.
+ Change propagation is also modeled using a graph with the same nodes, but
+ the directed edges represent the direction of propagation, which is opposite
+ to that of dependencies.
 \end_layout
 
 \begin_layout Standard
@@ -183,8 +186,12 @@ To achieve the representation of nodes, dependencies, and change propagation,
  we utilize 
 \emph on
 reactive variables
+\begin_inset space ~
+\end_inset
+
+
 \emph default
- 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -256,27 +263,11 @@ literal "false"
 
 \end_inset
 
-) from the 
-\family typewriter
-Reactive Programming
-\family default
- (RP)
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
- .
- By using reactive variables, an assignment associates the left-hand variable
- with the right-hand expression.
- This association initiates a dependency, with an automated propagation
- change.
+).
+ With reactive variables, an assignment establishes a dependency between
+ the left-hand variable and the right-hand expression.
+ once a reactive variable is assigned, it is associated to the assigned
+ expression, to continuously re-evaluated according to relevant changes.
  For example
 \begin_inset space ~
 \end_inset
@@ -501,7 +492,7 @@ Reactive variables example.
 
 .
  Consequently, the subsequent 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operations of assigning values to 
@@ -669,24 +660,59 @@ Contribution
 
 \begin_layout Standard
 We present 
-\family typewriter
+\emph on
 Reactive Instance Variable
+\family typewriter
+\emph default
+
 \begin_inset space ~
 \end_inset
 
 (
 \family default
 RIVar).
- RIVar is a combination of reactive variable with 
+ RIVar is a combination of reactive variable from 
+\emph on
+Functional Reactive Programming 
+\emph default
+(FRP) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ with 
 \emph on
 instance variable
 \emph default
- from Object-Oriented Programming (OOP).
- Therefore, our contribution includes:
+ from 
+\emph on
+Object-Oriented Programming
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+(OOP)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wegner1990concepts"
+literal "false"
+
+\end_inset
+
+.
+ Therefrom, our contribution includes:
 \end_layout
 
 \begin_layout Itemize
-A novel approach combining RP with OOP.
+A novel approach combining FRP with OOP.
 \end_layout
 
 \begin_layout Itemize
@@ -764,12 +790,8 @@ https://www.npmjs.com/package/rivarjs
 \end_layout
 
 \begin_layout Itemize
-An integration to UI frameworks.
-\end_layout
-
-\begin_layout Itemize
 A case study from the healthcare domain to illustrate the practical application
- of our ideas.
+ of the presented principals.
 \end_layout
 
 \begin_layout Standard
@@ -969,7 +991,7 @@ noprefix "false"
 
 \end_inset
 
-, we present the approach.
+, we present the approach and implementation.
  In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -991,7 +1013,7 @@ noprefix "false"
 
 \end_inset
 
-, we relate concepts to previous paradigms.
+, we present related work.
  
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1007,7 +1029,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 For example, 
@@ -1055,7 +1077,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...
@@ -1156,7 +1178,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ...
@@ -4697,7 +4719,7 @@ literal "false"
 \end_inset
 
  means an input of 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
  to 
@@ -4709,12 +4731,12 @@ literal "false"
 \end_inset
 
  to 
-\begin_inset Formula $\LSTINLINE 2$
+\begin_inset Formula $\LSTINLINE2$
 \end_inset
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  in the example) are converted (or lifted) from operating over values to
@@ -7472,7 +7494,7 @@ In software programming, mutable variables refer to variables as memory
 \end_inset
 
  assigns a value 
-\begin_inset Formula $\LSTINLINE 1$
+\begin_inset Formula $\LSTINLINE1$
 \end_inset
 
  to variable 
@@ -8718,7 +8740,7 @@ noprefix "false"
 
 .
  In essence, operations (
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  in the example) are converted from operating over values to operate over
@@ -10243,7 +10265,7 @@ executed functions, so that the target reactive variable continuously contains
  on.
  A propagation of changes starts whenever any of the variables get user
  input (
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
  operator).

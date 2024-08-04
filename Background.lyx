@@ -4101,16 +4101,19 @@ Observable Streams
 \begin_layout Standard
 
 \emph on
-Reactive Extensions
+Reactive Extensions 
 \emph default
- (
-\begin_inset Formula $\ReactiveX$
+(Rx) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
 \end_inset
 
- or Rx) refers to extensions for programming languages for programming with
- 
+ or 
 \emph on
-observable streams.
+ReactiveX
 \emph default
 
 \begin_inset Foot
@@ -4132,11 +4135,12 @@ https://reactivex.io/
 
 \end_inset
 
- Rx was initially developed for 
+ refers to extensions for programming languages initially developed for
+ 
 \begin_inset Formula $\NAME{C\#}$
 \end_inset
 
-
+ programming language,
 \begin_inset Foot
 status collapsed
 
@@ -4153,14 +4157,6 @@ https://learn.microsoft.com/en-us/dotnet/csharp/
 
 
 \end_layout
-
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
 
 \end_inset
 
@@ -4192,11 +4188,7 @@ https://www.npmjs.com/package/rxjs
 \begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
-
-\begin_inset space ~
-\end_inset
-
-
+ programming language
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mikkonen2007using"
@@ -4248,9 +4240,9 @@ JavaScript
 \end_layout
 
 \begin_layout Standard
-
+Rx works with 
 \emph on
-Observable stream
+observable streams
 \emph default
  (known also as 
 \emph on
@@ -4262,7 +4254,7 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -4276,47 +4268,41 @@ https://cycle.js.org/
 
 \end_inset
 
-) represents a specific useful pattern.
- Observable stream is an object that delivers items for other objects through
- a method 
+, or just 
+\emph on
+observable
+\emph default
+)
+\emph on
+.
+ 
+\emph default
+Observable stream refers to an object that delivers items for other objects
+ through a method 
 \emph on
 next
 \emph default
 .
- An observable stream can be generated from events of UI elements.
+ As depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Streams-of-values-1-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, observable streams can be used to represent GUI control change events
  
-\emph on
-Operators
-\emph default
- create observable streams whose items are generated based on the values
- of input observable streams.
- For example, the operator 
-\begin_inset Formula $\LSTINLINE{Select}$
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
 \end_inset
 
-.
- The expression 
-\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
-\end_inset
-
-means that each value in 
-\begin_inset Formula $\LSTINLINE D$
-\end_inset
-
- is passed through the function 
-\begin_inset Formula $\LSTINLINE{x=>x+1}$
-\end_inset
-
-, resulting in a new value for 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- Finally, by subscribing to the resulting observables, UI elements are updated.
-\end_layout
-
-\begin_layout Standard
-An observable stream acts similar to reactive variables 
+, and also a reactive variable reacti
 \begin_inset CommandInset citation
 LatexCommand cite
 key "schuster2016reactive"
@@ -4325,7 +4311,181 @@ literal "false"
 \end_inset
 
 .
- Operators act similarly to the concept of 
+ By this representation, each item represents a change in the value.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+matrix[row sep=0.5cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (6.5,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.2,0.2) {A};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (1x0) at (1,0) {5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (2x0) at (2,0) {3};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,circle] (3x0) at (4.5,0) {2};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Streams-of-values-1-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Variable value changes as an observable stream
+\end_layout
+
+\end_inset
+
+Variable value changes as an observable stream.
+ Variable 
+\begin_inset Formula $A$
+\end_inset
+
+ changed to 
+\begin_inset Formula $5$
+\end_inset
+
+ initially, then to 
+\begin_inset Formula $3$
+\end_inset
+
+, and after a longer period, it changed to 
+\begin_inset Formula $2$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since observable stream acts similar to reactive variables 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+, provided operators are very similar to the concept of 
 \emph on
 lifting
 \emph default
@@ -4347,17 +4507,37 @@ A unary operator can be lifted by the operator
 \end_inset
 
  that maps each item according to an argumented function.
+ For example, the expression 
+\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\end_inset
+
+means that each value in 
+\begin_inset Formula $\LSTINLINE D$
+\end_inset
+
+ is passed through the function 
+\begin_inset Formula $\LSTINLINE{x=>x+1}$
+\end_inset
+
+, resulting in a new value for 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
  A binary operator can be lifted by an operator 
 \begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
 , that works for two observable streams, mapping based on items from the
  two.
- 
 \end_layout
 
 \begin_layout Standard
-By using these concepts, the propagation change 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+By using Rx, the propagation change 
 \emph on
 may
 \emph default
@@ -4375,29 +4555,9 @@ literal "false"
  However, it may be that coordination is required between nodes.
 \end_layout
 
-\begin_layout Standard
-Cycles might be created (mentioned by the name
-\emph on
- accidental recursion
-\emph default
-s 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
 \end_inset
 
-).
- For example, if the code contains 
-\begin_inset Formula $\LSTINLINE{A=D.Select(x=>x+1)}$
-\end_inset
 
- and also 
-\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard

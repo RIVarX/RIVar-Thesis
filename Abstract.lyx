@@ -88,6 +88,134 @@
 \begin_body
 
 \begin_layout Abstract
+We introduce a novel approach for managing 
+\emph on
+data dependencies
+\emph default
+ or 
+\emph on
+propagation change
+\emph default
+.
+ The approach is presented in terms of a combination of two programming
+ paradigms.
+ First, 
+\emph on
+Functional Reactive Programming
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+(FRP), a paradigm where data dependencies are declared, and derived propagation
+ change is produced automatically.
+ Second, 
+\emph on
+Object Oriented Programming
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+(OOP), a paradigm where 
+\emph on
+data
+\emph default
+ and 
+\emph on
+behavior
+\emph default
+ are grouped into 
+\emph on
+objects
+\emph default
+, with a clear separation between an object's 
+\emph on
+public interface
+\emph default
+ and its 
+\emph on
+private implementation
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Abstract
+In the new approach, objects would group data (as 
+\emph on
+variables
+\emph default
+), data dependencies and derived propagation change.
+ But, data (as variables) would be part an object's public interface, while
+ data dependencies and propagation change would be part of an object's private
+ implementation.
+\end_layout
+
+\begin_layout Abstract
+Regarding this approach, we try to answer two questions.
+ The first question is whether an existing change propagation algorithm
+ is suitable for the new setting.
+ The challenge is that defining dependencies and change propagation as implement
+ation details makes it impossible to synchronize between objects.
+ This leads to cycles and apparent conflicts.
+ Moreover, existing change propagation algorithms are centralized, which
+ makes them incompatible with the new setting.
+\end_layout
+
+\begin_layout Abstract
+The second question that would be addressed in the thesis is about the effective
+ of this approach.
+ Are there advantages in this approach compared to the traditional approaches?
+ As it is about combining paradigms, we expect that we get the advantages
+ from the two.
+ 
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We introduce a novel approach for managing data dependencies or propagation
+ change.
+ The approach is presented in a term of combination of two programming paradigms.
+ First, Functional Reactive Programming (FRP), a paradigm where data dependencie
+s are declared, while derived propagation change is produced automatically.
+ Second, Object Oriented Programming (OOP), a paradigm where data and behavior
+ are grouped into separated objects, with separating between an object’s
+ interface and implementation hidden behind the interface.
+ In the new approach, objects would group data, data dependencies and derived
+ propagation change.
+ But, data (as variables) would be part of the interface, while data dependencie
+s and propagation change would be implementation details that would be hidden
+ behind the interface.
+ Regarding this approach, we try to answer the two following questions.
+ The first one is, whether there is an algorithm for propagation change
+ that would suite to the new settings? This challenge is that as data dependenci
+es and change propagation are considered as implementation details.
+ This leads that it is unable to synchronize between objects.
+ In this setting, cycles and apparently conflicts would be created.
+ In addition, most algorithms for propagation change are centralized and
+ do not suite the current setting.
+ The second question that would be addressed in the thesis is about the
+ effective of this approach.
+ Are there advantages in this approach compared to the traditional approaches?
+ As it is about combining paradigms, we expect that we get the advantages
+ from the two.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Abstract
 We introduce 
 \emph on
 Reactive Instance Variable
@@ -108,7 +236,7 @@ reactive variable
 \emph on
 Functional Reactive Programming 
 \emph default
-(RP) and 
+(FRP) and 
 \emph on
 instance variable
 \emph default
@@ -136,20 +264,55 @@ setter
 \end_layout
 
 \begin_layout Abstract
-With this new concept, we introduce a new approach, along with its implementatio
-n, that combines RP with OOP.
- In this approach, implementation details are not exposed to outside, according
- to the the encapsulation principle of OOP.
- Here, implementation details refer to declaration or implementation of
- variables' updates.
- In addition, the automatic updates should work according to principals
- of RP.
+By this new concept, we introduce a new approach for managing 
+\emph on
+data dependencies
+\emph default
+ or 
+\emph on
+change propagation
+\emph default
+.
+ The approach is represented through FRP and OOP combination.
+ Objects (or classes) would contain variables, data dependencies (that declared
+ by the variables) and the consequence change propagation.
+ Whereas variables are part of the object's interface, data dependencies
+ and change propagation are considered as 
+\emph on
+implementation
+\emph default
+, 
+\emph on
+hidden
+\emph default
+ behind the interface.
+\end_layout
+
+\begin_layout Abstract
+Conversely, data dependencies and change propagation are considered as 
+\emph on
+implementation
+\emph default
+, 
+\emph on
+hidden
+\emph default
+ behind the interface.
+\end_layout
+
+\begin_layout Abstract
+By this approach, we present that cycles 
 \end_layout
 
 \begin_layout Abstract
 We introduce also a semantic for cycles and apparently conflicts that emerges
  in our settings, since the inability (to not violate encapsulation) to
  synchronize between classes.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract

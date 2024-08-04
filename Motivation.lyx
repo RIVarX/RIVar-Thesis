@@ -3582,7 +3582,6 @@ In another prespective, the latter design represents a
 complex system
 \emph default
 .
- Complex systems is the name of a specific type of systems from the real-world.
 \begin_inset Foot
 status collapsed
 
@@ -3602,9 +3601,8 @@ https://uwaterloo.ca/complexity-innovation/about/what-are-complex-systems
 
 \end_inset
 
- Systems that are composed of many components, where components interact
- or affect each other.
- 
+ Complex systems refer to real-world systems that when researched, it is
+ difficult to investigate their each individual component's behavior.
 \end_layout
 
 \begin_layout Subsection
@@ -3612,8 +3610,8 @@ Feedback Loops
 \end_layout
 
 \begin_layout Standard
-In complex systems, the behavior is not linear because components affects
- each other producing sometimes 
+Recursively, each component might be affected by other components.
+ The behavior is not linear because those effects might produce 
 \emph on
 feedback loops
 \emph default
@@ -3629,7 +3627,7 @@ feedback loops
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 (, where 

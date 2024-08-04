@@ -2719,159 +2719,6 @@ Converts a function to be a higher order function by
 Semantics
 \end_layout
 
-\begin_layout Subsection
-User Prespective
-\end_layout
-
-\begin_layout Standard
-Multiple assignments presents a feature 
-\emph on
-add filling option.
- 
-\emph default
-For example, a formula 
-\begin_inset Formula $\LSTINLINE{Amount=Dose*Duration}$
-\end_inset
-
- traditionaly means that 
-\family typewriter
-Amount
-\family default
- is a computed field.
- This meaning would be reserved, only in case that this formula declares
- 
-\family typewriter
-Amount
-\family default
- firstly.
- However, generaly the meaning is, that filling 
-\family typewriter
-Dose
-\family default
- and 
-\family typewriter
-Duration 
-\family default
-is an option to fill 
-\family typewriter
-Amount
-\family default
-.
- In case that 
-\family typewriter
-Amount
-\family default
- is already declared, this is the 
-\end_layout
-
-\begin_layout Standard
-The new feature can be presented also as adding a filling option as a set
- of fields.
- This would be presented by the following example.
- Among fields 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
-, 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-, only two of them are required for documenting drugs' amount.
- Users can, for example, define quantities by setting only 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In such a case, the value of 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- is computed.
- Additionaly, users can define quantities by setting only the 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In such a case, the value of 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- is computed.
-\end_layout
-
-\begin_layout Standard
-If only one filling option is available, users are stricted: users must
- define values in the terms used in the application.
- For example, in Drug Administration define quantities by setting 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- for drugs that it is easier to set by 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-.
- In the strict mode, users are forced to convert the values.
- For example, a case that available fields are 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-, and an amount is 
-\begin_inset Formula $0.5$
-\end_inset
-
- and 
-\begin_inset Formula $100$
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- For filling 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- it is required to calculate 
-\begin_inset Formula $\LSTINLINE{Concentration*Volume}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Denotational Semantics
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
@@ -3450,7 +3297,7 @@ For the equation
  function should have two mathematics properties: commutativity and associativit
 y.
  Commutativity means no order over the executions of the assignments statements
- ( 
+ (
 \begin_inset Formula $\LSTINLINE{A:=B}$
 \end_inset
 
@@ -3477,6 +3324,1018 @@ y.
  Regarding to mathematics, with both associativity and commutativity, we
  can be confident that the final result will always be the same, regardless
  of both the order of executions and the assignments statements.
+\end_layout
+
+\begin_layout Section
+Empirical Validation
+\end_layout
+
+\begin_layout Subsection
+First Validation
+\end_layout
+
+\begin_layout Standard
+We implemented 
+\family typewriter
+RIVar
+\family default
+ as an extension 
+\begin_inset Formula $\NAME{RIVarX}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+ programming language, on top of Rx.
+ Based on this, we created the 
+\family typewriter
+Drug Administration 
+\family default
+a desktop application (
+\family typewriter
+Windows Forms)
+\family default
+.
+ We added the option to log the changes, and check the performed change
+ propagation against various cenarios.
+ One of them is presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Log-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the example, there are three steps: setting Drug to 10, then Volume to
+ 100, and finally Rate to 5.
+ Each step includes a timestamp for the events and a propagation to update
+ other fields with the attached timestamp.
+ In the first step, line 1 presents the setting, and then in line 2, Drug
+ has an event with the value 10 and timestamp 1.
+ The second step, line 3, presents the input, but only line 6 presents the
+ event that Volume has the value 100 with timestamp 2.
+ In between, there is line 5, which presents the event for concentration
+ with value 0.1 and timestamps 1 and 2, as it is computed from the values
+ of Drug and Volume, whose timestamps are now 1 and 2.
+ This causes a redundant change event (that is ignored) presented in line
+ 4, where Volume's timestamp is also 1 and 2, because there is a dependency
+ - Volume on Drug and Concentration.
+ The order of the log is not entirely logical.
+ The logging action is an event handler triggered according to the order
+ of registrations.
+ Therefore, the event in line 4 is caused by (and therefore occurs after)
+ line 5.
+ 
+\end_layout
+
+\begin_layout Standard
+The order of the log might not seem entirely reasonable at first glance.
+ The event in line 4 is logged before the event in line 5, even though it
+ is caused by (and therefore occurs after) line 5.
+ This discrepancy occurs because the log action is an event handler triggered
+ according to the order of registrations.
+ The order of the log follows a post-order traversal on top of a traversal
+ similar to Depth-First Search (DFS).
+ In the second step, the traversal sequence is Volume (first visit) -> Concentra
+tion -> Volume (second visit), while the log sequence is Volume (second
+ visit) -> Concentration -> Volume (first visit).
+\end_layout
+
+\begin_layout Standard
+The final step confirms the previous principles.
+ In the next step, Rate has a timestamp of 3 with a value of 5.
+ However, the log presents the post-order traversal caused by this.
+ The change propagation is as follows: Rate (value 5, timestamp 3), Duration
+ (value 20, timestamps 2 and 3 computed from Rate * Volume, 100 * 5), Dose
+ (0.5 timestamp 1, 2, and 3 computed based on Duration (from it, there are
+ timestamps 2 and 3) and Drug (from it, timestamp 1)), Duration (second
+ visit, caused by Dose, ignored).
+ The order of the log in post-order: Duration (value 20, timestamps 1, 2,
+ and 3, second visit), Dose (value 0.5, timestamps 1, 2, and 3), Duration
+ (value 20, timestamps 2 and 3, first visit), Rate (value 5, timestamp 3).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+1.
+ Drug_Control:10
+\end_layout
+
+\begin_layout Plain Layout
+2.
+ Drug_Control: 10 <1>
+\end_layout
+
+\begin_layout Plain Layout
+3.
+ Volume_Control:100
+\end_layout
+
+\begin_layout Plain Layout
+4.
+ Volume_Control: 100 <1,2>
+\end_layout
+
+\begin_layout Plain Layout
+5.
+ Concentration_Control: 0.1 <1,2>
+\end_layout
+
+\begin_layout Plain Layout
+6.
+ Volume_Control: 100 <2>
+\end_layout
+
+\begin_layout Plain Layout
+7.
+ Rate_Control:5
+\end_layout
+
+\begin_layout Plain Layout
+8.
+ Duration_Control: 20 <1,2,3>
+\end_layout
+
+\begin_layout Plain Layout
+9.
+ Dose_Control: 0.5 <1,2,3>
+\end_layout
+
+\begin_layout Plain Layout
+10.
+ Duration_Control: 20 <2,3>
+\end_layout
+
+\begin_layout Plain Layout
+11.
+ Rate_Control: 5 <3>
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Log-1-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Log result for an execution of the Drug Administration application.
+\end_layout
+
+\end_inset
+
+ The lines that does not end with angle brackets, inform change events directly
+ set by the user.
+ The angle bracket contains the timestamps, that are the order of the events
+ that the value depends on.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Second Validation
+\end_layout
+
+\begin_layout Standard
+We implemented 
+\family typewriter
+RIVar
+\family default
+ as an extension, 
+\begin_inset Formula $\NAME{npm}$
+\end_inset
+
+ package 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language.
+ We depend on observable streams, specificaly given by 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{C\#}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+.
+ Based on this, we created the 
+\family typewriter
+Drug Administration
+\family default
+ as a static web page.
+\end_layout
+
+\begin_layout Standard
+We created the 
+\family typewriter
+Drug Administration
+\family default
+ also with 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+ (mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) to compare with the implementation with 
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+.
+ The compare page is available online in 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs/tree/main/samples/drug-administration/compare/h
+otdrink
+\end_layout
+
+\end_inset
+
+.
+ The two algorithms provide identical results in the propagation change.
+ Both of the algorithms makes new input to override effects (input and computed
+ values) of oldest input at the time of the input.
+\end_layout
+
+\begin_layout Subsubsection
+Integration with React
+\end_layout
+
+\begin_layout Standard
+In addition, we have developed 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ component, designed for visualizing a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+ Similar to a reactive variable that recalculates based on changes in its
+ dependencies, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ component re-renders the view in response to changes in the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To utilize 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, developers need to specify the 
+\begin_inset Formula $\LSTINLINE{prop}$
+\end_inset
+
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ and a nested element to define the view.
+ The nested element is specified as a function of 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method, allowing it to collect user input values and display calculated
+ values.
+ For example as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:rivarview"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in the case of a visual element representing Drug Administration Amount,
+ the 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ property is set to the input value, and the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method is called within the event handler of the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
+
+ event.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+  <RIVarView rivar={bag.Amount}>
+\end_layout
+
+\begin_layout Plain Layout
+
+        {({ value, change }) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return <input
+\end_layout
+
+\begin_layout Plain Layout
+
+            type="number"
+\end_layout
+
+\begin_layout Plain Layout
+
+            value={value}
+\end_layout
+
+\begin_layout Plain Layout
+
+            onChange={(event) => change(event.target.value)}
+\end_layout
+
+\begin_layout Plain Layout
+
+          />;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rivarview"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code example for using 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application
+\end_layout
+
+\end_inset
+
+Code example for using 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application.
+ The specified element is part of a larger BagComponent to the bag's amount.
+ The prop rivar is given with the RIVar or the bags amount.
+ The netsetd slement is a function with the arguments value and cahnge,
+ the function returns a react component view as a function of the value
+ and cahnge arguments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the added 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, it becomes easier to create the Drug Administration example as illustrated
+ in n 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ According to the example, the resulting framework allows the declaration
+ of backend logic and frontend components without needing to be aware of
+ interactions, neither between the backend objects nor between the backend
+ objects and the frontend components.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class App extends Component {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor(props) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super(props);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.pump = new Pump(this.bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  render() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <div>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <BagComponent bag={this.bag} />
+\end_layout
+
+\begin_layout Plain Layout
+
+        <PumpComponent pump={this.pump}/>
+\end_layout
+
+\begin_layout Plain Layout
+
+      </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:code}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ UI] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
+ (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:runtime}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:micro_front_ends}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:react_micro_frontends"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Design for the drug administration application.
+\end_layout
+
+\end_inset
+
+Design for the drug administration application.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ presents the static code in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ that bootstraps the components, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+ presents the runtime components with the interaction channels.
+ 
+\begin_inset Formula $\LSTINLINE{BagComponent}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{PumpComponent}$
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ represent the UI components of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that are illustrated in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+.
+ In the interaction channel between 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s update each other according to the calculations.
+ In the interaction channel between each of them to the corresponding UI
+ component, there is a binding between each of the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s to the corresponding input element, such that when a UI change event occurs,
+ it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
 \end_layout
 
 \begin_layout Standard
@@ -5448,7 +6307,7 @@ The
 \end_inset
 
 ) method is the implementation of the operator 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
 , and for the operator 

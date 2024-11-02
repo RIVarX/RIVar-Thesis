@@ -88,6 +88,131 @@
 \begin_body
 
 \begin_layout Abstract
+This thesis explores how to combine two development paradigms: 
+\emph on
+Functional Reactive Programming
+\emph default
+ (FRP) and 
+\emph on
+Object-Oriented Programming
+\emph default
+ (OOP).
+ In FRP, assignment statements are at a high level of abstraction.
+ Assigning a value to a reactive variable has implications beyond a specific
+ point in time.
+ In other words, the system continues to update the variable according to
+ relevant changes.
+\end_layout
+
+\begin_layout Abstract
+For example, in FRP, if there is a variable 
+\begin_inset Formula $\LSTINLINE C$
+\end_inset
+
+ representing the price of a product and it is multiplied by a variable
+ 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+ representing the quantity to obtain the total cost stored in the reactive
+ variable 
+\begin_inset Formula $\LSTINLINE{A:=B*C}$
+\end_inset
+
+, then a change in price or quantity will cause an automatic update of the
+ cost, without the need for additional code to handle this update.
+ This is similar to data updates in a spreadsheet like 
+\family typewriter
+Excel
+\family default
+: the value of a cell containing a formula dependent on other cells is automatic
+ally updated whenever the value of one of the other cells it depends on
+ changes.
+ For instance, if cell 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+ contains the formula 
+\begin_inset Formula $B_{1}*C_{1}$
+\end_inset
+
+, then whenever the values of 
+\begin_inset Formula $B_{1}$
+\end_inset
+
+ or 
+\begin_inset Formula $C_{1}$
+\end_inset
+
+ are updated, the value of 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+ is recalculated.
+\end_layout
+
+\begin_layout Abstract
+To support assignment to a reactive variable, programming languages in the
+ FRP paradigm have a built-in change propagation mechanism.
+ Assignment statements are compiled so that each variable becomes dependent
+ on the variables in the expression on the right side of the statement,
+ and a data structure is maintained according to the resulting dependency
+ tree.
+ Whenever there is a change in the value of a variable, the variables dependent
+ on it are identified and updated accordingly.
+ During propagation, care is taken to ensure that each variable is evaluated
+ only after all the variables it depends on have been evaluated.
+\end_layout
+
+\begin_layout Abstract
+Implementing FRP in OOP is problematic because the implementation of the
+ propagation mechanism seemingly contradicts the principle of encapsulation
+ in OOP.
+ According to this principle, each object manages the values of its variables
+ (state) through the operations of its class, which are the only ones that
+ have access to its variables.
+ However, the propagation mechanism is external to the object and still
+ needs to update the state.
+\end_layout
+
+\begin_layout Abstract
+Although, an object can send a message to another object, so that the other
+ object can trigger an update to its variable based on the message.
+ Therefore, it is possible to implement a change propagation mechanism as
+ an object that will perform the updates by sending messages.
+ However, this creates a coupling problem: all objects must be connected
+ to the same object that manages the propagation.
+ Also, they must be jointly committed to the dependencies being in the form
+ of a tree (i.e., no cycles).
+\end_layout
+
+\begin_layout Abstract
+A central problem in implementing FRP in complex OOP systems with many interdepe
+ndent components is how to implement the propagation mechanism so that each
+ object manages its own state, rather than the state being managed by a
+ central component.
+\end_layout
+
+\begin_layout Abstract
+To address this problem, the thesis introduces an extension to an OOP language
+ with a 
+\emph on
+Reactive Instance Variable
+\emph default
+ (RIVar) that combines features of an instance variable from OOP with a
+ reactive variable from FRP, representing a combination that achieves the
+ abstraction mechanisms of both paradigms.
+\end_layout
+
+\begin_layout Abstract
+
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Abstract
 We introduce a novel approach for managing 
 \emph on
 data dependencies
@@ -170,6 +295,11 @@ The second question that would be addressed in the thesis is about the effective
  As it is about combining paradigms, we expect that we get the advantages
  from the two.
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Abstract

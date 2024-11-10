@@ -1336,8 +1336,8 @@ User Experience
 \end_layout
 
 \begin_layout Standard
-The design by procsses sometimes leaks into GUI experience, in explicity
- define use-cases mapped to each process.
+The procedural design of the application also affects the way the user interface
+ was designed.
 \end_layout
 
 \begin_layout Standard
@@ -1773,40 +1773,35 @@ Ordering Style
 \end_layout
 
 \begin_layout Standard
-Before editing the numeric fields, it is required to select an option from
- a 
+In addition to the six numeric fields, the application has an additional
+ field called 
 \family typewriter
-select
+Ordering Style
 \family default
- element named 
-\family typewriter
-ordering style
-\family default
-.
+ which offers several options to choose from.
  One option is 
 \family typewriter
-set concentraion and volume
+Set Concentration and Volume
 \family default
 , another option is 
 \family typewriter
-set dose and rate
+Set Dose and Rate
 \family default
-.
- According to the selected option, fields become editable or readonly, controlin
-g the calculations directions.
+, and there are additional options beyond the scope of this discussion.
+ Depending on the selected option, certain fields will become editable while
+ others will be read-only, controlling the direction of the calculations.
  If the user selects 
 \family typewriter
-set concentraion and volume
+Set Concentration and Volume
 \family default
-, those fields become editable, and the other fields will be calculated
+, those fields will become editable, and the other fields will be calculated
  accordingly.
  If the user selects 
 \family typewriter
-set dose and rate
+Set Dose and Rate
 \family default
-, those fields become editable, and the other fields will be calculated
+, those fields will become editable, and the other fields will be calculated
  accordingly.
- 
 \end_layout
 
 \begin_layout Paragraph
@@ -1814,39 +1809,55 @@ Lockers
 \end_layout
 
 \begin_layout Standard
-Additionaly, there are elements named 
+In addition to the inclusion of an 
 \family typewriter
-locker
+Ordering Style
 \family default
- used to 
-\emph on
-lock
-\emph default
- or 
-\emph on
-unlock
-\emph default
- fields.
- Locking means that the field's value would be calculated according to other
- fields' values, whereas unlocking means that the field becomes editable.
- The lockers are similar to toggle buttons, each click changes from the
- previous state locked from being unlocked and vice versa.
- Among the six fields, three of the fields should be set by the user and
- the others should be calculated.
- Therefore, unlocking one field causes another field to be locked instead.
- Selecting 
+ field, 
 \family typewriter
-ordering style
+Locker
 \family default
- initiates the state of the lockers, for each field whether it is locked
- or unlocked.
- Fields that are editable according to the selected ordering style, cannot
- be locked.
- For example, if the selected ordering style is 
+ element has been added adjacent to each of the six numeric fields.
+ These lockers are used to lock or unlock fields.
+ Locking a field means its value will be calculated based on the values
+ of other fields, while unlocking a field allows it to be edited.
+ The lockers function like toggle buttons, with each click switching the
+ state from locked to unlocked and vice versa.
+ Among the six fields, three must be set by the user and the others will
+ be calculated.
+ Therefore, unlocking one field will cause another field to be locked instead.
+ 
+\end_layout
+
+\begin_layout Standard
+Selecting an 
 \family typewriter
-set concentration and volume
+Ordering Style
 \family default
-, concentration and volume are unlocked, and it is unabled to lock them.
+ determines the initial state of the lockers: for each field, whether it
+ is locked or unlocked.
+ Fields that are editable according to the selected 
+\family typewriter
+Ordering Style
+\family default
+ cannot be locked.
+ For example, if the 
+\family typewriter
+Ordering Style
+\family default
+ is set to 
+\family typewriter
+Set Concentration and Volume
+\family default
+, the 
+\family typewriter
+Concentration
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+ fields will be unlocked and cannot be locked.
 \end_layout
 
 \begin_layout Paragraph
@@ -1854,6 +1865,37 @@ Templates
 \end_layout
 
 \begin_layout Standard
+To simplify the user experience, the option to use 
+\emph on
+templates
+\emph default
+ has been added.
+ These templates contain pre-filled values and settings tailored to specific
+ scenarios.
+ This way, for each case, users need to select a template that fits that
+ particular case.
+\end_layout
+
+\begin_layout Standard
+The downside of templates is that they need to be prepared and maintained
+ (when there are changes/enhancements in the application, the old templates
+ need to be addressed).
+ Also, it is important to ensure that in real-time, the user can locate
+ the correct template for the right case.
+\end_layout
+
+\begin_layout Standard
+Essentially, the use of templates creates a sense of multiple (and therefore
+ duplicated) applications.
+ That is, there's the main application, and the templates are like mini-applicat
+ions created by the main application.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In MetaVision, customers often does not directly uses the 
 \family typewriter
 Order Entry
@@ -1863,6 +1905,11 @@ Order Entry
  specific cenarios.
  In this way, users should search and find for each specific use-case, for
  the the specific needed setup.
+\end_layout
+
+\end_inset
+
+
 \begin_inset Note Note
 status collapsed
 
@@ -1921,13 +1968,17 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset VSpace defskip
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The 
 \family typewriter
 ordering style
@@ -1960,6 +2011,11 @@ literal "false"
 \end_inset
 
  in the search of the specifc setup for the specific use-case.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

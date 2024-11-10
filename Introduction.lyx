@@ -1745,7 +1745,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2991,10 +2991,10 @@ Drug
 \family default
  (see 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand formatted
 reference "fig:cycleByComponents-2-2"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset
@@ -3017,8 +3017,11 @@ noprefix "false"
 
 \end_inset
 
-, Concentration is updated with the rounded value 0.33, which is calculated
- from 100/300.
+, 
+\family typewriter
+Concentration
+\family default
+ is updated with the rounded value 0.33, which is calculated from 100/300.
  This causes the recalculation for 
 \family typewriter
 Drug

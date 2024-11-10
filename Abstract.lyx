@@ -88,7 +88,7 @@
 \begin_body
 
 \begin_layout Abstract
-This thesis explores how to combine two development paradigms: 
+This thesis deals with combining two development paradigms: 
 \emph on
 Functional Reactive Programming
 \emph default
@@ -97,37 +97,59 @@ Functional Reactive Programming
 Object-Oriented Programming
 \emph default
  (OOP).
- In FRP, assignment statements are at a high level of abstraction.
- Assigning a value to a reactive variable has implications beyond a specific
- point in time.
- In other words, the system continues to update the variable according to
- relevant changes.
+ In FRP assignment statements are at a high level of abstraction.
+ Assigning a value to a reactive variable, deviates from the specific time
+ point, i.e., continuouly updates the variable upon relevant events.
 \end_layout
 
 \begin_layout Abstract
-For example, in FRP, if there is a variable 
+For example, updating an FRP variable 
 \begin_inset Formula $\LSTINLINE C$
 \end_inset
 
- representing the price of a product and it is multiplied by a variable
- 
+ representing the price of a product, multiplied by a variable 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
- representing the quantity to obtain the total cost stored in the reactive
+ representing the quantity, for obtaining the total cost stored in a reactive
  variable 
 \begin_inset Formula $\LSTINLINE{A:=B*C}$
 \end_inset
 
-, then a change in price or quantity will cause an automatic update of the
- cost, without the need for additional code to handle this update.
- This is similar to data updates in a spreadsheet like 
+, automatically updates of the cost 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+A
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, thus eliminating additional code to handle this update.
+ This is similar to data updating in a spreadsheet like 
 \family typewriter
 Excel
 \family default
-: the value of a cell containing a formula dependent on other cells is automatic
-ally updated whenever the value of one of the other cells it depends on
- changes.
+, for which the value of a cell containing a formula dependending on another
+ cells is automatically updated whenever the value of one of the other cells
+ it depends on, changes.
  For instance, if cell 
 \begin_inset Formula $A_{1}$
 \end_inset
@@ -148,16 +170,16 @@ ally updated whenever the value of one of the other cells it depends on
 \begin_inset Formula $A_{1}$
 \end_inset
 
- is recalculated.
+ is automatically recalculated.
 \end_layout
 
 \begin_layout Abstract
-To support assignment to a reactive variable, programming languages in the
- FRP paradigm have a built-in change propagation mechanism.
- Assignment statements are compiled so that each variable becomes dependent
- on the variables in the expression on the right side of the statement,
- and a data structure is maintained according to the resulting dependency
- tree.
+In order to support assignment to a reactive variable, programming languages
+ in the FRP paradigm contain a built-in change propagation mechanism.
+ Assignment statements are compiled such that each variable becomes dependent
+ on the variables of the expression of the right side of the statement,
+ thus forming a data structure according to the resulting dependency tree
+ and handling the tree.
  Whenever there is a change in the value of a variable, the variables dependent
  on it are identified and updated accordingly.
  During propagation, care is taken to ensure that each variable is evaluated

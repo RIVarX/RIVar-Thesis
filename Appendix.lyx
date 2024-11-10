@@ -1561,5 +1561,876 @@ In the various models, we could not prevented from repeating business logic.
 
 \end_layout
 
+\begin_layout Chapter
+\begin_inset Formula $\NAME{rivarjs}$
+\end_inset
+
+: Source Code
+\end_layout
+
+\begin_layout Paragraph
+Signal.js
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+import { Signal } from './Signal.js';
+\end_layout
+
+\begin_layout Plain Layout
+
+import { combineLatest, share, Observable, scan, distinctUntilChanged, map
+ } from 'rxjs';
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+const SignalExtension = {
+\end_layout
+
+\begin_layout Plain Layout
+
+  produceResult: function (resultSelector, x, y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (x && y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (x.value !== undefined && x.value !== null && y.value !== undefined
+ && y.value !== null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return new Signal(resultSelector(x.value, y.value), [...new Set([...x.prioritySet
+, ...y.prioritySet])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return new Signal(undefined, [...new Set([...x.prioritySet, ...y.prioritySet])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (x) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return new Signal(undefined, [...new Set([...x.prioritySet, 0])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return new Signal(undefined, [...new Set([...y.prioritySet, 0])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return undefined;
+\end_layout
+
+\begin_layout Plain Layout
+
+  },
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  monotonic: function (source) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return source.pipe(
+\end_layout
+
+\begin_layout Plain Layout
+
+      scan((previous, current) => current.compareTo(previous) > 0 ? current
+ : previous), distinctUntilChanged()
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  },
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+export function lift(func, operand1, operand2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  if (operand2 != undefined) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    const firstStream = SignalExtension.monotonic(operand1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    const secondStream = SignalExtension.monotonic(operand2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    const combinedStream = combineLatest([firstStream, secondStream],
+\end_layout
+
+\begin_layout Plain Layout
+
+      (x, y) => SignalExtension.produceResult(func, x, y));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return combinedStream.pipe(share());
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return SignalExtension.monotonic(operand1)
+\end_layout
+
+\begin_layout Plain Layout
+
+      .pipe(map(x => new Signal(func(x.value), x.prioritySet)))
+\end_layout
+
+\begin_layout Plain Layout
+
+      .pipe(share());
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Lift.js
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+import { Signal } from './Signal.js';
+\end_layout
+
+\begin_layout Plain Layout
+
+import { combineLatest, share, Observable, scan, filter, map } from 'rxjs';
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+const SignalExtension = {
+\end_layout
+
+\begin_layout Plain Layout
+
+  produceResult: function (resultSelector, x, y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (x && y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (x.value !== undefined && x.value !== null && y.value !== undefined
+ && y.value !== null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return new Signal(resultSelector(x.value, y.value), [...new Set([...x.prioritySet
+, ...y.prioritySet])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return new Signal(undefined, [...new Set([...x.prioritySet, ...y.prioritySet])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (x) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return new Signal(undefined, [...new Set([...x.prioritySet, 0])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return new Signal(undefined, [...new Set([...y.prioritySet, 0])]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return undefined;
+\end_layout
+
+\begin_layout Plain Layout
+
+  },
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  monotonic: function (source) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return source.pipe(
+\end_layout
+
+\begin_layout Plain Layout
+
+      scan((previous, current) => current.compareTo(previous) > 0 ? current
+ : null), filter(x => x != null)
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  },
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  selectLatest: function (source, ...moreSources) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    const allSources = [...moreSources, source];
+\end_layout
+
+\begin_layout Plain Layout
+
+    return SignalExtension.selectLatest(allSources);
+\end_layout
+
+\begin_layout Plain Layout
+
+  },
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  selectLatest: function (sources) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return Observable.combineLatest(
+\end_layout
+
+\begin_layout Plain Layout
+
+      ...sources.map(o => o.startWith(new Signal(undefined, [])))
+\end_layout
+
+\begin_layout Plain Layout
+
+    )
+\end_layout
+
+\begin_layout Plain Layout
+
+      .map(valuesFromAllSources => Math.max(...valuesFromAllSources.filter(o =>
+ o !== undefined)))
+\end_layout
+
+\begin_layout Plain Layout
+
+      .distinctUntilChanged((prev, curr) => prev.compareTo(curr) === 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+      .publish()
+\end_layout
+
+\begin_layout Plain Layout
+
+      .refCount();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+export function lift(func, operand1, operand2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  if (operand2 != undefined) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    const firstStream = SignalExtension.monotonic(operand1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    const secondStream = SignalExtension.monotonic(operand2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    const combinedStream = combineLatest([firstStream, secondStream],
+\end_layout
+
+\begin_layout Plain Layout
+
+      (x, y) => SignalExtension.produceResult(func, x, y));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return combinedStream.pipe(share());
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return SignalExtension.monotonic(operand1)
+\end_layout
+
+\begin_layout Plain Layout
+
+      .pipe(map(x => new Signal(func(x.value), x.prioritySet)))
+\end_layout
+
+\begin_layout Plain Layout
+
+      .pipe(share());
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+RIVar.js
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+import { Subject, share } from 'rxjs';
+\end_layout
+
+\begin_layout Plain Layout
+
+import { map, filter, startWith, withLatestFrom
+\end_layout
+
+\begin_layout Plain Layout
+
+} from 'rxjs/operators';
+\end_layout
+
+\begin_layout Plain Layout
+
+import { Signal } from './Signal.js';
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+export class RIVar extends Subject {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.streamOfChangesInSources=[]; // for debugging
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  set(source) {
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+    const targetWithInitialValue = this.pipe(startWith(new Signal(null, [0])));
+\end_layout
+
+\begin_layout Plain Layout
+
+    const streamOfChanges = source.pipe(
+\end_layout
+
+\begin_layout Plain Layout
+
+      withLatestFrom(targetWithInitialValue),
+\end_layout
+
+\begin_layout Plain Layout
+
+      map(([valueInSource, valueInTarget]) => ({ valueInSource, valueInTarget
+ })));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    const streamOfChangesInSource = streamOfChanges.pipe(
+\end_layout
+
+\begin_layout Plain Layout
+
+      filter(change => change.valueInSource && change.valueInSource.compareTo(chang
+e.valueInTarget) > 0),
+\end_layout
+
+\begin_layout Plain Layout
+
+      map(change => change.valueInSource), share());
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.streamOfChangesInSources.push(streamOfChangesInSource); // for
+ debugging
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    streamOfChangesInSource.subscribe(x=>{
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.next(x);
+\end_layout
+
+\begin_layout Plain Layout
+
+    });
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  next(value) {
+\end_layout
+
+\begin_layout Plain Layout
+
+   if(!this.prev||!(this.prev.compareTo(value) === 0)){
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.prev=value;
+\end_layout
+
+\begin_layout Plain Layout
+
+    super.next(value);
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+   else{
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.prev=value;
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+  }  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

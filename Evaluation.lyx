@@ -113,30 +113,12 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-The presented approach proposes 
+In this section, it is presented how easy it to 
 \emph on
-variables reuse
+add filling option
 \emph default
- for 
-\emph on
-adding filling options 
-\emph default
-easily
-\emph on
-.
-
-\emph default
- In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Problem"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, we presented the difficulty to add such in the used design.
+ compared to previous approaches.
+ 
 \end_layout
 
 \begin_layout Section
@@ -753,6 +735,158 @@ Alert
 \end_layout
 
 \begin_layout Section
+Add Filling Option
+\end_layout
+
+\begin_layout Standard
+Traditionaly, it is easy to add a computed field.
+ For example, a formula 
+\begin_inset Formula $\LSTINLINE{Amount=Dose*Duration}$
+\end_inset
+
+ such that 
+\family typewriter
+Amount
+\family default
+ is automaticaly computed according to 
+\family typewriter
+Dose
+\family default
+ and 
+\family typewriter
+Rate
+\family default
+.
+ This meaning would be reserved, only in case that this formula declares
+ 
+\family typewriter
+Amount
+\family default
+ firstly.
+ However, generaly the meaning is, that filling 
+\family typewriter
+Dose
+\family default
+ and 
+\family typewriter
+Duration 
+\family default
+is an option to fill 
+\family typewriter
+Amount
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+The new feature can be presented also as adding a filling option as a set
+ of fields.
+ This would be presented by the following example.
+ Among fields 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+, only two of them are required for documenting drugs' amount.
+ Users can, for example, define quantities by setting only 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In such a case, the value of 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ is computed.
+ Additionaly, users can define quantities by setting only the 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ In such a case, the value of 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ is computed.
+\end_layout
+
+\begin_layout Standard
+If only one filling option is available, users are stricted: users must
+ define values in the terms used in the application.
+ For example, in 
+\family typewriter
+Drug Administration
+\family default
+ define quantities by setting 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ for drugs that it is easier to set by 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+.
+ In the strict mode, users are forced to convert the values.
+ For example, a case that available fields are 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+, and an amount is 
+\begin_inset Formula $0.5$
+\end_inset
+
+ and 
+\begin_inset Formula $100$
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+.
+ For filling 
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+ it is required to calculate 
+\begin_inset Formula $\LSTINLINE{Concentration*Volume}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
 Code Reuse Analysis
 \end_layout
 
@@ -1082,158 +1216,6 @@ Code Reuse Analysis.
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Add Filling Option
-\end_layout
-
-\begin_layout Standard
-Traditionaly, it is easy to add a computed field.
- For example, a formula 
-\begin_inset Formula $\LSTINLINE{Amount=Dose*Duration}$
-\end_inset
-
- such that 
-\family typewriter
-Amount
-\family default
- is automaticaly computed according to 
-\family typewriter
-Dose
-\family default
- and 
-\family typewriter
-Rate
-\family default
-.
- This meaning would be reserved, only in case that this formula declares
- 
-\family typewriter
-Amount
-\family default
- firstly.
- However, generaly the meaning is, that filling 
-\family typewriter
-Dose
-\family default
- and 
-\family typewriter
-Duration 
-\family default
-is an option to fill 
-\family typewriter
-Amount
-\family default
-.
-\end_layout
-
-\begin_layout Standard
-The new feature can be presented also as adding a filling option as a set
- of fields.
- This would be presented by the following example.
- Among fields 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
-, 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-, only two of them are required for documenting drugs' amount.
- Users can, for example, define quantities by setting only 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In such a case, the value of 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- is computed.
- Additionaly, users can define quantities by setting only the 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- In such a case, the value of 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- is computed.
-\end_layout
-
-\begin_layout Standard
-If only one filling option is available, users are stricted: users must
- define values in the terms used in the application.
- For example, in 
-\family typewriter
-Drug Administration
-\family default
- define quantities by setting 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- for drugs that it is easier to set by 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
-.
- In the strict mode, users are forced to convert the values.
- For example, a case that available fields are 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-, and an amount is 
-\begin_inset Formula $0.5$
-\end_inset
-
- and 
-\begin_inset Formula $100$
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{Concentration}$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME{Volume}$
-\end_inset
-
-.
- For filling 
-\begin_inset Formula $\NAME{Drug}$
-\end_inset
-
- it is required to calculate 
-\begin_inset Formula $\LSTINLINE{Concentration*Volume}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard

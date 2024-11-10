@@ -5105,7 +5105,7 @@ Three perspectives on handling cycles exist:
 
 \begin_layout Itemize
 Event-driven decoupling: This approach focuses on using events to loosely
- couple components, potentially introducing cycles as a side effect.
+ couple components, potentially introducing cycles
 \end_layout
 
 \begin_layout Itemize

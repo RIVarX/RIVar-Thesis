@@ -1461,7 +1461,7 @@ Multiple Assignments
  from multiple sources.
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsection
 Glitch
 \end_layout
 
@@ -2148,7 +2148,7 @@ Bag
 
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsection
 Cycles
 \end_layout
 
@@ -2242,7 +2242,7 @@ This means that a reactive instance variable can depend on multiple different
  statement.
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsection
 Multiple Assignments
 \end_layout
 

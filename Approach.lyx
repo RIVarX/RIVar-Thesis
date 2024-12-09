@@ -1033,7 +1033,7 @@ e hierarchy.
 Examples
 \end_layout
 
-\begin_layout Subparagraph
+\begin_layout Subsection
 Implementation Inheritance
 \end_layout
 
@@ -1091,7 +1091,7 @@ DrugAdministration2
 .
 \end_layout
 
-\begin_layout Subparagraph
+\begin_layout Subsection
 Composition
 \end_layout
 
@@ -1162,7 +1162,7 @@ Pump
 .
 \end_layout
 
-\begin_layout Subparagraph
+\begin_layout Subsection
 Polymorphism
 \end_layout
 
@@ -3527,20 +3527,10 @@ union
 
 \begin_layout Section
 Semantics
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Move to Approach
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-The reactive assignment operation is similar to a 
+The reactive assignment operation means a 
 \emph on
 merge accumulation operator
 \emph default
@@ -4128,7 +4118,7 @@ ty property of the merge operation.
 Based on this property, the proof of the claim by induction is as follows:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Base case (
 \begin_inset Formula $n=1$
 \end_inset
@@ -4142,17 +4132,11 @@ Base case (
 \end_inset
 
 , and the equality becomes: 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula $merge(X,V_{1})=merge(X,V_{1})$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-This holds trivially, as both sides are identical.
+.
+ This holds trivially, as both sides are identical.
  
 \end_layout
 
@@ -4173,17 +4157,14 @@ holds.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Inductive step: We need to show that if the hypothesis is true (the equality
  holds for k), then the equality also holds for k+1.
- In other words, we need to show that:
-\end_layout
-
-\begin_layout Standard
+ In other words, we need to show that: 
 \begin_inset Formula $merge(X,V_{1},V_{2},...V_{k},V_{k+1})=merge(merge(...(X,V_{1}),V_{2})...,V_{k},V_{k+1})$
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
@@ -4192,6 +4173,8 @@ Starting with the left-hand side, and using the definition of merge, the
 \end_layout
 
 \begin_layout Standard
+
+\family typewriter
 \begin_inset Formula $merge(X,V_{1},V_{2},...V_{k},V_{k+1})$
 \end_inset
 
@@ -4199,6 +4182,8 @@ Starting with the left-hand side, and using the definition of merge, the
 \end_layout
 
 \begin_layout Standard
+
+\family typewriter
 =
 \begin_inset Formula $merge(merge(X,V_{1},V_{2},...V_{k}),V_{k+1})$
 \end_inset
@@ -4207,6 +4192,8 @@ Starting with the left-hand side, and using the definition of merge, the
 \end_layout
 
 \begin_layout Standard
+
+\family typewriter
 =
 \begin_inset Formula $merge(merge(merge(...X,V_{1}),V_{2},...V_{k}),V_{k+1})$
 \end_inset
@@ -4215,6 +4202,8 @@ Starting with the left-hand side, and using the definition of merge, the
 \end_layout
 
 \begin_layout Standard
+
+\family typewriter
 =
 \begin_inset Formula $merge(merge(...X,V_{1}),V_{2})...V_{k},V_{k+1})$
 \end_inset
@@ -4235,10 +4224,14 @@ And thus we have arrived at the right-hand side! This means that if the
  as well.
 \end_layout
 
+\begin_layout Paragraph
+Conclusion
+\end_layout
+
 \begin_layout Standard
-Conclusion: By the principle of mathematical induction, the claim is true
- for all natural numbers n, and therefore the semantics of the reactive
- assignment operation indeed yields the desired semantics.
+By the principle of mathematical induction, the claim is true for all natural
+ numbers n, and therefore the semantics of the reactive assignment operation
+ indeed yields the desired semantics.
 \end_layout
 
 \begin_layout Section

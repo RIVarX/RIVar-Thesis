@@ -155,9 +155,12 @@ Transparency of Data Source
 \end_layout
 
 \begin_layout Standard
-Compared to the old implementation (of Drug Administration presented in
- the introduction), there is a difficulty in knowing the source of each
- calculated value.
+Compared to the old implementation (of 
+\family typewriter
+Drug Administration
+\family default
+ presented in the introduction), there is a difficulty in knowing the source
+ of each calculated value.
  The old implementation uses a solution where the user is required to make
  choices that define the calculation method, thus the source of each value
  is known.

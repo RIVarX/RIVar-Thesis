@@ -80,6 +80,166 @@
 
 \begin_body
 
+\begin_layout Chapter
+Case Study: Drug Administration
+\end_layout
+
+\begin_layout Section
+SoC
+\end_layout
+
+\begin_layout Standard
+In the implementation of 
+\family typewriter
+Drug Administration
+\family default
+, there is a separation into Bag and Pump classes, so that each object manages
+ its own state, rather than having the state managed centrally.
+ This principle is applied in two ways:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+During code writing
+\series default
+: The Pump class defines reactive assignments that affect variables in Bag
+ (Amount and Volume) without knowing about the existence of other variables
+ in Bag (like Concentration).
+ The Bag class defines reactive assignments without knowing whether a Bag
+ object will be part of a Pump.
+ In other words, each class is defined independently, regardless of the
+ structure or context in which it will be used.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+At runtime:
+\series default
+ There is no central mechanism that manages the propagation of changes.
+ Each reactive variable reads other variables (through expressions) without
+ any knowledge of the overall system structure.
+ In other words, change propagation happens in a decentralized way, with
+ each variable responsible for updating itself based on changes in other
+ variables.
+\end_layout
+
+\begin_layout Standard
+But there are still centralized elements:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Policy
+\series default
+: While the propagation mechanism is decentralized, the propagation policy
+ is centralized.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Logical Clock
+\series default
+: Reliance on a central static 
+\begin_inset Formula $\LSTINLINE{Counter}$
+\end_inset
+
+ variable.
+\end_layout
+
+\begin_layout Section
+Transparency of Data Source
+\end_layout
+
+\begin_layout Standard
+Compared to the old implementation (of Drug Administration presented in
+ the introduction), there is a difficulty in knowing the source of each
+ calculated value.
+ The old implementation uses a solution where the user is required to make
+ choices that define the calculation method, thus the source of each value
+ is known.
+ Whereas in the new implementation, a field is populated directly or indirectly
+ and can therefore receive values from multiple sources.
+\end_layout
+
+\begin_layout Standard
+This difficulty resembles the known problem, that different methods triggered
+ by various events can update shared variables (
+\emph on
+state management
+\emph default
+).
+ Thus, given a variable containing a certain value, it's hard to know the
+ reason for it.
+ Below are the advantages of the new implementation over regular state managemen
+t.
+\end_layout
+
+\begin_layout Itemize
+In the new implementation, the source of a value is more constrained and
+ therefore more predictable.
+ It is more constrained because it is determined by reactive assignments
+ and input, whereas regular state management relies on regular code, which
+ has many more variations.
+\end_layout
+
+\begin_layout Itemize
+The user chooses which fields to edit, and can be aware that when they enter
+ a value that might conflict with previously entered values, the oldest
+ value will be overwritten, as will any values calculated based on that
+ old value.
+\end_layout
+
+\begin_layout Itemize
+It's possible to determine for each value whether it is calculated or a
+ user-entered value (this was implemented in all the examples, except for
+ the React example).
+\end_layout
+
+\begin_layout Itemize
+Suggestion for further research: prepare a visualization that shows the
+ calculation source for each value.
+\end_layout
+
+\begin_layout Itemize
+Suggestion for further research: allow more options to whom value would
+ override.
+ the research could investigate alternative strategies such as:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Prioritization: Assigning priorities to different data sources or input
+ methods.
+ For example, user input might have higher priority than calculated values,
+ or values from a specific source might be preferred over others.
+ 
+\end_layout
+
+\begin_layout Itemize
+Conflict resolution: Implementing mechanisms to detect and resolve conflicts
+ between values, such as prompting the user to choose the correct value
+ or using predefined rules to determine the appropriate outcome.
+ 
+\end_layout
+
+\begin_layout Itemize
+Versioning: Keeping track of different versions of a value, allowing users
+ to revert to previous values or compare changes over time.
+ 
+\end_layout
+
+\begin_layout Itemize
+Merging: Developing strategies to merge conflicting values instead of simply
+ overwriting them.
+ This could involve averaging values, combining different parts of the data,
+ or using other techniques to create a composite value.
+\end_layout
+
+\end_deeper
 \begin_layout Standard
 \begin_inset Note Note
 status collapsed
@@ -209,7 +369,7 @@ reactive instance variable
 \end_inset
 
 ) method is the implementation of the operator 
-\begin_inset Formula $\LSTINLINE =$
+\begin_inset Formula $\LSTINLINE=$
 \end_inset
 
 , and for the operator 
@@ -733,7 +893,7 @@ noprefix "false"
 This allows operations to handle unexpected feedback and glitches through
  a filtering mechanism.
  Binary operators like 
-\begin_inset Formula $\LSTINLINE +$
+\begin_inset Formula $\LSTINLINE+$
 \end_inset
 
  (representing the function 
@@ -755,7 +915,7 @@ This allows operations to handle unexpected feedback and glitches through
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ——–
@@ -2447,7 +2607,7 @@ cref{line:checkResult}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Section
 The Case Study
@@ -3806,7 +3966,7 @@ A UML diagram showing a composition relationship between a Pump class and
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...

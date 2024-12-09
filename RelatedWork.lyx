@@ -112,2986 +112,13 @@ name "chap:Related-Work"
 Related Work
 \end_layout
 
-\begin_layout Standard
-Frameworks that support propagation must strike a balance between customizable
- and the abstraction level.
- For example, event-driven programming frameworks give developers complete
- control over the propagation order, therefore highly customizable but lower
- abstraction level.
- Another example, Rx that promotes abstractions from handling events to
- function over streams of events, giving some control over propagation by
- choosing a 
-\emph on
-scheduler
-\emph default
- to indicate the order of updates.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://rxjs.dev/guide/scheduler
-\end_layout
-
-\end_inset
-
- Finally, FRP aims to abstracting away most details, such that code would
- declare only data dependencies.
- However, since conventionally complex dependencies have not been adressed,
- for the sake of specific use cases, more concepts was added.
- We list several example.
- 
-\end_layout
-
-\begin_layout Itemize
-In the design of 
-\family typewriter
-FrTime
-\family default
-, a special 
-\family typewriter
-delay
-\family default
- operator is implemented in order to handle cycles.
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Sodium
-\family default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- provides a special constructs named 
-\family typewriter
-CellLoops
-\family default
- and 
-\family typewriter
-StreamLoops
-\family default
- for handling cycles.
- 
-\end_layout
-
-\begin_layout Itemize
-Creating feature that limits data dependencies to the lexical scope of their
- declarations for being acyclic
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- .
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Sodium
-\family default
- also hold a concept transaction for handling cycles created from integrating
- FRP with event handling code.
- A change propagated through an FRP variable can trigger an event handler,
- which in turn might create another update.
- This update could then feed back into the original FRP variable, creating
- a cycle.
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Microsoft Excel
-\family default
- manages settings 
-\emph on
-remove or allow a circular reference
-\emph default
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-allow cycles
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-.Terminating when it closes a cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, adding to the language a special operator to inform the runtime when to
- break the cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-, stop after a number of iterations, stop if the value has not changed,
- or changed only less than a threshold (available in 
-\family typewriter
-Microsoft Excel
-\family default
-)
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Necessity for events abstraction might be needed 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2017positive"
-literal "false"
-
-\end_inset
-
-.
- (This need might be caused from the aforementioned reasons that general
- data dependencies does not address specific use-cases correctly).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-what about distributed FRP, that we have decntralized algorithm
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
-FRP
-\end_layout
-
-\begin_layout Paragraph
-Cycles
+Combining FRP with OOP
 \end_layout
 
 \begin_layout Standard
-It should be mentioned (in addition to all other mentions) that two opposing
- methods have been previously presented regarding cycles.
- In the first method, cycles are avoided, because the paradigm derived from
- the functional paradigm, with the referential transparency property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- In the second method, forbidding cycles makes FRP unacceptably weak, because
- many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-We mentioned traditional method used to address cycles.
-\end_layout
-
-\begin_layout Plain Layout
-In such applications, we can plan the dependencies following each input
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-FRP runtimes that support cycles uses various techniques to stop arisen
- loops.
- Terminating when it closes a cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, adding to the language a special operator to inform the runtime when to
- break the cycle 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-, stop after a number of iterations, stop if the value has not changed,
- or changed only less than a threshold (available in 
-\family typewriter
-Microsoft Excel
-\family default
-)
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
-40bd0f-6e97-4483-bcf7-1b49cd50d123
-\end_layout
-
-\end_inset
-
-.
- The various methods are needed due to the inability to identify wether
- a repeating update is caused by previous update was a glitch, or that it
- is unneeded because the repeating update is caused from a cycle.
-\end_layout
-
-\begin_layout Plain Layout
-Another example for the challenging is in 
-\family typewriter
-FrTime
-\family default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-.
- In the design of 
-\family typewriter
-FrTime
-\family default
-, a special 
-\family typewriter
-delay
-\family default
- operator is implemented in order to handle cycles.
- Similarly, 
-\family typewriter
-Sodium
-\family default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- provides a special constructs named 
-\family typewriter
-CellLoops
-\family default
- and 
-\family typewriter
-StreamLoops
-\family default
- for handling cycles.
- Another example is in a feature called 
-\family typewriter
-reactive variables
-\family default
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- to imperative languages.
- The feature limits the dependents to the lexical scope of its declaration
- for being acyclic.
- 
-\family typewriter
-Sodium
-\family default
- also hold a concept transaction for handling cycles created from integrating
- FRP with event handling code.
- A change propagated through an FRP variable can trigger an event handler,
- which in turn might create another update.
- This update could then feed back into the original FRP variable, creating
- a cycle.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-\begin_inset Note Note
-status open
-
-\begin_layout Paragraph
-Referential Transparency
-\end_layout
-
-\begin_layout Plain Layout
-FRP is inspired from the functional paradigm 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
-, so that each value of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the value of 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to 
-\emph on
-referential transparency
-\emph default
-, meaning the input consistently produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-However, in our approach it is enabled to associate several expressions
- to the same variable, so saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
- can be added with 
-\begin_inset Formula $\LSTINLINE{A:=C+1}$
-\end_inset
-
-.
- Which means that we cannot derive the predictability property as it has
- traditionaly achieved in the field.
- Insead, the predictability property is achieved from introducing the pure
- functions over streams, as each variable consists of a streams of values
- that produced from the merge function described in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "sec:A-New-Variant"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Glitch Freedom
-\end_layout
-
-\begin_layout Standard
-Glitch means that certain nodes are visited multiple times, while some of
- these visits involve outdated values.
- For instance, in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Glitch-1-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- a spanning tree, resulting from the DFS traversal, contains nodes with
- more than one incoming edge.
- This implies that certain variables were updated multiple times in response
- to the change, but some of these updates relied on outdated values.
- The multiple incoming edges of a node represent 
-\emph on
-simultaneous events
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, which are related to the same time, that originaly caused by a single
- event.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
- 
-\backslash
-begin{subfigure}[b]{0.75
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newthread{A}{A}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newinst[1]{B}{B}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newinst[2]{C}{C}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newinst[3]{D}{D}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-begin{call}{A}{next(1)}{B}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-begin{call}{B}{next(1)}{D}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-begin{call}{A}{next(1)}{C}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-begin{call}{C}{next(2)}{D}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:sequence}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-centering
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-begin{subfigure}[b]{0.25
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (A) at (3,7) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (B) at (2,5) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (C) at (4,5) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (D) at (3,3) {D};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[scale=0.6] at ($(B) + (0,1)$) {B=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[scale=0.6] at ($(C) + (0,1)$) {C=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[scale=0.6] at ($(D) + (0,1)$) {D=B+C};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (A) edge (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (A) edge (C);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (B) edge (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (C) edge (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:graph}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-phantomcaption % Invisible caption
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-label{fig:cycle-to-multiple-assignment}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Glitch-1-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-An example for the glitch issue with the default behavior with observable
- streams
-\end_layout
-
-\end_inset
-
-An example for the glitch issue with the default behavior with observable
- streams.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:sequence}) presents a sequence diagram of observable streams
- used for fields calculations, started from a change event to 
-\backslash
-lstinline{A}.
- The calls order in the sequence diagram is (
-\backslash
-lstinline{A},
-\backslash
-lstinline{B},
-\backslash
-lstinline{D},
-\backslash
-lstinline{C},
-\backslash
-lstinline{D}) (
-\backslash
-subref{fig:graph}) presentes the spanning tree resulted from the  traversal
- order, leading that the expected order is (
-\backslash
-lstinline{A},
-\backslash
-lstinline{B},
-\backslash
-lstinline{C},
-\backslash
-lstinline{D}).
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Previous approaches managed the values correctly at runtime by holding an
- acyclic graph in memory and updating each variable only after all its dependenc
-ies have been updated 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- This is against our approach to support cycles.
- Other algorithms also do not fit our settings, because they depend on a
- central algorithm that holds in memory the data structure that represent
- the data dependencies
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-.
- We find exceptions
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "shibanai2018distributed,drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-, but they do not support cycles, so we left them irrelevant.
-\end_layout
-
-\begin_layout Standard
-Actualy, different applications need different handling, depending on needed
- consistency level
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics"
-literal "false"
-
-\end_inset
-
-.
- According to this thesis, loops caused from cycles in dependencies, is
- another type of glitch.
- Our algorithm handles glitches
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-We provide a unit test upon the classic case of glitch.
- Available in 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://github.com/RIVarX/rivarjs/blob/main/test/RIvarsBasics.js
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- by enforcing an order over the values.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-We take the prescpective that glitches are simultaneous events or values
- from the same time that arrive at a variable to be updated at different
- times 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- We noticed that this is like unexpected feedback loops, when also values
- arrive at a variable to be updated at different times.
- we expanded it to an overall order over the values, so that each values
- will be passed (i.e., propogated) only if it is freshed, i.e, its time is
- greater from the previous values that has been passed.
-\end_layout
-
-\begin_layout Plain Layout
-We also inspired from that glitches has the mean of consistency.
- Each application can have different consistency level 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics"
-literal "false"
-
-\end_inset
-
-.
- In the current approach, that the variables manage their values as streams,
- we are more open to customize the consistency level.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Each node in a dependancy graph can be represented as an observable stream.
- Each Item represents a visit in that node.
-\end_layout
-
-\begin_layout Plain Layout
-We use an higher order functions
-\end_layout
-
-\begin_layout Plain Layout
-This traversal order has the known issue named 
-\emph on
-glitch
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-
-\emph on
-.
-
-\emph default
- Certain nodes may be visited multiple times, while some of these visits
- involving outdated values.
- For instance, in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Glitch-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- the spanning tree, resulting from the DFS traversal, contains nodes with
- more than one incoming edge.
- This implies that certain variables were updated multiple times in response
- to the change, but some of these updates relied on outdated values.
- The multiple incoming edges of a node represent simultaneous events, which
- are related to the same time, that originaly caused by a single event.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
- 
-\backslash
-begin{subfigure}[b]{0.75
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newthread{A}{A}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newinst[1]{B}{B}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newinst[2]{C}{C}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-newinst[3]{D}{D}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-begin{call}{A}{next(1)}{B}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-begin{call}{B}{next(1)}{D}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-begin{call}{A}{next(1)}{C}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-begin{call}{C}{next(2)}{D}{}
-\end_layout
-
-\begin_layout Plain Layout
-
-        
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-end{call}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{sequencediagram}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:sequence}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-centering
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-begin{subfigure}[b]{0.25
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (A) at (3,7) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (B) at (2,5) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (C) at (4,5) {C};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[shape=circle,draw=black] (D) at (3,3) {D};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[scale=0.6] at ($(B) + (0,1)$) {B=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[scale=0.6] at ($(C) + (0,1)$) {C=A+1};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[scale=0.6] at ($(D) + (0,1)$) {D=B+C};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (A) edge (B);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (A) edge (C);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (B) edge (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-path[-{Triangle[scale=1]}] (C) edge (D);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:graph}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-phantomcaption % Invisible caption
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-label{fig:cycle-to-multiple-assignment}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Glitch-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-An example for the glitch issue with the default behavior with observable
- streams
-\end_layout
-
-\end_inset
-
-An example for the glitch issue with the default behavior with observable
- streams.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:sequence}) presents a sequence diagram of observable streams
- used for fields calculations, started from a change event to 
-\backslash
-lstinline{A}.
- The calls order in the sequence diagram is (
-\backslash
-lstinline{A},
-\backslash
-lstinline{B},
-\backslash
-lstinline{D},
-\backslash
-lstinline{C},
-\backslash
-lstinline{D}) (
-\backslash
-subref{fig:graph}) presentes the spanning tree resulted from the  traversal
- order, leading that the expected order is (
-\backslash
-lstinline{A},
-\backslash
-lstinline{B},
-\backslash
-lstinline{C},
-\backslash
-lstinline{D}).
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-Each variable abstracts a stream, where each item represents a visit.
- An item's location in the stream represent when was the visit.
-\end_layout
-
-\begin_layout Plain Layout
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation should not create an item, in case that another item on the same
- or a more recent time is already present.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-For feedback, we refer as redundant updates similar to 
-\emph on
-glitches
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- Glitches has been considered as two updates that refers to a single time,
- but accured in distinct times.
- Consequently, all updates caused from a single event means as of its time.
- Accordingly, feedback is of stimuouls events.
- For this reason, it is clear that a feedback refers again to updates that
- refers to a single time.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Merge
-\end_layout
-
-\begin_layout Standard
-Merge operations have been considered in software engineering before, similar
- to the merge operation introduced in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- In working with streams, the merge operation has the the same general problem
- as in the events paradigm, on how to handle the time 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- In the two paradigms, there is the difficulty to how to merge values from
- several sources.
-\end_layout
-
-\begin_layout Standard
-In the 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation from 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
- (
-\begin_inset Formula $\LSTINLINE{Merge}$
-\end_inset
-
- in 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-), whenever there is a value from any of the sources, it is passed to the
- output stream.
- This is unpredictable, as it does not handle correctly the simultaneous
- values.
- This leads (as implemented in 
-\begin_inset Formula $\NAME{sodium}$
-\end_inset
-
-) that the developers need to provide the method on how to determine the
- order of the values
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-However, due to the cycles issue, the previous implementations have exceptions
- that break this abstraction level.
- 
-\begin_inset Formula $\NAME{sodium}$
-\end_inset
-
-, in addition to its high-level language, has the concept of transactions
- to customize how to handle cycles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- 
-\begin_inset Formula $\NAME{FrTime}$
-\end_inset
-
- has the reserved word 
-\begin_inset Formula $\NAME{\LSTINLINE{delay}}$
-\end_inset
-
- to customize how to handle cycles 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
-.
- Additionally, streams and/or events are still part of these frameworks
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014programming,blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-—–
-\end_layout
-
-\begin_layout Plain Layout
-Cycles are often challenged applications' developers and library designers.
- A remarkable example is a birth of 
-\family typewriter
-React
-\family default
- and 
-\family typewriter
-Redux
-\family default
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-As described in 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.clariontech.com/blog/mvc-vs-flux-vs-redux-the-real-differences
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- In previous libraries that use MVC, models are updated according to the
- view and vice versa, sometimes mentioned as 
-\emph on
-multidirectional
-\emph default
- dataflow, which means that data flows among components in multiple directions.
- 
-\family typewriter
-React
-\family default
- and 
-\family typewriter
-Redux
-\family default
- provides an alternative approach that proposes a design that data flow
- in one direction, such that data flows from each component to its child
- components.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The design choice of avoiding cycles has its cost.
- For example, the lack of a feature named 
-\family typewriter
-binding
-\family default
-, by which variables are decleratively bound, so that a change in one variable
- update the other variable and vise verca.
- A similar feature is named multidirectionality
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
- (equivalent to multi-way constraints 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-) that means that when neccesary, changes in derived values are propagated
- back to the values from which they were derived.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Cycles are traditionaly considered has causing negative effects.
- They are sometimes considered as 
-\emph on
-accidental
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, i.e., complexity that is not inherent in the problem that the software solves
- (as seen by the users) but arises only from the implementation.
- For example, the birth of React is to solve cycles created in MVC.
-\end_layout
-
-\begin_layout Plain Layout
-Also in declerative frameworks like Angular, cycles has a mining as something
- to handle, rather than a more absrract meaning.
- Indeed, cycles are sometimes considered as 
-\emph on
-accidental
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-, i.e., complexity that is not inherent in the problem that the software solves
- (as seen by the users) but arises only from the implementation.
-\end_layout
-
-\begin_layout Plain Layout
-An effort
-\end_layout
-
-\begin_layout Plain Layout
-This opposed appraoches exist in frameworks provided for fornt end programming.
- Frameworks like Angular support a feature named binding.
- This feature enables view and model to interacts, so that models are updated
- according to the view and vice versa.
- This is mentioned sometimes as multidirectional dataflow, as data flows
- among components in mutipal directions.
- An alternative approach propsed a design data flow in one direction.
- This approach is used in React, when data flows from each component to
- its child components.
- This aims to provide predictability.
- It should be noted, that user events are produced from the view into a
- state managemnt manager, that is consumed by the components, and this integrati
-on might create accidental cycles.
-\end_layout
-
-\begin_layout Plain Layout
-The oppsed approaches affects also a feature named multidirectionality 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- This feature means that when neccesary changes in derived values are propagated
- back to the values from which they were derived.
- For example, 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
-implies that whenever a new value of either A or B is available the other
- value is updated.
- In the constraints programming paradigm, there are local propagation solvers,
- that are similar to FRP with and without multidirectionality.
- Solvers with multidirectionality are sometimes mentioned as more challenged
- to implement than solvers without multidirectionality, while solvers with
- multidirectionality may provide a more frienly framework 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-—
-\end_layout
-
-\begin_layout Plain Layout
-Opinions among researchers are divided regarding whether to support cycles.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to a second approach, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-Cycles are matter.
- This is obvious as it is frequesntly discussed explicity and implcity in
- resraches and tools documentations.
- In FRP
-\end_layout
-
-\begin_layout Plain Layout
-For example, FrTime 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding"
-literal "false"
-
-\end_inset
-
- has special 
-\family typewriter
-delay
-\family default
- operator to handle cycles.
-\end_layout
-
-\begin_layout Plain Layout
-Another example, Sodium 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- provides a special constructs named 
-\family typewriter
-CellLoops
-\family default
- and 
-\family typewriter
-StreamLoops
-\family default
- to allow cycles, that should be declared under an explicit transaction.
-\end_layout
-
-\begin_layout Plain Layout
-Actualy, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-Sodium has special constructs to handle cycles.
-\end_layout
-
-\begin_layout Plain Layout
-Stephen Blackheath at al 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- adds to
-\end_layout
-
-\begin_layout Plain Layout
-In many frameworks and resraches, there is considerstion of cycles.
- Forbidding cycles makes FRP unacceptably weak, because many applications
- have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
- However,
-\end_layout
-
-\begin_layout Plain Layout
-Opinions among researchers are divided regarding whether to support cycles.
- In FRP, One approach is to avoid 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- FRP is derived from Functional Programming (FP).
- For example, Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
-, so that each value of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the value of 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- In FP we achive
-\emph on
- referential transparency
-\emph default
-, which means that input consistently produces the same output.
- If cycles do exist, it produces
-\end_layout
-
-\begin_layout Plain Layout
-The paradigm is derived from the functional paradigm, with the referential
- transparency property.
- Saying 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
- is like stating that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is a function with a body of 
-\begin_inset Formula $\LSTINLINE{B+1}$
-\end_inset
-
-, so that each value of 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- is derived from the value of 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- This produces a 
-\emph on
-predictability 
-\emph default
-property due to referential transparency, meaning the input consistently
- produces the same output 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- According to a second approach, forbidding cycles makes FRP unacceptably
- weak, because many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-This opposed appraoches exist in frameworks provided for fornt end programming.
- Frameworks like Angular support a feature named binding.
- This feature enables view and model to interacts, so that models are updated
- according to the view and vice versa.
- This is mentioned sometimes as multidirectional dataflow, as data flows
- among components in mutipal directions.
- An alternative approach propsed a design data flow in one direction.
- This approach is used in React, when data flows from each component to
- its child components.
- This aims to provide predictability.
- It should be noted, that user events are produced from the view into a
- state managemnt manager, that is consumed by the components, and this integrati
-on might create accidental cycles.
-\end_layout
-
-\begin_layout Plain Layout
-The oppsed approaches affects also a feature named multidirectionality 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- This feature means that when neccesary changes in derived values are propagated
- back to the values from which they were derived.
- For example, 
-\begin_inset Formula $\LSTINLINE{A:=B+1}$
-\end_inset
-
-implies that whenever a new value of either A or B is available the other
- value is updated.
- In the constraints programming paradigm, there are local propagation solvers,
- that are similar to FRP with and without multidirectionality.
- Solvers with multidirectionality are sometimes mentioned as more challenged
- to implement than solvers without multidirectionality, while solvers with
- multidirectionality may provide a more frienly framework 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-The new variant of FRP possesses the characteristic of referential transparency,
- which is a fundamental property of FRP.
- This ensures predictability because the behavior remains consistent based
- on the input.
- Unless several issues, the referential transparency property is almost
- achieved in the observable streams model, because the output streams are
- calculated from pure functions.
-\end_layout
-
-\begin_layout Plain Layout
-Furthermore, as mentioned in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Method"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, the issues related to glitches, simultaneous events, and recursions have
- already been tackled through the modeling of an order and the implementation
- of a filter mechanism.
- Additionally, we address the need for a 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation and handle accidental recursion using a custom assignment operator.
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The assignment operator 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\LSTINLINE{:=}$
-\end_inset
-
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- pushes values to the target variable, similar to producing input by the
- operator 
-\begin_inset Formula $\LSTINLINE =$
-\end_inset
-
-.
- As a result, each variable consists of a 
-\emph on
-merged
-\emph default
- stream from the inputs and the stream to which the variable is assigned.
- For this reason, the assignment operator is considered as a 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operator.
- In the case of mutual recursion, it is necessary for at least one of the
- variables to require the merge function.
- This is because change propagation through a cycle must have a notification
- that is produced from outside of this cycle (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:cycle-merge-produce-concurrent-events-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-n {5} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-radius {3cm} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-def 
-\backslash
-margin {8} % margin in angles, depends on the radius
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-foreach [count=
-\backslash
-s] 
-\backslash
-j in {A,B,...,E} 
-\end_layout
-
-\begin_layout Plain Layout
-
-{   
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, circle] (
-\backslash
-j) at ({360/
-\backslash
-n * (
-\backslash
-s - 1)}:
-\backslash
-radius) {
-\backslash
-j};   
-\backslash
-draw[->, >=latex] ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:
-\backslash
-radius)      arc ({360/
-\backslash
-n * (
-\backslash
-s - 1)+
-\backslash
-margin}:{360/
-\backslash
-n * (
-\backslash
-s)-
-\backslash
-margin}:
-\backslash
-radius);          
-\end_layout
-
-\begin_layout Plain Layout
-
-} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[above] (X) at (-3,3) {$input$};    
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dotted][->, >=latex] (X) -- (C) node[midway, right=-0.1cm] {merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:cycle-merge-produce-concurrent-events-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation to handle mutual recursions.
-\end_layout
-
-\end_inset
-
-The 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operation to handle mutual recursions.
- The graph illustrates a DFS traversal of a change propogation (described
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:Observable-Streams"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) through a cycle, initiated from an external input to the variable 
-\begin_inset Formula $\LSTINLINE C$
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Illustrating the spanning graph in the case of a cycle in the dependencies,
- when node C receives an input, it propagates it to node D, then to node
- E, and so on, until node B forwards it back to node C through the merge
- operator.
- However, this update is stale and should not be propagated again to node
- D.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-The assignment operator is an 
-\emph on
-accumulation
-\emph default
- 
-\emph on
-merge
-\emph default
- operator, in its behavior to push values to the target variable.
- This is equivilent to merging the stream on the right-hand side of the
- operator with the stream on the left-hand side of the operator, and stores
- the merged result back in the left-hand side variable.
- For example (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:merge-several-sources-2"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), the statement 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- is executed as 
-\begin_inset Formula $\LSTINLINE{A=merge(A,B)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-matrix[row sep=0.5cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-node at (0.2,0.2) {B};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (0x1) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x1) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x1) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[box,minimum width=6.5cm] (op) {Merge};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x3) at (2,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x3) at (3,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x3) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[marble,circle] (4x3) at (1.25,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (5x3) at (3.75,0) {1};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (6x3) at (5.5,0) {6};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (1x0) -- (1x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (2x0) -- (2x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (3x0) -- (3x0|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (0x1) -- (0x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (1x1) -- (1x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [fdash] (2x1) -- (2x1|-op.north);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (1x3) -- (1x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (2x3) -- (2x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (3x3) -- (3x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (4x3) -- (4x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (5x3) -- (5x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw [rdash] (6x3) -- (6x3|-op.south);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:merge-several-sources-2"
-
-\end_inset
-
- 
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-The assignment operator as an accumulation merge operator
-\end_layout
-
-\end_inset
-
-The streams represent the variables.
- The statement 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
- produces the illustrated 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
-, such that 
-\begin_inset Formula $\LSTINLINE A$
-\end_inset
-
- will contain the elements from the two streams.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-In some cases of mutual recursion, it is possible that one of the variables
- within the cycle has a second (or more) assignment, through which the propagati
-on is initiated.
- Because subsequent statements with assignments to the same variable accumulate
- and merge more streams into it.
- In the given example, a subsequent statements 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- is executed as 
-\begin_inset Formula $\LSTINLINE{A=merge(A,D)}$
-\end_inset
-
- which means that 
-\begin_inset Formula $\LSTINLINE{A=merge(merge(A,B),D)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-The behavior of pushing values ensures that the 
-\begin_inset Formula $\LSTINLINE{merge}$
-\end_inset
-
- operator exhibits the properties of associativity, commutativity, and flattenin
-g.
- These properties guarantee that the order of applying the statements does
- not affect the final result.
- In this particular example, executing 
-\begin_inset Formula $\LSTINLINE{A:=D}$
-\end_inset
-
- first yields the same result as executing it later, as 
-\begin_inset Formula $\LSTINLINE{merge(merge(A,B),D)=merge(merge(A,D),B)=merge(A,B,D)}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-The mentioned merge operation brings to mind the unacceptable merge operator
- in 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- Consequently, we discovered that the order model and assignment operator
- resolve the issues in 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-, which prevented it from being FRP.
- In both traditional merge and recursion, there are redundant updates caused
- by the inability to check each update for freshness.
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-As a result, the new variant of FRP support multiple assignments.
- A variable with multiple assignments is interpreted as a merge operator
- over the variable and assigned expressions in the various statements.
- This is like a methodology that involves the variable inferring its value
- over time from various streams of samples.
- This leads also to the functional transparency
-\emph on
- 
-\emph default
-property, characterized by FRP.
- Because it has been determined, that the output streams are calculated
- from pure functions.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-OOP
-\end_layout
-
-\begin_layout Standard
-This thesis builds upon previous efforts in integration of FRP with OOP.
+Additional works exploring the integration of FRP and OOP are presented
+ below.
 \end_layout
 
 \begin_layout Subsection
@@ -3608,22 +635,429 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Constraints"
-
-\end_inset
-
-Constraints
+Change Propagation Algorithms
 \end_layout
 
 \begin_layout Standard
-As mentioned, 
+In modern frameworks like 
+\family typewriter
+React
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\family default
+ and also 
+\family typewriter
+Flutter
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://docs.flutter.dev
+\end_layout
+
+\end_inset
+
+ applications utilize dedicated state management solutions to handle variables.
+ Among these state management solutions, 
+\family typewriter
+Redux
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ stands out as a highly popular choice.
+ It adopts a model inspired by 
+\emph on
+statechart
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
+
+\end_inset
+
+.
+ As depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, events are modeled as state transitions between logical states, which
+ are determined based on variable values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+[   round/.style={rounded corners=1.5mm,minimum width=1cm,inner sep=2mm,above
+ right,draw,align=center,text width=4mm}
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S1) at (2.5,2) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S2) at (0,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S3) at (5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+node[round] (S4) at (2.5, -3) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[-latex] (3.5, 3.5) coordinate (init) to[out=180, in=90] (S1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+fill (init) circle (0.05);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S1) edge[out=180, in=90]  node[scale=0.8] {y changed} (S2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S1) edge[out=0, in=90]  node[scale=0.8] {z changed} (S3);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S2) edge[out=270, in=180]  node[scale=0.8] {z changed/calculate
+ x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S3) edge[out=270, in=0]  node[scale=0.8] {y changed/calculate
+ x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+draw[-latex] (S4) to [loop below, looseness=8, out=-60, in=-120, min distance=10
+mm] node[scale=0.8]  { y changed/calculate x;
+\end_layout
+
+\begin_layout Plain Layout
+
+z changed/calculate x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+draw (3.5, -4) coordinate (empty);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[round,fit=(S1)(S2)(S3)(S4)(init)(empty)] (System) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Statechart"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Modeling the statechart for the formula 
+\begin_inset Formula $\LSTINLINE{x:=y+z}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Modeling the statechart for the formula 
+\begin_inset Formula $\LSTINLINE{x:=y+z}$
+\end_inset
+
+.
+ The rectangular shapes represent different states or modes of the application.
+ The arrows represent transitions between the states, triggered by specific
+ events.
+ The labels contain the events and also actions, if needed, to perform in
+ response to events.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The idea to bring the developers user friendly mechanism to fields calculations
+ brings also the 
+\emph on
+constraints systems
+\emph default
+.
+ In constraints systems, developers declare equations, and the runtime automates
+ variable updates based on these equations and input.
+ There exist systems that support 
+\emph on
+one-way constraints
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, where the system updates only the left-hand variable in response to changes
+ in the right-hand expression.
+ They reminds reactive variables and FRP.
+ Many implementations in FRP consists of a centralized manager 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Actualy, as in the state management solution 
+\begin_inset Formula $\NAME{MobX}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ framework, fields calculations can consist of reactive variables implemented
+ by a state management solution connected to the visual fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Hotdrink
+\end_layout
+
+\begin_layout Standard
+
 \family typewriter
 Hotdrink
 \family default
- is a library, used to compare our implementation.
- The concept of
+ is a library implemented with a thesis-driven approach, similar to this
+ thesis, to address the lack of support for cycles in data dependencies.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The concept of
 \family typewriter
  
 \family default
@@ -3656,8 +1090,510 @@ Hotdrink.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+On the other hand, there are systems that support 
+\emph on
+two-way constraints
+\emph default
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "haveraaen2021semantics,foust2015generating,sannella1993multi"
+literal "false"
+
+\end_inset
+
+, such as 
+\family typewriter
+Hotdrink
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+http://hotdrink.github.io/hotdrink/
+\end_layout
+
+\end_inset
+
+ which are declared using methods to satisfy the constraints.
+ For instance, in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:two-way-constraint-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the equation 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ is attached with the methods 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{B=A-C}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{C=A-B}$
+\end_inset
+
+.
+ The systems utilize algorithms, named 
+\emph on
+constraints solvers
+\emph default
+, to maintain consistency in variable values.
+ As in 
+\family typewriter
+Hotdrink
+\family default
+, the constraints solver uses a model named 
+\emph on
+constraint hierarchies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borning1987constraint"
+literal "false"
+
+\end_inset
+
+.
+ In order to maintain the variables according to the constraints, as in
+ the example in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:constraints-hirarchy-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the runtime maintains additional constraints.
+ For each variable 
+\family typewriter
+X
+\family default
+ containing a value 
+\family typewriter
+x
+\family default
+, the runtime maintains a constraint 
+\begin_inset Formula $\LSTINLINE{X=x}$
+\end_inset
+
+, with hierarchy according to the order of the input.
+ If there is no solution that satisfy all the constraints, the more prioritized
+ constraints, according to the hirarchy, are satsified.
+ As a result, once the user put new input for a field, the fields that relied
+ on a previous input, specifically the oldest input, are overwritten.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+function  sum( a, b ) { return a + b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+function diff( a, b ) { return a - b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var model = new hd.ModelBuilder()
+\end_layout
+
+\begin_layout Plain Layout
+
+    .variables( {A: 0, B: 0, C: 0} )
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .constraint( A, B, C )
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'B, C -> A', sum  ) // A:=B+C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, C -> B', diff ) // B:=A-C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, B -> C', diff ) // C:=A-B
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .end();
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:two-way-constraint-1-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $\LSTINLINE{constraint}$
+\end_inset
+
+ method is used to create the constraint by specifying the variables as
+ arguments and chaining the necessary methods.
+ Each method has two parameters: the data flow direction and the function
+ to execute when that method is chosen to satisfy the constraint.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<row interlinespace="default">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Constraints hierarchical in descending order
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Solution
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=1, B=1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, B=2, A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=2, B=2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, A=3, B=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=3, B=3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:constraints-hirarchy-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Maintaining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ according to the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B}
+\end_layout
+
+\end_inset
+
+, using constraint hierarchies.
+\end_layout
+
+\end_inset
+
+Maintaining 
+\begin_inset Formula $\NAME A$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME B$
+\end_inset
+
+ according to the constraint 
+\begin_inset Formula $\NAME{A=B}$
+\end_inset
+
+, using constraint hierarchies.
+ Each row represents a step in the interaction.
+ The first column mentions the input provided.
+ The second column mentions the exiting constraints following the input
+ provided.
+ The third column displays the values of the variables, as determined by
+ the constraint solver.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Plain Layout
 Although that we handle one-way constraints rather than multi-way, our algorithm
@@ -4043,7 +1979,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...

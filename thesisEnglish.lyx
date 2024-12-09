@@ -413,7 +413,27 @@ filename "Background.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand include
-filename "Method.lyx"
+filename "Approach.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "ImplementationStrategy.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Implementation.lyx"
 
 \end_inset
 
@@ -444,25 +464,6 @@ filename "RelatedWork.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "Conclusion.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset CommandInset include
-LatexCommand include
-filename "Approach.lyx"
-
-\end_inset
-
-
-\end_layout
 
 \end_inset
 

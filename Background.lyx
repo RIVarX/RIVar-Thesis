@@ -117,268 +117,312 @@ Background
 status collapsed
 
 \begin_layout Plain Layout
-Variable that is re-assigned over time can be modelled as stream, that in
- each update there is a new item, of the new value representing the updated
- value at that instant.
- reactive variable means that update of that variable raises indirectly
- a continuation action based on the new value.
- Such an update may be called as
+The background for this work encompasses 
 \emph on
- update with a push notification
+procedural programming
 \emph default
-.
- In other words, 
-\emph on
-update with a push notification
-\emph default
- means that not only the variable contained the new value instead of the
- previous value, but also that it raises interested parties about the change.
- We refer to variables as an object in the world, that exposes operation
- 
-\emph on
-assign
-\emph default
- (with :=) for an update, and 
-\emph on
-subscribe 
-\emph default
-for registration for push notifications.
-\end_layout
-
-\begin_layout Plain Layout
-—
-\end_layout
-
-\begin_layout Plain Layout
-We provide a brief, comprehensive overview of state management, gradually
- covering its various aspects:
-\end_layout
-
-\begin_layout Itemize
-Initially, code assigns values to variables, allowing other code to read
- them.
- For instance, A = 1 assigns a value to variable A, and another code segment
- B = A reads from variable A.
-\end_layout
-
-\begin_layout Itemize
-Next, additional code is introduced to notify potential readers about changes.
- For example, A = 1; OnChangeA(A) notifies other parts of the system about
- changes to variable A.
- Subsequently, another piece of code, RegisterToChangeA(value => ...) registers
- to receive notifications about changes to variable A.
-\end_layout
-
-\begin_layout Itemize
-Finally, these components are intertwined, enabling writing into a variable
- to automatically trigger other code to read the new values.
- For instance, declaring B := A establishes a continuous relationship between
- variables, so that when the code A = 1 is executed, variable B is updated
- automatically to reflect this new value.
-\end_layout
-
-\begin_layout Plain Layout
-Each step in the above represent a valid approach.
- In the first approach, there is no mechanism to inform potential readers
- of changes.
- Consequently, readers must periodically read the values, leading to high
- resource consumption costs.
- Additionally, the first approach tends to involve making changes directly
- within the code rather than extending it.
- When updating variables based on changes to other variables, all code locations
- where the latter variables are updated must also be updated to reflect
- the changes in the variables.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The second approach provide reactivity, by informing potential readers of
- changes.
- However, it requires to control when to inform readers, and for readers
- to inform to what changes to subscribe.
- This approach is difficult in high scale applications.
- Because, it is not only clear when to inform readers about changes, or
- for the readers when to subscribe or unsubscribe.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The last approach unifies reading and writing such that writing into variables
- triggers potential readers to read the changes.
- This provides a cleaner specification, except for the problem of cycles,
- where a variable change might indirectly result from itself.
- In such a case, the itended understanding is not clear.
-\end_layout
-
-\begin_layout Plain Layout
-As a result, the previous approach has a better tools to express requirement
-\end_layout
-
-\begin_layout Plain Layout
-The previous approach is better 
-\end_layout
-
-\begin_layout Plain Layout
-In this context, in the previous approach requirements can be expressed
- directly, while here the itended understanding is not clear.
-\end_layout
-
-\begin_layout Plain Layout
-The strategy, how cycles are controled are not explicit in the code.
-\end_layout
-
-\begin_layout Plain Layout
-In such cycles,the way how changes are handled loops are stopped without
- to express the explicit strategy in the code.
-\end_layout
-
-\begin_layout Plain Layout
-It is required to decide how to stop the loop.
- 
-\end_layout
-
-\begin_layout Plain Layout
-The decision how to stop such a loop is not explicit in the code
-\end_layout
-
-\begin_layout Plain Layout
-In such a case, the second approach, in its full control over the changes
- might convey better in desgning how to stop the loop 
-\end_layout
-
-\begin_layout Plain Layout
-the decision how to stop the loop is not explicit in the code.
- Therefore, the second approach, in its full control over the changes, 
-\end_layout
-
-\begin_layout Plain Layout
-the second approach provides a cleaner specification in its full control
- over the changes.
-\end_layout
-
-\begin_layout Plain Layout
-—
-\end_layout
-
-\begin_layout Plain Layout
-Handling 
-\emph on
-state
-\emph default
- is an important aspect in programming.
- State refers to what software remembers from past used to its future behavior.
- State is represented as changeable data, stored anywere, used to determine
- output.
- Basicly, it is variables that contain values.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Software components that contained variables or any datastore, by which
- its behavior is determined, is named 
-\emph on
-stateful components
-\emph default
-.
- Our objective is to redesign an existing application to compose highly
- reusable stateful components.
-\end_layout
-
-\begin_layout Plain Layout
-—-
-\end_layout
-
-\begin_layout Plain Layout
-In software programming, developers sometimes encounter 
-\emph on
-cycles 
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
 , 
 \emph on
-circular dependencies
+reactive programming
 \emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "perez2015bridging"
-literal "false"
+, and 
+\emph on
+object-oriented programming
+\emph default
+.
+ The procedural programming paradigm serves as the initial motivation, highlight
+ing the problems in the nature the neeed to choose a process .
+ Reactive Programming and OOP serve as existing approaches to handle those
+ limitations, but still have their limitations.
+\end_layout
+
+\begin_layout Plain Layout
+, this thesis focuses on the integration of reactive programming within
+ the object-oriented paradigm.
+ This integration is driven by the increasing demand for responsive and
+ dynamic software systems.
+ Reactive programming and OOP represent the current state of the art in
+ software development, yet their effective combination presents unique challenge
+s that this research aims to address.
+\end_layout
+
+\begin_layout Plain Layout
+Two common programming paradigms are 
+\emph on
+Procedural Programming
+\emph default
+ and 
+\emph on
+Reactive Programming
+\emph default
+.
+ In procedural programming, input data is defined and output is received.
+ Reactive programming adds a time axis along which input and output occur.
+\end_layout
 
 \end_inset
 
- or similar.
- For variables, it means that a change in one variable causes transitively,
- through a chain of changes, this same variable to again change its value.
- Typically, the flow continues, such that the second change produces a third
- change, etc.
- In the worst case, this chain continues endlessly, breaking programs unexpected
-ly.
+
 \end_layout
 
-\begin_layout Plain Layout
-This might be accidently produced in event driven programming.
- Each event handler can trigger more events, in-awaring of the events from
- which they have been triggered.
- Therefore it is likely that an event handler transitively triggers an event
- from which it was originally triggered.
- If a variable is updated by an event handler, and this event handler triggers
- more events which lead to execute again this event handler, the variable
- is re-updated.
+\begin_layout Section
+Procedural Programming
 \end_layout
 
-\begin_layout Plain Layout
-In Functional Reactive Programming (FRP), it might be even more explicit.
-\begin_inset Foot
+\begin_layout Standard
+Procedural programming is a programming paradigm that utilizes a sequence
+ of instructions organized into "procedures" to perform specific tasks.
+ The programmer defines these procedures, which accept input data, perform
+ computations or operations on them, and return output.
+\end_layout
+
+\begin_layout Standard
+This structured approach, where a programmer defines procedures to handle
+ specific tasks, can be observed in various aspects of software development.
+ For instance, consider the following examples:
+\end_layout
+
+\begin_layout Itemize
+Command-Line Interface (CLI) utilization: The user provides a command (input),
+ and the system executes a corresponding procedure to produce the desired
+ output.
+\end_layout
+
+\begin_layout Itemize
+Application Programming Interface (API) interaction: The programmer calls
+ an API function with input parameters, and the function executes a predefined
+ procedure to generate results.
+\end_layout
+
+\begin_layout Itemize
+Large Language Model (LLM) prompting: The user provides a prompt (input)
+ to an AI system, which processes it through a series of internal procedures
+ and generates textual output.
+\end_layout
+
+\begin_layout Standard
+Furthermore, the procedural programming approach is sometimes reflected
+ in the way users interact with Graphical User Interfaces (GUIs).
+ Navigating to a specific window or application within a GUI can be likened
+ to selecting a procedure, while entering values into fields mirrors the
+ process of defining input data for the procedure.
+\end_layout
+
+\begin_layout Standard
+In the procedural programming approach, careful consideration must be given
+ to selecting the appropriate procedure and input.
+ For example, consider the 
+\begin_inset Formula $\LSTINLINE{RandomForestClassifier}$
+\end_inset
+
+ algorithm from the 
+\family typewriter
+scikit-learn
+\family default
+ library (API) in the Python programming language for creating a random
+ forest model for classification.
+\end_layout
+
+\begin_layout Standard
+This algorithm has many parameters that can be controlled, including:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{n\_estimators}$
+\end_inset
+
+: The number of trees in the forest.
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{criterion}$
+\end_inset
+
+: The cost function for calculating the split at each node (for example,
+ "gini" or "entropy").
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{max\_depth}$
+\end_inset
+
+: The maximum depth of each tree.
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{min\_samples\_split}$
+\end_inset
+
+: The minimum number of samples required to split a node.
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{min\_samples\_leaf}$
+\end_inset
+
+: The minimum number of samples required in a leaf.
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{max\_features}$
+\end_inset
+
+: The number of features to consider at each split.
+   
+\end_layout
+
+\begin_layout Standard
+The values of the arguments must be consistent and appropriate:
+\end_layout
+
+\begin_layout Itemize
+Only if you choose to use the 
+\begin_inset Formula $\LSTINLINE{max\_depth}$
+\end_inset
+
+ parameter (tree depth limit), you can use the 
+\begin_inset Formula $\LSTINLINE{min\_samples\_leaf}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{min\_samples\_split}$
+\end_inset
+
+ parameters to prevent overfitting.
+ 
+\end_layout
+
+\begin_layout Itemize
+Only if you choose to use the 
+\begin_inset Formula $\LSTINLINE{max\_features}$
+\end_inset
+
+ parameter (feature number limit), you can use the 
+\begin_inset Formula $\LSTINLINE{n\_estimators}$
+\end_inset
+
+ parameter (number of trees) to compensate for the decrease in diversity.
+\end_layout
+
+\begin_layout Standard
+This example illustrates the difficulty of preparing input in procedural
+ programming.
+ In this case, using a large number of arguments requires maintaining consistenc
+y according to specific rules.
+\end_layout
+
+\begin_layout Standard
+The need to maintain consistency among the arguments stems from the phenomenon
+ of 
+\emph on
+redundancy
+\emph default
+.
+ Redundancy is an essential part of human communication style, but it can
+ cause friction between user and software.
+ For example, in the sentence "This coming Sunday, November 7th," the date
+ is repeated twice: "This coming Sunday" and "November 7th." When developing
+ an application with input of such messages, it is necessary to address
+ potential conflicts or inconsistencies in the information, such as a situation
+ where "This coming Sunday, November 7th" is entered, but "this coming Sunday"
+ is not "November 7th." Possible consequences of this phenomenon include:
+\end_layout
+
+\begin_layout Itemize
+Reducing redundancy, which can impair user experience.
+ 
+\end_layout
+
+\begin_layout Itemize
+Bugs and difficulties in understanding the system when managing information
+ consistency.
+\end_layout
+
+\begin_layout Section
+Reactive Variables
+\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-Our presentation is based on Tetsuo Kaminaa at al 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kamina2018"
-literal "false"
-
-\end_inset
-
-.
+TBD The Meaning of the Equal Sign
 \end_layout
 
 \end_inset
 
- In FRP, variables can be specified in terms of each other, thus initiating
- dependencies to automatically update each other.
- For instance, A := f(B) indicates that A depends on B, meaning that when
- B’s value changes, A’s value is adjusted accordingly.
- Using this abstraction, B := g(A) establishes a dependency in a reversed
- direction, resulting in a cycle
+
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
+In many tools, it is consistently allowed updating a variable in response
+ to the update of another variable or a set of other variables, or using
+ automatic change propagation.
+ In FRP, an automatic change propagation is part of the language, and it
+ is possible to define 
+\emph on
+reactive variables 
+\emph default
+that are automaticaly updated according to relevant changes.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Spreadsheet
+\series default
+: A formula can be defined within a cell, and the value is automatically
+ calculated in response to changes in the values of the cells involved in
+ the formula.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Data Binding (
+\family typewriter
+WPF
+\family default
+)
+\series default
+: an attribute can be assigned with an expression composed of variables.
+ As a result, the graphical component updates automatically according to
+ changes in the value of the expression.
+\end_layout
+
+\begin_layout Standard
+For example, the line of code 
+\begin_inset Formula $\LSTINLINE{<TextBlock\ Text="\{BindingPath=FullName\}"/>}$
+\end_inset
+
+ defines a 
+\begin_inset Formula $\LSTINLINE{TextBlock}$
+\end_inset
+
+ component in 
+\family typewriter
+WPF
+\family default
+ that displays a variable whose value is accessed through a special method
+ called 
+\begin_inset Formula $\LSTINLINE{FullName}$
+\end_inset
+
+ .
+ The component updates automatically according to the value of the variable.
+\end_layout
+
+\begin_layout Section
+OOP
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
-This thesis discusse against an argument, that hirarchial data is a nececray
- condition for achiving predictability.
- This argument is inspired from several
-\end_layout
-
-\begin_layout Plain Layout
-This argument are inferred
-\end_layout
-
-\begin_layout Plain Layout
-Many couple predictability with the acylciity for graphs that abstract the
- depedancies.
- This represent an argument that hirarchial data is a nececray condition
- for achiving predictability.
+TBD Madiator vs Observer
 \end_layout
 
 \end_inset
@@ -386,208 +430,226 @@ Many couple predictability with the acylciity for graphs that abstract the
 
 \end_layout
 
-\begin_layout Section
-The Challenge
+\begin_layout Itemize
+
+\series bold
+Classes and Objects
+\series default
+: An OOP language allows the definition of new classes.
+ Each object is an instance of a class, represented by a collection of instance
+ variables as defined by its class.
+ Each class defines a set of named operations that can be performed on its
+ instances.
+ These operations are implemented by procedures that can access and modify
+ the instance variables of the target object.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Itemize
 
+\series bold
+Inheritance
+\series default
+: Inheritance allows defining a class in terms of one or more other classes.
+ If class c directly inherits from class p, we say that p is a parent of
+ c and that c is a child of p.
+ The terms ancestor and descendant have their usual meanings in this context.
 \end_layout
 
-\begin_layout Plain Layout
-——–
-\end_layout
+\begin_layout Itemize
 
-\begin_layout Plain Layout
-—
-\end_layout
-
-\begin_layout Plain Layout
-Data Synchronization is a ubiquitous feature across various domains, including
- front-end interfaces, databases and inter-system communication.
- In the various forms, data is transformed or computed to be consistent
- with other data.
- In database management, synchronization involves updating fields.
- Systems such as CRM or e-commerce platforms utilize synchronization to
- align one system with another.
- Similarly, in graphical user interfaces (GUI) or front-end applications,
- it entails updating fields based on changes in other fields.
- In the realm of state management, synchronization involves adjusting variables
- in response to changes in other variables.
- Procedural programming allows developers to write explicit, step-by-step
- procedures for handling data synchronization tasks.
- Each procedure has a set of arguments and update data according to values
- contained by the arguments.
-\end_layout
-
-\begin_layout Plain Layout
-Procedural programming is an outdated paradigm compared to current modern
- paradigms.
- Procedural programming consists of procedures, that execute a set of instructio
-nes for a given set of arguments.
-\begin_inset space \space{}
-\end_inset
-
-
-\emph on
+\series bold
+Encapsulation
+\series default
+: In OOP, the technique where only an object's own operations can access
+ and modify its variables is called encapsulation.
+ Encapsulation makes programming more modular.
  
 \end_layout
 
-\begin_layout Plain Layout
-In the procedural programming, developers model proceduraes, 
-\end_layout
-
-\begin_layout Paragraph
-Push Model
-\end_layout
-
-\begin_layout Plain Layout
-In data synchronization, two prominent strategies are employed: the 
+\begin_layout Standard
+A common design pattern in OOP for data propagation is the Observer pattern.
+ In this pattern, an object called the 
 \emph on
-pull
+subject
 \emph default
- and 
+ manages a list of dependent objects called 
 \emph on
-push
+observers
 \emph default
- models.
- In the pull mode, data consumers need to proactively request updates by
- executing a procedure or calling for a service.
- In the push model, changes are pushed forward without the consumer proactively
- requesting updates.
- The pull model might lead to redandant requests, if there are no changes
- since the last request.
- This thesis' focus is on the push model, which is apt for scenarios characteriz
-ed by: first, a continuous demand for up-to-date data; second, infrequent
- changes; and finally, the absence of prolonged and resource-intensive computati
-ons, as new changes may arise before the completion of such processes.
+ and notifies them of any changes in its state.
+ For example, in a graphical user interface, a change in a progress bar
+ can automatically update a label displaying the percentage of progress.
+ This allows for the implementation of data propagation that fits a specific
+ formula: the variable on the left-hand side of the formula belongs to the
+ observer, and the formula belongs to the subject.
+ This design aligns with the principle that objects cannot update variables
+ of other objects, because the subject only announces a change in its state,
+ while the observer updates its own state accordingly.
 \end_layout
 
-\begin_layout Paragraph
-Explicit Data Dependencies
+\begin_layout Standard
+Similar to using the observer pattern, in many programming languages such
+ as 
+\family typewriter
+C#
+\family default
+, it is possible to trigger code that updates a variable (or a set of variables)
+ in response to the update of another variable (or set of variables) by
+ publishing an 
+\emph on
+event
+\emph default
+.
+ This is done in a way that removes dependencies between the code that updates
+ the variable and the code that is triggered in response to the update.
 \end_layout
 
-\begin_layout Plain Layout
-In Reactive Programming, there is a focus on explicity define the dependencies,
- rather than relying on Event-driven paradigm where developers manually
- manage variable values.
- For example, in the event-driven paradigm, variables 
+\begin_layout Standard
+Below is an example of using the event mechanism in 
 \family typewriter
-B
+C#
 \family default
- and 
-\family typewriter
-C
-\family default
- each have a 
-\family typewriter
-change
-\family default
- event to which event handlers are registered.
- Within these event handlers, code calculates the sum of the values contained
- in 
-\family typewriter
-B
-\family default
- and 
-\family typewriter
-C
-\family default
-, and then updates a variable, 
-\family typewriter
-A
-\family default
-, with that value.
- From an FRP perspective, this should be declared simply as 
-\begin_inset Formula $\LSTINLINE{A:=B+C}$
+.
+ The example demonstrates the use of the mechanism to ensure that a specific
+ variable, 
+\begin_inset Formula $\LSTINLINE{powerDifference}$
 \end_inset
 
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Or other similar syntax options.
- This specific syntax is used by Guido Salvaneschi at al 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014programming"
-literal "false"
-
+, is updated according to the variable 
+\begin_inset Formula $\LSTINLINE{sensorValue}$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
- making the data dependencies explicit directly in the code.
- 
-\end_layout
-
-\begin_layout Paragraph
-Control 
-\end_layout
-
-\begin_layout Plain Layout
-When relying on third-party control over updates, software developers may
- experience a sense of unpredictability and lack of control.
- This concern has been articulated in the experience of REScala, where developer
-s expressed frustration with tracking the flow of code: “I can’t follow
- the Codeflow in RP.
- I want to know, what method is called when
-\begin_inset Quotes erd
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2017positive"
-literal "false"
-
+ whenever sensorValue is updated, such that 
+\begin_inset Formula $\LSTINLINE{powerDifference=f(sensorValue)}$
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Standard
+An event is defined for each variable: for 
+\begin_inset Formula $\LSTINLINE{powerDifference}$
+\end_inset
+
+ an event 
+\begin_inset Formula $\LSTINLINE{powerDifference\_Change}$
+\end_inset
+
+, and for 
+\begin_inset Formula $\LSTINLINE{sensorValue}$
+\end_inset
+
+ an event 
+\begin_inset Formula $\LSTINLINE{sensorValue\_Change}$
+\end_inset
+
+.
+ Each time a variable is updated, its corresponding event is triggered.
+ Therefore, for each variable, a function is defined for its update, which
+ includes updating the variable and triggering the event.
+ For example, a function 
+\begin_inset Formula $\LSTINLINE{ChangePowerDifference}$
+\end_inset
+
+ updates the variable 
+\begin_inset Formula $\LSTINLINE{powerDifference}$
+\end_inset
+
+ and also triggers the event 
+\begin_inset Formula $\LSTINLINE{powerDifference\_Change}$
+\end_inset
+
+ as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
+
+
+\backslash
+begin{lstlisting}[frame=none,numbers=none]
+\end_layout
+
+\begin_layout Plain Layout
+
+void ChangePowerDifference(newValue) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  powerDifference = newValue; 
+\end_layout
+
+\begin_layout Plain Layout
+
+  powerDifference_Change(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-Traditional procedural programming remains highly prevalent for Data Synchroniza
-tion.
- Our initial focus lies on a specific GUI application in the healthcare
- sector, which utilizes procedural programming.
- Healthcare, an area notorious for low user satisfaction 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gawande2018doctors"
-literal "false"
-
+\begin_layout Standard
+The last part is the registration of code to the 
+\begin_inset Formula $\LSTINLINE{sensorValue\_Change}$
 \end_inset
 
-, presents an opportunity to enhance the codebase, thereby improving the
- customer feedback loop through rapid releases and innovative programming
- methodologies.
- Surprisingly, procedural-driven programs are not limited to GUI applications
- in the healthcare sector alone.
- REST APIs and command-line interfaces (CLIs) are also often built on procedural
- principles.
- Similarly, any tool that accepts various arguments and must accommodate
- numerous scenarios may suffer from limitations inherent in the outdated
- procedural paradigm.
+ event.
+ In the code, the calculation of the new value and the update are triggered:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[frame=none,numbers=none]
 \end_layout
 
 \begin_layout Plain Layout
-————————–
+
+sensorValue_Change += (e) => {
 \end_layout
 
 \begin_layout Plain Layout
-In this section, we discuss the state of the art of field calculation features.
+
+  newValue = f(e); 
+\end_layout
+
+\begin_layout Plain Layout
+
+  ChangePowerDifference(newValue);
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
 \end_layout
 
 \end_inset
@@ -596,6 +658,25 @@ In this section, we discuss the state of the art of field calculation features.
 \end_layout
 
 \begin_layout Section
+Reactive Programming
+\end_layout
+
+\begin_layout Standard
+In order to manage applications' behavior over time, several abstractions
+ have been presented: 
+\emph on
+event
+\emph default
+, 
+\emph on
+stream
+\emph default
+, and 
+\emph on
+reactive variable.
+\end_layout
+
+\begin_layout Subsection
 Events
 \end_layout
 
@@ -948,25 +1029,37 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Centerlized Providers
+Observable Streams
 \end_layout
 
 \begin_layout Standard
-In modern frameworks like 
+
+\emph on
+Reactive Extensions 
+\emph default
+(Rx) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ or 
 \family typewriter
-React
+ReactiveX
+\family default
+
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-
-\family typewriter
 \begin_inset Flex URL
 status open
 
 \begin_layout Plain Layout
 
-https://react.dev/
+https://reactivex.io/
 \end_layout
 
 \end_inset
@@ -976,61 +1069,188 @@ https://react.dev/
 
 \end_inset
 
+ refers to extensions for programming languages initially developed for
+ 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
 
-\family default
- and also 
-\family typewriter
-Flutter
-\family default
-,
+ programming language,
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-https://docs.flutter.dev
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/
 \end_layout
 
 \end_inset
 
- applications utilize dedicated state management solutions to handle variables.
- Among these state management solutions, 
-\family typewriter
-Redux
-\family default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
+
+\end_layout
 
 \end_inset
 
- stands out as a highly popular choice.
- It adopts a model inspired by 
-\emph on
-statechart
-\emph default
- 
+ and is now available for many programming languages, such as 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+ programming language
 \begin_inset CommandInset citation
 LatexCommand cite
-key "harel1995statement"
+key "mikkonen2007using"
 literal "false"
 
 \end_inset
 
 .
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A complete knowledge and references are available in
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ https://introtorx.com/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+C#
+\family default
+ programming language) and 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rxjs.dev/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+JavaScript
+\family default
+ programming language)
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Rx works with 
+\emph on
+observable streams
+\emph default
+ (known also as 
+\emph on
+reactive streams
+\emph default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://cycle.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, or just 
+\emph on
+observable
+\emph default
+)
+\emph on
+.
+ 
+\emph default
+Observable stream refers to an object that delivers items for other objects
+ through a method 
+\emph on
+next
+\emph default
+.
  As depicted in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Statechart"
+reference "fig:Streams-of-values-1-1-1-1"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, events are modeled as state transitions between logical states, which
- are determined based on variable values.
+, observable streams can be used to represent GUI control change events
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+, and also a reactive variable
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ By this representation, each item represents a change in the value.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1054,158 +1274,75 @@ begin{center}
 
 
 \backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 begin{tikzpicture}
 \end_layout
 
 \begin_layout Plain Layout
 
-[   round/.style={rounded corners=1.5mm,minimum width=1cm,inner sep=2mm,above
- right,draw,align=center,text width=4mm}
-\end_layout
 
-\begin_layout Plain Layout
-
-]
-\end_layout
-
-\begin_layout Plain Layout
-
-    
 \backslash
-node[round] (S1) at (2.5,2) {};
+matrix[row sep=0.5cm]
 \end_layout
 
 \begin_layout Plain Layout
 
-    
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
 \backslash
-node[round] (S2) at (0,0) {};
+draw [time] (0,0) -- (6.5,0);
 \end_layout
 
 \begin_layout Plain Layout
 
-    
+  
 \backslash
-node[round] (S3) at (5,0) {};
+node at (0.2,0.2) {A};
 \end_layout
 
 \begin_layout Plain Layout
 
-     
+  
 \backslash
-node[round] (S4) at (2.5, -3) {};
+node[marble,circle] (1x0) at (1,0) {5};
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-    
+  
 \backslash
-draw[-latex] (3.5, 3.5) coordinate (init) to[out=180, in=90] (S1);
+node[marble,circle] (2x0) at (2,0) {3};
 \end_layout
 
 \begin_layout Plain Layout
 
-    
+  
 \backslash
-fill (init) circle (0.05);
+node[marble,circle] (3x0) at (4.5,0) {2};
 \end_layout
 
 \begin_layout Plain Layout
 
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-    
+  
 \backslash
-path[-latex] (S1) edge[out=180, in=90]  node[scale=0.8] {y changed} (S2);
-\end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    
 \backslash
-path[-latex] (S1) edge[out=0, in=90]  node[scale=0.8] {z changed} (S3);
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-path[-latex] (S2) edge[out=270, in=180]  node[scale=0.8] {z changed/calculate
- x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
 \begin_layout Plain Layout
 
-    
-\backslash
-path[-latex] (S3) edge[out=270, in=0]  node[scale=0.8] {y changed/calculate
- x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-draw[-latex] (S4) to [loop below, looseness=8, out=-60, in=-120, min distance=10
-mm] node[scale=0.8]  { y changed/calculate x;
-\end_layout
-
-\begin_layout Plain Layout
-
-z changed/calculate x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-draw (3.5, -4) coordinate (empty);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[round,fit=(S1)(S2)(S3)(S4)(init)(empty)] (System) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
+};
 \end_layout
 
 \begin_layout Plain Layout
@@ -1219,7 +1356,7 @@ end{tikzpicture}
 
 
 \backslash
-end{center}
+end{center} 
 \end_layout
 
 \end_inset
@@ -1233,7 +1370,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Statechart"
+name "fig:Streams-of-values-1-1-1-1"
 
 \end_inset
 
@@ -1242,25 +1379,29 @@ name "fig:Statechart"
 status open
 
 \begin_layout Plain Layout
-Modeling the statechart for the formula 
-\begin_inset Formula $\LSTINLINE{x:=y+z}$
-\end_inset
-
-
+Variable value changes as an observable stream
 \end_layout
 
 \end_inset
 
-Modeling the statechart for the formula 
-\begin_inset Formula $\LSTINLINE{x:=y+z}$
+Variable value changes as an observable stream.
+ Variable 
+\begin_inset Formula $A$
+\end_inset
+
+ changed to 
+\begin_inset Formula $5$
+\end_inset
+
+ initially, then to 
+\begin_inset Formula $3$
+\end_inset
+
+, and after a longer period, it changed to 
+\begin_inset Formula $2$
 \end_inset
 
 .
- The rectangular shapes represent different states or modes of the application.
- The arrows represent transitions between the states, triggered by specific
- events.
- The labels contain the events and also actions, if needed, to perform in
- response to events.
 \end_layout
 
 \end_inset
@@ -1274,154 +1415,59 @@ Modeling the statechart for the formula
 \end_layout
 
 \begin_layout Standard
-The idea to bring the developers user friendly mechanism to fields calculations
- brings also the 
+Since observable stream acts similar to reactive variables 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+, provided operators are very similar to the concept of 
 \emph on
-constraints systems
-\emph default
-.
- In constraints systems, developers declare equations, and the runtime automates
- variable updates based on these equations and input.
- There exist systems that support 
-\emph on
-one-way constraints
+lifting
 \emph default
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "sannella1993multi"
+key "bainomugisha2013survey"
 literal "false"
 
 \end_inset
 
-, where the system updates only the left-hand variable in response to changes
- in the right-hand expression.
- They reminds reactive variables and FRP.
- Many implementations in FRP consists of a centralized manager 
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-On the other hand, there are systems that support 
+, because they convert a function to be a 
 \emph on
-two-way constraints
-\emph default
-
-\begin_inset space \thinspace{}
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "haveraaen2021semantics,foust2015generating,sannella1993multi"
-literal "false"
-
-\end_inset
-
-, such as 
-\family typewriter
-Hotdrink
-\family default
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-http://hotdrink.github.io/hotdrink/
-\end_layout
-
-\end_inset
-
- which are declared using methods to satisfy the constraints.
- For instance, in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:two-way-constraint-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the equation 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- is attached with the methods 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{B=A-C}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{C=A-B}$
-\end_inset
-
-.
- The systems utilize algorithms, named 
-\emph on
-constraints solvers
-\emph default
-, to maintain consistency in variable values.
- As in 
-\family typewriter
-Hotdrink
-\family default
-, the constraints solver uses a model named 
-\emph on
-constraint hierarchies
-\emph default
+higher order function.
  
-\begin_inset CommandInset citation
-LatexCommand cite
-key "borning1987constraint"
-literal "false"
+\emph default
+A unary operator can be lifted by the operator 
+\begin_inset Formula $\LSTINLINE{Select}$
+\end_inset
 
+ that maps each item according to an argumented function.
+ For example, the expression 
+\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\end_inset
+
+ means that each value in 
+\begin_inset Formula $\LSTINLINE D$
+\end_inset
+
+ is passed through the function 
+\begin_inset Formula $\LSTINLINE{x=>x+1}$
+\end_inset
+
+, resulting in a new value for 
+\begin_inset Formula $\LSTINLINE B$
 \end_inset
 
 .
- In order to maintain the variables according to the constraints, as in
- the example in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:constraints-hirarchy"
-plural "false"
-caps "true"
-noprefix "false"
-
+ A binary operator can be lifted by an operator 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
-, the runtime maintains additional constraints.
- For each variable 
-\family typewriter
-X
-\family default
- containing a value 
-\family typewriter
-x
-\family default
-, the runtime maintains a constraint 
-\begin_inset Formula $\LSTINLINE{X=x}$
-\end_inset
-
-, with hierarchy according to the order of the input.
- If there is no solution that satisfy all the constraints, the more prioritized
- constraints, according to the hirarchy, are satsified.
- As a result, once the user put new input for a field, the fields that relied
- on a previous input, specifically the oldest input, are overwritten.
+, that works for two observable streams, mapping based on items from the
+ two.
 \end_layout
 
 \begin_layout Standard
@@ -1438,85 +1484,345 @@ status open
 
 
 \backslash
-begin{center}
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-begin{lstlisting}
+matrix[row sep=0.5cm]
 \end_layout
 
 \begin_layout Plain Layout
 
-function  sum( a, b ) { return a + b; }
+{
 \end_layout
 
 \begin_layout Plain Layout
 
-function diff( a, b ) { return a - b; }
+  
+\backslash
+draw [time] (0,0) -- (7,0);
 \end_layout
 
 \begin_layout Plain Layout
 
+  
+\backslash
+node[marble,circle,red] (0x0) at (1,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
-var model = new hd.ModelBuilder()
+  
+\backslash
+node[marble,circle,yellow] (1x0) at (2,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
-    .variables( {A: 0, B: 0, C: 0} )
+  
+\backslash
+node[marble,circle,green] (2x0) at (3,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
+  
+\backslash
+node[marble,circle,cyan] (3x0) at (4,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
-    .constraint( A, B, C )
+  
+\backslash
+node[marble,circle,blue] (4x0) at (5,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
-      .method( 'B, C -> A', sum  ) // A:=B+C
+  
+\backslash
+node[marble,circle,magenta] (5x0) at (6,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
-      .method( 'A, C -> B', diff ) // B:=A-C
+  
+\backslash
+node[complete] (6x0) at (6.5,0) {};
 \end_layout
 
 \begin_layout Plain Layout
 
-      .method( 'A, B -> C', diff ) // C:=A-B
+  
+\backslash
+
+\backslash
+
 \end_layout
 
 \begin_layout Plain Layout
 
+  
 \end_layout
 
 \begin_layout Plain Layout
 
-    .end();
+  
+\backslash
+node[box,minimum width=7cm] (op) {Select
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+begin{tikzpicture}[baseline=-1mm]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[marble,circle] (x) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[marble,diamond,right=5mm of x] (y) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw [fdash] (x) -- (y);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+}};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw [time] (0,0) -- (7,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,red] (0x2) at (1,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,yellow] (1x2) at (2,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,green] (2x2) at (3,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,cyan] (3x2) at (4,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,blue] (4x2) at (5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[marble,diamond,magenta] (5x2) at (6,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[complete] (6x2) at (6.5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{lstlisting}
+draw [fdash] (0x0) -- (0x0|-op.north);
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{center}
+draw [fdash] (1x0) -- (1x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (2x0) -- (2x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (3x0) -- (3x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (4x0) -- (4x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (5x0) -- (5x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [fdash] (6x0) -- (6x0|-op.north);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (0x2) -- (0x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (1x2) -- (1x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (2x2) -- (2x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (3x2) -- (3x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (4x2) -- (4x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (5x2) -- (5x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw [rdash] (6x2) -- (6x2|-op.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
 \end_layout
 
 \end_inset
@@ -1528,47 +1834,16 @@ end{center}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:two-way-constraint-1"
+
+\end_layout
 
 \end_inset
 
 
-\begin_inset Argument 1
-status open
+\end_layout
 
 \begin_layout Plain Layout
-Two-way constraint 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
 
- implemented by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-Two-way constraint 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- implemented by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-.
- The 
-\begin_inset Formula $\LSTINLINE{constraint}$
-\end_inset
-
- method is used to create the constraint by specifying the variables as
- arguments and chaining the necessary methods.
- Each method has two parameters: the data flow direction and the function
- to execute when that method is chosen to satisfy the constraint.
 \end_layout
 
 \end_inset
@@ -1576,237 +1851,99 @@ Two-way constraint
 
 \end_layout
 
-\end_inset
-
-
+\begin_layout Subsubsection
+Merge Streams
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
+Merge operations have been considered in software engineering before, similar
+ to the merge operation introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ In working with streams, the merge operation has the the same general problem
+ as in the events paradigm, on how to handle the time 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ In the two paradigms, there is the difficulty to how to merge values from
+ several sources.
+\end_layout
+
+\begin_layout Standard
+In the 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation from 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+ (
+\begin_inset Formula $\LSTINLINE{Merge}$
+\end_inset
+
+ in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+), whenever there is a value from any of the sources, it is passed to the
+ output stream.
+ This is unpredictable, as it does not handle correctly the simultaneous
+ values.
+ This leads (as implemented in 
+\begin_inset Formula $\NAME{sodium}$
+\end_inset
+
+) that the developers need to provide the method on how to determine the
+ order of the values
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0pt">
-<column alignment="center" valignment="top" width="0pt">
-<column alignment="center" valignment="top" width="0pt">
-<row interlinespace="default">
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Input
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Constraints hierarchical in descending order
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Solution
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=1, B=1
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-B=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, B=2, A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=2, B=2
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, A=3, B=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=3, B=3
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
+By using Rx, the propagation change 
+\emph on
+may
+\emph default
+ be decentralized, since it is managed by the individual nodes.
+ To support this, delivered items can contain meta-data in addition to the
+ values 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "proencca2017quality"
+literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:constraints-hirarchy"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-Maintaining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- according to the constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B}
-\end_layout
-
-\end_inset
-
-, using constraint hierarchies.
-\end_layout
-
-\end_inset
-
-Maintaining 
-\begin_inset Formula $\NAME A$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME B$
-\end_inset
-
- according to the constraint 
-\begin_inset Formula $\NAME{A=B}$
-\end_inset
-
-, using constraint hierarchies.
- Each row represents a step in the interaction.
- The first column mentions the input provided.
- The second column mentions the exiting constraints following the input
- provided.
- The third column displays the values of the variables, as determined by
- the constraint solver.
-\end_layout
-
-\end_inset
-
-
+.
+ However, it may be that coordination is required between nodes.
 \end_layout
 
 \end_inset
@@ -1819,16 +1956,1060 @@ Maintaining
 status collapsed
 
 \begin_layout Plain Layout
-Actualy, as in the state management solution 
-\begin_inset Formula $\NAME{MobX}$
+We take the concept of observable streams for presenting variables.
+ An observable stream consists of values or changes over time, as illustrated
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Streams-of-values-3"
+plural "false"
+caps "true"
+noprefix "false"
+
 \end_inset
 
- with the 
-\begin_inset Formula $\NAME{React}$
+, generated from events of UI elements.
+ Furthermore, Each node in a dependancy graph can be represented as an observabl
+e stream.
+ Each Item represents a visit in that node.
+\end_layout
+
 \end_inset
 
- framework, fields calculations can consist of reactive variables implemented
- by a state management solution connected to the visual fields.
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Upon observable streams, 
+\emph on
+operators 
+\emph default
+are used for transforming those observable streams.
+ The operators act similarly to the concept of 
+\emph on
+lifting
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+, because they convert a function to be a 
+\emph on
+higher order function.
+ 
+\emph default
+A unary operator can be lifted by an operator 
+\family typewriter
+map
+\family default
+ that maps each item according to an argumented function.
+ A binary operator can be lifted by an operator 
+\family typewriter
+CombineLatest
+\family default
+ works for two observable streams, mapping based on items from the two.
+ The operators create an observable stream, subscribe to the argumented
+ observable stream, and deliver items through the created observable stream.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+observable streams is a concept popularized by 
+\end_layout
+
+\begin_layout Plain Layout
+As an alternative to manipulating fields or variables, there is the strategy
+ of modeling programs by 
+\emph on
+streams
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ This approach has recently become popular 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2017positive"
+literal "false"
+
+\end_inset
+
+ due to 
+\emph on
+Reactive Extensions
+\emph default
+ (
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ or Rx).
+ Rx was initially developed for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ and is now available for many programming languages, such as 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikkonen2007using"
+literal "false"
+
+\end_inset
+
+.
+ Rx offers observable streams, which are objects that abstract collections
+ for interested observers, passing their items to them by calling their
+ next method (or 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+As an alternative to the fields or variables manipulation, there is the
+ strategy to model programs by 
+\emph on
+streams
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+.
+ This approach has recently become popular 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2017positive"
+literal "false"
+
+\end_inset
+
+ by 
+\emph on
+Reactive Extensions
+\emph default
+ (
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ or Rx).
+ Rx initialy developed for 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+ and is available now for many programming languages,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ such as 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikkonen2007using"
+literal "false"
+
+\end_inset
+
+.
+ Rx offers 
+\emph on
+observable streams
+\emph default
+, which are objects that abstract collections for interested observers,
+ passing their items to them by calling their 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The variables are presented as observable streams consists of the values
+ or changes over time, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Streams-of-values-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The values can be generated from events generated from UI elements.
+ Then functions like 
+\begin_inset Formula $\LSTINLINE{Select}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\end_inset
+
+ create observables whose items are generated based on the values of input
+ observables.
+ For example, if we have 
+\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\end_inset
+
+, each value in 
+\begin_inset Formula $\LSTINLINE D$
+\end_inset
+
+ is passed through the function 
+\begin_inset Formula $\LSTINLINE{x=>x+1}$
+\end_inset
+
+, resulting in a new value for 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ Finally, by subscribing to the resulting observables, UI elements can be
+ updated.
+\end_layout
+
+\begin_layout Plain Layout
+—————-
+\end_layout
+
+\begin_layout Plain Layout
+Rx offers 
+\emph on
+observable streams
+\emph default
+, which are objects that abstract collections for interested observers,
+ passing their items to them by calling their 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{C\#}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Plain Layout
+This abstraction can be used to create fields calculations, with a similtary
+ to FRP.
+ The variables are presented as observable streams consists of the values
+ or changes over time, as illustrated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Streams-of-values-1-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ The values can be generated from events generated from UI elements.
+ Then functions like 
+\begin_inset Formula $\LSTINLINE{Select}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\end_inset
+
+ create observables whose items are generated based on the values of input
+ observables.
+ For example, if we have 
+\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+\end_inset
+
+, each value in 
+\begin_inset Formula $\LSTINLINE D$
+\end_inset
+
+ is passed through the function 
+\begin_inset Formula $\LSTINLINE{x=>x+1}$
+\end_inset
+
+, resulting in a new value for 
+\begin_inset Formula $\LSTINLINE B$
+\end_inset
+
+.
+ Finally, by subscribing to the resulting observables, UI elements can be
+ updated.
+\end_layout
+
+\begin_layout Plain Layout
+This abstraction has several issue.
+ First, in case of 
+\emph on
+accidental recursion
+\emph default
+s, the behavior does not behave properly.
+ For example, if the code contains 
+\begin_inset Formula $\LSTINLINE{A=D.Select(x=>x+1)}$
+\end_inset
+
+ and accidently it is added 
+\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
+\end_inset
+
+.
+ It is like saying 
+\begin_inset Formula $A=D+1$
+\end_inset
+
+ and also 
+\begin_inset Formula $D=A-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+————–
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Altough that acylicty is immdate by using observable streams and operators,
+ an integration with custom code can lead to cycles.
+ An observable stream contain a method OnNext For example, A=B.Select(x=>x)
+ and B.Subscribe(x=>A.OnNext(x)).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Reactive Variables
+\end_layout
+
+\begin_layout Standard
+In many tools, it is consistently allowed updating a variable in response
+ to the update of another variable or a set of other variables, or using
+ automatic change propagation.
+ In FRP, an automatic change propagation is part of the language, and it
+ is possible to define 
+\emph on
+reactive variables 
+\emph default
+that are automaticaly updated according to relevant changes.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Spreadsheet
+\series default
+: A formula can be defined within a cell, and the value is automatically
+ calculated in response to changes in the values of the cells involved in
+ the formula.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Data Binding (
+\family typewriter
+WPF
+\family default
+)
+\series default
+: an attribute can be assigned with an expression composed of variables.
+ As a result, the graphical component updates automatically according to
+ changes in the value of the expression.
+\end_layout
+
+\begin_layout Standard
+For example, the line of code 
+\begin_inset Formula $\LSTINLINE{<TextBlock\ Text="\{BindingPath=FullName\}"/>}$
+\end_inset
+
+ defines a 
+\begin_inset Formula $\LSTINLINE{TextBlock}$
+\end_inset
+
+ component in 
+\family typewriter
+WPF
+\family default
+ that displays a variable whose value is accessed through a special method
+ called 
+\begin_inset Formula $\LSTINLINE{FullName}$
+\end_inset
+
+ .
+ The component updates automatically according to the value of the variable.
+\end_layout
+
+\begin_layout Standard
+Events (C#)
+\end_layout
+
+\begin_layout Standard
+In programming languages such as C#, it is possible to trigger code that
+ updates a variable (or a set of variables) in response to the update of
+ another variable (or set of variables) by publishing an event.
+ This is done in a way that removes dependencies between the code that updates
+ the variable and the code that is triggered in response to the update.
+\end_layout
+
+\begin_layout Standard
+Below is an example of using the event mechanism in 
+\family typewriter
+C#
+\family default
+.
+ The example demonstrates the use of the mechanism to ensure that a specific
+ variable, 
+\begin_inset Formula $\LSTINLINE{powerDifference}$
+\end_inset
+
+, is updated according to the variable 
+\begin_inset Formula $\LSTINLINE{sensorValue}$
+\end_inset
+
+ whenever sensorValue is updated, such that 
+\begin_inset Formula $\LSTINLINE{powerDifference=f(sensorValue)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+An event is defined for each variable: for 
+\begin_inset Formula $\LSTINLINE{powerDifference}$
+\end_inset
+
+ an event 
+\begin_inset Formula $\LSTINLINE{powerDifference\_Change}$
+\end_inset
+
+, and for 
+\begin_inset Formula $\LSTINLINE{sensorValue}$
+\end_inset
+
+ an event 
+\begin_inset Formula $\LSTINLINE{sensorValue\_Change}$
+\end_inset
+
+.
+ Each time a variable is updated, its corresponding event is triggered.
+ Therefore, for each variable, a function is defined for its update, which
+ includes updating the variable and triggering the event.
+ For example, a function 
+\begin_inset Formula $\LSTINLINE{ChangePowerDifference}$
+\end_inset
+
+ updates the variable 
+\begin_inset Formula $\LSTINLINE{powerDifference}$
+\end_inset
+
+ and also triggers the event 
+\begin_inset Formula $\LSTINLINE{powerDifference\_Change}$
+\end_inset
+
+ as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[frame=none,numbers=none]
+\end_layout
+
+\begin_layout Plain Layout
+
+void ChangePowerDifference(newValue) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  powerDifference = newValue; 
+\end_layout
+
+\begin_layout Plain Layout
+
+  powerDifference_Change(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The last part is the registration of code to the 
+\begin_inset Formula $\LSTINLINE{sensorValue\_Change}$
+\end_inset
+
+ event.
+ In the code, the calculation of the new value and the update are triggered:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[frame=none,numbers=none]
+\end_layout
+
+\begin_layout Plain Layout
+
+sensorValue_Change += (e) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+  newValue = f(e); 
+\end_layout
+
+\begin_layout Plain Layout
+
+  ChangePowerDifference(newValue);
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Cycles and the Asbtraction Level
+\end_layout
+
+\begin_layout Standard
+The support for automatic change propagation must strike a balance between
+ customizable and the abstraction level.
+ For example, event-driven programming frameworks give developers complete
+ control over the propagation order, therefore highly customizable but lower
+ abstraction level.
+ Another example, 
+\family typewriter
+ReactiveX
+\family default
+ that promotes abstractions from handling events to function over streams
+ of events, giving some control over propagation by choosing a 
+\emph on
+scheduler
+\emph default
+ to indicate the order of updates.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://rxjs.dev/guide/scheduler
+\end_layout
+
+\end_inset
+
+ Finally, tools or products' features that aims to abstracting away most
+ details like the ones with like reactive variables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Variable that is re-assigned over time can be modelled as stream, that in
+ each update there is a new item, of the new value representing the updated
+ value at that instant.
+ reactive variable means that update of that variable raises indirectly
+ a continuation action based on the new value.
+ Such an update may be called as
+\emph on
+ update with a push notification
+\emph default
+.
+ In other words, 
+\emph on
+update with a push notification
+\emph default
+ means that not only the variable contained the new value instead of the
+ previous value, but also that it raises interested parties about the change.
+ We refer to variables as an object in the world, that exposes operation
+ 
+\emph on
+assign
+\emph default
+ (with :=) for an update, and 
+\emph on
+subscribe 
+\emph default
+for registration for push notifications.
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+We provide a brief, comprehensive overview of state management, gradually
+ covering its various aspects:
+\end_layout
+
+\begin_layout Itemize
+Initially, code assigns values to variables, allowing other code to read
+ them.
+ For instance, A = 1 assigns a value to variable A, and another code segment
+ B = A reads from variable A.
+\end_layout
+
+\begin_layout Itemize
+Next, additional code is introduced to notify potential readers about changes.
+ For example, A = 1; OnChangeA(A) notifies other parts of the system about
+ changes to variable A.
+ Subsequently, another piece of code, RegisterToChangeA(value => ...) registers
+ to receive notifications about changes to variable A.
+\end_layout
+
+\begin_layout Itemize
+Finally, these components are intertwined, enabling writing into a variable
+ to automatically trigger other code to read the new values.
+ For instance, declaring B := A establishes a continuous relationship between
+ variables, so that when the code A = 1 is executed, variable B is updated
+ automatically to reflect this new value.
+\end_layout
+
+\begin_layout Plain Layout
+Each step in the above represent a valid approach.
+ In the first approach, there is no mechanism to inform potential readers
+ of changes.
+ Consequently, readers must periodically read the values, leading to high
+ resource consumption costs.
+ Additionally, the first approach tends to involve making changes directly
+ within the code rather than extending it.
+ When updating variables based on changes to other variables, all code locations
+ where the latter variables are updated must also be updated to reflect
+ the changes in the variables.
+\end_layout
+
+\begin_layout Plain Layout
+The second approach provide reactivity, by informing potential readers of
+ changes.
+ However, it requires to control when to inform readers, and for readers
+ to inform to what changes to subscribe.
+ This approach is difficult in high scale applications.
+ Because, it is not only clear when to inform readers about changes, or
+ for the readers when to subscribe or unsubscribe.
+\end_layout
+
+\begin_layout Plain Layout
+The last approach unifies reading and writing such that writing into variables
+ triggers potential readers to read the changes.
+ This provides a cleaner specification, except for the problem of cycles,
+ where a variable change might indirectly result from itself.
+ In such a case, the itended understanding is not clear.
+\end_layout
+
+\begin_layout Plain Layout
+As a result, the previous approach has a better tools to express requirement
+\end_layout
+
+\begin_layout Plain Layout
+The previous approach is better
+\end_layout
+
+\begin_layout Plain Layout
+In this context, in the previous approach requirements can be expressed
+ directly, while here the itended understanding is not clear.
+\end_layout
+
+\begin_layout Plain Layout
+The strategy, how cycles are controled are not explicit in the code.
+\end_layout
+
+\begin_layout Plain Layout
+In such cycles,the way how changes are handled loops are stopped without
+ to express the explicit strategy in the code.
+\end_layout
+
+\begin_layout Plain Layout
+It is required to decide how to stop the loop.
+\end_layout
+
+\begin_layout Plain Layout
+The decision how to stop such a loop is not explicit in the code
+\end_layout
+
+\begin_layout Plain Layout
+In such a case, the second approach, in its full control over the changes
+ might convey better in desgning how to stop the loop
+\end_layout
+
+\begin_layout Plain Layout
+the decision how to stop the loop is not explicit in the code.
+ Therefore, the second approach, in its full control over the changes,
+\end_layout
+
+\begin_layout Plain Layout
+the second approach provides a cleaner specification in its full control
+ over the changes.
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+Handling 
+\emph on
+state
+\emph default
+ is an important aspect in programming.
+ State refers to what software remembers from past used to its future behavior.
+ State is represented as changeable data, stored anywere, used to determine
+ output.
+ Basicly, it is variables that contain values.
+\end_layout
+
+\begin_layout Plain Layout
+Software components that contained variables or any datastore, by which
+ its behavior is determined, is named 
+\emph on
+stateful components
+\emph default
+.
+ Our objective is to redesign an existing application to compose highly
+ reusable stateful components.
+\end_layout
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+In software programming, developers sometimes encounter 
+\emph on
+cycles 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+, 
+\emph on
+circular dependencies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "perez2015bridging"
+literal "false"
+
+\end_inset
+
+ or similar.
+ For variables, it means that a change in one variable causes transitively,
+ through a chain of changes, this same variable to again change its value.
+ Typically, the flow continues, such that the second change produces a third
+ change, etc.
+ In the worst case, this chain continues endlessly, breaking programs unexpected
+ly.
+\end_layout
+
+\begin_layout Plain Layout
+This might be accidently produced in event driven programming.
+ Each event handler can trigger more events, in-awaring of the events from
+ which they have been triggered.
+ Therefore it is likely that an event handler transitively triggers an event
+ from which it was originally triggered.
+ If a variable is updated by an event handler, and this event handler triggers
+ more events which lead to execute again this event handler, the variable
+ is re-updated.
+\end_layout
+
+\begin_layout Plain Layout
+In Functional Reactive Programming (FRP), it might be even more explicit.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Our presentation is based on Tetsuo Kaminaa at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ In FRP, variables can be specified in terms of each other, thus initiating
+ dependencies to automatically update each other.
+ For instance, A := f(B) indicates that A depends on B, meaning that when
+ B’s value changes, A’s value is adjusted accordingly.
+ Using this abstraction, B := g(A) establishes a dependency in a reversed
+ direction, resulting in a cycle
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This thesis discusse against an argument, that hirarchial data is a nececray
+ condition for achiving predictability.
+ This argument is inspired from several
+\end_layout
+
+\begin_layout Plain Layout
+This argument are inferred
+\end_layout
+
+\begin_layout Plain Layout
+Many couple predictability with the acylciity for graphs that abstract the
+ depedancies.
+ This represent an argument that hirarchial data is a nececray condition
+ for achiving predictability.
 \end_layout
 
 \end_inset
@@ -1837,6 +3018,500 @@ Actualy, as in the state management solution
 \end_layout
 
 \begin_layout Section
+The Challenge
+\end_layout
+
+\begin_layout Plain Layout
+——–
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+Data Synchronization is a ubiquitous feature across various domains, including
+ front-end interfaces, databases and inter-system communication.
+ In the various forms, data is transformed or computed to be consistent
+ with other data.
+ In database management, synchronization involves updating fields.
+ Systems such as CRM or e-commerce platforms utilize synchronization to
+ align one system with another.
+ Similarly, in graphical user interfaces (GUI) or front-end applications,
+ it entails updating fields based on changes in other fields.
+ In the realm of state management, synchronization involves adjusting variables
+ in response to changes in other variables.
+ Procedural programming allows developers to write explicit, step-by-step
+ procedures for handling data synchronization tasks.
+ Each procedure has a set of arguments and update data according to values
+ contained by the arguments.
+\end_layout
+
+\begin_layout Plain Layout
+Procedural programming is an outdated paradigm compared to current modern
+ paradigms.
+ Procedural programming consists of procedures, that execute a set of instructio
+nes for a given set of arguments.
+\begin_inset space \space{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In the procedural programming, developers model proceduraes,
+\end_layout
+
+\begin_layout Paragraph
+Push Model
+\end_layout
+
+\begin_layout Plain Layout
+In data synchronization, two prominent strategies are employed: the 
+\emph on
+pull
+\emph default
+ and 
+\emph on
+push
+\emph default
+ models.
+ In the pull mode, data consumers need to proactively request updates by
+ executing a procedure or calling for a service.
+ In the push model, changes are pushed forward without the consumer proactively
+ requesting updates.
+ The pull model might lead to redandant requests, if there are no changes
+ since the last request.
+ This thesis' focus is on the push model, which is apt for scenarios characteriz
+ed by: first, a continuous demand for up-to-date data; second, infrequent
+ changes; and finally, the absence of prolonged and resource-intensive computati
+ons, as new changes may arise before the completion of such processes.
+\end_layout
+
+\begin_layout Paragraph
+Explicit Data Dependencies
+\end_layout
+
+\begin_layout Plain Layout
+In Reactive Programming, there is a focus on explicity define the dependencies,
+ rather than relying on Event-driven paradigm where developers manually
+ manage variable values.
+ For example, in the event-driven paradigm, variables 
+\family typewriter
+B
+\family default
+ and 
+\family typewriter
+C
+\family default
+ each have a 
+\family typewriter
+change
+\family default
+ event to which event handlers are registered.
+ Within these event handlers, code calculates the sum of the values contained
+ in 
+\family typewriter
+B
+\family default
+ and 
+\family typewriter
+C
+\family default
+, and then updates a variable, 
+\family typewriter
+A
+\family default
+, with that value.
+ From an FRP perspective, this should be declared simply as 
+\begin_inset Formula $\LSTINLINE{A:=B+C}$
+\end_inset
+
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Or other similar syntax options.
+ This specific syntax is used by Guido Salvaneschi at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ making the data dependencies explicit directly in the code.
+\end_layout
+
+\begin_layout Paragraph
+Control
+\end_layout
+
+\begin_layout Plain Layout
+When relying on third-party control over updates, software developers may
+ experience a sense of unpredictability and lack of control.
+ This concern has been articulated in the experience of REScala, where developer
+s expressed frustration with tracking the flow of code: “I can’t follow
+ the Codeflow in RP.
+ I want to know, what method is called when
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2017positive"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Traditional procedural programming remains highly prevalent for Data Synchroniza
+tion.
+ Our initial focus lies on a specific GUI application in the healthcare
+ sector, which utilizes procedural programming.
+ Healthcare, an area notorious for low user satisfaction 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gawande2018doctors"
+literal "false"
+
+\end_inset
+
+, presents an opportunity to enhance the codebase, thereby improving the
+ customer feedback loop through rapid releases and innovative programming
+ methodologies.
+ Surprisingly, procedural-driven programs are not limited to GUI applications
+ in the healthcare sector alone.
+ REST APIs and command-line interfaces (CLIs) are also often built on procedural
+ principles.
+ Similarly, any tool that accepts various arguments and must accommodate
+ numerous scenarios may suffer from limitations inherent in the outdated
+ procedural paradigm.
+\end_layout
+
+\begin_layout Plain Layout
+————————–
+\end_layout
+
+\begin_layout Plain Layout
+In this section, we discuss the state of the art of field calculation features.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, for the sake of specific use cases, more concepts are added.
+\end_layout
+
+\begin_layout Paragraph
+Example:
+\end_layout
+
+\begin_layout Itemize
+In the design of 
+\family typewriter
+FrTime
+\family default
+, a special 
+\family typewriter
+delay
+\family default
+ operator is implemented in order to handle cycles.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Sodium
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ provides a special constructs named 
+\family typewriter
+CellLoops
+\family default
+ and 
+\family typewriter
+StreamLoops
+\family default
+ for handling cycles.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Sodium
+\family default
+ also hold a 
+\emph on
+transaction
+\emph default
+ concept for handling cycles created from integrating FRP with event handling
+ code.
+ A change propagated through an FRP variable can trigger an event handler,
+ which in turn might create another update.
+ This update could then feed back into the original FRP variable, creating
+ a cycle.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Microsoft Excel
+\family default
+ manages settings 
+\emph on
+remove or allow a circular reference
+\emph default
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+allow cycles
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.Terminating when it closes a cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, adding to the language a special operator to inform the runtime when to
+ break the cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+, stop after a number of iterations, stop if the value has not changed,
+ or changed only less than a threshold (available in 
+\family typewriter
+Microsoft Excel
+\family default
+)
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://support.microsoft.com/en-us/office/remove-or-allow-a-circular-reference-85
+40bd0f-6e97-4483-bcf7-1b49cd50d123
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+In addition to reactive variables in FRP, events abstraction might also
+ be needed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2017positive"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+One reason for lowering the abstraction level is the cycles problem.
+ In previous research, two opposing methods have been previously presented
+ regarding cycles.
+ In the first method, cycles are avoided, because the paradigm derived from
+ the functional paradigm, with the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ At this direction it has been presented in previous work, creating feature
+ that limits data dependencies to the lexical scope of their declarations
+ for being acyclic
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ .
+ In the second method, forbidding cycles makes FRP unacceptably weak, because
+ many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Glitch Freedom
+\end_layout
+
+\begin_layout Standard
+It is used to manage the values correctly at runtime by holding an acyclic
+ graph in memory and updating each variable only after all its dependencies
+ have been updated 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ This is against our approach to support cycles.
+ Other algorithms also do not fit our settings, because they depend on a
+ central algorithm that holds in memory the data structure that represent
+ the data dependencies
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ We find exceptions
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "shibanai2018distributed,drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+, but they do not support cycles, so we left them irrelevant.
+\end_layout
+
+\begin_layout Standard
+Actualy, different applications need different handling, depending on needed
+ consistency level
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics"
+literal "false"
+
+\end_inset
+
+.
+ According to this thesis, loops caused from cycles in dependencies, is
+ another type of glitch.
+ Our algorithm handles glitches
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+We provide a unit test upon the classic case of glitch.
+ Available in 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs/blob/main/test/RIvarsBasics.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ by enforcing an order over the values.
+\end_layout
+
+\begin_layout Subsubsection
 Unidirectional Data Flow
 \end_layout
 
@@ -2016,7 +3691,6 @@ https://legacy.reactjs.org/
  component view.
  This view can consist of nested components, forming a hierarchical structure
  that facilitates the composition of complex user interfaces.
- 
 \end_layout
 
 \end_inset
@@ -2159,7 +3833,6 @@ Similary in the
  input streams triggers a corresponding item in the output stream.
  If two streams have items from the same time, originating from a single
  event, the resulting stream will contain it twice.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -2242,7 +3915,6 @@ noprefix "false"
 \end_inset
 
 ).
- 
 \end_layout
 
 \begin_layout Subsection
@@ -2290,7 +3962,6 @@ lstinline{calculate}
 \end_inset
 
 , when the user interacts with the input element by changing its value.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -2980,7 +4651,6 @@ noprefix "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -3489,7 +5159,6 @@ literal "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -3826,7 +5495,6 @@ literal "false"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -4094,376 +5762,94 @@ informal contract
 
 \end_layout
 
-\begin_layout Section
-Observable Streams
-\end_layout
-
 \begin_layout Standard
-
-\emph on
-Reactive Extensions 
-\emph default
-(Rx) 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
- or 
-\emph on
-ReactiveX
-\emph default
-
-\begin_inset Foot
+\begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://reactivex.io/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- refers to extensions for programming languages initially developed for
+However, due to the cycles issue, the previous implementations have exceptions
+ that break this abstraction level.
  
-\begin_inset Formula $\NAME{C\#}$
+\begin_inset Formula $\NAME{sodium}$
 \end_inset
 
- programming language,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://learn.microsoft.com/en-us/dotnet/csharp/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- and is now available for many programming languages, such as 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rxjs
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
- programming language
+, in addition to its high-level language, has the concept of transactions
+ to customize how to handle cycles 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "mikkonen2007using"
+key "blackheath2016functional"
 literal "false"
 
 \end_inset
 
 .
-\begin_inset Foot
-status collapsed
+ 
+\begin_inset Formula $\NAME{FrTime}$
+\end_inset
 
-\begin_layout Plain Layout
-A complete knowledge and references are available in
-\begin_inset Flex URL
-status collapsed
+ has the reserved word 
+\begin_inset Formula $\NAME{\LSTINLINE{delay}}$
+\end_inset
 
-\begin_layout Plain Layout
+ to customize how to handle cycles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
 
- https://introtorx.com/
+\end_inset
+
+.
+ Additionally, streams and/or events are still part of these frameworks
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014programming,blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset
 
- (in 
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—–
+\end_layout
+
+\begin_layout Plain Layout
+Cycles are often challenged applications' developers and library designers.
+ A remarkable example is a birth of 
 \family typewriter
-C#
+React
 \family default
- programming language) and 
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://rxjs.dev/
-\end_layout
-
-\end_inset
-
- (in 
+ and 
 \family typewriter
-JavaScript
+Redux
 \family default
- programming language)
-\end_layout
-
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-Rx works with 
-\emph on
-observable streams
-\emph default
- (known also as 
-\emph on
-reactive streams
-\emph default
-
+.
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
+As described in 
 \begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://cycle.js.org/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-, or just 
-\emph on
-observable
-\emph default
-)
-\emph on
-.
- 
-\emph default
-Observable stream refers to an object that delivers items for other objects
- through a method 
-\emph on
-next
-\emph default
-.
- As depicted in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Streams-of-values-1-1-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, observable streams can be used to represent GUI control change events
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
-, and also a reactive variable reacti
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- By this representation, each item represents a change in the value.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-matrix[row sep=0.5cm]
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-draw [time] (0,0) -- (6.5,0);
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node at (0.2,0.2) {A};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (1x0) at (1,0) {5};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (2x0) at (2,0) {3};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-node[marble,circle] (3x0) at (4.5,0) {2};
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Streams-of-values-1-1-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Variable value changes as an observable stream
-\end_layout
-
-\end_inset
-
-Variable value changes as an observable stream.
- Variable 
-\begin_inset Formula $A$
-\end_inset
-
- changed to 
-\begin_inset Formula $5$
-\end_inset
-
- initially, then to 
-\begin_inset Formula $3$
-\end_inset
-
-, and after a longer period, it changed to 
-\begin_inset Formula $2$
-\end_inset
-
-.
+https://www.clariontech.com/blog/mvc-vs-flux-vs-redux-the-real-differences
 \end_layout
 
 \end_inset
@@ -4473,23 +5859,38 @@ Variable value changes as an observable stream.
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Since observable stream acts similar to reactive variables 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-, provided operators are very similar to the concept of 
+ In previous libraries that use MVC, models are updated according to the
+ view and vice versa, sometimes mentioned as 
 \emph on
-lifting
+multidirectional
 \emph default
+ dataflow, which means that data flows among components in multiple directions.
  
+\family typewriter
+React
+\family default
+ and 
+\family typewriter
+Redux
+\family default
+ provides an alternative approach that proposes a design that data flow
+ in one direction, such that data flows from each component to its child
+ components.
+\end_layout
+
+\begin_layout Plain Layout
+The design choice of avoiding cycles has its cost.
+ For example, the lack of a feature named 
+\family typewriter
+binding
+\family default
+, by which variables are decleratively bound, so that a change in one variable
+ update the other variable and vise verca.
+ A similar feature is named multidirectionality
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -4497,62 +5898,16 @@ literal "false"
 
 \end_inset
 
-, because they convert a function to be a 
-\emph on
-higher order function.
- 
-\emph default
-A unary operator can be lifted by the operator 
-\begin_inset Formula $\LSTINLINE{Select}$
-\end_inset
-
- that maps each item according to an argumented function.
- For example, the expression 
-\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
-\end_inset
-
-means that each value in 
-\begin_inset Formula $\LSTINLINE D$
-\end_inset
-
- is passed through the function 
-\begin_inset Formula $\LSTINLINE{x=>x+1}$
-\end_inset
-
-, resulting in a new value for 
-\begin_inset Formula $\LSTINLINE B$
-\end_inset
-
-.
- A binary operator can be lifted by an operator 
-\begin_inset Formula $\LSTINLINE{CombineLatest}$
-\end_inset
-
-, that works for two observable streams, mapping based on items from the
- two.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-By using Rx, the propagation change 
-\emph on
-may
-\emph default
- be decentralized, since it is managed by the individual nodes.
- To support this, delivered items can contain meta-data in addition to the
- values 
+ (equivalent to multi-way constraints 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "proencca2017quality"
+key "sannella1993multi"
 literal "false"
 
 \end_inset
 
-.
- However, it may be that coordination is required between nodes.
+) that means that when neccesary, changes in derived values are propagated
+ back to the values from which they were derived.
 \end_layout
 
 \end_inset
@@ -4565,44 +5920,73 @@ literal "false"
 status collapsed
 
 \begin_layout Plain Layout
-We take the concept of observable streams for presenting variables.
- An observable stream consists of values or changes over time, as illustrated
- in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Streams-of-values-3"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, generated from events of UI elements.
- Furthermore, Each node in a dependancy graph can be represented as an observabl
-e stream.
- Each Item represents a visit in that node.
-\end_layout
-
+Cycles are traditionaly considered has causing negative effects.
+ They are sometimes considered as 
+\emph on
+accidental
+\begin_inset space ~
 \end_inset
 
 
-\end_layout
+\emph default
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, i.e., complexity that is not inherent in the problem that the software solves
+ (as seen by the users) but arises only from the implementation.
+ For example, the birth of React is to solve cycles created in MVC.
+\end_layout
 
 \begin_layout Plain Layout
-Upon observable streams, 
+Also in declerative frameworks like Angular, cycles has a mining as something
+ to handle, rather than a more absrract meaning.
+ Indeed, cycles are sometimes considered as 
 \emph on
-operators 
+accidental
+\begin_inset space ~
+\end_inset
+
+
 \emph default
-are used for transforming those observable streams.
- The operators act similarly to the concept of 
-\emph on
-lifting
-\emph default
- 
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+, i.e., complexity that is not inherent in the problem that the software solves
+ (as seen by the users) but arises only from the implementation.
+\end_layout
+
+\begin_layout Plain Layout
+An effort
+\end_layout
+
+\begin_layout Plain Layout
+This opposed appraoches exist in frameworks provided for fornt end programming.
+ Frameworks like Angular support a feature named binding.
+ This feature enables view and model to interacts, so that models are updated
+ according to the view and vice versa.
+ This is mentioned sometimes as multidirectional dataflow, as data flows
+ among components in mutipal directions.
+ An alternative approach propsed a design data flow in one direction.
+ This approach is used in React, when data flows from each component to
+ its child components.
+ This aims to provide predictability.
+ It should be noted, that user events are produced from the view into a
+ state managemnt manager, that is consumed by the components, and this integrati
+on might create accidental cycles.
+\end_layout
+
+\begin_layout Plain Layout
+The oppsed approaches affects also a feature named multidirectionality 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -4610,468 +5994,293 @@ literal "false"
 
 \end_inset
 
-, because they convert a function to be a 
-\emph on
-higher order function.
- 
-\emph default
-A unary operator can be lifted by an operator 
+.
+ This feature means that when neccesary changes in derived values are propagated
+ back to the values from which they were derived.
+ For example, 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+implies that whenever a new value of either A or B is available the other
+ value is updated.
+ In the constraints programming paradigm, there are local propagation solvers,
+ that are similar to FRP with and without multidirectionality.
+ Solvers with multidirectionality are sometimes mentioned as more challenged
+ to implement than solvers without multidirectionality, while solvers with
+ multidirectionality may provide a more frienly framework 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+Opinions among researchers are divided regarding whether to support cycles.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ According to a second approach, forbidding cycles makes FRP unacceptably
+ weak, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+Cycles are matter.
+ This is obvious as it is frequesntly discussed explicity and implcity in
+ resraches and tools documentations.
+ In FRP
+\end_layout
+
+\begin_layout Plain Layout
+For example, FrTime 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding"
+literal "false"
+
+\end_inset
+
+ has special 
 \family typewriter
-map
+delay
 \family default
- that maps each item according to an argumented function.
- A binary operator can be lifted by an operator 
+ operator to handle cycles.
+\end_layout
+
+\begin_layout Plain Layout
+Another example, Sodium 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+ provides a special constructs named 
 \family typewriter
-CombineLatest
+CellLoops
 \family default
- works for two observable streams, mapping based on items from the two.
- The operators create an observable stream, subscribe to the argumented
- observable stream, and deliver items through the created observable stream.
- 
-\end_layout
-
-\begin_layout Plain Layout
-observable streams is a concept popularized by 
-\end_layout
-
-\begin_layout Plain Layout
-As an alternative to manipulating fields or variables, there is the strategy
- of modeling programs by 
-\emph on
-streams
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- This approach has recently become popular 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2017positive"
-literal "false"
-
-\end_inset
-
- due to 
-\emph on
-Reactive Extensions
-\emph default
- (
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- or Rx).
- Rx was initially developed for 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://learn.microsoft.com/en-us/dotnet/csharp/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
- and is now available for many programming languages, such as 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rxjs
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "mikkonen2007using"
-literal "false"
-
-\end_inset
-
-.
- Rx offers observable streams, which are objects that abstract collections
- for interested observers, passing their items to them by calling their
- next method (or 
-\begin_inset Formula $\LSTINLINE{OnNext}$
-\end_inset
-
- in 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-As an alternative to the fields or variables manipulation, there is the
- strategy to model programs by 
-\emph on
-streams
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "abelson1996structure"
-literal "false"
-
-\end_inset
-
-.
- This approach has recently become popular 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2017positive"
-literal "false"
-
-\end_inset
-
- by 
-\emph on
-Reactive Extensions
-\emph default
- (
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- or Rx).
- Rx initialy developed for 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://learn.microsoft.com/en-us/dotnet/csharp/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
- and is available now for many programming languages,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://reactivex.io/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- such as 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rxjs
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- for 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "mikkonen2007using"
-literal "false"
-
-\end_inset
-
-.
- Rx offers 
-\emph on
-observable streams
-\emph default
-, which are objects that abstract collections for interested observers,
- passing their items to them by calling their 
-\begin_inset Formula $\LSTINLINE{next}$
-\end_inset
-
- (or 
-\begin_inset Formula $\LSTINLINE{OnNext}$
-\end_inset
-
- in 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
-
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://learn.microsoft.com/en-us/dotnet/csharp/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-).
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-The variables are presented as observable streams consists of the values
- or changes over time, as illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Streams-of-values-1-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- The values can be generated from events generated from UI elements.
- Then functions like 
-\begin_inset Formula $\LSTINLINE{Select}$
-\end_inset
-
  and 
-\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\family typewriter
+StreamLoops
+\family default
+ to allow cycles, that should be declared under an explicit transaction.
+\end_layout
+
+\begin_layout Plain Layout
+Actualy, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
 \end_inset
 
- create observables whose items are generated based on the values of input
- observables.
- For example, if we have 
-\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+.
+\end_layout
+
+\begin_layout Plain Layout
+Sodium has special constructs to handle cycles.
+\end_layout
+
+\begin_layout Plain Layout
+Stephen Blackheath at al 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
 \end_inset
 
-, each value in 
-\begin_inset Formula $\LSTINLINE D$
+ adds to
+\end_layout
+
+\begin_layout Plain Layout
+In many frameworks and resraches, there is considerstion of cycles.
+ Forbidding cycles makes FRP unacceptably weak, because many applications
+ have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
 \end_inset
 
- is passed through the function 
-\begin_inset Formula $\LSTINLINE{x=>x+1}$
+.
+ However,
+\end_layout
+
+\begin_layout Plain Layout
+Opinions among researchers are divided regarding whether to support cycles.
+ In FRP, One approach is to avoid 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
 \end_inset
 
-, resulting in a new value for 
+.
+ FRP is derived from Functional Programming (FP).
+ For example, Saying 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+ is like stating that 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is a function with a body of 
+\begin_inset Formula $\LSTINLINE{B+1}$
+\end_inset
+
+, so that each value of 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+ is derived from the value of 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
 .
- Finally, by subscribing to the resulting observables, UI elements can be
- updated.
-\end_layout
-
-\begin_layout Plain Layout
-—————-
-\end_layout
-
-\begin_layout Plain Layout
-Rx offers 
+ In FP we achive
 \emph on
-observable streams
+ referential transparency
 \emph default
-, which are objects that abstract collections for interested observers,
- passing their items to them by calling their 
-\begin_inset Formula $\LSTINLINE{next}$
-\end_inset
-
- (or 
-\begin_inset Formula $\LSTINLINE{OnNext}$
-\end_inset
-
- in 
-\begin_inset Formula $\NAME{C\#}$
-\end_inset
-
-).
+, which means that input consistently produces the same output.
+ If cycles do exist, it produces
 \end_layout
 
 \begin_layout Plain Layout
-This abstraction can be used to create fields calculations, with a similtary
- to FRP.
- The variables are presented as observable streams consists of the values
- or changes over time, as illustrated in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Streams-of-values-1-1-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
+The paradigm is derived from the functional paradigm, with the referential
+ transparency property.
+ Saying 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
-.
- The values can be generated from events generated from UI elements.
- Then functions like 
-\begin_inset Formula $\LSTINLINE{Select}$
+ is like stating that 
+\begin_inset Formula $\LSTINLINE A$
 \end_inset
 
- and 
-\begin_inset Formula $\LSTINLINE{CombineLatest}$
+ is a function with a body of 
+\begin_inset Formula $\LSTINLINE{B+1}$
 \end_inset
 
- create observables whose items are generated based on the values of input
- observables.
- For example, if we have 
-\begin_inset Formula $\LSTINLINE{B=D.Select(x=>x+1)}$
+, so that each value of 
+\begin_inset Formula $\LSTINLINE A$
 \end_inset
 
-, each value in 
-\begin_inset Formula $\LSTINLINE D$
-\end_inset
-
- is passed through the function 
-\begin_inset Formula $\LSTINLINE{x=>x+1}$
-\end_inset
-
-, resulting in a new value for 
+ is derived from the value of 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
 .
- Finally, by subscribing to the resulting observables, UI elements can be
- updated.
-\end_layout
-
-\begin_layout Plain Layout
-This abstraction has several issue.
- First, in case of 
+ This produces a 
 \emph on
-accidental recursion
+predictability 
 \emph default
-s, the behavior does not behave properly.
- For example, if the code contains 
-\begin_inset Formula $\LSTINLINE{A=D.Select(x=>x+1)}$
-\end_inset
+property due to referential transparency, meaning the input consistently
+ produces the same output 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
 
- and accidently it is added 
-\begin_inset Formula $\LSTINLINE{D.Subscribe(val=>A.OnNext(val-1))}$
 \end_inset
 
 .
- It is like saying 
-\begin_inset Formula $A=D+1$
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
 \end_inset
 
- and also 
-\begin_inset Formula $D=A-1$
+.
+ According to a second approach, forbidding cycles makes FRP unacceptably
+ weak, because many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Plain Layout
-————–
+This opposed appraoches exist in frameworks provided for fornt end programming.
+ Frameworks like Angular support a feature named binding.
+ This feature enables view and model to interacts, so that models are updated
+ according to the view and vice versa.
+ This is mentioned sometimes as multidirectional dataflow, as data flows
+ among components in mutipal directions.
+ An alternative approach propsed a design data flow in one direction.
+ This approach is used in React, when data flows from each component to
+ its child components.
+ This aims to provide predictability.
+ It should be noted, that user events are produced from the view into a
+ state managemnt manager, that is consumed by the components, and this integrati
+on might create accidental cycles.
+\end_layout
+
+\begin_layout Plain Layout
+The oppsed approaches affects also a feature named multidirectionality 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ This feature means that when neccesary changes in derived values are propagated
+ back to the values from which they were derived.
+ For example, 
+\begin_inset Formula $\LSTINLINE{A:=B+1}$
+\end_inset
+
+implies that whenever a new value of either A or B is available the other
+ value is updated.
+ In the constraints programming paradigm, there are local propagation solvers,
+ that are similar to FRP with and without multidirectionality.
+ Solvers with multidirectionality are sometimes mentioned as more challenged
+ to implement than solvers without multidirectionality, while solvers with
+ multidirectionality may provide a more frienly framework 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -5084,10 +6293,34 @@ s, the behavior does not behave properly.
 status collapsed
 
 \begin_layout Plain Layout
-Altough that acylicty is immdate by using observable streams and operators,
- an integration with custom code can lead to cycles.
- An observable stream contain a method OnNext For example, A=B.Select(x=>x)
- and B.Subscribe(x=>A.OnNext(x)).
+The new variant of FRP possesses the characteristic of referential transparency,
+ which is a fundamental property of FRP.
+ This ensures predictability because the behavior remains consistent based
+ on the input.
+ Unless several issues, the referential transparency property is almost
+ achieved in the observable streams model, because the output streams are
+ calculated from pure functions.
+\end_layout
+
+\begin_layout Plain Layout
+Furthermore, as mentioned in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Method"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the issues related to glitches, simultaneous events, and recursions have
+ already been tackled through the modeling of an order and the implementation
+ of a filter mechanism.
+ Additionally, we address the need for a 
+\begin_inset Formula $\LSTINLINE{merge}$
+\end_inset
+
+ operation and handle accidental recursion using a custom assignment operator.
 \end_layout
 
 \end_inset
@@ -5120,6 +6353,1353 @@ Hierarchical models for acyclicity: This approach prioritizes avoiding cycles
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Events
+\end_layout
+
+\begin_layout Plain Layout
+Event is an abstraction used in programming that enables 
+\emph on
+components-based architecture
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+ For fields calculations, events facilitate registering code that update
+ fields to be executed by a component, when its internal code update other
+ fields.
+ For example, in web development, code that updates fields based on other
+ fields can be registered to be executed when fields are changed.
+ For example, in 
+\family typewriter
+JavaScript
+\family default
+ programming language, 
+\begin_inset Formula $\LSTINLINE{input.addEventListener('input',calculate)}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+means to execute 
+\begin_inset Formula $\LSTINLINE{calculate}$
+\end_inset
+
+, when the user interacts with the input element by changing its value.
+ Another example is in extending systems, such as in 
+\family typewriter
+Microsoft Dynamics
+\family default
+, where it is possible to register components known as 
+\emph on
+plugins
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
+
+\end_inset
+
+.
+ These components can include code that executes in response to field updates,
+ performing calculations and updating fields accordingly.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In components-based architecture, the components call each other, with the
+ caller and callee sharing an interface, hiding implementation details.
+ This interface is commonly referred to as a 
+\emph on
+contract
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ consisting of named operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+However, in fields calculations, there is a risk of encountering an infinite
+ loop.
+ For example, if one plugin in 
+\family typewriter
+Microsoft Dynamics
+\family default
+ recalculates field 
+\family typewriter
+A
+\family default
+ whenever field 
+\family typewriter
+B
+\family default
+ is updated, and the second one recalculates field 
+\family typewriter
+B
+\family default
+ whenever field 
+\family typewriter
+A
+\family default
+ is updated, this circular dependency can result in an infinite loop of
+ recalculations.
+ In OOP, the issue is named 
+\emph on
+object re-entrance
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ that causes problems in objects compositions and inheritance.
+ Object re-entrance means that an object indirectly calls another object
+ that then calls it back.
+ In subsequent calls, the variables may be inconsistent because the execution
+ has not finished.
+ Therefore, frequently there is a knowledge that should be shared in addition
+ to the interface.
+ It is called sometimes an 
+\emph on
+informal contract
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+In components-based architecture, the components call each other, with the
+ caller and callee sharing an interface, hiding implementation details.
+ This interface is commonly referred to as a 
+\emph on
+contract
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ consisting of named operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications.
+\end_layout
+
+\begin_layout Plain Layout
+This enables to register code that update fields to be executed by a component,
+ when its internal code update other fields.
+ For example, in web development, code that updates fields based on other
+ fields can be registered to be executed when fields are changed.
+ For example, in 
+\begin_inset Formula $\NAME{JavaScript}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{input.addEventListener('input',calculate)}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+means to execute 
+\begin_inset Formula $\LSTINLINE{calculate}$
+\end_inset
+
+, when the user interacts with the input element by changing its value.
+ Another example is in extending systems, such as in 
+\begin_inset Formula $\NAME{Microsoft}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Dynamics}$
+\end_inset
+
+, where it is possible to register components known as 
+\emph on
+plugins
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "somani2018dynamics"
+literal "false"
+
+\end_inset
+
+.
+ These components can include code that executes in response to field updates,
+ performing calculations and updating fields accordingly.
+\end_layout
+
+\begin_layout Plain Layout
+The design principle is that the components can call each other, with the
+ caller and callee sharing an interface, hiding implementation details.
+ This interface is commonly referred to as a 
+\emph on
+contract
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ consisting of named operations with corresponding arguments.
+ The interface allows parties to be changed without requiring others to
+ make modifications.
+ This reminds 
+\emph on
+micro-frontends architecture
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "peltonen2021motivations"
+literal "false"
+
+\end_inset
+
+, wherein UI components are developed and deployed independently to enable
+ scalable and flexible application growth.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This is also closely related to 
+\emph on
+component-based applications
+\emph default
+, where the application is composed of reusable code components, that uses
+ concepts from OOP 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+However, there is a risk of encountering an infinite loop.
+ For example, if one plugin in 
+\begin_inset Formula $\NAME{Microsoft}$
+\end_inset
+
+ 
+\begin_inset Formula $\NAME{Dynamics}$
+\end_inset
+
+ recalculates field 
+\begin_inset Formula $A$
+\end_inset
+
+ whenever field 
+\begin_inset Formula $B$
+\end_inset
+
+ is changed, and the second one recalculates field 
+\begin_inset Formula $B$
+\end_inset
+
+ whenever field 
+\begin_inset Formula $A$
+\end_inset
+
+ is changed, this circular dependency can result in an infinite loop of
+ recalculations.
+ In OOP, the issue is named 
+\emph on
+object re-entrance
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+, where an object indirectly calls another object that then calls it back.
+ In subsequent calls, the variables may be inconsistent because the execution
+ has not finished.
+ This causes problems in objects compositions and inheritance.
+ Therefore, frequently there is a knowledge that should be shared in addition
+ to the interface.
+ It is called sometimes an 
+\emph on
+informal contract 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+
+\emph on
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Centerlized Providers
+\end_layout
+
+\begin_layout Plain Layout
+In modern frameworks like 
+\family typewriter
+React
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://react.dev/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\family default
+ and also 
+\family typewriter
+Flutter
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://docs.flutter.dev
+\end_layout
+
+\end_inset
+
+ applications utilize dedicated state management solutions to handle variables.
+ Among these state management solutions, 
+\family typewriter
+Redux
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "caspers2017react"
+literal "false"
+
+\end_inset
+
+ stands out as a highly popular choice.
+ It adopts a model inspired by 
+\emph on
+statechart
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "harel1995statement"
+literal "false"
+
+\end_inset
+
+.
+ As depicted in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, events are modeled as state transitions between logical states, which
+ are determined based on variable values.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+[   round/.style={rounded corners=1.5mm,minimum width=1cm,inner sep=2mm,above
+ right,draw,align=center,text width=4mm}
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S1) at (2.5,2) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S2) at (0,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node[round] (S3) at (5,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+node[round] (S4) at (2.5, -3) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+draw[-latex] (3.5, 3.5) coordinate (init) to[out=180, in=90] (S1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+fill (init) circle (0.05);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S1) edge[out=180, in=90]  node[scale=0.8] {y changed} (S2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S1) edge[out=0, in=90]  node[scale=0.8] {z changed} (S3);
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S2) edge[out=270, in=180]  node[scale=0.8] {z changed/calculate
+ x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+path[-latex] (S3) edge[out=270, in=0]  node[scale=0.8] {y changed/calculate
+ x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+draw[-latex] (S4) to [loop below, looseness=8, out=-60, in=-120, min distance=10
+mm] node[scale=0.8]  { y changed/calculate x;
+\end_layout
+
+\begin_layout Plain Layout
+
+z changed/calculate x} (S4);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+draw (3.5, -4) coordinate (empty);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+node[round,fit=(S1)(S2)(S3)(S4)(init)(empty)] (System) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Statechart-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Modeling the statechart for the formula 
+\begin_inset Formula $\LSTINLINE{x:=y+z}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Modeling the statechart for the formula 
+\begin_inset Formula $\LSTINLINE{x:=y+z}$
+\end_inset
+
+.
+ The rectangular shapes represent different states or modes of the application.
+ The arrows represent transitions between the states, triggered by specific
+ events.
+ The labels contain the events and also actions, if needed, to perform in
+ response to events.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The idea to bring the developers user friendly mechanism to fields calculations
+ brings also the 
+\emph on
+constraints systems
+\emph default
+.
+ In constraints systems, developers declare equations, and the runtime automates
+ variable updates based on these equations and input.
+ There exist systems that support 
+\emph on
+one-way constraints
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, where the system updates only the left-hand variable in response to changes
+ in the right-hand expression.
+ They reminds reactive variables and FRP.
+ Many implementations in FRP consists of a centralized manager 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+On the other hand, there are systems that support 
+\emph on
+two-way constraints
+\emph default
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "haveraaen2021semantics,foust2015generating,sannella1993multi"
+literal "false"
+
+\end_inset
+
+, such as 
+\family typewriter
+Hotdrink
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+http://hotdrink.github.io/hotdrink/
+\end_layout
+
+\end_inset
+
+ which are declared using methods to satisfy the constraints.
+ For instance, in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:two-way-constraint-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the equation 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ is attached with the methods 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{B=A-C}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{C=A-B}$
+\end_inset
+
+.
+ The systems utilize algorithms, named 
+\emph on
+constraints solvers
+\emph default
+, to maintain consistency in variable values.
+ As in 
+\family typewriter
+Hotdrink
+\family default
+, the constraints solver uses a model named 
+\emph on
+constraint hierarchies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borning1987constraint"
+literal "false"
+
+\end_inset
+
+.
+ In order to maintain the variables according to the constraints, as in
+ the example in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:constraints-hirarchy"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the runtime maintains additional constraints.
+ For each variable 
+\family typewriter
+X
+\family default
+ containing a value 
+\family typewriter
+x
+\family default
+, the runtime maintains a constraint 
+\begin_inset Formula $\LSTINLINE{X=x}$
+\end_inset
+
+, with hierarchy according to the order of the input.
+ If there is no solution that satisfy all the constraints, the more prioritized
+ constraints, according to the hirarchy, are satsified.
+ As a result, once the user put new input for a field, the fields that relied
+ on a previous input, specifically the oldest input, are overwritten.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+function  sum( a, b ) { return a + b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+function diff( a, b ) { return a - b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var model = new hd.ModelBuilder()
+\end_layout
+
+\begin_layout Plain Layout
+
+    .variables( {A: 0, B: 0, C: 0} )
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .constraint( A, B, C )
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'B, C -> A', sum  ) // A:=B+C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, C -> B', diff ) // B:=A-C
+\end_layout
+
+\begin_layout Plain Layout
+
+      .method( 'A, B -> C', diff ) // C:=A-B
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    .end();
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:two-way-constraint-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $\LSTINLINE{constraint}$
+\end_inset
+
+ method is used to create the constraint by specifying the variables as
+ arguments and chaining the necessary methods.
+ Each method has two parameters: the data flow direction and the function
+ to execute when that method is chosen to satisfy the constraint.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<row interlinespace="default">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Constraints hierarchical in descending order
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Solution
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=1, B=1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, B=2, A=1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=2, B=2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=B, A=3, B=2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A=3, B=3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:constraints-hirarchy"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Maintaining 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{B}
+\end_layout
+
+\end_inset
+
+ according to the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B}
+\end_layout
+
+\end_inset
+
+, using constraint hierarchies.
+\end_layout
+
+\end_inset
+
+Maintaining 
+\begin_inset Formula $\NAME A$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME B$
+\end_inset
+
+ according to the constraint 
+\begin_inset Formula $\NAME{A=B}$
+\end_inset
+
+, using constraint hierarchies.
+ Each row represents a step in the interaction.
+ The first column mentions the input provided.
+ The second column mentions the exiting constraints following the input
+ provided.
+ The third column displays the values of the variables, as determined by
+ the constraint solver.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Actualy, as in the state management solution 
+\begin_inset Formula $\NAME{MobX}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ framework, fields calculations can consist of reactive variables implemented
+ by a state management solution connected to the visual fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Unidirectional Data Flow
+\end_layout
+
+\begin_layout Plain Layout
+Frequently, software developers are often forced to break the cycles by
+ creating hierarchical data models.
+ A remarkable example is a birth of 
+\family typewriter
+React
+\family default
+ and 
+\family typewriter
+Redux
+\family default
+ to replace traditional 
+\family typewriter
+Model-View-Controller
+\family default
+ (MVC) libraries.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+As described in 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.clariontech.com/blog/mvc-vs-flux-vs-redux-the-real-differences
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ In MVC, models are updated according to the view and vice versa, sometimes
+ mentioned as 
+\emph on
+multidirectional
+\emph default
+ dataflow.
+ Multidirectional means data flows among components in multiple directions.
+ In 
+\family typewriter
+React
+\family default
+, each component possesses a 
+\begin_inset Formula $\LSTINLINE{render}$
+\end_inset
+
+ function, which is responsible for generating and returning the corresponding
+ component view.
+ This view can consist of nested components, forming a hierarchical structure
+ that facilitates the composition of complex user interfaces.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The design choice of avoiding cycles has its cost.
+ For example, the lack of a feature named 
+\emph on
+binding
+\emph default
+, by which variables are declaratively bound, so that a change in one variable
+ update the other variable and vise versa.
+ A similar feature is named 
+\emph on
+multidirectionality
+\emph default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+ (equivalent to multi-way constraints 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+) that means that when necessary, changes in derived values are propagated
+ back to the values from which they were derived.
+ 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -5160,7 +7740,7 @@ https://rxjs.dev/guide/scheduler
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -5180,7 +7760,7 @@ Over the frameworks, it is challenged to coordinate the field calculation
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -5208,7 +7788,7 @@ The system executes code of a registered plugin in response to fields updates.
 \end_layout
 
 \begin_layout Plain Layout
-The OOP paradigm 
+The OOP paradigm
 \end_layout
 
 \begin_layout Plain Layout
@@ -5226,7 +7806,6 @@ The OOP paradigm helps to build components-based applications, because the
  would extend an exsting application.
  For example, in the plugin architeture, code components named plugins,
  can be registered in the system to be executed in certain events.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5240,7 +7819,6 @@ The main concept of the OOP paradigm, is the information hiding.
  fields can be updated only by those methods.
  The implementation details of the methods and the variables need to be
  hidden.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -5288,7 +7866,6 @@ As an alternative, the components are stateless, and the whole state is
 
 \begin_layout Plain Layout
 A third option depends on informal contracts between components.
- 
 \end_layout
 
 \end_inset
@@ -5296,7 +7873,7 @@ A third option depends on informal contracts between components.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -5433,10 +8010,6 @@ literal "false"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -5640,7 +8213,7 @@ Change Propagation
 \end_layout
 
 \begin_layout Plain Layout
-There are mechanism that make a graph data structure in the memory 
+There are mechanism that make a graph data structure in the memory
 \end_layout
 
 \begin_layout Plain Layout
@@ -5896,7 +8469,6 @@ DataFlow
 \begin_layout Plain Layout
 Frameworks based on the dataflow paradigm allow for the explicit specification
  of data dependencies, which were previously implicit.
- 
 \end_layout
 
 \begin_layout Plain Layout
@@ -6737,6 +9309,11 @@ There are FRP runtimes that are based on the traditional simple methods
  There are FRP runtimes for distributed applications that do not use a madiator,
  but as the FRP paradigm, they support only the sets of formulas producing
  directed acyclic graphs.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset

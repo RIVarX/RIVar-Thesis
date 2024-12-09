@@ -1,0 +1,4467 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass openu-thesis
+\begin_preamble
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{pgf-umlsd}
+\usepackage{algorithm,algpseudocode}
+\usepackage{listings}
+\lstset{numbers=left, numberfirstline=true, firstnumber=1, stepnumber=1}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,arrows,arrows.meta}
+\lstset{%
+  breaklines=true,
+  breakatwhitespace=true,
+   moredelim=[is][\underbar]{_}{_}
+}
+\usepackage{tikz,rxmarbles}
+\usetikzlibrary[arrows,shapes,positioning,matrix]
+\tikzset{pair/.style={draw,rectangle,minimum height=1.5cm}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Implementation-Strategy"
+
+\end_inset
+
+Implementation
+\end_layout
+
+\begin_layout Standard
+This thesis includes two counterpart implementations.
+ 
+\family typewriter
+RIVarX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.nuget.org/packages/RIvar.RIvarX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\family default
+ is a code library in the 
+\family typewriter
+C#
+\family default
+ programming language, while 
+\family typewriter
+rivarjs
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rivarjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\family default
+ is a 
+\family typewriter
+JavaScript
+\family default
+ code library.
+ These libraries are functionally equivalent, employing the same underlying
+ implementation strategy but tailored for their respective programming environme
+nts.
+ Both leverage elements from 
+\family typewriter
+ReactiveX
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ which offers ready-made implementations for both 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+JavaScript
+\family default
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The source code for the 
+\family typewriter
+RIVarX
+\family default
+ implementation is available at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/RIVarCSharp
+\end_layout
+
+\end_inset
+
+.
+ The source code for the 
+\family typewriter
+rivarjs
+\family default
+ implementation can be found at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The two libraries are short, therefore reflecting the simplicity of the
+ approach.
+ For example, the core of rivarjs consists of three short files.
+ The longest file contains 60 lines of code, including blank lines and comments.
+ The other two files contain about 42 lines of code each.
+ Based on these results, it is easy to assume that implementing the approach
+ using streams is easy to perform in other environments and programming
+ languages.
+ The libraries have been implemented depending on libraries from the 
+\family typewriter
+ReactiveX
+\family default
+.
+ For 
+\family typewriter
+RivarX
+\family default
+ that is in 
+\family typewriter
+C#
+\family default
+, it depends on 
+\family typewriter
+Rx.NET
+\family default
+ amd for 
+\family typewriter
+rivarjs
+\family default
+ that is in 
+\family typewriter
+JavaScript
+\family default
+ it depends on 
+\family typewriter
+RxJS
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+As part of the thesis, we implemented two similar libraries: 
+\family typewriter
+RIVarX
+\family default
+ in 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+rivarjs
+\family default
+ in 
+\family typewriter
+JavaScript
+\family default
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+which are based on the 
+\begin_inset Formula $Observable$
+\end_inset
+
+ approach provided by 
+\family typewriter
+ReactiveX
+\family default
+.
+\end_layout
+
+\end_inset
+
+.
+ The library 
+\family typewriter
+RIVarX
+\family default
+ depends on the library 
+\family typewriter
+Rx.Net
+\family default
+ (that implements 
+\family typewriter
+ReactiveX
+\family default
+) and 
+\family typewriter
+rivarjs
+\family default
+ depends on 
+\family typewriter
+RxJS
+\family default
+.
+ In 
+\family typewriter
+rivarjs
+\family default
+, the core consists of three short files.
+ The longest file contains 60 lines of code, including blank lines and comments.
+ The other two files contain about 42 lines of code each.
+ Based on these results, it is easy to assume that implementing the approach
+ using streams is easy to perform in other environments and programming
+ languages.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The stream abstraction refers to the observable streams presented in ReactiveX.
+ A stream is an observable of a list of items.
+ Subscribers get subscribe and be called whenever it has a new item.
+ Reactive instance variable is a 
+\end_layout
+
+\begin_layout Plain Layout
+Reactive instance variables can be implemented using a 
+\begin_inset Formula $Subject$
+\end_inset
+
+ in the following ways: (1) defining reactive instance variables as instances
+ of 
+\begin_inset Formula $Subject$
+\end_inset
+
+; (2) creating a class 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ that inherits from 
+\begin_inset Formula $Subject$
+\end_inset
+
+ (this is the approach used in 
+\family typewriter
+rivarjs
+\family default
+); and (3) creating a class 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ that is a 
+\emph on
+decorator
+\emph default
+ of 
+\begin_inset Formula $Subject$
+\end_inset
+
+ (this is the approach used in 
+\family typewriter
+RIVarX
+\family default
+).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The implementation strategy is based on fundamentals from 
+\family typewriter
+ReactiveX
+\family default
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Observable streams
+\emph default
+ represent streams of values for implementing reactive instance variables
+ and expressions.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Subjects
+\emph default
+, which are both observable and observer, are used to represent reactive
+ instance variables.
+ 
+\end_layout
+
+\begin_layout Itemize
+Value assignment messages are conveyed using the 
+\emph on
+OnNext
+\emph default
+ method.
+ 
+\end_layout
+
+\begin_layout Itemize
+The 
+\emph on
+OnNext
+\emph default
+ method is also used to inform UI controls about their values.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The implementation comprises three primary elements (exclusively exposed
+ to library users):
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{Signal}$
+\end_inset
+
+ for creating ordered values.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+ for building expressions.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ that represents reactive instance variable.
+\end_layout
+
+\begin_layout Standard
+This section also presents usage examples and integration with GUI elements.
+\end_layout
+
+\begin_layout Section
+Signal
+\end_layout
+
+\begin_layout Standard
+Every update in the system is of type 
+\begin_inset Formula $Signal$
+\end_inset
+
+.
+ A 
+\begin_inset Formula $Signal$
+\end_inset
+
+ contains a 
+\begin_inset Formula $Value$
+\end_inset
+
+ field that holds the new value according to the update.
+ 
+\begin_inset Formula $Signal$
+\end_inset
+
+ is a generic variable, where the type of 
+\begin_inset Formula $Value$
+\end_inset
+
+ is determined only when a 
+\begin_inset Formula $Signal$
+\end_inset
+
+ instance (signal) is defined.
+ A comparison function between a pair of 
+\begin_inset Formula $Signal$
+\end_inset
+
+ instances is implemented within the 
+\begin_inset Formula $Signal$
+\end_inset
+
+ class.
+ In the 
+\family typewriter
+C#
+\family default
+ implementation, the 
+\begin_inset Formula $Signal$
+\end_inset
+
+ class also inherits from the 
+\begin_inset Formula $IComparable$
+\end_inset
+
+ interface, and then the comparison function is the 
+\begin_inset Formula $Compare$
+\end_inset
+
+ function of the interface.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $Signal$
+\end_inset
+
+ class contains a field of an array of numbers used for the comparison.
+ Timestamps are determined by a static 
+\begin_inset Formula $Counter$
+\end_inset
+
+ variable.
+ Each time a 
+\begin_inset Formula $Signal$
+\end_inset
+
+ instance representing an external event is created, 
+\begin_inset Formula $Counter$
+\end_inset
+
+ is incremented by 
+\begin_inset Formula $1$
+\end_inset
+
+, and the timestamp of the new signal is set to the updated 
+\begin_inset Formula $Counter$
+\end_inset
+
+ value.
+ For this purpose, the 
+\begin_inset Formula $Signal$
+\end_inset
+
+ class has a constructor that takes the value as a parameter and initializes
+ the timestamp array with a size of 
+\begin_inset Formula $1$
+\end_inset
+
+, containing the new timestamp.
+ For a computed value, there is an additional constructor that also takes
+ an array of numbers representing the timestamps as a parameter.
+ The set of timestamps for a computed signal is calculated by performing
+ a 
+\begin_inset Formula $union$
+\end_inset
+
+ operation on the sets of timestamps of the values from which it is derived.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the 
+\family typewriter
+C#
+\family default
+ implementation of 
+\family typewriter
+RIVarX
+\family default
+, an implicit conversion operator is implemented, allowing automatic conversion
+ between a value and a 
+\begin_inset Formula $Signal$
+\end_inset
+
+ containing that value.
+ This enables the language to continue using regular values.
+ Thus, for a reactive instance variable A, one can perform 
+\begin_inset Formula $A.OnNext(3)$
+\end_inset
+
+ instead of 
+\begin_inset Formula $A.OnNext(newSignal(3))$
+\end_inset
+
+.
+ This capability is specific to typed languages.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Monotonic Signal Streams
+\end_layout
+
+\begin_layout Standard
+For each reactive instance variable or an expression, there is a corresponding
+ stream of signals.
+ In ReactiveX it is represented by 
+\begin_inset Formula $\LSTINLINE{Observable}$
+\end_inset
+
+ that emit 
+\begin_inset Formula $Signal$
+\end_inset
+
+ instances.
+ The signals sequence should be monotonic, meaning each signal is greater
+ (according to the comparison defined between signals) than its predecessor.
+ For this reason an extension method 
+\begin_inset Formula $\LSTINLINE{Monotonic}$
+\end_inset
+
+ is defined.
+ Given a stream 
+\begin_inset Formula $X$
+\end_inset
+
+, one can use the expression 
+\begin_inset Formula $X.Monotonic()$
+\end_inset
+
+ to obtain a monotonic stream by discarding any value that, when compared
+ to its predecessor, is found to be smaller.
+\end_layout
+
+\begin_layout Paragraph
+Scan 
+\end_layout
+
+\begin_layout Standard
+This implementation utilizes two operators from 
+\family typewriter
+ReactiveX
+\family default
+: 
+\begin_inset Formula $\LSTINLINE{Scan}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
+\end_inset
+
+, in conjunction with a comparison function for signals.
+\end_layout
+
+\begin_layout Itemize
+Compare: The current signal will be compared to the previous one using the
+ comparison function.
+ 
+\end_layout
+
+\begin_layout Itemize
+Replacement: If the current signal is not "greater than" the previous one
+ (i.e., less than or equal to it according to the comparison function), it
+ will be replaced with the previous signal.
+ 
+\end_layout
+
+\begin_layout Standard
+The following example illustrates the application of the 
+\begin_inset Formula $\LSTINLINE{Scan}$
+\end_inset
+
+ operator on a stream of signals.
+ For simplicity, each signal is represented by a Latin letter, and the alphabeti
+cal order determines the comparison function (i.e., A < B < C < ...).
+\end_layout
+
+\begin_layout Itemize
+Initial stream: 
+\begin_inset Formula $A,B,C,D,E$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+After applying the Scan operator, the stream becomes: 
+\begin_inset Formula $A,B,C,C,E$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Explanation: The signal 
+\begin_inset Formula $D$
+\end_inset
+
+ is replaced by 
+\begin_inset Formula $C$
+\end_inset
+
+ because 
+\begin_inset Formula $D$
+\end_inset
+
+ precedes 
+\begin_inset Formula $C$
+\end_inset
+
+ in the alphabetical order (
+\begin_inset Formula $D<C$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Paragraph
+DistinctUntilChanged
+\end_layout
+
+\begin_layout Standard
+This operator removes consecutive duplicates from the stream.
+ In our case, it is important because after Scan, there might be identical
+ signals in a sequence (like 
+\begin_inset Formula $C,C$
+\end_inset
+
+ in the example).
+\end_layout
+
+\begin_layout Itemize
+After applying 
+\begin_inset Formula $DistinctUntilChanged$
+\end_inset
+
+ to the stream from the example, we get: 
+\begin_inset Formula $A,B,C,E$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Summary
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\LSTINLINE{Monotonic}$
+\end_inset
+
+ operation implements the following algorithm:
+\end_layout
+
+\begin_layout Enumerate
+Receive a stream of signals.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Apply the 
+\begin_inset Formula $Scan$
+\end_inset
+
+ operator to replace each "problematic" signal (one that is not greater
+ than its predecessor according to the comparison function) with its predecessor
+'s signal.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Apply the 
+\begin_inset Formula $DistinctUntilChanged$
+\end_inset
+
+ operator to remove consecutive duplicates that resulted from the replacement.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Return the monotonic stream.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\LSTINLINE{Monotonic}$
+\end_inset
+
+ operation ensures a monotonically increasing stream of signals, where each
+ signal is "greater than" its predecessor according to the defined comparison
+ function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+–
+\end_layout
+
+\begin_layout Plain Layout
+The implementation of the 
+\begin_inset Formula $Monotonic$
+\end_inset
+
+ operation utilizes a straightforward combination of operators.
+ Employing the 
+\begin_inset Formula $Scan$
+\end_inset
+
+ operator, values are replaced with their preceding value if they are found
+ to be smaller.
+ For each value, a comparison is made with the value from the previous iteration.
+ If the current value is greater, it is designated as the value for the
+ subsequent iteration; otherwise, the value from the previous iteration
+ is retained.
+ The stream returned by the Scan operator is then subjected to the 
+\begin_inset Formula $DistinctUntilChanged$
+\end_inset
+
+ operator, which ensures that consecutive items in the sequence are not
+ repeated.
+ This effectively removes the redundant items introduced by the Scan operator,
+ which were intended to replace items smaller than their predecessors.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Lift
+\end_layout
+
+\begin_layout Standard
+For creating expressions over reactive instance variables, operators are
+ used similar to as in 
+\family typewriter
+ReactiveX
+\family default
+:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $CombineLatest$
+\end_inset
+
+: Creates a new stream from two existing streams.
+ Whenever a new item is received in either of the streams, 
+\begin_inset Formula $CombineLatest$
+\end_inset
+
+ takes the latest item from each stream and produces a new item in the new
+ stream, based on some computation.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $Select$
+\end_inset
+
+ (or 
+\begin_inset Formula $map$
+\end_inset
+
+): Creates a new stream from an existing stream.
+ For each item in the original stream, 
+\begin_inset Formula $Select$
+\end_inset
+
+ performs some computation and produces a new item in the new stream, at
+ the same time.
+\end_layout
+
+\begin_layout Standard
+The implementation defines a 
+\begin_inset Formula $Lift$
+\end_inset
+
+ function to enable a higher level of abstraction for constructing expressions
+ over reactive instance variables.
+ The implementation of 
+\begin_inset Formula $Lift$
+\end_inset
+
+ features the following characteristics:
+\end_layout
+
+\begin_layout Itemize
+Stream handling is internal: streams are handled internally within the implement
+ation.
+ Usage does not require explicit knowledge or handling of streams, thus
+ achieving a higher level of abstraction.
+ 
+\end_layout
+
+\begin_layout Itemize
+Signal-based computation: When generating a computed value, a new signal
+ is produced with the computed value and the corresponding timestamps.
+\end_layout
+
+\begin_layout Itemize
+Monotonicity enforcement: The implementation ensures the monotonicity of
+ the streams.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Lift$
+\end_inset
+
+ is a function that takes reactive instance variables and a function over
+ values as parameters, producing a corresponding stream.
+ The name 
+\begin_inset Formula $Lift$
+\end_inset
+
+ conveys the semantic meaning of raising the level of abstraction.
+ For reactive instance variables 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+ in the JavaScript-based rivarjs, the expression 
+\begin_inset Formula $lift((x,y)=>x*y,X,Y)$
+\end_inset
+
+ is semantically equivalent to the expression 
+\begin_inset Formula $X*Y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+RIVar
+\end_layout
+
+\begin_layout Standard
+A reactive instance variable is implemented using 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ from 
+\family typewriter
+ReactiveX
+\family default
+, that represents its both 
+\begin_inset Formula $\LSTINLINE{Observable}$
+\end_inset
+
+ on 
+\begin_inset Formula $\LSTINLINE{Observer}$
+\end_inset
+
+.
+ The implementation is done in one of the following three ways:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Direct Instantiation
+\series default
+: Define reactive instance variables directly as instances of 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Inheritance
+\series default
+: Create a class 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ that inherits from 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+.
+ This approach is used in 
+\family typewriter
+rivarjs
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Decoration
+\series default
+: Create a class 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ that acts as a decorator [?] for 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+.
+ This approach is used in 
+\family typewriter
+RIVarX
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+Value assignment is represented by the 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ method.
+ Reactive assignment is achieved by extending 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ with a 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation, implemented either as a method within the 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ class or as an extension function of 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+, depending on the specific 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ implementation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation is designed to represent the reactive assignment operation.
+ The operation should resemble a regular assignment statement: for a reactive
+ instance variable 
+\begin_inset Formula $X$
+\end_inset
+
+ and an expression 
+\begin_inset Formula $Expression$
+\end_inset
+
+, the expression 
+\begin_inset Formula $X.Set(Expression)$
+\end_inset
+
+ denotes 
+\begin_inset Formula $X:=Expression$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+(Given the three ways to implement reactive instance variables using 
+\begin_inset Formula $Subject$
+\end_inset
+
+, the implementation of the 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation varies: (1) 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ as a subclass of 
+\begin_inset Formula $Subject$
+\end_inset
+
+ (
+\family typewriter
+rivarjs
+\family default
+): 
+\begin_inset Formula $Set$
+\end_inset
+
+ is a method within the 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ class.
+ (2) 
+\begin_inset Formula $RIVar$
+\end_inset
+
+ as a decorator of 
+\begin_inset Formula $Subject$
+\end_inset
+
+ (
+\family typewriter
+RIVarX
+\family default
+): 
+\begin_inset Formula $Set$
+\end_inset
+
+ is implemented as an extension function of 
+\begin_inset Formula $Subject$
+\end_inset
+
+.
+ (3) Reactive instance variables as direct instances of 
+\begin_inset Formula $Subject$
+\end_inset
+
+: 
+\begin_inset Formula $Set$
+\end_inset
+
+ is likely a method of the 
+\begin_inset Formula $Subject$
+\end_inset
+
+ class itself.)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+When 
+\begin_inset Formula $Set$
+\end_inset
+
+ is invoked, the argument contains a stream of signals (i.e., instances of
+ 
+\begin_inset Formula $Signal$
+\end_inset
+
+ class) representing the stream of expression values over time.
+ The 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation triggers propagation from the argument stream to the stream of
+ the reactive instance variable.
+ The stream of a reactive instance variable is the 
+\begin_inset Formula $Subject$
+\end_inset
+
+, and changes are propagated to it by invoking its 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ method.
+\end_layout
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ method is invoked when a signal is identified as being greater than all
+ preceding signals in the Subject.
+ To achieve this, a stream of changes is defined.
+ This stream of changes is created using the 
+\begin_inset Formula $WithLatestFrom$
+\end_inset
+
+ operator on both the 
+\begin_inset Formula $Subject$
+\end_inset
+
+ stream and the expression stream.
+ This operator produces a stream where, each time there is a new item in
+ the expression stream, an item is created containing both this new item
+ and the latest item from the Subject stream.
+ For each such pair, a check is performed to determine if the signal from
+ the expression is greater than the signal from the Subject.
+ Whenever it is determined that the new signal is indeed greater, the 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ method is invoked with this signal.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation takes a stream of signals as an argument, representing the expression
+ values over time.
+ This operation propagates values from the input stream to the stream of
+ the reactive instance variable.
+ (A reactive instance variable's stream is represented by a subject (an
+ instance of 
+\begin_inset Formula $Subject$
+\end_inset
+
+).) To propagate changes to the stream and update the variable's value, the
+ 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ method of the subject is invoked, but only when a new signal is received
+ that is greater than all preceding signals.
+\end_layout
+
+\begin_layout Standard
+For example, consider a reactive instance variable 
+\begin_inset Formula $X$
+\end_inset
+
+ that is set to the expression 
+\begin_inset Formula $Y+Z$
+\end_inset
+
+, where 
+\begin_inset Formula $Y$
+\end_inset
+
+ and 
+\begin_inset Formula $Z$
+\end_inset
+
+ are also reactive variables.
+ The expression 
+\begin_inset Formula $X.Set(Y+Z)$
+\end_inset
+
+ creates a stream of signals representing the values of 
+\begin_inset Formula $Y+Z$
+\end_inset
+
+ over time.
+ The 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation propagates these values to the stream of 
+\begin_inset Formula $X$
+\end_inset
+
+ using 
+\begin_inset Formula $OnNext$
+\end_inset
+
+, but only when the expression 
+\begin_inset Formula $Y+Z$
+\end_inset
+
+ produces a greater signal.
+\end_layout
+
+\begin_layout Standard
+To ensure that 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ is invoked only for greater signals, a stream of changes is defined using
+ the 
+\begin_inset Formula $WithLatestFrom$
+\end_inset
+
+ operator.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://reactivex.io/documentation/operators/combinelatest.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ This operator takes the subject stream and the expression stream as input
+ and produces a new stream where each item is a pair containing the latest
+ item from the subject stream (the current value of the variable) and the
+ new item from the expression stream (the newly received value).
+ For each pair, the new signal is compared to the previous signal.
+ If the new signal is "greater," then 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ is invoked with this signal.
+\end_layout
+
+\begin_layout Standard
+To illustrate, suppose the subject stream contains the signals 
+\begin_inset Formula $A$
+\end_inset
+
+, 
+\begin_inset Formula $B$
+\end_inset
+
+, and 
+\begin_inset Formula $C$
+\end_inset
+
+ (For the emxaple, each signal is a single uppercase letter, and the comparison
+ is alphabetical), and the expression stream emits the signals 
+\begin_inset Formula $B$
+\end_inset
+
+, 
+\begin_inset Formula $D$
+\end_inset
+
+, and 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $WithLatestFrom$
+\end_inset
+
+ operator will produce the stream of pairs 
+\begin_inset Formula $\left(B,C\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\left(D,C\right)$
+\end_inset
+
+, and 
+\begin_inset Formula $\left(A,D\right)$
+\end_inset
+
+.
+ For each pair, the first signal is compared to the second.
+ In this case, 
+\begin_inset Formula $B$
+\end_inset
+
+ is not greater than 
+\begin_inset Formula $C$
+\end_inset
+
+, 
+\begin_inset Formula $D$
+\end_inset
+
+ is greater than 
+\begin_inset Formula $C$
+\end_inset
+
+, and 
+\begin_inset Formula $A$
+\end_inset
+
+ is not greater than 
+\begin_inset Formula $D$
+\end_inset
+
+.
+ Therefore, only the signal 
+\begin_inset Formula $D$
+\end_inset
+
+ will trigger the invocation of 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ and be propagated further in the variable's stream.
+\end_layout
+
+\begin_layout Standard
+This process ensures that 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ is invoked only for greater signals according to the comparison function,
+ maintaining the desired monotonicity of the stream.
+\end_layout
+
+\begin_layout Section
+Usage and Integration
+\end_layout
+
+\begin_layout Subsection
+Usage
+\end_layout
+
+\begin_layout Standard
+Usage is straightforward.
+  As class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:bag_code_rivarjs"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, any class can contain reactive instance variables and reactive assignments.
+ Reactive instance variables are created by declaring instance variables
+ of type 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ and initializing them.
+ The reactive assignments are created by using 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+) and 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{Set}$
+\end_inset
+
+) methods.
+ 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ functions over a simple function and the 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ instances.
+ This expression is sent as an argument to 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+ function associated with a 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ that represents the left-hand variable.
+ 
+\end_layout
+
+\begin_layout Standard
+Classes with reactive instance variables and reactive assignments can be
+ initiated and used by connecting to the reactive instance variables.
+ For example, a 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance can be created by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+LSTINLINE{const bag = new Bag()}$
+\end_layout
+
+\end_inset
+
+.
+ Later, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+LSTINLINE{bag.amount.next(new Signal(100))}$
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+LSTINLINE{bag.volume.next(new Signal(200))}$
+\end_layout
+
+\end_inset
+
+ is like 
+\begin_inset Formula $\LSTINLINE{bag.amount=100}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{bag.volume=200}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Explicit use of 
+\begin_inset Formula $\LSTINLINE{Signal}$
+\end_inset
+
+ can be confusing.
+ An implicit conversion operator
+\emph on
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/user-
+defined-conversion-operators
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\emph default
+ is implemented within 
+\begin_inset Formula $\LSTINLINE{Signal}$
+\end_inset
+
+ for ease of use.
+ Therefore, explicit use of 
+\begin_inset Formula $\LSTINLINE{Signal}$
+\end_inset
+
+ is not required.
+ For example, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+LSTINLINE{bag.amount.next(100)}$
+\end_layout
+
+\end_inset
+
+ can be written instead of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+LSTINLINE{bag.amount.next(new Signal(100))}$
+\end_layout
+
+\end_inset
+
+.
+ The value 100 is automatically converted to a new signal.
+ This simplifies the syntax and makes the code cleaner.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+import { RIVar, lift } from 'rivarjs';
+\end_layout
+
+\begin_layout Plain Layout
+
+const div = (x, y) => (x / y).toFixed(2);
+\end_layout
+
+\begin_layout Plain Layout
+
+const mul = (x, y) => x * y;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+class Bag {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.amount = new RIVar();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.volume = new RIVar();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.concentration = new RIVar();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.concentration.set(lift(div, this.amount, this.volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.amount.set(lift(mul, this.concentration, this.volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.volume.set(lift(div, this.amount, this.concentration));
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bag_code_rivarjs"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code of class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ using 
+\family typewriter
+JavaScript
+\family default
+ and 
+\family typewriter
+rivarjs
+\family default
+.
+\end_layout
+
+\end_inset
+
+Code of class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ using 
+\family typewriter
+JavaScript
+\family default
+ and 
+\family typewriter
+rivarjs
+\family default
+.
+ 
+\begin_inset Formula $\LSTINLINE{amount}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{concentration}$
+\end_inset
+
+ are reactive instance variables.
+ 
+\begin_inset Formula $\LSTINLINE{set}$
+\end_inset
+
+ is the reactive assignment operation.
+ 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+ is an extension method for creating expressions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public class Bag
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIVar<decimal> Amount { get; set; } = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIVar<decimal> Volume { get; set; } = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIVar<decimal> Concentration { get; set; } = new RIVar<decimal>()
+;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        public Bag()
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Concentration.Set(Amount.Div(Volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+            Amount.Set(Concentration.Mul(Volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+            Volume.Set(Amount.Div(Concentration));
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+   public static class Operators
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        static decimal DIVOverValues(decimal operand1, decimal operand2)
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            return operand1 / operand2;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        public static Expression<decimal> Div(this RIVar<decimal> operand1,
+ RIVar<decimal> operand2)
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            return SignalExtension.Lift(DIVOverValues, operand1, operand2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        public static Expression<decimal> Mul(this RIVar<decimal> operand1,
+ RIVar<decimal> operand2)
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Func<decimal, decimal, decimal> mul = (x, y) => x * y;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            return mul.Lift(operand1, operand2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bag_code_rivarx"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code of class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ using 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+RIVarX
+\family default
+.
+\end_layout
+
+\end_inset
+
+Code of class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ using 
+\family typewriter
+C#
+\family default
+ and RIVarX.
+ 
+\begin_inset Formula $\LSTINLINE{Amount}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+ are reactive instance variables.
+ 
+\begin_inset Formula $\LSTINLINE{Set}$
+\end_inset
+
+ is the reactive assignment operation.
+ 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+ is an method for creating expressions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Usage in C#
+\end_layout
+
+\begin_layout Plain Layout
+We implemented the motivating example by using RIVarX
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://github.com/RivkaAltshuler/RIVar/tree/main/CaseStudies/DrugAdministration
+\end_layout
+
+\end_inset
+
+.
+ As in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Class-Pump-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ is a class depending on the interface 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+, containing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Drug}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{VolumeOfFluid}
+\end_layout
+
+\end_inset
+
+ typed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ depends on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+ by containing the class variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{TheBag}
+\end_layout
+
+\end_inset
+
+ typed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+.
+ Based on the existing bag, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ contains 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Rate}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+ also typed as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{RIVar}
+\end_layout
+
+\end_inset
+
+.
+ In the constructor of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ we define formulas to calculate the accessible variables.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ class is independently implemented deriving from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{IBag}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ does not depend on each other, according to the 
+\emph on
+Dependency Inversion Principle
+\emph default
+ (DIP): 
+\begin_inset Quotes eld
+\end_inset
+
+high level modules should not depend on low level modules; both should depend
+ on abstractions
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+.
+ Also in runtime, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ has a consistent behavior when connected or unconnected to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+.
+ Unless 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ has input, the connected 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ has no effect on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+.
+ This is simulated in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bag-In-Runtime-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+line~
+\backslash
+ref{line:pump}
+\end_layout
+
+\end_inset
+
+ has no effect on the outcome.
+ Similary, if we had an inheritance instead of the composition, such that
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ is the base class and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ is the subclass.
+ Then, according to the
+\emph on
+ Liskov Substitution Principle
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, objects of a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ can be replaced by objects of a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ without any effect.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+public class Pump
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIVar<decimal> Rate = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIVar<decimal> Dose = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    public RIVar<decimal> Duration = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    IBag TheBag;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Pump(IBag bag)
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        TheBag = bag;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Dose.Set(TheBag.Amount.Div(Duration));
+\end_layout
+
+\begin_layout Plain Layout
+
+        Rate.Set(TheBag.Volume.Div(Duration));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        Duration.Set(TheBag.Amount.Div(Dose));
+\end_layout
+
+\begin_layout Plain Layout
+
+        Duration.Set(TheBag.Volume.Div(Rate));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        TheBag.Amount.Set(Duration.Mul(Dose));
+\end_layout
+
+\begin_layout Plain Layout
+
+        TheBag.Volume.Set(Duration.Mul(Rate));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Class-Pump-1-1"
+
+\end_inset
+
+Class 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+decimal result = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+var bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Concentration.Subscribe(new observer(o => result = o));
+\end_layout
+
+\begin_layout Plain Layout
+
+var pump = new Pump(bag);|
+\backslash
+label{line:pump}| // this line has no effect
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Amount.OnNext(100);
+\end_layout
+
+\begin_layout Plain Layout
+
+bag.Volume.OnNext(200);
+\end_layout
+
+\begin_layout Plain Layout
+
+Assert.AreEqual(0.5, result);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bag-In-Runtime-1-1"
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag} in runtime
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:The-design-of"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ we introduced a micro-frontend design.
+ Accordingly, we developed loosly coupled components that can be developed,
+ built and deployed indepedently.
+ The bootsrap is introduced in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Bootstrap-of-the-2-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ is like the bag micro frontend, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ is like the pump micro frontend.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{UserControl_Pump}
+\end_layout
+
+\end_inset
+
+ implements the UI and are connected to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+ respectively.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+var bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+var pump = new Pump(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var bagUserControl = new UserControl_Bag(bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+var pumpUserControl = new UserControl_Pump(pump);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bootstrap-of-the-2-2"
+
+\end_inset
+
+Bootstrap of the drug administration components
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The UI components are connected to the model objects (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Bag}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Pump}
+\end_layout
+
+\end_inset
+
+) in such that whenever a user changes a field's value, it produces an input
+ to the related variable, causing other variables to be calculated, producing
+ updates in their related fields.
+ The UI components also provide the functionality to indicate calculated
+ values, just like in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Integration
+\end_layout
+
+\begin_layout Standard
+Reactive instance variables are fed by events from UI controls, such as
+ the 
+\begin_inset Formula $\LSTINLINE{OnChange}$
+\end_inset
+
+ event of a text box, and feed these controls by updating properties like
+ the 
+\begin_inset Formula $\LSTINLINE{Text}$
+\end_inset
+
+ property.
+\end_layout
+
+\begin_layout Standard
+It's crucial to prevent the creation of loops.
+ While the thesis approach addresses loops in reactive assignments, loops
+ can still occur when interacting with UI controls.
+ For example, if a change in a reactive variable updates a control's property,
+ triggering an event that in turn updates the variable, an infinite loop
+ may arise.
+\end_layout
+
+\begin_layout Standard
+Another challenge is whether and how integration with existing reactive
+ libraries can be achieved.
+ 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ is a component built in 
+\family typewriter
+React
+\family default
+ and included in the 
+\family typewriter
+rivarjs
+\family default
+ library.
+ It utilizes a 
+\family typewriter
+React
+\family default
+ design pattern called 
+\family typewriter
+Function as a Child Component
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ component in 
+\family typewriter
+JSX
+\family default
+ accepts a 
+\family typewriter
+prop
+\family default
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ to establish a connection with a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ instance.
+ Additionally, a function that receives change and value as arguments and
+ returns 
+\family typewriter
+JSX
+\family default
+ is nested within the component.
+\end_layout
+
+\begin_layout Standard
+When defining the component, value is used to display the current value,
+ and change is used to signal a change in the value.
+ For example, in an 
+\family typewriter
+HTML
+\family default
+ input element, the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
+
+ event triggers the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ function, and the value attribute is set to the current value of the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+—
+\end_layout
+
+\begin_layout Standard
+In addition, we have developed 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, a 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ component, designed for visualizing a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+ Similar to a reactive variable that recalculates based on changes in its
+ dependencies, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ component re-renders the view in response to changes in the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To utilize 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, developers need to specify the 
+\begin_inset Formula $\LSTINLINE{prop}$
+\end_inset
+
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ and a nested element to define the view.
+ The nested element is specified as a function of 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method, allowing it to collect user input values and display calculated
+ values.
+ For example as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:rivarview-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in the case of a visual element representing Drug Administration Amount,
+ the 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ property is set to the input value, and the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method is called within the event handler of the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
+
+ event.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+  <RIVarView rivar={bag.Amount}>
+\end_layout
+
+\begin_layout Plain Layout
+
+        {({ value, change }) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return <input
+\end_layout
+
+\begin_layout Plain Layout
+
+            type="number"
+\end_layout
+
+\begin_layout Plain Layout
+
+            value={value}
+\end_layout
+
+\begin_layout Plain Layout
+
+            onChange={(event) => change(event.target.value)}
+\end_layout
+
+\begin_layout Plain Layout
+
+          />;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:rivarview-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code example for using 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application
+\end_layout
+
+\end_inset
+
+Code example for using 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ application.
+ The specified element is part of a larger BagComponent to the bag's amount.
+ The prop rivar is given with the RIVar or the bags amount.
+ The netsetd slement is a function with the arguments value and cahnge,
+ the function returns a react component view as a function of the value
+ and cahnge arguments.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the added 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, it becomes easier to create the Drug Administration example as illustrated
+ in n 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:react_micro_frontends-3"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ According to the example, the resulting framework allows the declaration
+ of backend logic and frontend components without needing to be aware of
+ interactions, neither between the backend objects nor between the backend
+ objects and the frontend components.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+class App extends Component {
+\end_layout
+
+\begin_layout Plain Layout
+
+  constructor(props) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    super(props);
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.bag = new Bag();
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.pump = new Pump(this.bag);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  render() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (
+\end_layout
+
+\begin_layout Plain Layout
+
+      <div>
+\end_layout
+
+\begin_layout Plain Layout
+
+        <BagComponent bag={this.bag} />
+\end_layout
+
+\begin_layout Plain Layout
+
+        <PumpComponent pump={this.pump}/>
+\end_layout
+
+\begin_layout Plain Layout
+
+      </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+    );
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:code}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{subfigure}[b]{1
+\backslash
+textwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
+ {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
+ UI] (D) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
+ (B) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{scope}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+caption{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+label{fig:runtime}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+end{subfigure}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+phantomcaption % Invisible caption
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+label{fig:micro_front_ends}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:react_micro_frontends-3"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status collapsed
+
+\begin_layout Plain Layout
+Design for the drug administration application.
+\end_layout
+
+\end_inset
+
+Design for the 
+\family typewriter
+Drug Administration
+\family default
+ application.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ presents the static code in 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ that bootstraps the components, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+ presents the runtime components with the interaction channels.
+ 
+\begin_inset Formula $\LSTINLINE{BagComponent}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{PumpComponent}$
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:code})
+\end_layout
+
+\end_inset
+
+ represent the UI components of 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ that are illustrated in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(
+\backslash
+subref{fig:runtime})
+\end_layout
+
+\end_inset
+
+.
+ In the interaction channel between 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s update each other according to the calculations.
+ In the interaction channel between each of them to the corresponding UI
+ component, there is a binding between each of the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+s to the corresponding input element, such that when a UI change event occurs,
+ it adds an event to the variable stream.
+ Conversely, when a new event appears in the stream, it triggers a corresponding
+ change in the UI.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Section
+Summary 
+\end_layout
+
+\begin_layout Standard
+A reactive instance variable is implemented using a 
+\begin_inset Formula $Subject$
+\end_inset
+
+.
+ The value assignment operator is the 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ (or 
+\begin_inset Formula $next$
+\end_inset
+
+) operation.
+ The reactive assignment operator is implemented as a new operation called
+ 
+\begin_inset Formula $Set$
+\end_inset
+
+ with a parameter that specifies the expression on the right-hand side of
+ the assignment statement.
+ That is, 
+\begin_inset Formula $A.Set(Expression)$
+\end_inset
+
+ denotes 
+\begin_inset Formula $A:=Expression$
+\end_inset
+
+ where 
+\begin_inset Formula $Expression$
+\end_inset
+
+ denotes an expression composed of reactive instance variables.
+ The ability to build 
+\begin_inset Formula $Expressions$
+\end_inset
+
+ is implemented using a 
+\begin_inset Formula $Lift$
+\end_inset
+
+ (or 
+\begin_inset Formula $lift$
+\end_inset
+
+) operation.
+ Each value or update is of a new type called 
+\begin_inset Formula $Signal$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $Set$
+\end_inset
+
+ and 
+\begin_inset Formula $Lift$
+\end_inset
+
+ operations implement the strategy of maintaining the order relation, the
+ details of which are implemented as part of the 
+\begin_inset Formula $Signal$
+\end_inset
+
+ class.
+ The 
+\begin_inset Formula $Lift$
+\end_inset
+
+ operation filters the stream so that the stream of an expression is monotonic
+ (i.e., each item in the list must be "greater," meaning "newer," than the
+ value preceding it).
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $Set$
+\end_inset
+
+ operation defines a stream of tuples where each tuple contains updates
+ from the streams of both sides of the assignment.
+ It filters this stream, allowing only tuples where the update from the
+ right-hand side expression is "greater" (meaning more recent) than the
+ update from the reactive instance variable on the left-hand side.
+ This stream is then used to trigger the 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ (or 
+\begin_inset Formula $next$
+\end_inset
+
+) operation on the 
+\begin_inset Formula $Subject$
+\end_inset
+
+ of the left-hand side reactive instance variable whenever there is a "greater"
+ (newer) update from the right-hand side expression's stream.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+A reactive instance variable is implemented using a 
+\begin_inset Formula $Subject$
+\end_inset
+
+.
+ The value assignment operator is the 
+\begin_inset Formula $OnNext$
+\end_inset
+
+ (or 
+\begin_inset Formula $next$
+\end_inset
+
+) operation.
+ The reactive assignment operator is implemented as a new operation called
+ 
+\begin_inset Formula $Set$
+\end_inset
+
+ with a parameter that specifies the expression on the right-hand side of
+ the assignment statement.
+ That is, 
+\begin_inset Formula $A.Set(Expression)$
+\end_inset
+
+ denotes 
+\begin_inset Formula $A:=Expression$
+\end_inset
+
+ where 
+\begin_inset Formula $Expression$
+\end_inset
+
+ denotes an expression composed of reactive instance variables.
+ The ability to build 
+\begin_inset Formula $Expressions$
+\end_inset
+
+ is implemented using a 
+\begin_inset Formula $Lift$
+\end_inset
+
+ (or 
+\begin_inset Formula $lift$
+\end_inset
+
+) operation.
+ Each value or update is of a new type called 
+\begin_inset Formula $Signal$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+A core principle is that, in any reactive assignment
+\emph on
+ the left-hand variable subscribes to the right-hand expression, such that
+ the right-hand expression calls to the left-hand variable to update it
+\emph default
+.
+ This performs like a 
+\family typewriter
+merge 
+\family default
+function over 
+\emph on
+observable streams of values
+\emph default
+.
+ The order of the values would be according to the order of the input events.
+ From the user pespective any input would propogate changes while overriding
+ oldest values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Reactive instance variables embody the idea of decentralizing the management
+ of reactive variables, as they contain in objects.
+ Upon such variables we identify a novel variation of FRP called 
+\family typewriter
+Non-Hierarchical FRP
+\family default
+ (NH-FRP).
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, where objects can contain
+\end_layout
+
+\begin_layout Plain Layout
+that provides a new type of abstraction.
+\end_layout
+
+\begin_layout Plain Layout
+This chapter introduces the concept and implementation of
+\family typewriter
+ Non-Hierarchical FRP
+\family default
+ (NH-FRP), a new variant of FRP for data dependencies over reactive instance
+ variables.
+\end_layout
+
+\begin_layout Plain Layout
+The reactive instance variables are part of object's interface with the
+ encapsulation feature for related data dependencies.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Reactive instance variables refer to a concept of decentralizing reactive
+ variables management, because they are reactive variables associated to
+ objects.
+ For this settings we customize a noval variant of FRP, named
+\family typewriter
+ Non-Hierarchical FRP
+\begin_inset space ~
+\end_inset
+
+
+\family default
+(NH-FRP), in which the static code and the runtime preserve on objects isolation.
+\end_layout
+
+\begin_layout Plain Layout
+Reactive instance variables embody the idea of decentralizing the management
+ of reactive variables, as they contain in objects.
+ For this settings, we customize a novel variation of FRP called Non-Hierarchica
+l FRP (NH-FRP), in which code and runtime are 
+\end_layout
+
+\begin_layout Plain Layout
+where the static code and runtime maintain isolation on objects.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+Complex Systems and OOP are related, because both of them are used for modeling
+ real world phenomena.
+ However, while complex systems are related to when behavior as a whole
+ is not predictable by looking at each of its individual component separatedly,
+ OOP is known as a aradigm to create predictable applications, such that
+ changing code in one class has minimum affect on other classes.
+\end_layout
+
+\begin_layout Plain Layout
+In order to find a resolution to cycles in data depedancies we consider
+ feedback loops of complex systems.
+ feedback loops (such that a change in one variable leads to a subsequent
+ change that feeds back and affects the original variable itself.) is an
+ inhereted property of complex systems, this is a core reason for making
+ them complex.
+ Complex system is a system that its behavior as a whole is not predictable
+ by looking at each of its individual component separatedly.
+\end_layout
+
+\begin_layout Plain Layout
+We use OOP to simulate real-world but not the complexity of it.
+ We introduce a framework, that objects (specicifed by classes) simulate
+ real world objects, and their fields simulate the real variable of the
+ real world objects.
+ Phenomena from the real world, causes updates to fields that represent
+ them.
+ In our context, phenomena is produced by user interactions that fill values
+ into input controls of a GUI.
+ Once a field is updated, other fields are updated accordingly, making the
+ whole values be consistent and simluate the variables they represent.
+ Such framework do not simulate the complex interactions of the real world
+ complex systems, therefore being complex is not a necessary condition.
+\end_layout
+
+\begin_layout Plain Layout
+We use OOP to simulate real-world but not the complexity of it.
+ We adopt OOP to create predictable applications, such that changing code
+ in one class has minimum affect on other classes.
+\end_layout
+
+\begin_layout Plain Layout
+In order to find a resolution to cycles in data depedancies we consider
+ feedback loops of complex systems.
+ feedback loops (such that a change in one variable leads to a subsequent
+ change that feeds back and affects the original variable itself.) is an
+ inhereted property of complex systems, this is a core reason for making
+ them complex.
+ Complex system is a system that its behavior as a whole is not predictable
+ by looking at each of its individual component separatedly.
+ In the real world
+\end_layout
+
+\begin_layout Plain Layout
+OOP is a paradigmbbo= to simulate complex systems.
+ However, beside the use of OOP to simulate complex systems, OOP is used
+ to create predictable applications, such that changing code in one class
+ has minimum affect on other classes.
+\end_layout
+
+\begin_layout Plain Layout
+We introduce a framework, that objects (specicifed by classes) simulate
+ real world objects, and their fields simulate the real variable of the
+ real world objects.
+ Phenomena from the real world, causes updates to fields that represent
+ them.
+ In our context, phenomena is produced by user interactions that fill values
+ into input controls of a GUI.
+ Once a field is updated, other fields are updated accordingly, making the
+ whole values be consistent and simluate the variables they represent.
+ Such framework do not simulate the complex interactions of the real world
+ complex systems, therefore being complex is not a necessary condition.
+ In the following, we introduce a method, that changing code in one class
+ has minimum affect on other classes.
+\end_layout
+
+\begin_layout Plain Layout
+To ilustrate the method, we introduce an example upon the 
+\family typewriter
+Order Entry
+\family default
+ presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Motivation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ (visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Drug-Administration-UML-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ represents a bag with fields Drug, Volume and Concentration.
+ Class 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ represents a Pump that is connected to a patient to infuse a bag over time.
+ Therefore it contains a reference to an instance of a 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ and also contains fields Dose, Rate and Duration.
+ It should be noted, that 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ has a relation to only Drug and Volume of its 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ instance, to make them consistent with the values of Dose and Rate.
+ Therefore, 
+\begin_inset Formula $\LSTINLINE{Pump}$
+\end_inset
+
+ has a fields type as 
+\begin_inset Formula $\LSTINLINE{IBag}$
+\end_inset
+
+ that contains only Drug and Volume.
+ This example ilustrates a composition, but in inheritance it is very similar,
+ and can be applied as well.
+\end_layout
+
+\begin_layout Plain Layout
+Before introducing the method, it should be noted that the introduced framework
+ traditionaly seems as an inherettnly farmework to creating complex systems,
+ because interactions between objects might cuase unintended feedback loops,
+ or at least unintended updates.
+ Consider that an update of Drug of a Bag (insatnces, but we skip saying
+ that for short), that causes Pump to update Dose, then Rate, then Volume,
+ then Concentration, and then it comes back to Drug.
+ This is an unitended feedback loop.
+ even in case that the interaction did not started with Drug, there might
+ be an unidented update of Drug though an update of another field that causes
+ Drug to re-compute even when it did not need to.
+ This update might override by mistake a previous value.
+ Consider (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Unpredictable-Calculation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) that concentration it updated with a rounded value 0.33 that is computed
+ from 100/300.
+ This causes that a recomputation for Drug is of 0.33*300 which produces
+ 99, while this value has been created from 100, but only lost accuracy
+ through the chain of computations.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

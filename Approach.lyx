@@ -132,19 +132,33 @@ reactive variables
 \end_layout
 
 \begin_layout Standard
-A key characteristic that distinguishes a reactive instance variable from
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+(A key characteristic that distinguishes a reactive instance variable from
  implementations of reactive variables in FRP is that it's not possible
  to discern from its interface whether it's an input variable or a variable
  computed from other variables.
  In this respect, a reactive instance variable resembles an instance variable.
  This characteristic allows for dependency on a variable without being dependent
- on the implementation details related to the source of the variable's values.
+ on the implementation details related to the source of the variable's values.)
+\end_layout
+
+\begin_layout Plain Layout
+(Another A key characteristic of a reactive instance variable is its implementat
+ion as an object in OOP (rather than a simple value).
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Another characteristic of a reactive instance variable is its implementation
- as an object in OOP (rather than a simple value).
- A reactive instance variable is an object contained within another object.
+A reactive instance variable is an object for being contained within another
+ object.
  For example, a 
 \family typewriter
 Person
@@ -172,6 +186,16 @@ Animal
 Person
 \family default
 , etc.
+\end_layout
+
+\begin_layout Standard
+A key characteristic that distinguishes a reactive instance variable from
+ implementations of reactive variables in FRP is that it's not possible
+ to discern from its interface whether it's an input variable or a variable
+ computed from other variables.
+ In this respect, a reactive instance variable resembles an instance variable.
+ This characteristic allows for dependency on a variable without being dependent
+ on the implementation details related to the source of the variable's values.
 \end_layout
 
 \begin_layout Standard
@@ -1019,6 +1043,10 @@ extend
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 In implementation inheritance, it's possible to perform reactive assignments
  to reactive instance variables belonging to classes higher up in the inheritanc
 e hierarchy.
@@ -1029,8 +1057,9 @@ e hierarchy.
  of a specific base class.
 \end_layout
 
-\begin_layout Paragraph
-Examples
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1038,7 +1067,10 @@ Implementation Inheritance
 \end_layout
 
 \begin_layout Standard
-The 
+In implementation inheritance, it's possible to perform reactive assignments
+ to reactive instance variables belonging to classes higher up in the inheritanc
+e hierarchy.
+ For example, a 
 \family typewriter
 DrugAdministration
 \family default
@@ -1063,7 +1095,7 @@ Concentration
 \end_layout
 
 \begin_layout Standard
-The 
+A 
 \family typewriter
 DrugAdministration2
 \family default
@@ -1096,7 +1128,9 @@ Composition
 \end_layout
 
 \begin_layout Standard
-The 
+In Composition, reactive assignments can be made to reactive instance variables
+ of inner objects.
+ For example, a 
 \family typewriter
 Bag
 \family default
@@ -1164,6 +1198,13 @@ Pump
 
 \begin_layout Subsection
 Polymorphism
+\end_layout
+
+\begin_layout Standard
+Polymorphism can also be achieved, allowing uniform access to reactive instance
+ variables of objects of different types based on an interface of a specific
+ base class.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1278,28 +1319,20 @@ IBag
 \end_layout
 
 \begin_layout Section
-Summary
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TBD
-\end_layout
-
-\end_inset
-
-
+Conclusion
 \end_layout
 
 \begin_layout Standard
-This thesis proposes an approach that integrates FRP and OOP paradigms by
- allowing each object to manage its own state under the following conditions:
+This thesis proposes an approach that integrates FRP and OOP paradigms adapted
+ to OOP inheritance.
+ In this approach each object manage its own state under the following condition
+s:
 \end_layout
 
 \begin_layout Itemize
 An object contains other objects, which represent its variables, and their
  operations are considered as the object's own operations.
- This differs slightly from previous findings 
+ This differs slightly from previous discussions 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "snyder1986encapsulation"
@@ -1307,8 +1340,8 @@ literal "false"
 
 \end_inset
 
- which suggest that instance variables are updated by the containing object's
- actions to achieve encapsulation.
+ that instance variables are updated by the containing object's actions
+ to achieve encapsulation.
  
 \end_layout
 
@@ -1320,7 +1353,7 @@ The propagation behavior of an object does not include the updates themselves,
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In the new approach, an assignment

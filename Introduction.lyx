@@ -141,8 +141,8 @@ literal "false"
  version of a product or component with a newer one), and so on.
  These are all data updates that can be part of a change propagation process.
  The process is transitive.
- For example, a field representing duration is updated according to the
- input of entry and exit times, updating the duration can lead to updating
+ For example, a (GUI) field representing duration is updated according to
+ the input of entry and exit times, updating the duration can lead to updating
  a field representing total hours, a field of the total amount due per hour
  can be calculated based on the field of total hours, and so on.
 \end_layout
@@ -337,7 +337,7 @@ Duration
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -621,10 +621,33 @@ Drug Administration.
 \end_inset
 
  Drug Administration.
- The fields are illustrated with example values, in case the user sets Volume,
- Dose and Duration.
- The fields Drug, Concentration, and Volume are displayed in italic typeface
- to indicate that these values are calculated based on the set values.
+ The fields are illustrated with example values, in case the user sets 
+\family typewriter
+Volume
+\family default
+, 
+\family typewriter
+Dose
+\family default
+ and 
+\family typewriter
+Duration
+\family default
+.
+ The fields 
+\family typewriter
+Drug
+\family default
+, 
+\family typewriter
+Concentration
+\family default
+, and 
+\family typewriter
+Volume
+\family default
+ are displayed in italic typeface to indicate that these values are calculated
+ based on the set values.
 \begin_inset Note Note
 status open
 
@@ -707,9 +730,9 @@ For preserving data consistency and currency, the application performs automatic
  change propagation based on the fields the user updates.
  A procedure named 
 \family typewriter
-Calculate
+Calculate,
 \family default
- (
+whose content is shown in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Centerlized-Calculation-1-3-1"
@@ -719,7 +742,7 @@ noprefix "false"
 
 \end_inset
 
-) is executed whenever any field is modified.
+, is executed whenever any field is modified.
  The procedure contains code that can handle different scenarios resulting
  from various combinations of edited fields.
  For example, the scenario in
@@ -892,12 +915,12 @@ name "fig:Centerlized-Calculation-1-3-1"
 status open
 
 \begin_layout Plain Layout
-Drug administration calculation.
+Drug Administration Calculation.
 \end_layout
 
 \end_inset
 
-Drug administration calculation.
+Drug Administration Calculation.
  The code shows how to calculate the values of the fields based on different
  combinations of three input fields.
 \end_layout
@@ -1338,7 +1361,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2611,7 +2634,15 @@ ReactiveX
 \emph on
 Reactive Assignment
 \emph default
- with a meaning similar to the equal sign (=) in FRP.
+ with a meaning similar to the equal sign
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset Formula $:=$
+\end_inset
+
+) in FRP.
  A variable from this type is exposed to other classes and objects, to be
  
 \emph on
@@ -2622,11 +2653,11 @@ reactively assigned
 \end_layout
 
 \begin_layout Standard
-The subsequent paragraph describes an implementation of 
+Building on this approach, the following paragraph describes a 
 \family typewriter
 Drug Administration
 \family default
-, adhering to the principles of the thesis.
+ implementation.
  Class 
 \family typewriter
 Bag
@@ -3776,7 +3807,7 @@ The thesis contribution is:
 \end_layout
 
 \begin_layout Itemize
-Introducing a new programming approach that hamonize OOP with FRP in a way
+Introducing a new programming approach to combine OOP with FRP in a way
  that their abstraction mechanisms compliments each other.
 \end_layout
 

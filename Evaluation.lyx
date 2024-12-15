@@ -123,6 +123,782 @@ n as "instance variables" in OOP.
 \end_layout
 
 \begin_layout Section
+Case Study: ???
+\end_layout
+
+\begin_layout Standard
+Consider an example, where reactive variables are used with the evolution
+ of an application.
+ The evaluation revolves around the variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+ represents the medication dosage administered to a patient, while 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ indicates whether the application should trigger an alert for abnormal
+ medication amounts.
+ A formula is employed to establish a relationship between 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+, enabling the automatic determination of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Alert}
+\end_layout
+
+\end_inset
+
+ based on the value of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Amount}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=IsAbnormal(Amount)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The code needs to be modified (indicated using bold font style) when the
+ doctor administers the values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+ in order to calculate the resulting amount.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByInput=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+__AmountByConcentrationAndVolume=Concentration*Volume__ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),__IsAbnormal(AmountByConcentration AndVolume)
+__)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the doctor administers the medication by setting the values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, the medication amount can be calculated using the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ In this scenario, it is necessary to update the code accordingly.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none] 
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByInput=FromInput() 
+\end_layout
+
+\begin_layout Plain Layout
+
+AmountByConcentrationAndVolume=Concentration*Volume __AmountByDoseAndDuration=Do
+se*Duration__ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=Or(IsAbnormal(AmountByInput),
+\end_layout
+
+\begin_layout Plain Layout
+
+IsAbnormal(AmountByConcentrationAndVolume),
+\end_layout
+
+\begin_layout Plain Layout
+
+__IsAbnormal(AmountByDoseAndDuration)__) 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The example presents:
+\end_layout
+
+\begin_layout Itemize
+Several variables to represent 
+\family typewriter
+Amount
+\family default
+.
+\end_layout
+
+\begin_layout Itemize
+A variable 
+\family typewriter
+Alert
+\family default
+ that should be updated.
+\end_layout
+
+\begin_layout Standard
+At this stage, we begin the process again with the new semantics of multiple
+ assignments.
+\end_layout
+
+\begin_layout Standard
+Again, an initial step, alert if the amount is abnormal.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=FromInput()
+\end_layout
+
+\begin_layout Plain Layout
+
+Alert=IsAbnormal(Amount)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the doctor administers the values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Concentration}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Volume}
+\end_layout
+
+\end_inset
+
+, the resulting amount can be calculated by taking their product.
+ In order to incorporate this functionality, it is sufficient to add the
+ following code snippet.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none]  
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=Concentration*Volume
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the doctor administers the medication by setting the values of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Duration}
+\end_layout
+
+\end_inset
+
+, the medication amount can be calculated using the formula 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{Dose*Duration}
+\end_layout
+
+\end_inset
+
+.
+ To implement this calculation, it is sufficient to add the following code
+ snippet.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[numbers=none] 
+\end_layout
+
+\begin_layout Plain Layout
+
+Amount=Dose*Duration
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The example with the new semantics presents:
+\end_layout
+
+\begin_layout Standard
+• A single variable to represent 
+\family typewriter
+Amount
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+• No need to update code for 
+\family typewriter
+Alert
+\family default
+.
+\end_layout
+
+\begin_layout Section
+Case Study: Drug Administration
+\end_layout
+
+\begin_layout Subsection
+SoC
+\end_layout
+
+\begin_layout Standard
+In the implementation of 
+\family typewriter
+Drug Administration
+\family default
+, there is a separation into Bag and Pump classes, so that each object manages
+ its own state, rather than having the state managed centrally.
+ This principle is applied in two ways:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+During code writing
+\series default
+: The Pump class defines reactive assignments that affect variables in Bag
+ (Amount and Volume) without knowing about the existence of other variables
+ in Bag (like Concentration).
+ The Bag class defines reactive assignments without knowing whether a Bag
+ object will be part of a Pump.
+ In other words, each class is defined independently, regardless of the
+ structure or context in which it will be used.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+At runtime:
+\series default
+ There is no central mechanism that manages the propagation of changes.
+ Each reactive variable reads other variables (through expressions) without
+ any knowledge of the overall system structure.
+ In other words, change propagation happens in a decentralized way, with
+ each variable responsible for updating itself based on changes in other
+ variables.
+\end_layout
+
+\begin_layout Standard
+But there are still centralized elements:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Policy
+\series default
+: While the propagation mechanism is decentralized, the propagation policy
+ is centralized.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Logical Clock
+\series default
+: Reliance on a central static 
+\begin_inset Formula $\LSTINLINE{Counter}$
+\end_inset
+
+ variable.
+\end_layout
+
+\begin_layout Subsection
+Transparency of Data Source
+\end_layout
+
+\begin_layout Standard
+Compared to the old implementation (of 
+\family typewriter
+Drug Administration
+\family default
+ presented in the introduction), there is a difficulty in knowing the source
+ of each calculated value.
+ The old implementation uses a solution where the user is required to make
+ choices that define the calculation method, thus the source of each value
+ is known.
+ Whereas in the new implementation, a field is populated directly or indirectly
+ and can therefore receive values from multiple sources.
+\end_layout
+
+\begin_layout Standard
+This difficulty resembles the known problem, that different methods triggered
+ by various events can update shared variables (
+\emph on
+state management
+\emph default
+).
+ Thus, given a variable containing a certain value, it's hard to know the
+ reason for it.
+ Below are the advantages of the new implementation over regular state managemen
+t.
+\end_layout
+
+\begin_layout Itemize
+In the new implementation, the source of a value is more constrained and
+ therefore more predictable.
+ It is more constrained because it is determined by reactive assignments
+ and input, whereas regular state management relies on regular code, which
+ has many more variations.
+\end_layout
+
+\begin_layout Itemize
+The user chooses which fields to edit, and can be aware that when they enter
+ a value that might conflict with previously entered values, the oldest
+ value will be overwritten, as will any values calculated based on that
+ old value.
+\end_layout
+
+\begin_layout Itemize
+It's possible to determine for each value whether it is calculated or a
+ user-entered value (this was implemented in all the examples, except for
+ the React example).
+\end_layout
+
+\begin_layout Itemize
+Suggestion for further research: prepare a visualization that shows the
+ calculation source for each value.
+\end_layout
+
+\begin_layout Itemize
+Suggestion for further research: allow more options to whom value would
+ override.
+ the research could investigate alternative strategies such as:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Prioritization: Assigning priorities to different data sources or input
+ methods.
+ For example, user input might have higher priority than calculated values,
+ or values from a specific source might be preferred over others.
+ 
+\end_layout
+
+\begin_layout Itemize
+Conflict resolution: Implementing mechanisms to detect and resolve conflicts
+ between values, such as prompting the user to choose the correct value
+ or using predefined rules to determine the appropriate outcome.
+ 
+\end_layout
+
+\begin_layout Itemize
+Versioning: Keeping track of different versions of a value, allowing users
+ to revert to previous values or compare changes over time.
+ 
+\end_layout
+
+\begin_layout Itemize
+Merging: Developing strategies to merge conflicting values instead of simply
+ overwriting them.
+ This could involve averaging values, combining different parts of the data,
+ or using other techniques to create a composite value.
+\end_layout
+
+\end_deeper
+\begin_layout Section
 Comparative Analysis
 \end_layout
 
@@ -1265,632 +2041,6 @@ n is indicated by dotted lines.
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-Case Studies
-\end_layout
-
-\begin_layout Standard
-In this section, it is presented how easy it to 
-\emph on
-add filling option
-\emph default
- compared to previous approaches.
- 
-\end_layout
-
-\begin_layout Section
-Transition to the new Approach: an Example
-\end_layout
-
-\begin_layout Standard
-Consider an example, where reactive variables are used with the evolution
- of an application.
- The evaluation revolves around the variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
- represents the medication dosage administered to a patient, while 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
- indicates whether the application should trigger an alert for abnormal
- medication amounts.
- A formula is employed to establish a relationship between 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
-, enabling the automatic determination of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Alert}
-\end_layout
-
-\end_inset
-
- based on the value of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Amount}
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=FromInput()
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=IsAbnormal(Amount)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The code needs to be modified (indicated using bold font style) when the
- doctor administers the values of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
- in order to calculate the resulting amount.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-AmountByInput=FromInput()
-\end_layout
-
-\begin_layout Plain Layout
-
-__AmountByConcentrationAndVolume=Concentration*Volume__ 
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=Or(IsAbnormal(AmountByInput),__IsAbnormal(AmountByConcentration AndVolume)
-__)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-If the doctor administers the medication by setting the values of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-, the medication amount can be calculated using the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose*Duration}
-\end_layout
-
-\end_inset
-
-.
- In this scenario, it is necessary to update the code accordingly.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none] 
-\end_layout
-
-\begin_layout Plain Layout
-
-AmountByInput=FromInput() 
-\end_layout
-
-\begin_layout Plain Layout
-
-AmountByConcentrationAndVolume=Concentration*Volume __AmountByDoseAndDuration=Do
-se*Duration__ 
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=Or(IsAbnormal(AmountByInput),
-\end_layout
-
-\begin_layout Plain Layout
-
-IsAbnormal(AmountByConcentrationAndVolume),
-\end_layout
-
-\begin_layout Plain Layout
-
-__IsAbnormal(AmountByDoseAndDuration)__) 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The example presents:
-\end_layout
-
-\begin_layout Itemize
-Several variables to represent 
-\family typewriter
-Amount
-\family default
-.
-\end_layout
-
-\begin_layout Itemize
-A variable 
-\family typewriter
-Alert
-\family default
- that should be updated.
-\end_layout
-
-\begin_layout Standard
-At this stage, we begin the process again with the new semantics of multiple
- assignments.
-\end_layout
-
-\begin_layout Standard
-Again, an initial step, alert if the amount is abnormal.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=FromInput()
-\end_layout
-
-\begin_layout Plain Layout
-
-Alert=IsAbnormal(Amount)
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-When the doctor administers the values of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Concentration}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Volume}
-\end_layout
-
-\end_inset
-
-, the resulting amount can be calculated by taking their product.
- In order to incorporate this functionality, it is sufficient to add the
- following code snippet.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none]  
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=Concentration*Volume
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-When the doctor administers the medication by setting the values of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Duration}
-\end_layout
-
-\end_inset
-
-, the medication amount can be calculated using the formula 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{Dose*Duration}
-\end_layout
-
-\end_inset
-
-.
- To implement this calculation, it is sufficient to add the following code
- snippet.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}[numbers=none] 
-\end_layout
-
-\begin_layout Plain Layout
-
-Amount=Dose*Duration
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The example with the new semantics presents:
-\end_layout
-
-\begin_layout Standard
-• A single variable to represent 
-\family typewriter
-Amount
-\family default
-.
- 
-\end_layout
-
-\begin_layout Standard
-• No need to update code for 
-\family typewriter
-Alert
-\family default
-.
 \end_layout
 
 \begin_layout Section

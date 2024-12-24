@@ -99,7 +99,7 @@ Object-Oriented Programming
  (OOP).
  In FRP assignment statements are at a high level of abstraction.
  Assigning a value to a reactive variable, deviates from the specific time
- point, i.e., continuouly updates the variable upon relevant events.
+ point, i.e., continuouly updates the variable upon relevant changes.
 \end_layout
 
 \begin_layout Abstract
@@ -177,11 +177,11 @@ Excel
 In order to support assignment to a reactive variable, programming languages
  in the FRP paradigm contain a built-in change propagation mechanism.
  Assignment statements are compiled such that each variable becomes dependent
- on the variables of the expression of the right side of the statement,
- thus forming a data structure according to the resulting dependency tree
- and handling the tree.
- Whenever there is a change in the value of a variable, the variables dependent
- on it are identified and updated accordingly.
+ on the variables present in the expression on the right-hand side of the
+ statement, and a data structure is maintained according to the resulting
+ dependency tree.
+ Whenever a variable's value changes, the dependent variables are automatically
+ determined and updated accordingly.
  During propagation, care is taken to ensure that each variable is evaluated
  only after all the variables it depends on have been evaluated.
 \end_layout
@@ -603,7 +603,7 @@ to use the conventional conceptual approach in OOP (to promote indepedence).
 
 \begin_layout Abstract
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Abstract
 As part of our contribution, we introduce a novel semantics for cycles,
@@ -739,7 +739,7 @@ g continuous associations unconditionally (without to keep on acyclicity).
 
 \begin_layout Abstract
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Abstract
 For improving code-reuse, we introduce an harmonized concept named reactive

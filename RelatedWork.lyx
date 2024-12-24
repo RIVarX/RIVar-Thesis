@@ -112,252 +112,357 @@ name "chap:Related-Work"
 Related Work
 \end_layout
 
+\begin_layout Standard
+This work focuses on preserving data consistency and currency through the
+ concept of reactive instance variables and an approach that combines FRP
+ with OOP.
+ However, it is important to address other works in the field and distinguish
+ them from the current work.
+\end_layout
+
+\begin_layout Standard
+The foundation of this work is FRP, a paradigm in which programming languages
+ enable the definition of dependencies between variables, ensuring that
+ data consistency and currency are maintained automatically.
+ The uniqueness of this work lies in its handling of cycles, its combination
+ with OOP, and in its strategy in working with streams.
+\end_layout
+
 \begin_layout Section
-Combining FRP with OOP
+Managing Cycles
 \end_layout
 
 \begin_layout Standard
-Additional works exploring the integration of FRP and OOP are presented
- below.
-\end_layout
-
-\begin_layout Subsection
-Events and Signals
-\end_layout
-
-\begin_layout Standard
-In the first stage, the previous attempts focused on converting or reconciling
- concepts between FRP and OOP.
- 
-\begin_inset Formula $\REScala$
-\end_inset
-
-, provides 
-\emph on
-signals
-\emph default
- that can be converted to events to fit into the OOP paradigm 
+In many FRP implementations, cycles are not supported.
+ This can be observed when examining the handling of glitches (a well-known
+ issue mentioned in the body of the work).
+ To avoid glitches (updates based on outdated values), a variable is updated
+ only after all the variables it depends on have been updated.
+ For this reason, a topological sort is performed, and consequently, the
+ graph must be acyclic 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Salvaneschi2014"
+key "bainomugisha2013survey"
 literal "false"
 
 \end_inset
 
 .
- In another library, 
-\begin_inset Formula $\NAME{SignalJ}$
-\end_inset
-
-, with the pure FRP, events are triggered as 
-\emph on
-side effects
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kamina2018"
-literal "false"
-
-\end_inset
-
-.
- The idea we used, found in 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
-, involves implementing reactive variables as the Observer and Iterator
- design patterns 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-, where values are pushed to subscribers by executing their method 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meijer2012your"
-literal "false"
-
-\end_inset
-
-.
- This approach harmonizes previous ideas by treating observables as streams
- of events in the OOP world and streams of effects in the functional realm
- that FRP is originally based on.
-\end_layout
-
-\begin_layout Subsection
-Objects and Reactive Variables
 \end_layout
 
 \begin_layout Standard
-Our new assignment operation answers a traditional issue of assigning reactive
- variables from outside objects
+However, there are implementations that handle cycles, but this usually
+ requires a dedicated abstraction.
+ For example, in 
+\family typewriter
+FrTime
+\family default
+, there is a special operator called 
+\begin_inset Formula $\LSTINLINE{delay}$
+\end_inset
+
+, whose purpose is to break a cycle of computations
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Salvaneschi2014"
+key "cooper2006embedding"
 literal "false"
 
 \end_inset
 
 .
- The traditional assignment replaces the calculation, stopping the old source
- in order to start responding to the new source.
- This is in contrast to the declarative and functional approach originating
- in FRP, where programs should "describe things that exist, rather than
- actions that have happened or are to happen (i.e., what is, not what does)"
+ This introduces the need not only to define 
+\emph on
+what
+\emph default
+ to compute (as intended by the paradigm) but also 
+\emph on
+how
+\emph default
+ to compute it.
+ Another example is 
+\family typewriter
+Sodium
+\family default
+, where the 
+\begin_inset Formula $\LSTINLINE{CellLoops}$
+\end_inset
+
+ data structure can be used to create a dependency cycle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We will address two specific works, 
+\family typewriter
+Hotdrink
+\family default
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "elliott2009push"
+key "foust2015generating"
 literal "false"
 
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The new assignment operation also answers a second traditional mechanism.
- By the use of an integration with the events mechanism, a meaning similar
- to assignment can be produced.
- For example, in 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
-\end_inset
-
- produces meaning similar to 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
-.
- This mechanism might lead to infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-, that a change in a reactive variable executes an event handler, causing
- the reactive variable to change again.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Our work builds upon of 
-\begin_inset Formula $\ReactiveX$
 \end_inset
 
  and 
-\begin_inset Formula $\REScala$
-\end_inset
-
- of having reactive variables as objects' attributes.
- This means that the object interface is added with reactive variable such
- like the operations or fields accessed by getters and setters.
+\family typewriter
+Keera
+\family default
  
-\end_layout
-
-\begin_layout Plain Layout
-Traditionaly, there is an issue in reactive variables assigned from outside
- of the objects 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Salvaneschi2014"
+key "perez2015bridging"
 literal "false"
 
 \end_inset
 
-.
- This assignment operation replaces the calculation, stopping the old source
- in order to start responding to the new source.
- This is in contrast to the declarative and functional approach originating
- in FRP, where programs should "describe things that exist, rather than
- actions that have happened or are to happen (i.e., what is, not what does)"
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Plain Layout
-In addition, by the integration with the events mechanism, a meaning similar
- to assignment can be produced, such as 
-\begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
-\end_inset
-
- in 
-\begin_inset Formula $\ReactiveX$
-\end_inset
-
- that produces meaning similar to 
-\begin_inset Formula $\LSTINLINE{A:=B}$
-\end_inset
-
-.
- However, the integration with the events mechanism is associated with issues
- of infinite loops 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
-.
- For example, a change in a reactive variable might execute an event handler,
- causing the reactive variable to change again.
-\end_layout
-
-\end_inset
-
-
+, that do support cycles.
 \end_layout
 
 \begin_layout Subsection
-Reactive Objects
+
+\family typewriter
+Hotdrink
 \end_layout
 
 \begin_layout Standard
-Our work builds upon 
-\begin_inset Formula $\REScala$
+In constraint programming, there is research regarding the handling of cycles
+ and how to resolve them.
+ In constraint programming, there are unidirectional constraints that create
+ a similarity to FRP, as well as bidirectional constraints that, by their
+ nature, define cycles.
+\end_layout
+
+\begin_layout Standard
+There is an implementation called 
+\family typewriter
+Hotdrink
+\family default
+ that combines FRP with constraint programming.
+ In 
+\family typewriter
+Hotdrink
+\family default
+, bidirectional constraints are defined along with method definitions.
+ Each method is a function and a definition of dependencies (e.g., 
+\begin_inset Formula $A\rightarrow B$
 \end_inset
 
- that reactive variables are part of the object interface similar to operations
- or fields accessed by getters and setters 
+).
+ Each method in its data is similar to a unidirectional constraint.
+ The collection of methods can, of course, contain cycles.
+\end_layout
+
+\begin_layout Standard
+In constraint programming, there is a concept of creating constraints that
+ represent conflicts, which resemble the idea of multiple reactive assignments
+ for the same variable.
+ In constraint programming, it is possible to define two unidirectional
+ constraints where the left-hand side of each constraint is the same variable.
+ In this case, the system cannot provide a solution that satisfies both
+ constraints.
+\end_layout
+
+\begin_layout Standard
+In constraint programming, there is a model called 
+\emph on
+constraints hierarchy
+\emph default
+, in which each constraint has a priority definition.
+ Thus, when solving the constraint system, the solution is based on maximizing
+ the constraints that are highest in the hierarchy.
+\end_layout
+
+\begin_layout Standard
+In 
+\family typewriter
+Hotdrink
+\family default
+, in response to each input 
+\begin_inset Formula $\text{x}$
+\end_inset
+
+ for the variable 
+\begin_inset Formula $X$
+\end_inset
+
+, a constraint 
+\begin_inset Formula $\LSTINLINE{X:=x}$
+\end_inset
+
+ with maximum priority in the hierarchy is added.
+ Then, an algorithm is executed to find a dependency graph without cycles
+ for computing the variable values, ensuring the maximum number of constraints
+ are satisfied, in accordance with the defined hierarchy.
+ Based on this dependency graph, the variables are updated depending on
+ other variables.
+\end_layout
+
+\begin_layout Standard
+In a comparison between the strategy implemented in 
+\family typewriter
+HotDrink
+\family default
+ and the strategy presented in this work, it can be observed that for any
+ given input sequence, both strategies consistently generate the same output
+ sequence.
+ In both cases, a new input causes the overwriting of values that were generated
+ as a result of the oldest input.
+ This identity can even be empirically verified by comparing the implementations
+ of 
+\family typewriter
+Drug Administration
+\family default
+ in 
+\family typewriter
+rivarjs
+\family default
+ and 
+\family typewriter
+HotDrink
+\family default
+ (available on the comparison page in the project on 
+\family typewriter
+GitHub
+\family default
+).
+\end_layout
+
+\begin_layout Standard
+While there is no difference between the thesis approach and 
+\family typewriter
+HotDrink
+\family default
+ in the output produced for each input, there are differences in the implementat
+ion strategy, with the main difference being the level of alignment with
+ modular programming and OOP.
+\end_layout
+
+\begin_layout Subsection
+
+\family typewriter
+Keera
+\end_layout
+
+\begin_layout Standard
+In 
+\family typewriter
+Keera
+\family default
+, there is an abstraction of 
+\emph on
+reactive value
+\emph default
+, which corresponds to the reactive instance variable, and 
+\emph on
+reactive relation
+\emph default
+, which corresponds to reactive assignment.
+ In 
+\family typewriter
+Keera
+\family default
+, similar to this work, it is possible to define reactive relations for
+ a reactive value, even if it is an output variable, such that a cycle can
+ be formed.
+ Additionally, it is allowed to define other reactive relations for the
+ same reactive value (i.e., the same reactive value appears on the left-hand
+ side of the relation).
+ The goal of this approach, which resembles the goal of this work, is to
+ promote Separation of Concerns (SoC) and support modularity.
+\end_layout
+
+\begin_layout Standard
+The differences between the current work and 
+\family typewriter
+Keera
+\family default
+ are:
+\end_layout
+
+\begin_layout Itemize
+The approach and implementation in 
+\family typewriter
+Keera
+\family default
+ are carried out exclusively in 
+\family typewriter
+Haskell
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+In 
+\family typewriter
+Keera
+\family default
+, it is possible to define relations that include the same reactive value
+ in separate modules, whereas in the current work, these are integrated
+ with OOP and its principles.
+ 
+\end_layout
+
+\begin_layout Itemize
+In 
+\family typewriter
+Keera
+\family default
+, change propagation is carried out through 
+\emph on
+choreographies
+\emph default
+, which are reusable libraries that describe specific change propagations
+ between system components.
+ In contrast, the current work presents a more general approach to maintaining
+ data consistency and currency.
+\end_layout
+
+\begin_layout Section
+Connection with OOP 
+\end_layout
+
+\begin_layout Standard
+This work is unique in its approach to OOP with reactive variables.
+ While the combination of reactive variables with OOP is not new, notable
+ work in this area includes 
+\family typewriter
+REScala
+\begin_inset space ~
+\end_inset
+
+
+\family default
+
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Salvaneschi2014"
+key "Salvaneschi2014,salvaneschi2014towards,drechsler2014distributed"
 literal "false"
 
 \end_inset
 
 .
- In the same time, we provide like 
-\emph on
-reactive objects 
-\emph default
-
+ Additionally, there is work on 
+\family typewriter
+Reactive Objects 
+\family default
+in
+\family typewriter
+ AmbientTalk
+\family default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "boix2013object"
@@ -365,75 +470,43 @@ literal "false"
 
 \end_inset
 
-, in using objects with reactive variables as the objects' attributes.
- This alters the traditional semantics of OOP, that entire objects become
- the unit of reactivity.
- We implemented the example.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://github.com/RIVarX/rivarjs/blob/VisualRIVar_Works_In_Example/test/Reactive
-Objects.js
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- In a class called 
-\begin_inset Formula $\LSTINLINE{Coordinate}$
-\end_inset
-
-, there are attributes 
-\begin_inset Formula $\LSTINLINE x$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE y$
-\end_inset
-
-, along with a method called 
-\begin_inset Formula $\LSTINLINE{Move}$
-\end_inset
-
-.
- The 
-\begin_inset Formula $\LSTINLINE{Move}$
-\end_inset
-
- method takes another 
-\begin_inset Formula $\LSTINLINE{Coordinate}$
-\end_inset
-
- object as an argument and creates a third 
-\begin_inset Formula $\LSTINLINE{Coordinate}$
-\end_inset
-
- object that will be automatically updated according to the changes, describing
- the target moved coordinate.
+, as well as code libraries such as 
+\family typewriter
+React
+\family default
+, which integrate ideas from both paradigms.
+ Of course, 
+\family typewriter
+ReactiveX
+\family default
+ forms the basis for the implementation strategy of this work.
 \end_layout
 
 \begin_layout Standard
-The new semantics consist of interacted objects without the need for a mediator
- that have access to objects' encapsulated state or behavior.
- Traditional implementations that achieve predictability use a mediator
- to access all variables.
- Even 
-\begin_inset Formula $\REScala$
+
+\family typewriter
+REScala
+\family default
+ shares similarities with this work in that objects can contain reactive
+ variables (in the current work, reactive instance variables).
+ Additionally, in 
+\family typewriter
+REScala
+\family default
+, a change in the value of a reactive variable is translated into an event,
+ and an event can trigger a change in the value of a reactive variable.
+\end_layout
+
+\begin_layout Standard
+However, in 
+\family typewriter
+REScala
+\family default
+, the implementation is classical: it manages a central dependency tree
+\begin_inset space ~
 \end_inset
 
-, which was created to bridge object-oriented and functional programming
- styles, replaces the traditional events modules with a dedicated centralized
- algorithm 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Salvaneschi2014"
@@ -442,549 +515,9 @@ literal "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Subsection
-Inheritance and Polymorphism
-\end_layout
-
-\begin_layout Standard
-For programmers, it has been pointed out the 
-\emph on
-Liskov Substitution Principle
-\emph default
- (LSP)
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "martin2018clean"
-literal "false"
-
-\end_inset
-
-, such that a sub class will not change the behavior of its parent.
- For this reason, the reassignments will never override previous assignments.
- Instead, the data dependency graph will expand.
- Previously it has been mentioned: 
-\begin_inset Quotes eld
-\end_inset
-
-Should it be possible to override a reactive value with a new dependency
- expression or refer to the overridden one via super?
-\begin_inset Quotes erd
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
- Inheritance has also being long been recognized as a challenge in managing
- data dependencies between parent and child classes 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
- with the 
-\emph on
-object re-entrance 
-\emph default
-issue 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
- mentioned in
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- Also, the polymorphism has been mentioned, that it is desirable that the
- dynamic type will capture the dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-In the previous research about how to harmonize reactive variables into
- objects, it has mentioned the issue about inheritance: 
-\begin_inset Quotes eld
-\end_inset
-
-Should it be possible to override a reactive value with a new dependency
- expression or refer to the overridden one via super?
-\begin_inset Quotes erd
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
- Inheritance has also being long been recognized as a challenge in managing
- data dependencies between parent and child classes 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
- with the 
-\emph on
-object re-entrance 
-\emph default
-issue 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "duncan2003component"
-literal "false"
-
-\end_inset
-
- mentioned in
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "chap:Background"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-.
- Also, the polymorphism has been mentioned, that it is desirable that the
- dynamic type will capture the dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Plain Layout
-We give the answer mentioned through this thesis by that an assignment should
- be enabled everywhere with the meaning of adding the dependencies.
- This answer is provided following the consideration whether a subclass
- should be allowed to override dependencies defined in its parent.
- If a subclass changes the behavior of its super class, the resulting type
- does not inherit the entire behavior of the parent.
- Therefore, we have defined that the assignment only adds dependencies without
- overriding old ones.
- As a result, the resulting object derives its entire functionality from
- the hierarchy.
- As mentioned, the polymorphism means that the dynamic type will capture
- the dependencies 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "salvaneschi2014towards"
-literal "false"
-
-\end_inset
-
-, as it is actualy done.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Change Propagation Algorithms
-\end_layout
-
-\begin_layout Standard
-In modern frameworks like 
-\family typewriter
-React
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-
-\family typewriter
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://react.dev/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\family default
- and also 
-\family typewriter
-Flutter
-\family default
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://docs.flutter.dev
-\end_layout
-
-\end_inset
-
- applications utilize dedicated state management solutions to handle variables.
- Among these state management solutions, 
-\family typewriter
-Redux
-\family default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "caspers2017react"
-literal "false"
-
-\end_inset
-
- stands out as a highly popular choice.
- It adopts a model inspired by 
-\emph on
-statechart
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1995statement"
-literal "false"
-
-\end_inset
-
-.
- As depicted in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, events are modeled as state transitions between logical states, which
- are determined based on variable values.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-[   round/.style={rounded corners=1.5mm,minimum width=1cm,inner sep=2mm,above
- right,draw,align=center,text width=4mm}
-\end_layout
-
-\begin_layout Plain Layout
-
-]
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[round] (S1) at (2.5,2) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[round] (S2) at (0,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-node[round] (S3) at (5,0) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-node[round] (S4) at (2.5, -3) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-draw[-latex] (3.5, 3.5) coordinate (init) to[out=180, in=90] (S1);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-fill (init) circle (0.05);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-path[-latex] (S1) edge[out=180, in=90]  node[scale=0.8] {y changed} (S2);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-path[-latex] (S1) edge[out=0, in=90]  node[scale=0.8] {z changed} (S3);
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-path[-latex] (S2) edge[out=270, in=180]  node[scale=0.8] {z changed/calculate
- x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-path[-latex] (S3) edge[out=270, in=0]  node[scale=0.8] {y changed/calculate
- x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-     
-\backslash
-draw[-latex] (S4) to [loop below, looseness=8, out=-60, in=-120, min distance=10
-mm] node[scale=0.8]  { y changed/calculate x;
-\end_layout
-
-\begin_layout Plain Layout
-
-z changed/calculate x} (S4);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-draw (3.5, -4) coordinate (empty);
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\backslash
-node[round,fit=(S1)(S2)(S3)(S4)(init)(empty)] (System) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-      
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Statechart"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Modeling the statechart for the formula 
-\begin_inset Formula $\LSTINLINE{x:=y+z}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-Modeling the statechart for the formula 
-\begin_inset Formula $\LSTINLINE{x:=y+z}$
-\end_inset
-
-.
- The rectangular shapes represent different states or modes of the application.
- The arrows represent transitions between the states, triggered by specific
- events.
- The labels contain the events and also actions, if needed, to perform in
- response to events.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The idea to bring the developers user friendly mechanism to fields calculations
- brings also the 
-\emph on
-constraints systems
-\emph default
-.
- In constraints systems, developers declare equations, and the runtime automates
- variable updates based on these equations and input.
- There exist systems that support 
-\emph on
-one-way constraints
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sannella1993multi"
-literal "false"
-
-\end_inset
-
-, where the system updates only the left-hand variable in response to changes
- in the right-hand expression.
- They reminds reactive variables and FRP.
- Many implementations in FRP consists of a centralized manager 
+ This approach is in direct contrast to the modular approach presented in
+ this work.
+ While there is a distributed implementation
 \begin_inset space ~
 \end_inset
 
@@ -996,606 +529,341 @@ literal "false"
 
 \end_inset
 
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Actualy, as in the state management solution 
-\begin_inset Formula $\NAME{MobX}$
-\end_inset
-
- with the 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- framework, fields calculations can consist of reactive variables implemented
- by a state management solution connected to the visual fields.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Hotdrink
-\end_layout
-
-\begin_layout Standard
-
+ (for distributed systems, where variables are spread across different hardware
+ components) of 
 \family typewriter
-Hotdrink
+REScala
 \family default
- is a library implemented with a thesis-driven approach, similar to this
- thesis, to address the lack of support for cycles in data dependencies.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "foust2015generating"
-literal "false"
-
-\end_inset
-
-.
+, in which the propagation of changes is not dependent on a central component
+ but rather relies on communication between nodes, even in this implementation,
+ the dependencies must still take the form of a tree.
 \end_layout
 
 \begin_layout Standard
-The concept of
+This work offers suggestions or ideas regarding questions raised in two
+ papers on 
 \family typewriter
- 
+REScala
 \family default
-multiple assignment has a meaning of 
-\emph on
-conflicts
-\emph default
- of several 
-\emph on
-one-way constraints
-\emph default
-.
- Conflicts are usually related to when constraints are multidirectional.
- A system is over-constrained when you have too many constraints for the
- number of variables.
- These constraints might be conflicting, making it impossible to find an
- assignment of values to the variables that satisfies all of them 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "borning1987constraint"
-literal "false"
 
-\end_inset
-
-.
- Although that we handle one-way constraints rather than multi-way, the
- algorithm is similar to one used for multi-way in 
-\family typewriter
-Hotdrink.
-\end_layout
-
-\begin_layout Standard
-On the other hand, there are systems that support 
-\emph on
-two-way constraints
-\emph default
-
-\begin_inset space \thinspace{}
+\begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "haveraaen2021semantics,foust2015generating,sannella1993multi"
-literal "false"
-
-\end_inset
-
-, such as 
-\family typewriter
-Hotdrink
-\family default
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-http://hotdrink.github.io/hotdrink/
-\end_layout
-
-\end_inset
-
- which are declared using methods to satisfy the constraints.
- For instance, in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:two-way-constraint-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the equation 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- is attached with the methods 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
-, 
-\begin_inset Formula $\LSTINLINE{B=A-C}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{C=A-B}$
-\end_inset
-
-.
- The systems utilize algorithms, named 
-\emph on
-constraints solvers
-\emph default
-, to maintain consistency in variable values.
- As in 
-\family typewriter
-Hotdrink
-\family default
-, the constraints solver uses a model named 
-\emph on
-constraint hierarchies
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "borning1987constraint"
+key "Salvaneschi2014,Kamina2018"
 literal "false"
 
 \end_inset
 
 .
- In order to maintain the variables according to the constraints, as in
- the example in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:constraints-hirarchy-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the runtime maintains additional constraints.
- For each variable 
-\family typewriter
-X
-\family default
- containing a value 
-\family typewriter
-x
-\family default
-, the runtime maintains a constraint 
-\begin_inset Formula $\LSTINLINE{X=x}$
-\end_inset
-
-, with hierarchy according to the order of the input.
- If there is no solution that satisfy all the constraints, the more prioritized
- constraints, according to the hirarchy, are satsified.
- As a result, once the user put new input for a field, the fields that relied
- on a previous input, specifically the oldest input, are overwritten.
+ One such question discussed in both papers is whether to support re-assignment,
+ as there are advantages and disadvantages on both sides.
+ An extension of this question pertains to inheritance: should it be allowed
+ to override a reactive variable, such that the dependency is based on a
+ new definition rather than the one in the base class?
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-function  sum( a, b ) { return a + b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-function diff( a, b ) { return a - b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-var model = new hd.ModelBuilder()
-\end_layout
-
-\begin_layout Plain Layout
-
-    .variables( {A: 0, B: 0, C: 0} )
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .constraint( A, B, C )
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'B, C -> A', sum  ) // A:=B+C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, C -> B', diff ) // B:=A-C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, B -> C', diff ) // C:=A-B
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .end();
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:two-way-constraint-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Two-way constraint 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- implemented by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-Two-way constraint 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- implemented by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-.
- The 
-\begin_inset Formula $\LSTINLINE{constraint}$
-\end_inset
-
- method is used to create the constraint by specifying the variables as
- arguments and chaining the necessary methods.
- Each method has two parameters: the data flow direction and the function
- to execute when that method is chosen to satisfy the constraint.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0pt">
-<column alignment="center" valignment="top" width="0pt">
-<column alignment="center" valignment="top" width="0pt">
-<row interlinespace="default">
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Input
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Constraints hierarchical in descending order
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Solution
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=1, B=1
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-B=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, B=2, A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=2, B=2
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, A=3, B=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=3, B=3
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:constraints-hirarchy-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-Maintaining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- according to the constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B}
-\end_layout
-
-\end_inset
-
-, using constraint hierarchies.
-\end_layout
-
-\end_inset
-
-Maintaining 
-\begin_inset Formula $\NAME A$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME B$
-\end_inset
-
- according to the constraint 
-\begin_inset Formula $\NAME{A=B}$
-\end_inset
-
-, using constraint hierarchies.
- Each row represents a step in the interaction.
- The first column mentions the input provided.
- The second column mentions the exiting constraints following the input
- provided.
- The third column displays the values of the variables, as determined by
- the constraint solver.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+The answer to this question, along with the answer to another question regarding
+ polymorphism, is addressed in this work through the concept of multiple
+ assignments.
+ This is, re-assignment is possible, but this reassignment does not sever
+ existing dependencies, as seen in reassignment or override; it only adds
+ dependencies.
+ Thus, inheritance is always an extension of existing behavior, preventing
+ unexpected changes between instances of different classes that are descendants
+ of the same class in the inheritance hierarchy.
 \end_layout
 
 \begin_layout Section
-The Cycles Problem
+Working with Streams
 \end_layout
 
 \begin_layout Standard
+This work is unique in that it uses a reactive stream as an abstraction
+ layer for a reactive variable, and in the reactive assignment operator
+ that serves as a merging operation for streams.
+\end_layout
+
+\begin_layout Standard
+Nonetheless, using a reactive stream as an abstraction layer for a reactive
+ variable is not fundamentally different from some of the references in
+ the literature.
+ A stream of events is sometimes considered a reactive variable or equivalent
+ to a reactive variable
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ (or at least, conversions between the two are possible
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TBD: Citation? implicit...? REScala Bridge? Another? No One?
+\end_layout
+
+\end_inset
+
+).
+ Programming with streams represents a programming model akin to regular
+ imperative programming with variables
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+, and therefore, the approach of this thesis to use streams for implementing
+ the approach may appear trivial.
+\end_layout
+
+\begin_layout Standard
+Regarding the merging of streams, it is important to distinguish between
+ the approach of this thesis and previous approaches to the merging operation.
+ Merging streams represents a central problem in the field
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "abelson1996structure"
+literal "false"
+
+\end_inset
+
+, referring to the combination of multiple data streams into a single stream.
+ The problem of merging streams is analogous to the problem of managing
+ the state of variables.
+\end_layout
+
+\begin_layout Standard
+The problem can be broken down into two types: merging similar to the 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\end_inset
+
+ operator in 
+\family typewriter
+ReactiveX
+\family default
+, where each item in the output stream is computed from the items in the
+ input streams; and merging similar to the 
+\begin_inset Formula $\LSTINLINE{Merge}$
+\end_inset
+
+ operator in 
+\family typewriter
+ReactiveX
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+In the 
+\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\end_inset
+
+ operator in 
+\family typewriter
+ReactiveX
+\family default
+, there is the issue of glitches, where certain items may still be outdated
+ because each new item in one of the input streams leads to the creation
+ of a new item in the output stream.
+\end_layout
+
+\begin_layout Standard
+The second type is similar to the 
+\begin_inset Formula $\LSTINLINE{Merge}$
+\end_inset
+
+ operator in 
+\family typewriter
+ReactiveX
+\family default
+, an operator that creates a stream where each item from any of the input
+ streams "flows" as is to the output stream.
+ The merge operation in this work is similar to this definition, with the
+ difference that while the standard merge operation does not guarantee a
+ consistent order between the items, the merge operation here ensures such
+ consistency.
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+This work combines elements that have precedents in previous works alongside
+ innovative contributions that expand existing knowledge.
+ For example, the approach for supporting built-in cycles in the language
+ is also present in 
+\family typewriter
+Keera
+\family default
+ and 
+\family typewriter
+HotDrink
+\family default
+.
+ The goal of promoting modularity, which drives this work, is similar to
+ the one emphasized in 
+\family typewriter
+Keera
+\family default
+.
+ The method for handling cycles in 
+\family typewriter
+HotDrink
+\family default
+ also produces a consistent output for each given input, similar to the
+ result obtained in this work.
+\end_layout
+
+\begin_layout Standard
+The uniqueness of this work stands out compared to previous works, mainly
+ in two areas:
+\end_layout
+
+\begin_layout Itemize
+In the domain of streams: This work presents a new strategy for merging
+ streams, providing consistent order, which differs from existing merging
+ strategies.
+\end_layout
+
+\begin_layout Itemize
+In the domain of integrating FRP with OOP: This work addresses open questions
+ in the field, such as supporting reassignment and inheritance, and offers
+ a potential solution in the form of the multiple assignments concept.
+\end_layout
+
+\begin_layout Standard
+This work adds a layer to the research in the field of FRP, reinforcing
+ the approach of supporting circular dependencies.
+ Additionally, it proposes an innovative strategy for stream integration
+ and a unique approach to combining FRP with OOP.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This work presents a different approach from the conventional methods in
+ reactive programming concerning cycles in defining dependencies between
+ variables.
+ In this work, a reactive instance variable is implemented with a reactive
+ assignment operator that merges streams, thereby supporting multiple reactive
+ assignments to the same variable, and as a result, cycles.
+ Consequently, a modular approach is established, aligning well with OOP
+ principles.
+\end_layout
+
+\begin_layout Plain Layout
+In this chapter, we will review the treatment of cycles and examine previous
+ works related to elements of this study: (1) merging streams, (2) multiple
+ reactive assignments to the same variable and the resulting cycles, (3)
+ modularity enabled by this approach, and (4) integration with OOP.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+In FRP, it is used to manage the values correctly at runtime by holding
+ an 
+\emph on
+acyclic
+\emph default
+ graph in memory and updating each variable only after all its dependencies
+ have been updated 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In previous research, two opposing methods have been previously presented
+ regarding cycles.
+ In the first method, cycles are avoided, because the paradigm derived from
+ the functional paradigm, with the referential transparency property 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+ In addition, avoiding cycles is a necessary condition to algorithms to
+ handle glitches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "margara2018semantics,bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
+ At this direction it has been presented in previous work, creating feature
+ that limits data dependencies to the lexical scope of their declarations
+ for being acyclic
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+ .
+ In the second method, forbidding cycles makes FRP unacceptably weak, because
+ many applications have cycles by their nature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cooper2006embedding,perez2015bridging"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Handling Cycles in Reactive Programming
+\end_layout
+
+\begin_layout Plain Layout
 The support for automatic change propagation must strike a balance between
  customizable and the abstraction level.
  For example, event-driven programming frameworks give developers complete
@@ -1624,7 +892,7 @@ https://rxjs.dev/guide/scheduler
  details like the ones with like reactive variables.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -2092,7 +1360,7 @@ In this section, we discuss the state of the art of field calculation features.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 However, for the sake of specific use cases, more concepts are added.
 \end_layout
 
@@ -2244,62 +1512,11 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Standard
-One reason for lowering the abstraction level is the cycles problem.
- In previous research, two opposing methods have been previously presented
- regarding cycles.
- In the first method, cycles are avoided, because the paradigm derived from
- the functional paradigm, with the referential transparency property 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
-.
- In addition, avoiding cycles is a necessary condition to algorithms to
- handle glitches 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "margara2018semantics,bainomugisha2013survey"
-literal "false"
-
-\end_inset
-
-.
- At this direction it has been presented in previous work, creating feature
- that limits data dependencies to the lexical scope of their declarations
- for being acyclic
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- .
- In the second method, forbidding cycles makes FRP unacceptably weak, because
- many applications have cycles by their nature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cooper2006embedding,perez2015bridging"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
 \begin_layout Subsubsection
 Glitch Freedom
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 It is used to manage the values correctly at runtime by holding an acyclic
  graph in memory and updating each variable only after all its dependencies
  have been updated 
@@ -2342,11 +1559,821 @@ literal "false"
 , but they do not support cycles, so we left them irrelevant.
 \end_layout
 
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+The goal of this section is to present works related to this thesis.
+ In reactive programming, there are works on streams, works that combine
+ streams with reactive variables, as well as works addressing issues such
+ as glitches, integration between components, and the combination of reactive
+ variables or reactive programming with OOP.
+ 
+\end_layout
+
+\begin_layout Section
+Streams and Combination with Reactive Variables
+\end_layout
+
+\begin_layout Plain Layout
+This work is unique in its idea of abstracting reactive instance variables
+ and reactive assignments, such that multiple assignments create automatic
+ merging between streams.
+ In previous approaches, it was necessary to use streams and dedicated stream
+ operators.
+ There is also the issue of inconsistency in stream merging, known as a
+ glitch.
+ A solution exists, requiring programmers to provide a tailored algorithm
+ for merging the streams to ensure consistency
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Combining FRP with OOP
+\end_layout
+
+\begin_layout Plain Layout
+Additional works exploring the integration of FRP and OOP are presented
+ below.
+\end_layout
+
+\begin_layout Subsection
+Events and Signals
+\end_layout
+
+\begin_layout Plain Layout
+In the first stage, the previous attempts focused on converting or reconciling
+ concepts between FRP and OOP.
+ 
+\begin_inset Formula $\REScala$
+\end_inset
+
+, provides 
+\emph on
+signals
+\emph default
+ that can be converted to events to fit into the OOP paradigm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ In another library, 
+\begin_inset Formula $\NAME{SignalJ}$
+\end_inset
+
+, with the pure FRP, events are triggered as 
+\emph on
+side effects
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kamina2018"
+literal "false"
+
+\end_inset
+
+.
+ The idea we used, found in 
+\begin_inset Formula $\NAME{RxJS}$
+\end_inset
+
+, involves implementing reactive variables as the Observer and Iterator
+ design patterns 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gamma1995design"
+literal "false"
+
+\end_inset
+
+, where values are pushed to subscribers by executing their method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+.
+ This approach harmonizes previous ideas by treating observables as streams
+ of events in the OOP world and streams of effects in the functional realm
+ that FRP is originally based on.
+\end_layout
+
+\begin_layout Subsection
+Objects and Reactive Variables
+\end_layout
+
+\begin_layout Plain Layout
+Our new assignment operation answers a traditional issue of assigning reactive
+ variables from outside objects
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ The traditional assignment replaces the calculation, stopping the old source
+ in order to start responding to the new source.
+ This is in contrast to the declarative and functional approach originating
+ in FRP, where programs should "describe things that exist, rather than
+ actions that have happened or are to happen (i.e., what is, not what does)"
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The new assignment operation also answers a second traditional mechanism.
+ By the use of an integration with the events mechanism, a meaning similar
+ to assignment can be produced.
+ For example, in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
+\end_inset
+
+ produces meaning similar to 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+.
+ This mechanism might lead to infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+, that a change in a reactive variable executes an event handler, causing
+ the reactive variable to change again.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Our work builds upon of 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ and 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ of having reactive variables as objects' attributes.
+ This means that the object interface is added with reactive variable such
+ like the operations or fields accessed by getters and setters.
+\end_layout
+
+\begin_layout Plain Layout
+Traditionaly, there is an issue in reactive variables assigned from outside
+ of the objects 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ This assignment operation replaces the calculation, stopping the old source
+ in order to start responding to the new source.
+ This is in contrast to the declarative and functional approach originating
+ in FRP, where programs should "describe things that exist, rather than
+ actions that have happened or are to happen (i.e., what is, not what does)"
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "elliott2009push"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In addition, by the integration with the events mechanism, a meaning similar
+ to assignment can be produced, such as 
+\begin_inset Formula $\LSTINLINE{A.subscribe(val=>B.next(val))}$
+\end_inset
+
+ in 
+\begin_inset Formula $\ReactiveX$
+\end_inset
+
+ that produces meaning similar to 
+\begin_inset Formula $\LSTINLINE{A:=B}$
+\end_inset
+
+.
+ However, the integration with the events mechanism is associated with issues
+ of infinite loops 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "schuster2016reactive"
+literal "false"
+
+\end_inset
+
+.
+ For example, a change in a reactive variable might execute an event handler,
+ causing the reactive variable to change again.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Reactive Objects
+\end_layout
+
+\begin_layout Plain Layout
+Our work builds upon 
+\begin_inset Formula $\REScala$
+\end_inset
+
+ that reactive variables are part of the object interface similar to operations
+ or fields accessed by getters and setters 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ In the same time, we provide like 
+\emph on
+reactive objects 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boix2013object"
+literal "false"
+
+\end_inset
+
+, in using objects with reactive variables as the objects' attributes.
+ This alters the traditional semantics of OOP, that entire objects become
+ the unit of reactivity.
+ We implemented the example.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs/blob/VisualRIVar_Works_In_Example/test/Reactive
+Objects.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ In a class called 
+\begin_inset Formula $\LSTINLINE{Coordinate}$
+\end_inset
+
+, there are attributes 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE y$
+\end_inset
+
+, along with a method called 
+\begin_inset Formula $\LSTINLINE{Move}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $\LSTINLINE{Move}$
+\end_inset
+
+ method takes another 
+\begin_inset Formula $\LSTINLINE{Coordinate}$
+\end_inset
+
+ object as an argument and creates a third 
+\begin_inset Formula $\LSTINLINE{Coordinate}$
+\end_inset
+
+ object that will be automatically updated according to the changes, describing
+ the target moved coordinate.
+\end_layout
+
+\begin_layout Plain Layout
+The new semantics consist of interacted objects without the need for a mediator
+ that have access to objects' encapsulated state or behavior.
+ Traditional implementations that achieve predictability use a mediator
+ to access all variables.
+ Even 
+\begin_inset Formula $\REScala$
+\end_inset
+
+, which was created to bridge object-oriented and functional programming
+ styles, replaces the traditional events modules with a dedicated centralized
+ algorithm 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Inheritance and Polymorphism
+\end_layout
+
+\begin_layout Plain Layout
+For programmers, it has been pointed out the 
+\emph on
+Liskov Substitution Principle
+\emph default
+ (LSP)
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "martin2018clean"
+literal "false"
+
+\end_inset
+
+, such that a sub class will not change the behavior of its parent.
+ For this reason, the reassignments will never override previous assignments.
+ Instead, the data dependency graph will expand.
+ Previously it has been mentioned: 
+\begin_inset Quotes eld
+\end_inset
+
+Should it be possible to override a reactive value with a new dependency
+ expression or refer to the overridden one via super?
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Inheritance has also being long been recognized as a challenge in managing
+ data dependencies between parent and child classes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ with the 
+\emph on
+object re-entrance 
+\emph default
+issue 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ mentioned in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Also, the polymorphism has been mentioned, that it is desirable that the
+ dynamic type will capture the dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the previous research about how to harmonize reactive variables into
+ objects, it has mentioned the issue about inheritance: 
+\begin_inset Quotes eld
+\end_inset
+
+Should it be possible to override a reactive value with a new dependency
+ expression or refer to the overridden one via super?
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+ Inheritance has also being long been recognized as a challenge in managing
+ data dependencies between parent and child classes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ with the 
+\emph on
+object re-entrance 
+\emph default
+issue 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+ mentioned in
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+ Also, the polymorphism has been mentioned, that it is desirable that the
+ dynamic type will capture the dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+We give the answer mentioned through this thesis by that an assignment should
+ be enabled everywhere with the meaning of adding the dependencies.
+ This answer is provided following the consideration whether a subclass
+ should be allowed to override dependencies defined in its parent.
+ If a subclass changes the behavior of its super class, the resulting type
+ does not inherit the entire behavior of the parent.
+ Therefore, we have defined that the assignment only adds dependencies without
+ overriding old ones.
+ As a result, the resulting object derives its entire functionality from
+ the hierarchy.
+ As mentioned, the polymorphism means that the dynamic type will capture
+ the dependencies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "salvaneschi2014towards"
+literal "false"
+
+\end_inset
+
+, as it is actualy done.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Change Propagation Algorithms
+\end_layout
+
+\begin_layout Plain Layout
+The idea to bring the developers user friendly mechanism to fields calculations
+ brings also the 
+\emph on
+constraints systems
+\emph default
+.
+ In constraints systems, developers declare equations, and the runtime automates
+ variable updates based on these equations and input.
+ There exist systems that support 
+\emph on
+one-way constraints
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+, where the system updates only the left-hand variable in response to changes
+ in the right-hand expression.
+ They reminds reactive variables and FRP.
+ Many implementations in FRP consists of a centralized manager 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Actualy, as in the state management solution 
+\begin_inset Formula $\NAME{MobX}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\NAME{React}$
+\end_inset
+
+ framework, fields calculations can consist of reactive variables implemented
+ by a state management solution connected to the visual fields.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Hotdrink
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+Hotdrink
+\family default
+ is a library implemented with a thesis-driven approach, similar to this
+ thesis, to address the lack of support for cycles in data dependencies.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The concept of
+\family typewriter
+ 
+\family default
+multiple assignment has a meaning of 
+\emph on
+conflicts
+\emph default
+ of several 
+\emph on
+one-way constraints
+\emph default
+.
+ Conflicts are usually related to when constraints are multidirectional.
+ A system is over-constrained when you have too many constraints for the
+ number of variables.
+ These constraints might be conflicting, making it impossible to find an
+ assignment of values to the variables that satisfies all of them 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borning1987constraint"
+literal "false"
+
+\end_inset
+
+.
+ Although that we handle one-way constraints rather than multi-way, the
+ algorithm is similar to one used for multi-way in 
+\family typewriter
+Hotdrink.
+\end_layout
+
+\begin_layout Plain Layout
+On the other hand, there are systems that support 
+\emph on
+two-way constraints
+\emph default
+
+\begin_inset space \thinspace{}
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "haveraaen2021semantics,foust2015generating,sannella1993multi"
+literal "false"
+
+\end_inset
+
+, such as 
+\family typewriter
+Hotdrink
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+http://hotdrink.github.io/hotdrink/
+\end_layout
+
+\end_inset
+
+ which are declared using methods to satisfy the constraints.
+ For instance, in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:two-way-constraint-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the equation 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+ is attached with the methods 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{B=A-C}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{C=A-B}$
+\end_inset
+
+.
+ The systems utilize algorithms, named 
+\emph on
+constraints solvers
+\emph default
+, to maintain consistency in variable values.
+ As in 
+\family typewriter
+Hotdrink
+\family default
+, the constraints solver uses a model named 
+\emph on
+constraint hierarchies
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borning1987constraint"
+literal "false"
+
+\end_inset
+
+.
+ In order to maintain the variables according to the constraints, as in
+ the example in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:constraints-hirarchy-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the runtime maintains additional constraints.
+ For each variable 
+\family typewriter
+X
+\family default
+ containing a value 
+\family typewriter
+x
+\family default
+, the runtime maintains a constraint 
+\begin_inset Formula $\LSTINLINE{X=x}$
+\end_inset
+
+, with hierarchy according to the order of the input.
+ If there is no solution that satisfy all the constraints, the more prioritized
+ constraints, according to the hirarchy, are satsified.
+ As a result, once the user put new input for a field, the fields that relied
+ on a previous input, specifically the oldest input, are overwritten.
+\end_layout
+
+\begin_layout Section
+The Cycles Problem
+\end_layout
+
 \begin_layout Section
 Merge
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Actualy, different applications need different handling, depending on needed
  consistency level
 \begin_inset space ~
@@ -2388,7 +2415,7 @@ https://github.com/RIVarX/rivarjs/blob/main/test/RIvarsBasics.js
  by enforcing an order over the values.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Provided operators 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
@@ -2449,7 +2476,7 @@ higher order functions.
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The Rx library exposes a comprehensive set of 
 \emph on
 operators
@@ -2513,7 +2540,7 @@ operators
 (Benefits and )Limitations
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 An observable can be presented as a reactive variable 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2545,7 +2572,7 @@ literal "false"
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Observables can be used to represent GUI control change events 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2581,7 +2608,7 @@ noprefix "false"
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Provided operators 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
@@ -2642,7 +2669,7 @@ higher order functions.
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 ...
 \end_layout
 
@@ -2650,7 +2677,7 @@ higher order functions.
 Rx as FRP (Reactive Variables)
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Rx works with 
 \emph on
 observable streams
@@ -2738,7 +2765,7 @@ literal "false"
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Since observable stream acts similar to reactive variables 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2794,7 +2821,7 @@ An unary function can be lifted by the operator
  two.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The observable streams is similar to 
 \emph on
 stream
@@ -2811,7 +2838,7 @@ literal "false"
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status open
 
@@ -3201,7 +3228,7 @@ end{tikzpicture}
 Merge Streams
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In Rx, the 
 \begin_inset Formula $\LSTINLINE{Merge}$
 \end_inset
@@ -3245,7 +3272,7 @@ literal "false"
 Streams In General
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The observable in Rx is similar to a general concept stream 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3259,7 +3286,7 @@ literal "false"
  It is a dual question of how to manage the variables state correctly.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The approach used in Rx is similar to a general programming approach of
  programming with streams
 \begin_inset space ~
@@ -3293,6 +3320,11 @@ literal "false"
  parts of the code to modify a variable unpredictably, merging streams without
  a defined strategy can lead to unpredictable outcomes when handling simultaneou
 s emissions.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3935,7 +3967,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In this section, we compare our method to Hotdrink mentioned in 
@@ -4467,7 +4499,7 @@ Illustrating the spanning graph in the case of a cycle in the dependencies,
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In 

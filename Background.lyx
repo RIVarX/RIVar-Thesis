@@ -137,10 +137,10 @@ literal "false"
 
 \end_inset
 
- State refers to the values or data contained that change over time.
- In object-oriented programming, state is distributed across different objects,
- and each object's state, represented by its instance variables, can only
- be modified by that object's own methods.
+ State refers to values or data that change over time.
+ In OOP, state is distributed across different objects, and each object's
+ state, represented by its instance variables, can only be modified by that
+ object's own methods.
 \end_layout
 
 \begin_layout Section
@@ -149,7 +149,7 @@ Observer Pattern
 
 \begin_layout Standard
 A common design pattern in OOP for preserving data consistency and currency
- is the 
+ is an 
 \family typewriter
 Observer
 \family default
@@ -175,7 +175,24 @@ subject
 observers
 \emph default
  and notifies them of any changes in its state.
- 
+ This pattern is a competing pattern to a 
+\family typewriter
+Madiator
+\family default
+ design pattern where a central object manages communication between objects.
+ The advantage of the 
+\family typewriter
+Observer
+\family default
+ pattern is that it leads to more 
+\begin_inset Quotes eld
+\end_inset
+
+fine-grained classes that are more apt to be reused
+\begin_inset Quotes erd
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -199,8 +216,11 @@ For example, in a GUI, a change in a progress bar can automatically update
 \end_layout
 
 \begin_layout Standard
-Similar to the observer pattern, many programming languages, such as C#,
- provide an event-driven mechanism.
+Similar to the observer pattern, many programming languages, such as 
+\family typewriter
+C#
+\family default
+, provide an event-driven mechanism.
  This allows the code that updates variables to remain independent of the
  code that executes in response to these updates, fostering a decoupled
  and modular design.
@@ -4385,8 +4405,24 @@ noprefix "false"
 \begin_layout Standard
 By using observables and the aforementioned operators, it is possible to
  define a tree of computations as is customary in reactive programming.
- This provides the mathematical property of referential transparency, ensuring
- predictable behavior.
+ This provides a mathematical property called 
+\emph on
+referential transparency
+\emph default
+, ensuring predictable behavior, where each input consistently produces
+ the same output
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blackheath2016functional"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -4553,7 +4589,11 @@ Variable value changes as an observable stream.
 \begin_layout Standard
 The term reactive variable originates from FRP that has two conc
 \emph on
-epts: time-varying values and streams of timed values
+epts: time-varying values 
+\emph default
+and
+\emph on
+ streams of timed values
 \emph default
  
 \begin_inset CommandInset citation
@@ -4567,8 +4607,12 @@ literal "false"
  The first FRP language was 
 \family typewriter
 Fran
+\begin_inset space ~
+\end_inset
+
+
 \family default
- 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "elliott1997functional"
@@ -4597,7 +4641,7 @@ Haskell
 \end_layout
 
 \begin_layout Standard
-In addition to the 
+In addition to the type 
 \family typewriter
 behavior
 \family default
@@ -4614,7 +4658,7 @@ event
 \family typewriter
 Sodium
 \family default
- language (that represents a FRP language), 
+ language (that represents an FRP language), 
 \family typewriter
 cell
 \family default
@@ -4888,10 +4932,72 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-In OOP, a class can contain instance variables of type observable, and methods
- can define formulas, enabling the implementation of a computation tree
- as in FRP.
- However, in OOP, each object is responsible for managing its own state,
+In OOP, observables can be used within objects enabling the implementation
+ of a computation tree as in FRP.
+ It aligns with what has been identified
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boix2013object"
+literal "false"
+
+\end_inset
+
+, namely that OOP is used to implement FRP.
+ The missing discussion is about the encapsulation principal 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "snyder1986encapsulation"
+literal "false"
+
+\end_inset
+
+ of OOP, that each object is responsible for managing its own state.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In case of an automatic change propogation according to a computation tree,
+ Should each object be responsible for managing its own state
+\end_layout
+
+\begin_layout Plain Layout
+In OOP, observables can be used within objects enabling the implementation
+ of a computation tree as in FRP.
+ As already identified
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boix2013object"
+literal "false"
+
+\end_inset
+
+, OOP is typically used to implement FRP.
+ The missing discussion is about a combination between the paradigms.
+ In the combiation 
+\end_layout
+
+\begin_layout Plain Layout
+and there is a lack of discussion regarding the integration of FRP 
+\emph on
+within
+\emph default
+ OOP, including leveraging OOP abstraction mechanisms.
+\end_layout
+
+\begin_layout Plain Layout
+However, in OOP, each object is responsible for managing its own state,
  while FRP offers an automatic mechanism for managing state and dependencies.
  As already identified
 \begin_inset space ~
@@ -4911,6 +5017,11 @@ literal "false"
 within
 \emph default
  OOP, including leveraging OOP abstraction mechanisms.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

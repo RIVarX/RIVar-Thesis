@@ -113,32 +113,18 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-This thesis includes two counterpart implementations.
+This thesis includes two counterpart implementations: 
+\family typewriter
+RIVarX
+\family default
+ and 
+\family typewriter
+rivarjs
+\family default
+ that depend on ReactiveX.
  
 \family typewriter
 RIVarX
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-
-\family typewriter
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.nuget.org/packages/RIvar.RIvarX
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \family default
  is a code library in the 
 \family typewriter
@@ -147,127 +133,12 @@ C#
  programming language, while 
 \family typewriter
 rivarjs
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-
-\family typewriter
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://www.npmjs.com/package/rivarjs
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \family default
- is a 
+ is its 
 \family typewriter
 JavaScript
 \family default
- code library.
- These libraries are functionally equivalent, employing the same underlying
- implementation strategy but tailored for their respective programming environme
-nts.
- Both leverage elements from 
-\family typewriter
-ReactiveX
-\family default
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://reactivex.io/
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- which offers ready-made implementations for both 
-\family typewriter
-C#
-\family default
- and 
-\family typewriter
-JavaScript
-\family default
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The source code for the 
-\family typewriter
-RIVarX
-\family default
- implementation is available at 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://github.com/RIVarX/RIVarCSharp
-\end_layout
-
-\end_inset
-
-.
- The source code for the 
-\family typewriter
-rivarjs
-\family default
- implementation can be found at 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-https://github.com/RIVarX/rivarjs
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The two libraries are short, therefore reflecting the simplicity of the
- approach.
- For example, the core of rivarjs consists of three short files.
- The longest file contains 60 lines of code, including blank lines and comments.
- The other two files contain about 42 lines of code each.
- Based on these results, it is easy to assume that implementing the approach
- using streams is easy to perform in other environments and programming
- languages.
- The libraries have been implemented depending on libraries from the 
-\family typewriter
-ReactiveX
-\family default
-.
+ counterpart.
  For 
 \family typewriter
 RivarX
@@ -279,10 +150,54 @@ C#
 , it depends on 
 \family typewriter
 Rx.NET
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/dotnet/reactive
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \family default
- amd for 
+ and for 
 \family typewriter
 rivarjs
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/reactivex/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \family default
  that is in 
 \family typewriter
@@ -293,6 +208,73 @@ JavaScript
 RxJS
 \family default
 .
+ These libraries provide a concrete implementation of the approach described
+ in this thesis, demonstrating how reactive instance variables can be applied
+ in practice.
+ The source code for 
+\family typewriter
+RIVarX
+\family default
+ is available at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/RIVarCSharp
+\end_layout
+
+\end_inset
+
+, while the source code for rivarjs can be found at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/RIVarX/rivarjs
+\end_layout
+
+\end_inset
+
+.
+ The name difference is due to 
+\family typewriter
+npm
+\family default
+ (the 
+\family typewriter
+JavaScript
+\family default
+ package manager) only supporting lowercase names.
+ These libraries provide the same functionality through a shared underlying
+ implementation strategy but are tailored for their respective programming
+ environments.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The two libraries are short, therefore reflecting the simplicity of the
+ approach.
+ For example, the core of 
+\family typewriter
+rivarjs
+\family default
+ consists of three short files.
+ The longest file contains 60 lines of code, including blank lines and comments.
+ The other two files contain about 42 lines of code each.
+ Based on these results, it is easy to assume that implementing the approach
+ using streams is easy to perform in other environments and programming
+ languages.
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -506,9 +488,74 @@ OnNext
 
 \end_layout
 
+\begin_layout Section
+Core Components
+\end_layout
+
 \begin_layout Standard
-The implementation comprises three primary elements (exclusively exposed
- to library users):
+The core elements exposed to users in both the 
+\family typewriter
+C# 
+\family default
+and 
+\family typewriter
+Javascript
+\family default
+ implementations are:
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+While the implementations are very similar, there are slight differences
+ in naming conventions between 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+Javascript
+\family default
+.
+ 
+\family typewriter
+C#
+\family default
+ uses uppercase for the first letter of element names (e.g., 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+), while Javascript uses lowercase (e.g., 
+\begin_inset Formula $\LSTINLINE{lift}$
+\end_inset
+
+).
+ Additionally, method names may differ slightly, such as 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ in 
+\family typewriter
+C#
+\family default
+ compared to 
+\begin_inset Formula $\LSTINLINE{next}$
+\end_inset
+
+ in 
+\family typewriter
+Javascript
+\family default
+.
+ For simplicity, the 
+\family typewriter
+C#
+\family default
+ conventions will be used in this text.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -533,10 +580,28 @@ The implementation comprises three primary elements (exclusively exposed
 \end_layout
 
 \begin_layout Standard
-This section also presents usage examples and integration with GUI elements.
+In 
+\family typewriter
+C#
+\family default
+, 
+\begin_inset Formula $\LSTINLINE{Expression}$
+\end_inset
+
+ is an additional element exposed returned by 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+.
+ This is because 
+\family typewriter
+C# 
+\family default
+is a typed language, and this element allows the system to work with type-safe
+ expressions.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Signal
 \end_layout
 
@@ -681,7 +746,7 @@ RIVarX
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 Monotonic Signal Streams
 \end_layout
 
@@ -916,7 +981,7 @@ The implementation of the
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Lift
 \end_layout
 
@@ -1021,7 +1086,7 @@ Monotonicity enforcement: The implementation ensures the monotonicity of
 .
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 RIVar
 \end_layout
 
@@ -1508,6 +1573,35 @@ This process ensures that
 
 \begin_layout Section
 Usage and Integration
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TBD present two Drug Administration Implementations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+Drug Administration
+\family default
+ example served as a basis for testing both libraries.
+ For each library implementation, there is code that creates Bag and Pump
+ (the classes of 
+\family typewriter
+Drug Administration
+\family default
+ ) instances, populates its reactive instance variables with values, and
+ verifies that these variables are updated as expected.
+ This code utilizes automated testing frameworks (mstest for C# and mocha
+ for Javascript).
+ Furthermore, each implementation includes a fully functional Drug Administratio
+n application available in the source code.
 \end_layout
 
 \begin_layout Subsection
@@ -1515,8 +1609,7 @@ Usage
 \end_layout
 
 \begin_layout Standard
-Usage is straightforward.
-  As class 
+As class 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -2202,7 +2295,7 @@ C#
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Usage in C#
@@ -3214,192 +3307,285 @@ Integration
 \end_layout
 
 \begin_layout Standard
-Reactive instance variables are fed by events from UI controls, such as
- the 
-\begin_inset Formula $\LSTINLINE{OnChange}$
-\end_inset
-
- event of a text box, and feed these controls by updating properties like
- the 
-\begin_inset Formula $\LSTINLINE{Text}$
-\end_inset
-
- property.
-\end_layout
-
-\begin_layout Standard
-It's crucial to prevent the creation of loops.
- While the thesis approach addresses loops in reactive assignments, loops
- can still occur when interacting with UI controls.
- For example, if a change in a reactive variable updates a control's property,
- triggering an event that in turn updates the variable, an infinite loop
- may arise.
-\end_layout
-
-\begin_layout Standard
-Another challenge is whether and how integration with existing reactive
- libraries can be achieved.
- 
-\begin_inset Formula $\LSTINLINE{RIVarView}$
-\end_inset
-
- is a component built in 
-\family typewriter
-React
-\family default
- and included in the 
-\family typewriter
-rivarjs
-\family default
- library.
- It utilizes a 
-\family typewriter
-React
-\family default
- design pattern called 
-\family typewriter
-Function as a Child Component
-\family default
-.
-\end_layout
-
-\begin_layout Standard
-The 
-\begin_inset Formula $\LSTINLINE{RIVarView}$
-\end_inset
-
- component in 
-\family typewriter
-JSX
-\family default
- accepts a 
-\family typewriter
-prop
-\family default
- named 
-\begin_inset Formula $\LSTINLINE{rivar}$
-\end_inset
-
- to establish a connection with a 
-\begin_inset Formula $\RIVar$
-\end_inset
-
- instance.
- Additionally, a function that receives change and value as arguments and
- returns 
-\family typewriter
-JSX
-\family default
- is nested within the component.
-\end_layout
-
-\begin_layout Standard
-When defining the component, value is used to display the current value,
- and change is used to signal a change in the value.
- For example, in an 
-\family typewriter
-HTML
-\family default
- input element, the 
-\begin_inset Formula $\LSTINLINE{onChange}$
-\end_inset
-
- event triggers the 
-\begin_inset Formula $\LSTINLINE{change}$
-\end_inset
-
- function, and the value attribute is set to the current value of the associated
- 
-\begin_inset Formula $\RIVar$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-—
-\end_layout
-
-\begin_layout Standard
-In addition, we have developed 
-\begin_inset Formula $\LSTINLINE{RIVarView}$
-\end_inset
-
-, a 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- component, designed for visualizing a 
-\begin_inset Formula $\RIVar$
-\end_inset
-
-.
- Similar to a reactive variable that recalculates based on changes in its
- dependencies, 
-\begin_inset Formula $\LSTINLINE{RIVarView}$
-\end_inset
-
- component re-renders the view in response to changes in the associated
- 
-\begin_inset Formula $\RIVar$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-To utilize 
-\begin_inset Formula $\LSTINLINE{RIVarView}$
-\end_inset
-
-, developers need to specify the 
-\begin_inset Formula $\LSTINLINE{prop}$
-\end_inset
-
- named 
-\begin_inset Formula $\LSTINLINE{rivar}$
-\end_inset
-
- with the 
-\begin_inset Formula $\RIVar$
-\end_inset
-
- and a nested element to define the view.
- The nested element is specified as a function of 
-\begin_inset Formula $\LSTINLINE{value}$
-\end_inset
-
- and a 
-\begin_inset Formula $\LSTINLINE{change}$
-\end_inset
-
- method, allowing it to collect user input values and display calculated
- values.
- For example as visualized in 
+Reactive instance variable has been implemented as observables, that are
+ naturaly connected to UI elements.
+ As an example, 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:rivarview-2"
+reference "fig:bind"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-, in the case of a visual element representing Drug Administration Amount,
- the 
-\begin_inset Formula $\LSTINLINE{value}$
+ presents a function 
+\begin_inset Formula $\LSTINLINE{bind}$
 \end_inset
 
- property is set to the input value, and the 
+ in 
+\family typewriter
+Javascript
+\family default
+.
+ The 
+\begin_inset Formula $\LSTINLINE{bind}$
+\end_inset
+
+ function connects an input element to a reactive instance variable.
+ The binding is bidirectional: Changes to the input value update the reactive
+ instance variable.
+ Changes to the reactive instance variable update the input value.
+ The code uses 
+\begin_inset Formula $\LSTINLINE{addEventListener}$
+\end_inset
+
+ to listen for input events, and subscribe to listen for changes to the
+ reactive instance variable.
+ Changing the input value via the reactive instance variable causes the
+ font style to change to italic, to signal to the user that the value is
+ derived from other values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    function bind(inputID, variable) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      var input = document.getElementById(inputID);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      input.addEventListener('input', (event) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+        const value = event.target.value;
+\end_layout
+
+\begin_layout Plain Layout
+
+        variable.next(new Signal(value));
+\end_layout
+
+\begin_layout Plain Layout
+
+        input.style.fontStyle = "normal";
+\end_layout
+
+\begin_layout Plain Layout
+
+      });
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      variable.subscribe((signal) => {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (input.value !== signal.value.toString()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          input.value = signal.value.toString();
+\end_layout
+
+\begin_layout Plain Layout
+
+          input.style.fontStyle = "italic";
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      });
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bind"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+A function that binds between a reactive instance variable and a UI control.
+\end_layout
+
+\end_inset
+
+A function that binds between a reactive instance variable and a UI control.
+ The function connects an input element (such as a text box) to a reactive
+ variable.
+ The binding is bidirectional: (1) Changes to the input value update the
+ reactive instance variable.(2) Changes to the reactive variable update the
+ input value.
+ Changing the input value via the reactive variable causes the font style
+ to change to italic, to signal to the user that the value is derived from
+ other values.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Integration with 
+\family typewriter
+React
+\end_layout
+
+\begin_layout Standard
+As part of the thesis, a 
+\family typewriter
+React
+\family default
+ component named 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ has been designed for being a UI component of a reactive instance variable.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+React
+\family default
+ is designed with a mechanism like reactive variables, where components
+ are declared as functions.
+ However, in 
+\family typewriter
+React
+\family default
+ there is a markup language like 
+\family typewriter
+XML
+\family default
+, that means like calling functions.
+ An element name in the markup refers to a function name and while attribute
+ names (named in 
+\family typewriter
+React
+\family default
+ as 
+\family typewriter
+props
+\family default
+) refers to named arguments.
+ Additionally, nested elements within a component are passed to that component's
+ function as another argument (named 
+\family typewriter
+children.
+ 
+\end_layout
+
+\begin_layout Standard
+According to this explanation, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ is a function.
+ It has an argument named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ for specifying the needed reactive instance variable, and also a nested
+ function element that specifies the nested UI element as a function of
+ a varying value and a 
 \begin_inset Formula $\LSTINLINE{change}$
 \end_inset
 
- method is called within the event handler of the 
-\begin_inset Formula $\LSTINLINE{onChange}$
-\end_inset
-
- event.
- 
+ function.
 \end_layout
 
 \begin_layout Standard
@@ -3421,7 +3607,7 @@ begin{lstlisting}
 
 \begin_layout Plain Layout
 
-  <RIVarView rivar={bag.Amount}>
+  <RIVarView rivar={x}>
 \end_layout
 
 \begin_layout Plain Layout
@@ -3477,7 +3663,7 @@ end{lstlisting}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:rivarview-2"
+name "fig:rivarview-2-1"
 
 \end_inset
 
@@ -3508,11 +3694,10 @@ Code example for using
 \end_inset
 
  application.
- The specified element is part of a larger BagComponent to the bag's amount.
- The prop rivar is given with the RIVar or the bags amount.
- The netsetd slement is a function with the arguments value and cahnge,
- the function returns a react component view as a function of the value
- and cahnge arguments.
+ This code snippet demonstrates how to use the RIVarView component to create
+ a UI element bound to a reactive instance variable.
+ The x in rivar={x} refers to this reactive instance variable.
+ The input element shown can be replaced with other UI elements as needed.
 \end_layout
 
 \end_inset
@@ -3526,496 +3711,323 @@ Code example for using
 \end_layout
 
 \begin_layout Standard
-Using the added 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+has a functional approach, such that the UI is declared as functions, or
+ like reactive variables.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+It has an attribute (in React it is named prop) named rivar for assigning
+ the reactive instance variable, and the nested element should be a function
+ that returns the view of the nested element based on arguments value and
+ change.
+ The value means that varying value of the reactive instance variable, and
+ change means the function to raise a change to the reactive insatnce variable.
+ RIVarView is created by using the mechanism of React named useState.
+ whenever reactive instance vairbale raises a change, it change an internal
+ state value, thise raises React to rerender the nested elementaccording
+ to the new value (because react rerender whenevre the state is changed.
+\end_layout
+
+\begin_layout Plain Layout
+In 
+\family typewriter
+React
+\family default
+ there is a mechnism that update automaticaly the UI according to changes.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Similar to a reactive variable that recalculates based on changes in its
+ dependencies, 
 \begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
 
-, it becomes easier to create the Drug Administration example as illustrated
- in n 
+ component re-renders the view in response to changes in the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+To utilize 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, developers need to specify the 
+\begin_inset Formula $\LSTINLINE{prop}$
+\end_inset
+
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ and a nested element to define the view.
+ The nested element is specified as a function of 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method, allowing it to collect user input values and display calculated
+ values.
+ For example as visualized in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:react_micro_frontends-3"
+reference "fig:rivarview-2"
 plural "false"
 caps "true"
 noprefix "false"
 
 \end_inset
 
-.
- According to the example, the resulting framework allows the declaration
- of backend logic and frontend components without needing to be aware of
- interactions, neither between the backend objects nor between the backend
- objects and the frontend components.
-\end_layout
+, in the case of a visual element representing Drug Administration Amount,
+ the 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
+ property is set to the input value, and the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
 
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
+ method is called within the event handler of the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
 
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{subfigure}[b]{1
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\backslash
-begin{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-class App extends Component {
-\end_layout
-
-\begin_layout Plain Layout
-
-  constructor(props) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    super(props);
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.bag = new Bag();
-\end_layout
-
-\begin_layout Plain Layout
-
-    this.pump = new Pump(this.bag);
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  render() {
-\end_layout
-
-\begin_layout Plain Layout
-
-    return (
-\end_layout
-
-\begin_layout Plain Layout
-
-      <div>
-\end_layout
-
-\begin_layout Plain Layout
-
-        <BagComponent bag={this.bag} />
-\end_layout
-
-\begin_layout Plain Layout
-
-        <PumpComponent pump={this.pump}/>
-\end_layout
-
-\begin_layout Plain Layout
-
-      </div>
-\end_layout
-
-\begin_layout Plain Layout
-
-    );
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
+ event.
  
 \end_layout
 
 \begin_layout Plain Layout
+Reactive instance variables are fed by events from UI controls, such as
+ the 
+\begin_inset Formula $\LSTINLINE{OnChange}$
+\end_inset
 
-    
-\backslash
-caption{}
+ event of a text box, and feed these controls by updating properties like
+ the 
+\begin_inset Formula $\LSTINLINE{Text}$
+\end_inset
+
+ property.
 \end_layout
 
 \begin_layout Plain Layout
-
-    
-\backslash
-label{fig:code}
+It's crucial to prevent the creation of loops.
+ While the thesis approach addresses loops in reactive assignments, loops
+ can still occur when interacting with UI controls.
+ For example, if a change in a reactive variable updates a control's property,
+ triggering an event that in turn updates the variable, an infinite loop
+ may arise.
 \end_layout
 
 \begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
+Another challenge is whether and how integration with existing reactive
+ libraries can be achieved.
  
-\backslash
-begin{subfigure}[b]{1
-\backslash
-textwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-begin{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, inner sep=0pt, label=center:Bag UI] (C)
- {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,3.5) (4,5.5)}, xshift=6cm, inner sep=0pt, label=center:Pump
- UI] (D) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, inner sep=0pt, label=center:Bag] (A) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-node[draw, fit={(0,0) (4,2)}, xshift=6cm, inner sep=0pt, label=center:Pump]
- (B) {};
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(B) node[anchor=south,inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (A)--(C) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-draw[dashed] (D)--(B) node[inner sep=2pt,midway] {};
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{scope}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{tikzpicture}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center} 
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-caption{}
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\backslash
-label{fig:runtime}
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-end{subfigure}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-   
-\end_layout
-
-\begin_layout Plain Layout
-
- 
-\backslash
-phantomcaption % Invisible caption
-\end_layout
-
-\begin_layout Plain Layout
-
-  
-\backslash
-label{fig:micro_front_ends}
-\end_layout
-
+\begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:react_micro_frontends-3"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-Design for the drug administration application.
-\end_layout
-
-\end_inset
-
-Design for the 
+ is a component built in 
 \family typewriter
-Drug Administration
+React
 \family default
- application.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:code})
+ and included in the 
+\family typewriter
+rivarjs
+\family default
+ library.
+ It utilizes a 
+\family typewriter
+React
+\family default
+ design pattern called 
+\family typewriter
+Function as a Child Component
+\family default
+.
 \end_layout
 
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
 
- presents the static code in 
+ component in 
+\family typewriter
+JSX
+\family default
+ accepts a 
+\family typewriter
+prop
+\family default
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ to establish a connection with a 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ instance.
+ Additionally, a function that receives change and value as arguments and
+ returns 
+\family typewriter
+JSX
+\family default
+ is nested within the component.
+\end_layout
+
+\begin_layout Plain Layout
+When defining the component, value is used to display the current value,
+ and change is used to signal a change in the value.
+ For example, in an 
+\family typewriter
+HTML
+\family default
+ input element, the 
+\begin_inset Formula $\LSTINLINE{onChange}$
+\end_inset
+
+ event triggers the 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ function, and the value attribute is set to the current value of the associated
+ 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+In addition, we have developed 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, a 
 \begin_inset Formula $\NAME{React}$
 \end_inset
 
- that bootstraps the components, while 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:runtime})
-\end_layout
-
-\end_inset
-
- presents the runtime components with the interaction channels.
- 
-\begin_inset Formula $\LSTINLINE{BagComponent}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{PumpComponent}$
-\end_inset
-
- in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:code})
-\end_layout
-
-\end_inset
-
- represent the UI components of 
-\begin_inset Formula $\LSTINLINE{Bag}$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
-\end_inset
-
- that are illustrated in 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-(
-\backslash
-subref{fig:runtime})
-\end_layout
-
+ component, designed for visualizing a 
+\begin_inset Formula $\RIVar$
 \end_inset
 
 .
- In the interaction channel between 
-\begin_inset Formula $\LSTINLINE{Bag}$
+ Similar to a reactive variable that recalculates based on changes in its
+ dependencies, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
 
- and 
-\begin_inset Formula $\LSTINLINE{Pump}$
+ component re-renders the view in response to changes in the associated
+ 
+\begin_inset Formula $\RIVar$
 \end_inset
 
+.
+\end_layout
+
+\begin_layout Plain Layout
+To utilize 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+, developers need to specify the 
+\begin_inset Formula $\LSTINLINE{prop}$
+\end_inset
+
+ named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ with the 
+\begin_inset Formula $\RIVar$
+\end_inset
+
+ and a nested element to define the view.
+ The nested element is specified as a function of 
+\begin_inset Formula $\LSTINLINE{value}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\LSTINLINE{change}$
+\end_inset
+
+ method, allowing it to collect user input values and display calculated
+ values.
+ For example as visualized in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:rivarview-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, in the case of a visual element representing Drug Administration Amount,
  the 
-\begin_inset Formula $\RIVar$
+\begin_inset Formula $\LSTINLINE{value}$
 \end_inset
 
-s update each other according to the calculations.
- In the interaction channel between each of them to the corresponding UI
- component, there is a binding between each of the 
-\begin_inset Formula $\RIVar$
+ property is set to the input value, and the 
+\begin_inset Formula $\LSTINLINE{change}$
 \end_inset
 
-s to the corresponding input element, such that when a UI change event occurs,
- it adds an event to the variable stream.
- Conversely, when a new event appears in the stream, it triggers a corresponding
- change in the UI.
-\end_layout
-
+ method is called within the event handler of the 
+\begin_inset Formula $\LSTINLINE{onChange}$
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
+ event.
  
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
-Summary 
+Conclusion
 \end_layout
 
 \begin_layout Standard
+This chapter presented implementations of the approach described in this
+ work, using basic elements of 
+\family typewriter
+ReactiveX
+\family default
+.
+ Two implementations were presented in different programming languages,
+ which were tested with code examples and even connected to the UI and tested
+ against sample applications.
+ By successfully implementing this approach using basic elements, this chapter
+ has clearly demonstrated its feasibility.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 A reactive instance variable is implemented using a 
 \begin_inset Formula $Subject$
 \end_inset
@@ -4070,7 +4082,7 @@ A reactive instance variable is implemented using a
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The 
 \begin_inset Formula $Set$
 \end_inset
@@ -4094,7 +4106,7 @@ The
  value preceding it).
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The 
 \begin_inset Formula $Set$
 \end_inset
@@ -4118,6 +4130,11 @@ The
 
  of the left-hand side reactive instance variable whenever there is a "greater"
  (newer) update from the right-hand side expression's stream.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

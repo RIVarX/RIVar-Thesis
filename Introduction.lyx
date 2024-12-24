@@ -141,10 +141,12 @@ literal "false"
  version of a product or component with a newer one), and so on.
  These are all data updates that can be part of a change propagation process.
  The process is transitive.
- For example, a (GUI) field representing duration is updated according to
- the input of entry and exit times, updating the duration can lead to updating
- a field representing total hours, a field of the total amount due per hour
- can be calculated based on the field of total hours, and so on.
+ For example, A (GUI) field representing working hours is updated according
+ to the input from the entry time and exit time fields.
+ Updating the working hours field can lead to an update of the total monthly
+ hours field.
+ A field representing the hourly rate can then be calculated based on the
+ total monthly hours field, and so on.
 \end_layout
 
 \begin_layout Section
@@ -2623,13 +2625,10 @@ The Thesis's Approach in a Nutshell
 \end_layout
 
 \begin_layout Standard
-The thesis presents an approach where formulas (including change propagation
- similar to 
-\family typewriter
-ReactiveX
-\family default
-) can be defined within the constructor of a class, in a way that the left-hand
- variable of the formula belongs to a different object or class.
+This thesis presents an approach where methods in OOP (typically constructors)
+ can include formulas similar to those in FRP, But with the possibility
+ that the left-hand variable of the formula belongs to a different object
+ or class.
  This type of variable has an operation named 
 \emph on
 Reactive Assignment
@@ -3807,12 +3806,13 @@ The thesis contribution is:
 \end_layout
 
 \begin_layout Itemize
-Introducing a new programming approach to combine OOP with FRP in a way
- that their abstraction mechanisms compliments each other.
+Introducing a new programming approach to combine OOP with FRP.
+ 
 \end_layout
 
 \begin_layout Itemize
 An algorithm for automatic change propagation suitable for the new paradigm.
+ 
 \end_layout
 
 \begin_layout Itemize
@@ -3825,14 +3825,43 @@ C#
 JavaScript
 \family default
  programming languages.
+ 
 \end_layout
 
 \begin_layout Itemize
-Implementing a library for state management in 
+Implementation of an example application using each of the language extensions,
+ demonstrating the practical applicability of the approach.
+ Integration of the language extensions with GUI frameworks, enabling the
+ development of complete applications with reactive user interfaces.
+ This includes implementations in 
+\family typewriter
+WinForms
+\family default
+, 
+\family typewriter
+HTML
+\family default
+, and 
 \family typewriter
 React
 \family default
-.
+, showcasing the versatility of the approach.
+ 
+\end_layout
+
+\begin_layout Itemize
+Development of a 
+\family typewriter
+React
+\family default
+ component that elegantly integrates with the new extension, enabling seamless
+ incorporation into modern frontend frameworks.
+ 
+\end_layout
+
+\begin_layout Itemize
+Comparative analysis of similar implementations using other tools and frameworks
+, highlighting the advantages and unique contributions of the proposed approach.
 \end_layout
 
 \begin_layout Standard

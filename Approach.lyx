@@ -173,7 +173,7 @@ Age
 \family typewriter
 Age
 \family default
- from the 
+ of a 
 \family typewriter
 Creature
 \family default
@@ -473,15 +473,7 @@ The propagation of changes is achieved through the
 \family typewriter
 Observer
 \family default
- design pattern 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gamma1995design"
-literal "false"
-
-\end_inset
-
-.
+ design pattern.
  For each reactive assignment statement, the right-hand side acts as an
  
 \family typewriter
@@ -1318,11 +1310,39 @@ IBag
  class, returning the corresponding reactive instance variables.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+...
+\end_layout
+
 \begin_layout Section
 Conclusion
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+An object contains reactive instance variables that are objects that represent
+ the object's variables.
+ Behavior of an object is reactive assignments executed by its operations
+ (usualy the contructor).
+ However, The propagation of an object (derived from the reactive assignments)
+ includes sending messages to the variables.
+ The updates are managed by messages between variables.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The propgation change derived from 
+\end_layout
+
+\begin_layout Plain Layout
+The operations of the reactive instance variables are oprations that transitiely
+ under the object.
+\end_layout
+
+\begin_layout Plain Layout
 This thesis proposes an approach that integrates FRP and OOP paradigms adapted
  to OOP inheritance.
  In this approach each object manage its own state under the following condition
@@ -1330,8 +1350,13 @@ s:
 \end_layout
 
 \begin_layout Itemize
-An object contains other objects, which represent its variables, and their
- operations are considered as the object's own operations.
+An object contains reactive instance variables that are objects that represent
+ the object's variables.
+ 
+\end_layout
+
+\begin_layout Itemize
+, and their operations are considered as the object's own operations.
  This differs slightly from previous discussions 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1349,6 +1374,11 @@ literal "false"
 The propagation behavior of an object does not include the updates themselves,
  but only the sending of messages.
  The execution of the updates is the responsibility of the variables.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2387,7 +2417,7 @@ noprefix "false"
  and 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "change_propogation_order_relation_example"
+reference "fig:Change-Propagation-with"
 plural "false"
 caps "true"
 noprefix "false"
@@ -2789,16 +2819,16 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "change_propogation_order_relation_example"
+name "fig:Change-Propagation-with"
 
 \end_inset
 
 
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
 \begin_inset Argument 1
 status open
 
@@ -2930,7 +2960,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -4268,7 +4298,7 @@ By the principle of mathematical induction, the claim is true for all natural
 \end_layout
 
 \begin_layout Section
-Summary
+Conclusion
 \end_layout
 
 \begin_layout Standard

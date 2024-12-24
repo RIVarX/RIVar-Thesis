@@ -412,7 +412,196 @@ end{lstlisting}
 \end_layout
 
 \begin_layout Section
-Observable in Reactive Extensions
+Reactive Extensions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Based on the observer pattern is also the 
+\emph on
+observable
+\emph default
+, known also as 
+\emph on
+reactive streams
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://cycle.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ and observable streams.
+ This concept has been famous from 
+\family typewriter
+ReactiveX
+\family default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, a popular API named also as 
+\emph on
+Reactive Extensions (Rx)
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+.
+ As its name Rx refers extensions for programming languages, initially it
+ has been developed for 
+\family typewriter
+C#
+\family default
+
+\begin_inset space ~
+\end_inset
+
+programming language,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ and later on has been implemented for many other programming languages.
+ One of them is 
+\family typewriter
+RxJS
+\family default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for the 
+\family typewriter
+JavaScript
+\family default
+
+\begin_inset space ~
+\end_inset
+
+programming language
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikkonen2007using"
+literal "false"
+
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A complete knowledge and references are available in
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ https://introtorx.com/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+C#
+\family default
+ programming language) and 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rxjs.dev/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+JavaScript
+\family default
+ programming language)
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -462,10 +651,14 @@ https://reactivex.io/
 \end_inset
 
 , extensions for programming languages initially developed for 
-\begin_inset Formula $\NAME{C\#}$
+\family typewriter
+C#
+\family default
+
+\begin_inset space ~
 \end_inset
 
- programming language,
+programming language,
 \begin_inset Foot
 status collapsed
 
@@ -486,9 +679,9 @@ https://learn.microsoft.com/en-us/dotnet/csharp/
 \end_inset
 
  and is now available for many programming languages, such as 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
+\family typewriter
+RxJS
+\family default
 
 \begin_inset Foot
 status collapsed
@@ -565,10 +758,50 @@ JavaScript
 \end_layout
 
 \begin_layout Standard
-Observable is an abstract data structure implemented as an object in OOP
- with the observer pattern.
+An Observable, also known as an
+\emph on
+ observable stream
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "alabor2020debugging"
+literal "false"
+
+\end_inset
+
+ or
+\emph on
+ events stream
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://cycle.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, is an abstract data structure implemented as an object in OOP with the
+ observer pattern.
  It can be visualized as a stream through which data flows, like a tube
- carrying objects in a factory.
+ carrying objects in a factoy.
  For adding data to the stream, the 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
@@ -584,7 +817,7 @@ Observable is an abstract data structure implemented as an object in OOP
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 An 

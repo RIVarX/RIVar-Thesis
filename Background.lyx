@@ -116,15 +116,15 @@ Background
 In programming, preserving data consistency and currency falls under the
  domain of 
 \emph on
-state management
+state 
 \emph default
-.
+management.
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-The term (state management) is commonly used in the context of front-end
- development 
+The term state management is commonly used in the context of front-end developme
+nt 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "youframeworkless"
@@ -220,9 +220,13 @@ Similar to the observer pattern, many programming languages, such as
 \family typewriter
 C#
 \family default
-, provide an event-driven mechanism.
- This allows the code that updates variables to remain independent of the
- code that executes in response to these updates, fostering a decoupled
+, provide an 
+\emph on
+event-driven programming
+\emph default
+ paradigm.
+ In this paradigm, code that updates variables can be independent of the
+ code that executes in response to these updates, thus fostering a decoupled
  and modular design.
  Below is an example that demonstrates the use of the mechanism to ensure
  that a specific variable, 
@@ -286,7 +290,24 @@ An event is defined for each variable: for
 \end_inset
 
  an event 
-\begin_inset Formula $\LSTINLINE{powerDifference\_Change}$
+\begin_inset Formula $\LSTINLINE{powerDiffer}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{ence\_Change}$
 \end_inset
 
 , and for 
@@ -412,7 +433,196 @@ end{lstlisting}
 \end_layout
 
 \begin_layout Section
-Observable in Reactive Extensions
+Reactive Extensions
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Based on the observer pattern is also the 
+\emph on
+observable
+\emph default
+, known also as 
+\emph on
+reactive streams
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://cycle.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ and observable streams.
+ This concept has been famous from 
+\family typewriter
+ReactiveX
+\family default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://reactivex.io/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, a popular API named also as 
+\emph on
+Reactive Extensions (Rx)
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meijer2012your"
+literal "false"
+
+\end_inset
+
+.
+ As its name Rx refers extensions for programming languages, initially it
+ has been developed for 
+\family typewriter
+C#
+\family default
+
+\begin_inset space ~
+\end_inset
+
+programming language,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://learn.microsoft.com/en-us/dotnet/csharp/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ and later on has been implemented for many other programming languages.
+ One of them is 
+\family typewriter
+RxJS
+\family default
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.npmjs.com/package/rxjs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for the 
+\family typewriter
+JavaScript
+\family default
+
+\begin_inset space ~
+\end_inset
+
+programming language
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mikkonen2007using"
+literal "false"
+
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A complete knowledge and references are available in
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ https://introtorx.com/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+C#
+\family default
+ programming language) and 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://rxjs.dev/
+\end_layout
+
+\end_inset
+
+ (in 
+\family typewriter
+JavaScript
+\family default
+ programming language)
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -462,10 +672,14 @@ https://reactivex.io/
 \end_inset
 
 , extensions for programming languages initially developed for 
-\begin_inset Formula $\NAME{C\#}$
+\family typewriter
+C#
+\family default
+
+\begin_inset space ~
 \end_inset
 
- programming language,
+programming language,
 \begin_inset Foot
 status collapsed
 
@@ -486,9 +700,9 @@ https://learn.microsoft.com/en-us/dotnet/csharp/
 \end_inset
 
  and is now available for many programming languages, such as 
-\begin_inset Formula $\NAME{RxJS}$
-\end_inset
-
+\family typewriter
+RxJS
+\family default
 
 \begin_inset Foot
 status collapsed
@@ -565,10 +779,50 @@ JavaScript
 \end_layout
 
 \begin_layout Standard
-Observable is an abstract data structure implemented as an object in OOP
- with the observer pattern.
+An Observable, also known as an
+\emph on
+ observable stream
+\begin_inset space ~
+\end_inset
+
+
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "alabor2020debugging"
+literal "false"
+
+\end_inset
+
+ or
+\emph on
+ events stream
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://cycle.js.org/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, is an abstract data structure implemented as an object in OOP with the
+ observer pattern.
  It can be visualized as a stream through which data flows, like a tube
- carrying objects in a factory.
+ carrying objects in a factoy.
  For adding data to the stream, the 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
@@ -584,7 +838,7 @@ Observable is an abstract data structure implemented as an object in OOP
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 An 
@@ -805,7 +1059,24 @@ Data can be streamed between different streams by using the
 \end_inset
 
  and 
-\begin_inset Formula $\LSTINLINE{Subscribe}$
+\begin_inset Formula $\LSTINLINE{Subscri}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{be}$
 \end_inset
 
  operations.
@@ -817,8 +1088,25 @@ Data can be streamed between different streams by using the
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
- , 
-\begin_inset Formula $\LSTINLINE{A.Subscribe(x=>B.OnNext(x))}$
+, 
+\begin_inset Formula $\LSTINLINE{A.Subscribe(x=>}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{B.OnNext(x))}$
 \end_inset
 
  can be used.
@@ -3059,7 +3347,7 @@ Hotdrink
 
 \end_inset
 
-, we only need to specify the constraints, and the library automatically
+, we only need to specify the constraints, and the library automaticaly
  update the fields during the user interaction.
  For example, for cpecifying 
 \begin_inset ERT
@@ -3074,7 +3362,7 @@ lstinline{A:=B+C}
 
 \end_inset
 
-, each edited tuple, the third variable will be updated automatically.
+, each edited tuple, the third variable will be updated automaticaly.
  The library need to get as input, not only the constraints, but also methods
  to execute to update the fields .
  For this example, 
@@ -4361,7 +4649,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
- , are used.
+, are used.
  For example, given reactive variables as observables 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
@@ -4670,7 +4958,7 @@ stream
 \end_layout
 
 \begin_layout Standard
-The observable, on one hand, resembles stream of timed values, but on the
+An observable, on one hand, resembles stream of timed values, but on the
  other hand, it is also presented as a time-varying value.
 \end_layout
 
@@ -4840,7 +5128,7 @@ In many tools, it is consistently allowed updating a variable in response
 \emph on
 reactive variables 
 \emph default
-that are automatically updated according to relevant changes.
+that are automaticaly updated according to relevant changes.
 \end_layout
 
 \begin_layout Subsection
@@ -4928,7 +5216,7 @@ Encapsulation
 \end_layout
 
 \begin_layout Section
-Conclusion
+Summary
 \end_layout
 
 \begin_layout Standard
@@ -7598,7 +7886,7 @@ noprefix "false"
 
 \end_inset
 
- to automatically maintain 
+ to automaticaly maintain 
 \begin_inset ERT
 status open
 

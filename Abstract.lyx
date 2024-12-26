@@ -99,7 +99,7 @@ Object-Oriented Programming
  (OOP).
  In FRP assignment statements are at a high level of abstraction.
  Assigning a value to a reactive variable, deviates from the specific time
- point, i.e., continuously updates the variable upon relevant changes.
+ point, i.e., continuouly updates the variable upon relevant changes.
 \end_layout
 
 \begin_layout Abstract
@@ -147,7 +147,7 @@ A
 \family typewriter
 Excel
 \family default
-, for which the value of a cell containing a formula depending on another
+, for which the value of a cell containing a formula dependending on another
  cells is automatically updated whenever the value of one of the other cells
  it depends on, changes.
  For instance, if cell 
@@ -985,7 +985,7 @@ Functional Reactive Programming can be reffered as another toold for cod-reuse.
 \end_layout
 
 \begin_layout Abstract
-Functional Reactive Programming providing lifted operations that automatically
+Functional Reactive Programming providing lifted operations that automaticaly
  perform updates when required, rather than calling to update the various
  code locations (in response to events).
 \end_layout
@@ -1015,7 +1015,7 @@ Code reuse is a fundamental principle in software development.
 \begin_layout Abstract
 For example, OOP suggests inheritance and composition.
  Recently FRP contributes another code reuse mechanism, by providing lifted
- operations that automatically perform updates when required, rather than
+ operations that automaticaly perform updates when required, rather than
  calling to update the various code locations (in response to events).
 \end_layout
 
@@ -1491,7 +1491,7 @@ As
 \emph on
 reactive variable
 \emph default
- the variables are automatically changed according to input provided over
+ the variables are automaticaly changed according to input provided over
  time FRP and the
 \emph on
  instance variable

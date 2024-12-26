@@ -87,213 +87,11 @@ name "chap:Conclusion"
 Conclusion
 \end_layout
 
-\begin_layout Standard
-FRP offers various languages and algorithms (for state management) to maintain
- the consistency and currency of variable values.
- This thesis proposes an approach that aims to integrate FRP with OOP, such
- that each object manages its own state, rather than having it managed centrally.
-\end_layout
-
-\begin_layout Standard
-This thesis introduced the concept of a reactive instance variable.
- This represents a variable at a high level of abstraction, combining features
- of both instance variables from OOP and reactive variables from FRP.
- Like reactive variables, a reactive instance variable can be assigned using
- 
-\emph on
-reactive assignment
-\emph default
-, which automatically triggers change propagation.
-\end_layout
-
-\begin_layout Standard
-A reactive instance variable is implemented as an object contained within
- another object and its class, similar to a simple instance variable.
- Below are adjustments aimed at enabling each object to manage its own state,
- rather than having it managed centrally.
-\end_layout
-
-\begin_layout Itemize
-Reactive assignment can be performed on a variable belonging to another
- object and class, without requiring information about other reactive assignment
-s (defined in other classes).
-\end_layout
-
-\begin_layout Itemize
-Change propagations occur through nested calls and data structures that
- belong to or are nested within the same object (i.e., not through a third-party
- component responsible for managing the propagation).
-\end_layout
-
-\begin_layout Standard
-The interpretation mechanism works as follows: when there is a change in
- the value of the right-hand side, a message is sent to the left-hand side
- variable about the change.
- Therefore, a variable can receive messages from more than one source (as
- a result of multiple assignment statements).
- It must receive the messages and set its value accordingly.
- This is similar to inferring the values of a variable over time by sampling
- it, which can be from more than one source.
-\end_layout
-
-\begin_layout Standard
-As a result, a reactive language is created without hierarchy or unidirectional
- flow constraints.
- In the language's implementation (i.e., as part of change propagation), a
- dynamic hierarchy is generated: in response to each input, changes are
- propagated in a tree-like structure (i.e., a directed acyclic graph).
-\end_layout
-
-\begin_layout Standard
-Theoretically, the approach presented in this thesis offers advantages by
- enabling the simultaneous integration of abstraction mechanisms from both
- OOP and FRP:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Declarativeness
-\series default
-: Reactive assignments are defined at a high level of abstraction without
- explicitly implementing the propagation mechanism.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Inheritance
-\series default
- and Containment: Definitions add change propagations and do not modify
- existing ones.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Polymorphism
-\series default
-: Definitions and propagations are defined without depending on the identity
- of the variables participating in the formula.
-\end_layout
-
-\begin_layout Standard
-The approach presented in this thesis has the potential to improve UI applicatio
-ns by:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Reduced cognitive load
-\series default
-: This thesis presents an alternative to building various processes with
- repetitive calculations that lead to an overload of processes and computations.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Flexibility in component content
-\series default
-: This thesis approach follows OOP and modularity principles, therefore
- enables flexibility in defining which fields and calculations are included
- in each component.
- This flexibility allows for determining optimal locations based on organization
-al needs.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Improved usability
-\series default
-: A unique aspect of this thesis approach is the natural ability to add
- further options for inputting existing fields.
-\end_layout
-
-\begin_layout Standard
-Alongside the advantages, it's important to remain aware of certain limitations:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Centralization in change propagation
-\series default
-: There is an element of centralization in the change propagation mechanism,
- particularly the requirement for a central logical clock.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Overwriting of old values
-\series default
-: Change propagation includes overwriting old values (with an indication),
- where the only precedence parameter is time.
-\end_layout
-
-\begin_layout Standard
-However, these limitations do not constitute an obstacle, but rather an
- opportunity for further investigation and expansion of our knowledge in
- the field of integrating or overlapping FRP and OOP.
- This thesis is accompanied by implementations of code libraries in 
-\family typewriter
-C#
-\family default
- and 
-\family typewriter
-JavaScript
-\family default
-, along with integration into GUI components (including 
-\family typewriter
-React
-\family default
-), and an example application implemented using each of these implementations.
- These provide a foundation for continued research and development.
-\end_layout
-
-\begin_layout Standard
-A natural continuation of this thesis could involve developing infrastructure
- for graphical elements that uniquely eliminate the need for event-driven
- programming, thus streamlining the development process.
- Furthermore, in the longer term, there are possibilities for developing
- full-fledged applications that inherently support redundancy, thereby enabling
- a significantly improved user experience.
-\end_layout
-
-\begin_layout Standard
-Concurrently, there are innovative possibilities for applying these findings
- to the consistent and up-to-date management of software components.
- For example, managing dependencies between different versions of software
- packages or between different projects.
- These applications could significantly impact the world of software development.
-\end_layout
-
-\begin_layout Standard
-Acknowledging both the potential inherent in the findings and the existing
- limitations, this thesis constitutes a significant step towards a deeper
- understanding of the relationship between FRP and OOP, and offers exciting
- directions for future research.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
 \begin_layout Section
 Results
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 We introduced an model in which fields are declared to be calculated according
  to each other.
  It is abstracted out details like seperating between input and computed
@@ -308,7 +106,7 @@ We introduced an model in which fields are declared to be calculated according
  function.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -694,7 +492,7 @@ ordering style
 \begin_inset Quotes eld
 \end_inset
 
-set concentraion and volume
+set concentration and volume
 \begin_inset Quotes erd
 \end_inset
 
@@ -713,7 +511,7 @@ set dose and rate
 \begin_inset Quotes eld
 \end_inset
 
-set concentraion and volume
+set concentration and volume
 \begin_inset Quotes erd
 \end_inset
 
@@ -1291,7 +1089,7 @@ noprefix "false"
 Reducing Cognitive load
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 The model reduces the number of details that users and developers need to
  be aware of.
  First, regarding handling multiple fieds or variables according to exact
@@ -1299,12 +1097,12 @@ The model reduces the number of details that users and developers need to
  Second, regrading to managing multiple use-cases.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-A field in GUI can be related to their corespondence meaning,
+A field in GUI can be related to their corespondence meaning, 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1350,7 +1148,7 @@ computed
 Improving Delivery Speed
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 The model offers flexibility in defining boundaries.
  This depends on the organization's needs, determining the optimal location
  for each field or calculation.
@@ -1373,7 +1171,7 @@ literal "false"
 Improving Front-End Usability
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 The model may help to scale up the creation of fields calculations and improve
  front-end usability.
  It can be said that we provide a new mechanism to handle the redundancy.
@@ -1384,7 +1182,7 @@ The model may help to scale up the creation of fields calculations and improve
  
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -1411,7 +1209,7 @@ literal "false"
 \end_inset
 
 .
- The new mechanism should be used to specify SSOT, thus to
+ The new mechanism should be used to specify SSOT, thus to 
 \end_layout
 
 \end_inset
@@ -1419,7 +1217,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -1469,7 +1267,7 @@ literal "false"
 \end_layout
 
 \begin_layout Plain Layout
-This model provides more boundery options
+This model provides more boundery options 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1555,7 +1353,7 @@ This lets a new model of extensibility.
  class or component.
  to make sure that the calculations are correct, that there is no cycles
  or that the cycles are handled correctly.
- This model forms a new type of contract, that
+ This model forms a new type of contract, that 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1638,7 +1436,7 @@ Future Work
 Evaluation
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 We hope to evaluate the model in improving front-end usability.
  We have considered several options for moving forward.
  One option is to refactor parts of an existing complex healthcare system
@@ -1649,7 +1447,7 @@ n that owns the system, as we would need to publish internal information.
  Therefore we think about alternative directions.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 We provide an extension library, as a state management solution to development
  communities, 
 \begin_inset Formula $\NAME{RIVarX}$
@@ -1833,7 +1631,7 @@ CLI
 Expanding the Model
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 Our model should be advanced for cases where a function to calculate data
  based on other data is computationally expensive.
  One approach to consider is adopting a pull model (rather than the currently
@@ -1854,18 +1652,13 @@ literal "false"
  unnecessary continuous updates.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
 Another direction for expansion is to improve the model's handling of scenarios
  where exact dependencies are difficult to pinpoint.
  This is a common issue when dealing with large chunks of data, and it can
  lead to redundant and expensive updates.
  For example, a minor change in code repository that triggers a full CI/CD
  from scratch.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard

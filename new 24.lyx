@@ -1285,7 +1285,7 @@ ordering style
 .
  One option is 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , another option is 
 \family typewriter
@@ -1296,7 +1296,7 @@ set dose and rate
 g the calculations directions.
  If the user selects 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , those fields become editable, and the other fields will be calculated
  accordingly.
@@ -5202,7 +5202,7 @@ ordering style
 .
  One option is 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , another option is 
 \family typewriter
@@ -5213,7 +5213,7 @@ set dose and rate
 g the calculations directions.
  If the user selects 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , those fields become editable, and the other fields will be calculated
  accordingly.

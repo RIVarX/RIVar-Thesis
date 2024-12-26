@@ -854,10 +854,11 @@ name "fig:Propogation-on-the-2"
 
 
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
-A propagation change in established connections of the formula 
+A propagation change in established connections of a reactive assignment
+ 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -866,7 +867,7 @@ A propagation change in established connections of the formula
 
 \end_inset
 
-A propagation change in established connections of the reactive assignment
+A propagation change in established connections of a reactive assignment
  
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset

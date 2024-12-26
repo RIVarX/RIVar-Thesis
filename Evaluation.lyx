@@ -113,20 +113,9 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-This work presents an approach of management separation of reactive variables
- through the use of objects from the OOP paradigm.
- The goal is to reduce cognitive load in the developer experience, by decreasing
- code size, and in the user experience, as a result of the improved development
- experience.
- To evaluate the thesis work, we performed several processes:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The observer design pattern is employed, so that state management is not
+This work presents an approach to a new type of separation in the management
+ of reactive variables in FRP through the use of objects from the OOP paradigm.
+ The observer design pattern is employed, so that state management is not
  centralized.
  As a result, this aligns with the inheritance mechanism.
  The use of the inheritance mechanism is intended to reduce cognitive load,
@@ -136,104 +125,20 @@ The observer design pattern is employed, so that state management is not
 s to reducing cognitive load.
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Drug Administration Implementation
-\series default
-: Development of 
-\family typewriter
-Drug Administr
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
--
-\end_layout
-
-\end_inset
-
-ation
-\family default
- implementations using the thesis approach, comparison between these implementat
-ions and the original implementation, analysis of the results.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Comparative Analysis
-\series default
-: Definition of a metric to assess cognitive load.
- Measurement and calculation for several different implementations of 
-\family typewriter
-Drug Admini
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
--
-\end_layout
-
-\end_inset
-
-stration
-\family default
-: implementation according to the thesis approach, implementation using
- event-driven programming, and implementation using 
-\family typewriter
-Excel
-\family default
- (representing implementation using reactive variables).
- Presentation of results and explanation of the results.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Application Evolution Process
-\series default
-: Comparison between using reactive variables versus using reactive instance
- variables (without referring to objects).
- A case study of an application evolution process and discussion, showing
- the benefits of using reactive instance variables.
-\end_layout
-
 \begin_layout Standard
-
-\series bold
-\begin_inset Note Note
-status collapsed
+To evaluate the thesis approach, we performed several processes: 
+\end_layout
 
 \begin_layout Itemize
 
 \series bold
 Drug Administration Implementation
 \series default
-: We developed several implementations of a specific application.
- Some of the implementations use the thesis approach, while others do not.
- Additionaly, we conducted some qualitative comparisons regarding user and
- developer experience between the implementations.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Comparative Analysis
-\series default
-: we defined metrics to assess cognitive load, conducted the measurements,
- and presented the results.
+: We developed the 
+\family typewriter
+Drug Administration
+\family default
+ application using this thesis approach.
 \end_layout
 
 \begin_layout Itemize
@@ -246,9 +151,17 @@ An Application Evolution Process
  
 \end_layout
 
-\end_inset
+\begin_layout Itemize
 
-
+\series bold
+Comparative Analysis
+\series default
+: We measured the implementations of 
+\family typewriter
+Drug Administration
+\family default
+ and additional implementations that do not use the thesis approach, comparing
+ the metrics and analyzing the results.
 \end_layout
 
 \begin_layout Standard
@@ -270,122 +183,8 @@ n as "instance variables" in OOP.
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
 \begin_layout Section
-Principles for Evaluating the Approach
-\end_layout
-
-\begin_layout Plain Layout
-This work addresses challenges that arise when developing automatic computation
- features for fields in user interfaces.
- These challenges stem from cognitive overload in user and developer experience.
-\end_layout
-
-\begin_layout Paragraph
-Cognitive Load for Users
-\end_layout
-
-\begin_layout Plain Layout
-For end-users as well, cognitive load can negatively impact their experience
- with an interface.
- Here are some factors that can contribute to this load:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Excessive Fields
-\series default
-: Too many fields, or irrelevant fields, confuse the user and make it difficult
- to locate those that are actually relevant.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Irrelevant Elements
-\series default
-: An overabundance of visual elements or the presence of irrelevant ones
- distracts the user and makes it harder to focus on the task at hand.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Lengthy Processes
-\series default
-: Long processes require the user to remember a lot of information and follow
- many steps, increasing cognitive load.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Lack of Clarity
-\series default
-: Long user manual reflects instructions, as well as errors or a lack of
- feedback, confuse the user and make it difficult to understand the interface.
-\end_layout
-
-\begin_layout Paragraph
-Cognitive Load for Programmers
-\end_layout
-
-\begin_layout Plain Layout
-Cognitive load is a significant factor in the user interface development
- process and can stem from several sources:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Code Volume
-\series default
-: A large amount of code hinders system comprehension, navigation, and maintenan
-ce.
- Programmers are required to invest more time in understanding the code
- and locating errors.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Logical Complexity
-\series default
-: Complex calculation logic and dependencies between fields require programmers
- to invest more effort in design and implementation.
- As the logic becomes more intricate, the likelihood of errors increases.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Abundance of Details in Code Building Blocks
-\series default
-: A large number of items and concepts that constitute the building blocks
- of programming overload memory and hinder code comprehension.
- Programmers are required to learn and retain extensive knowledge to be
- proficient application developers.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Drug Administration 
-\series bold
-Implementation
+Drug Administration Application
 \end_layout
 
 \begin_layout Standard
@@ -467,7 +266,7 @@ By the use of reactive instance variables we created
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- classes with a focus on separation according to the business domain:
+ classes focusing on separation.
 \end_layout
 
 \begin_layout Itemize
@@ -1267,21 +1066,7 @@ Empirical Validation
 \begin_layout Standard
 In this subsection, we present a scenario demonstrating the use of the 
 \family typewriter
-Drug Administ
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\family typewriter
-
-\backslash
--
-\end_layout
-
-\end_inset
-
-ration
+Drug Administration
 \family default
  application, utilizing a logging capability added in the
 \family typewriter
@@ -1372,7 +1157,7 @@ The order of the log might not seem entirely reasonable at first glance.
  This discrepancy occurs because the log action is an event handler triggered
  according to the order of registrations.
  The order of the log follows a post-order traversal on top of a traversal
- similar to DFS.
+ similar to Depth-First Search (DFS).
  In the second step, the traversal sequence is 
 \begin_inset Formula $\LSTINLINE{Volume}$
 \end_inset
@@ -1613,33 +1398,15 @@ name "fig:DFS_Validation-1"
 status open
 
 \begin_layout Plain Layout
-Visualizing Change Propagation for a Scenario in 
-\family typewriter
-Drug Administration
-\family default
- Application.
+Visualizing Change Propagation for a Scenario in Drug Administration Application.
 \end_layout
 
 \end_inset
 
-Visualizing Change Propagation for a Scenario in 
-\family typewriter
-Drug Administration
-\family default
- Application.
- The graph illustrates the propagation of changes after setting the 
-\family typewriter
-Rate
-\family default
- variable to 5, where 
-\family typewriter
-Drug
-\family default
- and 
-\family typewriter
-Volume
-\family default
- have already been set to 10 and 100, respectively.
+Visualizing Change Propagation for a Scenario in Drug Administration Application.
+ The graph illustrates the propagation of changes after setting the "Rate"
+ variable to 5, where "Drug" and "Volume" have already been set to 10 and
+ 100, respectively.
  The circles represent variables, squares represent expressions assigned
  to them.
  Edges represent the propagation of values, with each edge labeled by the
@@ -1658,185 +1425,133 @@ n is indicated by dotted lines.
 
 \end_layout
 
+\begin_layout Subsection
+Discussion: Transparency of Data Source
+\end_layout
+
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The fill of each of those fields raises events that trigger transitions
- between states.
- The 
-\end_layout
-
-\begin_layout Plain Layout
-According to the current statechart, the user can fill in either 
-\family typewriter
-Drug
-\family default
- and then 
-\family typewriter
-Volume
-\family default
-, or 
-\family typewriter
-Volume
-\family default
- and then 
-\family typewriter
-Drug
-\family default
-.
- 
-\family typewriter
-Concentration
-\family default
- is calculated in response to the filling operations and according to their
- values.
-\end_layout
-
-\begin_layout Plain Layout
-The current implementation includes only the fields: 
-\family typewriter
-Drug
-\family default
-, 
-\family typewriter
-Concentration
-\family default
- and 
-\family typewriter
-Volume
-\family default
-.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Statechart presents the different states that the application can be in
- and the events that trigger transitions between those states.
- In each transition an action may be executed.
-\end_layout
-
-\begin_layout Plain Layout
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- a 
-\emph on
-statechart
-\emph default
- is used for a visual representation of an implementation of a 
+Compared to the old implementation (of 
 \family typewriter
 Drug Administration
 \family default
- application using events.
- The statechart presents the different states that the application can be
- in and the events that trigger transitions between those states.
- In each transition an action may be executed.
+ presented in the introduction), there is a difficulty in knowing the source
+ of each calculated value.
+ The old implementation uses a solution where the user is required to make
+ choices that define the calculation method, thus the source of each value
+ is known.
+ Whereas in the new implementation, a field is populated directly or indirectly
+ and can therefore receive values from multiple sources.
 \end_layout
 
-\begin_layout Plain Layout
-As presented in the statechart, the implementation consists of only the
- fields 
-\family typewriter
-Drug
-\family default
-, 
-\family typewriter
-Concentration
-\family default
- and 
-\family typewriter
-Volume
-\family default
-.
- A user can fill in either 
-\family typewriter
-Drug
-\family default
- and then 
-\family typewriter
-Volume
-\family default
-, or 
-\family typewriter
-Volume
-\family default
- and then 
-\family typewriter
-Drug
-\family default
-.
- Filling a value raises a transition between states, while in 
+\begin_layout Standard
+This difficulty resembles the known problem, that different methods triggered
+ by various events can update shared variables (
+\emph on
+state management
+\emph default
+).
+ Thus, given a variable containing a certain value, It is hard to know the
+ reason for it.
+ Below are the advantages of the new implementation over regular state managemen
+t.
 \end_layout
 
-\begin_layout Plain Layout
-When a user fill a field, an event is raised such that there is a move to
- another state 
+\begin_layout Itemize
+In the new implementation, the source of a value is more constrained and
+ therefore more predictable.
+ It is more constrained because it is determined by reactive assignments
+ and input, whereas regular state management relies on regular code, which
+ has many more variations.
 \end_layout
 
-\begin_layout Plain Layout
-As presented in the statechart, the implementation consists of only the
- fields Drug, Concentration and Volume.
- The user can fill in either 
-\family typewriter
-Drug
-\family default
- and then 
-\family typewriter
-Volume
-\family default
-, or 
-\family typewriter
-Volume
-\family default
- and then 
-\family typewriter
-Drug
-\family default
-.
+\begin_layout Itemize
+The user chooses which fields to edit, and can be aware that when they enter
+ a value that might conflict with previously entered values, the oldest
+ value will be overwritten, as will any values calculated based on that
+ old value.
+\end_layout
+
+\begin_layout Itemize
+It is possible to determine for each value whether it is calculated or a
+ user-entered value (this was implemented in all the examples, except for
+ the React example).
+\end_layout
+
+\begin_layout Itemize
+Suggestion for further research: prepare a visualization that shows the
+ calculation source for each value.
+\end_layout
+
+\begin_layout Itemize
+Suggestion for further research: allow more options to whom value would
+ override.
+ the research could investigate alternative strategies such as:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Prioritization: Assigning priorities to different data sources or input
+ methods.
+ For example, user input might have higher priority than calculated values,
+ or values from a specific source might be preferred over others.
  
-\family typewriter
-Concentration
-\family default
- is calculated in response to the filling operations and according to their
- values.
 \end_layout
 
-\begin_layout Plain Layout
-According to the current statechart, the user can fill in either 
-\family typewriter
-Drug
-\family default
- and then 
-\family typewriter
-Volume
-\family default
-, or 
-\family typewriter
-Volume
-\family default
- and then 
-\family typewriter
-Drug
-\family default
-.
+\begin_layout Itemize
+Conflict resolution: Implementing mechanisms to detect and resolve conflicts
+ between values, such as prompting the user to choose the correct value
+ or using predefined rules to determine the appropriate outcome.
  
-\family typewriter
-Concentration
-\family default
- is calculated in response to the filling operations and according to their
- values.
 \end_layout
 
+\begin_layout Itemize
+Versioning: Keeping track of different versions of a value, allowing users
+ to revert to previous values or compare changes over time.
+ 
+\end_layout
+
+\begin_layout Itemize
+Merging: Developing strategies to merge conflicting values instead of simply
+ overwriting them.
+ This could involve averaging values, combining different parts of the data,
+ or using other techniques to create a composite value.
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Implementation of Drug Administration using Excel
+\begin_inset ERT
+status open
+
 \begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename DrugAdministrationInExcel.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Implementation of Drug Administration using Statechart
+\end_layout
+
+\begin_layout Standard
 In 
 \begin_inset CommandInset ref
 LatexCommand formatted
@@ -1852,7 +1567,7 @@ noprefix "false"
 statechart
 \emph default
  is presented.
- Statecharts 
+ statecharts 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "harel1995statement"
@@ -1864,34 +1579,10 @@ literal "false"
  systems.
  They show the different states a system can be in and the events that trigger
  transitions between those states.
- According to the current statechart, the user can fill in either 
-\family typewriter
-Drug
-\family default
- and then 
-\family typewriter
-Volume
-\family default
-, or 
-\family typewriter
-Volume
-\family default
- and then 
-\family typewriter
-Drug
-\family default
-.
- 
-\family typewriter
-Concentration
-\family default
- is calculated in response to the filling operations and according to their
- values.
-\end_layout
-
-\end_inset
-
-
+ According to the current statechart, the user can fill in either Drug and
+ then Volume, or Volume and then Drug.
+ Concentration x is calculated in response to the filling operations and
+ according to their values.
 \end_layout
 
 \begin_layout Standard
@@ -1983,1305 +1674,6 @@ noprefix "false"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Subsection
-Implementation of 
-\family typewriter
-Drug Administration
-\family default
- using 
-\family typewriter
-Hotdrink
-\end_layout
-
-\begin_layout Plain Layout
-The Hotdrink library employs a multi-directional constraint programming
- approach, where dependencies between variables and methods for computing
- values are explicitly defined.
- In this system, each "method" not only defines a function for computing
- a variable but also specifies the directions and dependencies between the
- variables involved in the computation.
- For example, in Figure 11, three variables (A, B, C) are defined, and the
- relationships between them are modeled using constraints.
- Each "method" defines how a variable is computed from others: the method
- B, C -> A uses the sum function to compute A from B and C (i.e., A := B +
- C), the method A, C -> B uses the diff function to compute B from A and
- C (i.e., B := A - C), and the method A, B -> C also uses the diff function
- to compute C from A and B (i.e., C := A - B).
-\end_layout
-
-\begin_layout Plain Layout
-In the Hotdrink system, the constraint solver is based on a model called
- "constraint hierarchies," which allows for prioritizing constraints.
- In addition to the constraints defined in the code, the system adds new
- constraints based on variables that have user input.
- When an input is provided for a variable X, a constraint with maximum priority,
- i.e., X = x, is added.
- Subsequently, the system checks the newly created model.
- When solving the constraints, the system will prioritize the higher-priority
- constraints according to the hierarchy and attempt to satisfy them first.
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-function  sum( a, b ) { return a + b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-function diff( a, b ) { return a - b; }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-var model = new hd.ModelBuilder()
-\end_layout
-
-\begin_layout Plain Layout
-
-    .variables( {A: 0, B: 0, C: 0} )
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .constraint( A, B, C )
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'B, C -> A', sum  ) // A:=B+C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, C -> B', diff ) // B:=A-C
-\end_layout
-
-\begin_layout Plain Layout
-
-      .method( 'A, B -> C', diff ) // C:=A-B
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    .end();
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{lstlisting}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:two-way-constraint-1-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Two-way constraint 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- implemented by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-Two-way constraint 
-\begin_inset Formula $\LSTINLINE{A=B+C}$
-\end_inset
-
- implemented by 
-\begin_inset Formula $\NAME{Hotdrink}$
-\end_inset
-
-.
- The 
-\begin_inset Formula $\LSTINLINE{constraint}$
-\end_inset
-
- method is used to create the constraint by specifying the variables as
- arguments and chaining the necessary methods.
- Each method has two parameters: the data flow direction and the function
- to execute when that method is chosen to satisfy the constraint.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float table
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0pt">
-<column alignment="center" valignment="top" width="0pt">
-<column alignment="center" valignment="top" width="0pt">
-<row interlinespace="default">
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Input
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Constraints hierarchical in descending order
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Solution
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=1, B=1
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-B=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, B=2, A=1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=2, B=2
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=B, A=3, B=2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A=3, B=3
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:constraints-hirarchy-1"
-
-\end_inset
-
-
-\begin_inset Argument 1
-status collapsed
-
-\begin_layout Plain Layout
-Maintaining 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{B}
-\end_layout
-
-\end_inset
-
- according to the constraint 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-lstinline{A=B}
-\end_layout
-
-\end_inset
-
-, using constraint hierarchies.
-\end_layout
-
-\end_inset
-
-Maintaining 
-\begin_inset Formula $\NAME A$
-\end_inset
-
- and 
-\begin_inset Formula $\NAME B$
-\end_inset
-
- according to the constraint 
-\begin_inset Formula $\NAME{A=B}$
-\end_inset
-
-, using constraint hierarchies.
- Each row represents a step in the interaction.
- The first column mentions the input provided.
- The second column mentions the exiting constraints following the input
- provided.
- The third column displays the values of the variables, as determined by
- the constraint solver.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Discussion: Transparency of Data Source
-\end_layout
-
-\begin_layout Standard
-Compared to the old implementation (of 
-\family typewriter
-Drug Administration
-\family default
- presented in the introduction), there is a difficulty in knowing the source
- of each calculated value.
- The old implementation uses a solution where the user is required to make
- choices that define the calculation method, thus the source of each value
- is known.
- Whereas in the new implementation, a field is populated directly or indirectly
- and can therefore receive values from multiple sources.
-\end_layout
-
-\begin_layout Standard
-This difficulty resembles the known problem, that different methods triggered
- by various events can update shared variables (
-\emph on
-state management
-\emph default
-).
- Thus, given a variable containing a certain value, it's hard to know the
- reason for it.
- Below are the advantages of the new implementation over regular state managemen
-t.
-\end_layout
-
-\begin_layout Itemize
-In the new implementation, the source of a value is more constrained and
- therefore more predictable.
- It is more constrained because it is determined by reactive assignments
- and input, whereas regular state management relies on regular code, which
- has many more variations.
-\end_layout
-
-\begin_layout Itemize
-The user chooses which fields to edit, and can be aware that when they enter
- a value that might conflict with previously entered values, the oldest
- value will be overwritten, as will any values calculated based on that
- old value.
-\end_layout
-
-\begin_layout Itemize
-It's possible to determine for each value whether it is calculated or a
- user-entered value (this was implemented in all the examples, except for
- the React example).
-\end_layout
-
-\begin_layout Itemize
-Suggestion for further research: prepare a visualization that shows the
- calculation source for each value.
-\end_layout
-
-\begin_layout Itemize
-Suggestion for further research: allow more options to whom value would
- override.
- the research could investigate alternative strategies such as:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\series bold
-Prioritization
-\series default
-: Assigning priorities to different data sources or input methods.
- For example, user input might have higher priority than calculated values,
- or values from a specific source might be preferred over others.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Conflict resolution
-\series default
-: Implementing mechanisms to detect and resolve conflicts between values,
- such as prompting the user to choose the correct value or using predefined
- rules to determine the appropriate outcome.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Versioning
-\series default
-: Keeping track of different versions of a value, allowing users to revert
- to previous values or compare changes over time.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Merging
-\series default
-: Developing strategies to merge conflicting values instead of simply overwritin
-g them.
- This could involve averaging values, combining different parts of the data,
- or using other techniques to create a composite value.
-\end_layout
-
-\end_deeper
-\begin_layout Section
-Comparative Analysis
-\end_layout
-
-\begin_layout Standard
-This work addresses challenges stem from cognitive overload in user and
- developer experience, when developing automatic computation features for
- fields in user interfaces.
- The goal is to assess whether the approach helps reduce cognitive load.
- 
-\family typewriter
-\series bold
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-To this end, the evaluation focuses on a score 
-\family typewriter
-Efficiency
-\family default
- that is calculated from scores 
-\family typewriter
-Code Quantity
-\family default
- and 
-\family typewriter
-Use Case Coverage
-\family default
-.
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-This work addresses challenges stem from cognitive overload in user and
- developer experience, when developing automatic computation features for
- fields in user interfaces.
- Challenges to user experience include, for example:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Excessive Fields
-\series default
-: Too many fields, or irrelevant fields, confuse the user and make it difficult
- to locate those that are actually relevant.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Irrelevant Elements
-\series default
-: An overabundance of visual elements or the presence of irrelevant ones
- distracts the user and makes it harder to focus on the task at hand.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Lengthy Processes
-\series default
-: Long processes require the user to remember a lot of information and follow
- many steps, increasing cognitive load.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Lack of Clarity
-\series default
-: Long user manual reflects instructions, as well as errors or a lack of
- feedback, confuse the user and make it difficult to understand the interface.
-\end_layout
-
-\begin_layout Plain Layout
-Challenges to developer experience include, for example:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Large Code Volume
-\series default
-: A large amount of code hinders system comprehension, navigation, and maintenan
-ce.
- Programmers are required to invest more time in understanding the code
- and locating errors.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Logical Complexity
-\series default
-: Complex calculation logic and dependencies between fields require programmers
- to invest more effort in design and implementation.
- As the logic becomes more intricate, the likelihood of errors increases.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Abundance of Details in Code Building Blocks
-\series default
-: A large number of items and concepts that constitute the building blocks
- of programming overload memory and hinder code comprehension.
- Programmers are required to learn and retain extensive knowledge to be
- proficient application developers.
-\end_layout
-
-\begin_layout Plain Layout
-The goal is to assess whether the approach helps reduce cognitive load.
- To this end, the evaluation focuses on a score 
-\family typewriter
-Efficiency
-\family default
- that is calculated from scores 
-\family typewriter
-Code Quantity
-\family default
- and 
-\family typewriter
-Use Case Coverage
-\family default
-.
-\family typewriter
-\series bold
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-
-\family typewriter
-\series bold
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Itemize
-
-\family typewriter
-\series bold
-Code Quantity
-\family default
-\series default
-: For any given task, the smaller the amount of code, the greater the efficiency.
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-\series bold
-Use Case Coverage
-\family default
-\series default
-: The higher the coverage of use cases, the greater the efficiency.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\family typewriter
-\series bold
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-
-\family typewriter
-\series bold
-Documentation Length
-\family default
-\series default
-: Shorter documentation length reflects greater efficiency because it implies
- predictable and general behavior, as opposed to lengthy documentation that
- reflects a multitude of cases or the existence of edge cases.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Based on those scores, we calculate 
-\family typewriter
-Efficiency
-\family default
- by 
-\begin_inset Formula $Use\ Case\ Coverage/Code\ Quantity$
-\end_inset
-
-.
- We do not measure Documentation Length because we use a consistent documentatio
-n length across all implementations, with the identical behavior in all
- of them: maintaining the consistency and currency of the fields.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Scores
-\end_layout
-
-\begin_layout Standard
-The evaluation focuses on a score 
-\family typewriter
-Efficiency
-\family default
- that is calculated from scores 
-\family typewriter
-Code Quantity
-\family default
- and 
-\family typewriter
-Use Case Coverage
-\family default
-.
- The 
-\family typewriter
-Use Case Coverage
-\family default
- score refers to counting existing distinct ways a user can interact with
- the application.
- It's measured by counting the permutations of field completion: analyzing
- the different sequences in which a user can fill out the fields from the
- start of the application until all fields are completed.
- Each unique order, regardless of the specific values entered, represents
- a distinct use case.
- 
-\end_layout
-
-\begin_layout Standard
-For example, in a 
-\family typewriter
-Drug Administration
-\family default
- application instance that includes three fields: 
-\family typewriter
-Drug
-\family default
-, 
-\family typewriter
-Volume
-\family default
-, and 
-\family typewriter
-Concentration
-\family default
-, there are six possible permutations (use cases) for how a medical professional
- might fill these out:
-\end_layout
-
-\begin_layout Enumerate
-
-\family typewriter
-Drug -> Volume -> Concentration 
-\end_layout
-
-\begin_layout Enumerate
-
-\family typewriter
-Drug -> Concentration -> Volume
-\end_layout
-
-\begin_layout Enumerate
-
-\family typewriter
-Volume -> Drug -> Concentration 
-\end_layout
-
-\begin_layout Enumerate
-
-\family typewriter
-Volume -> Concentration -> Drug 
-\end_layout
-
-\begin_layout Enumerate
-
-\family typewriter
-Concentration -> Drug -> Volume 
-\end_layout
-
-\begin_layout Enumerate
-
-\family typewriter
-Concentration -> Volume -> Drug 
-\end_layout
-
-\begin_layout Standard
-The more use cases the code generates, the more value it has, and therefore
- it has a positive impact on the 
-\family typewriter
-Efficiency
-\family default
- metric.
-\end_layout
-
-\begin_layout Standard
-The 
-\family typewriter
-Code Quantity
-\family default
-\series bold
- 
-\series default
-score focuses specifically on the code related to managing fields and their
- calculations within the user interface, excluding code related to visual
- design or layout.
- Therefore, we count and sum the scores for 
-\series bold
-Variables
-\series default
- and 
-\series bold
-Calculations
-\series default
-:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Variables
-\series default
-: This refers to the count of variables used to represent data within the
- user interface, particularly those associated with the fields being evaluated.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Calculations
-\series default
-: This refers to instances in the code where values or expressions are assigned
- to variables, or where functions are called that perform such assignments.
- This applies regardless of whether the code is imperative (e.g., direct assignmen
-ts), declarative (e.g., reactive programming), or in the form of formulas
- (e.g., in Excel).
- The core idea is that these actions represent assignments, even though
- their implementation may vary across different contexts.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-A higher number of possible use case permutations indicates as more adaptable
- to different user workflows and preferences.
- Therefore, the code does more for the users, affects the 
-\family typewriter
-Efficiency 
-\family default
-metrics.
-\end_layout
-
-\begin_layout Plain Layout
-This affects the efficiency metric, because for a specific code size, more
- possible use case permutations, the code is more efficient.
-\end_layout
-
-\begin_layout Plain Layout
-A user interface that allows for more of these permutations is considered
- more flexible and adaptable to different user approaches.
- This is important because medical professionals may have different preferences
- or workflows when prescribing medication.
- Some might prefer to select the 
-\family typewriter
-Drug
-\family default
- first, while others might start with the 
-\family typewriter
-Concentration
-\family default
- or the 
-\family typewriter
-Volume
-\family default
-.
- A flexible interface accommodates these variations and allows for a more
- efficient and user-friendly experience.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Paragraph
-Documentation Complexity
-\end_layout
-
-\begin_layout Plain Layout
-This metric assesses the complexity and clarity of the underlying logic
- by analyzing the documentation required to describe the system's behavior.
- It's measured by the number of rules or special cases documented.
-\end_layout
-
-\begin_layout Itemize
-Shorter documentation with fewer rules generally reflects a more predictable
- and generalized behavior.
- This suggests a solution that handles a wide range of scenarios with a
- concise set of principles, leading to easier understanding and maintenance.
-\end_layout
-
-\begin_layout Itemize
-Conversely, longer documentation with a multitude of edge cases and specific
- rules indicates higher complexity.
- This can be a sign of a less robust solution that may be more difficult
- to understand, debug, and extend.
-\end_layout
-
-\begin_layout Plain Layout
-Why this is important:
-\end_layout
-
-\begin_layout Itemize
-Captures Underlying Logic: This metric goes beyond simply measuring the
- amount of documentation.
- It aims to capture the inherent complexity of the system's behavior.
- 
-\end_layout
-
-\begin_layout Itemize
-Identifies Potential Issues: A high degree of documentation complexity can
- be a warning sign of potential design flaws or a lack of underlying coherence
- in the solution.
- 
-\end_layout
-
-\begin_layout Itemize
-Prioritizes Elegance and Simplicity: This metric encourages solutions that
- are not only functional but also elegant and easy to understand, promoting
- good design principles.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The 
-\family typewriter
-Efficiency
-\family default
- score is calculated by 
-\begin_inset Formula $Use\ Case\ Coverage/Code\ Quantity$
-\end_inset
-
-.
- A higher 
-\family typewriter
-Efficiency
-\family default
- score indicates for an implementation that it generates more use cases
- with a smaller amount of code.
- For example, an implementation 
-\family typewriter
-A
-\family default
- has 6 possible use cases and a 
-\family typewriter
-Code Quantity
-\family default
- score 10, its Efficiency would be 
-\begin_inset Formula $6/10=0.6$
-\end_inset
-
-.
- A second implementation 
-\family typewriter
-B
-\family default
- has 4 use cases and a 
-\family typewriter
-Efficiency
-\family default
- score 20, its 
-\family typewriter
-Efficiency
-\family default
- is 4/20 = 0.2.
- This suggests that implementation 
-\family typewriter
-A
-\family default
- is more efficient, as it provides more use cases per unit of code.
-\end_layout
-
-\begin_layout Subsection
-Implementations
-\end_layout
-
-\begin_layout Standard
-There are three implementations used in this evaluation: the Drug Administration
- implementation, which utilizes either 
-\family typewriter
-rivarjs
-\family default
- or 
-\family typewriter
-RIVarX
-\family default
- (both yielding identical scores in the evaluation), an implementation using
- 
-\family typewriter
-Excel
-\family default
-, and an implementation based on event-driven programming.
-\end_layout
-
-\begin_layout Paragraph
-Implementation of 
-\family typewriter
-Drug Administration
-\family default
- using 
-\family typewriter
-Excel
-\end_layout
-
-\begin_layout Standard
-In the 
-\family typewriter
-Excel
-\family default
- implementation, for each type of calculation, the set of fields should
- be duplicated and redefined.
- Each field is defined as either an input, meaning a field where the user
- enters values, or an output, meaning a field where a formula is entered,
- so it will contain computed values based on the values of other fields.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Scores for this implementation:
-\end_layout
-
-\begin_layout Itemize
-Variables: 12
-\end_layout
-
-\begin_layout Itemize
-Calculations: 6
-\end_layout
-
-\begin_layout Itemize
-Code Quantity: 18
-\end_layout
-
-\begin_layout Itemize
-Use Cases: 12
-\end_layout
-
-\begin_layout Itemize
-Efficiency: 0.6
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-This implementation is similar to an implementation using only reactive
- variables (i.e., without combining with streams, events, or imperative code).
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Scores for this implementation:
-\end_layout
-
-\begin_layout Itemize
-variables: 12
-\end_layout
-
-\begin_layout Itemize
-calculations: 6
-\end_layout
-
-\begin_layout Itemize
-Code Quantity: 18
-\end_layout
-
-\begin_layout Itemize
-Use Cases: 12
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename DrugAdministrationInExcel.png
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Implementation of 
-\family typewriter
-Drug Administration
-\family default
- using 
-\family typewriter
-Events
-\end_layout
-
-\begin_layout Standard
-In 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
- a 
-\emph on
-statechart
-\begin_inset space ~
-\end_inset
-
-
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1995statement"
-literal "false"
-
-\end_inset
-
- is used for a visual representation of an implementation of a 
-\family typewriter
-Drug Administration
-\family default
- application using events.
- Statecharts
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "harel1995statement"
-literal "false"
-
-\end_inset
-
- are used for a visual representation of the behavior in event-driven programmin
-g.
- They show the different states a system can be in, events that trigger
- transitions between those states, and action that may be executed in the
- transitions.
- 
-\end_layout
-
-\begin_layout Standard
-In using the implemented 
-\family typewriter
-Drug Administration
-\family default
-, a user can fill in either 
-\family typewriter
-Drug
-\family default
- and then 
-\family typewriter
-Volume
-\family default
-, or 
-\family typewriter
-Volume
-\family default
- and then 
-\family typewriter
-Drug
-\family default
-, such that from these values the value of 
-\family typewriter
-Concentration
-\family default
- is calculated.
- 
-\end_layout
-
-\begin_layout Standard
-As presented in the statechart, events are raised and trigger transition
- between states, such that a call to calculate and update 
-\family typewriter
-Concentration
-\family default
- is repeated three times.
 \end_layout
 
 \begin_layout Standard
@@ -3549,48 +1941,47 @@ Modeling a statechart for a formula
 
 \end_layout
 
+\begin_layout Subsection
+Implementation of Drug Administration using 
+\family typewriter
+Hotdrink
+\end_layout
+
 \begin_layout Standard
-\begin_inset Note Note
+The Hotdrink library employs a multi-directional constraint programming
+ approach, where dependencies between variables and methods for computing
+ values are explicitly defined.
+ In this system, each "method" not only defines a function for computing
+ a variable but also specifies the directions and dependencies between the
+ variables involved in the computation.
+ For example, in Figure 11, three variables (A, B, C) are defined, and the
+ relationships between them are modeled using constraints.
+ Each "method" defines how a variable is computed from others: the method
+ B, C -> A uses the sum function to compute A from B and C (i.e., A := B +
+ C), the method A, C -> B uses the diff function to compute B from A and
+ C (i.e., B := A - C), and the method A, B -> C also uses the diff function
+ to compute C from A and B (i.e., C := A - B).
+\end_layout
+
+\begin_layout Standard
+In the Hotdrink system, the constraint solver is based on a model called
+ "constraint hierarchies," which allows for prioritizing constraints.
+ In addition to the constraints defined in the code, the system adds new
+ constraints based on variables that have user input.
+ When an input is provided for a variable X, a constraint with maximum priority,
+ i.e., X = x, is added.
+ Subsequently, the system checks the newly created model.
+ When solving the constraints, the system will prioritize the higher-priority
+ constraints according to the hierarchy and attempt to satisfy them first.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status collapsed
 
 \begin_layout Plain Layout
-Scores for this implementation:
-\end_layout
-
-\begin_layout Itemize
-Variables: 3
-\end_layout
-
-\begin_layout Itemize
-Calculations: 3
-\end_layout
-
-\begin_layout Itemize
-Code Quantity: 6
-\end_layout
-
-\begin_layout Itemize
-Use Cases: 2
-\end_layout
-
-\begin_layout Itemize
-Efficiency: 0.4
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Results and Discussion
-\end_layout
-
-\begin_layout Standard
-The goal of the tests was to compare different approaches to developing
- 
-\family typewriter
-Drug Admini
 \begin_inset ERT
 status open
 
@@ -3598,306 +1989,86 @@ status open
 
 
 \backslash
--
+begin{center}
 \end_layout
-
-\end_inset
-
-stration
-\family default
- and to examine which approach leads to the highest value in the score 
-\family typewriter
-Efficiency
-\family default
-.
- The implementations using 
-\family typewriter
-rivarjs
-\family default
- and 
-\family typewriter
-RIVarX
-\family default
- show significant efficiency compared to the other implementations.
- As can be seen in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "tab:Comparison-of-Implementations."
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-, the highest efficiency score was achieved for the implementation of the
- thesis approach.
- The thesis approach achieved an efficiency score of 8, while the other
- implementations achieved scores of 0.6 and 0.4.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status collapsed
 
 \begin_layout Plain Layout
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="6">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
+
+
+\backslash
+begin{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+function  sum( a, b ) { return a + b; }
+\end_layout
+
+\begin_layout Plain Layout
+
+function diff( a, b ) { return a - b; }
+\end_layout
 
 \begin_layout Plain Layout
 
 \end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
+\begin_layout Plain Layout
+
+var model = new hd.ModelBuilder()
+\end_layout
 
 \begin_layout Plain Layout
 
-\family typewriter
-Variables
+    .variables( {A: 0, B: 0, C: 0} )
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-Calculations
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-Code Quantity
+    .constraint( A, B, C )
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-Use-Cases
+      .method( 'B, C -> A', sum  ) // A:=B+C
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-Efficiency
+      .method( 'A, C -> B', diff ) // B:=A-C
 \end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-rivarjs
-\family default
-/
-\family typewriter
-RIVarX
+      .method( 'A, B -> C', diff ) // C:=A-B
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-6
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-9
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-15
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-120
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-8
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-Excel
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-12
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-6
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-18
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-12
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.6
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
 
-\family typewriter
-Events
+    .end();
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
-3
-\end_layout
 
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
+
+\backslash
+end{lstlisting}
+\end_layout
 
 \begin_layout Plain Layout
-2
+
+
+\backslash
+end{center}
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-5
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-2
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.4
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
 
 \end_inset
 
@@ -3910,7 +2081,7 @@ Events
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:Comparison-of-Implementations."
+name "fig:two-way-constraint-1-1"
 
 \end_inset
 
@@ -3919,34 +2090,12 @@ name "tab:Comparison-of-Implementations."
 status open
 
 \begin_layout Plain Layout
-Implementation Scores.
-\end_layout
-
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
 \end_inset
 
-Implementation Scores.
- Comparison of 
-\family typewriter
-Drug Administration
-\family default
- implementations scores.
- Each row represents a different implementation, with corresponding scores
- in each column.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Fields (the number of fields in the user interface), Assignments (the number
- of explicit field value assignments in the code), Use Cases (the number
- of possible use case permutations), and 
-\family typewriter
-Efficiency
-\family default
- (a combined metric that balances functionality with code size, where code
- size is represented by the combined number of Fields and Assignments).
-\end_layout
-
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
 
@@ -3954,45 +2103,28 @@ Efficiency
 
 \end_inset
 
+Two-way constraint 
+\begin_inset Formula $\LSTINLINE{A=B+C}$
+\end_inset
 
+ implemented by 
+\begin_inset Formula $\NAME{Hotdrink}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $\LSTINLINE{constraint}$
+\end_inset
+
+ method is used to create the constraint by specifying the variables as
+ arguments and chaining the necessary methods.
+ Each method has two parameters: the data flow direction and the function
+ to execute when that method is chosen to satisfy the constraint.
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-The explanation for these results is that in older programming approaches,
- any type of repetition in code is addressed by utilizing either the OOP
- or FRP paradigm, but not by combining them, each relying on its own abstraction
- mechanisms.
- In contrast, the programming approach presented in this work integrates
- both FRP and OOP, including the integration of their abstraction mechanisms,
- thus addressing all types of repetition.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-The explanation for these results is related to three elements of repetition
- included in the code: 
-\emph on
-calls to update variables, variables
-\emph default
- and 
-\emph on
-objects.
-
-\emph default
- In older programming approaches, any type of repetition in code is addressed
- by utilizing either the OOP or FRP paradigm, but not by combining them,
- each relying on its own abstraction mechanisms.
- In contrast, the programming approach presented in this work integrates
- both FRP and OOP, including the integration of their abstraction mechanisms,
- thus addressing all types of repetition.
 \end_layout
 
 \end_inset
@@ -4001,10 +2133,6 @@ objects.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -4013,9 +2141,8 @@ status collapsed
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="4">
+<lyxtabular version="3" rows="4" columns="3">
 <features tabularvalignment="middle">
-<column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top" width="0pt">
@@ -4026,7 +2153,7 @@ status collapsed
 \begin_layout Plain Layout
 
 \series bold
-Type
+Input
 \end_layout
 
 \end_inset
@@ -4037,18 +2164,7 @@ Type
 \begin_layout Plain Layout
 
 \series bold
-OOP
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-FRP
+Constraints hierarchical in descending order
 \end_layout
 
 \end_inset
@@ -4059,7 +2175,7 @@ FRP
 \begin_layout Plain Layout
 
 \series bold
-Combined
+Solution
 \end_layout
 
 \end_inset
@@ -4070,7 +2186,7 @@ Combined
 \begin_inset Text
 
 \begin_layout Plain Layout
-Calls
+A=1
 \end_layout
 
 \end_inset
@@ -4079,16 +2195,7 @@ Calls
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X
+A=B, A=1
 \end_layout
 
 \end_inset
@@ -4097,7 +2204,7 @@ X
 \begin_inset Text
 
 \begin_layout Plain Layout
-X
+A=1, B=1
 \end_layout
 
 \end_inset
@@ -4108,7 +2215,7 @@ X
 \begin_inset Text
 
 \begin_layout Plain Layout
-Objects
+B=2
 \end_layout
 
 \end_inset
@@ -4117,16 +2224,7 @@ Objects
 \begin_inset Text
 
 \begin_layout Plain Layout
-X
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
+A=B, B=2, A=1
 \end_layout
 
 \end_inset
@@ -4135,7 +2233,7 @@ X
 \begin_inset Text
 
 \begin_layout Plain Layout
-X
+A=2, B=2
 \end_layout
 
 \end_inset
@@ -4146,7 +2244,7 @@ X
 \begin_inset Text
 
 \begin_layout Plain Layout
-Variables
+A=3
 \end_layout
 
 \end_inset
@@ -4155,16 +2253,7 @@ Variables
 \begin_inset Text
 
 \begin_layout Plain Layout
-X
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
+A=B, A=3, B=2
 \end_layout
 
 \end_inset
@@ -4173,7 +2262,7 @@ X
 \begin_inset Text
 
 \begin_layout Plain Layout
-X
+A=3, B=3
 \end_layout
 
 \end_inset
@@ -4192,319 +2281,16 @@ X
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:analysis-2"
+name "tab:constraints-hirarchy-1"
 
 \end_inset
 
 
 \begin_inset Argument 1
-status open
-
-\begin_layout Plain Layout
-Code Reuse Analysis.
-\end_layout
-
-\end_inset
-
-Code Reuse Analysis.
- The columns represent OOP, FRP and the combination approach we presented.
- Across the rows, we categorize types of code duplication types, with X
- denoting the presence of code reuse mechanism for the particular duplication
- type.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Calls to Update Variables
-\end_layout
-
-\begin_layout Standard
-The declerative approach of FRP saves code amount.
- The amount of code saved is of that calls to update variables in the needed
- event handlers.
- 
-\begin_inset Note Note
 status collapsed
 
 \begin_layout Plain Layout
-For example (
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Statechart"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), an events based implementation for FRP based declration 
-\begin_inset Formula $\LSTINLINE{x:=y+z}$
-\end_inset
-
-, the recalculation of 
-\begin_inset Formula $\LSTINLINE x$
-\end_inset
-
- needs to be triggered both when 
-\begin_inset Formula $\LSTINLINE y$
-\end_inset
-
- is updated and when 
-\begin_inset Formula $\LSTINLINE z$
-\end_inset
-
- is updated.
- The calls to recalculate 
-\begin_inset Formula $\LSTINLINE x$
-\end_inset
-
- are repeated within the two handlers of the change events for 
-\begin_inset Formula $\LSTINLINE y$
-\end_inset
-
- and 
-\begin_inset Formula $\LSTINLINE z$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Variables
-\end_layout
-
-\begin_layout Standard
-In using reactive variables, the right-hand expression is part of the identity
- of a reactive variable, without the possibility to add more sources of
- values.
- Therefore, in case of a new source, a new reactive variable is added, causing
- variable duplication.
-\end_layout
-
-\begin_layout Paragraph
-Objects
-\end_layout
-
-\begin_layout Standard
-When it is needed to create a code component based on an an existing one
- without modifying impacting the existing clients, it is needed to clone
- the existing codebase and then making the necessary changes.
- For this reason, identifying 
-\emph on
-objects
-\emph default
- and 
-\emph on
-inheritance
-\emph default
- (and 
-\emph on
-composition
-\emph default
-) is a method to reduce code duplications.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Paragraph
-Variables
-\end_layout
-
-\begin_layout Plain Layout
-In using reactive variables, the right hand expression is part of the identity
- of a reactive variable, without the posibility to add more sources of values.
- Therfore, in case of a new source, a new reactive varible is added, cuasing
- variables duplication.
-\end_layout
-
-\begin_layout Plain Layout
-cenario, new reactive variables are added even though their values reflect
- 
-\end_layout
-
-\begin_layout Plain Layout
-In OOP, each object may represent real world entity and each object's variable
- may represent a real world object's variable.
- (Nevertheless, in real life applcations, when new code update existing
- variables, it might affect existing clients unexpectedly.
- Therefore, it is more safe to add new variables, which causes repetetive
- variables.) In contrast, in using reactive variables, the right hand expression
- is part of the identity of a reactive variable, without the posibility
- to add 
-\end_layout
-
-\begin_layout Plain Layout
-In modeling objects like the real world, each object and variable should
- represent real world entity.
- However, in using reactive variables, it is not allowed to 
-\end_layout
-
-\begin_layout Plain Layout
-In modeling objects like the real world, each object and variable should
- represent real world entity.
- However, in real life applcations, when new code update existing variables,
- it might affect existing clients unexpectedly.
- Therefore, it is more safe to add new variables, which causes repetetive
- variables.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-—
-\end_layout
-
-\begin_layout Plain Layout
-We examine the implementations of 
-\family typewriter
-Drug Administration
-\family default
- against metrics to investigate their level regrading cognitive overload
-\end_layout
-
-\begin_layout Plain Layout
-–
-\end_layout
-
-\begin_layout Subsection
-Results
-\end_layout
-
-\begin_layout Paragraph
-Implementation of Drug Administration using rivarjs/rivarx
-\end_layout
-
-\begin_layout Plain Layout
-This implementation utilizes two separate applications to showcase the capabilit
-ies of rivarjs in handling varying levels of complexity:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Simplified Application
-\series default
-: Includes only the fields related to the 
-\family typewriter
-Bag
-\family default
- component.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Extended Application
-\series default
-: Includes fields for both 
-\family typewriter
-Bag
-\family default
- and 
-\family typewriter
-Pump
-\family default
- components.
- 
-\end_layout
-
-\begin_layout Plain Layout
-Here's a breakdown of the measurements:
-\end_layout
-
-\begin_layout Itemize
-Variables: 6 
-\end_layout
-
-\begin_layout Itemize
-Calculations: 9 
-\end_layout
-
-\begin_layout Itemize
-Total Code Size: 15 (Variables + Calculations) 
-\end_layout
-
-\begin_layout Itemize
-Use Cases (Simplified App): 6 
-\end_layout
-
-\begin_layout Itemize
-Use Cases (Extended App): 120 
-\end_layout
-
-\begin_layout Itemize
-Total Use Cases: 126 
-\end_layout
-
-\begin_layout Itemize
-Documentation: A single, consistent rule: the value of each field is calculated
- based on the most recently entered values.
- 
-\end_layout
-
-\begin_layout Subparagraph
-Use Case Efficiency
-\end_layout
-
-\begin_layout Plain Layout
-To calculate the Use Case Efficiency, we'll divide the total number of use
- cases by the total code size: Use Case Efficiency: (6 Use Cases + 120 Use
- Cases) / 15 = 8.4
-\end_layout
-
-\begin_layout Subparagraph
-Interpretation
-\end_layout
-
-\begin_layout Plain Layout
-The rivarjs implementation demonstrates a high Use Case Efficiency, indicating
- its effectiveness in handling a large number of use cases (126 different
- field entry sequences) with a relatively small code size (15).
- This efficiency is further emphasized by the consistent rule for calculating
- field values, as reflected in the documentation, suggesting that rivarjs
- promotes a clear and predictable approach to managing computed fields.
-\end_layout
-
-\begin_layout Plain Layout
-This result provides positive evidence for the effectiveness of rivarjs
- in achieving both flexibility and code efficiency in the Drug Administration
- application.
-\end_layout
-
-\begin_layout Paragraph
-Implementation of Drug Administration using Excel
+Maintaining 
 \begin_inset ERT
 status open
 
@@ -4512,38 +2298,66 @@ status open
 
 
 \backslash
+lstinline{A}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
 
 \backslash
+lstinline{B}
+\end_layout
 
+\end_inset
+
+ according to the constraint 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinline{A=B}
+\end_layout
+
+\end_inset
+
+, using constraint hierarchies.
+\end_layout
+
+\end_inset
+
+Maintaining 
+\begin_inset Formula $\NAME A$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME B$
+\end_inset
+
+ according to the constraint 
+\begin_inset Formula $\NAME{A=B}$
+\end_inset
+
+, using constraint hierarchies.
+ Each row represents a step in the interaction.
+ The first column mentions the input provided.
+ The second column mentions the exiting constraints following the input
+ provided.
+ The third column displays the values of the variables, as determined by
+ the constraint solver.
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Paragraph
-Implementation of Drug Administration using statechart
-\end_layout
-
-\begin_layout Plain Layout
-measurements:
-\end_layout
-
-\begin_layout Itemize
-variables: 3
-\end_layout
-
-\begin_layout Itemize
-calculations: 3 or 4
-\end_layout
-
-\begin_layout Itemize
-Total Code Size: 6 or 7 (Variables + Calculations) 
-\end_layout
-
-\begin_layout Itemize
-Use Cases: 2
 \end_layout
 
 \end_inset
@@ -4554,16 +2368,13 @@ Use Cases: 2
 \begin_layout Section
 
 \series bold
-Application Evolution Process
+An Application Evolution Process
 \end_layout
 
 \begin_layout Standard
-This section presents a comparison between utilizing reactive variables
- and reactive instance variables (without object references) within the
- context of application evolution.
- To illustrate the distinctions and benefits of reactive instance variables,
- a case study is presented, focusing on the evolution of an application
- example involving the variables 
+Consider an example, where reactive variables are used with the evolution
+ of an application.
+ The evaluation revolves around the variables 
 \begin_inset ERT
 status open
 
@@ -4590,10 +2401,7 @@ lstinline{Alert}
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The variable 
+ 
 \begin_inset ERT
 status open
 
@@ -4606,7 +2414,7 @@ lstinline{Amount}
 
 \end_inset
 
- represents medication dosage administered to a patient, while 
+ represents the medication dosage administered to a patient, while 
 \begin_inset ERT
 status open
 
@@ -5173,31 +2981,13 @@ Alert
 \end_layout
 
 \begin_layout Subsection
-Discussion
+Add Filling Option
 \end_layout
 
 \begin_layout Standard
-Traditionally, the reactive variables concept is similar to a feature for
- creating computed fields easily.
+Traditionaly, it is easy to add a computed field.
  For example, a formula 
-\begin_inset Formula $\LSTINLINE{Amount=Dose}$
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
--
-\end_layout
-
-\end_inset
-
-
-\begin_inset Formula $\LSTINLINE{*Duration}$
+\begin_inset Formula $\LSTINLINE{Amount=Dose*Duration}$
 \end_inset
 
  such that 
@@ -5213,59 +3003,21 @@ Dose
 Rate
 \family default
 .
-\end_layout
-
-\begin_layout Standard
-However, the reactive instance variable concept has an extended meaning.
- The meaning of creating computed fields is reserved but limited to cases
- where the formula declares 
+ This meaning would be reserved, only in case that this formula declares
+ 
 \family typewriter
 Amount
 \family default
  firstly.
- The extended meaning is
-\emph on
- 
-\emph default
-adding a 
-\emph on
-filling option
-\emph default
- or adding an 
-\emph on
-indirect input option
-\emph default
-.
- For example, the formula a 
-\begin_inset Formula $\LSTINLINE{Amount=Dose}$
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
--
-\end_layout
-
-\end_inset
-
-
-\begin_inset Formula $\LSTINLINE{*Duration}$
-\end_inset
-
- means that filling 
+ However, generaly the meaning is, that filling 
 \family typewriter
 Dose
 \family default
  and 
 \family typewriter
-Duration
+Duration 
 \family default
- is an option added to fill 
+is an option to fill 
 \family typewriter
 Amount
 \family default
@@ -5277,45 +3029,45 @@ The new feature can be presented also as adding a filling option as a set
  of fields.
  This would be presented by the following example.
  Among fields 
-\family typewriter
-Drug
-\family default
-,
-\family typewriter
- Volume
-\family default
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
+, 
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
  and 
-\family typewriter
-Concentration
-\family default
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
 , only two of them are required for documenting drugs' amount.
  Users can, for example, define quantities by setting only 
-\family typewriter
-Drug
-\family default
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
  and 
-\family typewriter
-Volume
-\family default
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
 .
  In such a case, the value of 
-\family typewriter
-Concentration
-\family default
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
  is computed.
  Additionaly, users can define quantities by setting only the 
-\family typewriter
-Concentration
-\family default
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
  and 
-\family typewriter
-Volume
-\family default
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
 .
  In such a case, the value of 
-\family typewriter
-Drug
-\family default
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
  is computed.
 \end_layout
 
@@ -5327,31 +3079,31 @@ If only one filling option is available, users are stricted: users must
 Drug Administration
 \family default
  define quantities by setting 
-\family typewriter
-Drug
-\family default
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
  and 
-\family typewriter
-Volume
-\family default
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
  for drugs that it is easier to set by 
-\family typewriter
-Volume
-\family default
- and
-\family typewriter
- Concentration
-\family default
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
 .
  In the strict mode, users are forced to convert the values.
  For example, a case that available fields are 
-\family typewriter
-Drug
-\family default
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
  and 
-\family typewriter
-Volume
-\family default
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
 , and an amount is 
 \begin_inset Formula $0.5$
 \end_inset
@@ -5361,23 +3113,1340 @@ Volume
 \end_inset
 
  for 
-\family typewriter
-Concentration
-\family default
+\begin_inset Formula $\NAME{Concentration}$
+\end_inset
+
  and 
-\family typewriter
-Volume
-\family default
+\begin_inset Formula $\NAME{Volume}$
+\end_inset
+
 .
  For filling 
-\family typewriter
-Drug
-\family default
+\begin_inset Formula $\NAME{Drug}$
+\end_inset
+
  it is required to calculate 
 \begin_inset Formula $\LSTINLINE{Concentration*Volume}$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Comparative Analysis
+\end_layout
+
+\begin_layout Standard
+Reactive instance variables were conceived to address challenges that arise
+ when developing automatic computation features for fields in user interfaces.
+ These challenges stem from cognitive overload, both for programmers and
+ for users.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Cognitive Load for Programmers
+\end_layout
+
+\begin_layout Standard
+Cognitive load is a significant factor in the user interface development
+ process and can stem from several sources:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Code Volume
+\series default
+: A large amount of code hinders system comprehension, navigation, and maintenan
+ce.
+ Programmers are required to invest more time in understanding the code
+ and locating errors.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Logical Complexity
+\series default
+: Complex calculation logic and dependencies between fields require programmers
+ to invest more effort in design and implementation.
+ As the logic becomes more intricate, the likelihood of errors increases.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Abundance of Details in Code Building Blocks
+\series default
+: A large number of items and concepts that constitute the building blocks
+ of programming overload memory and hinder code comprehension.
+ Programmers are required to learn and retain extensive knowledge to be
+ proficient application developers.
+\end_layout
+
+\begin_layout Paragraph
+Cognitive Load for Users
+\end_layout
+
+\begin_layout Standard
+For end-users as well, cognitive load can negatively impact their experience
+ with an interface.
+ Here are some factors that can contribute to this load:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Excessive Fields
+\series default
+: Too many fields, or irrelevant fields, confuse the user and make it difficult
+ to locate those that are actually relevant.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Irrelevant Elements
+\series default
+: An overabundance of visual elements or the presence of irrelevant ones
+ distracts the user and makes it harder to focus on the task at hand.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Lengthy Processes
+\series default
+: Long and cumbersome processes require the user to remember a lot of informatio
+n and follow many steps, increasing cognitive load.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Lack of Clarity
+\series default
+: Long or unclear instructions, as well as errors or a lack of feedback,
+ confuse the user and make it difficult to understand the interface.
+\end_layout
+
+\begin_layout Subsection
+Evaluation Goals
+\end_layout
+
+\begin_layout Standard
+The goal is to examine whether the approach helps reduce cognitive load.
+ To this end, the evaluation focuses on the following variables: Code Efficiency
+, Use Case Coverage and Documentation Complexity.
+\end_layout
+
+\begin_layout Paragraph
+Code Efficiency
+\end_layout
+
+\begin_layout Standard
+This metric focuses specifically on the code related to managing fields
+ and their calculations within the user interface, excluding code related
+ to visual design or layout.
+ Two factors are considered:
+\end_layout
+
+\begin_layout Itemize
+Number of Variables: This refers to the count of variables used to represent
+ data within the user interface, particularly those associated with the
+ fields being evaluated.
+ A lower number of variables generally suggests better code efficiency and
+ reduced complexity.
+\end_layout
+
+\begin_layout Itemize
+Frequency of Explicit Field Value Assignments: This measures how often the
+ code directly assigns a value or an expression to a field.
+ This includes various methods such as:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Direct assignment: Assigning a specific value to a variable representing
+ a field.
+ 
+\end_layout
+
+\begin_layout Itemize
+Formulas: Using formulas or expressions to calculate and set a field's value
+ based on other data.
+ 
+\end_layout
+
+\begin_layout Itemize
+Constraints: Defining rules or constraints that determine a field's value.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+A lower frequency of explicit field value assignments indicates that the
+ code is potentially more efficient and relies less on manual intervention
+ to update field values.
+ This can lead to cleaner, more maintainable code with reduced redundancy.
+\end_layout
+
+\begin_layout Paragraph
+Use Case Coverage
+\end_layout
+
+\begin_layout Standard
+This metric evaluates the flexibility of the user interface by considering
+ the number of distinct ways a user can interact with it.
+ It is measured by counting the permutations of field completion: analyzing
+ the different sequences in which a user can fill out the fields from the
+ start of the application until all fields are completed.
+ Each unique order, regardless of the specific values entered, represents
+ a distinct use case.
+ A higher number of possible use case permutations indicates greater flexibility
+, suggesting the interface is more adaptable to different user workflows
+ and preferences.
+\end_layout
+
+\begin_layout Subparagraph
+Example:
+\end_layout
+
+\begin_layout Standard
+In a Drug Administration application that consists of three fields: 
+\family typewriter
+Drug
+\family default
+, 
+\family typewriter
+Volume
+\family default
+, and 
+\family typewriter
+Concentration
+\family default
+, there are six possible permutations (use cases) for how a medical professional
+ might fill these out:
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Drug -> Volume -> Concentration 
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Drug -> Concentration -> Volume
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Volume -> Drug -> Concentration 
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Volume -> Concentration -> Drug 
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Concentration -> Drug -> Volume 
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Concentration -> Volume -> Drug 
+\end_layout
+
+\begin_layout Standard
+A user interface that allows for more of these permutations is considered
+ more flexible and adaptable to different user approaches.
+ This is important because medical professionals may have different preferences
+ or workflows when prescribing medication.
+ Some might prefer to select the drug first, while others might start with
+ the concentration or the dosage.
+ A flexible interface accommodates these variations and allows for a more
+ efficient and user-friendly experience.
+\end_layout
+
+\begin_layout Paragraph
+Documentation Complexity
+\end_layout
+
+\begin_layout Standard
+This metric assesses the complexity and clarity of the underlying logic
+ by analyzing the documentation required to describe the system's behavior.
+ It is measured by the number of rules or special cases documented.
+\end_layout
+
+\begin_layout Itemize
+Shorter documentation with fewer rules generally reflects a more predictable
+ and generalized behavior.
+ This suggests a solution that handles a wide range of scenarios with a
+ concise set of principles, leading to easier understanding and maintenance.
+\end_layout
+
+\begin_layout Itemize
+Conversely, longer documentation with a multitude of edge cases and specific
+ rules indicates higher complexity.
+ This can be a sign of a less robust solution that may be more difficult
+ to understand, debug, and extend.
+\end_layout
+
+\begin_layout Standard
+Why this is important:
+\end_layout
+
+\begin_layout Itemize
+Captures Underlying Logic: This metric goes beyond simply measuring the
+ amount of documentation.
+ It aims to capture the inherent complexity of the system's behavior.
+ 
+\end_layout
+
+\begin_layout Itemize
+Identifies Potential Issues: A high degree of documentation complexity can
+ be a warning sign of potential design flaws or a lack of underlying coherence
+ in the solution.
+ 
+\end_layout
+
+\begin_layout Itemize
+Prioritizes Elegance and Simplicity: This metric encourages solutions that
+ are not only functional but also elegant and easy to understand, promoting
+ good design principles.
+\end_layout
+
+\begin_layout Paragraph
+Use Case Efficiency
+\end_layout
+
+\begin_layout Itemize
+To further assess the relationship between functionality and code complexity,
+ a "Use Case Efficiency" metric is calculated.
+ This metric is determined by dividing the number of possible use case permutati
+ons (representing Use Case Coverage) by the Code Efficiency score.
+\end_layout
+
+\begin_layout Itemize
+Formula: Use Case Efficiency = Use Case Coverage / Code Efficiency
+\end_layout
+
+\begin_layout Itemize
+Interpretation: A higher Use Case Efficiency score indicates that the implementa
+tion achieves a greater degree of flexibility and functionality with a smaller
+ amount of code, suggesting a more efficient and potentially more maintainable
+ solution.
+\end_layout
+
+\begin_layout Subparagraph
+Example:
+\end_layout
+
+\begin_layout Itemize
+If implementation A has 6 possible use cases and a Code Efficiency score
+ of 10, its Use Case Efficiency would be 6/10 = 0.6.
+ If implementation B has 4 use cases and a Code Efficiency score of 20,
+ its Use Case Efficiency would be 4/20 = 0.2.
+ This suggests that implementation A is more efficient, as it provides more
+ use cases per unit of code.
+\end_layout
+
+\begin_layout Itemize
+Benefits of this metric:
+\end_layout
+
+\begin_layout Itemize
+Captures the trade-off: It explicitly quantifies the balance between functionali
+ty (use cases) and code complexity.
+\end_layout
+
+\begin_layout Itemize
+Provides a comparative measure: It allows you to directly compare different
+ implementations in terms of their efficiency in achieving functionality.
+ 
+\end_layout
+
+\begin_layout Itemize
+Highlights design choices: It can reveal how different design decisions
+ impact the relationship between functionality and code complexity.
+ 
+\end_layout
+
+\begin_layout Subsection
+Evaluation Methodology 
+\end_layout
+
+\begin_layout Standard
+The evaluation is conducted by examining different implementations of the
+ Drug Administration user interface, each employing a distinct approach
+ to managing computed fields and ensuring data consistency.
+ These implementations utilize the following frameworks or tools:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+rivarjs
+\series default
+: A 
+\family typewriter
+JavaScript
+\family default
+ library designed for reactive programming, facilitating the management
+ of dependencies between fields and automatic updates of calculated values.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+RIVarX
+\series default
+: A C# counterpart to rivarjs, offering similar reactive programming capabilitie
+s but tailored for the .NET framework.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Hotdrink
+\series default
+: A constraint programming library that allows developers to define relationship
+s between variables and have the system automatically maintain consistency
+ based on those constraints.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Excel
+\series default
+: A spreadsheet software used as a baseline to compare the efficiency and
+ flexibility of the reactive programming and constraint programming approaches
+ with a traditional method of managing computed fields.
+\end_layout
+
+\begin_layout Subsection
+Results
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="6">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Fields
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Calculations
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Use-Cases
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Efficiency
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+rivarjs
+\family default
+/
+\family typewriter
+RIVarX
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+126
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RIVarX
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+126
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Excel
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Hotdrink
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+120
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Statechart
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Comparison-of-Implementations."
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Comparison of Implementations.
+\end_layout
+
+\end_inset
+
+Comparison of Implementations.
+ This table summarizes the comparative analysis of four implementations
+ of the Drug Administration application.
+ Each row represents a different implementation (
+\family typewriter
+rivarjs
+\family default
+, 
+\family typewriter
+RIVarX
+\family default
+, 
+\family typewriter
+Hotdrink
+\family default
+, 
+\family typewriter
+Excel
+\family default
+), and the columns show their scores on the following metrics: Fields (the
+ number of fields in the user interface), Assignments (the number of explicit
+ field value assignments in the code), Use Cases (the number of possible
+ use case permutations), and Use Case Efficiency (a combined metric that
+ balances functionality with code size, where code size is represented by
+ the combined number of Fields and Assignments).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation of Drug Administration using rivarjs/rivarx
+\end_layout
+
+\begin_layout Standard
+This implementation utilizes two separate applications to showcase the capabilit
+ies of rivarjs in handling varying levels of complexity:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Simplified Application
+\series default
+: Includes only the fields related to the 
+\family typewriter
+Bag
+\family default
+ component.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Extended Application
+\series default
+: Includes fields for both 
+\family typewriter
+Bag
+\family default
+ and 
+\family typewriter
+Pump
+\family default
+ components.
+ 
+\end_layout
+
+\begin_layout Standard
+Here's a breakdown of the measurements:
+\end_layout
+
+\begin_layout Itemize
+Variables: 6 
+\end_layout
+
+\begin_layout Itemize
+Calculations: 9 
+\end_layout
+
+\begin_layout Itemize
+Total Code Size: 15 (Variables + Calculations) 
+\end_layout
+
+\begin_layout Itemize
+Use Cases (Simplified App): 6 
+\end_layout
+
+\begin_layout Itemize
+Use Cases (Extended App): 120 
+\end_layout
+
+\begin_layout Itemize
+Total Use Cases: 126 
+\end_layout
+
+\begin_layout Itemize
+Documentation: A single, consistent rule: the value of each field is calculated
+ based on the most recently entered values.
+ 
+\end_layout
+
+\begin_layout Subparagraph
+Use Case Efficiency
+\end_layout
+
+\begin_layout Standard
+To calculate the Use Case Efficiency, we'll divide the total number of use
+ cases by the total code size: Use Case Efficiency: (6 Use Cases + 120 Use
+ Cases) / 15 = 8.4
+\end_layout
+
+\begin_layout Subparagraph
+Interpretation
+\end_layout
+
+\begin_layout Standard
+The rivarjs implementation demonstrates a high Use Case Efficiency, indicating
+ its effectiveness in handling a large number of use cases (126 different
+ field entry sequences) with a relatively small code size (15).
+ This efficiency is further emphasized by the consistent rule for calculating
+ field values, as reflected in the documentation, suggesting that rivarjs
+ promotes a clear and predictable approach to managing computed fields.
+\end_layout
+
+\begin_layout Standard
+This result provides positive evidence for the effectiveness of rivarjs
+ in achieving both flexibility and code efficiency in the Drug Administration
+ application.
+\end_layout
+
+\begin_layout Paragraph
+Implementation of Drug Administration using Excel
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation of Drug Administration using statechart
+\end_layout
+
+\begin_layout Standard
+measurements:
+\end_layout
+
+\begin_layout Itemize
+variables: 3
+\end_layout
+
+\begin_layout Itemize
+calculations: 3 or 4
+\end_layout
+
+\begin_layout Itemize
+Total Code Size: 6 or 7 (Variables + Calculations) 
+\end_layout
+
+\begin_layout Itemize
+Use Cases: 2
+\end_layout
+
+\begin_layout Subsection
+Analysis
+\end_layout
+
+\begin_layout Standard
+We identify three distinct duplication types: 
+\emph on
+calls to update variables, variables
+\emph default
+ and 
+\emph on
+objects
+\emph default
+ that are adressed through the presented approach.
+ The full analysis is presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:analysis-2"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Calls to Update Variables
+\end_layout
+
+\begin_layout Standard
+The declerative approach of FRP saves code amount.
+ The amount of code saved is of that calls to update variables in the needed
+ event handlers.
+ For example (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Statechart"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+), an events based implementation for FRP based declration 
+\begin_inset Formula $\LSTINLINE{x:=y+z}$
+\end_inset
+
+, the recalculation of 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ needs to be triggered both when 
+\begin_inset Formula $\LSTINLINE y$
+\end_inset
+
+ is updated and when 
+\begin_inset Formula $\LSTINLINE z$
+\end_inset
+
+ is updated.
+ The calls to recalculate 
+\begin_inset Formula $\LSTINLINE x$
+\end_inset
+
+ are repeated within the two handlers of the change events for 
+\begin_inset Formula $\LSTINLINE y$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE z$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Objects
+\end_layout
+
+\begin_layout Standard
+When it is needed to create a code component based on an an existing one
+ without modifying impacting the existing clients, it is needed to clone
+ the existing codebase and then making the necessary changes.
+ For this reason, identifying 
+\emph on
+objects
+\emph default
+ and 
+\emph on
+inheritance
+\emph default
+ (and 
+\emph on
+composition
+\emph default
+) is a method to reduce code duplications.
+\end_layout
+
+\begin_layout Paragraph
+Variables
+\end_layout
+
+\begin_layout Standard
+In modeling objects like the real world, each object and variable should
+ represent real world entity.
+ However, in real life applcations, when new code update existing variables,
+ it might affect existing clients unexpectedly.
+ Therefore, it is more safe to add new variables, which causes repetetive
+ variables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="0pt">
+<row interlinespace="default">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Type
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+OOP
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+FRP
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Combined
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Calls
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Objects
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Variables
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:analysis-2"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code Reuse Analysis.
+\end_layout
+
+\end_inset
+
+Code Reuse Analysis.
+ The columns represent OOP, FRP and the combination approach we presented.
+ Across the rows, we categorize types of code duplication types, with X
+ denoting the presence of code reuse mechanism for the particular duplication
+ type.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -10284,176 +9353,6 @@ Our implementation includes a general propagation algorithm that enables
  require changing the order of the updates, such as reducing consistency
  levels for heavy calculations.
  
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Itemize
-Benefits of this metric:
-\end_layout
-
-\begin_layout Itemize
-Captures the trade-off: It explicitly quantifies the balance between functionali
-ty (use cases) and code complexity.
-\end_layout
-
-\begin_layout Itemize
-Provides a comparative measure: It allows you to directly compare different
- implementations in terms of their efficiency in achieving functionality.
-\end_layout
-
-\begin_layout Itemize
-Highlights design choices: It can reveal how different design decisions
- impact the relationship between functionality and code complexity.
-\end_layout
-
-\begin_layout Plain Layout
-The 
-\family typewriter
-Efficiency
-\family default
- metric is calculated by 
-\begin_inset Formula $Use\ Case\ Coverage/Code\ Quantity$
-\end_inset
-
-.
- A higher 
-\family typewriter
-Efficiency
-\family default
- score indicates for an implementation that it generates more achieves a
- greater degree of flexibility and functionality with a smaller amount of
- code, suggesting a more efficient and potentially more maintainable solution.
-\end_layout
-
-\begin_layout Itemize
-To further assess the relationship between functionality and code complexity,
- a "Use Case Efficiency" metric is calculated.
- This metric is determined by dividing the number of possible use case permutati
-ons (representing Use Case Coverage) by the Code Efficiency score.
-\end_layout
-
-\begin_layout Itemize
-Formula: Efficiency = Use Case Coverage / Code Efficiency
-\end_layout
-
-\begin_layout Itemize
-Interpretation: A higher Use Case Efficiency score indicates that the implementa
-tion achieves a greater degree of flexibility and functionality with a smaller
- amount of code, suggesting a more efficient and potentially more maintainable
- solution.
-\end_layout
-
-\begin_layout Subparagraph
-Example:
-\end_layout
-
-\begin_layout Itemize
-If implementation A has 6 possible use cases and a Code Efficiency score
- of 10, its Use Case Efficiency would be 6/10 = 0.6.
- If implementation B has 4 use cases and a Code Efficiency score of 20,
- its Use Case Efficiency would be 4/20 = 0.2.
- This suggests that implementation A is more efficient, as it provides more
- use cases per unit of code.
-\end_layout
-
-\begin_layout Itemize
-Benefits of this metric:
-\end_layout
-
-\begin_layout Itemize
-Captures the trade-off: It explicitly quantifies the balance between functionali
-ty (use cases) and code complexity.
-\end_layout
-
-\begin_layout Itemize
-Provides a comparative measure: It allows you to directly compare different
- implementations in terms of their efficiency in achieving functionality.
-\end_layout
-
-\begin_layout Itemize
-Highlights design choices: It can reveal how different design decisions
- impact the relationship between functionality and code complexity.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-...
-\end_layout
-
-\begin_layout Subsection
-Evaluation Methodology
-\end_layout
-
-\begin_layout Plain Layout
-The evaluation is conducted through implementations of 
-\family typewriter
-Drug Administration
-\family default
-, each employing a distinct approach to managing computed fields and ensuring
- data consistency.
- These implementations utilize the following frameworks or tools:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-rivarjs
-\series default
-: A 
-\family typewriter
-JavaScript
-\family default
- library designed for reactive programming, facilitating the management
- of dependencies between fields and automatic updates of calculated values.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-RIVarX
-\series default
-: A C# counterpart to rivarjs, offering similar reactive programming capabilitie
-s but tailored for the .NET framework.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Hotdrink
-\series default
-: A constraint programming library that allows developers to define relationship
-s between variables and have the system automatically maintain consistency
- based on those constraints.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Excel
-\series default
-: A spreadsheet software used as a baseline to compare the efficiency and
- flexibility of the reactive programming and constraint programming approaches
- with a traditional method of managing computed fields.
 \end_layout
 
 \end_inset

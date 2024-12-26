@@ -34,13 +34,13 @@ https://www.imd-soft.com
 ] The Order Entry contains (among others) six numeric fields:
 
   Drug relates to amount of medication/drug administered to a 
-  patient, (e.g. 20 mg).
+  patient, (e.g.,20 mg).
 
   Volume relates to Infusion fluid volume. An Infusion injects 
   the medication into the patients body, by mixing the Drug with 
   fluids (e.g., 20 ml).
 
-  Concentration amount of the Drug per Volume (e.g. 0.5 mg/ml).
+  Concentration amount of the Drug per Volume (e.g.,0.5 mg/ml).
 
   Rate relates to Volume flow administered into the patients body 
   per time unit (e.g., 20 ml per hour).
@@ -154,10 +154,10 @@ its right.
 
 Before editing the numeric fields, it is required to select an 
 option from a select element named ordering style. One option is 
-set concentraion and volume, another option is set dose and rate. 
+set concentration and volume, another option is set dose and rate. 
 According to the selected option, fields become editable or 
 readonly, controling the calculations directions. If the user 
-selects set concentraion and volume, those fields become 
+selects set concentration and volume, those fields become 
 editable, and the other fields will be calculated accordingly. If 
 the user selects set dose and rate, those fields become editable, 
 and the other fields will be calculated accordingly. 

@@ -3347,7 +3347,7 @@ Hotdrink
 
 \end_inset
 
-, we only need to specify the constraints, and the library automaticaly
+, we only need to specify the constraints, and the library automatically
  update the fields during the user interaction.
  For example, for cpecifying 
 \begin_inset ERT
@@ -3362,7 +3362,7 @@ lstinline{A:=B+C}
 
 \end_inset
 
-, each edited tuple, the third variable will be updated automaticaly.
+, each edited tuple, the third variable will be updated automatically.
  The library need to get as input, not only the constraints, but also methods
  to execute to update the fields .
  For this example, 
@@ -5128,7 +5128,7 @@ In many tools, it is consistently allowed updating a variable in response
 \emph on
 reactive variables 
 \emph default
-that are automaticaly updated according to relevant changes.
+that are automatically updated according to relevant changes.
 \end_layout
 
 \begin_layout Subsection
@@ -7886,7 +7886,7 @@ noprefix "false"
 
 \end_inset
 
- to automaticaly maintain 
+ to automatically maintain 
 \begin_inset ERT
 status open
 

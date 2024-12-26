@@ -940,7 +940,7 @@ Even this simple
 \family typewriter
 Drug Administration
 \family default
- application illustrates cognitive load in development and user experience.
+ application illustrates cognitive overload in development and user experience.
 \begin_inset Note Note
 status collapsed
 
@@ -960,9 +960,9 @@ literal "false"
 \end_inset
 
 .
- Cognitive load in development (DX) refers to the mental effort required
+ cognitive overload in development (DX) refers to the mental effort required
  by developers to understand, design, and implement the application.
- Cognitive load in use (UX) refers to the mental effort required by users
+ cognitive overload in use (UX) refers to the mental effort required by users
  to interact with and understand the application.
 \end_layout
 
@@ -1233,7 +1233,7 @@ ordering style
  which has several options to choose from.
  One option is 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , another option is 
 \family typewriter
@@ -1244,7 +1244,7 @@ set dose and rate
  or read-only, which affects the order of calculations.
  If the user selects 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , those fields become editable, and the other fields will be calculated
  accordingly.
@@ -1292,7 +1292,7 @@ ordering style
 \family default
  is set to 
 \family typewriter
-set concentraion and volume
+set concentration and volume
 \family default
 , then the concentration and volume fields will be unlocked and cannot be
  locked.
@@ -1904,7 +1904,7 @@ noprefix "false"
 \begin_inset Formula $A$
 \end_inset
 
- is updated automaticaly such that 
+ is updated automatically such that 
 \begin_inset Formula $A=2$
 \end_inset
 
@@ -3909,7 +3909,7 @@ Comparative analysis of
 Drug Administration
 \family default
  implementations, focusing on the impact of the new programming approach
- on cognitive load in both the code and user interface.
+ on cognitive overload in both the code and user interface.
 \end_layout
 
 \begin_layout Standard

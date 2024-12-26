@@ -37,7 +37,7 @@
 \def\degreedate#1{\gdef\@degreedate{#1}}
 % The full (unabbreviated) name of the degree
 \def\degree#1{\gdef\@degree{#1}}
-% The name of your Oxford college (e.g. Christ Church, Pembroke)
+% The name of your Oxford college (e.g.,Christ Church, Pembroke)
 \def\college#1{\gdef\@college{#1}}
 
 

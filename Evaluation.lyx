@@ -115,7 +115,7 @@ Evaluation
 \begin_layout Standard
 This work presents an approach of management separation of reactive variables
  through the use of objects from the OOP paradigm.
- The goal is to reduce cognitive load in the developer experience, by decreasing
+ The goal is to reduce cognitive overload in the developer experience, by decreasing
  code size, and in the user experience, as a result of the improved development
  experience.
  To evaluate the thesis work, we performed several processes:
@@ -129,11 +129,11 @@ status collapsed
 The observer design pattern is employed, so that state management is not
  centralized.
  As a result, this aligns with the inheritance mechanism.
- The use of the inheritance mechanism is intended to reduce cognitive load,
+ The use of the inheritance mechanism is intended to reduce cognitive overload,
  as inheritance is an abstraction mechanism for reusing code, and thus should
  reduce code repetition that creates cognitive overload.
  The goal of the evaluation is to assess whether this approach indeed contribute
-s to reducing cognitive load.
+s to reducing cognitive overload.
 \end_layout
 
 \end_inset
@@ -172,7 +172,7 @@ ions and the original implementation, analysis of the results.
 \series bold
 Comparative Analysis
 \series default
-: Definition of a metric to assess cognitive load.
+: Definition of a metric to assess cognitive overload.
  Measurement and calculation for several different implementations of 
 \family typewriter
 Drug Admini
@@ -232,7 +232,7 @@ Drug Administration Implementation
 \series bold
 Comparative Analysis
 \series default
-: we defined metrics to assess cognitive load, conducted the measurements,
+: we defined metrics to assess cognitive overload, conducted the measurements,
  and presented the results.
 \end_layout
 
@@ -289,11 +289,11 @@ This work addresses challenges that arise when developing automatic computation
 \end_layout
 
 \begin_layout Paragraph
-Cognitive Load for Users
+cognitive overload for Users
 \end_layout
 
 \begin_layout Plain Layout
-For end-users as well, cognitive load can negatively impact their experience
+For end-users as well, cognitive overload can negatively impact their experience
  with an interface.
  Here are some factors that can contribute to this load:
 \end_layout
@@ -323,7 +323,7 @@ Irrelevant Elements
 Lengthy Processes
 \series default
 : Long processes require the user to remember a lot of information and follow
- many steps, increasing cognitive load.
+ many steps, increasing cognitive overload.
  
 \end_layout
 
@@ -337,11 +337,11 @@ Lack of Clarity
 \end_layout
 
 \begin_layout Paragraph
-Cognitive Load for Programmers
+cognitive overload for Programmers
 \end_layout
 
 \begin_layout Plain Layout
-Cognitive load is a significant factor in the user interface development
+cognitive overload is a significant factor in the user interface development
  process and can stem from several sources:
 \end_layout
 
@@ -2542,7 +2542,7 @@ Comparative Analysis
 This work addresses challenges stem from cognitive overload in user and
  developer experience, when developing automatic computation features for
  fields in user interfaces.
- The goal is to assess whether the approach helps reduce cognitive load.
+ The goal is to assess whether the approach helps reduce cognitive overload.
  
 \family typewriter
 \series bold
@@ -2604,7 +2604,7 @@ Irrelevant Elements
 Lengthy Processes
 \series default
 : Long processes require the user to remember a lot of information and follow
- many steps, increasing cognitive load.
+ many steps, increasing cognitive overload.
  
 \end_layout
 
@@ -2654,7 +2654,7 @@ Abundance of Details in Code Building Blocks
 \end_layout
 
 \begin_layout Plain Layout
-The goal is to assess whether the approach helps reduce cognitive load.
+The goal is to assess whether the approach helps reduce cognitive overload.
  To this end, the evaluation focuses on a score 
 \family typewriter
 Efficiency

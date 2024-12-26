@@ -857,7 +857,7 @@ name "fig:Propogation-on-the-2"
 status collapsed
 
 \begin_layout Plain Layout
-A propagation change in established connections of the formula 
+A propagation change in established connections of a reactive assignment 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 

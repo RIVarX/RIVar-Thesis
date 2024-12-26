@@ -198,8 +198,9 @@ Reduced cognitive load
 \series bold
 Flexibility in component content
 \series default
-: This thesis approach enables flexibility in defining which fields and
- calculations are included in each component.
+: This thesis approach follows OOP and modularity principles, therefore
+ enables flexibility in defining which fields and calculations are included
+ in each component.
  This flexibility allows for determining optimal locations based on organization
 al needs.
 \end_layout

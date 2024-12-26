@@ -204,9 +204,10 @@ Excel
 \series bold
 Application Evolution Process
 \series default
-: Comparison of the case using reactive variables versus the use of reactive
- instance variables (without referring to objects).
- Analysis of the results.
+: Comparison between using reactive variables versus using reactive instance
+ variables (without referring to objects).
+ A case study of an application evolution process and discussion, showing
+ the benefits of using reactive instance variables.
 \end_layout
 
 \begin_layout Standard
@@ -466,7 +467,7 @@ By the use of reactive instance variables we created
 \begin_inset Formula $\LSTINLINE{Pump}$
 \end_inset
 
- classes focusing on separation.
+ classes with a focus on separation according to the business domain:
 \end_layout
 
 \begin_layout Itemize
@@ -4288,6 +4289,18 @@ noprefix "false"
 \end_layout
 
 \begin_layout Paragraph
+Variables
+\end_layout
+
+\begin_layout Standard
+In using reactive variables, the right-hand expression is part of the identity
+ of a reactive variable, without the possibility to add more sources of
+ values.
+ Therefore, in case of a new source, a new reactive variable is added, causing
+ variable duplication.
+\end_layout
+
+\begin_layout Paragraph
 Objects
 \end_layout
 
@@ -4541,13 +4554,16 @@ Use Cases: 2
 \begin_layout Section
 
 \series bold
-Discussion: An Application Evolution Process
+Application Evolution Process
 \end_layout
 
 \begin_layout Standard
-Consider an example, where reactive variables are used with the evolution
- of an application.
- The evaluation revolves around the variables 
+This section presents a comparison between utilizing reactive variables
+ and reactive instance variables (without object references) within the
+ context of application evolution.
+ To illustrate the distinctions and benefits of each approach, a case study
+ is presented, focusing on the evolution of an application example involving
+ the variables 
 \begin_inset ERT
 status open
 
@@ -4574,7 +4590,10 @@ lstinline{Alert}
 \end_inset
 
 .
- 
+\end_layout
+
+\begin_layout Standard
+The variable 
 \begin_inset ERT
 status open
 
@@ -4587,7 +4606,7 @@ lstinline{Amount}
 
 \end_inset
 
- represents the medication dosage administered to a patient, while 
+ represents medication dosage administered to a patient, while 
 \begin_inset ERT
 status open
 
@@ -5154,11 +5173,12 @@ Alert
 \end_layout
 
 \begin_layout Subsection
-Add Filling Option
+Discussion
 \end_layout
 
 \begin_layout Standard
-Traditionaly, it is easy to add a computed field.
+Traditionally, the reactive variables concept is similar to a feature for
+ creating computed fields easily.
  For example, a formula 
 \begin_inset Formula $\LSTINLINE{Amount=Dose}$
 \end_inset
@@ -5184,7 +5204,7 @@ status open
 \family typewriter
 Amount
 \family default
- is automaticaly computed according to 
+ is automatically computed according to 
 \family typewriter
 Dose
 \family default
@@ -5193,21 +5213,59 @@ Dose
 Rate
 \family default
 .
- This meaning would be reserved, only in case that this formula declares
- 
+\end_layout
+
+\begin_layout Standard
+However, the reactive instance variable concept has an extended meaning.
+ The meaning of creating computed fields is reserved but limited to cases
+ where the formula declares 
 \family typewriter
 Amount
 \family default
  firstly.
- However, generaly the meaning is, that filling 
+ The extended meaning is
+\emph on
+ 
+\emph default
+adding a 
+\emph on
+filling option
+\emph default
+ or adding an 
+\emph on
+indirect input option
+\emph default
+.
+ For example, the formula a 
+\begin_inset Formula $\LSTINLINE{Amount=Dose}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{*Duration}$
+\end_inset
+
+ means that filling 
 \family typewriter
 Dose
 \family default
  and 
 \family typewriter
-Duration 
+Duration
 \family default
-is an option to fill 
+ is an option added to fill 
 \family typewriter
 Amount
 \family default

@@ -238,36 +238,67 @@ Hotdrink
 
 \begin_layout Standard
 In constraint programming, there is research regarding the handling of cycles
- and how to resolve them.
- In constraint programming, there are unidirectional constraints that create
- a similarity to FRP, as well as bidirectional constraints that, by their
- nature, define cycles.
+ and how to resolve them
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ One constraints programming implementation is called 
+\family typewriter
+Hotdrink
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+.
+ This implementation combines constraint programming with FRP.
 \end_layout
 
 \begin_layout Standard
-There is an implementation called 
-\family typewriter
-Hotdrink
-\family default
- that combines FRP with constraint programming.
- In 
-\family typewriter
-Hotdrink
-\family default
-, bidirectional constraints are defined along with method definitions.
+In constraint programming, there are 
+\emph on
+unidirectional constraints
+\emph default
+ that are similar to formulas used in FRP, as well as 
+\emph on
+bidirectional constraints
+\emph default
+ that enforces equations in all directions.
+ Bidirectional constraints are defined along with method definitions.
  Each method is a function and a definition of dependencies (e.g., 
 \begin_inset Formula $A\rightarrow B$
 \end_inset
 
 ).
  Each method in its data is similar to a unidirectional constraint.
- The collection of methods can, of course, contain cycles.
+ As a result, bidirectional constraints define cycles by their nature, created
+ from the combined methods collection.
 \end_layout
 
 \begin_layout Standard
-In constraint programming, there is a concept of creating constraints that
- represent conflicts, which resemble the idea of multiple reactive assignments
- for the same variable.
+Another concept in constraint programming regarding creating constraints
+ that represent 
+\emph on
+conflicts
+\emph default
+, that resemble the idea of multiple reactive assignments for the same variable.
  In constraint programming, it is possible to define two unidirectional
  constraints where the left-hand side of each constraint is the same variable.
  In this case, the system cannot provide a solution that satisfies both
@@ -332,11 +363,7 @@ rivarjs
 \family typewriter
 HotDrink
 \family default
- (available on the comparison page in the project on 
-\family typewriter
-GitHub
-\family default
-).
+ (available on the comparison page in the source code repository).
 \end_layout
 
 \begin_layout Standard
@@ -398,7 +425,21 @@ Keera
 \family default
  are carried out exclusively in 
 \family typewriter
-Haskell
+Haske
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+ll
 \family default
 .
  
@@ -654,7 +695,24 @@ literal "false"
 
 \begin_layout Standard
 The problem can be broken down into two types: merging similar to the 
-\begin_inset Formula $\LSTINLINE{CombineLatest}$
+\begin_inset Formula $\LSTINLINE{CombineL}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{atest}$
 \end_inset
 
  operator in 
@@ -705,7 +763,7 @@ ReactiveX
 \end_layout
 
 \begin_layout Section
-Conclusion
+Summary
 \end_layout
 
 \begin_layout Standard

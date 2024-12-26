@@ -116,15 +116,15 @@ Background
 In programming, preserving data consistency and currency falls under the
  domain of 
 \emph on
-state management
+state 
 \emph default
-.
+management.
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-The term (state management) is commonly used in the context of front-end
- development 
+The term state management is commonly used in the context of front-end developme
+nt 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "youframeworkless"
@@ -220,9 +220,13 @@ Similar to the observer pattern, many programming languages, such as
 \family typewriter
 C#
 \family default
-, provide an event-driven mechanism.
- This allows the code that updates variables to remain independent of the
- code that executes in response to these updates, fostering a decoupled
+, provide an 
+\emph on
+event-driven programming
+\emph default
+ paradigm.
+ In this paradigm, code that updates variables can be independent of the
+ code that executes in response to these updates, thus fostering a decoupled
  and modular design.
  Below is an example that demonstrates the use of the mechanism to ensure
  that a specific variable, 
@@ -286,7 +290,24 @@ An event is defined for each variable: for
 \end_inset
 
  an event 
-\begin_inset Formula $\LSTINLINE{powerDifference\_Change}$
+\begin_inset Formula $\LSTINLINE{powerDiffer}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{ence\_Change}$
 \end_inset
 
 , and for 
@@ -1038,7 +1059,24 @@ Data can be streamed between different streams by using the
 \end_inset
 
  and 
-\begin_inset Formula $\LSTINLINE{Subscribe}$
+\begin_inset Formula $\LSTINLINE{Subscri}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{be}$
 \end_inset
 
  operations.
@@ -1050,8 +1088,25 @@ Data can be streamed between different streams by using the
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
- , 
-\begin_inset Formula $\LSTINLINE{A.Subscribe(x=>B.OnNext(x))}$
+, 
+\begin_inset Formula $\LSTINLINE{A.Subscribe(x=>}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{B.OnNext(x))}$
 \end_inset
 
  can be used.
@@ -4594,7 +4649,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
- , are used.
+, are used.
  For example, given reactive variables as observables 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
@@ -4903,7 +4958,7 @@ stream
 \end_layout
 
 \begin_layout Standard
-The observable, on one hand, resembles stream of timed values, but on the
+An observable, on one hand, resembles stream of timed values, but on the
  other hand, it is also presented as a time-varying value.
 \end_layout
 
@@ -5161,7 +5216,7 @@ Encapsulation
 \end_layout
 
 \begin_layout Section
-Conclusion
+Summary
 \end_layout
 
 \begin_layout Standard

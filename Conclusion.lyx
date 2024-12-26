@@ -89,7 +89,7 @@ Conclusion
 
 \begin_layout Standard
 FRP offers various languages and algorithms (for state management) to maintain
- the consistency and up-to-dateness of variable values.
+ the consistency and currency of variable values.
  This thesis proposes an approach that aims to integrate FRP with OOP, such
  that each object manages its own state, rather than having it managed centrally.
 \end_layout
@@ -179,8 +179,8 @@ Polymorphism
 \end_layout
 
 \begin_layout Standard
-The approach presented in this thesis has the potential to improve graphical
- user interfaces (GUIs) by:
+The approach presented in this thesis has the potential to improve UI applicatio
+ns by:
 \end_layout
 
 \begin_layout Itemize
@@ -248,8 +248,11 @@ C#
 \family typewriter
 JavaScript
 \family default
-, along with integration into GUI components (including React), and an example
- application implemented using each of these implementations.
+, along with integration into GUI components (including 
+\family typewriter
+React
+\family default
+), and an example application implemented using each of these implementations.
  These provide a foundation for continued research and development.
 \end_layout
 

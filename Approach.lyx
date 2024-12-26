@@ -137,8 +137,8 @@ status collapsed
 
 \begin_layout Plain Layout
 (A key characteristic that distinguishes a reactive instance variable from
- implementations of reactive variables in FRP is that it's not possible
- to discern from its interface whether it's an input variable or a variable
+ implementations of reactive variables in FRP is that It is not possible
+ to discern from its interface whether It is an input variable or a variable
  computed from other variables.
  In this respect, a reactive instance variable resembles an instance variable.
  This characteristic allows for dependency on a variable without being dependent
@@ -190,8 +190,8 @@ Person
 
 \begin_layout Standard
 A key characteristic that distinguishes a reactive instance variable from
- implementations of reactive variables in FRP is that it's not possible
- to discern from its interface whether it's an input variable or a variable
+ implementations of reactive variables in FRP is that It is not possible
+ to discern from its interface whether It is an input variable or a variable
  computed from other variables.
  In this respect, a reactive instance variable resembles an instance variable.
  This characteristic allows for dependency on a variable without being dependent
@@ -1004,8 +1004,8 @@ Observer
 \family default
  pattern.
  To clarify, this means there's no mediator used, no centralized data structure,
- no synchronization required, and it's not parallel execution.
- It's a straightforward function call.
+ no synchronization required, and It is not parallel execution.
+ It is a straightforward function call.
 \end_layout
 
 \end_inset
@@ -1039,7 +1039,7 @@ extend
 status collapsed
 
 \begin_layout Plain Layout
-In implementation inheritance, it's possible to perform reactive assignments
+In implementation inheritance, It is possible to perform reactive assignments
  to reactive instance variables belonging to classes higher up in the inheritanc
 e hierarchy.
  Similarly, in composition, reactive assignments can be made to reactive
@@ -1059,7 +1059,7 @@ Implementation Inheritance
 \end_layout
 
 \begin_layout Standard
-In implementation inheritance, it's possible to perform reactive assignments
+In implementation inheritance, It is possible to perform reactive assignments
  to reactive instance variables belonging to classes higher up in the inheritanc
 e hierarchy.
  For example, a 
@@ -1140,7 +1140,7 @@ Concentration
 \family default
 .
  The constructor of the class includes the reactive assignment 
-\begin_inset Formula $\LSTINLINE{Drug:=Concentration/Volume}$
+\begin_inset Formula $\LSTINLINE{Drug:=Concentration/V\_olume}$
 \end_inset
 
 .
@@ -1473,6 +1473,12 @@ e stream.
 \end_layout
 
 \begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Implementation-Strategy"
+
+\end_inset
+
 Implementation Strategy
 \end_layout
 
@@ -1482,8 +1488,12 @@ Analyzing Challenges in Change Propagation
 
 \begin_layout Standard
 The change propagation principle described in the thesis approach resembles
- the Depth-First Search (DFS) algorithm in that it "traverses" a branch
- of dependencies in depth before backtracking.
+ the 
+\emph on
+Depth-First Search (DFS)
+\emph default
+ algorithm in that it "traverses" a branch of dependencies in depth before
+ backtracking.
  In the automatic change propagation, when a value assignment message is
  received, it is possible that the update is outdated.
  There are three reasons why a value might be outdated:
@@ -2376,7 +2386,7 @@ Supporting the syntax and semantics of multiple assignments means to address
  from multiple left-hand expressions according to reactive assignment statements
  for which it is the left-hand side variable.
  This means to merge streams of values from multiple sources.
- Regarding user input, it's not that different, input also serves as another
+ Regarding user input, It is not that different, input also serves as another
  source of values for merging.
  Supporting the syntax and semantics of multiple assignments require semantics
  like sampling values of a single variable from multiple sources.
@@ -4298,20 +4308,21 @@ By the principle of mathematical induction, the claim is true for all natural
 \end_layout
 
 \begin_layout Section
-Conclusion
+Summary
 \end_layout
 
 \begin_layout Standard
-The implementation strategy represents a reactive instance variable using
- a stream, and a reactive assignment is represented as a 
+The chapter presents an implementation strategy that reactive instance variables
+ consist of observable streams and a reactive assignment is represented
+ as a 
 \emph on
 merge
 \emph default
  operation.
  Each item in the stream of a reactive instance variable is an update or
  a new value at the point in time corresponding to the item.
- Accordingly, in the Depth-First Search (DFS) algorithm used for change
- propagation, each visit to a node is an item in the stream.
+ Accordingly, in the DFS algorithm used for change propagation, each visit
+ to a node is an item in the stream.
  The strategy defines an 
 \emph on
 order relation

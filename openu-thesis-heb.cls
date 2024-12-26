@@ -103,8 +103,8 @@
     \vfill
 	%{Submitted to the Senate of the Open University of Israel \par}
 	{הוגש לסנט האו"פ}\par
-	%{Tumuz 5784, Raananna, July 2024}
-	{תמוז תשפ"ד, רעננה, יולי 4202}
+	%{Kislev 5785, Raananna, December 2024}
+	{כסליו תשפ"ה, רעננה, דצמבר 4202}
     }
   \end{center}
   %\null\vfill

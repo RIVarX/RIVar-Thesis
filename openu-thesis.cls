@@ -129,8 +129,8 @@ in partial fulfillment of the requirements for the degree of}}
     \vfill
 	{Submitted to the Senate of the Open University of Israel \par}
 	%{הוגש לסנט האו"פ}
-	{Nisan 5783, Raananna, April 2023}
-	%{ניסן תשפ"ג, רעננה, אפריל 2023}
+	{Kislev 5785, Raananna, December 2024}
+	%{כסליו תשפ"ה, רעננה, דצמבר 2025}
     }
   \end{center}
   %\null\vfill

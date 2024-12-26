@@ -945,7 +945,7 @@ t establishes a continuous association.
 \begin_layout Abstract
 An older concept for code reuse is object-oriented programming (OOP).
  Here, the mechanisms of inheritance with polymorphism are provided so that
- developers can define logic once, even if it's used for various types.
+ developers can define logic once, even if it is used for various types.
  For example, given objects A, B, and C, in performing A := B + C, the operation
  + upon the B and C is without determining the type or details on how is
  it implemented.

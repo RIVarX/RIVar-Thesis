@@ -489,8 +489,8 @@ Drug
 \begin_inset Quotes erd
 \end_inset
 
-] relates to amount of medication/drug administered to a patient, (e.g.
- 20 mg).
+] relates to amount of medication/drug administered to a patient, (e.g., 20
+ mg).
     
 \end_layout
 
@@ -528,8 +528,7 @@ Concentration
 \backslash
 textbf{Drug} per 
 \backslash
-textbf{Volume} (e.g.
- 0.5 mg/ml).
+textbf{Volume} (e.g., 0.5 mg/ml).
   
 \end_layout
 
@@ -679,7 +678,7 @@ User interface component for drug administration.
 \end_layout
 
 \begin_layout Description
-Drug relates to amount of medication/drug administered to a patient, (e.g.
+Drug relates to amount of medication/drug administered to a patient, (e.g.,
  20 mg).
 \end_layout
 
@@ -702,8 +701,7 @@ Drug
 \series bold
 Volume
 \series default
- (e.g.
- 0.5 mg/ml).
+ (e.g., 0.5 mg/ml).
 \end_layout
 
 \begin_layout Description
@@ -732,9 +730,9 @@ For preserving data consistency and currency, the application performs automatic
  change propagation based on the fields the user updates.
  A procedure named 
 \family typewriter
-Calculate,
+Calculate
 \family default
-whose content is shown in 
+, whose content is shown in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Centerlized-Calculation-1-3-1"
@@ -1009,7 +1007,7 @@ literal "false"
 \end_layout
 
 \begin_layout Subsection
-Cognitive Overload in Development
+Cognitive Overload in Development Experience
 \end_layout
 
 \begin_layout Standard
@@ -1208,7 +1206,7 @@ uming and resource-intensive.
 \end_layout
 
 \begin_layout Subsection
-Cognitive Overload in Use
+Cognitive Overload in User Experience
 \end_layout
 
 \begin_layout Standard
@@ -1729,9 +1727,9 @@ State of the Art
 The cognitive overload associated with developing such systems and the cognitive
  overload in their use can be reduced by developing in 
 \emph on
-Functional Reactive Programming
+Functional Reactive Programming (FRP)
 \emph default
- (FRP)
+
 \begin_inset space ~
 \end_inset
 
@@ -1745,9 +1743,9 @@ literal "false"
 
  and 
 \emph on
-Object Oriented Programming
+Object Oriented Programming (OOP)
 \emph default
- (OOP)
+
 \begin_inset space ~
 \end_inset
 
@@ -2621,7 +2619,7 @@ Just as feedback loops make it difficult to isolate the behavior of each
 \end_layout
 
 \begin_layout Section
-The Thesis's Approach in a Nutshell
+Thesis's Approach in a Nutshell
 \end_layout
 
 \begin_layout Standard
@@ -2654,7 +2652,20 @@ reactively assigned
 \begin_layout Standard
 Building on this approach, the following paragraph describes a 
 \family typewriter
-Drug Administration
+Drug Administ
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+ration
 \family default
  implementation.
  Class 
@@ -2671,7 +2682,20 @@ Volume
 \family default
  and 
 \family typewriter
-Concentration
+Concent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+ration
 \family default
 .
  Class 
@@ -2984,10 +3008,27 @@ Pump
 \end_inset
 
  and also 
-\begin_inset Formula $\LSTINLINE{TheBag.Drug:=Dose*Duration}$
+\begin_inset Formula $\LSTINLINE{TheBag.Drug:=Dose*Du}$
 \end_inset
 
-.
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{ration}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3802,21 +3843,25 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-The thesis contribution is:
+The thesis makes the following contribution:
 \end_layout
 
 \begin_layout Itemize
-Introducing a new programming approach to combine OOP with FRP.
- 
+Introducing an approach where FRP and OOP are combined with cycles in the
+ dependencies, ensuring adaptability even with cycles in dependencies.
 \end_layout
 
 \begin_layout Itemize
-An algorithm for automatic change propagation suitable for the new paradigm.
- 
+Proposing an implementation strategy for managing propagation changes in
+ practice.
+\end_layout
+
+\begin_layout Standard
+The contribution is evaluated by:
 \end_layout
 
 \begin_layout Itemize
-Implementation as an extension to the 
+Implementation as an extension to 
 \family typewriter
 C#
 \family default
@@ -3825,15 +3870,15 @@ C#
 JavaScript
 \family default
  programming languages.
- 
 \end_layout
 
 \begin_layout Itemize
-Implementation of an example application using each of the language extensions,
- demonstrating the practical applicability of the approach.
- Integration of the language extensions with GUI frameworks, enabling the
- development of complete applications with reactive user interfaces.
- This includes implementations in 
+Implementation of 
+\family typewriter
+Drug Administration
+\family default
+ application using each of the language extensions and the GUI frameworks
+ 
 \family typewriter
 WinForms
 \family default
@@ -3841,27 +3886,21 @@ WinForms
 \family typewriter
 HTML
 \family default
-, and 
+ and 
 \family typewriter
 React
 \family default
-, showcasing the versatility of the approach.
+.
  
 \end_layout
 
 \begin_layout Itemize
-Development of a 
+Comparative analysis of 
 \family typewriter
-React
+Drug Administration
 \family default
- component that elegantly integrates with the new extension, enabling seamless
- incorporation into modern frontend frameworks.
- 
-\end_layout
-
-\begin_layout Itemize
-Comparative analysis of similar implementations using other tools and frameworks
-, highlighting the advantages and unique contributions of the proposed approach.
+ implementations, focusing on the impact of the new programming approach
+ on cognitive load in both the code and user interface.
 \end_layout
 
 \begin_layout Standard
@@ -4184,6 +4223,96 @@ noprefix "false"
 
 \end_inset
 
+, we present the challenge of preserving data consistency and currency in
+ the context of OOP.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Approach"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we present the approach.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Implementation-Strategy"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we present a strategy for implementing the approach.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Implementation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we present the implementations of the approach.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Evaluation"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we provide a comparative analysis of implementations for 
+\family typewriter
+Drug Administration
+\family default
+.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Related-Work"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we present works that share common elements with this one and highlight
+ the uniqueness of the current work.
+ In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Conclusion"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, we summarize the work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
 , we provide some background in the context of GUI.
  In 
 \begin_inset CommandInset ref
@@ -4229,6 +4358,11 @@ noprefix "false"
 \end_inset
 
  summarizes our findings and discusses future work.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

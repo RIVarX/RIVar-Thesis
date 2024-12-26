@@ -12,6 +12,7 @@
 \usepackage{textcomp}
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{listings}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -203,6 +204,277 @@ newpage
 \end_layout
 
 \begin_layout Abstract
+תיזה זו עוסקת בחיבור בין שני פרדיגמות הפיתוח תכנות ריאקטיבי פונקציונאלי
+ 
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+)
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+FRP
+\lang hebrew
+( ותכנות מונחה עצמים 
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+)
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+OOP
+\lang hebrew
+(.
+ ב
+\lang english
+FRP
+\lang hebrew
+ משפטי השמה הם ברמה גבוהה של הפשטה.
+ המשמעות של השמת ערך למשתנה ריאקטיבי חורגת מעבר לנקודת הזמן הספציפית.
+ כלומר, המערכת ממשיכה לעדכן את המשתנה בהתאם לשינויים רלוונטים.
+ 
+\end_layout
+
+\begin_layout Abstract
+לדוגמה, ב
+\lang english
+FRP
+\lang hebrew
+ אם קיים משתנה 
+\begin_inset Formula $C$
+\end_inset
+
+ שמייצג את המחיר של מוצר ומכפילים אותו במשתנה 
+\begin_inset Formula $B$
+\end_inset
+
+ שמייצג את הכמות כדי לקבל את העלות הכוללת השמורה במשתנה הריאקטיבי 
+\begin_inset Formula $A:=B+C$
+\end_inset
+
+, אז שינוי במחיר או בכמות יגרום להתעדכנות אוטומטית של העלות, ללא צורך בקוד
+ נוסף שיטפל בעדכון זה.
+ הדבר דומה לעדכון נתונים המתבצע בגליון אלקטורני כמו אקסל: ערך של תא אשר
+ מכיל נוסחה התלויה בתאים אחרים מתעדכן אוטומטית בכל שינוי בערך של אחד התאים
+ האחרים בהם הוא תלוי.
+ לדוגמה, אם תא 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+ מכיל את הנוסחה 
+\begin_inset Formula $B_{1}*C_{1}$
+\end_inset
+
+, אזי בכל פעל שמעדכנים את הערכים של 
+\begin_inset Formula $B_{1}$
+\end_inset
+
+ או של 
+\begin_inset Formula $C_{1}$
+\end_inset
+
+, הערך של 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+ מחושב מחדש.
+ 
+\end_layout
+
+\begin_layout Abstract
+על מנת לתמוך בהשמה למשתנה ראקטיבי, שפות התכנות בפרדיגמה של
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+FRP
+\lang hebrew
+ הן בעלות מנגנון מובנה של הפצת שינויים.
+ מקמפלים את משפטי ההשמה, כך שכל משתנה נהיה תלוי במשתנים שנמצאים בביטוי שבאגף
+ הימני של המשפט, ומתחזקים מבנה נתונים לפי עץ התלויות שנוצר.
+ בכל פעם שיש שינוי בערך של משתנה, מזהים את המשתנים התלויים בו ומעדכנים אותם
+ בהתאם.
+ במהלך ההפצה דואגים שכל משתנה יחושב רק אחרי שכל המשתנים שהוא תלוי בהם חושבו.
+ 
+\end_layout
+
+\begin_layout Abstract
+הטמעת
+\family roman
+\series medium
+\shape up
+\size small
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+FRP
+\lang hebrew
+ ב
+\lang english
+OOP
+\lang hebrew
+ היא בעייתית מפני שמימוש מנגנון ההפצה סותר לכאורה את עיקרון הכימוס 
+\lang english
+(Encapsulation)
+\lang hebrew
+ ב
+\lang english
+OOP
+\lang hebrew
+.
+ לפי עיקרון זה, כל עצם מנהל את ערכי המשתנים 
+\lang english
+(State)
+\lang hebrew
+ שלו על ידי הפעולות של המחלקה שלו, שרק להם יש גישה למשתנים שלו.
+ אולם מנגנון ההפצה הוא חיצוני לעצם ועדיין צריך לעדכן את ה
+\lang english
+State
+\lang hebrew
+.
+ 
+\end_layout
+
+\begin_layout Abstract
+אמנם, עצם יכול לשלוח הודעה לעצם אחר, כך שהעצם האחר יוכל להפעיל עדכון למשתנה
+ שלו בהתאם להודעה.
+ לכן, ניתן לממש מנגנון של הפצת שינויים כעצם שיבצע את העדכונים באמצעות שליחת
+ הודעות.
+ אולם זה יוצר בעיה של צימוד 
+\lang english
+(Coupling)
+\lang hebrew
+: כל העצמים חייבים להיות מחוברים לאותו העצם שמנהל את ההפצה.
+ וכן, להיות מחוייבים יחדיו לכך שהתלויות תהיינה בצורה של עץ )כלומר שלא יהיו
+ מעגלים(.
+ 
+\end_layout
+
+\begin_layout Abstract
+בעיה מרכזית בהטמעה של 
+\lang english
+FRP
+\lang hebrew
+ במערכות 
+\lang english
+OOP
+\lang hebrew
+ מורכבות הכוללות רכיבים רבים התלויים זה בזה היא איך מממשים את מנגנון ההפצה
+ כך שכל עצם ינהל את ה
+\lang english
+State
+\lang hebrew
+ שלו, ולא שה
+\lang english
+State
+\lang hebrew
+ ינוהל על ידי רכיב מרכזי.
+ 
+\end_layout
+
+\begin_layout Abstract
+על מנת לפתור בעיה זו, התיזה מציגה הרחבה לשפת 
+\lang english
+OOP
+\lang hebrew
+ עם משתנה מופע ריאקטיבי 
+\lang english
+(RIVar)
+\lang hebrew
+ אשר משלב תכונות של משתנה מופע מ
+\lang english
+OOP
+\lang hebrew
+ עם משתנה ריאקטיבי מ
+\lang english
+FRP
+\lang hebrew
+, ומייצג שילוב שמשיגים בין מנגנוני ההפשטה של הפרדיגמות.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 משתנה מופע ריאקטיבי
 \family roman
 \series medium
@@ -362,6 +634,11 @@ OOP
 Interface
 \lang hebrew
 (.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

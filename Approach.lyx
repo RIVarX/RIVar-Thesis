@@ -531,7 +531,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -659,14 +659,12 @@ name "fig:Evaluating-the-formula-2"
 status open
 
 \begin_layout Plain Layout
-The sequence diagram in creating the subscriptions of the components of
- a reactive assignment.
+Sequence Diagram for Creating Subscriptions in a Reactive Assignment.
 \end_layout
 
 \end_inset
 
-The sequence diagram in creating the subscriptions of the components of
- a reactive assignment.
+Sequence Diagram for Creating Subscriptions in a Reactive Assignment.
  The diagram is for the reactive assignment illustrates 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
@@ -846,25 +844,23 @@ name "fig:propagation-on-the-2"
 
 
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
-A propagation change in established connections of a reactive assignment
- 
+Propagation Change in a Reactive Assignment (
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
-
+).
 \end_layout
 
 \end_inset
 
-A propagation change in established connections of the reactive assignment
- 
+Propagation Change in a Reactive Assignment (
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
-.
+).
  The sequence diagram illustrates an interaction among the components involved
  in the reactive assignment, calling value assignment.
  The sequence starts with the UI field triggering an event, emitting the
@@ -1906,14 +1902,12 @@ name "fig:Glitch-1-1-1-1"
 status open
 
 \begin_layout Plain Layout
-An example for the glitch issue resulted in the change propagation according
- to the thesis' approach.
+Glitch Example in Change Propagation.
 \end_layout
 
 \end_inset
 
-An example for the glitch issue resulted in the change propagation according
- to the thesis' approach.
+Glitch Example in Change Propagation.
  
 \begin_inset ERT
 status open

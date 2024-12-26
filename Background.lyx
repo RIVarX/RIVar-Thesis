@@ -4822,12 +4822,12 @@ name "fig:Streams-of-values-1-1-1-1"
 status open
 
 \begin_layout Plain Layout
-Variable value changes as an observable stream
+Variable Value Changes as an Observable Stream.
 \end_layout
 
 \end_inset
 
-Variable value changes as an observable stream.
+Variable Value Changes as an Observable Stream.
  Variable 
 \begin_inset Formula $A$
 \end_inset

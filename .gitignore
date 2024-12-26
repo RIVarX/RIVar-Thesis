@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 *.lyx#
+/new 24.lyx
+/Approach Old.lyx

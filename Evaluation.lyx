@@ -1127,10 +1127,14 @@ name "fig:react_micro_frontends-3"
 
 
 \begin_inset Argument 1
-status collapsed
+status open
 
 \begin_layout Plain Layout
-Design for the drug administration application.
+Design for the 
+\family typewriter
+Drug Administration
+\family default
+ application.
 \end_layout
 
 \end_inset
@@ -3287,7 +3291,7 @@ Concentration
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3492,7 +3496,7 @@ name "fig:Statechart"
 status open
 
 \begin_layout Plain Layout
-Modeling a statechart for a formula 
+Modeling a Statechart for a Formula 
 \begin_inset Formula $\LSTINLINE{Concentration:=Drug/Volume}$
 \end_inset
 
@@ -3501,7 +3505,7 @@ Modeling a statechart for a formula
 
 \end_inset
 
-Modeling a statechart for a formula 
+Modeling a Statechart for a Formula 
 \begin_inset Formula $\LSTINLINE{Concentration:=Drug/Volume}$
 \end_inset
 

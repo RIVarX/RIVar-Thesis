@@ -3517,7 +3517,7 @@ merging streams
 status collapsed
 
 \begin_layout Plain Layout
-The introduced propogation algorithm behaves similar to 
+The introduced propagation algorithm behaves similar to 
 \begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
@@ -3564,7 +3564,7 @@ https://rivarx.github.io/Evaluation
 
 , the input adds constraints to be in the top priority, causing to override
  values derived from old inputs.
- As a result, it seems like that our change propogation is like in the 
+ As a result, it seems like that our change propagation is like in the 
 \begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
@@ -3695,7 +3695,7 @@ merging streams
 status collapsed
 
 \begin_layout Plain Layout
-The introduced propogation algorithm behaves similar to 
+The introduced propagation algorithm behaves similar to 
 \begin_inset Formula $\NAME{Hotdrink}$
 \end_inset
 
@@ -4507,7 +4507,7 @@ The
 
  operation as the location to handle the unexpected feedback loop.
  The graph illustrates an example produced from a DFS traversal of a change
- propogation (described in 
+ propagation (described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Observable-Streams"
@@ -4776,7 +4776,7 @@ In this thesis, we aimed to strike a balance between abstraction and control
 \end_layout
 
 \begin_layout Section
-The Propogation Algorithm
+The propagation Algorithm
 \end_layout
 
 \begin_layout Plain Layout
@@ -4857,7 +4857,7 @@ noprefix "false"
  the pump object only interacts directly with the bag's drug and volume.
  Conversely, the concentration is only indirectly communicated with the
  pump since it is updated from changes in the amount or volume.
- According to this example, if the propogation algorithm is sufficient,
+ According to this example, if the propagation algorithm is sufficient,
  we achived our goal.
 \end_layout
 

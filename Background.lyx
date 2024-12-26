@@ -137,8 +137,8 @@ literal "false"
 
 \end_inset
 
- State refers to values or data that change over time.
- In OOP, state is distributed across different objects, and each object's
+ The state refers to values or data that change over time.
+ In OOP, the state is distributed across different objects, and each object's
  state, represented by its instance variables, can only be modified by that
  object's own methods.
 \end_layout
@@ -166,7 +166,7 @@ literal "false"
 \end_inset
 
 .
- In this pattern, an object called the 
+ In this pattern, an object called 
 \emph on
 subject
 \emph default
@@ -174,7 +174,7 @@ subject
 \emph on
 observers
 \emph default
- and notifies them of any changes in its state.
+ and notifies them of any change in its state.
  This pattern is a competing pattern to a 
 \family typewriter
 Madiator
@@ -225,7 +225,7 @@ C#
 event-driven programming
 \emph default
  paradigm.
- In this paradigm, code that updates variables can be independent of the
+ In this paradigm, a code that updates variables can be independent of the
  code that executes in response to these updates, thus fostering a decoupled
  and modular design.
  Below is an example that demonstrates the use of the mechanism to ensure
@@ -626,11 +626,11 @@ JavaScript
 \end_layout
 
 \begin_layout Standard
-Based on the observer pattern is also the 
+Based on the observer pattern is the 
 \emph on
 observable
 \emph default
-, a concept a popular library 
+, being a concept of a popular library 
 \emph on
 Rx
 \emph default
@@ -779,7 +779,7 @@ JavaScript
 \end_layout
 
 \begin_layout Standard
-An Observable, also known as an
+Observable, also known as an
 \emph on
  observable stream
 \begin_inset space ~
@@ -822,7 +822,7 @@ https://cycle.js.org/
 , is an abstract data structure implemented as an object in OOP with the
  observer pattern.
  It can be visualized as a stream through which data flows, like a tube
- carrying objects in a factoy.
+ carrying objects in a factory.
  For adding data to the stream, the 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
@@ -838,7 +838,7 @@ https://cycle.js.org/
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 An 
@@ -1054,32 +1054,15 @@ In Rx, observable is an abstract data structure that can be visualized as
 \end_layout
 
 \begin_layout Standard
-Data can be streamed between different streams by using the 
+Using the 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
 
  and 
-\begin_inset Formula $\LSTINLINE{Subscri}$
+\begin_inset Formula $\LSTINLINE{Subscribe}$
 \end_inset
 
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
--
-\end_layout
-
-\end_inset
-
-
-\begin_inset Formula $\LSTINLINE{be}$
-\end_inset
-
- operations.
+ methods, can data be streamed between different streams.
  For example, to pass data from stream 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
@@ -2042,7 +2025,7 @@ literal "false"
 .
  
 \emph default
-In the default change propogation, observables synchronously respond to
+In the default change propagation, observables synchronously respond to
  notifications by passing them forward.
  This traversal can be likened to a depth-first search (DFS) algorithm,
  where a change event initiates a sequence of computations in a depth-first
@@ -4620,8 +4603,8 @@ literal "false"
 
 \end_inset
 
- by having each item in the observable represent a change in the value of
- the reactive variable 
+ by having each item in the observable to represent a change in the value
+ of the reactive variable 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "meijer2012your"
@@ -4662,7 +4645,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{A=B.Select(x=>x+1)}$
 \end_inset
 
- means like 
+ is similar to 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -4683,7 +4666,7 @@ noprefix "false"
 \begin_inset Formula $\LSTINLINE{A=B.CombineLatest(C,(b,c)=>b+c)}$
 \end_inset
 
- means like 
+ is similar to 
 \begin_inset Formula $\LSTINLINE{A:=B+C}$
 \end_inset
 
@@ -4954,7 +4937,7 @@ cell
 \family typewriter
 stream
 \family default
- to represent stream of timed values.
+ was defined to represent stream of timed values.
 \end_layout
 
 \begin_layout Standard
@@ -5222,7 +5205,7 @@ Summary
 \begin_layout Standard
 In OOP, observables can be used within objects enabling the implementation
  of a computation tree as in FRP.
- It aligns with what has been identified
+ It aligns with which that has been identified
 \begin_inset space ~
 \end_inset
 
@@ -5252,7 +5235,7 @@ literal "false"
 status collapsed
 
 \begin_layout Plain Layout
-In case of an automatic change propogation according to a computation tree,
+In case of an automatic change propagation according to a computation tree,
  Should each object be responsible for managing its own state
 \end_layout
 
@@ -7220,14 +7203,14 @@ status open
 
 \begin_layout Plain Layout
 This is like previous works had to face the balancing between the abstraction
- level and the generalism of the propogation algorithm.
- The technaogy that enables completely custom propogation, has a problematic
+ level and the generalism of the propagation algorithm.
+ The technaogy that enables completely custom propagation, has a problematic
  abstraction.
  Event-driven programming theortecaly provide customizable propagation.
  Hoever, the paradigm is error prone, so that it hard to realy customize
  according to the needs.
  Therfore, it is not new that the customizability, is by only choose a general
- propogation strategy.
+ propagation strategy.
 \end_layout
 
 \begin_layout Plain Layout

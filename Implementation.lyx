@@ -175,7 +175,7 @@ This difficulty resembles the known problem, that different methods triggered
 state management
 \emph default
 ).
- Thus, given a variable containing a certain value, it's hard to know the
+ Thus, given a variable containing a certain value, It is hard to know the
  reason for it.
  Below are the advantages of the new implementation over regular state managemen
 t.
@@ -197,7 +197,7 @@ The user chooses which fields to edit, and can be aware that when they enter
 \end_layout
 
 \begin_layout Itemize
-It's possible to determine for each value whether it is calculated or a
+It is possible to determine for each value whether it is calculated or a
  user-entered value (this was implemented in all the examples, except for
  the React example).
 \end_layout
@@ -439,7 +439,7 @@ noprefix "false"
  in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Propogation-on-the-2-2"
+reference "fig:propagation-on-the-2-2"
 plural "false"
 caps "true"
 noprefix "false"
@@ -499,7 +499,7 @@ noprefix "false"
  the connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Propogation-on-the-2-2"
+reference "fig:propagation-on-the-2-2"
 plural "false"
 caps "true"
 noprefix "false"
@@ -827,7 +827,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Propogation-on-the-2-2"
+name "fig:propagation-on-the-2-2"
 
 \end_inset
 
@@ -836,7 +836,7 @@ name "fig:Propogation-on-the-2-2"
 status collapsed
 
 \begin_layout Plain Layout
-A propogation change in established connections of the formula 
+A propagation change in established connections of the formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -845,7 +845,7 @@ A propogation change in established connections of the formula
 
 \end_inset
 
-A propogation change in established connections of the formula 
+A propagation change in established connections of the formula 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -1521,11 +1521,11 @@ noprefix "false"
 \end_inset
 
  observes the assignment operator.
- The established connections are then used to the change propogation for
+ The established connections are then used to the change propagation for
  connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Propogation-on-the-2"
+reference "fig:propagation-on-the-2"
 plural "false"
 caps "true"
 noprefix "false"
@@ -1771,11 +1771,11 @@ noprefix "false"
 \end_inset
 
  observes the assignment operator.
- The established connections are then used to the change propogation for
+ The established connections are then used to the change propagation for
  connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Propogation-on-the-2"
+reference "fig:propagation-on-the-2"
 plural "false"
 caps "true"
 noprefix "false"
@@ -1849,11 +1849,11 @@ noprefix "false"
 \end_inset
 
  observes the assignment operator.
- The established connections are then used to the change propogation for
+ The established connections are then used to the change propagation for
  connected UI fields (
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Propogation-on-the-2"
+reference "fig:propagation-on-the-2"
 plural "false"
 caps "true"
 noprefix "false"
@@ -3789,7 +3789,7 @@ noprefix "false"
  the pump object only interacts directly with the bag's drug and volume.
  Conversely, the concentration is only indirectly communicated with the
  pump since it is updated from changes in the amount or volume.
- According to this example, if the propogation algorithm is sufficient,
+ According to this example, if the propagation algorithm is sufficient,
  we achived our goal.
 \end_layout
 

@@ -115,9 +115,9 @@ Evaluation
 \begin_layout Standard
 This work presents an approach of management separation of reactive variables
  through the use of objects from the OOP paradigm.
- The goal is to reduce cognitive overload in the developer experience, by decreasing
- code size, and in the user experience, as a result of the improved development
- experience.
+ The goal is to reduce cognitive overload in the developer experience, by
+ decreasing code size, and in the user experience, as a result of the improved
+ development experience.
  To evaluate the thesis work, we performed several processes:
 \end_layout
 
@@ -205,7 +205,7 @@ Excel
 Application Evolution Process
 \series default
 : Comparison between using reactive variables versus using reactive instance
- variables (without referring to objects).
+ variables (without referring to objects that contain them).
  A case study of an application evolution process and discussion, showing
  the benefits of using reactive instance variables.
 \end_layout
@@ -1273,7 +1273,6 @@ status open
 
 \begin_layout Plain Layout
 
-\family typewriter
 
 \backslash
 -
@@ -4559,8 +4558,8 @@ Application Evolution Process
 
 \begin_layout Standard
 This section presents a comparison between utilizing reactive variables
- and reactive instance variables (without object references) within the
- context of application evolution.
+ and reactive instance variables (without referring to objects that contain
+ them) within the context of application evolution.
  To illustrate the distinctions and benefits of reactive instance variables,
  a case study is presented, focusing on the evolution of an application
  example involving the variables 
@@ -8178,11 +8177,11 @@ The Case Study
 \end_layout
 
 \begin_layout Section
-Propogation Algorithm
+propagation Algorithm
 \end_layout
 
 \begin_layout Plain Layout
-In our implementation, we provided a strict general propogation algorithm,
+In our implementation, we provided a strict general propagation algorithm,
  to provide the developers to sepcify clear logic.
  In the drug administration example, the business logic is well specified:
  the objects, the variables, and how they are calculated from each other.
@@ -8200,14 +8199,14 @@ The state of the art
 
 \begin_layout Plain Layout
 This is like previous works had to face the balancing between the abstraction
- level and the generalism of the propogation algorithm.
- The technaogy that enables completely custom propogation, has a problematic
+ level and the generalism of the propagation algorithm.
+ The technaogy that enables completely custom propagation, has a problematic
  abstraction.
  Event-driven programming theortecaly provide customizable propagation.
  Hoever, the paradigm is error prone, so that it hard to realy customize
  according to the needs.
  Therfore, it is not new that the customizability, is by only choose a general
- propogation strategy.
+ propagation strategy.
  
 \end_layout
 
@@ -8289,7 +8288,7 @@ Our approach can be implemented (as we already implemented) as internal
 ion, it is still not the case, because we use the framework that implemented
  the streams with schduler, and not completly directly method calls.
  theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
- because the protocal (propogation algorthm) is peer to peer (means no madiator).
+ because the protocal (propagation algorthm) is peer to peer (means no madiator).
  The only limitation, is that the external input will be atached with an
  order, such that each input is atached with the incerenetal number.
  In large network, it might be a bottleneck.
@@ -8406,9 +8405,9 @@ the langagues in order to handle cycles, the langiges are force to break
 
 \begin_layout Plain Layout
 In our framework, like previous works, we had to face the balancing between
- the abstraction level and the generalism of the propogation algorithm.
+ the abstraction level and the generalism of the propagation algorithm.
  In the events driven programming, the framework completely enables completely
- custom propogation.
+ custom propagation.
  In 
 \begin_inset Formula $\ReactiveX$
 \end_inset
@@ -8424,11 +8423,11 @@ In our framework, like previous works, we had to face the balancing between
 \end_layout
 
 \begin_layout Section
-Propogation Algorithm
+propagation Algorithm
 \end_layout
 
 \begin_layout Plain Layout
-In our implementation, we provided a strict general propogation algorithm,
+In our implementation, we provided a strict general propagation algorithm,
  to provide the developers to sepcify the logic clearly clear logic.
  In the drug administration example, the business logic is well specified:
  the objects, the variables, and how they are calculated from each other.
@@ -8446,7 +8445,7 @@ The state of the art
 
 \begin_layout Plain Layout
 In the events driven programming, that the framework that completely enables
- completely custom propogation, it is error prone 
+ completely custom propagation, it is error prone 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "maier2010deprecating"
@@ -8454,7 +8453,7 @@ literal "false"
 
 \end_inset
 
-, so that it hard to realy customize the propogation according to the needs.
+, so that it hard to realy customize the propagation according to the needs.
  In frameworks that use streams it used to be also the case, because it
  has the difficulty similar to the evemts paradigm 
 \begin_inset CommandInset citation
@@ -8551,7 +8550,7 @@ Our approach can be implemented (as we already implemented) as internal
 ion, it is still not the case, because we use the framework that implemented
  the streams with schduler, and not completly directly method calls.
  theoreticaly, the nodes can cumunicate efficiently over a wire chanel,
- because the protocal (propogation algorthm) is peer to peer (means no madiator).
+ because the protocal (propagation algorthm) is peer to peer (means no madiator).
  The only limitation, is that the external input will be atached with an
  order, such that each input is atached with the incerenetal number.
  In large network, it might be a bottleneck.
@@ -9798,7 +9797,7 @@ The
 
  operation as the location to handle the unexpected feedback loop.
  The graph illustrates an example produced from a DFS traversal of a change
- propogation (described in 
+ propagation (described in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "subsec:Observable-Streams"
@@ -10067,7 +10066,7 @@ In this thesis, we aimed to strike a balance between abstraction and control
 \end_layout
 
 \begin_layout Section
-The Propogation Algorithm
+The propagation Algorithm
 \end_layout
 
 \begin_layout Plain Layout

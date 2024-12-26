@@ -297,7 +297,7 @@ Value assignment
 \end_inset
 
 ) that is similar to the assignment operator of an instance variable.
- This operator is also similar to feeding input in FRP.
+ This operator is also similar to feeding an input in FRP.
 \end_layout
 
 \begin_layout Enumerate
@@ -305,7 +305,7 @@ Reactive assignment (
 \begin_inset Formula $:=$
 \end_inset
 
-) that resembles to the sign that binds an expression to variable in FRP.
+) that resembles to the sign that binds an expression to a variable in FRP.
  By this operator, value assignment messages would be sent according to
  relevant changes.
 \end_layout
@@ -475,16 +475,8 @@ Observer
 \family default
  design pattern.
  For each reactive assignment statement, the right-hand side acts as an
- 
-\family typewriter
-Observable
-\family default
- (an object that can be observed), while the left-hand side variable acts
- as the 
-\family typewriter
-Observer
-\family default
-.
+ observable (an object that can be observed), while the left-hand side variable
+ acts as the observer.
  In other words, if there is a change in the value of the expression on
  the right-hand side, a value assignment message is sent to the variable
  on the left-hand side.
@@ -503,7 +495,7 @@ Observers
 \family default
  watching it.
  Here too, when there is a change in the value of a variable, it sends a
- message about the change to the expressions it participates in.
+ message of the change to the expressions it participates in.
 \end_layout
 
 \begin_layout Standard
@@ -522,7 +514,7 @@ noprefix "false"
  and 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:Propogation-on-the-2"
+reference "fig:propagation-on-the-2"
 plural "false"
 caps "true"
 noprefix "false"
@@ -848,7 +840,7 @@ end{center}
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Propogation-on-the-2"
+name "fig:propagation-on-the-2"
 
 \end_inset
 
@@ -857,7 +849,8 @@ name "fig:Propogation-on-the-2"
 status collapsed
 
 \begin_layout Plain Layout
-A propagation change in established connections of a reactive assignment 
+A propagation change in established connections of a reactive assignment
+ 
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
@@ -1018,19 +1011,19 @@ Adapting to Inheritance
 \end_layout
 
 \begin_layout Standard
-For each reactive assignment, the left-hand variable receive value assignment
+For each reactive assignment, the left-hand variable receives value assignment
  messages when changes happen in the left-hand expression.
  These messages are in addition to other messages it already receives.
  As a result, the reactive assignment operation does not 
 \emph on
 modify
 \emph default
- behavior, but 
+ behavior, but rather 
 \emph on
-extend
+extends
 \emph default
  it.
- This behavior aligns with the concept of inheritance.
+ This aligns with the concept of inheritance.
  
 \end_layout
 
@@ -1120,7 +1113,7 @@ Composition
 \end_layout
 
 \begin_layout Standard
-In Composition, reactive assignments can be made to reactive instance variables
+In composition, reactive assignments can be made to reactive instance variables
  of inner objects.
  For example, a 
 \family typewriter
@@ -1140,7 +1133,7 @@ Concentration
 \family default
 .
  The constructor of the class includes the reactive assignment 
-\begin_inset Formula $\LSTINLINE{Drug:=Concentration/V\_olume}$
+\begin_inset Formula $\LSTINLINE{Drug:=Concentration/Volume}$
 \end_inset
 
 .
@@ -1193,9 +1186,9 @@ Polymorphism
 \end_layout
 
 \begin_layout Standard
-Polymorphism can also be achieved, allowing uniform access to reactive instance
- variables of objects of different types based on an interface of a specific
- base class.
+Polymorphism can also be achieved, for allowing uniform access to reactive
+ instance variables of objects of different types based on an interface
+ of a specific base class.
  
 \end_layout
 
@@ -1553,7 +1546,7 @@ noprefix "false"
 
  a spanning tree, resulting from the DFS traversal, contains nodes with
  more than one incoming edge.
- Such a propogation is caused from a value assignment into 
+ Such a propagation is caused from a value assignment into 
 \begin_inset Formula $\LSTINLINE{Duration}$
 \end_inset
 
@@ -1594,7 +1587,7 @@ literal "false"
 
 \end_inset
 
-, which are related to the same time, that originaly caused by a single
+, which are related to the same time, that were originally caused by a single
  event.
 \end_layout
 
@@ -1602,7 +1595,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2230,8 +2223,8 @@ It is important to distinguish between two types of graphs.
  One graph describes dependencies between variables, and the other graph
  describes propagation of changes or dataflow.
  In the dataflow graph, edges describe the direction of the flow or propagation.
- In the dependency graph, the direction of the edges is reversed, more similar
- to the way dependencies are defined in UML.
+ In the dependency graph, the direction of the edges is reversed, similar
+ to defining dependencies in UML.
 \begin_inset Foot
 status collapsed
 
@@ -2296,7 +2289,7 @@ For example, given
 \family typewriter
 A
 \family default
- can also receive input.
+ can also receive an input.
  Therefore, in change propagation, it has two incoming edges.
  Similarly, 
 \family typewriter
@@ -2346,9 +2339,9 @@ To determine the value of a variable appearing on the left-hand side of
  When different code segments share memory, two code segments can write
  to the same variable.
  And when the value is read, the value is determined by the last code segment
- that ran.
- That is, the state of the variables changes over time, and its value is
- determined according to the time at which each line of code was executed.
+ that has run.
+ That is, the state of a variable changes over time, and its value is determined
+ according to the time at which each line of code was executed.
 \end_layout
 
 \begin_layout Standard
@@ -2821,7 +2814,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename example_change_propogation-removebg-preview.png
+	filename example_change_propagation-removebg-preview.png
 
 \end_inset
 

@@ -2311,7 +2311,7 @@ The OOP paradigm provides an abstraction mechanism to reduce code duplication
 \end_layout
 
 \begin_layout Standard
-Some works combine the paradigms.
+Some works combine the FRP and OOP paradigms.
  One approach is implemented by the 
 \family typewriter
 ReactiveX
@@ -2557,8 +2557,8 @@ state
 \emph default
  is similar to variables and is managed by a specific API or with the help
  of dedicated libraries.
- While the graphical user interface is defined declaratively and updated
- automatically according to changes in the state.
+ The graphical user interface is defined declaratively and updated automatically
+ according to changes in the state.
 \end_layout
 
 \begin_layout Section
@@ -2568,10 +2568,9 @@ Limitations
 \begin_layout Standard
 While the OOP and FRP paradigms offer abstraction mechanisms that avoid
  the duplication problems inherent in the procedural paradigm, they have
- limitations.
- A central problem relevant to complex systems is how to implement the propagati
-on mechanism so that each object manages its own state, rather than having
- the state managed by a central component.
+ limitations: a central problem relevant to complex systems is how to implement
+ the propagation mechanism so that each object manages its own state, rather
+ than having the state managed by a central component.
 \end_layout
 
 \begin_layout Subsection
@@ -2673,7 +2672,8 @@ object reentrance
 Just as feedback loops make it difficult to isolate the behavior of each
  component, the object reentrance problem in OOP creates difficulties in
  designing interfaces.
- An interface is like a contract between the object's creator and its user.
+ An interface is similar to a contract between the object's creator and
+ its user.
  Similarly, in implementation inheritance, there is a contract (specialization
  interface) between a superclass and a subclass.
  This difficulty indicates a problem in applying OOP principles to implement
@@ -2689,14 +2689,14 @@ Thesis's Approach in a Nutshell
 
 \begin_layout Standard
 This thesis presents an approach where methods in OOP (typically constructors)
- can include formulas similar to those in FRP, But with the possibility
+ can include formulas similar to those in FRP, but with the possibility
  that the left-hand variable of the formula belongs to a different object
  or class.
  This type of variable has an operation named 
 \emph on
 reactive assignment
 \emph default
- with a meaning similar to the equal sign
+ with a meaning similar to the assignment sign
 \begin_inset space ~
 \end_inset
 
@@ -3100,7 +3100,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3256,7 +3256,7 @@ status open
 
 ~
 \backslash
-Cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
+cref{line:PumpCode_RIVars1,line:PumpCode_RIVars2}
 \end_layout
 
 \end_inset
@@ -3270,12 +3270,12 @@ status open
 
 ~
 \backslash
-Cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
+cref{line:PumpCode_formula,line:PumpCode_formula2,line:PumpCode_formula3}
 \end_layout
 
 \end_inset
 
- (Actualy, it should incorporate them into the constructors of the classes).
+ (actualy, it should incorporate them into the constructors of the classes).
  The reactive assignments involves the variables declared in
 \begin_inset ERT
 status open

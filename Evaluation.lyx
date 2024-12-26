@@ -4561,9 +4561,9 @@ Application Evolution Process
 This section presents a comparison between utilizing reactive variables
  and reactive instance variables (without object references) within the
  context of application evolution.
- To illustrate the distinctions and benefits of each approach, a case study
- is presented, focusing on the evolution of an application example involving
- the variables 
+ To illustrate the distinctions and benefits of reactive instance variables,
+ a case study is presented, focusing on the evolution of an application
+ example involving the variables 
 \begin_inset ERT
 status open
 

@@ -2691,7 +2691,11 @@ Thesis's Approach in a Nutshell
 This thesis presents a novel approach: combining an OOP instance variable
  with an FRP reactive variable to define a new variable type: 
 \emph on
-Reactive Instance Variable (RIVar)
+Reactive Instance Variable
+\begin_inset space ~
+\end_inset
+
+(RIVar)
 \emph default
 .
  This type of variable possesses the characteristics of a reactive variable,
@@ -3094,7 +3098,11 @@ Bag
 \begin_inset Formula $\LSTINLINE{Volume:=Concentration*Drug}$
 \end_inset
 
- such that Volume will be recalculated depending on 
+ such that 
+\family typewriter
+Volume
+\family default
+ will be recalculated depending on 
 \family typewriter
 Concentration
 \family default
@@ -4459,6 +4467,7 @@ C#
 JavaScript
 \family default
  programming languages.
+ 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "chap:Evaluation"

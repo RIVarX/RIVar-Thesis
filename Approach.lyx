@@ -3108,12 +3108,12 @@ name "tab:Comparing-Timestamps-Set-1-1"
 status open
 
 \begin_layout Plain Layout
-Comparing the order of the values, based on their set of timetsamps.
+Comparing the Order of Values Based on Their Timestamp Sets.
 \end_layout
 
 \end_inset
 
-Comparing the order of the values, based on their set of timetsamps.
+Comparing the Order of Values Based on Their Timestamp Sets.
  Each line represents two values that are compared.
  The cells in the columns of the operands, contain the timestamps of the
  values, that are used in the comparison
@@ -3674,7 +3674,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -4057,12 +4057,13 @@ name "fig:merge-several-sources-2-2-1-1"
 status open
 
 \begin_layout Plain Layout
-The assignment operator as an accumulation merge operator
+The Assignment Operator as an Accumulation Merge Operator.
 \end_layout
 
 \end_inset
 
-The streams represent the variables.
+The Assignment Operator as an Accumulation Merge Operator.
+ The streams represent the variables.
  The statement 
 \begin_inset Formula $\LSTINLINE{A:=B}$
 \end_inset

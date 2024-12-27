@@ -1993,7 +1993,7 @@ LSTINLINE{ew Signal(100))}$
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2120,7 +2120,7 @@ name "fig:bag_code_rivarjs"
 status open
 
 \begin_layout Plain Layout
-Code of class 
+Code of a class 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -3539,7 +3539,7 @@ Javascript
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3679,12 +3679,12 @@ name "fig:bind"
 status open
 
 \begin_layout Plain Layout
-A function that binds between a reactive instance variable and a UI control.
+Binding a Reactive Instance Variable to a UI Control.
 \end_layout
 
 \end_inset
 
-A function that binds between a reactive instance variable and a UI control.
+ Binding a Reactive Instance Variable to a UI Control.
  The function connects an input element (such as a text box) to a reactive
  variable.
  The binding is bidirectional: (1) Changes to the input value update the
@@ -3780,7 +3780,7 @@ According to this explanation,
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -3860,31 +3860,39 @@ name "fig:rivarview-2-1"
 status open
 
 \begin_layout Plain Layout
-Code example for using 
+Code Example of 
 \begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
 
- in 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- application
+ in a 
+\family typewriter
+React
+\family default
+ Application.
 \end_layout
 
 \end_inset
 
-Code example for using 
+Code Example of 
 \begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
 
- in 
-\begin_inset Formula $\NAME{React}$
-\end_inset
-
- application.
+ in a 
+\family typewriter
+React
+\family default
+ Application.
  This code snippet demonstrates how to use the RIVarView component to create
  a UI element bound to a reactive instance variable.
- The x in rivar={x} refers to this reactive instance variable.
+ The 
+\begin_inset Formula $x$
+\end_inset
+
+ in 
+\begin_inset Formula $\LSTINLINE{rivar\{x\}}$
+\end_inset
+
+ refers to this reactive instance variable.
  The input element shown can be replaced with other UI elements as needed.
 \end_layout
 

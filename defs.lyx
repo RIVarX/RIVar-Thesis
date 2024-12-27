@@ -115,7 +115,7 @@
 
 \begin_layout Standard
 \begin_inset FormulaMacro
-\newcommand{\NAME}[1]{\mbox{\myName{#1}}}
+\newcommand{\NAME}[1]{\mbox{\texttt{}{#1}}}
 {{\color{blue}\texttt{#1}}}
 \end_inset
 

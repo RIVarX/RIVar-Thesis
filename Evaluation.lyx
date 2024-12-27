@@ -1563,12 +1563,16 @@ name "fig:Log-1-1-1-1"
 status collapsed
 
 \begin_layout Plain Layout
-Log result for an execution of the Drug Administration application.
+Log Results from Drug Administration Application Executio
 \end_layout
 
 \end_inset
 
-Log result for an execution of the Drug Administration application.
+Log Results from 
+\family typewriter
+Drug Administration
+\family default
+ Application Execution.
  The lines that does not end with angle brackets, inform change events directly
  set by the user.
  The angle bracket contains the timestamps, that are the order of the events

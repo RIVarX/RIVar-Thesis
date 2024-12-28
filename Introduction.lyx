@@ -3372,8 +3372,7 @@ cref{line:PumpCode_TheBag}
 \end_layout
 
 \begin_layout Standard
-This approach reintroduces the cycles question, as it allows for cycles
- 
+This approach reintroduces the cycles question, as it allows cycles 
 \emph on
 by design
 \emph default

@@ -112,19 +112,27 @@ name "chap:Implementation-Strategy"
 Implementation Strategy
 \end_layout
 
-\begin_layout Section
-Analyzing Challenges in Change Propagation
-\end_layout
-
 \begin_layout Standard
-The change propagation principle described in the thesis approach resembles
+This chapter presents an implementation strategy based on reactive streams.
+ Reactive variables are reactive streams, such that each item in the stream
+ of a reactive variable is an update or a new value at the point in time
+ corresponding to the item.
+ The change propagation principle described in the thesis approach resembles
  the 
 \emph on
 Depth-First Search (DFS)
 \emph default
  algorithm in that it "traverses" a branch of dependencies in depth before
  backtracking.
- In the automatic change propagation, when a value assignment message is
+ Accordingly, each visit to a node is an item in a reactive stream.
+\end_layout
+
+\begin_layout Section
+Analyzing Challenges in Change Propagation
+\end_layout
+
+\begin_layout Standard
+In the automatic change propagation, when a value assignment message is
  received, it is possible that the update is outdated.
  There are three reasons why a value might be outdated:
 \end_layout
@@ -915,7 +923,11 @@ For example, given
 \begin_inset Formula $\LSTINLINE{A:=B+1}$
 \end_inset
 
-, then A depends on 
+, then 
+\family typewriter
+A
+\family default
+ depends on 
 \begin_inset Formula $\LSTINLINE{B+1}$
 \end_inset
 
@@ -930,7 +942,7 @@ A
 \family typewriter
 A
 \family default
- can depend on two expressions according to two different formulas.
+ can depend on two expressions according to two different reactive assignments.
 \end_layout
 
 \begin_layout Standard
@@ -2941,6 +2953,137 @@ Summary
 \end_layout
 
 \begin_layout Standard
+The implementation strategy includes:
+\end_layout
+
+\begin_layout Itemize
+Multi-assignment semantics that define a merge of streams.
+\end_layout
+
+\begin_layout Itemize
+Definition of an order over the messages according to the order of input
+ events.
+\end_layout
+
+\begin_layout Standard
+The implementation strategy is based on two facts regarding cycles.
+ Firstly, when there is a cycle (i.e., feedback), the problem is similar to
+ a known issue called a glitch.
+ To address this, a solution is to discard each value if it is not up-to-date.
+\end_layout
+
+\begin_layout Standard
+Secondly, if there is a cycle, it means that a vertex represents a variable
+ that is the left-hand side variable of multiple reactive assignment statements.
+ Alternatively, it could be both an input and output variable (i.e., it is
+ updated according to both a reactive assignment statement and input).
+ This results in the multi-assignment semantics that define a merge of streams.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This chapter uses the analogy of DFS traversal in a graph, as well as the
+ concept of streams, to define an implementation strategy that accommodates
+ cycles.
+\end_layout
+
+\begin_layout Paragraph
+According to the analogy of DFS traversal in a graph:
+\end_layout
+
+\begin_layout Plain Layout
+Reactive instance variables representing vertices receive value messages
+ from expressions of reactive assignment statements where they are the left-hand
+ side variable, as well as from input messages.
+ In each visit, that is a message is received at a vertex, it should be
+ ignored if the value is not up-to-date.
+\end_layout
+
+\begin_layout Plain Layout
+The implementation strategy is to implement a partial order between any
+ two messages, which allows checking if any value is "lesser", meaning older.
+ Thus, when a message is received at a vertex, it should be ignored if the
+ value is not up-to-date.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+For a set of reactive assignment statements, a variable can receive messages
+ from multiple expressions, according to the reactive assignment statements
+ in which it is the left-hand side variable, where input values are also
+ sent to the variable as messages and serve as an additional source.
+ For each message, it must be checked whether the value is up-to-date.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+According to the analogy of streams:
+\end_layout
+
+\begin_layout Plain Layout
+Reactive variables are reactive streams and a reactive assignment is an
+ accumulation operation of merging streams.
+ As a result, the semantics of multiple assignments is that of merging streams.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Plain Layout
+The strategy defines an 
+\emph on
+order relation
+\emph default
+, allowing each value to be checked if it is 
+\emph on
+lesser
+\emph default
+, meaning 
+\emph on
+older
+\emph default
+.
+ If it is older, it is filtered out of the stream.
+\end_layout
+
+\begin_layout Plain Layout
+Supporting the syntax and semantics of multiple assignments require semantics
+ like sampling values of a single variable from multiple sources.
+ Just like the general merge problem, it requires to address the problem
+ of how to manage the order of the values produced from the messages from
+ the whole sources.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+In summary, 
+\end_layout
+
+\begin_layout Plain Layout
 The chapter presents an implementation strategy that reactive instance variables
  consist of observable streams and a reactive assignment is represented
  as a 
@@ -2966,6 +3109,11 @@ older
 \emph default
 .
  If it is older, it is filtered out of the stream.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

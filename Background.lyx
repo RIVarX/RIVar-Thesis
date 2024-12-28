@@ -727,7 +727,7 @@ https://www.npmjs.com/package/rxjs
 \begin_inset Formula $\NAME{JavaScript}$
 \end_inset
 
- programming language
+ programming language 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mikkonen2007using"
@@ -1145,7 +1145,11 @@ status open
 
 \begin_layout Standard
 As a further example, it is possible to stream from two streams into a single
- stream, thus producing a merge operation.
+ stream, thus producing a 
+\emph on
+merge
+\emph default
+ operation.
  For instance, given streams 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset

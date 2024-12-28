@@ -416,6 +416,10 @@ n) as separate operator types or distinct forms of assignment.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 As a result, classes in OOP can contain reactive instance variables as their
  field members and reactive assignments in their constructors, so that a
  
@@ -428,6 +432,10 @@ composite graph
  Each object created represents a sub-graph because it contains reactive
  instance variables that represent nodes and reactive assignments that represent
  edges.
+\end_layout
+
+\end_inset
+
  
 \begin_inset Note Note
 status collapsed
@@ -1299,9 +1307,50 @@ IBag
  class, returning the corresponding reactive instance variables.
 \end_layout
 
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+According to the approach principles, changes in the values of expressions
+ typically trigger changes in variables that depend on them.
+ In other words, for a formula 
+\begin_inset Formula $\LSTINLINE{X:=Exp}$
+\end_inset
+
+, the behavior is similar to 
+\begin_inset Formula $\LSTINLINE{Exp.Subscribe(x=>X.OnNext(x))}$
+\end_inset
+
+ in Rx.
+\end_layout
+
+\begin_layout Standard
+Consequently, using an analogy of a dependency graph, formulas always result
+ in addition of edges to the graph.
+ Another result of this principle is that, the change propagation mechanism
+ is such that variables receive updates from other variables and expressions
+ without depending on an intermediate component.
+\end_layout
+
+\begin_layout Standard
+Using this approach, the existing hierarchy in OOP produces 
+\emph on
+composite graphs
+\emph default
+.
+ Each object contains reactive instance variables that represent vertices,
+ and formulas within its constructor as assignment statements that represent
+ edges, forming a graph.
+ Each object can have reactive assignments in its constructor that represent
+ edges that connect its graph to vertices of other objects.
+ This requires a strategy to address the issue of cycles, which will be
+ presented in the next chapter.
+\end_layout
+
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ...

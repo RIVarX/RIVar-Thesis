@@ -91,7 +91,7 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-This thesis includes two counterpart implementations: 
+This thesis includes two implementations: 
 \family typewriter
 RIVarX
 \family default
@@ -99,7 +99,7 @@ RIVarX
 \family typewriter
 rivarjs
 \family default
- that depend on ReactiveX.
+ that depend on Rx.
  
 \family typewriter
 RIVarX
@@ -522,7 +522,7 @@ Javascript
 \family typewriter
 C#
 \family default
- conventions will be used in this text.
+ conventions will generally be used in this text.
 \end_layout
 
 \end_inset
@@ -578,25 +578,25 @@ Signal
 \end_layout
 
 \begin_layout Standard
-Every update in the system is of type 
+A type 
 \begin_inset Formula $\LSTINLINE{Signal}$
 \end_inset
 
-.
+ is created to represent a value update.
  A 
 \begin_inset Formula $\LSTINLINE{Signal}$
 \end_inset
 
- contains a 
+ object contains a 
 \begin_inset Formula $\LSTINLINE{Value}$
 \end_inset
 
- field that holds the new value according to the update.
- 
+ field that holds the updated value.
+ The 
 \begin_inset Formula $\LSTINLINE{Signal}$
 \end_inset
 
- is a generic type, where the type of 
+ type is generic, where the type of 
 \begin_inset Formula $\LSTINLINE{Value}$
 \end_inset
 
@@ -605,7 +605,7 @@ Every update in the system is of type
 
 \end_inset
 
- instance (signal) is defined.
+ instance (signal) is instantiated.
  A comparison function between a pair of 
 \begin_inset Formula $\LSTINLINE{Signal}$ 
 
@@ -638,12 +638,13 @@ C#
 
 \begin_layout Standard
 The 
-\begin_inset Formula $\LSTINLINE{Signal}$ 
+\begin_inset Formula $\LSTINLINE{Signal}$
 
 \end_inset
 
- class contains a field of an array of numbers used for the comparison.
- Timestamps are determined by a static 
+ class includes a field that stores an array of numeric values representing
+ timestamps.
+ The timestamps are determined by a static 
 \begin_inset Formula $\LSTINLINE{Counter}$
 \end_inset
 
@@ -652,12 +653,12 @@ The
 \begin_inset Formula $\LSTINLINE{Signal}$
 \end_inset
 
- instance representing an external event is created, 
-\begin_inset Formula $\LSTINLINE{Counter}$ 
+ instance representing an external event is created, the 
+\begin_inset Formula $\LSTINLINE{Counter}$
 
 \end_inset
 
- is incremented by 
+variable is incremented by 
 \begin_inset Formula $1$
 \end_inset
 
@@ -736,13 +737,9 @@ For each reactive instance variable or an expression, there is a corresponding
 \emph on
 monotonic
 \emph default
-, meaning each signal is greater (according to the comparison defined between
+, i.e., each signal is greater (according to the comparison defined between
  signals) than its predecessor.
- 
-\end_layout
-
-\begin_layout Standard
-To address this, the extension method 
+ To address this, the extension method 
 \begin_inset Formula $\LSTINLINE{Monotonic}$
 \end_inset
 
@@ -756,9 +753,15 @@ To address this, the extension method
 \end_inset
 
  to obtain a monotonic stream.
- This method discards each value that, when compared to its predecessor,
- is found to be smaller.
- The implementation is using operators named 
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\LSTINLINE{Monotonic}$
+\end_inset
+
+ implementation uses operators named 
 \begin_inset Formula $\LSTINLINE{Scan}$
 \end_inset
 
@@ -767,17 +770,81 @@ To address this, the extension method
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The 
+ The 
 \begin_inset Formula $\LSTINLINE{Scan}$
 \end_inset
 
  operator facilitates the sequential processing of signals within a stream,
  enabling the execution of an operation on each signal relative to its predecess
 or.
- In the present context, the operation will be
+ For example (using an alphabetical order for the example), a stream 
+\begin_inset Formula $A,B,C,D,E$
+\end_inset
+
+ after applying the 
+\begin_inset Formula $\LSTINLINE{Scan}$
+\end_inset
+
+ operator becomes 
+\begin_inset Formula $A,B,C,C,E$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
+\end_inset
+
+ operator removes consecutive duplicates from the stream, such as the consecutiv
+e 
+\begin_inset Formula $C$
+\end_inset
+
+'s in the example in the example, such that after applying 
+\begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
+
+\end_inset
+
+ the stream from the example becomes 
+\begin_inset Formula $A,B,C,E$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This method discards each value that, when compared to its predecessor,
+ is found to be smaller.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The 
+\begin_inset Formula $\LSTINLINE{Monotonic}$
+\end_inset
+
+ operation ensures a monotonically increasing stream of signals, where each
+ signal is "greater than" its predecessor according to the defined comparison
+ function.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+In the present context, the operation will be:
 \end_layout
 
 \begin_layout Itemize
@@ -801,8 +868,9 @@ Replacement
  
 \end_layout
 
-\begin_layout Standard
-For example, a stream initialy is 
+\begin_layout Plain Layout
+For example (using an alphabetical order for the example), a stream initialy
+ is 
 \begin_inset Formula $A,B,C,D,E$
 \end_inset
 
@@ -815,33 +883,10 @@ For example, a stream initialy is
 \begin_inset Formula $A,B,C,C,E$
 \end_inset
 
-, because signal 
-\begin_inset Formula $\LSTINLINE D$
-\end_inset
-
- is replaced by 
-\begin_inset Formula $\LSTINLINE C$ 
-
-\end_inset
-
- because 
-\begin_inset Formula $\LSTINLINE D$ 
-
-\end_inset
-
- precedes 
-\begin_inset Formula $\LSTINLINE C$ 
-
-\end_inset
-
- in the alphabetical order (
-\begin_inset Formula $D<C$
-\end_inset
-
-)
+.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Note Note
 status collapsed
 
@@ -901,7 +946,7 @@ cal order determines the comparison function (i.e.,
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The 
 \begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
 \end_inset
@@ -937,17 +982,12 @@ After applying
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In summary, the 
 \begin_inset Formula $\LSTINLINE{Monotonic}$
 \end_inset
 
  operation implements the following algorithm:
-\end_layout
-
-\begin_layout Enumerate
-Receive a stream of signals.
- 
 \end_layout
 
 \begin_layout Enumerate
@@ -976,7 +1016,7 @@ Return the monotonic stream.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The 
 \begin_inset Formula $\LSTINLINE{Monotonic}$
 \end_inset
@@ -984,6 +1024,11 @@ The
  operation ensures a monotonically increasing stream of signals, where each
  signal is "greater than" its predecessor according to the defined comparison
  function.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1178,24 +1223,31 @@ RIVar
 \end_layout
 
 \begin_layout Standard
-A reactive instance variable is implemented using 
+A reactive instance variable (RIVar) is implemented using 
 \begin_inset Formula $\LSTINLINE{Subject}$
 \end_inset
 
- from 
-\family typewriter
-ReactiveX
-\family default
-, that represents its both 
+ from Rx.
+ 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ represents both 
 \begin_inset Formula $\LSTINLINE{Observable}$
 \end_inset
 
- on 
+ and 
 \begin_inset Formula $\LSTINLINE{Observer}$
 \end_inset
 
 .
- The implementation is done in one of the following three ways:
+ As observable, it represents a stream of signals.
+ The value assignment operation is represented by the 
+\begin_inset Formula $\LSTINLINE{OnNext}$
+\end_inset
+
+ method.
+ The implementation can be achieved through one of three approaches:
 \end_layout
 
 \begin_layout Itemize
@@ -1203,7 +1255,7 @@ ReactiveX
 \series bold
 Direct Instantiation
 \series default
-: Define reactive instance variables directly as instances of 
+: Declare reactive instance variables directly as instances of 
 \begin_inset Formula $\LSTINLINE{Subject}$
 \end_inset
 
@@ -1261,6 +1313,92 @@ RIVarX
 \end_layout
 
 \begin_layout Standard
+The reactive assignment is implemented as an operation named 
+\begin_inset Formula $\LSTINLINE{Set}$
+
+\end_inset
+
+.
+ The implementation of the 
+\begin_inset Formula $\LSTINLINE{Set}$
+
+\end_inset
+
+ operation varies, depending on how reactive instance variable is implemented
+ using 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ as a subclass of 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ (
+\family typewriter
+rivarjs
+\family default
+): 
+\begin_inset Formula $\LSTINLINE{Set}$
+
+\end_inset
+
+ is a method within the 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ class.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ as a decorator of 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ (
+\family typewriter
+RIVarX
+\family default
+): 
+\begin_inset Formula $\LSTINLINE{Set}$
+
+\end_inset
+
+ is implemented as an extension function of 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Reactive instance variables as direct instances of 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+: 
+\begin_inset Formula $\LSTINLINE{Set}$
+
+\end_inset
+
+ is likely a method of the 
+\begin_inset Formula $\LSTINLINE{Subject}$
+\end_inset
+
+ class itself.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Value assignment is represented by the 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
@@ -1289,7 +1427,9 @@ Value assignment is represented by the
  implementation.
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
+
 \begin_inset Note Note
 status collapsed
 
@@ -1302,7 +1442,7 @@ The
  operation is designed to represent the reactive assignment operation.
  The operation should resemble a regular assignment statement: for a reactive
  instance variable 
-\begin_inset Formula $\LSTINLINE{X}$ 
+\begin_inset Formula $\LSTINLINE X$ 
 
 \end_inset
 
@@ -1324,9 +1464,6 @@ The
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -1403,9 +1540,6 @@ RIVarX
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -1479,79 +1613,73 @@ The
 
 \begin_layout Standard
 The 
-\begin_inset Formula $\LSTINLINE{Set}$ 
+\begin_inset Formula $\LSTINLINE{Set}$
 
 \end_inset
 
  operation takes a stream of signals as an argument, representing the expression
  values over time.
- This operation propagates values from the input stream to the stream of
- the reactive instance variable.
- (A reactive instance variable's stream is represented by a subject (an
- instance of 
-\begin_inset Formula $Subject$
-\end_inset
-
-).) To propagate changes to the stream and update the variable's value, the
- 
-\begin_inset Formula $\LSTINLINE{OnNext}$ 
+ It propagates values from the input stream to the stream of the subject
+ (i.e., the stream of the reactive instance variable).
+ This is implemented by subscribing to the input stream, with a callback
+ function that calls the subject's 
+\begin_inset Formula $\LSTINLINE{OnNext}$
 
 \end_inset
 
- method of the subject is invoked, but only when a new signal is received
- that is greater than all preceding signals.
+ method, in case that the new signal is greater than the previous one.
 \end_layout
 
 \begin_layout Standard
 For example, consider a reactive instance variable 
-\begin_inset Formula $\LSTINLINE X$ 
+\begin_inset Formula $\LSTINLINE X$
 
 \end_inset
 
- that is set to the expression 
-\begin_inset Formula $\LSTINLINE{Y+Z}$ 
+ set to 
+\begin_inset Formula $\LSTINLINE{Y+Z}$
 
 \end_inset
 
 , where 
-\begin_inset Formula $\LSTINLINE Y$ 
+\begin_inset Formula $\LSTINLINE Y$
 
 \end_inset
 
  and 
-\begin_inset Formula $\LSTINLINE Z$ 
+\begin_inset Formula $\LSTINLINE Z$
 
 \end_inset
 
- are also reactive variables.
+ are also reactive instance variables.
  The expression 
-\begin_inset Formula $\LSTINLINE{X.Set(Y+Z)}$ 
+\begin_inset Formula $\LSTINLINE{X.Set(Y+Z)}$
 
 \end_inset
 
  creates a stream of signals representing the values of 
-\begin_inset Formula $\LSTINLINE{Y+Z}$ 
+\begin_inset Formula $\LSTINLINE{Y+Z}$
 
 \end_inset
 
  over time.
  The 
-\begin_inset Formula $\LSTINLINE{Set}$ 
+\begin_inset Formula $\LSTINLINE{Set}$
 
 \end_inset
 
  operation propagates these values to the stream of 
-\begin_inset Formula $\LSTINLINE X$ 
+\begin_inset Formula $\LSTINLINE X$
 
 \end_inset
 
- using 
-\begin_inset Formula $\LSTINLINE{OnNext}$ 
+ using its 
+\begin_inset Formula $\LSTINLINE{OnNext}$
 
 \end_inset
 
 , but only when the expression 
-\begin_inset Formula $\LSTINLINE{Y+Z}$ 
+\begin_inset Formula $\LSTINLINE{Y+Z}$
 
 \end_inset
 
@@ -1593,9 +1721,9 @@ https://reactivex.io/documentation/operators/combinelatest.html
  and produces a new stream where each item is a pair containing the latest
  item from the subject stream (the current value of the variable) and the
  new item from the expression stream (the newly received value).
- For each pair, the new signal is compared to the previous signal.
- If the new signal is "greater," then 
-\begin_inset Formula $\LSTINLINE{OnNext}$ 
+ For each pair, the new signal is compared with the previous signal.
+ If the new signal is greater, then 
+\begin_inset Formula $\LSTINLINE{OnNext}$
 
 \end_inset
 
@@ -1612,23 +1740,23 @@ To illustrate, suppose the subject stream contains the signals
 \end_inset
 
 , and 
-\begin_inset Formula $\LSTINLINE C$ 
+\begin_inset Formula $\LSTINLINE C$
 
 \end_inset
 
- (For the emxaple, each signal is a single uppercase letter, and the comparison
- is alphabetical), and the expression stream emits the signals 
-\begin_inset Formula $\LSTINLINE B$ 
+ (For the example, each signal is a single letter, and the comparison is
+ alphabetical), and the expression stream emits signals 
+\begin_inset Formula $\LSTINLINE B$
 
 \end_inset
 
 , 
-\begin_inset Formula $\LSTINLINE D$ 
+\begin_inset Formula $\LSTINLINE D$
 
 \end_inset
 
 , and 
-\begin_inset Formula $\LSTINLINE A$ 
+\begin_inset Formula $\LSTINLINE A$
 
 \end_inset
 
@@ -1637,7 +1765,7 @@ To illustrate, suppose the subject stream contains the signals
 \begin_inset Formula $\LSTINLINE{WithLatestFrom}$
 \end_inset
 
- operator will produce the stream of pairs 
+ operator will produce a stream of pairs 
 \begin_inset Formula $\left(B,C\right)$
 \end_inset
 
@@ -1652,27 +1780,27 @@ To illustrate, suppose the subject stream contains the signals
 .
  For each pair, the first signal is compared to the second.
  In this case, 
-\begin_inset Formula $\LSTINLINE B$ 
+\begin_inset Formula $\LSTINLINE B$
 
 \end_inset
 
  is not greater than 
-\begin_inset Formula $\LSTINLINE C$ 
+\begin_inset Formula $\LSTINLINE C$
 
 \end_inset
 
 , 
-\begin_inset Formula $\LSTINLINE D$ 
+\begin_inset Formula $\LSTINLINE D$
 
 \end_inset
 
  is greater than 
-\begin_inset Formula $\LSTINLINE C$ 
+\begin_inset Formula $\LSTINLINE C$
 
 \end_inset
 
 , and 
-\begin_inset Formula $\LSTINLINE A$ 
+\begin_inset Formula $\LSTINLINE A$
 
 \end_inset
 
@@ -1682,13 +1810,13 @@ To illustrate, suppose the subject stream contains the signals
 \end_inset
 
 .
- Therefore, only the signal 
-\begin_inset Formula $\LSTINLINE D$ 
+ Therefore, only 
+\begin_inset Formula $\LSTINLINE D$
 
 \end_inset
 
  will trigger the invocation of 
-\begin_inset Formula $\LSTINLINE{OnNext}$ 
+\begin_inset Formula $\LSTINLINE{OnNext}$
 
 \end_inset
 
@@ -1697,7 +1825,7 @@ To illustrate, suppose the subject stream contains the signals
 
 \begin_layout Standard
 This process ensures that 
-\begin_inset Formula $\LSTINLINE{OnNext}$ 
+\begin_inset Formula $\LSTINLINE{OnNext}$
 
 \end_inset
 
@@ -1732,10 +1860,28 @@ Drug Administration
 \family default
  ) instances, populates its reactive instance variables with values, and
  verifies that these variables are updated as expected.
- This code utilizes automated testing frameworks (mstest for C# and mocha
- for Javascript).
- Furthermore, each implementation includes a fully functional Drug Administratio
-n application available in the source code.
+ This code utilizes automated testing frameworks (
+\family typewriter
+mstest
+\family default
+ for 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+mocha
+\family default
+ for 
+\family typewriter
+Javascript
+\family default
+).
+ Furthermore, each implementation includes a fully functional 
+\family typewriter
+Drug Administration
+\family default
+ application available in the source code.
 \end_layout
 
 \begin_layout Subsection
@@ -1743,11 +1889,24 @@ Usage
 \end_layout
 
 \begin_layout Standard
-As class 
-\begin_inset Formula $\LSTINLINE{Bag}$
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:bag_code_csharp"
+plural "false"
+caps "true"
+noprefix "false"
+
 \end_inset
 
- presented in 
+ shows a 
+\family typewriter
+C#
+\family default
+ class using 
+\family typewriter
+RIVarX
+\family default
+, and 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:bag_code_rivarjs"
@@ -1757,32 +1916,108 @@ noprefix "false"
 
 \end_inset
 
-, any class can contain reactive instance variables and reactive assignments.
- Reactive instance variables are created by declaring instance variables
- of type 
+ shows a 
+\family typewriter
+JavaScript
+\family default
+ class using 
+\family typewriter
+rivarjs
+\family default
+.
+ In both examples, reactive instance variables are created by declaring
+ instance variables of type 
 \begin_inset Formula $\LSTINLINE{RIVar}$
 \end_inset
 
  and initializing them.
- The reactive assignments are created by using 
-\begin_inset Formula $\LSTINLINE{lift}$
+ In both, the 
+\begin_inset Formula $\LSTINLINE{Set}$
 \end_inset
 
- (or 
+ method is used for reactive assignments.
+ The 
 \begin_inset Formula $\LSTINLINE{Lift}$
 \end_inset
 
-) and 
-\begin_inset Formula $\LSTINLINE{set}$
+ method is used inline in the 
+\family typewriter
+JavaScript
+\family default
+ implementation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:bag_code_csharp"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:bag_code_rivarjs"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ present usages of 
+\family typewriter
+RIVarX
+\family default
+ and 
+\family typewriter
+rivarjs
+\family default
+ respectively.
+ In the two usages reactive instance variables are created by declaring
+ instance variables of type 
+\begin_inset Formula $\LSTINLINE{RIVar}$
+\end_inset
+
+ and initializing them.
+ In the two, the 
+\begin_inset Formula $\LSTINLINE{Set}$
+\end_inset
+
+ method is used for reactive assignments.
+ The 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+ is used inline in one of the implementations.
+\end_layout
+
+\begin_layout Plain Layout
+The reactive assignments are created by using 
+\begin_inset Formula $\LSTINLINE{Lift}$
 \end_inset
 
  (or 
+\begin_inset Formula $\LSTINLINE{\text{l}ift}$
+\end_inset
+
+) and 
 \begin_inset Formula $\LSTINLINE{Set}$
+\end_inset
+
+ (or 
+\begin_inset Formula $\LSTINLINE{set}$
 \end_inset
 
 ) methods.
  
-\begin_inset Formula $\LSTINLINE{lift}$
+\begin_inset Formula $\LSTINLINE{Lift}$
 \end_inset
 
  functions over a simple function and the 
@@ -1790,8 +2025,8 @@ noprefix "false"
 \end_inset
 
  instances.
- This expression is sent as an argument to 
-\begin_inset Formula $\LSTINLINE{set}$
+ This expression is sent as an argument to the 
+\begin_inset Formula $\LSTINLINE{Set}$
 \end_inset
 
  function associated with a 
@@ -1800,6 +2035,11 @@ noprefix "false"
 
  that represents the left-hand variable.
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1887,8 +2127,12 @@ Explicit use of
 \begin_inset Formula $\LSTINLINE{Signal}$
 \end_inset
 
- can be confusing.
- An implicit conversion operator
+ might be confusing.
+ In the 
+\family typewriter
+C#
+\family default
+ implementation, an implicit conversion operator
 \emph on
 
 \begin_inset Foot
@@ -1915,7 +2159,7 @@ defined-conversion-operators
 
 
 \emph default
- is implemented within 
+ has been implemented within 
 \begin_inset Formula $\LSTINLINE{Signal}$
 \end_inset
 
@@ -1964,7 +2208,7 @@ LSTINLINE{ew Signal(100))}$
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2144,6 +2388,212 @@ rivarjs
 \end_inset
 
  is an extension method for creating expressions.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting} 
+\end_layout
+
+\begin_layout Plain Layout
+
+import { RIVar, lift } from 'rivarjs';
+\end_layout
+
+\begin_layout Plain Layout
+
+    public class Bag: IBag
+\end_layout
+
+\begin_layout Plain Layout
+
+    {
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIVar<decimal> Amount { get; set; } = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIVar<decimal> Volume { get; set; } = new RIVar<decimal>();
+\end_layout
+
+\begin_layout Plain Layout
+
+        public RIVar<decimal> Concentration { get; set; } = new RIVar<decimal>()
+;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        public Bag()
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Concentration.Set(Amount.Div(Volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+            Amount.Set(Concentration.Mul(Volume));
+\end_layout
+
+\begin_layout Plain Layout
+
+            Volume.Set(Amount.Div(Concentration));
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bag_code_csharp"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Code of a class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ using 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+RIVarX
+\family default
+.
+\end_layout
+
+\end_inset
+
+Code of a class 
+\begin_inset Formula $\LSTINLINE{Bag}$
+\end_inset
+
+ using 
+\family typewriter
+C#
+\family default
+ and 
+\family typewriter
+RIVarX
+\family default
+.
+ 
+\begin_inset Formula $\LSTINLINE{Amount}$
+\end_inset
+
+, 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
+ are reactive instance variables.
+ 
+\begin_inset Formula $\LSTINLINE{Set}$
+\end_inset
+
+ is the reactive assignment operation.
+ 
+\begin_inset Formula $\LSTINLINE{Div}$
+\end_inset
+
+ and 
+\begin_inset Formula $\LSTINLINE{Mul}$
+\end_inset
+
+ are extension methods created by using 
+\begin_inset Formula $\LSTINLINE{Lift}$
+\end_inset
+
+.
 \end_layout
 
 \end_inset

@@ -1685,7 +1685,7 @@ For example, consider a reactive instance variable
 
 \begin_layout Standard
 To ensure that 
-\begin_inset Formula $\LSTINLINE{OnNext}$ 
+\begin_inset Formula $\LSTINLINE{OnNext}$
 
 \end_inset
 
@@ -1714,20 +1714,22 @@ https://reactivex.io/documentation/operators/combinelatest.html
 
 \end_inset
 
- This operator takes the subject stream and the expression stream as input
- and produces a new stream where each item is a pair containing the latest
- item from the subject stream (the current value of the variable) and the
- new item from the expression stream (the newly received value).
- For each pair, the new signal is compared with the previous signal.
+ This operator takes the subject stream and the expression stream, and produces
+ a new stream where each item is a pair containing the latest item from
+ the subject stream (the current value of the variable) and the new item
+ from the expression stream (the newly received value).
+ For each pair, the new signal (the second item) is compared with the previous
+ signal (the first item).
  If the new signal is greater, then 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
 
  is invoked with this signal.
+ 
 \end_layout
 
 \begin_layout Standard
-To illustrate, suppose the subject stream contains the signals 
+To demonstrate the principle, a subject stream containing signals 
 \begin_inset Formula $\LSTINLINE A$
 \end_inset
 
@@ -1739,8 +1741,10 @@ To illustrate, suppose the subject stream contains the signals
 \begin_inset Formula $\LSTINLINE C$
 \end_inset
 
- (For the example, each signal is a single letter, and the comparison is
- alphabetical), and the expression stream emits signals 
+ is considered.
+ For this illustration, each signal is a single letter, and the comparison
+ is alphabetical.
+ The expression stream emits signals 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
@@ -1753,11 +1757,11 @@ To illustrate, suppose the subject stream contains the signals
 \end_inset
 
 .
- The 
+ In this example, the 
 \begin_inset Formula $\LSTINLINE{WithLatestFrom}$
 \end_inset
 
- operator will produce a stream of pairs 
+ operator produces a stream of pairs 
 \begin_inset Formula $\left(B,C\right)$
 \end_inset
 

@@ -656,7 +656,7 @@ The
 \begin_inset Formula $\LSTINLINE{Counter}$
 \end_inset
 
-variable is incremented by 
+ variable is incremented by 
 \begin_inset Formula $1$
 \end_inset
 
@@ -764,7 +764,24 @@ The
 \end_inset
 
  and 
-\begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
+\begin_inset Formula $\LSTINLINE{DistinctUntil}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{Changed}$
 \end_inset
 
 .
@@ -800,7 +817,7 @@ e
 \begin_inset Formula $C$
 \end_inset
 
-'s in the example in the example, such that after applying 
+'s in the example, such that after applying 
 \begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
 \end_inset
 
@@ -1366,11 +1383,11 @@ RIVarX
 \begin_inset Formula $\LSTINLINE{Set}$
 \end_inset
 
- is implemented as an extension function of 
-\begin_inset Formula $\LSTINLINE{Subject}$
+ is a method within the 
+\begin_inset Formula $\LSTINLINE{RIVar}$
 \end_inset
 
-.
+ class.
 \end_layout
 
 \begin_layout Itemize
@@ -1382,11 +1399,11 @@ Reactive instance variables as direct instances of
 \begin_inset Formula $\LSTINLINE{Set}$
 \end_inset
 
- is likely a method of the 
+ is implemented as an extension function of 
 \begin_inset Formula $\LSTINLINE{Subject}$
 \end_inset
 
- class itself.
+.
 \begin_inset Note Note
 status collapsed
 
@@ -1820,12 +1837,19 @@ The
 Drug Administration
 \family default
  example served as a basis for testing both libraries.
- For each library implementation, there is code that creates Bag and Pump
+ For each library implementation, there is code that creates 
+\family typewriter
+Bag
+\family default
+ and 
+\family typewriter
+Pump
+\family default
  (the classes of 
 \family typewriter
 Drug Administration
 \family default
- ) instances, populates its reactive instance variables with values, and
+) instances, populates its reactive instance variables with values, and
  verifies that these variables are updated as expected.
  This code utilizes automated testing frameworks (
 \family typewriter
@@ -4147,7 +4171,7 @@ React
 LatexCommand formatted
 reference "fig:rivarview"
 plural "false"
-caps "false"
+caps "true"
 noprefix "false"
 
 \end_inset

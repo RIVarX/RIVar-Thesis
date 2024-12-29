@@ -539,7 +539,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1028,6 +1028,24 @@ extends
 \emph default
  it.
  This aligns with the concept of inheritance.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Inheritance in this context refers to implementation and interface inheritance
+ with the promise of substitutability 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
  
 \end_layout
 
@@ -1052,13 +1070,12 @@ e hierarchy.
 \end_layout
 
 \begin_layout Subsection
-Implementation Inheritance
+Implementation
 \end_layout
 
 \begin_layout Standard
-In implementation inheritance, It is possible to perform reactive assignments
- to reactive instance variables belonging to classes higher up in the inheritanc
-e hierarchy.
+In implementation, it is possible to perform reactive assignments to reactive
+ instance variables belonging to classes higher up in the inheritance hierarchy.
  For example, a 
 \family typewriter
 DrugAdministration
@@ -1312,8 +1329,106 @@ Summary
 \end_layout
 
 \begin_layout Standard
-According to the approach principles, changes in the values of expressions
- typically trigger changes in variables that depend on them.
+The most important insight from this chapter is that a formula (using reactive
+ assignment) 
+\begin_inset Formula $\LSTINLINE{X:=Exp}$
+\end_inset
+
+ behaves similar to 
+\begin_inset Formula $\LSTINLINE{Exp.Subscribe(x=>X.OnNext(x))}$
+\end_inset
+
+ in Rx.
+ Consequently, variables receive updates from other variables and expressions
+ without depending on an intermediate component, which leads to modularity.
+ However, the key innovation is that, using the analogy of a graph, formulas
+ always result in addition of edges to the graph.
+\end_layout
+
+\begin_layout Standard
+These graphs can be categorized as either sub-graphs or composite graphs.
+ Sub-graphs represent individual objects, capturing their internal reactive
+ instance variables and the reactive assignments that connect them internally.
+ Composite graphs, on the other hand, are formed by connecting these sub-graphs
+ through reactive assignments that link reactive instance variables of distinct
+ objects.
+ 
+\end_layout
+
+\begin_layout Standard
+The composite graphs are resulted from the principle that reactive assignments
+ result in addition of edges.
+ This requires a strategy to address the issue of cycles, which will be
+ presented in the next chapter.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+These graphscan be categorized as either sub-graphs or composite graphs.
+ Sub-graphs represent individual objects and their internal reactive instance
+ variables and reactive assignments that connect them internaly, while composite
+ graphs are formed from objects relationship that contain reactive assignments
+ that connect neweehn reactive instance variables of distinct objects.
+ This requires a strategy to address the issue of cycles, which will be
+ presented in the next chapter.
+\end_layout
+
+\begin_layout Plain Layout
+by connecting these sub-graphs through reactive assignments that connect
+ between variables of distinct objects.
+\end_layout
+
+\begin_layout Plain Layout
+The graphs created are sub-graphs and composite graphs because of formulas
+ connected between distinct objects.
+\end_layout
+
+\begin_layout Plain Layout
+being created from objects that contain formulas (in their constructor)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+As each object can represent a sub-graph that can be connected to other
+ sub-graphs represented by objects, the graphs created are composite graphs
+\end_layout
+
+\begin_layout Plain Layout
+The created graphs are composed of sub-graphs, because each object represent
+ a sub-graph that can be connected to other sub-graphs represented by objects.
+\end_layout
+
+\begin_layout Plain Layout
+The hierarchy in OOP leads to the creating of 
+\emph on
+composite graphs
+\emph default
+.
+ Each object contains reactive instance variables that represent vertices,
+ and formulas within its constructor as assignment statements that represent
+ edges, forming a graph.
+ Each object can have reactive assignments in its constructor that represent
+ edges that connect its graph to vertices of other objects.
+ This requires a strategy to address the issue of cycles, which will be
+ presented in the next chapter.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This approach focuses on the propagation of changes resulting from reactive
+ assignment statements: changes in expressions' values trigger changes in
+ variables depending on them, in addition to changes coming from others.
  In other words, for a formula 
 \begin_inset Formula $\LSTINLINE{X:=Exp}$
 \end_inset
@@ -1325,7 +1440,7 @@ According to the approach principles, changes in the values of expressions
  in Rx.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Consequently, using an analogy of a dependency graph, formulas always result
  in addition of edges to the graph.
  Another result of this principle is that, the change propagation mechanism
@@ -1333,7 +1448,7 @@ Consequently, using an analogy of a dependency graph, formulas always result
  without depending on an intermediate component.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Using this approach, the existing hierarchy in OOP produces 
 \emph on
 composite graphs
@@ -1346,6 +1461,11 @@ composite graphs
  edges that connect its graph to vertices of other objects.
  This requires a strategy to address the issue of cycles, which will be
  presented in the next chapter.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

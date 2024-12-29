@@ -1055,7 +1055,7 @@ Many technologies today offer tools for explicitly declaring dependencies,
  with features named binding reactivety and so on.
  Such technologies have limitations, unless them, we could fire many developers,
  as many of them continue to implement dependencies with the classic programming.
- One limitation, is acyclicity required in most tools, as cycles naturaly
+ One limitation, is acyclicity required in most tools, as cycles naturally
  leads to undesirable loops.
  We focus on this limiations' problem, with presenting that it resists against
  enlarging (get them bigger) the applications.

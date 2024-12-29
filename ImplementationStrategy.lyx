@@ -2968,7 +2968,19 @@ Definition of an order over the messages according to the order of input
 \begin_layout Standard
 The implementation strategy is based on two facts regarding cycles.
  Firstly, when there is a cycle (i.e., feedback), the problem is similar to
- a known issue called a glitch.
+ a known issue called a 
+\emph on
+glitch
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bainomugisha2013survey"
+literal "false"
+
+\end_inset
+
+.
  To address this, a solution is to discard each value if it is not up-to-date.
 \end_layout
 

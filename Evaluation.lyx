@@ -484,7 +484,7 @@ During code writing
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
- ( 
+ (
 \begin_inset Formula $\LSTINLINE{Amount}$
 \end_inset
 
@@ -633,10 +633,10 @@ noprefix "false"
 \end_inset
 
  illustrates this communication.
- A user input in a component raises an event that makes a value assignment
- to the corresponding reactive instance variable.
- The value assignment raises a propagation change process through the reactive
- instance variables according to the reactive assignments defined in 
+ User input in a component triggers a value assignment message to the correspond
+ing reactive instance variable.
+ This message then initiates a propagation change process through the reactive
+ instance variables, according to the reactive assignments defined in 
 \begin_inset Formula $\LSTINLINE{Bag}$
 \end_inset
 
@@ -645,13 +645,13 @@ noprefix "false"
 \end_inset
 
 .
- Each reactive instance variable that has a value assignment causes its
- corresponding field to be updated with the corresponding value.
+ Finally, each reactive instance variable with a value assignment message
+ updates its corresponding field.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 To increase independence between the components, the communication between
@@ -1331,7 +1331,10 @@ In the example, there are three steps: setting
 \end_inset
 
  has the value 100 with timestamp 2.
- In between, there is line 5, which presents the event for concentration
+ In between, there is line 5, which presents the event for 
+\begin_inset Formula $\LSTINLINE{Concentration}$
+\end_inset
+
  with value 0.1 and timestamps 1 and 2, as it is computed from the values
  of 
 \begin_inset Formula $\LSTINLINE{Drug}$
@@ -1359,7 +1362,7 @@ In the example, there are three steps: setting
 \begin_inset Formula $\LSTINLINE{Concentration}$
 \end_inset
 
- .
+.
  The order of the log is not entirely logical.
  The logging action is an event handler triggered according to the order
  of registrations.
@@ -2791,6 +2794,55 @@ Use Case Coverage
 .
  The 
 \family typewriter
+Code Quantity
+\family default
+\series bold
+ 
+\series default
+score focuses specifically on the code related to managing fields and their
+ calculations within the user interface, excluding code related to visual
+ design or layout.
+ Therefore, we count and sum the scores for 
+\series bold
+Variables
+\series default
+ and 
+\series bold
+Calculations
+\series default
+:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Variables
+\series default
+: This refers to the count of variables used to represent data within the
+ user interface, particularly those associated with the fields being evaluated.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Calculations
+\series default
+: This refers to instances in the code where values or expressions are assigned
+ to variables, or where functions are called that perform such assignments.
+ This applies regardless of whether the code is imperative (e.g., direct assignmen
+ts), declarative (e.g., reactive programming), or in the form of formulas
+ (as in 
+\family typewriter
+Excel
+\family default
+).
+ The core idea is that these actions represent assignments, even though
+ their implementation may vary across different contexts.
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
 Use Case Coverage
 \family default
  score refers to counting existing distinct ways a user can interact with
@@ -2867,51 +2919,6 @@ The more use cases the code generates, the more value it has, and therefore
 Efficiency
 \family default
  metric.
-\end_layout
-
-\begin_layout Standard
-The 
-\family typewriter
-Code Quantity
-\family default
-\series bold
- 
-\series default
-score focuses specifically on the code related to managing fields and their
- calculations within the user interface, excluding code related to visual
- design or layout.
- Therefore, we count and sum the scores for 
-\series bold
-Variables
-\series default
- and 
-\series bold
-Calculations
-\series default
-:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Variables
-\series default
-: This refers to the count of variables used to represent data within the
- user interface, particularly those associated with the fields being evaluated.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Calculations
-\series default
-: This refers to instances in the code where values or expressions are assigned
- to variables, or where functions are called that perform such assignments.
- This applies regardless of whether the code is imperative (e.g., direct assignmen
-ts), declarative (e.g., reactive programming), or in the form of formulas
- (e.g., in Excel).
- The core idea is that these actions represent assignments, even though
- their implementation may vary across different contexts.
 \end_layout
 
 \begin_layout Standard
@@ -3075,7 +3082,10 @@ Implementations
 \end_layout
 
 \begin_layout Standard
-There are three implementations used in this evaluation: the Drug Administration
+There are three implementations used in this evaluation: the 
+\family typewriter
+Drug Administration
+\family default
  implementation, which utilizes either 
 \family typewriter
 rivarjs
@@ -5184,8 +5194,8 @@ Discussion
 \end_layout
 
 \begin_layout Standard
-Traditionally, the reactive variables concept is similar to a feature for
- creating computed fields easily.
+Traditionally, the reactive instance variables concept is similar to a feature
+ for creating computed fields easily.
  For example, a formula 
 \begin_inset Formula $\LSTINLINE{Amount=Dose}$
 \end_inset
@@ -5217,7 +5227,7 @@ Dose
 \family default
  and 
 \family typewriter
-Rate
+Duration
 \family default
 .
 \end_layout
@@ -5280,10 +5290,86 @@ Amount
 \end_layout
 
 \begin_layout Standard
+This concept can be presented from another perspective: among fields 
+\family typewriter
+Drug
+\family default
+,
+\family typewriter
+ Volume
+\family default
+ and 
+\family typewriter
+Concentration
+\family default
+, only two of them are required for documenting drugs' amount.
+ Users can, for example, define quantities by setting only 
+\family typewriter
+Drug
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+.
+ In such a case, the value of 
+\family typewriter
+Concentration
+\family default
+ is computed.
+ Additionally, users can define quantities by setting only the 
+\family typewriter
+Concentration
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+.
+ In such a case, the value of 
+\family typewriter
+Drug
+\family default
+ is computed.
+ If only one filling option is available, users are restricted: users must
+ define values in the terms used in the application, and convert the numbers.
+ For example, in a case where the available fields are 
+\family typewriter
+Drug
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+, but a user has the numbers for filling 
+\family typewriter
+Concentration
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+, then the user needs to compute the values of 
+\family typewriter
+Concentration
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+ out of the application.
+ From this perspective, the use of reactive instance variables enables the
+ addition of a filling option as a set of fields.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The new feature can be presented also as adding a filling option as a set
  of fields.
- This would be presented by the following example.
- Among fields 
+ For example, Among fields 
 \family typewriter
 Drug
 \family default
@@ -5324,12 +5410,34 @@ Volume
 Drug
 \family default
  is computed.
+ If only one filling option is available, users are stricted: users must
+ define values in the terms used in the application, and convert the numbers.
+ For example, in a case that available fields are 
+\family typewriter
+Drug
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+, but a user has the numbers for filling 
+\family typewriter
+Concentration
+\family default
+ and 
+\family typewriter
+Volume
+\family default
+.
 \end_layout
 
-\begin_layout Standard
-If only one filling option is available, users are stricted: users must
- define values in the terms used in the application.
- For example, in 
+\begin_layout Plain Layout
+For this reason, it is required quired to add a filling option as a set
+ of fields.
+\end_layout
+
+\begin_layout Plain Layout
+For example, in 
 \family typewriter
 Drug Administration
 \family default
@@ -5385,6 +5493,11 @@ Drug
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

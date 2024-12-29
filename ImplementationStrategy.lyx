@@ -2971,8 +2971,12 @@ The implementation strategy is based on two facts regarding cycles.
  a known issue called a 
 \emph on
 glitch
+\begin_inset space ~
+\end_inset
+
+
 \emph default
- 
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bainomugisha2013survey"
@@ -2981,7 +2985,7 @@ literal "false"
 \end_inset
 
 .
- To address this, a solution is to discard each value if it is not up-to-date.
+ To address this, values that are not up-to-date are discarded.
 \end_layout
 
 \begin_layout Standard

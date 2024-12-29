@@ -118,12 +118,13 @@ This work focuses on preserving data consistency and currency through the
  with OOP.
  However, it is important to address other works in the field and distinguish
  them from the current work.
+ 
 \end_layout
 
 \begin_layout Standard
-The foundation of this work is FRP, a paradigm in which programming languages
- enable the definition of dependencies between variables, ensuring that
- data consistency and currency are maintained automatically.
+This work builds upon the principles of FRP, a paradigm in which programming
+ languages enable the definition of dependencies between variables, ensuring
+ that data consistency and currency are maintained automatically.
  The uniqueness of this work lies in its handling of cycles, its combination
  with OOP, and in its strategy in working with streams.
 \end_layout
@@ -151,13 +152,13 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-However, there are implementations that handle cycles, but this usually
- requires a dedicated abstraction.
- For example, in 
+Even though, there are other FRP implementations that support and handle
+ cycles, their support usually requires a dedicated abstraction.
+ For example, 
 \family typewriter
 FrTime
 \family default
-, there is a special operator called 
+ includes a special operator called 
 \begin_inset Formula $\LSTINLINE{delay}$
 \end_inset
 
@@ -237,6 +238,383 @@ Hotdrink
 \end_layout
 
 \begin_layout Standard
+The 
+\family typewriter
+Hotdrink
+\family default
+ library 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+, similar to this work, was motivated to address the lack of a solution
+ for cycles in dependencies.
+ When comparing the strategy implemented in 
+\family typewriter
+Hotdrink
+\family default
+ with the strategy presented in this work, it can be observed that for any
+ given input sequence, both strategies consistently generate the same output
+ sequence.
+ In both cases, a new input causes the overwriting of values that were generated
+ as a result of the oldest input.
+ This identity can be empirically verified by comparing the 
+\family typewriter
+Drug Administration 
+\family default
+implementations included in this work in 
+\family typewriter
+rivarjs
+\family default
+ and 
+\family typewriter
+Hotdrink
+\family default
+ (available on the comparison page in the source code repository).
+\end_layout
+
+\begin_layout Standard
+Despite this identity, there are fundamental differences between the implementat
+ions.
+ 
+\family typewriter
+Hotdrink
+\family default
+ uses the language of multi-directional constraints, and its implementation
+ strategy relies on a central constraint solver.
+ In contrast, this work uses reactive assignments which correspond to unidirecti
+onal constraints.
+ The implementation strategy is based on reactive stream programming, and
+ the approach is modular and utilizes OOP.
+\end_layout
+
+\begin_layout Standard
+To understand the connection between the implementations, two aspects need
+ to be considered.
+ First, the relationship between multi-directional constraints in 
+\family typewriter
+Hotdrink
+\family default
+ and reactive assignments corresponding to unidirectional constraints needs
+ to be clarified.
+ Second, it is necessary to understand how the different implementation
+ strategies consistently produce the same sequence for any given input.
+\end_layout
+
+\begin_layout Standard
+Regarding the first aspect, multi-directional constraints are defined along
+ with method definitions, where each method acts as a function with defined
+ dependencies (e.g., A → B), similar to a unidirectional constraint.
+\end_layout
+
+\begin_layout Standard
+For the second and main aspect, we provide a description of 
+\family typewriter
+Hotdrink
+\family default
+'s implementation strategy.
+ 
+\family typewriter
+Hotdrink
+\family default
+ utilizes a hierarchy of constraints, where in response to an input 
+\begin_inset Formula $x$
+\end_inset
+
+ for variable 
+\begin_inset Formula $X$
+\end_inset
+
+, a constraint 
+\begin_inset Formula $X=x$
+\end_inset
+
+ is defined with maximum priority in the hierarchy.
+ Then, 
+\family typewriter
+Hotdrink
+\family default
+ searches for a combination of methods that satisfies the maximum number
+ of high-priority constraints.
+ The search for a solution is an iterative search for a method whose input
+ variable is already fed by previously selected methods, thereby constructing
+ a dependency tree.
+ A collection of possible solutions is identified, with each solution correspond
+ing to a dependency tree.
+ Finally, a solution is chosen that satisfies the maximum number of constraints
+ with the highest priority.
+ After selecting the solution with the chosen dependency tree, the operation
+ of propagating the changes is performed according to the tree.
+\end_layout
+
+\begin_layout Standard
+A similarity can be observed between the 
+\family typewriter
+Hotdrink
+\family default
+ approach and the thesis approach.
+ In 
+\family typewriter
+Hotdrink
+\family default
+, the chosen dependency graph corresponds to a hierarchy of constraints.
+ The constraints corresponding to the latest input values are at the top
+ of this hierarchy.
+ The root of the tree represents the latest input, and the subsequent branches
+ are influenced by the order of the inputs.
+ In the thesis approach, there is a DFS-like propagation that starts each
+ time from the new input, with an order relation that ensures that only
+ values calculated by the later inputs are propagated.
+ The similarity between the two approaches is evident in the fact that the
+ tree spanned by the DFS is identical to the tree chosen by the algorithm
+ in 
+\family typewriter
+Hotdrink
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+—–
+\end_layout
+
+\begin_layout Plain Layout
+When comparing the strategy implemented in Hotdrink with the strategy presented
+ in this work, it can be observed that for any given input sequence, both
+ strategies consistently generate the same output sequence.
+ In both cases, a new input causes the overwriting of values that were generated
+ as a result of the oldest input.
+ This identity can be empirically verified by examining the implementations
+ of Drug Administration included in this work, both in rivarjs and Hotdrink
+ (available on the comparison page in the source code repository).
+\end_layout
+
+\begin_layout Plain Layout
+Despite this identity, there are fundamental differences between the implementat
+ions.
+ While both implementations are motivated to solve the problem of cycles
+ in dependencies, Hotdrink uses the language of multi-directional constraints,
+ and its implementation strategy relies on a central constraint solver.
+ In contrast, this work uses the language of reactive assignments, which
+ correspond to unidirectional constraints.
+ The implementation strategy is based on reactive stream programming, and
+ the approach is modular and utilizes OOP.
+\end_layout
+
+\begin_layout Plain Layout
+To understand the connection between the implementations, two aspects need
+ to be considered.
+ First, the relationship between multi-directional constraints in Hotdrink
+ and reactive assignments corresponding to unidirectional constraints needs
+ to be clarified.
+ Second, it is necessary to understand how the different implementation
+ strategies consistently produce the same sequence for any given input.
+\end_layout
+
+\begin_layout Plain Layout
+Regarding the first aspect, multi-directional constraints are defined along
+ with method definitions, where each method acts as a function with defined
+ dependencies (e.g., A → B), similar to a unidirectional constraint.
+\end_layout
+
+\begin_layout Plain Layout
+For the second and main aspect, we provide a description of Hotdrink's implement
+ation strategy.
+ Hotdrink utilizes a hierarchy of constraints, where in response to an input
+ x for variable X, a constraint X=x is defined with maximum priority in
+ the hierarchy.
+ Then, a solution is sought that satisfies the maximum number of constraints
+ with the highest priority in the hierarchy.
+ The search for a solution is an iterative search for a method whose input
+ variable is already fed by previously selected methods, thereby constructing
+ a dependency tree.
+ A collection of possible solutions is identified, with each solution correspond
+ing to a dependency tree.
+ Finally, a solution is chosen that satisfies the maximum number of constraints
+ with the highest priority.
+ After selecting the solution with the chosen dependency tree, the operation
+ of propagating the changes is performed according to the tree.
+\end_layout
+
+\begin_layout Plain Layout
+A similarity can be observed between this approach of Hotdrink and the thesis
+ approach.
+ In Hotdrink, the chosen dependency graph corresponds to a hierarchy of
+ constraints, where the constraints corresponding to the latest input values
+ are at the top of the hierarchy.
+ In the thesis approach, there is a DFS-like propagation that starts each
+ time from the new input, with an order relation that ensures that only
+ values calculated by the later inputs are propagated.
+ Thus, the tree spanned by this DFS is identical to the tree chosen by the
+ algorithm in Hotdrink.
+\end_layout
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+Similar to the current work, research exists in constraint programming regrading
+ cycles handling
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sannella1993multi"
+literal "false"
+
+\end_inset
+
+.
+ One implementation called 
+\family typewriter
+Hotdrink
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "foust2015generating"
+literal "false"
+
+\end_inset
+
+ combines constraints programming with FRP.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Constraint programming utilizes both 
+\emph on
+unidirectional constraints
+\emph default
+ and 
+\emph on
+bidirectional constraints.
+
+\emph default
+ Unidirectional constraints are similar to formulas used in FRP or reactive
+ assignments of the thesis approach.
+ In contrast, bidirectional constraints enforces equations in all directions.
+ These bidirectional constraints are defined alongside method definitions,
+ where each method acts as a function with defined dependencies (e.g., 
+\begin_inset Formula $A\rightarrow B$
+\end_inset
+
+), similar to an unidirectional constraint.
+\end_layout
+
+\begin_layout Plain Layout
+In constraint programming, defining two unidirectional constraints with
+ the same variable on the left-hand side creates a 
+\emph on
+conflict
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Constraint programming uses a unique model called 
+\emph on
+constraints hierarchy
+\emph default
+, in which each constraint has a priority definition.
+ Thus, when solving the constraint system, the solution is based on maximizing
+ the constraints that are highest in the hierarchy.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Constraint programming also deals with conflicting constraints, a concept
+ similar to multiple reactive assignments for the same variable in this
+ work.
+ For example, in constraint programming, defining two unidirectional constraints
+ with the same variable on the left-hand side creates a conflict.
+ This occurs because the system cannot find a solution that satisfies both
+ constraints simultaneously, as they impose contradictory requirements on
+ the same variable.
+\end_layout
+
+\begin_layout Plain Layout
+Constraint programming uses a unique model called 
+\emph on
+constraints hierarchy
+\emph default
+, in which each constraint has a priority definition.
+ Thus, when solving the constraint system, the solution is based on maximizing
+ the constraints that are highest in the hierarchy.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+According to the model, in 
+\family typewriter
+Hotdrink
+\family default
+, in response to each input 
+\begin_inset Formula $\text{x}$
+\end_inset
+
+ for the variable 
+\begin_inset Formula $X$
+\end_inset
+
+, a constraint 
+\begin_inset Formula $\LSTINLINE{X:=x}$
+\end_inset
+
+ with maximum priority in the hierarchy is added.
+ Then, an algorithm is executed to find a dependency graph without cycles
+ for computing the variable values, ensuring the maximum number of constraints
+ are satisfied, in accordance with the defined hierarchy.
+ At this stage the change propogation is accured according to the created
+ dependancy graph.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Altough the diffrence between the strategy implemented in 
+\family typewriter
+Hotdrink
+\family default
+ and the strategy presented in this work, for any given input sequence,
+ both strategies consistently generate the same output sequence.
+ In both cases, a new input causes the overwriting of values that were generated
+ as a result of the oldest input.
+ This identity has been even be empirically verified by comparing the implementa
+tions of 
+\family typewriter
+Drug Administration
+\family default
+ in 
+\family typewriter
+rivarjs
+\family default
+ and 
+\family typewriter
+Hotdrink
+\family default
+ (available on the comparison page in the source code repository).
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
 In constraint programming, there is research regarding the handling of cycles
  and how to resolve them
 \begin_inset space ~
@@ -268,10 +646,10 @@ literal "false"
 \end_inset
 
 .
- This implementation combines constraint programming with FRP.
+ This implementation combines constraints programming with FRP.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In constraint programming, there are 
 \emph on
 unidirectional constraints
@@ -292,20 +670,20 @@ bidirectional constraints
  from the combined methods collection.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Another concept in constraint programming regarding creating constraints
  that represent 
 \emph on
 conflicts
 \emph default
-, that resemble the idea of multiple reactive assignments for the same variable.
+, resemble the idea of multiple reactive assignments for the same variable.
  In constraint programming, it is possible to define two unidirectional
  constraints where the left-hand side of each constraint is the same variable.
  In this case, the system cannot provide a solution that satisfies both
  constraints.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In constraint programming, there is a model called 
 \emph on
 constraints hierarchy
@@ -315,7 +693,7 @@ constraints hierarchy
  the constraints that are highest in the hierarchy.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In 
 \family typewriter
 Hotdrink
@@ -340,12 +718,12 @@ Hotdrink
  other variables.
 \end_layout
 
-\begin_layout Standard
-In a comparison between the strategy implemented in 
+\begin_layout Plain Layout
+Comparing the strategy implemented in 
 \family typewriter
-HotDrink
+Hotdrink
 \family default
- and the strategy presented in this work, it can be observed that for any
+ with the strategy presented in this work, it can be observed that for any
  given input sequence, both strategies consistently generate the same output
  sequence.
  In both cases, a new input causes the overwriting of values that were generated
@@ -361,12 +739,73 @@ rivarjs
 \family default
  and 
 \family typewriter
-HotDrink
+Hotdrink
 \family default
  (available on the comparison page in the source code repository).
 \end_layout
 
+\begin_layout Plain Layout
+While there is no difference between the thesis approach and 
+\family typewriter
+Hotdrink
+\family default
+ in the output produced for each input, the approaches are different regarding
+ the implementation strategy.
+ The differences between the current work and 
+\family typewriter
+Hotdrink
+\family default
+ are:
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Even though 
+\family typewriter
+HotDrink and
+\family default
+ this work are diffrent in ther approach and implementation strategy, there
+ is no difference in the output produced for each input.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+While there is no difference between the thesis approach and 
+\family typewriter
+Hotdrink
+\family default
+ in the output produced for each input, the approaches are different regarding
+ the implementation strategy, where the main difference being the level
+ of alignment with modular programming and OOP.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 While there is no difference between the thesis approach and 
 \family typewriter
 HotDrink
@@ -374,6 +813,11 @@ HotDrink
  in the output produced for each input, there are differences in the implementat
 ion strategy, with the main difference being the level of alignment with
  modular programming and OOP.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -403,9 +847,12 @@ Keera
 , similar to this work, it is possible to define reactive relations for
  a reactive value, even if it is an output variable, such that a cycle can
  be formed.
- Additionally, it is allowed to define other reactive relations for the
- same reactive value (i.e., the same reactive value appears on the left-hand
- side of the relation).
+ Additionally, 
+\family typewriter
+Keera
+\family default
+ allows defining other reactive relations for the same reactive value (i.e.,
+ the same reactive value appears on the left-hand side of the relation).
  The goal of this approach, which resembles the goal of this work, is to
  promote Separation of Concerns (SoC) and support modularity.
 \end_layout
@@ -431,7 +878,6 @@ status open
 
 \begin_layout Plain Layout
 
-\family typewriter
 
 \backslash
 -
@@ -476,6 +922,110 @@ Connection with OOP
 \end_layout
 
 \begin_layout Standard
+This work presents a unique approach to combining OOP with reactive variables.
+ Yet, a combination of reactive variables with OOP is not new.
+ A notable work in this area includes 
+\family typewriter
+REScala
+\begin_inset space ~
+\end_inset
+
+
+\family default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014,salvaneschi2014towards,drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ Additionally, there is work on 
+\family typewriter
+Reactive Objects 
+\family default
+in
+\family typewriter
+ AmbientTalk
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boix2013object"
+literal "false"
+
+\end_inset
+
+, as well as code libraries such as 
+\family typewriter
+React
+\family default
+, which integrate ideas from both paradigms.
+ Among these efforts, Rx also stands out as a foundation for combining OOP
+ and reactive programming, and this work builds upon it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This work is unique in its character of the combination of OOP with reactive
+ variables.
+ The combination itself of reactive variables with OOP is not new, and notable
+ work in this area includes 
+\family typewriter
+REScala
+\begin_inset space ~
+\end_inset
+
+
+\family default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014,salvaneschi2014towards,drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+.
+ Additionally, there is work on 
+\family typewriter
+Reactive Objects 
+\family default
+in
+\family typewriter
+ AmbientTalk
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "boix2013object"
+literal "false"
+
+\end_inset
+
+, as well as code libraries such as 
+\family typewriter
+React
+\family default
+, which integrate ideas from both paradigms.
+ Of course, 
+\family typewriter
+ReactiveX
+\family default
+ forms the basis for the implementation strategy of this work.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 This work is unique in its approach to OOP with reactive variables.
  While the combination of reactive variables with OOP is not new, notable
  work in this area includes 
@@ -523,6 +1073,11 @@ ReactiveX
  forms the basis for the implementation strategy of this work.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 
 \family typewriter
@@ -534,11 +1089,56 @@ REScala
 \family typewriter
 REScala
 \family default
-, a change in the value of a reactive variable is translated into an event,
+, a change in the value of a reactive variable is converted to an event,
  and an event can trigger a change in the value of a reactive variable.
 \end_layout
 
 \begin_layout Standard
+In 
+\family typewriter
+REScala
+\family default
+, the implementation is classical, managing a central dependency tree
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Salvaneschi2014"
+literal "false"
+
+\end_inset
+
+.
+ This centralized approach contrasts with the modular approach presented
+ in this work.
+ Although a distributed version of 
+\family typewriter
+REScala
+\family default
+ exists
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "drechsler2014distributed"
+literal "false"
+
+\end_inset
+
+ for scenarios where variables are spread across different hardware components,
+ it still relies on a tree-like dependency structure.
+ In this distributed version, propagation is not dependent on a central
+ component but relies on communication between nodes.
+ However, even in this implementation, the dependencies must still be in
+ the form of a tree.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 However, in 
 \family typewriter
 REScala
@@ -558,7 +1158,11 @@ literal "false"
 .
  This approach is in direct contrast to the modular approach presented in
  this work.
- While there is a distributed implementation
+ Yet, there is a distributed version for 
+\family typewriter
+REScala
+\family default
+
 \begin_inset space ~
 \end_inset
 
@@ -570,14 +1174,16 @@ literal "false"
 
 \end_inset
 
- (for distributed systems, where variables are spread across different hardware
- components) of 
-\family typewriter
-REScala
-\family default
-, in which the propagation of changes is not dependent on a central component
- but rather relies on communication between nodes, even in this implementation,
- the dependencies must still take the form of a tree.
+ (for when variables are spread across different hardware components).
+ The distributed version implemented such that propagation does not dependent
+ on a central component but rather relies on communication between nodes.
+ However, even in this implementation, the dependencies must still take
+ the form of a tree.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -610,7 +1216,7 @@ literal "false"
 The answer to this question, along with the answer to another question regarding
  polymorphism, is addressed in this work through the concept of multiple
  assignments.
- This is, re-assignment is possible, but this reassignment does not sever
+ That is, re-assignment is possible, but this reassignment does not sever
  existing dependencies, as seen in reassignment or override; it only adds
  dependencies.
  Thus, inheritance is always an extension of existing behavior, preventing
@@ -647,7 +1253,7 @@ literal "false"
 
  (or at least, conversions between the two are possible
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 TBD: Citation? implicit...? REScala Bridge? Another? No One?
@@ -670,12 +1276,13 @@ literal "false"
 \end_inset
 
 , and therefore, the approach of this thesis to use streams for implementing
- the approach may appear trivial.
+ the approach might appear trivial.
 \end_layout
 
 \begin_layout Standard
-Regarding the merging of streams, it is important to distinguish between
- the approach of this thesis and previous approaches to the merging operation.
+However, regarding the merging of streams, it is important to distinguish
+ between the approach of this thesis and previous approaches to the merging
+ operation.
  Merging streams represents a central problem in the field
 \begin_inset space ~
 \end_inset
@@ -715,20 +1322,12 @@ status open
 \begin_inset Formula $\LSTINLINE{atest}$
 \end_inset
 
- operator in 
-\family typewriter
-ReactiveX
-\family default
-, where each item in the output stream is computed from the items in the
- input streams; and merging similar to the 
+ operator in Rx, where each item in the output stream is computed from the
+ items in the input streams; and merging similar to the 
 \begin_inset Formula $\LSTINLINE{Merge}$
 \end_inset
 
- operator in 
-\family typewriter
-ReactiveX
-\family default
-.
+ operator in Rx.
 \end_layout
 
 \begin_layout Standard
@@ -736,13 +1335,9 @@ In the
 \begin_inset Formula $\LSTINLINE{CombineLatest}$
 \end_inset
 
- operator in 
-\family typewriter
-ReactiveX
-\family default
-, there is the issue of glitches, where certain items may still be outdated
- because each new item in one of the input streams leads to the creation
- of a new item in the output stream.
+ operator in Rx, there is the issue of glitches, where certain items may
+ still be outdated because each new item in one of the input streams leads
+ to the creation of a new item in the output stream.
 \end_layout
 
 \begin_layout Standard
@@ -750,12 +1345,8 @@ The second type is similar to the
 \begin_inset Formula $\LSTINLINE{Merge}$
 \end_inset
 
- operator in 
-\family typewriter
-ReactiveX
-\family default
-, an operator that creates a stream where each item from any of the input
- streams "flows" as is to the output stream.
+ operator in Rx, an operator that creates a stream where each item from
+ any of the input streams "flows" as is to the output stream.
  The merge operation in this work is similar to this definition, with the
  difference that while the standard merge operation does not guarantee a
  consistent order between the items, the merge operation here ensures such
@@ -776,7 +1367,7 @@ Keera
 \family default
  and 
 \family typewriter
-HotDrink
+Hotdrink
 \family default
 .
  The goal of promoting modularity, which drives this work, is similar to
@@ -787,7 +1378,7 @@ Keera
 .
  The method for handling cycles in 
 \family typewriter
-HotDrink
+Hotdrink
 \family default
  also produces a consistent output for each given input, similar to the
  result obtained in this work.

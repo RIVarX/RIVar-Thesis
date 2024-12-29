@@ -2374,157 +2374,6 @@ https://reactivex.io/
 status collapsed
 
 \begin_layout Plain Layout
-The FRP promotes a declerative approach for change propagation.
- In FRP we declare dependencies between variables named 
-\emph on
-reactive variable
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "schuster2016reactive"
-literal "false"
-
-\end_inset
-
- (in some variations, known also as 
-\emph on
-behavior
-\emph default
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "elliott2009push"
-literal "false"
-
-\end_inset
-
-, 
-\emph on
-signal
-\begin_inset space ~
-\end_inset
-
-
-\emph default
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "maier2010deprecating"
-literal "false"
-
-\end_inset
-
-, 
-\emph on
-cell
-\emph default
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blackheath2016functional"
-literal "false"
-
-\end_inset
-
- and also
-\emph on
- reactive value
-\emph default
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "drechsler2014distributed"
-literal "false"
-
-\end_inset
-
-) that are recaluclated in response and according to to dependant variables’
- updates, similar to cells containing formulas in 
-\family typewriter
-Spreadsheet
-\family default
- applications.
- The variables can get input (
-\begin_inset Formula $=$
-\end_inset
-
- operator) or be assigned 
-\begin_inset Formula $(:=$
-\end_inset
-
- operator) with an expression consisting of a set of other reactive variables.
- The assigment defines that the value of the variable is set to the value
- of the expression, and continuously re-evaluated in response to changes
- in the value of any of the variables appearing in the expression.
- For example
-\begin_inset space ~
-\end_inset
-
-(
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "fig:Reactive-variables-basics-1-1"
-plural "false"
-caps "true"
-noprefix "false"
-
-\end_inset
-
-), given two reactive variables 
-\begin_inset Formula $A$
-\end_inset
-
- and 
-\begin_inset Formula $B$
-\end_inset
-
-, the formula 
-\begin_inset Formula $A:=B+1$
-\end_inset
-
- associates the variable 
-\begin_inset Formula $A$
-\end_inset
-
- with the expression 
-\begin_inset Formula $B+1$
-\end_inset
-
-, and the value of 
-\begin_inset Formula $A$
-\end_inset
-
- changes in response to any input provided to the value of 
-\begin_inset Formula $B$
-\end_inset
-
-.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 The problem and known solutions of change propagation are reflected in libraries
  and software infrastructures for application development.
  One of the popular libraries is 
@@ -2559,6 +2408,11 @@ state
  of dedicated libraries.
  The graphical user interface is defined declaratively and updated automatically
  according to changes in the state.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -4105,7 +3959,7 @@ Case study
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 We present 
@@ -4250,7 +4104,7 @@ A case study from the healthcare domain to illustrate the practical application
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Our contribution is in introducing a concept 

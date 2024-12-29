@@ -4157,6 +4157,107 @@ React
 \end_layout
 
 \begin_layout Standard
+As part of this thesis, a component named 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ was designed to serve as a UI component in 
+\family typewriter
+React
+\family default
+,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/facebook/react/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ a popular 
+\family typewriter
+JavaScript
+\family default
+ library, for a reactive instance variable.
+ 
+\family typewriter
+React 
+\family default
+is designed with a mechanism like reactive variables, where components are
+ declared as functions.
+ However, in 
+\family typewriter
+React
+\family default
+ there is a markup language like 
+\family typewriter
+XML
+\family default
+ being similar to calling functions.
+ An element name in the markup refers to a function name while attribute
+ names (named in 
+\family typewriter
+React
+\family default
+ as 
+\family typewriter
+props
+\family default
+) refer to named arguments.
+ Additionally, nested elements within a component are passed to that component's
+ function as another argument (named 
+\family typewriter
+children
+\family default
+).
+\end_layout
+
+\begin_layout Standard
+Accordingly, 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ is implemented as a function.
+ It accepts an argument named 
+\begin_inset Formula $\LSTINLINE{rivar}$
+\end_inset
+
+ to specify the desired reactive instance variable and includes a nested
+ function element that defines the nested UI element as a function of a
+ varying value and a change function.
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:rivarview"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+ provides a code snippet demonstrating the usage of 
+\begin_inset Formula $\LSTINLINE{RIVarView}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 As part of the thesis, a 
 \family typewriter
 React
@@ -4183,12 +4284,22 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \family typewriter
 React
 \family default
- is designed with a mechanism like reactive variables, where components
+ (a popular front end library that has been presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "chap:Background"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+) is designed with a mechanism like reactive variables, where components
  are declared as functions.
  However, in 
 \family typewriter
@@ -4220,7 +4331,7 @@ children
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 According to this explanation, 
 \begin_inset Formula $\LSTINLINE{RIVarView}$
 \end_inset
@@ -4241,6 +4352,11 @@ According to this explanation,
 \end_inset
 
  function.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

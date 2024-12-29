@@ -724,9 +724,9 @@ https://www.npmjs.com/package/rxjs
 \end_inset
 
  for 
-\begin_inset Formula $\NAME{JavaScript}$
-\end_inset
-
+\family typewriter
+JavaScript
+\family default
  programming language 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -821,8 +821,11 @@ https://cycle.js.org/
 
 , is an abstract data structure implemented as an object in OOP with the
  observer pattern.
- It can be visualized as a stream through which data flows, like a tube
- carrying objects in a factory.
+ It can be visualized as a 
+\emph on
+stream
+\emph default
+ through which data flows, like a tube carrying objects in a factory.
  For adding data to the stream, the 
 \begin_inset Formula $\LSTINLINE{OnNext}$
 \end_inset
@@ -6179,7 +6182,7 @@ x
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -6336,7 +6339,7 @@ Two-way constraint
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center

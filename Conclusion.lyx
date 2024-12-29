@@ -126,26 +126,26 @@ Change propagations occur through nested calls and data structures that
 \end_layout
 
 \begin_layout Standard
-The interpretation mechanism works as follows: when there is a change in
+The interpretation mechanism works as follows: upon detecting a change in
  the value of the right-hand side, a message is sent to the left-hand side
- variable about the change.
+ variable regarding the change.
  Therefore, a variable can receive messages from more than one source (as
  a result of multiple assignment statements).
- It must receive the messages and set its value accordingly.
+ The variable must receive the messages and set its value accordingly.
  This is similar to inferring the values of a variable over time by sampling
  it, which can be from more than one source.
 \end_layout
 
 \begin_layout Standard
-As a result, a reactive language is created without hierarchy or unidirectional
- flow constraints.
+As a result, a reactive language is created by the approach presented in
+ this thesis without hierarchy or unidirectional flow constraints.
  In the language's implementation (i.e., as part of change propagation), a
  dynamic hierarchy is generated: in response to each input, changes are
  propagated in a tree-like structure (i.e., a directed acyclic graph).
 \end_layout
 
 \begin_layout Standard
-Theoretically, the approach presented in this thesis offers advantages by
+Theoretically, the approach presented in this thesis offers advantages of
  enabling the simultaneous integration of abstraction mechanisms from both
  OOP and FRP:
 \end_layout
@@ -155,7 +155,7 @@ Theoretically, the approach presented in this thesis offers advantages by
 \series bold
 Declarativeness
 \series default
-: Reactive assignments are defined at a high level of abstraction without
+: reactive assignments are defined at a high level of abstraction without
  explicitly implementing the propagation mechanism.
 \end_layout
 
@@ -164,7 +164,7 @@ Declarativeness
 \series bold
 Inheritance
 \series default
- and Containment: Definitions add change propagations and do not modify
+ and Containment: definitions add change propagations and do not modify
  existing ones.
  
 \end_layout
@@ -174,7 +174,7 @@ Inheritance
 \series bold
 Polymorphism
 \series default
-: Definitions and propagations are defined without depending on the identity
+: definitions and propagations are defined without depending on the identity
  of the variables participating in the formula.
 \end_layout
 
@@ -188,7 +188,7 @@ ns by:
 \series bold
 Reduced cognitive overload
 \series default
-: This thesis presents an alternative to building various processes with
+: this thesis presents an alternative to building various processes with
  repetitive calculations that lead to an overload of processes and computations.
  
 \end_layout
@@ -198,11 +198,11 @@ Reduced cognitive overload
 \series bold
 Flexibility in component content
 \series default
-: This thesis approach follows OOP and modularity principles, therefore
+: this thesis approach follows OOP and modularity principles, therefore
  enables flexibility in defining which fields and calculations are included
  in each component.
- This flexibility allows for determining optimal locations based on organization
-al needs.
+ This flexibility allows determining optimal locations based on organizational
+ needs.
 \end_layout
 
 \begin_layout Itemize
@@ -210,7 +210,7 @@ al needs.
 \series bold
 Improved usability
 \series default
-: A unique aspect of this thesis approach is the natural ability to add
+: a unique aspect of this thesis approach is the natural ability to add
  further options for inputting existing fields.
 \end_layout
 
@@ -223,7 +223,7 @@ Alongside the advantages, it's important to remain aware of certain limitations:
 \series bold
 Centralization in change propagation
 \series default
-: There is an element of centralization in the change propagation mechanism,
+: there is an element of centralization in the change propagation mechanism,
  particularly the requirement for a central logical clock.
  
 \end_layout
@@ -233,7 +233,7 @@ Centralization in change propagation
 \series bold
 Overwriting of old values
 \series default
-: Change propagation includes overwriting old values (with an indication),
+: change propagation includes overwriting old values (with an indication),
  where the only precedence parameter is time.
 \end_layout
 

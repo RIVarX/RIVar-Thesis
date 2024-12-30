@@ -1541,7 +1541,7 @@ https://www.npmjs.com/package/rivarjs
 \end_inset
 
  or other similar extensions for others programming languages, we achive
- predictability while enabling to decouple formulas from the used reactive
+ predictability while enabling to decouple formulae from the used reactive
  variables, so that expressions can be associated to reactive variables
  from outside of objects, and that variables are updated directly by their
  dependencies, without a central madiator.

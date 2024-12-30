@@ -115,13 +115,13 @@ Introduction
 \begin_layout Standard
 Preserving data consistency and currency is a crucial aspect of software
  systems.
- This requires implementing 
+ It requires implementing 
 \emph on
 change propagation
 \emph default
 .
  Change propagation is a process in which a change in data is disseminated
- and updates other data that depends on it.
+ and indirectly updates other data that depends on it.
  Updating data has several names depending on the type of data.
  For example: assigning to a variable
 \begin_inset space ~
@@ -141,10 +141,10 @@ literal "false"
  version of a product or component with a newer one), and so on.
  These are all data updates that can be part of a change propagation process.
  The process is transitive.
- For example, A (GUI) field representing working hours is updated according
+ For example, a (GUI) field representing working hours may be updated according
  to the input from the entry time and exit time fields.
- Updating the working hours field can lead to an update of the total monthly
- hours field.
+ Updating the working hours field can then lead to an update of the total
+ monthly hours field.
  A field representing the hourly rate can then be calculated based on the
  total monthly hours field, and so on.
 \end_layout
@@ -154,7 +154,7 @@ Motivation
 \end_layout
 
 \begin_layout Standard
-We will present motivation through a 
+As motivation consider a 
 \family typewriter
 Drug Administration
 \family default
@@ -385,9 +385,9 @@ textit{100}} &
 \backslash
 framebox(35,15){
 \backslash
-textit{0.33}} & 
+textit{0.5}} & 
 \backslash
-framebox(35,15){300} 
+framebox(35,15){200} 
 \backslash
 
 \backslash
@@ -420,7 +420,7 @@ framebox(35,15){10} &
 \backslash
 framebox(35,15){
 \backslash
-textit{30}} 
+textit{20}} 
 \backslash
 
 \backslash
@@ -679,7 +679,7 @@ User interface component for drug administration.
 
 \begin_layout Description
 Drug relates to amount of medication/drug administered to a patient, (e.g.,
- 20 mg).
+ 100 mg).
 \end_layout
 
 \begin_layout Description
@@ -689,7 +689,7 @@ Volume relates to Infusion fluid volume.
 \series bold
 Drug
 \series default
- with fluids (e.g., 20 ml).
+ with fluids (e.g., 200 ml).
 \end_layout
 
 \begin_layout Description
@@ -717,7 +717,7 @@ Dose (or Dosage)
 \series bold
 Drug
 \series default
- administered into the patients body per time unit (e.g., 20 mg per hour).
+ administered into the patients body per time unit (e.g., 10 mg per hour).
 \end_layout
 
 \begin_layout Description
@@ -730,7 +730,20 @@ For preserving data consistency and currency, the application performs automatic
  change propagation based on the fields the user updates.
  A procedure named 
 \family typewriter
-Calculate
+Calcul
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+ate
 \family default
 , whose content is shown in 
 \begin_inset CommandInset ref
@@ -745,7 +758,7 @@ noprefix "false"
 , is executed whenever any field is modified.
  The procedure contains code that can handle different scenarios resulting
  from various combinations of edited fields.
- For example, the scenario in
+ For example, the scenario in 
 \begin_inset ERT
 status open
 
@@ -1075,7 +1088,8 @@ The problem worsens as the application expands and new features are added
 \family typewriter
 Alert
 \family default
- field that indicates whether to trigger an alert for unusual drug quantities.
+ field that indicates whether or not to trigger an alert for unusual drug
+ quantities.
  This means that every time the 
 \family typewriter
 Drug
@@ -1221,12 +1235,8 @@ Cognitive Overload in User Experience
 \begin_layout Standard
 The user interface as well suffers from problems as a result of the procedural
  design.
- 
-\end_layout
-
-\begin_layout Standard
-In addition to the six numeric fields, there is an additional field in the
- application called 
+ In addition to the six numeric fields, there is an additional field in
+ the application called 
 \family typewriter
 ordering style
 \family default
@@ -1268,7 +1278,7 @@ locker
 \emph default
 , has been added next to each of the six numeric fields.
  The lockers are used to lock or unlock fields.
- Locking a field means that its value will be calculated based on the values
+ Locking a field means that its value is calculated based on the values
  of other fields, while unlocking a field allows it to be edited.
  The lockers function like toggle buttons; each click changes the previous
  state – a locked field becomes unlocked, and vice versa.
@@ -1350,12 +1360,16 @@ templates
  Apart from that, the drawback of templates is that they need to be prepared
  and maintained (when there are changes/extensions in the application, the
  old templates need to be addressed).
- And also in real-time, locating the correct template for the right case
+ In addition, locating in real-time the correct template for the right case
  (
 \emph on
 navigations
 \emph default
- 
+
+\begin_inset space ~
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "roman2017navigation"
@@ -1370,7 +1384,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2338,20 +2352,24 @@ https://reactivex.io/
 
  library.
  In this approach, a type of variable is created that represents a reactive
- variable in OOP and has methods that create syntax similar to formulas
+ variable in OOP and has methods that create syntax similar to formulae
  in FRP.
  For example, in the expression 
 \begin_inset Formula $\LSTINLINE{A=B.map(x=>x+1)}$
 \end_inset
 
-, a map function is applied, which produces a reactive variable that will
- be assigned to A.
+, a map function is applied, which produces a reactive variable that is
+ assigned to 
+\begin_inset Formula $\LSTINLINE A$
+\end_inset
+
+.
  The map method triggers the registration of a value change event for reactive
  variable 
 \begin_inset Formula $\LSTINLINE B$
 \end_inset
 
-, which will activate a value change of the new reactive variable by applying
+, which activates a value change of the new reactive variable by applying
  the function 
 \begin_inset Formula $\LSTINLINE{x=>x+1}$
 \end_inset
@@ -2422,9 +2440,10 @@ Limitations
 \begin_layout Standard
 While the OOP and FRP paradigms offer abstraction mechanisms that avoid
  the duplication problems inherent in the procedural paradigm, they have
- limitations: a central problem relevant to complex systems is how to implement
- the propagation mechanism so that each object manages its own state, rather
- than having the state managed by a central component.
+ limitations.
+ A central problem relevant to complex systems is realizing the propagation
+ mechanism so that each object manages its own state, rather than having
+ the state managed by a central component.
 \end_layout
 
 \begin_layout Subsection
@@ -2473,7 +2492,7 @@ Reactive systems in the OOP paradigm sometimes resemble real-world systems
 \emph on
 complex systems
 \emph default
-
+.
 \begin_inset Foot
 status collapsed
 
@@ -2493,7 +2512,6 @@ https://en.wikipedia.org/wiki/Complex_system
 
 \end_inset
 
-.
  In these systems, it is difficult to find out the behavior of each of their
  components because the components have a mutual influence on each other.
  But especially, the system is unpredictable due to the phenomenon of feedback
@@ -2512,8 +2530,15 @@ In OOP, this problem is known as the
 \emph on
 object reentrance
 \emph default
- problem, which occurs when an object's method is called while its state
- is inconsistent.
+ problem 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "duncan2003component"
+literal "false"
+
+\end_inset
+
+, which occurs when an object's method is called while its state is inconsistent.
  This situation can arise when another method of the same object has already
  started modifying the state but has not yet completed its operation.
  The problem can occur when a method of one object calls a method of another
@@ -2542,8 +2567,8 @@ Thesis's Approach in a Nutshell
 \end_layout
 
 \begin_layout Standard
-This thesis presents a novel approach: combining an OOP instance variable
- with an FRP reactive variable to define a new variable type: 
+This thesis presents a novel approach, combining an OOP instance variable
+ with an FRP reactive variable to define a new sort of variable: 
 \emph on
 Reactive Instance Variable
 \begin_inset space ~
@@ -2560,7 +2585,7 @@ Reactive Instance Variable
 \end_layout
 
 \begin_layout Standard
-Consequently, methods in OOP (typically constructors) can include formulas
+Consequently, methods in OOP (typically constructors) can include formulae
  similar to those in FRP, but with the possibility that the left-hand variable
  of the formula belongs to a different object or class.
  This type of variable has an operation named 
@@ -2582,11 +2607,6 @@ reactive assignment
 reactively assigned
 \emph default
  in their operations.
- The following paragraph describes a 
-\family typewriter
-Drug Administration
-\family default
- implementation according to this approach.
 \end_layout
 
 \begin_layout Standard
@@ -2602,7 +2622,7 @@ A reactive assignment operation is defined for this variable type, with
 
 \begin_layout Plain Layout
 This thesis presents an approach where methods in OOP (typically constructors)
- can include formulas similar to those in FRP, but with the possibility
+ can include formulae similar to those in FRP, but with the possibility
  that the left-hand variable of the formula belongs to a different object
  or class.
  This type of variable has an operation named 
@@ -2633,7 +2653,11 @@ reactively assigned
 \end_layout
 
 \begin_layout Standard
-As depicted in 
+For example, a 
+\family typewriter
+Drug Administration
+\family default
+ implementation according to this approach is depicted in 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Drug-Administration-UML-1-2-1"
@@ -2643,7 +2667,8 @@ noprefix "false"
 
 \end_inset
 
-, a class 
+.
+ A class 
 \family typewriter
 Bag
 \family default
@@ -2660,7 +2685,7 @@ Volume
 Concentration
 \family default
 .
- a class 
+ A class 
 \family typewriter
 Pump
 \family default
@@ -2949,7 +2974,24 @@ noprefix "false"
 Bag
 \family default
  class contains (implemented by executing in the constructor) 
-\begin_inset Formula $\LSTINLINE{Volume:=Concentration*Drug}$
+\begin_inset Formula $\LSTINLINE{Volume:=Concentration*Dr}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{ug}$
 \end_inset
 
  such that 
@@ -2974,7 +3016,7 @@ Pump
 \end_inset
 
  and also 
-\begin_inset Formula $\LSTINLINE{TheBag.Drug:=Dose*Du}$
+\begin_inset Formula $\LSTINLINE{TheBag.Drug:=Dos}$
 \end_inset
 
 
@@ -2991,7 +3033,7 @@ status open
 \end_inset
 
 
-\begin_inset Formula $\LSTINLINE{ration}$
+\begin_inset Formula $\LSTINLINE{e*Duration}$
 \end_inset
 
 
@@ -3817,7 +3859,7 @@ The thesis makes the following contribution:
 \end_layout
 
 \begin_layout Itemize
-A programming approach of reactive instance variable.
+A programming approach to reactive instance variable.
 \end_layout
 
 \begin_layout Itemize

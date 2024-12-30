@@ -818,7 +818,24 @@ e
 \end_inset
 
 's in the example, such that after applying 
-\begin_inset Formula $\LSTINLINE{DistinctUntilChanged}$
+\begin_inset Formula $\LSTINLINE{Distinc}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\LSTINLINE{tUntilChanged}$
 \end_inset
 
  the stream from the example becomes 
@@ -1686,7 +1703,6 @@ For example, consider a reactive instance variable
 \begin_layout Standard
 To ensure that 
 \begin_inset Formula $\LSTINLINE{OnNext}$
-
 \end_inset
 
  is invoked only for greater signals, a stream of changes is defined using
@@ -3157,7 +3173,7 @@ lstinline{Pump}
 
 \end_inset
 
- we define formulas to calculate the accessible variables.
+ we define formulae to calculate the accessible variables.
  
 \begin_inset ERT
 status open

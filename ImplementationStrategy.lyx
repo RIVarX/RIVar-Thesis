@@ -3251,7 +3251,7 @@ Summary
 \end_layout
 
 \begin_layout Standard
-The implementation strategy includes:
+This implementation strategy includes:
 \end_layout
 
 \begin_layout Itemize
@@ -3265,7 +3265,7 @@ Definition of an order over the messages according to the order of input
 
 \begin_layout Standard
 The implementation strategy is based on two facts regarding cycles.
- Firstly, when there is a cycle (i.e., feedback), the problem is similar to
+ First, when there is a cycle (i.e., feedback), the problem is similar to
  a known issue called a 
 \emph on
 glitch
@@ -3287,7 +3287,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Secondly, if there is a cycle, it means that a vertex represents a variable
+Second, if there is a cycle, it means that a vertex represents a variable
  that is the left-hand side variable of multiple reactive assignment statements.
  Alternatively, it could be both an input and output variable (i.e., it is
  updated according to both a reactive assignment statement and input).

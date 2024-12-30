@@ -347,7 +347,7 @@ Microsoft Excel Spreadsheet
 \family typewriter
 Excel
 \family default
-, formulas are created in cells, referencing other cells.
+, formulae are created in cells, referencing other cells.
  Any cell that contains a formula will contain values according to that
  formula.
  Therefore when a user updates a cell, any cell that refers to it in its

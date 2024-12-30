@@ -1306,7 +1306,6 @@ status open
 
 \begin_layout Plain Layout
 
-\family typewriter
 
 \backslash
 -
@@ -1688,59 +1687,81 @@ The next step confirms the previous principles.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+
+\family typewriter
 1.
  Drug_Control:10
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 2.
  Drug_Control: 10 <1>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 3.
  Volume_Control:100
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 4.
  Volume_Control: 100 <1,2>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 5.
  Concentration_Control: 0.1 <1,2>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 6.
  Volume_Control: 100 <2>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 7.
  Rate_Control:5
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 8.
  Duration_Control: 20 <1,2,3>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 9.
  Dose_Control: 0.5 <1,2,3>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 10.
  Duration_Control: 20 <2,3>
 \end_layout
 
 \begin_layout Plain Layout
+
+\family typewriter
 11.
  Rate_Control: 5 <3>
 \end_layout
@@ -2968,22 +2989,23 @@ Scores
 
 \begin_layout Standard
 The evaluation focuses on a score 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
  that is calculated from scores 
-\family typewriter
-Code Quantity
-\family default
+\begin_inset Formula $Code\ Quantity$
+\end_inset
+
  and 
-\family typewriter
-Use Case Coverage
-\family default
+\begin_inset Formula $Use\,Case\,Coverage$
+\end_inset
+
 .
  The 
-\family typewriter
-Code Quantity
-\family default
+\begin_inset Formula $Code\,Quantity$
+\end_inset
+
+
 \series bold
  
 \series default
@@ -2991,12 +3013,16 @@ score focuses specifically on the code related to managing fields and their
  calculations within the user interface, excluding code related to visual
  design or layout.
  Therefore, we count and sum the scores for 
-\series bold
-Variables
-\series default
+\begin_inset Formula $Variables$
+\end_inset
+
  and 
 \series bold
-Calculations
+
+\begin_inset Formula $Calculations$
+\end_inset
+
+
 \series default
 :
 \end_layout
@@ -3017,22 +3043,14 @@ Calculations
 \series default
 : This refers to instances in the code where values or expressions are assigned
  to variables, or where functions are called that perform such assignments.
- This applies regardless of whether the code is imperative (e.g., direct assignmen
-ts), declarative (e.g., reactive programming), or in the form of formulas
- (as in 
-\family typewriter
-Excel
-\family default
-).
- The core idea is that these actions represent assignments, even though
- their implementation may vary across different contexts.
+ 
 \end_layout
 
 \begin_layout Standard
 The 
-\family typewriter
-Use Case Coverage
-\family default
+\begin_inset Formula $Use\,Case\,Coverage$
+\end_inset
+
  score refers to counting existing distinct ways a user can interact with
  the application.
  It's measured by counting the permutations of field completion: analyzing
@@ -3103,9 +3121,9 @@ Concentration -> Volume -> Drug
 \begin_layout Standard
 The more use cases the code generates, the more value it has, and therefore
  it has a positive impact on the 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
  metric.
 \end_layout
 
@@ -3218,18 +3236,18 @@ Prioritizes Elegance and Simplicity: This metric encourages solutions that
 
 \begin_layout Standard
 The 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
  score is calculated by 
 \begin_inset Formula $Use\ Case\ Coverage/Code\ Quantity$
 \end_inset
 
 .
  A higher 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
  score indicates for an implementation that it generates more use cases
  with a smaller amount of code.
  For example, an implementation 
@@ -3237,9 +3255,9 @@ Efficiency
 A
 \family default
  has 6 possible use cases and a 
-\family typewriter
-Code Quantity
-\family default
+\begin_inset Formula $Code\,Quantity$
+\end_inset
+
  score 10, its Efficiency would be 
 \begin_inset Formula $6/10=0.6$
 \end_inset
@@ -3250,13 +3268,13 @@ Code Quantity
 B
 \family default
  has 4 use cases and a 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
  score 20, its 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
  is 4/20 = 0.2.
  This suggests that implementation 
 \family typewriter
@@ -3382,7 +3400,7 @@ Use Cases: 12
 
 \begin_inset Graphics
 	filename DrugAdministrationInExcel.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -3797,9 +3815,9 @@ status open
 stration
 \family default
  and to examine which approach leads to the highest value in the score 
-\family typewriter
-Efficiency
-\family default
+\begin_inset Formula $Efficiency$
+\end_inset
+
 .
  The implementations using 
 \family typewriter
@@ -3831,7 +3849,7 @@ noprefix "false"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -3858,8 +3876,6 @@ status collapsed
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Variables
 \end_layout
 
@@ -3869,8 +3885,6 @@ Variables
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Calculations
 \end_layout
 
@@ -3880,8 +3894,6 @@ Calculations
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Code Quantity
 \end_layout
 
@@ -3891,8 +3903,6 @@ Code Quantity
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Use-Cases
 \end_layout
 
@@ -3902,8 +3912,6 @@ Use-Cases
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Efficiency
 \end_layout
 
@@ -3915,13 +3923,7 @@ Efficiency
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
-rivarjs
-\family default
-/
-\family typewriter
-RIVarX
+rivarjs/RIVarX
 \end_layout
 
 \end_inset
@@ -3977,8 +3979,6 @@ RIVarX
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Excel
 \end_layout
 
@@ -4035,8 +4035,6 @@ Excel
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family typewriter
 Events
 \end_layout
 
@@ -5693,31 +5691,31 @@ Drug Administration
 \family default
  serves as a good example since its dependency graph includes the three
  main issues: 
-\series bold
+\emph on
 glitch
-\series default
+\emph default
 , 
-\series bold
+\emph on
 cycle
-\series default
+\emph default
 , and 
-\series bold
+\emph on
 multiple assignments
-\series default
+\emph default
 .
  Additionally, the example represents the three core principles of OOP:
  
-\series bold
+\emph on
 encapsulation
-\series default
+\emph default
 , 
-\series bold
+\emph on
 inheritance
-\series default
+\emph default
 , and 
-\series bold
+\emph on
 polymorphism
-\series default
+\emph default
 , which provide a foundation for building more complex solutions.
 \end_layout
 
@@ -6185,7 +6183,7 @@ noprefix "false"
  The behavior of the updates (decisions when and what fields to compute)
  are the same, except that we change the style to values that are computed
  distingusinh between values that are set and values that are computed.
- In code, altough that Hotdrink support two-way constraints while our formulas
+ In code, altough that Hotdrink support two-way constraints while our formulae
  are like one-way constraint, our code is not more difficult.
  The reason is mentioned in 
 \begin_inset CommandInset ref
@@ -6197,7 +6195,7 @@ noprefix "false"
 
 \end_inset
 
-: the constraints are attached with methods that are according to the formulas.
+: the constraints are attached with methods that are according to the formulae.
 \end_layout
 
 \begin_layout Plain Layout

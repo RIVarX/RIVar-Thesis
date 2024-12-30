@@ -136,11 +136,11 @@ separation of concerns.
 In order to ensure that the graph is acyclic, developers must ensure that
  no node has a path leading back to itself.
  This requires the developer to have knowledge of data dependencies and
- to detect existing paths before adding new formulas that involve existing
+ to detect existing paths before adding new formulae that involve existing
  variables.
  If a cycle is detected, the developer should avoid adding the new formula
  to the graph to prevent the creation of a cycle.
- For instance, if there are already two formulas, 
+ For instance, if there are already two formulae, 
 \begin_inset ERT
 status open
 
@@ -179,7 +179,7 @@ lstinline{X:=Y+1}
 
 \end_inset
 
-, they must have access to all three formulas and detect the existing cycle
+, they must have access to all three formulae and detect the existing cycle
  among nodes 
 \begin_inset ERT
 status open

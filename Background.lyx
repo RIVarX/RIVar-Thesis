@@ -3198,7 +3198,7 @@ operators
 \end_layout
 
 \begin_layout Plain Layout
-The madiator has access to all the variables and formulas, so it can provide
+The madiator has access to all the variables and formulae, so it can provide
  more predictable behavior.
  For example, if one variable has several updates caused by a single update,
  such as in 
@@ -4631,7 +4631,7 @@ noprefix "false"
 \end_inset
 
 .
- To create formulas for reactive variables, the 
+ To create formulae for reactive variables, the 
 \begin_inset Formula $\LSTINLINE{Select}$
 \end_inset
 
@@ -5308,7 +5308,7 @@ status collapsed
 
 \begin_layout Plain Layout
 In OOP, a class can contain instance variables of type Observable, and methods
- can define formulas, enabling the implementation of a computation tree
+ can define formulae, enabling the implementation of a computation tree
  as in FRP.
  However, as already identified [?], OOP is typically used to implement
  FRP, and there is a lack of discussion regarding the integration of FRP
@@ -7041,8 +7041,8 @@ literal "false"
  Furthermore, ensuring that the dependency graph is acyclic becomes a challenge,
  and it limits the ability to separate the code.
  Developers need to be aware of data dependencies and detect existing paths
- before adding new formulas that involve existing variables to prevent cycles.
- For example, if there are already two formulas, 
+ before adding new formulae that involve existing variables to prevent cycles.
+ For example, if there are already two formulae, 
 \begin_inset ERT
 status open
 
@@ -7081,7 +7081,7 @@ lstinline{X:=Y+1}
 
 \end_inset
 
-, they must have access to all three formulas and detect the existing cycle
+, they must have access to all three formulae and detect the existing cycle
  among nodes 
 \begin_inset ERT
 status open
@@ -7123,7 +7123,7 @@ lstinline{Z}
 
 .
  Consequently, it is not possible to establish boundaries that prevent access
- to the formulas, which can lead to a monolithic codebase.
+ to the formulae, which can lead to a monolithic codebase.
 \end_layout
 
 \begin_layout Plain Layout
@@ -7152,11 +7152,11 @@ literal "false"
  Because, in order to ensure that the graph is acyclic, developers must
  ensure that no node has a path leading back to itself.
  This requires the developer to have knowledge of data dependencies and
- to detect existing paths before adding new formulas that involve existing
+ to detect existing paths before adding new formulae that involve existing
  variables.
  If a cycle is detected, the developer should avoid adding the new formula
  to the graph to prevent the creation of a cycle.
- For instance, if there are already two formulas, 
+ For instance, if there are already two formulae, 
 \begin_inset ERT
 status open
 
@@ -7195,7 +7195,7 @@ lstinline{X:=Y+1}
 
 \end_inset
 
-, they must have access to all three formulas and detect the existing cycle
+, they must have access to all three formulae and detect the existing cycle
  among nodes 
 \begin_inset ERT
 status open
@@ -7793,7 +7793,7 @@ There are FRP runtimes that are based on the traditional simple methods
  Others more predictable solutions use a madiator with the added complexity
  of having another layer needed to the application.
  There are FRP runtimes for distributed applications that do not use a madiator,
- but as the FRP paradigm, they support only the sets of formulas producing
+ but as the FRP paradigm, they support only the sets of formulae producing
  directed acyclic graphs.
 \end_layout
 

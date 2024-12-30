@@ -339,7 +339,7 @@ The point is the full decoupling.
 \end_layout
 
 \begin_layout Standard
-formulas are specified in classes, and behave as calling to methods.
+formulae are specified in classes, and behave as calling to methods.
  the operators, including the := calls a method similar to subscribe, which
  then later produce function calls to update about new values.
  Togather, this conform comunication channel to conform updates.

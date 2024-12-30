@@ -330,7 +330,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -555,7 +555,7 @@ A similarity can be observed between the
 \family typewriter
 Hotdrink
 \family default
- approach and the thesis approach.
+ and the thesis strategies.
  In 
 \family typewriter
 Hotdrink
@@ -565,10 +565,10 @@ Hotdrink
  of this hierarchy.
  The root of the tree represents the latest input, and the subsequent branches
  are influenced by the order of the inputs.
- In the thesis approach, there is a DFS-like propagation that starts each
+ In the thesis strategy, there is a DFS-like propagation that starts each
  time from the new input, with an order relation that ensures that only
  values calculated by the later inputs are propagated.
- The similarity between the two approaches is evident in the fact that the
+ The similarity between the two strategies is evident in the fact that the
  tree spanned by the DFS is identical to the tree chosen by the algorithm
  in 
 \family typewriter
@@ -1058,7 +1058,7 @@ unidirectional constraints
 bidirectional constraints.
 
 \emph default
- Unidirectional constraints are similar to formulas used in FRP or reactive
+ Unidirectional constraints are similar to formulae used in FRP or reactive
  assignments of the thesis approach.
  In contrast, bidirectional constraints enforces equations in all directions.
  These bidirectional constraints are defined alongside method definitions,
@@ -1207,7 +1207,7 @@ In constraint programming, there are
 \emph on
 unidirectional constraints
 \emph default
- that are similar to formulas used in FRP, as well as 
+ that are similar to formulae used in FRP, as well as 
 \emph on
 bidirectional constraints
 \emph default
@@ -1384,7 +1384,7 @@ In
 \family typewriter
 Keera
 \family default
-, there is an abstraction of 
+, there is an abstraction 
 \emph on
 reactive value
 \emph default
@@ -4952,7 +4952,7 @@ A=B+C
 
 , and each user update, to any of the variables, follows an automatic update
  to the left variables.
- With the proposed Rivars, it is implemented by declaring three formulas:
+ With the proposed Rivars, it is implemented by declaring three formulae:
  
 \begin_inset ERT
 status open
@@ -4990,7 +4990,7 @@ C:=A-B
  However, the long verbosity exists also in constraints systems, when developers
  need specifying methods to satisfy the constraints.
  In addition, building blocks can easily built on top of our thesis.
- This means more extensions can be implemented by combining several formulas
+ This means more extensions can be implemented by combining several formulae
  into a single constraint.
 \end_layout
 
@@ -5017,7 +5017,7 @@ A=B+C
 \end_layout
 
 \begin_layout Plain Layout
-The same question is arisen when declaring RIvar' formulas 
+The same question is arisen when declaring RIvar' formulae 
 \begin_inset ERT
 status open
 
@@ -6398,7 +6398,7 @@ lstinline{Pump}
 
 \end_inset
 
- we define formulas to calculate the accessible variables.
+ we define formulae to calculate the accessible variables.
  
 \begin_inset ERT
 status open

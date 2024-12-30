@@ -190,8 +190,8 @@ Person
 
 \begin_layout Standard
 A key characteristic that distinguishes a reactive instance variable from
- implementations of reactive variables in FRP is that It is not possible
- to discern from its interface whether It is an input variable or a variable
+ implementations of reactive variables in FRP is that it is not possible
+ to discern from its interface whether it is an input variable or a variable
  computed from other variables.
  In this respect, a reactive instance variable resembles an instance variable.
  This characteristic allows for dependency on a variable without being dependent
@@ -1329,8 +1329,8 @@ Summary
 \end_layout
 
 \begin_layout Standard
-The most important insight from this chapter is that a formula (using reactive
- assignment) 
+The key takeaway from this chapter is that a formula (using reactive assignment)
+ 
 \begin_inset Formula $\LSTINLINE{X:=Exp}$
 \end_inset
 
@@ -1341,7 +1341,7 @@ The most important insight from this chapter is that a formula (using reactive
  in Rx.
  Consequently, variables receive updates from other variables and expressions
  without depending on an intermediate component, which leads to modularity.
- However, the key innovation is that, using the analogy of a graph, formulas
+ However, the key innovation is that, using the analogy of a graph, formulae
  always result in addition of edges to the graph.
 \end_layout
 
@@ -1382,12 +1382,12 @@ by connecting these sub-graphs through reactive assignments that connect
 \end_layout
 
 \begin_layout Plain Layout
-The graphs created are sub-graphs and composite graphs because of formulas
+The graphs created are sub-graphs and composite graphs because of formulae
  connected between distinct objects.
 \end_layout
 
 \begin_layout Plain Layout
-being created from objects that contain formulas (in their constructor)
+being created from objects that contain formulae (in their constructor)
  
 \end_layout
 
@@ -1408,7 +1408,7 @@ composite graphs
 \emph default
 .
  Each object contains reactive instance variables that represent vertices,
- and formulas within its constructor as assignment statements that represent
+ and formulae within its constructor as assignment statements that represent
  edges, forming a graph.
  Each object can have reactive assignments in its constructor that represent
  edges that connect its graph to vertices of other objects.
@@ -1441,7 +1441,7 @@ This approach focuses on the propagation of changes resulting from reactive
 \end_layout
 
 \begin_layout Plain Layout
-Consequently, using an analogy of a dependency graph, formulas always result
+Consequently, using an analogy of a dependency graph, formulae always result
  in addition of edges to the graph.
  Another result of this principle is that, the change propagation mechanism
  is such that variables receive updates from other variables and expressions
@@ -1455,7 +1455,7 @@ composite graphs
 \emph default
 .
  Each object contains reactive instance variables that represent vertices,
- and formulas within its constructor as assignment statements that represent
+ and formulae within its constructor as assignment statements that represent
  edges, forming a graph.
  Each object can have reactive assignments in its constructor that represent
  edges that connect its graph to vertices of other objects.

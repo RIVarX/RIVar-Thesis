@@ -688,13 +688,13 @@ Elements Amount
 \begin_layout Plain Layout
 In the Order Entry in MetaVision, there is a field selection named 
 \emph on
-ordering style
+``ordering style''
 \emph default
  that contains options like 
 \begin_inset Quotes eld
 \end_inset
 
-set concentration and volume
+``set concentration and volume''
 \begin_inset Quotes erd
 \end_inset
 
@@ -702,7 +702,7 @@ set concentration and volume
 \begin_inset Quotes eld
 \end_inset
 
-set dose and rate
+``set dose and rate''
 \begin_inset Quotes erd
 \end_inset
 
@@ -713,7 +713,7 @@ set dose and rate
 \begin_inset Quotes eld
 \end_inset
 
-set concentration and volume
+``set concentration and volume''
 \begin_inset Quotes erd
 \end_inset
 

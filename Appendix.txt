@@ -142,7 +142,7 @@ calculated based on the set values.
 
 
 [Figure 2.3: 
-<fig:Order-Entry-1-1> At the top, there is the Ordering Style 
+<fig:Order-Entry-1-1> At the top, there is the ``ordering style'' 
 field, represented by a combobox, where users can select from the 
 available options. Below this, each field consists of a label 
 above its name, an area to display its value, and a lock icon on 
@@ -150,16 +150,16 @@ its right.
 ]
 ]
 
-  Ordering Style
+  ``ordering style''
 
 Before editing the numeric fields, it is required to select an 
-option from a select element named ordering style. One option is 
-set concentration and volume, another option is set dose and rate. 
+option from a select element named ``ordering style''. One option is 
+``set concentration and volume'', another option is ``set dose and rate''. 
 According to the selected option, fields become editable or 
 readonly, controling the calculations directions. If the user 
-selects set concentration and volume, those fields become 
+selects ``set concentration and volume'', those fields become 
 editable, and the other fields will be calculated accordingly. If 
-the user selects set dose and rate, those fields become editable, 
+the user selects ``set dose and rate'', those fields become editable, 
 and the other fields will be calculated accordingly. 
 
   Lockers
@@ -172,11 +172,11 @@ toggle buttons, each click changes from the previous state locked
 from being unlocked and vice versa. Among the six fields, three 
 of the fields should be set by the user and the others should be 
 calculated. Therefore, unlocking one field causes another field 
-to be locked instead. Selecting ordering style initiates the 
+to be locked instead. Selecting ``ordering style'' initiates the 
 state of the lockers, for each field whether it is locked or 
 unlocked. Fields that are editable according to the selected 
-ordering style, cannot be locked. For example, if the selected 
-ordering style is set concentration and volume, concentration and 
+``ordering style'', cannot be locked. For example, if the selected 
+``ordering style'' is ``set concentration and volume'', concentration and 
 volume are unlocked, and it is unabled to lock them.
 
   Templates
@@ -191,7 +191,7 @@ needed setup.
 
 
 
-The ordering style and the lockers are needed for controling the 
+The ``ordering style'' and the lockers are needed for controling the 
 calculations, however they increase mental effort and processing 
 capacity needed for using the Order Entry. Templates aims to help 
 the customer against these issues. However, in using templates, 

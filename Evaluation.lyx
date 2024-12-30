@@ -6237,7 +6237,7 @@ The implementation of the thesis approach is different.
  loads).
  In the original application, users need to begin by selecting an 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  and, at times, clicking on 
 \family typewriter
@@ -6252,7 +6252,7 @@ While I have highlighted the enhanced user-friendliness of the new Drug
  advantage of being more referential transparent upon calculations flows.
  In the original application, by the 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  selection and the clicks upon the 
 \family typewriter
@@ -7436,7 +7436,7 @@ hline
 
 
 \backslash
-multicolumn{3}{ |l|}{ordering style }  
+multicolumn{3}{ |l|}{``ordering style'' }  
 \backslash
 
 \backslash
@@ -7449,7 +7449,7 @@ multicolumn{3}{ |l|}{ordering style }
 \backslash
 multicolumn{3}{ |l|}{
 \backslash
-framebox(130,15){set Dose and Rate {$
+framebox(130,15){``set dose and rate'' {$
 \backslash
 nabla$}}}
 \end_layout
@@ -7603,7 +7603,7 @@ Drug Administration - Full Version.
 
 \end_inset
 
- At the top, there is the Ordering Style field, represented by a combobox,
+ At the top, there is the ``ordering style'' field, represented by a combobox,
  where users can select from the available options.
  Below this, each field consists of a label above its name, an area to display
  its value, and a lock icon on its right.
@@ -7886,7 +7886,7 @@ noprefix "false"
  This provides a cleaner interface with shortand processes.
  In the original application, users need to begin by selecting an 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  and, at times, clicking on 
 \family typewriter
@@ -7901,7 +7901,7 @@ While I have highlighted the enhanced user-friendliness of the new Drug
  advantage of being more referential transparent upon calculations flows.
  In the original application, by the 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  selection and the clicks upon the 
 \family typewriter
@@ -7966,7 +7966,7 @@ noprefix "false"
  This provides a cleaner interface with shortand processes.
  In the original application, users need to begin by selecting an 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  and, at times, clicking on 
 \family typewriter
@@ -7981,7 +7981,7 @@ While I have highlighted the enhanced user-friendliness of the new Drug
  advantage of being more referential transparent upon calculations flows.
  In the original application, by the 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  selection and the clicks upon the 
 \family typewriter
@@ -8138,7 +8138,7 @@ noprefix "false"
 \end_inset
 
 , the new one has reduced conginite loads.
- In the original impleentation, there are locker elements an ordering style
+ In the original impleentation, there are locker elements an ``ordering style''
  to choose.
  In the current implementations there is no more than the six numeric fields.
  

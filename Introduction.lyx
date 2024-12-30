@@ -1238,29 +1238,29 @@ The user interface as well suffers from problems as a result of the procedural
  In addition to the six numeric fields, there is an additional field in
  the application called 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  which has several options to choose from.
  One option is 
 \family typewriter
-set concentration and volume
+``set concentration and volume''
 \family default
 , another option is 
 \family typewriter
-set dose and rate
+``set dose and rate''
 \family default
 , and there are also additional options.
  Depending on the option selected, certain fields may be enabled for editing
  or read-only, which affects the order of calculations.
  If the user selects 
 \family typewriter
-set concentration and volume
+``set concentration and volume''
 \family default
 , those fields become editable, and the other fields will be calculated
  accordingly.
  If the user selects 
 \family typewriter
-set dose and rate
+``set dose and rate''
 \family default
 , those fields become editable, and the other fields will be calculated
  accordingly.
@@ -1270,7 +1270,7 @@ set dose and rate
 \begin_layout Standard
 In addition to the 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  field, an additional element, 
 \emph on
@@ -1287,22 +1287,22 @@ locker
  Therefore, unlocking one field causes another to be locked in its place.
  Selecting the 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  determines the initial state of the lockers: for each field, whether it
  is locked or unlocked.
  Fields that are editable according to the selected 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  cannot be locked.
  For example, if the 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  is set to 
 \family typewriter
-set concentration and volume
+``set concentration and volume''
 \family default
 , then the concentration and volume fields will be unlocked and cannot be
  locked.
@@ -1311,7 +1311,7 @@ set concentration and volume
 \begin_layout Standard
 The functionality of 
 \family typewriter
-ordering style
+``ordering style''
 \family default
  and the lockers are not concepts from the problem space and the professional
  world of the users, but rather concepts from the solution space as part
@@ -1559,7 +1559,7 @@ hline
 
 
 \backslash
-multicolumn{3}{ |l|}{ordering style }  
+multicolumn{3}{ |l|}{``ordering style'' }  
 \backslash
 
 \backslash
@@ -1572,7 +1572,7 @@ multicolumn{3}{ |l|}{ordering style }
 \backslash
 multicolumn{3}{ |l|}{
 \backslash
-framebox(130,15){set Dose and Rate {$
+framebox(130,15){``set dose and rate'' {$
 \backslash
 nabla$}}}
 \end_layout
@@ -1726,7 +1726,7 @@ Drug Administration - Full Version.
 
 \end_inset
 
- At the top, there is the Ordering Style field, represented by a combobox,
+ At the top, there is the ``ordering style'' field, represented by a combobox,
  where users can select from the available options.
  Below this, each field consists of a label above its name, an area to display
  its value, and a lock icon on its right.

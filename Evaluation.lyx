@@ -1306,6 +1306,161 @@ status open
 
 \begin_layout Plain Layout
 
+\family typewriter
+
+\backslash
+-
+\end_layout
+
+\end_inset
+
+ration
+\family default
+ application, utilizing the logging capability of the 
+\family typewriter
+C#
+\family default
+ implementation.
+ The scenario involves entering the value 10 in the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ field, then entering the value 100 in the 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+ field, and finally entering the value 5 in the 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+ field.
+ The log output is presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Log-1-1-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The log contains two types of entries: those indicating variable feeds,
+ and those indicating the creation of a signal in a reactive instance variable.
+ These entries include triangular brackets containing the timestamps of
+ the signal.
+ Each feed generates a signal with a unique timestamp, indicating its sequential
+ position within the input sequence.
+ For example, line 2 in the log reflects the first feed, where a value of
+ 10 is entered in the 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ field and assigned a timestamp of 1.
+\end_layout
+
+\begin_layout Standard
+The log entries are ordered according to a post-order traversal of the tree
+ scanned by the DFS algorithm, which may not be immediately intuitive.
+ We will focus on the third step in the scenario, where the 
+\family typewriter
+Rate
+\family default
+ field is fed.
+\end_layout
+
+\begin_layout Standard
+As presented in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:DFS_Validation-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+, the change propagation is as follows: 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+ (value 5, timestamp 3), 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ (value 20, timestamps 2 and 3 computed from 
+\begin_inset Formula $\LSTINLINE{Volume}$
+\end_inset
+
+/
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+ , 100/5), 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+ (0.5 timestamp 1, 2, and 3 computed based on 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ (from it, there are timestamps 2 and 3) and 
+\begin_inset Formula $\LSTINLINE{Drug}$
+\end_inset
+
+ (from it, timestamp 1), 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ (second visit, caused by 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+ , ignored).
+ 
+\end_layout
+
+\begin_layout Standard
+The log of this step starts at line 7 and continues to the end.
+ As discussed, the order is in post-order: 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ (value 20, timestamps 1, 2, and 3, second visit), 
+\begin_inset Formula $\LSTINLINE{Dose}$
+\end_inset
+
+ (value 0.5, timestamps 1, 2, and 3), 
+\begin_inset Formula $\LSTINLINE{Duration}$
+\end_inset
+
+ (value 20, timestamps 2 and 3, first visit), 
+\begin_inset Formula $\LSTINLINE{Rate}$
+\end_inset
+
+ (value 5, timestamp 3).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+In this subsection, we present a scenario demonstrating the use of the 
+\family typewriter
+Drug Administ
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
 
 \backslash
 -
@@ -1333,7 +1488,7 @@ noprefix "false"
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The example includes the following three steps: setting 
 \begin_inset Formula $\LSTINLINE{Drug}$
 \end_inset
@@ -1357,7 +1512,7 @@ The example includes the following three steps: setting
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The second step, line 3, presents the input, but only line 6 presents the
  event that 
 \begin_inset Formula $\LSTINLINE{Volume}$
@@ -1404,7 +1559,7 @@ The second step, line 3, presents the input, but only line 6 presents the
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The order of the log might not seem entirely reasonable at a first glance.
  The event in line 4 is logged before the event in line 5, even though it
  is caused by (and therefore occurs after) line 5.
@@ -1455,7 +1610,7 @@ The order of the log might not seem entirely reasonable at a first glance.
  (first visit).
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The next step confirms the previous principles.
  At the final step, 
 \begin_inset Formula $\LSTINLINE{Rate}$
@@ -1522,6 +1677,11 @@ The next step confirms the previous principles.
 \end_inset
 
  (value 5, timestamp 3).
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1630,7 +1790,7 @@ Drug Administration
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1684,12 +1844,13 @@ Drug
 Volume
 \family default
  have already been set to 10 and 100, respectively.
- The circles represent variables, squares represent expressions assigned
+ The circles represent variables, diamonds represent expressions assigned
  to them.
  Edges represent the propagation of values, with each edge labeled by the
  value and its corresponding timestamps.
  The primary propagation path is highlighted in bold, while redundant propagatio
 n is indicated by dotted lines.
+ In addition, thin solid arrows indicate propagation not on the main path.
 \end_layout
 
 \end_inset

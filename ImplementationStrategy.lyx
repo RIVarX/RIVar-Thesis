@@ -114,9 +114,9 @@ Implementation Strategy
 
 \begin_layout Standard
 This chapter presents an implementation strategy based on reactive streams.
- Reactive variables are reactive streams, such that each item in the stream
- of a reactive variable is an update or a new value at the point in time
- corresponding to the item.
+ Reactive streams are used to represent reactive variables, such that each
+ item in the stream of a reactive variable is an update or a new value at
+ the point in time corresponding to the item.
  The change propagation principle described in the thesis approach resembles
  the 
 \emph on

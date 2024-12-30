@@ -298,7 +298,7 @@ To understand the connection between the implementations, two aspects need
 \family typewriter
 Hotdrink
 \family default
- and reactive assignments corresponding to unidirectional constraints needs
+ and reactive assignments corresponding to unidirectional constraints need
  to be clarified.
  Second, it is necessary to understand how the different implementation
  strategies consistently produce the same sequence for any given input.
@@ -311,7 +311,7 @@ Regarding the first aspect, multi-directional constraints are defined along
  An example is illustrated in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:two-way-constraint-1-1"
+reference "fig:two-way-constraint-1"
 plural "false"
 caps "true"
 noprefix "false"
@@ -330,7 +330,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -579,7 +579,7 @@ Hotdrink
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 On the other hand, there are systems that support 
@@ -932,7 +932,7 @@ Maintaining
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 —–
@@ -1336,7 +1336,7 @@ HotDrink and
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 While there is no difference between the thesis approach and 
@@ -1356,7 +1356,7 @@ Hotdrink
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 While there is no difference between the thesis approach and 

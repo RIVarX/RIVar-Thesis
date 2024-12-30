@@ -90,13 +90,13 @@
 \begin_layout Abstract
 This thesis deals with combining two development paradigms: 
 \emph on
-Functional Reactive Programming
+Functional Reactive Programming (FRP)
 \emph default
- (FRP) and 
+ and 
 \emph on
-Object-Oriented Programming
+Object-Oriented Programming (OOP)
 \emph default
- (OOP).
+.
  In FRP assignment statements are at a high level of abstraction.
  Assigning a value to a reactive variable, deviates from the specific time
  point, i.e., continuously updates the variable upon relevant changes.
@@ -219,11 +219,11 @@ ndent components is how to implement the propagation mechanism so that each
 To address this problem, the thesis introduces an extension to an OOP language
  with a 
 \emph on
-Reactive Instance Variable
+Reactive Instance Variable (RIVar)
 \emph default
- (RIVar) that combines features of an instance variable from OOP with a
- reactive variable from FRP, representing a combination that achieves the
- abstraction mechanisms of both paradigms.
+ that combines features of an instance variable from OOP with a reactive
+ variable from FRP, representing a combination that achieves the abstraction
+ mechanisms of both paradigms.
 \end_layout
 
 \begin_layout Abstract

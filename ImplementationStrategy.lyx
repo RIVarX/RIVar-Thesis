@@ -2243,23 +2243,25 @@ Semantics
 \end_layout
 
 \begin_layout Standard
-The reactive assignment operation means a 
+The reactive assignment operation utilizes a 
 \emph on
 merge accumulation operator
 \emph default
 .
- In each execution of a reactive assignment statement, the items from the
- stream of the expression on the right-hand side are added to the stream
- of the variable on the left-hand side.
- Formally, for a reactive instance variable 
-\begin_inset Formula $X$
-\end_inset
-
- and a reactive assignment statement 
+ Each execution of a reactive assignment statement 
 \begin_inset Formula $X:=Expression$
 \end_inset
 
-, the result is represented as 
+ adds the items from the stream of 
+\begin_inset Formula $Expression$
+\end_inset
+
+ to the stream of the reactive instance variable 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ Formally: 
 \begin_inset Formula $X=merge(X,Expression)$
 \end_inset
 
@@ -2267,13 +2269,12 @@ merge accumulation operator
 \end_layout
 
 \begin_layout Standard
-When there are multiple reactive assignment statements, the accumulation
- is performed similarly to the following example.
- Executing a reactive assignment statement 
+Multiple reactive assignment statements accumulate values similarly.
+ For example, executing 
 \begin_inset Formula $A:=B$
 \end_inset
 
- creates the meaning of 
+ establishes the principle 
 \begin_inset Formula $A=merge(A,B)$
 \end_inset
 
@@ -2288,35 +2289,36 @@ noprefix "false"
 \end_inset
 
 ).
- Executing an additional reactive assignment statement 
+ A subsequent reactive assignment, such as 
 \begin_inset Formula $A:=D$
 \end_inset
 
- creates the meaning of 
+, results in 
 \begin_inset Formula $A=merge(merge(A,B),D)$
 \end_inset
 
 .
- In general, suppose we have n reactive assignment statements of the form
  
-\begin_inset Formula $X:=V_{\text{i}}$
-\end_inset
+\end_layout
 
-, where 
-\begin_inset Formula $i$
-\end_inset
-
- is a number between 
-\begin_inset Formula $1$
-\end_inset
-
- and 
+\begin_layout Standard
+In general, given 
 \begin_inset Formula $n$
 \end_inset
 
-.
- If the assignment statements are executed one after the other, the final
- meaning will be: 
+ reactive assignment statements of the form 
+\begin_inset Formula $X:=V_{i}$
+\end_inset
+
+, where 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ refers to the left-hand expression in statement 
+\begin_inset Formula $i$
+\end_inset
+
+, sequential execution results in the final operation: 
 \begin_inset Formula $X=merge(merge(...(X,V_{1}),V2)...,V_{n})$
 \end_inset
 
@@ -2327,7 +2329,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -2743,6 +2745,297 @@ The Assignment Operator as an Accumulation Merge Operator.
 \end_layout
 
 \begin_layout Standard
+Since the order of execution of reactive assignment statements does not
+ matter, the order in which 
+\begin_inset Formula $merge$
+\end_inset
+
+ is applied to a set of elements does not affect the final result.
+ Formally, this is expressed as an 
+\emph on
+associative
+\emph default
+ property of the 
+\begin_inset Formula $merge$
+\end_inset
+
+ operation: 
+\begin_inset Formula $merge(merge(A,B),D)=merge(A,merge(B,D))$
+\end_inset
+
+.
+ By induction, this property extends to any number of elements: 
+\begin_inset Formula $merge(merge(...(X,V_{1}),V_{2})...,V_{n})=merge(X,V_{1},V_{2},...V_{n})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This leads to the semantics that a variable receives value assignment messages
+ from the expressions on the right-hand side of the reactive assignments
+ where it is the left-hand side variable, as well as from input feeds.
+ Formally, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+for a variable 
+\backslash
+(X
+\backslash
+) and a set of expressions 
+\backslash
+(V = 
+\backslash
+{ V_1, V_2,...
+ V_n
+\backslash
+}
+\backslash
+)  such that for each 
+\backslash
+(V_i
+\backslash
+) in 
+\backslash
+(V
+\backslash
+) there is a reactive assignment 
+\backslash
+(X := V_i
+\backslash
+), 
+\backslash
+(X
+\backslash
+) is denoted by 
+\backslash
+(merge(X, V_1, V_2,...
+ V_n)
+\backslash
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Itemize
+Base case (
+\begin_inset Formula $n=1$
+\end_inset
+
+): In this case, we have only one element (
+\begin_inset Formula $V_{1}$
+\end_inset
+
+) in addition to 
+\begin_inset Formula $X$
+\end_inset
+
+, and the equality becomes: 
+\begin_inset Formula $merge(X,V_{1})=merge(X,V_{1})$
+\end_inset
+
+.
+ This holds trivially, as both sides are identical.
+ 
+\end_layout
+
+\begin_layout Itemize
+Inductive hypothesis: Assume that the claim holds for some number 
+\begin_inset Formula $n=k$
+\end_inset
+
+.
+ That is, assume that: 
+\begin_inset Formula $merge(X,V_{1},V_{2},...V_{k})=merge(merge(...(X,V_{1}),V_{2})...,V_{k})$
+\end_inset
+
+ holds.
+ 
+\end_layout
+
+\begin_layout Itemize
+Inductive step: We need to show that if the hypothesis is true (the equality
+ holds for 
+\begin_inset Formula $k$
+\end_inset
+
+), then the equality also holds for k+1.
+ In other words, we need to show that: 
+\begin_inset Formula $merge(X,V_{1},V_{2},...V_{k},V_{k+1})=merge(merge(...(X,V_{1}),V_{2})...,V_{k},V_{k+1})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+Starting with the left-hand side, and using the definition of merge, the
+ inductive hypothesis, and the associativity property:
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset Formula $merge(X,V_{1},V_{2},...V_{k},V_{k+1})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+=
+\begin_inset Formula $merge(merge(X,V_{1},V_{2},...V_{k}),V_{k+1})$
+\end_inset
+
+ //by the associativity property
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+=
+\begin_inset Formula $merge(merge(merge(...X,V_{1}),V_{2},...V_{k}),V_{k+1})$
+\end_inset
+
+ //by the inductive hypothesis
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+=
+\begin_inset Formula $merge(merge(...X,V_{1}),V_{2})...V_{k},V_{k+1})$
+\end_inset
+
+ //by the associativity property
+\end_layout
+
+\begin_layout Plain Layout
+And thus we have arrived at the right-hand side! This means that if the
+ equality holds for 
+\begin_inset Formula $k$
+\end_inset
+
+, then it necessarily holds for 
+\begin_inset Formula $k+1$
+\end_inset
+
+ as well.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Section
+Semantics
+\end_layout
+
+\begin_layout Plain Layout
+The reactive assignment operation applies a 
+\emph on
+merge accumulation operator
+\emph default
+.
+ In each execution of a reactive assignment statement, the items from the
+ stream of the expression on the right-hand side are added to the stream
+ of the variable of the left-hand side.
+ Formally, for a reactive instance variable 
+\begin_inset Formula $X$
+\end_inset
+
+ and a reactive assignment statement 
+\begin_inset Formula $X:=Expression$
+\end_inset
+
+, the result is represented as 
+\begin_inset Formula $X=merge(X,Expression)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+In case of multiple reactive assignment statements, the accumulation is
+ performed similarly to the following example.
+ Executing a reactive assignment statement 
+\begin_inset Formula $A:=B$
+\end_inset
+
+ creates the principle of 
+\begin_inset Formula $A=merge(A,B)$
+\end_inset
+
+ (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:merge-several-sources-2-2-1-1"
+plural "false"
+caps "true"
+noprefix "false"
+
+\end_inset
+
+).
+ Executing an additional reactive assignment statement 
+\begin_inset Formula $A:=D$
+\end_inset
+
+ creates the principle of 
+\begin_inset Formula $A=merge(merge(A,B),D)$
+\end_inset
+
+.
+ In general, suppose we have 
+\begin_inset Formula $n$
+\end_inset
+
+ reactive assignment statements of the form 
+\begin_inset Formula $X:=V_{\text{i}}$
+\end_inset
+
+, where 
+\begin_inset Formula $i$
+\end_inset
+
+ is a number between 
+\begin_inset Formula $1$
+\end_inset
+
+ and 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ If the assignment statements are executed one after the other, the final
+ operation will be of: 
+\begin_inset Formula $X=merge(merge(...(X,V_{1}),V2)...,V_{n})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
 In contrast, the required semantics is that a variable receives value assignment
  messages from the expressions on the right-hand side of the reactive assignment
 s where it is the left-hand side variable, as well as from input feeds.
@@ -2777,7 +3070,7 @@ for a variable
 \backslash
 (X := V_i
 \backslash
-) then, 
+), 
 \backslash
 (X
 \backslash
@@ -2798,12 +3091,12 @@ for a variable
 Claim
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The semantics of the reactive assignment operation yields the desired semantics,
  such that the following holds:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula $merge(X,V_{1},V_{2},...V_{n})=merge(merge(...(X,V_{1}),V_{2})...,V_{n})$
 \end_inset
 
@@ -2814,7 +3107,7 @@ The semantics of the reactive assignment operation yields the desired semantics,
 Proof
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The correctness of the claim follows from a proof by induction on an associativi
 ty property of the merge operation.
  The meaning of associativity is that the order of applying the merge operation
@@ -2828,7 +3121,7 @@ ty property of the merge operation.
  assignment statements is inconsequential.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Based on this property, the proof of the claim by induction is as follows:
 \end_layout
 
@@ -2854,19 +3147,19 @@ Base case (
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Inductive hypothesis: Assume that the claim holds for some number n=k.
  That is, assume that:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula $merge(X,V_{1},V_{2},...V_{k})=merge(merge(...(X,V_{1}),V_{2})...,V_{k})$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 holds.
  
 \end_layout
@@ -2881,12 +3174,12 @@ Inductive step: We need to show that if the hypothesis is true (the equality
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Starting with the left-hand side, and using the definition of merge, the
  inductive hypothesis, and the associativity property:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \family typewriter
 \begin_inset Formula $merge(X,V_{1},V_{2},...V_{k},V_{k+1})$
@@ -2895,7 +3188,7 @@ Starting with the left-hand side, and using the definition of merge, the
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \family typewriter
 =
@@ -2905,7 +3198,7 @@ Starting with the left-hand side, and using the definition of merge, the
  //by the associativity property
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \family typewriter
 =
@@ -2915,7 +3208,7 @@ Starting with the left-hand side, and using the definition of merge, the
  //by the inductive hypothesis
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 \family typewriter
 =
@@ -2925,7 +3218,7 @@ Starting with the left-hand side, and using the definition of merge, the
  //by the associativity property
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 And thus we have arrived at the right-hand side! This means that if the
  equality holds for 
 \begin_inset Formula $k$
@@ -2942,10 +3235,15 @@ And thus we have arrived at the right-hand side! This means that if the
 Conclusion
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 By the principle of mathematical induction, the claim is true for all natural
  numbers n, and therefore the semantics of the reactive assignment operation
  indeed yields the desired semantics.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -2993,7 +3291,11 @@ Secondly, if there is a cycle, it means that a vertex represents a variable
  that is the left-hand side variable of multiple reactive assignment statements.
  Alternatively, it could be both an input and output variable (i.e., it is
  updated according to both a reactive assignment statement and input).
- This results in the multi-assignment semantics that define a merge of streams.
+ This results in the multi-assignment semantics that define a 
+\emph on
+merge
+\emph default
+ of streams.
 \end_layout
 
 \begin_layout Standard
